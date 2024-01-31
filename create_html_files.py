@@ -305,7 +305,7 @@ pre > code:last-child {{
     row_data['os'] = get_os_html(row)
     row_data['package_metadata_description'] = html_description  
     row_data['home_link'] = home_html 
-    
+
     # Create a new Template with the row data
     filled_template = Template(template).safe_substitute(row_data)
 
@@ -326,13 +326,26 @@ df_plugins = df_plugins.sort_values(by='modified_at', ascending=False)
 
 create_small_html(df_plugins)
 
-# Read the contents of element.html
-with open('temp.html', 'r') as file:
-    element_html = file.read()
-
 # Read the target HTML file
 with open('./template/all_plugins_template.html', 'r') as file:
     target_html = file.read()
+
+# The number you want to insert
+number_to_insert = len(df_plugins)  # This can be dynamically set
+
+# Find the first insertion point in the target HTML for the number
+insertion_point_number = target_html.find('<!-- insert number here -->')
+
+# Check if the first insertion point is found
+if insertion_point_number != -1:
+    # Insert the number
+    target_html = target_html[:insertion_point_number] + str(number_to_insert) + target_html[insertion_point_number:]
+else:
+    print("Number insertion point not found in the target HTML file.")
+
+# Read the contents of element.html
+with open('temp.html', 'r') as file:
+    element_html = file.read()
 
 # Find the insertion point in the target HTML
 insertion_point = target_html.find('<!-- insert temp.html -->')
