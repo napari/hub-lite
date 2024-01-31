@@ -1,0 +1,31 @@
+name: Run Python Scripts
+
+on:
+  schedule:
+    - cron: '0 5 * * *' # Runs at 05:00 UTC every day
+  # You can also trigger this workflow manually
+  workflow_dispatch:
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9' # Specify the Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Fetch the napari plugin data
+      run: python fetch_napari_data.py
+
+    - name: Create html files
+      run: python create_html_files.py
