@@ -202,7 +202,7 @@ def generate_home_html(home_pypi, home_github, home_other):
     # Start with the PyPI link, which is always present
     html_content = f'''
    <div class="flex items-center" style="gap: 10px; ; align-items: center;"">
-        <a href="${home_pypi}" rel="noreferrer" target="_blank">
+        <a href="{home_pypi}" rel="noreferrer" target="_blank">
         <img src="../images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /> 
     </a>
     '''
@@ -304,8 +304,8 @@ pre > code:last-child {{
     row_data['python_versions'] = python_versions_html
     row_data['os'] = get_os_html(row)
     row_data['package_metadata_description'] = html_description  
-    row_data['home_link'] = home_html  
-
+    row_data['home_link'] = home_html 
+    
     # Create a new Template with the row data
     filled_template = Template(template).safe_substitute(row_data)
 
