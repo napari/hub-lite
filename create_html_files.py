@@ -2,7 +2,6 @@ import requests
 import json
 import os
 import pandas as pd
-import requests
 import re
 
 from string import Template
