@@ -202,7 +202,7 @@ def generate_home_html(home_pypi, home_github, home_other):
     html_content = f'''
    <div class="flex items-center" style="gap: 10px; ; align-items: center;"">
         <a href="{home_pypi}" rel="noreferrer" target="_blank">
-        <img src="../images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /> 
+        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /> 
     </a>
     '''
 
@@ -210,7 +210,7 @@ def generate_home_html(home_pypi, home_github, home_other):
     if home_github and str(home_github).lower() not in ['n/a', 'none', 'nan', '']:
         html_content += f'''
         <a href="{home_github}" rel="noreferrer" target="_blank">
-            <img src="../images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" />
+            <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" />
         </a>
         '''
 
@@ -309,12 +309,11 @@ pre > code:last-child {{
     filled_template = Template(template).safe_substitute(row_data)
 
     # Save the HTML file for each plugin
-    plugin_dir = './plugins/'
+    plugin_dir = './static/plugins/'
+    os.makedirs(plugin_dir, exist_ok= True)
     file_name = f"{row['name']}.html"
     with open(plugin_dir + file_name, 'w') as file:
         file.write(filled_template)
-
-
 
 
 # Load your DataFrame
@@ -326,7 +325,7 @@ df_plugins = df_plugins.sort_values(by='modified_at', ascending=False)
 create_small_html(df_plugins)
 
 # Read the target HTML file
-with open('./template/all_plugins_template.html', 'r') as file:
+with open('./templates/all_plugins_template.html', 'r') as file:
     target_html = file.read()
 
 # The number you want to insert
@@ -357,15 +356,23 @@ if insertion_point != -1:
     # Insert the element.html content
     modified_html = target_html[:insertion_point] + element_html + target_html[insertion_point:]
     # Save the modified HTML back to target.html or a new file
-    with open('index.html', 'w') as file:
+    with open('./index.html', 'w') as file:
         file.write(modified_html)
 else:
     print("Insertion point not found in the target HTML file.")
 
 
 # Read the individual plugin HTML template
-with open('./template/each_plugin_template.html', 'r') as file:
+with open('./templates/each_plugin_template.html', 'r') as file:
     template = file.read()
 
 # Apply the function to each row in the DataFrame
 df_plugins.apply(lambda row: generate_plugin_html(row, template), axis=1)
+
+
+# Read the individual plugin HTML template
+with open('./templates/search_each_plugin_template.html', 'r') as file:
+    search_template = file.read()
+
+# Apply the function to each row in the DataFrame
+df_plugins.apply(lambda row: generate_plugin_html(row, search_template), axis=1)
