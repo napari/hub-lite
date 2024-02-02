@@ -356,7 +356,7 @@ if insertion_point != -1:
     # Insert the element.html content
     modified_html = target_html[:insertion_point] + element_html + target_html[insertion_point:]
     # Save the modified HTML back to target.html or a new file
-    with open('./static_index.html', 'w') as file:
+    with open('./templates/static_index.html', 'w') as file:
         file.write(modified_html)
 else:
     print("Insertion point not found in the target HTML file.")
