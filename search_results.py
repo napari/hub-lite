@@ -52,7 +52,7 @@ def create_small_html(df_plugins):
 
     html_content += '</body>\n</html>'
 
-    with open('plugins_list.html', 'w') as file:
+    with open('flask_plugins_list.html', 'w') as file:
         file.write(html_content)
 
 app = Flask(__name__)
@@ -104,8 +104,10 @@ def search():
             print("Number insertion point not found in the target HTML file.")
 
         # Read the contents of element.html
-        with open('plugins_list.html', 'r') as file:
+        with open('flask_plugins_list.html', 'r') as file:
             element_html = file.read()
+
+        os.remove('flask_plugins_list.html')
 
         # Find the insertion point in the target HTML
         insertion_point = target_html.find('<!-- insert temp.html -->')
