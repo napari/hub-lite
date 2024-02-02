@@ -87,7 +87,7 @@ def search():
         create_small_html(filtered_df)
 
         # Read the target HTML file
-        with open('./templates/search_template.html', 'r') as file:
+        with open('./templates/flask_template.html', 'r') as file:
             target_html = file.read()
 
         # The number you want to insert
@@ -108,10 +108,7 @@ def search():
             element_html = file.read()
 
         # Find the insertion point in the target HTML
-        insertion_point = target_html.find('<!-- insert plugins_list.html -->')
-
-        # delete plugins_list.html
-        #os.remove('plugins_list.html')
+        insertion_point = target_html.find('<!-- insert temp.html -->')
 
         # Check if the insertion point is found
         if insertion_point != -1:

@@ -234,7 +234,7 @@ def generate_home_html(home_pypi, home_github, home_other):
 
     return html_content
 
-def generate_plugin_html(row, template):
+def generate_plugin_html(row, template, plugin_dir):
 
 
     # Convert Markdown in 'package_metadata_description' to HTML
@@ -309,7 +309,7 @@ pre > code:last-child {{
     filled_template = Template(template).safe_substitute(row_data)
 
     # Save the HTML file for each plugin
-    plugin_dir = './static/plugins/'
+    plugin_dir = './plugins/'
     os.makedirs(plugin_dir, exist_ok= True)
     file_name = f"{row['name']}.html"
     with open(plugin_dir + file_name, 'w') as file:
@@ -366,13 +366,15 @@ else:
 with open('./templates/each_plugin_template.html', 'r') as file:
     template = file.read()
 
+plugin_dir = './plugins/'
+
 # Apply the function to each row in the DataFrame
-df_plugins.apply(lambda row: generate_plugin_html(row, template), axis=1)
+df_plugins.apply(lambda row: generate_plugin_html(row, template, plugin_dir), axis=1)
 
 
-# Read the individual plugin HTML template
-with open('./templates/search_each_plugin_template.html', 'r') as file:
+# Read the individual plugin HTML template for flask
+with open('./templates/flask_each_plugin_template.html', 'r') as file:
     search_template = file.read()
-
+flask_plugin_dir = './static/plugins/'
 # Apply the function to each row in the DataFrame
-df_plugins.apply(lambda row: generate_plugin_html(row, search_template), axis=1)
+df_plugins.apply(lambda row: generate_plugin_html(row, search_template, flask_plugin_dir), axis=1)
