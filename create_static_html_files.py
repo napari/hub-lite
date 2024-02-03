@@ -309,7 +309,6 @@ pre > code:last-child {{
     filled_template = Template(template).safe_substitute(row_data)
 
     # Save the HTML file for each plugin
-    plugin_dir = './plugins/'
     os.makedirs(plugin_dir, exist_ok= True)
     file_name = f"{row['name']}.html"
     with open(plugin_dir + file_name, 'w') as file:
