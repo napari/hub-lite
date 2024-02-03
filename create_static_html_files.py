@@ -12,27 +12,28 @@ from markdown.extensions.toc import TocExtension
 def create_small_html(df_plugins):
     html_content = '<html>\n<body>\n'
     for _, row in df_plugins.iterrows():
-        display_name = row.get('display_name', 'Unknown')
-        name = row.get('name', 'unknown')
-        plugin_name = row.get('name', 'unknown').replace("-", "_")
+        # Fill NaN values with 'N/A' for the current row
+        row = row.fillna('N/A')
+
+        display_name = row['display_name'] if row['display_name'] != 'N/A' else 'Unknown'
+        name = row['name'] if row['name'] != 'N/A' else 'unknown'
+        plugin_name = name.replace("-", "_")
 
         print(display_name, name, plugin_name)
 
-        summary = row.get("summary", "No summary")
-        authors = [row.get("author", "Anonymous")]  # Assuming single author in 'author' column
-        release_date = row.get("created_at", "N/A")
-        last_updated = row.get("modified_at", "N/A")
-        # Installs data not available in df_plugins, so you might want to omit this or use a placeholder
-        #installs = "N/A"
-        # Determine plugin type based on non-NA status of certain columns
+        summary = row["summary"]
+        authors = [row["author"]]  # Assuming single author in 'author' column
+        release_date = row["created_at"]
+        last_updated = row["modified_at"]
+        
         plugin_type = []
-        if not pd.isna(row.get('contributions_readers_0_command')):
+        if row['contributions_readers_0_command'] != 'N/A':
             plugin_type.append("reader")
-        if not pd.isna(row.get('contributions_writers_0_command')):
+        if row['contributions_writers_0_command'] != 'N/A':
             plugin_type.append("writer")
-        if not pd.isna(row.get('contributions_widgets_0_command')):
+        if row['contributions_widgets_0_command'] != 'N/A':
             plugin_type.append("widget")
-        if not pd.isna(row.get('contributions_sample_data_0_command')):
+        if row['contributions_sample_data_0_command'] != 'N/A':
             plugin_type.append("sample_data")
         plugin_type = ', '.join(plugin_type) if plugin_type else "N/A"
 

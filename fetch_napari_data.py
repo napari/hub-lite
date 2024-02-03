@@ -173,6 +173,17 @@ for index, row in df_plugins.iterrows():
         # Update 'author' using the extracted name from 'package_metadata_author_email'
         df_plugins.at[index, 'author'] = extract_author_name(row['package_metadata_author_email'])
 
+    if pd.isna(row['license']):
+        pass  # No action needed if license is NaN or None
+    else:
+        # The license value is not None or NaN, now safe to check for quotes
+        # Now check for specific license strings
+        if "BSD 3-Clause" in str(row['license']):
+            # Shorten the license information
+            df_plugins.at[index, 'license'] = "BSD 3-Clause"
+        elif "MIT License" in str(row['license']):
+            df_plugins.at[index, 'license'] = "MIT"
+
     # Fill home_pypi 
     if not row['home_pypi']:
         df_plugins.at[index, 'home_pypi'] = f"https://pypi.org/project/{row['name']}"
