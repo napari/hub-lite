@@ -81,7 +81,7 @@ def generate_plugin_types_html(row):
     if plugin_type:  # Check if the list is not empty
         plugin_types_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
         for pt in plugin_type:
-            plugin_types_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="/plugins?pluginType={pt}">{pt.capitalize()}</a></li>'
+            plugin_types_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
         plugin_types_html += '</ul>'
 
     return plugin_types_html
@@ -97,7 +97,7 @@ def generate_open_extensions_html(row):
         if filename_patterns:  # Check if the list is not empty
             open_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
             for pattern in filename_patterns:
-                open_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="/plugins?readerFileExtensions={pattern}">{pattern}</a></li>'
+                open_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions={pattern}">{pattern}</a></li>'
             open_extensions_html += '</ul>'
 
     return open_extensions_html
@@ -116,7 +116,7 @@ def generate_save_extensions_html(row):
     if file_extensions:  # Check if the list is not empty
         save_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
         for ext in file_extensions:
-            save_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="/plugins?writerFileExtensions={ext}">{ext}</a></li>'
+            save_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions={ext}">{ext}</a></li>'
         save_extensions_html += '</ul>'
 
     return save_extensions_html
@@ -172,7 +172,7 @@ def generate_python_versions_html(row, max_supported_version='3.11'):
         # Construct HTML list items for each version
         python_versions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
         for version in versions:
-            python_versions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="/plugins?python={version}">{version}</a></li>'
+            python_versions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python={version}">{version}</a></li>'
         python_versions_html += '</ul>'
 
     return python_versions_html
@@ -372,9 +372,9 @@ plugin_dir = './plugins/'
 df_plugins.apply(lambda row: generate_plugin_html(row, template, plugin_dir), axis=1)
 
 
-# Read the individual plugin HTML template for flask
+""" # Read the individual plugin HTML template for flask
 with open('./templates/flask_each_plugin_template.html', 'r') as file:
     search_template = file.read()
 flask_plugin_dir = './static/plugins/'
 # Apply the function to each row in the DataFrame
-df_plugins.apply(lambda row: generate_plugin_html(row, search_template, flask_plugin_dir), axis=1)
+df_plugins.apply(lambda row: generate_plugin_html(row, search_template, flask_plugin_dir), axis=1) """
