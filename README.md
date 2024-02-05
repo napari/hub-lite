@@ -3,10 +3,10 @@
 ### Author: Yunha Lee
 
 ### Disclaimer
-This is an experiment to see how much of napari-hub functionality can be achieved in a static site and/or in a dynamic site with no cost operation. 
+This is an experiment to see how much of napari-hub functionality can be achieved in a github page. 
 
 ### Introduction
-Napari Hub Lite seeks to demonstrate how much of the dynamic content and user experience of the original napari hub can be emulated using python. This project is particularly focused on the use of napari plugin data to create a simplified, yet functional, representation of the napari hub's capabilities.
+Napari Hub Lite seeks to demonstrate how much of the dynamic content and user experience of the original napari hub can be emulated in a github page. This project is particularly focused on the use of napari plugin data to create a simplified, yet functional, representation of the napari hub's capabilities. 
 
 ### Prerequisites
 Before proceeding with the setup and usage of Napari Hub Lite, ensure you have the following prerequisites installed:
@@ -22,15 +22,16 @@ Before proceeding with the setup and usage of Napari Hub Lite, ensure you have t
    python fetch_napari_data.py
    ```
 
-2. **Create a Static Website**  
+2. **Create htmls for github page**  
 To generate the static pages (excluding the search function):
 ```
-python create_html_files.py
+python create_static_html_files.py
 ```
 
 
-3. **Enable Search Functionality**  
-For adding a search feature (utilizing Flask for local server simulation):
+Note that you can also run a local server using python flask:
+First, you need to uncomment out the last blocks in create_static_html_files.py to generate /static/plugins/ directory. 
+Then, do this: 
 ```
 python search_results.py
 ```
@@ -40,7 +41,7 @@ python search_results.py
 To ensure the visual and functional fidelity of the site with respect to the original napari hub, I have used their CSS and HTML codes to the maximum extent possible. This approach allows me to closely mimic the user experience and interface design of the original platform.
 
 ### Acknowledgments
-This project makes extensive use of the design and code resources from the original napari hub, which should be credited to the creators and maintainers of the original napari hub. 
+This project makes extensive use of the design and html code resources from the original napari hub, which should be credited to the creators and maintainers of the original napari hub. 
 
 
 ---
