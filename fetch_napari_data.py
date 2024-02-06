@@ -57,7 +57,7 @@ def build_plugins_dataframe():
     all_plugin_data = []
 
     for plugin in plugin_summary:
-        plugin_data = plugin.copy()  # Copy base plugin data
+        plugin_data = plugin.copy()  
         plugin_name = plugin.get('name')
 
         # Fetch and flatten Conda info and Manifest
@@ -109,8 +109,11 @@ def classify_website(home_url):
             return 'github'
     return 'other'
 
+
 #########################################
 ## main starts
+#########################################
+
 
 df_plugins = build_plugins_dataframe()
 
@@ -163,7 +166,7 @@ df_plugins['home_pypi'] = df_plugins['home'].where(df_plugins['home_type'] == 'p
 df_plugins['home_github'] = df_plugins['home'].where(df_plugins['home_type'] == 'github', '')
 df_plugins['home_other'] = df_plugins['home'].where(df_plugins['home_type'] == 'other', '')
 
-# Drop the helper 'home_type' column as it is no longer needed
+# Delete 'home_type' column as it is no longer needed
 df_plugins.drop('home_type', axis=1, inplace=True)
 
 
@@ -174,12 +177,10 @@ for index, row in df_plugins.iterrows():
         df_plugins.at[index, 'author'] = extract_author_name(row['package_metadata_author_email'])
 
     if pd.isna(row['license']):
-        pass  # No action needed if license is NaN or None
+        pass 
     else:
-        # The license value is not None or NaN, now safe to check for quotes
-        # Now check for specific license strings
+        # Check for specific license strings to shorten the license information
         if "BSD 3-Clause" in str(row['license']):
-            # Shorten the license information
             df_plugins.at[index, 'license'] = "BSD 3-Clause"
         elif "MIT License" in str(row['license']):
             df_plugins.at[index, 'license'] = "MIT"

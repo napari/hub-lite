@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, send_from_directory
 import pandas as pd
 import os
 
@@ -12,12 +12,10 @@ def create_small_html(df_plugins):
         print(display_name, name, plugin_name)
 
         summary = row.get("summary", "No summary")
-        authors = [row.get("author", "Anonymous")]  # Assuming single author in 'author' column
+        authors = [row.get("author", "Anonymous")]  
         release_date = row.get("created_at", "N/A")
         last_updated = row.get("modified_at", "N/A")
-        # Installs data not available in df_plugins, so you might want to omit this or use a placeholder
-        #installs = "N/A"
-        # Determine plugin type based on non-NA status of certain columns
+
         plugin_type = []
         if not pd.isna(row.get('contributions_readers_0_command')):
             plugin_type.append("reader")
@@ -44,8 +42,6 @@ def create_small_html(df_plugins):
         html_content += f'                <h4 class="inline whitespace-nowrap">First released<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{release_date}</span>\n            </li>\n'
         html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Last updated" data-testid="searchResultMetadata" data-value="{last_updated}">\n'
         html_content += f'                <h4 class="inline whitespace-nowrap">Last updated<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{last_updated}</span>\n            </li>\n'
-#        html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Installs" data-testid="searchResultMetadata" data-value="{installs}">\n'
-#        html_content += f'                <h4 class="inline whitespace-nowrap">Installs<!-- -->: </h4><span class="ml-sds-xxs font-bold">{installs}</span>\n            </li>\n'
         html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
         html_content += f'                <h4 class="inline whitespace-nowrap">Plugin type<!-- -->: </h4><span class="ml-sds-xxs font-bold">{plugin_type}</span>\n            </li>\n        </ul>\n'
         html_content += '        <div class="mt-sds-xl text-xs flex flex-col gap-sds-s col-span-2 screen-1425:col-span-3">\n        </div>\n    </article>\n</a>\n'
@@ -55,14 +51,18 @@ def create_small_html(df_plugins):
     with open('flask_plugins_list.html', 'w') as file:
         file.write(html_content)
 
+
+
+#########################################
+## main starts
+#########################################
+
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('flask_index.html')
 
-
-from flask import send_from_directory
 
 @app.route('/plugins/<path:filename>')
 def serve_plugin(filename):
@@ -90,34 +90,29 @@ def search():
         with open('./templates/flask_template.html', 'r') as file:
             target_html = file.read()
 
-        # The number you want to insert
-        number_to_insert = len(filtered_df)  # This can be dynamically set
+        # Total number of plugins available
+        number_to_insert = len(filtered_df)  
 
-        # Find the first insertion point in the target HTML for the number
+        # Find the insertion point in the target HTML template
         insertion_point_number = target_html.find('<!-- insert number here -->')
 
-        # Check if the first insertion point is found
         if insertion_point_number != -1:
-            # Insert the number
             target_html = target_html[:insertion_point_number] + str(number_to_insert) + target_html[insertion_point_number:]
         else:
             print("Number insertion point not found in the target HTML file.")
 
-        # Read the contents of element.html
         with open('flask_plugins_list.html', 'r') as file:
             element_html = file.read()
 
         os.remove('flask_plugins_list.html')
 
-        # Find the insertion point in the target HTML
+        # Find the insertion point in the target HTML template
         insertion_point = target_html.find('<!-- insert temp.html -->')
 
-        # Check if the insertion point is found
         if insertion_point != -1:
-            # Insert the element.html content
             modified_html = target_html[:insertion_point] + element_html + target_html[insertion_point:]
 
-            # Save the modified HTML back to target.html or a new file
+            # Save the modified HTML back as search_results.html for flask
             file_path = 'search_results.html'
             with open(file_path, 'w') as file:
                 file.write(modified_html)   

@@ -12,6 +12,7 @@ from markdown.extensions.toc import TocExtension
 def create_small_html(df_plugins):
     html_content = '<html>\n<body>\n'
     for _, row in df_plugins.iterrows():
+
         # Fill NaN values with 'N/A' for the current row
         row = row.fillna('N/A')
 
@@ -22,7 +23,7 @@ def create_small_html(df_plugins):
         print(display_name, name, plugin_name)
 
         summary = row["summary"]
-        authors = [row["author"]]  # Assuming single author in 'author' column
+        authors = [row["author"]] 
         release_date = row["created_at"]
         last_updated = row["modified_at"]
         
@@ -52,8 +53,6 @@ def create_small_html(df_plugins):
         html_content += f'                <h4 class="inline whitespace-nowrap">First released<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{release_date}</span>\n            </li>\n'
         html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Last updated" data-testid="searchResultMetadata" data-value="{last_updated}">\n'
         html_content += f'                <h4 class="inline whitespace-nowrap">Last updated<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{last_updated}</span>\n            </li>\n'
-#        html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Installs" data-testid="searchResultMetadata" data-value="{installs}">\n'
-#        html_content += f'                <h4 class="inline whitespace-nowrap">Installs<!-- -->: </h4><span class="ml-sds-xxs font-bold">{installs}</span>\n            </li>\n'
         html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
         html_content += f'                <h4 class="inline whitespace-nowrap">Plugin type<!-- -->: </h4><span class="ml-sds-xxs font-bold">{plugin_type}</span>\n            </li>\n        </ul>\n'
         html_content += '        <div class="mt-sds-xl text-xs flex flex-col gap-sds-s col-span-2 screen-1425:col-span-3">\n        </div>\n    </article>\n</a>\n'
@@ -78,7 +77,7 @@ def generate_plugin_types_html(row):
     if not pd.isna(row.get('contributions_sample_data_0_command')):
         plugin_type.append("sample_data")
 
-    if plugin_type:  # Check if the list is not empty
+    if plugin_type:  
         plugin_types_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
         for pt in plugin_type:
             plugin_types_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
@@ -89,12 +88,10 @@ def generate_plugin_types_html(row):
 def generate_open_extensions_html(row):
     open_extensions_html = ''
 
-    # Check if 'contributions_readers_0_filename_patterns' is not NA and not empty
     if not pd.isna(row.get('contributions_readers_0_filename_patterns')) and row.get('contributions_readers_0_filename_patterns'):
-        # Assuming the data is stored as a string representation of a list
         filename_patterns = eval(row.get('contributions_readers_0_filename_patterns'))
 
-        if filename_patterns:  # Check if the list is not empty
+        if filename_patterns: 
             open_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
             for pattern in filename_patterns:
                 open_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions={pattern}">{pattern}</a></li>'
@@ -113,7 +110,7 @@ def generate_save_extensions_html(row):
     if not pd.isna(row.get('contributions_writers_1_filename_extensions')):
         file_extensions += eval(row.get('contributions_writers_1_filename_extensions'))
 
-    if file_extensions:  # Check if the list is not empty
+    if file_extensions:  
         save_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
         for ext in file_extensions:
             save_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions={ext}">{ext}</a></li>'
@@ -124,12 +121,10 @@ def generate_save_extensions_html(row):
 def generate_requirements_html(row):
     requirements_html = ''
 
-    # Check if 'package_metadata_requires_dist' is not NA and not empty
     if not pd.isna(row.get('package_metadata_requires_dist')) and row.get('package_metadata_requires_dist'):
-        # Convert the string representation of the list to an actual list
         requirements = eval(row.get('package_metadata_requires_dist'))
 
-        if requirements:  # Check if the list is not empty
+        if requirements: 
             requirements_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
             for req in requirements:
                 requirements_html += f'<li class="MetadataList_textItem__KKmMN">{req}</li>'
@@ -137,8 +132,9 @@ def generate_requirements_html(row):
 
     return requirements_html
 def parse_version_specifier(specifier, default_min_version='3.6'):
+
     # Parse version specifiers to get the min and max version
-    min_version = default_min_version  # Set a default min version
+    min_version = default_min_version  
     max_version = None
     specifiers = specifier.split(',')
 
@@ -153,10 +149,9 @@ def parse_version_specifier(specifier, default_min_version='3.6'):
     
     return min_version, max_version
 
-def generate_python_versions_html(row, max_supported_version='3.11'):
+def generate_python_versions_html(row, max_supported_version='3.11',  default_min_version='3.6'):
     python_versions_html = ''
 
-    # Check if 'package_metadata_requires_python' is not NA and not empty
     if not pd.isna(row.get('package_metadata_requires_python')) and row.get('package_metadata_requires_python'):
         requirement = row.get('package_metadata_requires_python')
         min_version, max_version = parse_version_specifier(requirement)
@@ -240,8 +235,8 @@ def generate_plugin_html(row, template, plugin_dir):
 
     # Convert Markdown in 'package_metadata_description' to HTML
     if not pd.isna(row['package_metadata_description']):
-        # Remove only the first Markdown header
-        # We split the content into lines, drop the first line if it's a header, and rejoin
+        # Remove the first Markdown header
+        # Split the content into lines, drop the first line if it's a header, and rejoin
         lines = row['package_metadata_description'].split('\n')
         if lines and lines[0].startswith('#'):
             no_first_header = '\n'.join(lines[1:])
@@ -292,8 +287,6 @@ pre > code:last-child {{
     python_versions_html = generate_python_versions_html(row)
     home_html = generate_home_html(row['home_pypi'],row['home_github'], row['home_other'])
 
-
-
     # Replace NaN with 'Not available' and ensure all data are strings, except Markdown field
     row_data = {col: (str(row[col]) if not pd.isna(row[col]) else 'Not available') for col in row.index}
 
@@ -316,6 +309,11 @@ pre > code:last-child {{
         file.write(filled_template)
 
 
+
+#########################################
+## main starts
+#########################################
+        
 # Load your DataFrame
 df_plugins = pd.read_csv('./data/final_plugins.csv')
 
@@ -328,34 +326,29 @@ create_small_html(df_plugins)
 with open('./templates/static_index_template.html', 'r') as file:
     target_html = file.read()
 
-# The number you want to insert
-number_to_insert = len(df_plugins)  # This can be dynamically set
+# Total number of plugins available
+number_to_insert = len(df_plugins)  
 
-# Find the first insertion point in the target HTML for the number
+# Find the insertion point in the target HTML template
 insertion_point_number = target_html.find('<!-- insert number here -->')
 
-# Check if the first insertion point is found
 if insertion_point_number != -1:
-    # Insert the number
     target_html = target_html[:insertion_point_number] + str(number_to_insert) + target_html[insertion_point_number:]
 else:
     print("Number insertion point not found in the target HTML file.")
 
-# Read the contents of element.html
+# Read the list of available plugins 
 with open('plugins_list.html', 'r') as file:
     element_html = file.read()
 
-# Find the insertion point in the target HTML
+# Find the insertion point in the target HTML template
 insertion_point = target_html.find('<!-- insert plugins_list.html -->')
-
-# delete plugins_list.html
-#os.remove('plugins_list.html')
 
 # Check if the insertion point is found
 if insertion_point != -1:
     # Insert the element.html content
     modified_html = target_html[:insertion_point] + element_html + target_html[insertion_point:]
-    # Save the modified HTML back to target.html or a new file
+    # Save the modified HTML as static_index.html
     with open('./templates/static_index.html', 'w') as file:
         file.write(modified_html)
 else:

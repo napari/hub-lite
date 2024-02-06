@@ -22,14 +22,14 @@ Before proceeding with the setup and usage of Napari Hub Lite, ensure you have t
    python fetch_napari_data.py
    ```
 
-2. **Create htmls for github page**  
-To generate the static pages (excluding the search function):
+2. **Create static htmls**  
+This will create static_index.html and individual plugins htmls under the plugins folder:
 ```
 python create_static_html_files.py
 ```
+Note that github pages uses index.html and html files under the plugins folder.  
 
-
-Note that you can also run a local server using python flask:
+Alternatively, if you want to run a local server using python flask:
 First, you need to uncomment out the last blocks in create_static_html_files.py to generate /static/plugins/ directory. 
 Then, do this: 
 ```
