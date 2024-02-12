@@ -8,6 +8,8 @@ This is an experiment to see how much of napari-hub functionality can be achieve
 ### Introduction
 Napari Hub Lite seeks to demonstrate how much of the dynamic content and user experience of the original napari hub can be emulated in a github page. This project is particularly focused on the use of napari plugin data to create a simplified, yet functional, representation of the napari hub's capabilities. 
 
+![](./static/images/napari_hub_lite_snapshot.png)
+
 ### Prerequisites
 Before proceeding with the setup and usage of Napari Hub Lite, ensure you have the following prerequisites installed:
 - Python 3.x
