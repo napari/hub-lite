@@ -9,11 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updatePluginCount() {
-        const count = document.getElementById('pluginContainer').querySelectorAll('a').length; // Assuming each plugin is wrapped in a <div>
+        const count = document.getElementById('pluginContainer').querySelectorAll('a').length; // Assuming each plugin is wrapped in a <a>
         document.getElementById('pluginCount').textContent = count;
     }
 
-    // Assuming you have an input field for search, you can attach an event listener to it
     document.getElementById('searchBox').addEventListener('input', function() {
         searchFunction(this.value); // Pass the current value of the search box to the search function
     });

@@ -11,7 +11,7 @@ from markdown.extensions.toc import TocExtension
 
 def create_small_html(df_plugins):
     html_content = '<html>\n<body>\n'
-    for _, row in df_plugins.iterrows():
+    for index, row in df_plugins.iterrows():
 
         # Fill NaN values with 'N/A' for the current row
         row = row.fillna('N/A')
@@ -38,7 +38,7 @@ def create_small_html(df_plugins):
             plugin_type.append("sample_data")
         plugin_type = ', '.join(plugin_type) if plugin_type else "N/A"
 
-        html_content += f'<a class="col-span-2 screen-1425:col-span-3 searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100" data-testid="pluginSearchResult" href="./plugins/{name}.html">\n'
+        html_content += f'<a class="col-span-2 screen-1425:col-span-3 searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100" data-testid="pluginSearchResult" href="./plugins/{name}.html" data-plugin-id="{index}">\n'
         html_content += '    <article class="grid gap-x-sds-xl screen-495:gap-x-12 screen-600:grid-cols-2 screen-1425:grid-cols-napari-3" data-testid="searchResult">\n'
         html_content += '        <div class="col-span-2 screen-495:col-span-1 screen-1425:col-span-2 flex flex-col justify-between">\n'
         html_content += f'            <div>\n                <h3 class="font-bold text-lg" data-testid="searchResultDisplayName">{display_name}</h3>\n'
@@ -319,6 +319,17 @@ df_plugins = pd.read_csv('./data/final_plugins.csv')
 
 # Sort the DataFrame by 'modified_at' in descending order
 df_plugins = df_plugins.sort_values(by='modified_at', ascending=False)
+
+# Reset index to ensure it starts from 0 and is continuous after sorting
+df_plugins.reset_index(drop=True, inplace=True)
+df_plugins['plugin_id'] = df_plugins.index
+df_plugins['html_filename'] = df_plugins['name'].apply(lambda x: f"{x.replace(' ', '_').lower()}.html")
+
+# Generate plugins_manifest.json
+plugins_manifest = df_plugins[['plugin_id', 'html_filename']].to_dict(orient='records')
+manifest_path = './plugins_manifest.json'
+with open(manifest_path, 'w') as f:
+    json.dump(plugins_manifest, f, indent=4)
 
 create_small_html(df_plugins)
 

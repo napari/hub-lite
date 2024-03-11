@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.6</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -277,16 +277,16 @@ https://napari.org/stable/plugins/index.html
 <pre><code>pip install git+https://github.com/oubino/napari-locpix.git
 </code></pre>
 <h2>Usage</h2>
-<p>This plugin allows a user to </p>
+<p>This plugin allows a user to</p>
 <ol>
 <li>Read in SMLM data</li>
 <li>Visualise SMLM data in a histogram</li>
 <li>Add segmentations to the data</li>
 <li>Extract the underlying localisations from the segmentations</li>
 </ol>
-<h2>IO</h2>
+<h3>IO</h3>
 <p>The input data can be in the form of a .csv or .parquet.</p>
-<p>We expect there to be 4 columns at least:</p>
+<p>We expect there to be 4 columns at least, which should he identified inthe file column selection:</p>
 <ul>
 <li>X coordinate</li>
 <li>Y coordinate</li>
@@ -297,12 +297,15 @@ https://napari.org/stable/plugins/index.html
 Note however we currently only support loading in annotated data saved as a .parquet folder.
 Therefore, we recommend always keeping a .parquet copy until loading in an annotated .csv
 is supported.</p>
-<p>The data can be outputted to a .parquet and a .csv</p>
-<p>This includes the annotated data.</p>
-<h2>Visualisation</h2>
-<p>Using the render button you can render the loaded in data</p>
-<h2>Segmentation</h2>
-<p>Segmentations can be added using Napari's viewer.</p>
+<p>The data can be outputted to a .parquet or a .csv</p>
+<p>Drop localisations with zero label, gives you the option to only save the localisations which have been annotated i.e. labels 1 and above.</p>
+<p>Channels labels allows you to give a real name label to each of the channels e.g. Chan 0 label: 'Alexa 647'</p>
+<h3>Visualisation</h3>
+<p>Using the render button you can render the loaded in data according to the histogram settings</p>
+<p>X/Y bins defines the number of bins for the histogram</p>
+<p>Vis interpolation defines how to interpolate the image before viewing</p>
+<h3>Annotations</h3>
+<p>Annotations can be added using Napari's viewer.</p>
 <p>Simply click the add Labels.</p>
 <p>Note that this software will expect the labels to be called "Labels"</p>
 <h2>Contributing</h2>
@@ -328,7 +331,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.6</li>
                                                 </ul>
                                             </div>
                                         </div>

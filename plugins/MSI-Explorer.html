@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -254,24 +254,89 @@ pre > code:last-child {
 <a href="https://github.com/MMV-Lab/MSI-Explorer/actions"><img alt="tests" src="https://github.com/MMV-Lab/MSI-Explorer/workflows/tests/badge.svg" /></a>
 <a href="https://codecov.io/gh/MMV-Lab/MSI-Explorer"><img alt="codecov" src="https://codecov.io/gh/MMV-Lab/MSI-Explorer/branch/main/graph/badge.svg?token=LR8CU032ZD" /></a>
 <a href="https://napari-hub.org/plugins/MSI-Explorer"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/MSI-Explorer" /></a></p>
-<p>a napari plug-in for biochemical annotation of mass spectrometry imaging data</p>
-<hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-
+<h1>MSI-Explorer_User Manual</h1>
+<p>The MSI-Explorer napari plugin is a powerful tool designed for targeted biochemical annotations in MSI data. This user manual provides a comprehensive guide on how to install, use, and explore the functionalities of the plugin within the napari platform. It covers data import, visualization, mean intensity calculation, region of interest (ROI) analysis, annotation with selected databases and pre-processing such as noise reduction and normalization. </p>
+<p>[MSI-Explorer] </p>
 <h2>Installation</h2>
+<p>Install napari by using this command.</p>
+<pre><code> pip install "napari[all]"
+</code></pre>
 <p>You can install <code>MSI-Explorer</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install MSI-Explorer
+<pre><code> pip install MSI-Explorer
 </code></pre>
-<p>To install latest development version :</p>
-<pre><code>pip install git+https://github.com/MMV-Lab/MSI-Explorer.git
+<h2>Usage</h2>
+<p>Start napari from the console with:</p>
+<pre><code>napari
 </code></pre>
+<p>Navigate to <code>Plugins -&gt; MSI-Explorer (MSI-Explorer)</code>
+<img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/24040366-37c6-4aeb-ba0e-43bf4bd32aa1." width="800" height="400"></p>
+<h3>1. Uploading and visualization of mass spectrometry imaging data</h3>
+<ul>
+<li>Select imzml file using <code>Load imzML</code>.</li>
+<li>Metadata can be checked by <code>View Metadata</code>.
+<img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/9e3db84f-5411-4049-805a-e6fe9251e14a." width="800" height="350"></li>
+</ul>
+<p><img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/7cd6aa18-f0e3-4d72-8ff7-1d206c2f30db." width="800" height="350"></p>
+<h4></h4>
+<p>Upon uploading profile mode data, a pop-up appears prompting you to convert it to centroid mode.
+Selecting <code>Yes</code> converts the data, while <code>No</code> keeps it in its original profile format.</p>
+<p><img alt="profile_centroid" src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/5eecf5c2-e9b5-45da-a620-6dfaad058faf" /></p>
+<h3>2. Calculating mean (average) intensity</h3>
+<ul>
+<li>To calculate the mean spectrum, click on <code>Show true mean spectrum</code>.</li>
+<li>Clicking <code>Show image</code> will create an image view of the currently plotted data</li>
+<li>To export the plotted data as .csv file, click <code>Export spectrum data</code>.</li>
+<li>To save the spectrum plot as image, click <code>Export spectrum plot</code>.
+<img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/3861b4cd-99e6-4fb5-be85-475beab60740." width="300" height="450"></li>
+</ul>
+<h4>2.1. Calculating mean (average) intensity of selected m/z value</h4>
+<p>To focus on a specific m/z value, zoom in on the spectrum plot. The figure will be as
+shown as below.
+<img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/936b4e2e-dc25-4b14-9915-a38ca45c7c02." width="800" height="350"></p>
+<p>It is recommended to use <code>Multi</code> panel view.
+The image can be displayed by <code>Show image</code> and the data can be exported as <code>.csv</code> file by using <code>Export spectrum data</code>.</p>
+<h3>3. Pre-processing</h3>
+<p>The pre-processing capabilities of MSI-Explorer enhance data quality and prepare MSI data for downstream analysis. Pre-processing steps involve: </p>
+<h4>(a) Noise reduction</h4>
+<p>Users can choose their desired level of noise reduction (shown as a percentage) for their experiment. 
+<img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/ace0f5d2-43fa-4338-af9b-130529b17ec5." width="800" height="350"></p>
+<h4>(b) Normalization</h4>
+<p>The normalization methods that the user can apply are 
+- Total ion current (TIC)
+- Root mean square (RMS)
+- Medium
+- Reference peak (or internal standard)
+<img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/613ec41b-5765-429e-9aa7-ad296ad93702." width="800" height="350"></p>
+<h4>(c) Hotspot removal</h4>
+<p>documentation WIP</p>
+<p>After pre-processing steps are chosen, click <code>Execute</code> and <code>Show true mean spectrum</code> to calculate the mean intensity.</p>
+<p>The figure shows the spectrum and image of the TIC normalization with 3% noise reduction. 
+<img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/57f3550f-8d88-46c0-832a-fed75d364936." width="800" height="350"></p>
+<h3>4. Database</h3>
+<p>To use the database search, click on <code>Select</code> and a pop-up window will appear. There,
+select <code>Metabolite_database_ver2</code>, which is a built-in database, and click <code>Confirm</code>.</p>
+<p><img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/91bc3b37-59d9-4c2c-85f5-ab790d8678a0." width="300" height="450"></p>
+<p>The features of the database function are
+1. Charge (neutral, positive or negative)
+2. Adduct (based on the charge chosen)
+3. Range of the m/z value for the image display
+4. custom search with molecule name or m/z value
+<img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/77f0f0ba-4531-4532-9aa8-14d964d69fa2." width="300" height="450"></p>
+<p>Users can customize the database with exact mass, molecule name, or molecular formula. The format should be as shown in the table and the headers are not needed in the database.</p>
+<p>Exact mass | Molecule name | Molecula formula
+------- | -------- | --------
+176.0950 | Cotinine | C10H12N2O
+174.1117 | Arginine | C6H14N4O2
+244.0881 | Biotin | C10H16N2O3S</p>
+<h3>5. Region of interest (ROI) selection</h3>
+<ul>
+<li>To select the ROI, click on <code>Select ROI for mean spectrum</code>. Adjust the brush size and label color. You can fill the area by using paint icon. </li>
+<li>Then click on the <code>Calculate ROI mean spectrum</code>.</li>
+<li>You can export as <code>.csv</code> file by using <code>Export spectrum data</code>.</li>
+<li>If one m/z is needed, just zoom-in the spectrum plot window and export.</li>
+<li>Before selecting the second ROI, remove the first selected area by using eraser or label 0.</li>
+</ul>
+<p><img src="https://github.com/nmmtsaw/MSI-Explorer-Manual/assets/127961719/2464e40e-21cb-484a-8fe6-33b7763b8c71." width="800" height="350"></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -295,7 +360,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                                 </ul>
                                             </div>
                                         </div>
