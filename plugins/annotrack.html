@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">dask</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">nd2-dask</li><li class="MetadataList_textItem__KKmMN">pytest</li><li class="MetadataList_textItem__KKmMN">sphinx</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">h5py</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">dask</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">sphinx ; extra == 'docs'</li><li class="MetadataList_textItem__KKmMN">nd2 ; extra == 'io'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -253,20 +253,22 @@ pre > code:last-child {
 <h2>Installation</h2>
 <p>There are three main ways to install annotrack:</p>
 <h3>Install Using pip</h3>
+<p><em>Please note that this is planned/under development</em></p>
 <p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
 <p><code>bash
-pip install napari annotrack</code></p>
+pip install annotrack</code></p>
 <h3>Install</h3>
+<p><em>Please note that this is planned/under development</em></p>
 <p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
 <p><code>bash
-pip install napari
+install napari
 napari</code></p>
 <p>Once napari has opened (this may take a second the first time you open it), go to the pannel at the top of the screen and select the 'plugins' dropdown. Then select install/uninstall plugins. A new window will open showing available plugins. Either scroll down to or search 'annotrack' and click 'install'. </p>
 <h3>Install from Source Code</h3>
 <p><em>please use this for now</em></p>
 <p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
 <p><code>bash
-git clone &lt;repository https or ssh&gt;
+git clone https://github.com/AbigailMcGovern/annotrack.git
 cd annotrack
 pip install .</code></p>
 <h2>Opening Annotrack</h2>
@@ -275,9 +277,48 @@ pip install .</code></p>
 napari</code></p>
 <p>You can find the annotrack widgets by selecting the dropdown 'plugins' at the pannel at the top of the screen and hovering over 'annotrack'.  </p>
 <h2>Sample from CSV</h2>
-<p>To sample your tracks you will need to supply the file paths for the images, segmentations, and tracks. </p>
+<p>To sample your tracks you will need to supply the file paths for the images, segmentations, and tracks. You supply this in a csv that is structured as shown below:</p>
 <p><img alt="csv_structure widget" src="https://github.com/AbigailMcGovern/annotrack/blob/main/media/csv_structure.png" /></p>
+<p>In this csv, you may also specify how many samples are to be taken from each file. If this is not provided, annotrack will use the value you supply to the <code>sample_from_csv</code> widget. The csv must contain a column that specifies a category to which each sample belongs (e.g., species, experimental condition, drug, etc.).  If this isnt important for your samples, just add a dummy category (e.g., sample_type : [A, A, A, A]). </p>
+<p>To access the widget and sample track segments, go to the top of the screen, go to <strong>plugins &gt; annotrack &gt; sample_from_csv</strong>. When the widget is displayed, select the csv file, select a directory into which to save results, and proivide a name for the summary data file (i.e., where your annotations will be written). </p>
 <p><img alt="sample_from_csv widget" src="https://github.com/AbigailMcGovern/annotrack/blob/main/media/sample_from_csv.png" /></p>
+<h3>Widget parameters</h3>
+<ul>
+<li><strong>path to csv</strong>: 
+        The path storing the info from which to generate the samples. 
+        The CSV should have the columns: image_path, labels_path, tracks_path, <category_col>, 
+        You can also add an optional n_samples column if you would like to 
+        specify how many samples to take from each individual file. Otherwise, 
+        the default "n_samples" you've supplied will be used.</li>
+<li><strong>output dir</strong>: 
+        Where will the output be saved?</li>
+<li><strong>output name</strong>: 
+        What will output summary files/directories be called?</li>
+<li><strong>n samples</strong>: 
+        How many samples to be obtained from each file. Will be overwritten
+        if there is a valid integer number in the n_samples colum of the csv.</li>
+<li><strong>tzyx cols</strong>: 
+        What are the names of the columns denoting time (in frames) and coordinate
+        positions (in pixels) in the file containing tracks? The order should be:
+        t, z, y, x. </li>
+<li><strong>id col</strong>: 
+        What is the name of the column denoting the specific ID for each tracked
+        object?</li>
+<li><strong>scale</strong>: 
+        size of pixels (e.g., in um) for the z, y, and x coordinates (in that
+        order)</li>
+<li><strong>frames</strong>: 
+        Approximate maximum number of frames of track segment. 
+        Max frames = frames (if even) or frames - 1 (if odd)</li>
+<li><strong>box size</strong>: 
+        Approximate size of bounding box (in pixels). </li>
+<li><strong>min track len</strong>: 
+        You can set a minimum track len to include in the search. 
+        This can help to eliminate less useful data. This should be at least 1 to only include tracked objects. Set higher only if you are specifically interested in longer lived tracks. </li>
+<li><strong>image channel</strong>: 
+        This denotes the index of the channel from which to get 
+        image data (0: channel 1, 1: channel 2, 2: channel 3, 3: channel 4)</li>
+</ul>
 <h3>Annotate Now?</h3>
 <p>In the case that we are annotating multiple conditions to compare, we want to show them in the one session in randomised order with the annotator blinded to where the sample has originated from. We want to be able to annotated unannotated data from the sample without having the burden of having to do this all at once. The annotations are therefore saved into the saved sample. A selected number of samples saved from the various tracking experiments can be annotated using the following code. If you re-execute this code, you will only be shown not yet annotated data, unless you request otherwise.</p>
 <p>Keys to navagate and annotate samples
@@ -311,7 +352,7 @@ napari</code></p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -418,7 +459,7 @@ napari</code></p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">dask</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">nd2-dask</li><li class="MetadataList_textItem__KKmMN">pytest</li><li class="MetadataList_textItem__KKmMN">sphinx</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">h5py</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">dask</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">sphinx ; extra == 'docs'</li><li class="MetadataList_textItem__KKmMN">nd2 ; extra == 'io'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li></ul>
                                             </div>
                                         </div>
                                     </div>
