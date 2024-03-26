@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.9</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.10</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -252,7 +252,9 @@ pre > code:last-child {
     padding-bottom: 0;
 }
         </style>
-        <p><em>Richardson-Lucy deconvolution for fishes, scientists and engineers.</em></p>
+        <p><img alt="RedLionfish Logo" src="./redlionfish_logo.svg" /></p>
+<h1>RedLionfish (RL) deconvolution</h1>
+<p><em>Richardson-Lucy deconvolution for fishes, scientists and engineers.</em></p>
 <p>This software is for filtering 3D data using the Richardson-Lucy deconvolution algorithm.</p>
 <p>Richardson-Lucy is an iterative deconvolution algorithm that is used to remove
 point spread function (PSF) or optical transfer function (OTF) artifacts from experimental images.</p>
@@ -271,13 +273,15 @@ However, if you chose to use this method, GPU acceleration may not be available 
 <p>Alternatively, if you follow the installation instructions below, and install the napari in the same python environment
 then the plugin should be immediately available in the <em>Menu -&gt; Plugins -&gt; RedLionfish</em>.</p>
 <h2>Installation</h2>
-<p>Previously there was a problem in installing using <code>pip</code>, because no PyOpenCL wheels for windows were avaiable. It is now avaialble. This package can be installed using pip or conda.</p>
+<p>Previously there was a problem in installing using <code>pip</code>, because no PyOpenCL wheels for windows were avaiable. It is now avaialble.</p>
+<p>This package can be installed using pip or conda.</p>
+<p>Napari plugin installation engine can also be used to install this package.</p>
+<h3>Install from PyPi</h3>
+<p><code>pip install redlionfish</code></p>
 <h3>Conda install</h3>
 <p>This package is available in conda-forge channel.
 It contains the precompiled libraries and it will install all the requirments for GPU-accelerated RL calculations.</p>
 <p><code>conda install redlionfish -c conda-forge</code></p>
-<h3>Install from PyPi</h3>
-<p><code>pip install redlionfish</code></p>
 <p>In Linux , the package <code>ocl-icd-system</code> may also be useful.</p>
 <p><code>conda install reikna pyopencl ocl-icd-system -c conda-forge</code></p>
 <h4>Manual installation using the conda package file.</h4>
@@ -291,8 +295,8 @@ The second line is needed because you are installing from a local file, conda in
 The best way to get it working is to install it under a conda environment.</p>
 <p>The installation is similar to the previously described for PyPi.</p>
 <p><code>conda install reikna pyopencl</code></p>
-<p>or
-<code>conda install reikna pyopencl ocl-icd-system -c conda-forge</code> (Linux)</p>
+<p>or</p>
+<p><code>conda install reikna pyopencl ocl-icd-system -c conda-forge</code> (Linux)</p>
 <p>Clone/download from source <a href="https://github.com/rosalindfranklininstitute/RedLionfish/">https://github.com/rosalindfranklininstitute/RedLionfish/</a></p>
 <p>and run</p>
 <p><code>python setup.py install</code></p>
@@ -315,11 +319,12 @@ Large 3D data volumes with cause out-of-memory error when trying to upload data 
 As such, to overcome this problem, a block algorithm is used, which splits data into blocks with padded data.
 The results are then combined together to give the final result.
 This affects the perfomance of the calculation rather significantly, but with the advantage of being possible to handle large data volumes.</p>
-<p>If Richardson-Lucy deconvolution using the GPU method fails, RedLionfish will falls back to CPU calculation. Check console output for messages.</p>
+<p>If Richardson-Lucy deconvolution using the GPU method fails, RedLionfish will fallback to CPU calculation. Check console output for messages.</p>
 <p>If you are using the RedLionfish in your code, note that, by default, <code>def doRLDeconvolutionFromNpArrays()</code> method it uses the GPU OpenCL version.</p>
 <h2>Testing</h2>
+<p>Use pytest to test the package. Test files are in <code>/test</code> folder</p>
 <p>Many examples can be found in `/scripts' folder.</p>
-<p>A quick and benchmarking installation can be run from the proect root using the command:</p>
+<p>A useful way to test and benchmark the package installation can be run from the proect root using the command:</p>
 <p>'python scripts/test_and_benchm.py'</p>
 <p>or in windows</p>
 <p>'python scripts\test_and_benchm.py'</p>
@@ -345,11 +350,11 @@ During the calculation it will print some information to the console/terminal, i
 <p>GPU calculations will be generally faster than CPU with bigger data volumes.</p>
 <p>GPU calculation will be significantly faster if using a dedicated GPU card.</p>
 <p>Please see benchmark values that highlights significant variability in calculation speeds.</p>
+<p><a href="benchmark_results.md">benchmark_results.md</a></p>
 <h2>Coding</h2>
 <p>Please feel free to browse the <code>/scripts</code> folder for examples.</p>
-<p>In your code, add the import.</p>
+<p>In order to use the functions, add the follwoing import to your code,</p>
 <p><code>import RedLionfishDeconv</code></p>
-<p>in order to use the functions.</p>
 <p>The most useful function is perhaps the following.</p>
 <p><code>def doRLDeconvolutionFromNpArrays(data_np , psf_np ,*, niter=10, method='gpu', useBlockAlgorithm=False, callbkTickFunc=None, resAsUint8 = False)</code></p>
 <p>This will do the Richardson-Lucy deconvolution on the data_np (numpy, 3 dimensional data volume) using the provided PSF data volume, for 10 iterations. GPU method is generally faster but it may fail. If it does fail, the program will automatically use the CPU version that uses the scipy fft package.</p>
@@ -380,7 +385,7 @@ During the calculation it will print some information to the console/terminal, i
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.9</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.10</li>
                                                 </ul>
                                             </div>
                                         </div>
