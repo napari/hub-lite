@@ -2076,7 +2076,7 @@ https://napari.org/plugins/stable/index.html
 [PyPI]: https://pypi.org/
 
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/zcqwh/disease-classifier/issues', 'Documentation, https://github.com/zcqwh/disease-classifier#README.md', 'Source Code, https://github.com/zcqwh/disease-classifier', 'User Support, https://github.com/zcqwh/disease-classifier/issues']",,,disease-classifier.make_qwidget,,,,,https://pypi.org/project/disease-classifier,,
-23,domb-napari,0.1.1,2023-12-08,2023-12-08,domb-napari,Borys Olifirov,omnia.fatum@gmail.com,MIT,https://pypi.org/project/domb-napari,napari plugin for analyzing fluorescence-labeled proteins redistribution,>=3.8,"['napari', 'domb']","domb-napari
+23,domb-napari,0.1.2,2023-12-08,2023-12-08,domb-napari,Borys Olifirov,omnia.fatum@gmail.com,MIT,https://pypi.org/project/domb-napari,napari plugin for analyzing fluorescence-labeled proteins redistribution,>=3.8,"['napari', 'domb']","domb-napari
 ===========
 
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
@@ -2093,14 +2093,14 @@ napari plugin for analyzing fluorescence-labeled proteins redistribution. Offers
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/translocation.gif)
 __Hippocalcin (neuronal calcium sensor) redistributes in dendritic branches upon NMDA application__
 
+---
 
-
-# Detection of fluorescence redistributions
+## Detection of fluorescence redistributions
 A set of widgets designed for detecting fluorescence intensity redistribution through the analysis of differential image series (red-green detection).
 
 Inspired by [Dovgan et al., 2010](https://pubmed.ncbi.nlm.nih.gov/20704590/) and [Osypenko et al., 2019](https://www.sciencedirect.com/science/article/pii/S0969996119301974?via%3Dihub).
 
-## Image preprocessing
+### Image preprocessing
 Provides functions for preprocessing multi-channel fluorescence acquisitions:
 - If the input image has 4 dimensions (time, channel, x-axis, y-axis), channels will be split into individual 3 dimensions images (time, x-axis, y-axis) with the `_ch%index%` suffix.
 - If the `gaussian blur` option is selected, the image will be blurred with a Gaussian filter using sigma=`gaussian sigma`.
@@ -2109,7 +2109,7 @@ Provides functions for preprocessing multi-channel fluorescence acquisitions:
 
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_00.png)
 
-## Red-green series
+### Red-green series
 Primary method for detecting fluorescent-labeled targets redistribution in time. Returns a series of differential images representing the intensity difference between the current frame and the previous one as new image with the `_red-green` suffix.
 
 Parameters:
@@ -2120,7 +2120,7 @@ Parameters:
 
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_11.png)
 
-## Up masking
+### Up masking
 Generates labels for insertion sites (regions with increasing intensity) based on `-red-green` images. Returns labels layer with `_up-labels` suffix.
 
 Parameters:
@@ -2132,29 +2132,29 @@ Parameters:
 
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_22.png)
 
-## Intensity masking
+### Intensity masking
 Extension of __Up Masking__ widget. Detects regions with increasing (`masking mode` - `up`) or decreasing (`masking mode` - `down`) intensity in `-red-green` images. Returns a labels layer with either `_up-labels` or `_down-labels` suffix, depending on the mode.
 
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_33.png)
 
+---
 
-
-# Exo-/endo-cytosis monitoring with pH-sensitive tag
+## Exo-/endo-cytosis monitoring with pH-sensitive tag
 A collection of widgets designed for the analysis of image series containing the pH-sensitive fluorescence protein Superecliptic pHluorin (SEP).
 
 Insipred by [Fujii et al., 2017](https://pubmed.ncbi.nlm.nih.gov/28474392/) and [Sposini et al., 2020](https://www.nature.com/articles/s41596-020-0371-z).
 
-## SEP image preprocessing
+### SEP image preprocessing
 Processes image series obtained through repetitive pH exchange methods (such as U-tube or ppH approaches). `pH 1st frame` option indicates the 1st frame pH. By default frames with odd indexes, including index 0, are interpreted as images acquired at pH 7.0, representing total fluorescence intensity (saved with the suffix `_total`). Even frames are interpreted as images obtained at acidic pH (5.5-6.0), representing intracellular fluorescence only (saved with the suffix `_intra`).
 
 If `calc surface img` is selected, an additional total fluorescence image with subtracted intracellular intensity will be saved as the cell surface fluorescence fraction (suffix `_surface`). The input image should be a 3-dimensional single-channel time-lapse.
 
 The `calc projections` option allows obtaining individual pH series projections (pixel-wise series MIP - pixel-wise series average) for the detection of individual exo/endocytosis events.
 
+---
 
-
-# Intensty profiles building and data frame saving
-## Individual labels profiles
+## Intensty profiles building and data frame saving
+### Individual labels profiles
 Builds a plot with mean intensity profiles for each ROI in `labels` using absolute intensity (if `absolute intensity` is selected) or relative intensities (ΔF/F0).
 
 The `time scale` sets the number of seconds between frames for x-axis scaling.
@@ -2180,7 +2180,7 @@ Absolute intensity         | ![](https://raw.githubusercontent.com/wisstock/domb
 __ΔF/F0__|![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_55.png)
 
 
-## Labels stat profiles
+### Labels stat profiles
 Builds a plot with the averaged intensity of all ROIs in `labels`. Can take two images (`img 0` and `img 1`) as input if `two profiles` are selected.
 
 The `time scale` and `ΔF win` are the same as in the __Individual Labels Profiles__.
@@ -10223,15 +10223,19 @@ Please refer to the documentation for full acknowledgements.
 
 This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
 ","['Development Status :: 4 - Beta', 'Intended Audience :: Science/Research', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: MIT License', 'Topic :: Scientific/Engineering :: Artificial Intelligence', 'Topic :: Scientific/Engineering :: Image Processing', 'Topic :: Scientific/Engineering :: Visualization']","['Homepage, https://github.com/AdaptiveMotorControlLab/CellSeg3d', 'Documentation, https://adaptivemotorcontrollab.github.io/cellseg3d-docs/res/welcome.html', 'Issues, https://github.com/AdaptiveMotorControlLab/CellSeg3d/issues']",,,napari-cellseg3d.load,,,,,https://pypi.org/project/napari-cellseg3d,https://github.com/AdaptiveMotorControlLab/CellSeg3d,
-105,napari-chatgpt | Omega,2024.3.13.3,,,napari-chatgpt,Loic A. Royer,royerloic@gmail.com,BSD-3-Clause,,A napari plugin to process and analyse images with chatGPT.,>=3.9,"['numpy', 'magicgui', 'scikit-image', 'qtpy', 'QtAwesome', 'langchain ==0.1.11', 'langchain-openai ==0.0.8', 'openai ==1.13.3', 'anthropic', 'fastapi', 'uvicorn', 'websockets', 'tiktoken', 'wikipedia', 'lxml', 'gTTS', 'playsound', 'matplotlib', 'xarray', 'arbol', 'playwright', 'duckduckgo-search', 'ome-zarr', 'transformers', 'cryptography', 'tabulate', 'numba', 'imageio[ffmpeg,pyav]', 'notebook', 'nbformat', 'jedi', 'black', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","## Home of _Omega_, a napari-aware autonomous LLM-based agent specialized in image processing and analysis.
+105,napari-chatgpt | Omega,2024.3.26.3,,,napari-chatgpt,Loic A. Royer and contributors,royerloic@gmail.com,BSD-3-Clause,,A napari plugin to process and analyse images with chatGPT.,>=3.9,"['numpy', 'magicgui', 'scikit-image', 'qtpy', 'QtAwesome', 'langchain ==0.1.11', 'langchain-openai ==0.0.8', 'langchain-anthropic ==0.1.4', 'openai ==1.13.3', 'anthropic', 'fastapi', 'uvicorn', 'websockets', 'tiktoken', 'wikipedia', 'lxml', 'gTTS', 'playsound', 'matplotlib', 'xarray', 'arbol', 'playwright', 'duckduckgo-search', 'ome-zarr', 'transformers', 'cryptography', 'tabulate', 'numba', 'imageio[ffmpeg,pyav]', 'notebook', 'nbformat', 'jedi', 'black', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","## Home of _Omega_, a napari-aware autonomous LLM-based agent specialized in image processing and analysis.
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-chatgpt.svg?color=green)](https://github.com/royerlab/napari-chatgpt/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-chatgpt.svg?color=green)](https://pypi.org/project/napari-chatgpt)
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-chatgpt.svg?color=green)](https://python.org)
-[![tests](https://github.com/royerlab/napari-chatgpt/workflows/tests/badge.svg)](https://github.com/royerlab/napari-chatgpt/actions)
+[![tests](https://github.com/royerlab/napari-chatgpt/actions/workflows/test_and_deploy.yml/badge.svg)](https://github.com/royerlab/napari-chatgpt/actions/workflows/test_and_deploy.yml)
 [![codecov](https://codecov.io/gh/royerlab/napari-chatgpt/branch/main/graph/badge.svg)](https://codecov.io/gh/royerlab/napari-chatgpt)
+[![Downloads](https://pepy.tech/badge/napari-chatgpt)](https://pepy.tech/project/napari-chatgpt)
+[![Downloads](https://pepy.tech/badge/napari-chatgpt/month)](https://pepy.tech/project/napari-chatgpt)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-chatgpt)](https://napari-hub.org/plugins/napari-chatgpt)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8240289.svg)](https://doi.org/10.5281/zenodo.8240289)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10828225.svg)](https://doi.org/10.5281/zenodo.10828225)
+[![GitHub stars](https://img.shields.io/github/stars/royerlab/napari-chatgpt?style=social)](https://github.com/royerlab/napari-chatgpt/)
+[![GitHub forks](https://img.shields.io/github/forks/royerlab/napari-chatgpt?style=social)](https://git:hub.com/royerlab/napari-chatgpt/)
 
 <img src='https://github.com/royerlab/napari-chatgpt/assets/1870994/c85185d2-6d16-472d-a2c8-5680ea869bf2' height='300'>
 <img height=""300"" alt=""image"" src=""https://github.com/royerlab/napari-chatgpt/assets/1870994/f3ea245e-dd86-4ff2-802e-48c2073cb6f9"">
@@ -10245,14 +10249,14 @@ in a conversational manner.
 This repository started as a 'week-end project'
 by [Loic A. Royer](https://twitter.com/loicaroyer)
 who leads a [research group](https://royerlab.org) at
-the [Chan Zuckerberg Biohub](https://czbiohub.org/sf/). It
+the [Chan Zuckerberg Biohub](https://royerlab.org). It
 leverages [OpenAI](https://openai.com)'s ChatGPT API via
 the [LangChain](https://python.langchain.com/en/latest/index.html) Python
 library, as well as [napari](https://napari.org), a fast, interactive,
 multi-dimensional
 image viewer for
 Python, [another](https://ilovesymposia.com/2019/10/24/introducing-napari-a-fast-n-dimensional-image-viewer-in-python/)
-project initially started by Loic and [Juan Nunez-Iglesias](https://github.com/jni).
+week-end project, initially started by Loic and [Juan Nunez-Iglesias](https://github.com/jni).
 
 # What is Omega?
 
@@ -10263,14 +10267,14 @@ Can LLM-based agents write image processing code and napari widgets, correct its
 coding mistakes, performing follow-up analysis, and controlling the napari viewer? 
 The answer appears to be yes.
 
-The preprint can be downloaded here: [10.5281/zenodo.8240289](https://zenodo.org/records/8240289)
+The preprint can be downloaded here: [10.5281/zenodo.10828225](https://doi.org/10.5281/zenodo.10828225)
 
 
 #### In this video, I ask Omega to segment an image using the [SLIC](https://www.iro.umontreal.ca/~mignotte/IFT6150/Articles/SLIC_Superpixels.pdf) algorithm. It makes a first attempt using the implementation in scikit-image but fails because of an inexistent 'multichannel' parameter. Realizing that, Omega tries again, and this time succeeds:
 
 https://user-images.githubusercontent.com/1870994/235768559-ca8bfa84-21f5-47b6-b2bd-7fcc07cedd92.mp4
 
-#### After loading in napari a sample 3D image of cell nuclei, I ask Omega to segment the nuclei using the Otsu method. My first request was very vague, so it just segmented foreground versus background. I then ask to segment the foreground into distinct segments for each connected component. Omega does a rookie mistake by forgetting to 'import np'. No problem; it notices, tries again, and succeeds:
+#### After loading a sample 3D image of cell nuclei in napari, I asked Omega to segment the nuclei using the Otsu method. My first request was vague, so it just segmented foreground versus background. I then ask to segment the foreground into distinct segments for each connected component. Omega does a rookie mistake by forgetting to 'import np'. No problem; it notices, tries again, and succeeds:
 
 https://user-images.githubusercontent.com/1870994/235769990-a281a118-1369-47aa-834a-b491f706bd48.mp4
 
@@ -10278,19 +10282,19 @@ https://user-images.githubusercontent.com/1870994/235769990-a281a118-1369-47aa-8
 
 https://github.com/royerlab/napari-chatgpt/assets/1870994/bb9b35a4-d0aa-4f82-9e7c-696ef5859a2f
 
-As LLMs continue to improve, Omega will become even more adept at handling complex
-image processing and analysis tasks. The current version of ChatGPT, 3.5,
-has a cutoff date of 2021, which means that it lacks nearly two years of knowledge
-on the napari API and usage, as well as the latest versions of popular libraries
-like scikit-image, OpenCV, numpy, scipy, etc... Despite this, you can see in the
-videos below that it is quite capable. While ChatGPT 4.0 is a significant upgrade, it is not
-yet widely available.
+As LLMs improve, Omega will become even more adept at handling complex
+image processing and analysis tasks. GPT 4.0 has been a significant upgrade
+compared to GPT 3.5, and many of the videos (see below and here) are highly reproducible, 
+with a typically 90% success rate (see preprint for a reproducibility analysis).
+While open-source models are promising and rapidly improving, they must get better to run Omega reliably. 
+More recent models by OpenAI's competitors, such as Google and Anthropic, are great news, 
+but Omega still needs to support these newer models fully -- it seems every week comes with a new batch of models.
 
 Omega could eventually help non-experts process and analyze images, especially
 in the bioimage domain.
 It is also potentially valuable for educative purposes as it could
 assist in teaching image processing and analysis, making it more accessible.
-Although ChatGPT, which powers Omega, may not be yet on par with an expert image
+Although ChatGPT, which powers Omega, may still need to be on par with an expert image
 analyst or computer vision expert, it is just a matter of time...
 
 Omega holds a conversation with the user and uses different tools to answer questions, 
@@ -10323,7 +10327,7 @@ Assuming you have a Python environment with a working napari installation, you c
 
     pip install napari-chatgpt
 
-Or just install the plugin from napari's plugin installer.
+Or install the plugin from napari's plugin installer.
 
 For detailed instructions and variations, check [this page](http://github.com/royerlab/napari-chatgpt/wiki/InstallOmega) of our wiki.
     
@@ -10363,7 +10367,7 @@ this is actually **not** possible).
 ## Disclaimer:
 
 Do not use this software lightly; it will download libraries of its own volition
-and write any code that it deems necessary; it might actually do what you ask, even
+and write any code it deems necessary; it might do what you ask, even
 if it is a very bad idea. Also, beware that it might _misunderstand_ what you ask and
 then do something bad in ways that elude you. For example, it is unwise to use Omega to delete 
 'some' files from your system; it might end up deleting more than that if you are unclear in 
@@ -14762,7 +14766,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/zoccoler/napari-flim-phasor-plotter/issues', 'Documentation, https://github.com/zoccoler/napari-flim-phasor-plotter#README.md', 'Source Code, https://github.com/zoccoler/napari-flim-phasor-plotter', 'User Support, https://github.com/zoccoler/napari-flim-phasor-plotter/issues']",napari-flim-phasor-plotter.get_reader,,napari-flim-phasor-plotter.calculate_phasors,napari-flim-phasor-plotter.load_seminal_receptacle_image,"['*.ptu', '*.PTU', '*.sdt', '*.SDT', '*.tif', '*.zarr']",,,https://pypi.org/project/napari-flim-phasor-plotter,,
-150,napari-folder-browser,0.1.3,2022-02-04,2023-06-18,napari-folder-browser,Robert Haase,robert.haase@tu-dresden.de,BSD-3-Clause,https://github.com/haesleinhuepf/napari-folder-browser,Browse folders of images and open them using double-click,>=3.7,"['napari-plugin-engine (>=0.1.4)', 'numpy', 'napari-tools-menu']","# napari-folder-browser
+150,napari-folder-browser,0.1.4,2022-02-04,2023-06-18,napari-folder-browser,Robert Haase,robert.haase@tu-dresden.de,BSD-3-Clause,https://github.com/haesleinhuepf/napari-folder-browser,Browse folders of images and open them using double-click,>=3.7,"['napari-plugin-engine >=0.1.4', 'napari-tools-menu']","# napari-folder-browser
 
 [![License](https://img.shields.io/pypi/l/napari-folder-browser.svg?color=green)](https://github.com/haesleinhuepf/napari-folder-browser/raw/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-folder-browser.svg?color=green)](https://pypi.org/project/napari-folder-browser)
@@ -14792,6 +14796,21 @@ You can install `napari-folder-browser` via [pip]:
 Contributions are very welcome. Tests can be run with [tox], please ensure
 the coverage at least stays the same before you submit a pull request.
 
+## Development
+### Test the plugin in Napari
+Simply use pip install and run napari to test the plugin in the same environment:
+```bash
+pip install -e .
+napari
+```
+
+### Conda
+If you prefer to use conda, you can create a new environment with the following command:
+```bash
+conda env create -f environment.yml
+conda activate napari-folder-browser
+```
+
 ## License
 
 Distributed under the terms of the [BSD-3] license,
@@ -14820,8 +14839,6 @@ If you encounter any problems, please create a thread on [image.sc] along with a
 [PyPI]: https://pypi.org/
 [image.sc]: https://image.sc
 [@haesleinhuepf]: https://twitter.com/haesleinhuepf
-
-
 
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Science/Research', 'Framework :: napari', 'Topic :: Scientific/Engineering :: Image Processing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/haesleinhuepf/napari-folder-browser/issues', 'Documentation, https://github.com/haesleinhuepf/napari-folder-browser#README.md', 'Source Code, https://github.com/haesleinhuepf/napari-folder-browser', 'User Support, https://github.com/haesleinhuepf/napari-folder-browser/issues']",,,napari-folder-browser.FolderBrowser,,,,,https://pypi.org/project/napari-folder-browser,https://github.com/haesleinhuepf/napari-folder-browser,
 151,GEMspa,0.0.4,2023-12-08,2023-12-09,napari-gemspa,Sarah Keegan,sarah.keegan@nyulangone.org,BSD-3-Clause,https://github.com/liamholtlab/napari-gemspa,A plugin for analysis of single particle tracking experiments,>=3.8,"['numpy', 'magicgui', 'qtpy', 'pandas', 'napari', 'scikit-image', 'gemspa-spt', 'matplotlib', 'trackpy', 'nd2', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-gemspa
@@ -26719,7 +26736,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: Apache Software License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/jookuma/napari-segment-anything/issues', 'Documentation, https://github.com/jookuma/napari-segment-anything#README.md', 'Source Code, https://github.com/jookuma/napari-segment-anything', 'User Support, https://github.com/jookuma/napari-segment-anything/issues']",,,napari-segment-anything.samwidget,,,,,https://pypi.org/project/napari-segment-anything,https://github.com/jookuma/napari-segment-anything,
-282,napari-segment-blobs-and-things-with-membranes,0.3.7,2022-02-05,2023-09-14,napari-segment-blobs-and-things-with-membranes,Robert Haase,robert.haase@tu-dresden.de,BSD-3-Clause,https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes,A plugin based on scikit-image for segmenting nuclei and cells based on fluorescent microscopy images with high intensity in nuclei and/or membranes,>=3.8,"['napari-plugin-engine >=0.1.4', 'numpy', 'scikit-image', 'scipy', 'napari-tools-menu >=0.1.17', 'napari-time-slicer >=0.4.8', 'napari-assistant', 'stackview >=0.3.2']","# napari-segment-blobs-and-things-with-membranes (nsbatwm)
+282,napari-segment-blobs-and-things-with-membranes,0.3.8,2022-02-05,2024-03-26,napari-segment-blobs-and-things-with-membranes,Robert Haase,robert.haase@tu-dresden.de,BSD-3-Clause,https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes,A plugin based on scikit-image for segmenting nuclei and cells based on fluorescent microscopy images with high intensity in nuclei and/or membranes,>=3.8,"['napari-plugin-engine >=0.1.4', 'numpy', 'scikit-image', 'scipy', 'napari-tools-menu >=0.1.17', 'napari-time-slicer >=0.4.8', 'napari-assistant', 'stackview >=0.3.2']","# napari-segment-blobs-and-things-with-membranes (nsbatwm)
 
 [![License](https://img.shields.io/pypi/l/napari-segment-blobs-and-things-with-membranes.svg?color=green)](https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-segment-blobs-and-things-with-membranes.svg?color=green)](https://pypi.org/project/napari-segment-blobs-and-things-with-membranes)

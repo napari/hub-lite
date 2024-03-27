@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -258,17 +258,18 @@ pre > code:last-child {
 <p>napari plugin for analyzing fluorescence-labeled proteins redistribution. Offers widgets designed for analyzing the redistribution of fluorescence-labeled proteins in widefield epifluorescence time-lapse acquisitions. Particularly useful for studying various phenomena such as calcium-dependent translocation of neuronal calcium sensors, synaptic receptor traffic during long-term plasticity induction, and membrane protein tracking.</p>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/translocation.gif" />
 <strong>Hippocalcin (neuronal calcium sensor) redistributes in dendritic branches upon NMDA application</strong></p>
-<h1>Detection of fluorescence redistributions</h1>
+<hr />
+<h2>Detection of fluorescence redistributions</h2>
 <p>A set of widgets designed for detecting fluorescence intensity redistribution through the analysis of differential image series (red-green detection).</p>
 <p>Inspired by <a href="https://pubmed.ncbi.nlm.nih.gov/20704590/">Dovgan et al., 2010</a> and <a href="https://www.sciencedirect.com/science/article/pii/S0969996119301974?via%3Dihub">Osypenko et al., 2019</a>.</p>
-<h2>Image preprocessing</h2>
+<h3>Image preprocessing</h3>
 <p>Provides functions for preprocessing multi-channel fluorescence acquisitions:
 - If the input image has 4 dimensions (time, channel, x-axis, y-axis), channels will be split into individual 3 dimensions images (time, x-axis, y-axis) with the <code>_ch%index%</code> suffix.
 - If the <code>gaussian blur</code> option is selected, the image will be blurred with a Gaussian filter using sigma=<code>gaussian sigma</code>.
 - If the <code>photobleaching correction</code> option is selected, the image will undergo correction with exponential (method <code>exp</code>) or bi-exponential (method <code>bi_exp</code>) fitting.
 - If the <code>crop ch</code> option is selected, only a selected range of channel frames will be saved (corresponding to start and stop indexes from <code>crop range</code>).</p>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_00.png" /></p>
-<h2>Red-green series</h2>
+<h3>Red-green series</h3>
 <p>Primary method for detecting fluorescent-labeled targets redistribution in time. Returns a series of differential images representing the intensity difference between the current frame and the previous one as new image with the <code>_red-green</code> suffix.</p>
 <p>Parameters:</p>
 <ul>
@@ -277,7 +278,7 @@ pre > code:last-child {
 <li><code>right frames</code> - number of subsequent frames for pixel-wise averaging.</li>
 </ul>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_11.png" /></p>
-<h2>Up masking</h2>
+<h3>Up masking</h3>
 <p>Generates labels for insertion sites (regions with increasing intensity) based on <code>-red-green</code> images. Returns labels layer with <code>_up-labels</code> suffix.</p>
 <p>Parameters:</p>
 <ul>
@@ -287,18 +288,20 @@ pre > code:last-child {
 <li><code>save mask</code> - if selected, a total up mask (containing all ROIs) will be created with the <code>_up-mask</code> suffix.</li>
 </ul>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_22.png" /></p>
-<h2>Intensity masking</h2>
+<h3>Intensity masking</h3>
 <p>Extension of <strong>Up Masking</strong> widget. Detects regions with increasing (<code>masking mode</code> - <code>up</code>) or decreasing (<code>masking mode</code> - <code>down</code>) intensity in <code>-red-green</code> images. Returns a labels layer with either <code>_up-labels</code> or <code>_down-labels</code> suffix, depending on the mode.</p>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_33.png" /></p>
-<h1>Exo-/endo-cytosis monitoring with pH-sensitive tag</h1>
+<hr />
+<h2>Exo-/endo-cytosis monitoring with pH-sensitive tag</h2>
 <p>A collection of widgets designed for the analysis of image series containing the pH-sensitive fluorescence protein Superecliptic pHluorin (SEP).</p>
 <p>Insipred by <a href="https://pubmed.ncbi.nlm.nih.gov/28474392/">Fujii et al., 2017</a> and <a href="https://www.nature.com/articles/s41596-020-0371-z">Sposini et al., 2020</a>.</p>
-<h2>SEP image preprocessing</h2>
+<h3>SEP image preprocessing</h3>
 <p>Processes image series obtained through repetitive pH exchange methods (such as U-tube or ppH approaches). <code>pH 1st frame</code> option indicates the 1st frame pH. By default frames with odd indexes, including index 0, are interpreted as images acquired at pH 7.0, representing total fluorescence intensity (saved with the suffix <code>_total</code>). Even frames are interpreted as images obtained at acidic pH (5.5-6.0), representing intracellular fluorescence only (saved with the suffix <code>_intra</code>).</p>
 <p>If <code>calc surface img</code> is selected, an additional total fluorescence image with subtracted intracellular intensity will be saved as the cell surface fluorescence fraction (suffix <code>_surface</code>). The input image should be a 3-dimensional single-channel time-lapse.</p>
 <p>The <code>calc projections</code> option allows obtaining individual pH series projections (pixel-wise series MIP - pixel-wise series average) for the detection of individual exo/endocytosis events.</p>
-<h1>Intensty profiles building and data frame saving</h1>
-<h2>Individual labels profiles</h2>
+<hr />
+<h2>Intensty profiles building and data frame saving</h2>
+<h3>Individual labels profiles</h3>
 <p>Builds a plot with mean intensity profiles for each ROI in <code>labels</code> using absolute intensity (if <code>absolute intensity</code> is selected) or relative intensities (ΔF/F0).</p>
 <p>The <code>time scale</code> sets the number of seconds between frames for x-axis scaling.</p>
 <p>The baseline intensity for ΔF/F0 profiles is estimated as the mean intensity of the initial profile points (<code>ΔF win</code>). You could filter ROIs by minimum and maximum ΔF/F0 amplitudes with the <code>ΔF aplitude lim</code> option.</p>
@@ -316,7 +319,7 @@ pre > code:last-child {
 <p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_44.png" />
 :-------------------------:|:-------------------------:
 <strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_55.png" /></p>
-<h2>Labels stat profiles</h2>
+<h3>Labels stat profiles</h3>
 <p>Builds a plot with the averaged intensity of all ROIs in <code>labels</code>. Can take two images (<code>img 0</code> and <code>img 1</code>) as input if <code>two profiles</code> are selected.</p>
 <p>The <code>time scale</code> and <code>ΔF win</code> are the same as in the <strong>Individual Labels Profiles</strong>.</p>
 <p>The <code>stat method</code> provides methods for estimation intensity and errors:</p>
@@ -341,7 +344,7 @@ pre > code:last-child {
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.2</li>
                                                 </ul>
                                             </div>
                                         </div>
