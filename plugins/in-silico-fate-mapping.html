@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2023-08-01</li>
+                                            <li class="MetadataList_textItem__KKmMN">2024-04-10</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -263,8 +263,13 @@ pre > code:last-child {
 <p>Video example below:</p>
 <p>https://user-images.githubusercontent.com/21022743/216478216-89c1c35f-2ce4-44e8-adb8-9aeea75b5833.mp4</p>
 <h2>Installation</h2>
-<p>You can install <code>in-silico-fate-mapping</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install in-silico-fate-mapping
+<p>We suggest you create a fresh conda environment to avoid conflicts with your existing package.
+To do this, you need to:</p>
+<pre><code>conda create -n fatemap python=3.11
+conda activate fatemap
+</code></pre>
+<p>And then, you can install <code>in-silico-fate-mapping</code> via <a href="https://pypi.org/project/pip/">pip</a> and other additional useful packages:</p>
+<pre><code>pip install ultrack napari-ome-zarr napari[all] in-silicio-fate-mapping
 </code></pre>
 <p>To install the latest development version :</p>
 <pre><code>pip install git+https://github.com/royerlab/in-silico-fate-mapping.git
@@ -303,7 +308,7 @@ viewer.window.add_dock_widget(FateMappingWidget(viewer))</p>
 <p>viewer.open(image_path, plugin="napari-ome-zarr")</p>
 <p>tracks = pd.read_csv(tracks_path)
 viewer.add_tracks(tracks[["TrackID", "t", "z", "y", "x"]])
-viewer.add_points(name="Markers")</p>
+viewer.add_points(name="Markers", ndim=4)</p>
 <p>napari.run()
 ```</p>
 <h2>Citing</h2>
@@ -333,7 +338,7 @@ viewer.add_points(name="Markers")</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -343,7 +348,7 @@ viewer.add_points(name="Markers")</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2023-08-01</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2024-04-10</li>
                                                 </ul>
                                             </div>
                                         </div>
