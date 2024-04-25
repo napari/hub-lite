@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.5</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.8</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -254,7 +254,7 @@ pre > code:last-child {
 <a href="https://github.com/hereariim/napari-apple/actions"><img alt="tests" src="https://github.com/hereariim/napari-apple/workflows/tests/badge.svg" /></a>
 <a href="https://codecov.io/gh/hereariim/napari-apple"><img alt="codecov" src="https://codecov.io/gh/hereariim/napari-apple/branch/main/graph/badge.svg" /></a>
 <a href="https://napari-hub.org/plugins/napari-apple"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-apple" /></a></p>
-<p>Detection of apple based on YOLOv4 model</p>
+<p>Detection of apple based on YOLOv4-tiny model</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -266,8 +266,7 @@ https://napari.org/plugins/index.html
 -->
 
 <h2>Installation</h2>
-<p>First, please note that this module <strong>only works</strong> on a Linux Ubuntu system. Indeed, the launch of the YOLO module is a command that is executed on a Linux Ubuntu system.</p>
-<p>Before you can operate the module, you must install the <code>napari-apple</code> module and Darknet on your machine.</p>
+<p>Before you can operate the module, you must install the <code>napari-apple</code> module.</p>
 <h3>Instruction for napari-module</h3>
 <p>You can install <code>napari-apple</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <pre><code>pip install napari-apple
@@ -275,13 +274,13 @@ https://napari.org/plugins/index.html
 <p>To install latest development version :</p>
 <pre><code>pip install git+https://github.com/hereariim/napari-apple.git
 </code></pre>
-<h3>Instruction Darknet</h3>
-<p>Darknet is the module where the pre-trained YOLO model is located. You can install Darknet by running this command:</p>
-<pre><code>git clone https://github.com/pjreddie/darknet
-cd darknet
-make
-</code></pre>
-<p>When Darknet is installed, you have to put the weights of the apple detection model in the cfg subfolder. You find the weights in the weight-darknet folder. </p>
+<h2>How does it works</h2>
+<p>Here, user drop its images in the napari windows. The plugin shows two widgets : 
+- Image detection
+- Export data</p>
+<p>In Image detection, user select the interesting layer to detect apple. The "Run" button run the inference detection based on Yolov4-tiny model. At the end, the result is displayed on screen. User can correct freely the detection by removing or adding box in image.</p>
+<p>In Export data, user export select the interesting shape layer and RGB image. A button "Save to csv" save bounding box coordinate in Yolo way into a text file.</p>
+<p><img alt="Capture d'écran 2024-04-24 114340" src="https://github.com/hereariim/napari-apple/assets/93375163/d8873a6a-8ebb-4686-bfe9-e7e7729378b1" /></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -305,7 +304,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.5</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.8</li>
                                                 </ul>
                                             </div>
                                         </div>

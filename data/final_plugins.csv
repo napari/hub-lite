@@ -7285,7 +7285,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/hereariim/napari-aphid/issues', 'Documentation, https://github.com/hereariim/napari-aphid#README.md', 'Source Code, https://github.com/hereariim/napari-aphid', 'User Support, https://github.com/hereariim/napari-aphid/issues']",,,napari-aphid.process_segmentation,,,,,https://pypi.org/project/napari-aphid,https://github.com/hereariim/napari-aphid,
-72,Apple,0.0.5,,,napari-apple,Herearii Metuarea,herearii.metuarea@gmail.com,BSD-3-Clause,,Detection of apple based on YOLOv4 model,>=3.8,"['numpy', 'magicgui', 'qtpy', 'opencv-python-headless', 'scikit-image', 'napari', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-apple
+72,Apple,0.0.8,,,napari-apple,Herearii Metuarea,herearii.metuarea@gmail.com,BSD-3-Clause,,Detection of apple based on YOLOv4 model,>=3.8,"['numpy', 'magicgui', 'qtpy', 'opencv-python-headless', 'scikit-image', 'napari', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-apple
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-apple.svg?color=green)](https://github.com/hereariim/napari-apple/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-apple.svg?color=green)](https://pypi.org/project/napari-apple)
@@ -7294,7 +7294,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [![codecov](https://codecov.io/gh/hereariim/napari-apple/branch/main/graph/badge.svg)](https://codecov.io/gh/hereariim/napari-apple)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-apple)](https://napari-hub.org/plugins/napari-apple)
 
-Detection of apple based on YOLOv4 model
+Detection of apple based on YOLOv4-tiny model
 
 ----------------------------------
 
@@ -7310,9 +7310,7 @@ https://napari.org/plugins/index.html
 
 ## Installation
 
-First, please note that this module **only works** on a Linux Ubuntu system. Indeed, the launch of the YOLO module is a command that is executed on a Linux Ubuntu system.
-
-Before you can operate the module, you must install the `napari-apple` module and Darknet on your machine.
+Before you can operate the module, you must install the `napari-apple` module.
 
 ### Instruction for napari-module
 
@@ -7324,15 +7322,18 @@ To install latest development version :
 
     pip install git+https://github.com/hereariim/napari-apple.git
 
-### Instruction Darknet
+## How does it works
 
-Darknet is the module where the pre-trained YOLO model is located. You can install Darknet by running this command:
+Here, user drop its images in the napari windows. The plugin shows two widgets : 
+- Image detection
+- Export data
 
-    git clone https://github.com/pjreddie/darknet
-    cd darknet
-    make
-    
-When Darknet is installed, you have to put the weights of the apple detection model in the cfg subfolder. You find the weights in the weight-darknet folder. 
+In Image detection, user select the interesting layer to detect apple. The ""Run"" button run the inference detection based on Yolov4-tiny model. At the end, the result is displayed on screen. User can correct freely the detection by removing or adding box in image.
+
+In Export data, user export select the interesting shape layer and RGB image. A button ""Save to csv"" save bounding box coordinate in Yolo way into a text file.
+
+![Capture d'écran 2024-04-24 114340](https://github.com/hereariim/napari-apple/assets/93375163/d8873a6a-8ebb-4686-bfe9-e7e7729378b1)
+
 
 ## Contributing
 
@@ -9077,7 +9078,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/andy-sweet/napari-blob-detection/issues', 'Documentation, https://github.com/andy-sweet/napari-blob-detection#README.md', 'Source Code, https://github.com/andy-sweet/napari-blob-detection', 'User Support, https://github.com/andy-sweet/napari-blob-detection/issues']",,,napari-blob-detection.detect_blobs_widget,,,,,https://pypi.org/project/napari-blob-detection,https://github.com/andy-sweet/napari-blob-detection,
-91,Blossom,0.1.5,2022-07-07,2023-11-07,napari-blossom,Herearii Metuarea,herearii.metuarea@gmail.com,BSD-3-Clause,https://github.com/hereariim/napari-blossom,Segmentation of blossom apple tree images,>=3.8,"['numpy >=1.23.0', 'magicgui >=0.6.1', 'qtpy', 'opencv-python-headless >=4.7.0.68', 'tensorflow >=2.11.0', 'scikit-image >=0.19.3', 'napari', 'focal-loss >=0.0.7', 'pillow >=9.3.0', 'tqdm >=4.64.1', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-blossom
+91,Blossom,0.1.6,2022-07-07,2023-11-07,napari-blossom,Herearii Metuarea,herearii.metuarea@gmail.com,BSD-3-Clause,https://github.com/hereariim/napari-blossom,Segmentation of blossom apple tree images,>=3.8,"['numpy >=1.23.0', 'magicgui >=0.6.1', 'qtpy', 'opencv-python-headless >=4.7.0.68', 'tensorflow >=2.11.0', 'scikit-image >=0.19.3', 'napari', 'focal-loss >=0.0.7', 'pillow >=9.3.0', 'tqdm >=4.64.1', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-blossom
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-blossom.svg?color=green)](https://github.com/hereariim/napari-blossom/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-blossom.svg?color=green)](https://pypi.org/project/napari-blossom)
@@ -9117,6 +9118,8 @@ To install latest development version :
 ## How does it works
 
 This module offers a plugin that allows you to segment the images of the apple tree flowers. As input, you can enter a **single image** with the image selection widget. Once the image is entered in the napari window, you can segment the apple blossoms with the image segmentation widget by running the run button. The segmented image will appear in the napari window.
+
+![Capture d'écran 2024-04-24 120758](https://github.com/hereariim/napari-blossom/assets/93375163/4f0c6ac7-b3a8-4849-9c5c-0ff5f35c8362)
 
 ## Contributing
 
@@ -31278,7 +31281,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']",,,,napari-tomotwin.UmapTool,,,,,https://pypi.org/project/napari-tomotwin,https://github.com/MPI-Dortmund/napari-tomotwin,
-328,ToothFairy Annotator,0.0.15,2024-04-10,2024-04-23,napari-toothfairy-annotator,Luca Lumetti,lumetti.luca@gmail.com,MIT,https://github.com/LucaLumetti/napari-toothfairy-annotator,The plugin employed to annotate volumes employed in the ToothFairy 2 Challenge,>=3.8,"['numpy', 'magicgui', 'qtpy', 'scikit-image', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-toothfairy-annotator
+328,ToothFairy Annotator,0.0.16,2024-04-10,2024-04-24,napari-toothfairy-annotator,Luca Lumetti,lumetti.luca@gmail.com,MIT,https://github.com/LucaLumetti/napari-toothfairy-annotator,The plugin employed to annotate volumes employed in the ToothFairy 2 Challenge,>=3.8,"['numpy', 'magicgui', 'qtpy', 'scikit-image', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-toothfairy-annotator
 
 [![License MIT](https://img.shields.io/pypi/l/napari-toothfairy-annotator.svg?color=green)](https://github.com/LucaLumetti/napari-toothfairy-annotator/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-toothfairy-annotator.svg?color=green)](https://pypi.org/project/napari-toothfairy-annotator)
