@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.4</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.6</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -253,7 +253,8 @@ pre > code:last-child {
 <a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-3dtimereg.svg?color=green" /></a>
 <a href="https://napari-hub.org/plugins/napari-3dtimereg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-3dtimereg" /></a></p>
 <p>Temporal registration of 2D/3D movies on one channel based on <a href="https://pypi.org/project/itk-elastix/">itk-elastix</a>, and transpose alignement to the other channels.</p>
-<p>Adaptated from <a href="https://gitlab.pasteur.fr/gletort/multireg">multireg</a> for temporal movies.</p>
+<p>Adaptated from <a href="https://gitlab.pasteur.fr/gletort/multireg">multireg</a> for temporal movies.
+For a tutorial on using <code>elastix</code> for registration, see <a href="https://m-albert.github.io/elastix_tutorial/intro.html">this tutorial</a>.</p>
 <hr />
 <h2>Installation</h2>
 <ul>
@@ -270,14 +271,19 @@ pre > code:last-child {
 <h3>Choose movie and reference chanel</h3>
 <p>First, choose select the movie that you want to register. The plugin will create a folder <code>aligned</code> in the folder of your selected movie where the results will be saved.</p>
 <p>Choose the color chanel on which to calculate the registration (<code>reference chanel</code>). Color chanels are numbered from 0 to nchanels, and you can see their respective number in the layer list on the left panel of Napari. Click on <code>Update</code> when the correct chanel is selected to go to the registration calculation step.</p>
-<h3>Calculate alignement</h3>
-<p>If the <code>reference frame</code> parameter is set to <code>previous</code>, the registration of each frame will be calculated by comparing it to its previous frame (previously aligned). You can also choose to calculate the alignement of all frames compared to the middle (temporally) frame or all frames compared to the first frame of the movie.</p>
+<h3>Calculate temporal alignement</h3>
+<p>The registration is calculated iteratively from one frame to another. Thus the first frame is not moved and all the other frames are aligned to it.
+You can tune several parameters in this plugin:</p>
 <p><img alt="parameters screenshot" src="./imgs/parameters.png" title="Registration parameters" /></p>
 <p>The other parameters are parameters to use <a href="https://elastix.lumc.nl/">itk-elastix</a> to calculate the registration.
 * <code>show log</code>: to see the log of Elastix calculation
 * <code>do rigid</code>: performs a rigid (affine) transformation step, that allowed to correct for translations/rotations.
 * <code>do bspline</code>: performs a b-spline based transformation step, that allowed for local deformations in the image.
-* <code>show advanced parameters</code>: to control the parameters used in the rigid and/or bspline transformations. These parameters control the size of the local registrations calculated, the resolutions at which the transformations are calculated, and can thus greatly impact the results.</p>
+* <code>show advanced parameters</code>: to control the parameters used in the rigid and/or bspline transformations. These parameters control the size of the local registrations calculated, the resolutions at which the transformations are calculated, and can thus greatly impact the results.
+* <code>final order</code>: is the final order of the B-Splines used for the registration. 
+* <code>resolution</code>: is the number of consecutives resolutions at which the registration will be made. First the registration is made at the lowest level of resolution, correcting global deformations/motions, then at each step, the registration is done on higher resolution, allowing to correct for more local deformations.
+* <code>final spacing</code>: is the physical spacing of the smallest resolution.
+* <code>iterations</code>: are the maximum number of iterations allowed to minimize the distance between the two images for each resolution and type of registration.</p>
 <p>If both rigid and bspline transformations, the program first applies the rigid transformation to allow for a global registration of the images. Then it will performs the second step of b-spline transformation that can includes local deformations.</p>
 <p>For each frame, after calculating the registration on the reference chanel, the plugin will apply the calculated transformation to all the other color chanels of the initial movie. All results are saved as separated images in the <code>aligned</code> folder during the computation.</p>
 <h3>Create the final aligned movie</h3>
@@ -300,7 +306,7 @@ pre > code:last-child {
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.6</li>
                                                 </ul>
                                             </div>
                                         </div>
