@@ -98,128 +98,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']",,,,affinder.start_affinder,,,,,https://pypi.org/project/affinder,https://github.com/jni/affinder,
-2,AlveolEye,0.1.2,,,AlveolEye,Joseph Hirsh,josephhirsh9@gmail.com,MIT,,Reads lung slides with AI-driven and classical methods,>=3.8,"['numpy', 'magicgui', 'qtpy', ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""qtpy ; extra == 'testing'""]","<!--
-[![License MIT](https://img.shields.io/pypi/l/automated-lung-morphometry.svg?color=green)](https://github.com/Quooooooookka/automated-lung-morphometry/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/automated-lung-morphometry.svg?color=green)](https://pypi.org/project/automated-lung-morphometry)
-[![Python Version](https://img.shields.io/pypi/pyversions/automated-lung-morphometry.svg?color=green)](https://python.org)
-[![tests](https://github.com/Quooooooookka/automated-lung-morphometry/workflows/tests/badge.svg)](https://github.com/Quooooooookka/automated-lung-morphometry/actions)
-[![codecov](https://codecov.io/gh/Quooooooookka/automated-lung-morphometry/branch/main/graph/badge.svg)](https://codecov.io/gh/Quooooooookka/automated-lung-morphometry)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/automated-lung-morphometry)](https://napari-hub.org/plugins/automated-lung-morphometry)
--->
-
-# AlveolEye: Automated lung morphometry made easy
-
-This repository contains the beta version of AlveolEye, which is created by the Sucre lab.
-This code is authored by Joseph Hirsh, Samuel Hirsh, Nick Negretti, and Shawyon Shirazi.
-
-This project is a Napari plugin that uses computer vision tools and classical image processing
-to calculate mean linear intercept (MLI) and airspace volume density (ASVD) from histological images.
-
-A primary goal of this tool is to be an aid to the researcher, and not be a complete automated annotation solution.
-
-## Installation
-
-The target of this process is to create a conda environment that has both napari, and all of the AlveolEye requirements.
-
-If you already have conda setup, you can skip step 1
-
-1. Install miniconda by downlading the appropriate version from [here](https://docs.anaconda.com/free/miniconda/)
-
-   a. Choose the version that matches your processor
-
-   b. Download the ""pkg"" version for easy install
-2. Open a terminal, or miniconda prompt, and clone this git repository by running:
-
-    ```git clone https://github.com/SucreLab/AlveolEye```
-3. Go to the AlveolEye directory
-
-    ```cd AlveolEye```
-4. Create the conda environment
-
-    ```conda env create -f ./environment.yml```
-5. Activate the new environment
-
-    ```conda activate AlveolEye```
-6. Install the plugin
-
-    ```pip install .```
-7. Launch napari, followed by locating the plugin in the plugin menu
-
-    ```napari```
-
-## Running post-installation
-
-1. Open a terminal, or miniconda prompt, activate the environment and run napari
-
-```
-conda activate AlveolEye
-napari
-```
-
-
-# AlveolEye Usage Tutorial
-
-## Annotated Diagram
-![annotated diagram](./docs/Colored_AlveolEye.png)
-
-## Processing: Identify and segment vessel and airway epithelium with an AI computer vision model.
-1. ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Select an image**: The remaining steps will concern this image.
-
-   a. Click the “Import Image” button.
-
-   b. Use operating system default file dialogue to select an image (*.jpg, *.png, or *.tiff).
-
-   c. Check the image in the “Image” layer (of the Napari Viewer) and the file name (displayed to the right of the “Import Image” button) to confirm that the image loaded correctly.
-2. ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Select a model**</span>: The selected model will run on the image and predict (segment) vessel and airway epithelium.
-
-   a. To use the default model, skip to step 3; otherwise, proceed to step 2b. Use the provided default model unless you have a specific reason not to.
-
-   b. Click the “Import Weights” button.
-
-   c. Use operating system file dialogue to select a model (*.pth).
-
-   d. Check the file name (displayed to the right of the “Import Weights” button) to confirm that the model loaded correctly.
-3. ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Select a confidence level**: Type a percentage and/or click the “-” and “+” buttons in the “Minimum confidence” input box to set the confidence level. Predictions with lower confidence then the set confidence level will not appear.
-4. ![#f03c15](https://placehold.co/15x15/33FF33/33FF33.png) **Run processing**: Click the “Run Processing” button to run the model and segment vessel and airway epithelium filtered by confidence level. Once completed, manually edit the prediction as necessary with the built-in napari tools to the left of the displayed image layer. See Napari documentation for more information about how to use these tools.
-
----
-
-## Postprocessing: Identify alveolar tissue, and airwary and vessel lumens with “classical” (non-AI) methods; remove small particles and holes to prepare for assessments.
-1. ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Toggle manual thresholding**: To manually set a threshold value, toggle manual threshold; otherwise, a threshold value will be determined with Otsu's method.
-
-   a. To use manual thresholding, check the “Manual thresholding” box and proceed; to use automatic thresholding, leave the box unchecked and skip to step 2.
-
-   b. Type a percentage and/or click the “-” and “+” buttons in the “Manual thresholding” input box to set the threshold level.
-2. ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Remove small particles**: Type a percentage and/or click the “-” and “+” buttons in the “Remove small particles” input box to set the maximum size cutoff for particles to remove. Particles with fewer pixels than the set number will be removed.
-3. ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Remove small holes**: Type a percentage and/or click the “-” and “+” buttons in the “Remove small holes” input box to set the maximum size cutoff for holes to remove. Holes with fewer pixels than the set number will be removed.
-4. ![#f03c15](https://placehold.co/15x15/33FF33/33FF33.png) **Run postprocessing**: Click “Run Postprocessing” button to identify alveolar tissue, airwary lumens, and vessel lumens, and to remove small particles and holes. Once completed, manually edit the post-processing layer as necessary with the built-in napari tools to the left of the displayed image layer. See Napari documentation for more information about how to use these tools.
-
----
-
-## Assessments: Calculate morphometry assessments—mean linear intercept (MLI) and airspace volume density (ASVD) on the fully classified image.
-1. ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Select ASVD**: To include ASVD calculations in results, check the “ASVD” checkbox; otherwise, leave the box unchecked. Leave the box unchecked to increase the speed of the assessments calculation or to exclude unnecessary data from the final export file.
-2. ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Select MLI**: To include MLI calculations in results, check the “MLI” checkbox; otherwise, leave the box unchecked. Leave the box unchecked to increase the speed of the assessments calculation or to exclude unnecessary data from the final export file.
-3. ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Set number of lines**: Type a number and/or click the “-” and “+” buttons in the “number of lines” input box to set the number of MLI lines.
-4. ![#f03c15](https://placehold.co/15x15/33FF33/33FF33.png) **Set minimum length**: Type a number and/or click the “-” and “+” buttons in the “minimum length” input box to set the minimum length required for a chord to be included in the mean calculation.
-5. ![#f03c15](https://placehold.co/15x15/3359FF/3359FF.png) **Set scale**: Type a number and/or click the “-” and “+” buttons in the “scale” input box to set the scale factor (i.e. a pixel to physical space multiplier).
-6. ![#f03c15](https://placehold.co/15x15/C433FF/C433FF.png) **Run Assessments**: Click the “Run Assessments” button to calculate the selected assessments. The ASVD and MLI calculation results will display to the right of the assessment checkboxes.
-
----
-
-## Export Results: Collect assessment results for each image and export all the data into a file when done (*.csv or *.json).
-- **Interpreting Results**
-    - **MLI:** Mean Linear Intercept for the given image
-    - **Standard deviation:** The standard deviation of the lengths of the chord used to calculate MLI.
-    - **Number of chords:** The number of chords used to calculate MLI.
-    - **ASVD:** Airspace Volume Density calculation for the given image.
-    - **Airspace pixels:** The total number of airspace pixels
-    - **Non airspace pixels:** The total number non-airspace pixels.
-1. ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Add last result**: Click the “Add” button to add the assessment data to the final export file. Once the results are added, you can return to the ""Processing"" step and do another image.
-2. ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Remove last result**: Click the “Remove” button to remove the last results added to the export file.
-3. ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Clear export data**: Click the “Clear” button to clear the export data file.
-4. ![#f03c15](https://placehold.co/15x15/33FF33/33FF33.png) **Export Results**: Click the “Export Results” button to open a file dialogue for saving the assessments results. Note that the plugin supports two export result file types, *.csv and *.json that you can choose between.
-
-","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']",,AlveolEye.get_reader,AlveolEye.write_multiple,AlveolEye.make_qwidget,AlveolEye.make_sample_data,"['.jpeg', '.jpg', '.png', '.tif', '.tiff']",,['.npy'],https://pypi.org/project/AlveolEye,,
+2,AlveolEye,0.1.2,,,AlveolEye,Joseph Hirsh,,MIT,,Reads lung slides with AI-driven and classical methods,,,,,,,,,,,,,https://pypi.org/project/AlveolEye,,
 3,anchor-droplet-chip,0.4.4,2023-12-04,2023-12-04,anchor-droplet-chip,Andrey Aristov,aaristov@pasteur.fr,BSD-3-Clause,https://pypi.org/project/anchor-droplet-chip,Segment organoids and measure intensities,>=3.8,"['dask', 'fire', 'jupyterlab', 'matplotlib', 'napari', 'nd2', 'numpy', 'pandas', 'pyqt6', 'pytest-qt', 'pyyaml', 'scikit-image', 'scipy', 'seaborn', 'tifffile', 'zarr-tools', 'zenodo-get']","# ⚓ anchor-droplet-chip
 ## Measuring single-cell susceptibility to antibiotics within monoclonal fluorescent bacteria.
 
@@ -881,102 +760,7 @@ conda install -c conda-forge pyopencl
 pip install beetlesafari
 ```
 ","['Programming Language :: Python :: 3', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Framework :: napari', 'Intended Audience :: Science/Research', 'Development Status :: 3 - Alpha']",,,,,,,,,https://pypi.org/project/beetlesafari,https://github.com/haesleinhuepf/beetlesafari,
-9,Canvas Widget from BiAPoL,0.0.3,,,biaplotter,Marcelo Leomil Zoccoler,marzoccoler@gmail.com,BSD-3-Clause,,A base napari plotter widget for interactive plotting,>=3.9,"['numpy', 'magicgui', 'qtpy', 'napari-matplotlib', 'nap-plot-tools >=0.1.0', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# biaplotter
-
-[![License BSD-3](https://img.shields.io/pypi/l/biaplotter.svg?color=green)](https://github.com/BiAPoL/biaplotter/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/biaplotter.svg?color=green)](https://pypi.org/project/biaplotter)
-[![Python Version](https://img.shields.io/pypi/pyversions/biaplotter.svg?color=green)](https://python.org)
-[![tests](https://github.com/BiAPoL/biaplotter/workflows/tests/badge.svg)](https://github.com/BiAPoL/biaplotter/actions)
-[![codecov](https://codecov.io/gh/BiAPoL/biaplotter/branch/main/graph/badge.svg)](https://codecov.io/gh/BiAPoL/biaplotter)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/biaplotter)](https://napari-hub.org/plugins/biaplotter)
-
-A base napari plotter widget for interactive plotting
-
-----------------------------------
-
-This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
-
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-
-## Documentation
-
-The full documentation with API and examples can be found [here](https://biapol.github.io/biaplotter/).
-
-## Installation
-
-* Make sure you have Python in your computer, e.g. download [miniforge](https://github.com/conda-forge/miniforge?tab=readme-ov-file#download).
-
-* Create a new environment, for example, like this:
-
-```
-mamba create --name biaplotter-env python=3.9
-```
-
-If you never used mamba/conda environments before, take a look at [this blog post](https://biapol.github.io/blog/mara_lampert/getting_started_with_mambaforge_and_python/readme.html).
-
-* **Activate** the new environment with `mamba`:
-
-```
-mamba activate biaplotter-env
-```
-
-* Install [napari](https://napari.org/stable/), e.g. via `mamba`:
-
-```
-mamba install -c conda-forge napari pyqt
-```
-
-Afterwards, install `biaplotter` via `pip`:
-
-```
-pip install biaplotter
-```
-
-To install latest development version :
-
-```
-pip install git+https://github.com/BiAPoL/biaplotter.git
-```
-
-
-## Contributing
-
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [BSD-3] license,
-""biaplotter"" is free and open source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed description.
-
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-
-[file an issue]: https://github.com/BiAPoL/biaplotter/issues
-
-[napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/BiAPoL/biaplotter/issues', 'Documentation, https://github.com/BiAPoL/biaplotter#README.md', 'Source Code, https://github.com/BiAPoL/biaplotter', 'User Support, https://github.com/BiAPoL/biaplotter/issues']",,,biaplotter.make_qwidget,,,,,https://pypi.org/project/biaplotter,,
+9,Canvas Widget from BiAPoL,0.0.3,,,biaplotter,Marcelo Leomil Zoccoler,,BSD-3-Clause,,A base napari plotter widget for interactive plotting,,,,,,,,,,,,,https://pypi.org/project/biaplotter,,
 10,blik,0.6.13,2022-07-11,2023-11-16,blik,Lorenzo Gaifas,Lorenzo Gaifas <brisvag@gmail.com>,GPLv3,https://github.com/gutsche-lab/blik,Python tool for visualising and interacting with cryo-ET and subtomogram averaging data.,>=3.9,"['cryohub>=0.6.4', 'cryotypes>=0.2.0', 'dask', 'einops', 'magicgui>=0.4.0', 'morphosamplers>=0.0.10', 'numpy', 'packaging', 'pandas', 'pydantic<2', 'scipy', ""napari-label-interpolator>=0.1.1; extra == 'all'"", ""napari-properties-plotter; extra == 'all'"", ""napari-properties-viewer; extra == 'all'"", ""napari[all]>=0.4.19; extra == 'all'"", ""black; extra == 'dev'"", ""ipython; extra == 'dev'"", ""mypy; extra == 'dev'"", ""napari[all]>=0.4.19; extra == 'dev'"", ""pdbpp; extra == 'dev'"", ""pre-commit; extra == 'dev'"", ""pytest-cov; extra == 'dev'"", ""pytest-qt; extra == 'dev'"", ""pytest>=6.0; extra == 'dev'"", ""rich; extra == 'dev'"", ""ruff; extra == 'dev'"", ""napari[all]>=0.4.19; extra == 'test'"", ""pytest-cov; extra == 'test'"", ""pytest-qt; extra == 'test'"", ""pytest>=6.0; extra == 'test'""]","![logo](https://github.com/brisvag/blik/raw/main/docs/images/logo.png)
 
 # blik
@@ -1812,132 +1596,7 @@ A tool to support interactive machine learning for cryoET data
 
 ![cryocanvas screenshot](cover.png)
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/kephale/cryocanvas/issues', 'Documentation, https://github.com/kephale/cryocanvas#README.md', 'Source Code, https://github.com/kephale/cryocanvas', 'User Support, https://github.com/kephale/cryocanvas/issues']",,,cryocanvas.make_qwidget,,,,,https://pypi.org/project/cryocanvas,,
-21,Cut Detector,0.0.14,,,cut-detector,Thomas Bonte,thomas.bonte@mines-paristech.fr,BSD-3-Clause,,Automatic Cut Detector,>=3.9,"['cellpose >=2.2.3', 'pyimagej', 'scyjava', 'cnn-framework ==0.0.16', 'magicgui', 'pydantic ==1.10.12', 'xmltodict', 'shapely', 'aicsimageio', 'scikit-learn ==1.2.2', 'charset-normalizer ==3.3.0', 'napari[all]', 'laptrack', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# Cut Detector
-
-[![License BSD-3](https://img.shields.io/pypi/l/cut-detector.svg?color=green)](https://github.com/15bonte/cut-detector/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/cut-detector.svg?color=green)](https://pypi.org/project/cut-detector)
-[![Python Version](https://img.shields.io/pypi/pyversions/cut-detector.svg?color=green)](https://python.org)
-[![tests](https://github.com/15bonte/cut-detector/workflows/tests/badge.svg)](https://github.com/15bonte/cut-detector/actions)
-[![codecov](https://codecov.io/gh/15bonte/cut-detector/branch/main/graph/badge.svg)](https://codecov.io/gh/15bonte/cut-detector)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cut-detector)](https://napari-hub.org/plugins/cut-detector)
-
-Automatic micro-tubules cut detector.
-
----
-
-This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
-
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-
-## Installation
-
-### Conda environment
-
-It is highly recommended to create a dedicated conda environment, by following these few steps:
-
-1. Install an [Anaconda] distribution of Python. Note you might need to use an anaconda prompt if you did not add anaconda to the path.
-
-2. Open an Anaconda prompt as admin to create a new environment using [conda]. We advice to use python 3.10 and conda 23.10.0, to get conda-libmamba-solver as default solver.
-
-```
-conda create --name cut_detector python=3.10 conda=23.10.0
-conda activate cut_detector
-```
-
-### Package installation
-
-Once in a dedicated environment, our package can be installed via [pip]:
-
-```
-pip install cut_detector
-```
-
-Alternatively, you can clone the github repo to access to playground scripts.
-
-```
-git clone https://github.com/15bonte/cut-detector.git
-cd cut-detector
-pip install -e .
-```
-
-### Fiji
-
-This package relies on [Trackmate] to perform cell tracking. Trackmate is called through [Fiji], which has to be installed independently. Please follow the steps [here](https://imagej.net/software/fiji/downloads) to install it.
-
-Next, install openjdk which is necessary to call Fiji from python.
-
-```
-conda install -c conda-forge openjdk=8
-```
-
-### GPU
-
-We highly recommend to use GPU to speed up segmentation. To use your NVIDIA GPU, the first step is to download the dedicated driver from [NVIDIA].
-
-Next we need to remove the CPU version of torch:
-
-```
-pip uninstall torch
-```
-
-The GPU version of torch to be installed can be found [here](https://pytorch.org/get-started/locally/). You may choose the CUDA version supported by your GPU, and install it with conda. This package has been developed with the version 11.6, installed with this command:
-
-```
-conda install numpy==1.25 pytorch==1.12.1 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia
-```
-
-Note that we have added numpy here to prevent conda from installing a version higher than 1.25, which is not supported by numba.
-
-## Update
-
-To update cut-detector to the latest version, open an Anaconda prompt and use the following commands:
-
-```
-conda activate cut_detector
-pip install cut-detector --upgrade
-```
-
-## Contributing
-
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [BSD-3] license,
-""cut-detector"" is free and open source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed description.
-
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-[file an issue]: https://github.com/15bonte/cut-detector/issues
-[napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-[Anaconda]: https://www.anaconda.com/products/distribution
-[Trackmate]: https://imagej.net/plugins/trackmate/
-[Fiji]: https://imagej.net/software/fiji/
-[NVIDIA]: https://www.nvidia.com/Download/index.aspx?lang=en-us
-[conda]: https://docs.conda.io/en/latest/
-","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/15bonte/cut-detector/issues', 'Documentation, https://github.com/15bonte/cut-detector#README.md', 'Source Code, https://github.com/15bonte/cut-detector', 'User Support, https://github.com/15bonte/cut-detector/issues']",,,cut-detector.whole_process,,,,,https://pypi.org/project/cut-detector,,
+21,Cut Detector,0.0.14,,,cut-detector,Thomas Bonte,,BSD-3-Clause,,Automatic Cut Detector,,,,,,,,,,,,,https://pypi.org/project/cut-detector,,
 22,cylindra,1.0.0b1,,,cylindra,Hanjin Liu,liuha@med.kobe-u.ac.jp,,,"Spectral analysis, simulation and subtomogram averaging of heterogenic cylindrical structures",>=3.10,"['impy-array >=2.4.1', 'acryo >=0.4.7', 'macro-kit >=0.4.6', 'magicgui >=0.8.1', 'magic-class >=0.7.10', 'psygnal >=0.9.1', 'superqt[iconify] >=0.6.1', 'pydantic >=1.10.0', 'pydantic-compat', 'pyqtgraph >=0.12.4', 'pyarrow >=11.0.0', 'numpy >=1.23.0', 'scipy >=1.11.3', 'pandas >=1.5.0', 'polars >=0.20.13', 'scikit-image >=0.21.0', 'napari >=0.4.18', 'qtpy >=2.3.1', 'qt-command-palette >=0.0.7', 'matplotlib >=3.8.1', 'rich >=13.6.0', 'dask <2024', ""pytest ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'"", ""scikit-learn >=1.2.2 ; extra == 'testing'"", ""mrcfile >=1.3.0 ; extra == 'testing'"", ""tifffile >=2023.2.28 ; extra == 'testing'"", ""starfile ; extra == 'testing'"", ""imodmodel ; extra == 'testing'"", ""maturin >=1.5.0, <2.0.0 ; extra == 'testing'"", ""pyqt5 ; extra == 'all'"", ""scikit-learn >=1.2.2 ; extra == 'all'"", ""mrcfile >=1.3.0 ; extra == 'all'"", ""tifffile >=2023.2.28 ; extra == 'all'"", ""starfile ; extra == 'all'"", ""imodmodel ; extra == 'all'"", ""pyqt5 ; extra == 'docs'"", ""mkdocs >=1.5.3 ; extra == 'docs'"", ""mkdocs-autorefs >=0.5.0 ; extra == 'docs'"", ""mkdocs-gen-files >=0.5.0 ; extra == 'docs'"", ""mkdocs-material >=9.5.2 ; extra == 'docs'"", ""mkdocs-material-extensions >=1.3.1 ; extra == 'docs'"", ""mkdocstrings >=0.24.0 ; extra == 'docs'"", ""mkdocstrings-python >=1.7.5 ; extra == 'docs'"", ""maturin >=1.5.0, <2.0.0 ; extra == 'docs'""]","[![BSD 3-Clause License](https://img.shields.io/pypi/l/cylindra.svg?color=green)](https://github.com/hanjinliu/cylindra/blob/main/LICENSE)
 [![Python package index download statistics](https://img.shields.io/pypi/dm/cylindra.svg)](https://pypistats.org/packages/cylindra)
 [![PyPI version](https://badge.fury.io/py/cylindra.svg)](https://badge.fury.io/py/cylindra)
@@ -2573,190 +2232,8 @@ Absolute intensity         | ![](https://raw.githubusercontent.com/wisstock/domb
 :-------------------------:|:-------------------------:
 __ΔF/F0__|![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_df.png)
 ","['Framework :: napari', 'Development Status :: 3 - Alpha', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Operating System :: OS Independent', 'Topic :: Scientific/Engineering :: Bio-Informatics', 'Topic :: Scientific/Engineering :: Image Processing', 'Topic :: Scientific/Engineering :: Image Recognition', 'Topic :: Utilities']","['Documentation, https://domb.bio/', 'Source Code, https://github.com/wisstock/domb-napari', 'Bug Tracker, https://github.com/wisstock/domb-napari/issues', 'User Support, https://github.com/wisstock/domb-napari/issues']",,,domb-napari.dw_registration_widget,,,,,https://pypi.org/project/domb-napari,,
-27,elastix-napari,0.2.1,,,elastix-napari,Viktor van der Valk,v.o.van_der_valk@lumc.nl,Apache Software License 2.0,,A toolbox for rigid and nonrigid registration of images.,>=3.8,"['itk-elastix (>=0.11.1)', 'numpy (>=1.19.0)', 'napari[all] (>=0.4.6)', 'napari-plugin-engine (>=0.1.4)', 'magicgui (>=0.4.0)', 'itk-napari-conversion (>=0.3.1)', 'napari-itk-io (>=0.1.0)']","# elastix-napari
-
-[![License](https://img.shields.io/pypi/l/elastix-napari.svg?color=green)](https://github.com/SuperElastix/elastix-napari/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/elastix-napari.svg?color=green)](https://pypi.org/project/elastix-napari)
-[![Python Version](https://img.shields.io/pypi/pyversions/elastix-napari.svg?color=green)](https://python.org)
-[![tests](https://github.com/SuperElastix/elastix-napari/workflows/tests/badge.svg)](https://github.com/SuperElastix/elastix-napari/actions)
-[![codecov](https://codecov.io/gh/SuperElastix/elastix-napari/branch/main/graph/badge.svg)](https://codecov.io/gh/SuperElastix/elastix-napari)
-[![Youtube](https://img.shields.io/badge/YouTube-Demo-red)](https://www.youtube.com/watch?v=GzbP-qUR034)
-
-The [napari] plugin for [elastix], a toolbox for rigid and nonrigid registration of images, based on [itk-elastix].
-
-For a demo video see [youtube] channel.
-For tutorials on how to use elastix, see our [Jupyter notebooks].
-
-To find parameters that work well with specific datasets, see the [elastix Model Zoo].
-
-<img width=""1438"" alt=""Screenshot 2021-05-12 at 15 07 24"" src=""https://user-images.githubusercontent.com/33719474/117980045-d6009b00-b333-11eb-9976-f64d34f4f7cc.png"">
-
-## Installation
-
-You can install `elastix-napari` via [pip]:
-
-    pip install elastix-napari
-
-## Contributing
-
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [Apache Software License 2.0] license,
-""elastix-napari"" is free and open source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed description.
-
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-[file an issue]: https://github.com/SuperElastix/elastix-napari/issues
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-[elastix]: https://elastix.lumc.nl/
-[itk-elastix]: https://github.com/InsightSoftwareConsortium/ITKElastix
-[elastix Model Zoo]: https://elastix.lumc.nl/modelzoo/
-[Jupyter notebooks]: https://mybinder.org/v2/gh/InsightSoftwareConsortium/ITKElastix/master?urlpath=lab/tree/examples%2FITK_Example01_SimpleRegistration.ipynb
-[youtube]: https://www.youtube.com/watch?v=GzbP-qUR034
-","['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: Apache Software License']","['Project Site, https://elastix.lumc.nl/', 'Bug Tracker, https://github.com/SuperElastix/elastix-napari/issues', 'Source Code, https://github.com/SuperElastix/elastix-napari', 'User Support, https://groups.google.com/g/elastix-imageregistration']",,,elastix-napari.elastix_registration,,,,,https://pypi.org/project/elastix-napari,,
-28,empanada-napari,1.1.0,2023-04-17,2023-06-18,empanada-napari,"Madeline Barry, Abhishek Bhardwaj, Ryan Conrad",abhishek.bhardwaj@nih.gov,BSD-3-Clause,https://github.com/volume-em/empanada-napari,Napari plugin of algorithms for Panoptic Segmentation of organelles in EM,>=3.7,"['napari >=0.4.16', 'numpy ==1.22', 'napari-plugin-engine >=0.1.4', 'scikit-image >=0.19', 'empanada-dl >=0.1.7', 'imagecodecs', 'openpyxl', 'imagehash', 'mlflow', 'simpleitk', 'tqdm']","# empanada-napari
-
-> [!IMPORTANT]
-> **New Version Announcement!**
-> * New modules 
->   * Morph labels - applies morphological operations to labels
->   * Count labels - counts and lists the label IDs within the dataset
->   * Filter labels - removes small pixel/voxel area labels or labels touching the image boundaries
->   * Export and import a model - export or import locally saved model files to use within empanada-napari
-> * Updated modules 
->   * Export segmentations - now allows 3D segmentations to be exported as a single .tiff image
->   * Pick and save finetune/training patches - now allows paired grayscale and label mask images to create training patches 
->   * Split label - now allows users to specify new label IDs 
-> * Updated documentation
->   * Check out the updated documentation [here](https://empanada.readthedocs.io/en/latest/empanada-napari.html)!
-
-**The paper describing this work is now available [on Cell Systems](https://www.cell.com/cell-systems/fulltext/S2405-4712(22)00494-X).**
-
-**Documentation for the plugin, including more detailed installation instructions, can be found [here](https://empanada.readthedocs.io/en/latest/empanada-napari.html).**
-
-[empanada](https://github.com/volume-em/empanada) is a tool for deep learning-based panoptic segmentation of 2D and 3D electron microscopy images of cells.
-This plugin allows the running of panoptic segmentation models trained in empanada within [napari](https://napari.org).
-For help with this plugin please open an [issue](https://github.com/volume-em/empanada-napari/issues), for issues with napari specifically
-raise an [issue here instead](https://github.com/napari/napari/issues).
-
-## Implemented Models
-
-  - *MitoNet*: A generalist mitochondrial instance segmentation model.
-
-## Example Datasets
-
-Volume EM datasets for benchmarking mitochondrial instance segmentation are available from
-[EMPIAR-10982](https://www.ebi.ac.uk/empiar/EMPIAR-10982/).
-
-## Installation
-
-### New Users
-
-If you've previously installed and used conda, it's recommended (but optional) to create a new virtual 
-environment in order to avoid dependency conflicts. 
-
-empanada-napari works with python=3.9 or lower
-
-It's recommended to have installed napari through [conda](https://docs.conda.io/en/latest/miniconda.html). Then to install this plugin:
-
-```shell
-pip install empanada-napari==1.1.0
-```
-
-Launch napari:
-
-```shell
-napari
-```
-
-Look for empanada-napari under the ""Plugins"" menu.
-
-
-### Returning Users
-
-If you installed napari into a virtual environment as suggested in the original release documentation, 
-be sure to activate it and uninstall the old empanada-napari.
-
-```shell
-pip uninstall empanada-napari
-```
-
-Then install the newest version:
-
-```shell
-pip install empanada-napari==1.1.0
-```
-
-
-![empanada](images/demo.gif)
-
-## GPU Support
-
-**Note: Mac doesn't support NVIDIA GPUS. This section only applies to Windows and Linux systems.**
-
-As for any deep learning models, having a GPU installed on your system will significantly
-increase model throughput (although we ship CPU optimized versions of all models with the plugin).
-
-This plugin relies on torch for running models. If a GPU was found on your system, then you will see that the
-""Use GPU"" checkbox is checked by default in the ""2D Inference"" and ""3D Inference"" plugin widgets. Or if when running
-inference you see a message that says ""Using CPU"" in the terminal that means a GPU is not being used.
-
-Make sure that GPU drivers are correctly installed. In terminal or command prompt:
-
-```shell
-nvidia-smi
-```
-
-If this returns ""command not found"" then you need to [install the driver from NVIDIA](https://www.nvidia.com/download/index.aspx). Instead, if
-if the driver is installed correctly, you may need to switch to the GPU enabled version of torch.
-
-First, uninstall the current version of torch:
-
-```shell
-pip uninstall torch
-```
-
-Then [install torch >= 1.10 using conda for your system](https://pytorch.org/get-started/locally/).
-This command should work:
-
-```shell
-conda install pytorch cudatoolkit=11.3 -c pytorch
-```
-
-## Citing this work
-
-If you use results generated by this plugin in a publication, please cite:
-
-```bibtex
-@article { Conrad2023,
-    author = {Conrad, Ryan and Narayan, Kedar},
-    title = {Instance segmentation of mitochondria in electron microscopy images with a generalist deep learning model trained on a diverse dataset},
-    journal = {Cell Systems},
-    year = {2023},
-    month = {Jan},
-    day = {18},
-    publisher = {Elsevier},
-    volume = {14},
-    number = {1},
-    pages = {58-71.e5},
-    issn = {2405-4712},
-    doi = {10.1016/j.cels.2022.12.006},
-    url = {https://doi.org/10.1016/j.cels.2022.12.006}
-}
-```
-","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/volume-em/empanada-napari/issues', 'Documentation, https://github.com/volume-em/empanada-napari#README.md', 'Source Code, https://github.com/volume-em/empanada-napari', 'User Support, https://github.com/volume-em/empanada-napari/issues']",,,empanada-napari.test_widget,,,,,https://pypi.org/project/empanada-napari,https://github.com/volume-em/empanada-napari,
+27,elastix-napari,0.2.1,,,elastix-napari,Viktor van der Valk,,Apache Software License 2.0,,A toolbox for rigid and nonrigid registration of images.,,,,,,,,,,,,,https://pypi.org/project/elastix-napari,,
+28,empanada-napari,1.1.0,,,empanada-napari,"Madeline Barry, Abhishek Bhardwaj, Ryan Conrad",,BSD-3-Clause,,Napari plugin of algorithms for Panoptic Segmentation of organelles in EM,,,,,,,,,,,,,https://pypi.org/project/empanada-napari,,
 29,EpiTools,0.0.12,2023-08-01,2023-09-07,epitools,Yanlan Mao,"""Daniel R. Matthews"" <d.matthews@ucl.ac.uk>, Giulia Paci <g.paci@ucl.ac.uk>, Pablo Vicente Munuera <p.munuera@ucl.ac.uk>, ""Patrick J. Roddy"" <patrick.roddy@ucl.ac.uk>, ""Paul J. Smith"" <paul.j.smith@ucl.ac.uk>, Yanlan Mao <y.mao@ucl.ac.uk>",BSD 3-Clause,https://github.com/epitools/epitools,Quantifying 2D cell shape and epithelial tissue dynamics,>=3.9,"['PartSeg', 'magicgui', 'matplotlib', 'napari', 'networkx', 'numpy', 'pandas', 'scikit-image >=0.20', 'scipy', ""black ; extra == 'dev'"", ""mypy ; extra == 'dev'"", ""pre-commit ; extra == 'dev'"", ""pyqt5 ; extra == 'dev'"", ""ruff ; extra == 'dev'"", ""tox ; extra == 'dev'"", ""myst-parser ; extra == 'docs'"", ""pydata-sphinx-theme ; extra == 'docs'"", ""pytz ; extra == 'docs'"", ""sphinx-autobuild ; extra == 'docs'"", ""sphinx <5 ; extra == 'docs'"", ""sphinx-autodoc-typehints ; extra == 'docs'"", ""sphinxcontrib-video ; extra == 'docs'"", ""types-pytz ; extra == 'docs'"", ""btrack[napari] >=0.6.1 ; extra == 'wf'"", ""napari-segment-blobs-and-things-with-membranes ; extra == 'wf'""]","[![Licence](https://img.shields.io/pypi/l/epitools.svg?color=green)](https://raw.githubusercontent.com/epitools/epitools/main/LICENCE.md)
 [![PyPI](https://img.shields.io/pypi/v/epitools.svg?color=green)](https://pypi.org/project/epitools)
 [![Python Version](https://img.shields.io/pypi/pyversions/epitools.svg?color=green)](https://python.org)
@@ -2838,7 +2315,7 @@ detailed description.
 Contributions are very welcome. Tests can be run with [tox](https://tox.wiki),
 please ensure the coverage at least stays the same before you submit a pull request.
 ","['Framework :: napari', 'Intended Audience :: Science/Research', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python', 'Topic :: Scientific/Engineering :: Image Processing', 'Topic :: Scientific/Engineering :: Medical Science Apps.', 'Topic :: Scientific/Engineering :: Bio-Informatics']","['Code, https://github.com/epitools/epitools', 'Download, https://pypi.org/project/epitools', 'Homepage, https://github.com/epitools/epitools', 'Issues, https://github.com/epitools/epitools/issues']",epitools.get_reader,epitools.write_single_image,epitools.projection_widget,epitools.load_sample_data,"['*.tif', '*.tiff']","['.tif', '.tiff']","['.tif', '.tiff']",https://pypi.org/project/epitools,https://github.com/epitools/epitools,
-30,faser,0.2.9,,,faser,jhnnsrs,jhnnsrs@gmail.com,,,,">=3.8,<3.11","['magicgui (>=0.4.0,<0.5.0)', 'napari-plugin_engine (>=0.1.4,<0.2.0)', 'numpy (>=1.22.4,<2.0.0)', 'pydantic (>=1.9.1,<2.0.0)']",,"['Framework :: napari', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9']",,,,faser.napari.generate_psf,,,,,https://pypi.org/project/faser,,
+30,faser,0.2.9,,,faser,jhnnsrs,,,,,,,,,,,,,,,,,https://pypi.org/project/faser,,
 31,Generate Dense Patches,0.0.2,2023-10-28,2023-10-28,generate-dense-patches,Aayush Bhatawadekar,asbhatawadekar@gmail.com,BSD-3-Clause,https://pypi.org/project/generate-dense-patches,A simple plugin to create a lot of training data from a 3D volume and mask,>=3.8,"['napari >=0.4.18', 'napari-plugin-engine >=0.2.0', 'numpy ==1.22', 'scikit-image >=0.19', 'magicgui', 'imagecodecs', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# generate-dense-patches
 
 [![License BSD-3](https://img.shields.io/pypi/l/generate-dense-patches.svg?color=green)](https://github.com/volume-em/generate-dense-patches/raw/main/LICENSE)
@@ -4459,38 +3936,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [PyPI]: https://pypi.org/
 
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/hereariim/manini/issues', 'Documentation, https://github.com/hereariim/manini#README.md', 'Source Code, https://github.com/hereariim/manini', 'User Support, https://github.com/hereariim/manini/issues']",,,manini.manini_widget,,,,,https://pypi.org/project/manini,,
-48,Mikro Napari,0.1.63,,,mikro-napari,jhnnsrs,jhnnsrs@gmail.com,CC BY-NC 3.0,,A napari plugin to interact with and provide functionality for a connected arkitekt server,">=3.8,<=3.12","['arkitekt[fluss,mikro,reaktion,rekuest,unlok] (>=0.5.58)']","# mikro-napari
-
-[![codecov](https://codecov.io/gh/jhnnsrs/mikro-napari/branch/master/graph/badge.svg?token=UGXEA2THBV)](https://codecov.io/gh/jhnnsrs/mikro-napari)
-[![PyPI version](https://badge.fury.io/py/mikro-napari.svg)](https://pypi.org/project/mikro-napari/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://pypi.org/project/mikro-napari/)
-![Maintainer](https://img.shields.io/badge/maintainer-jhnnsrs-blue)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/mikro-napari.svg)](https://pypi.python.org/pypi/mikro-napari/)
-[![PyPI status](https://img.shields.io/pypi/status/mikro-napari.svg)](https://pypi.python.org/pypi/mikro-napari/)
-
-mikro napari enables napari on the mikro/arkitekt platform
-
-# DEVELOPMENT
-
-## Idea
-
-This is a napari plugin, that provides a simple user interface to use napari with mikro you can view and annotate
-data on the mikro platform (synchronised between all of your napari instances) and use napari within arkitekt workflows
-(can be extended with other plugins)
-
-## Install
-
-Simple install this plugin via naparis plugin-manager and enable it. 
-Login with your local mikro/arkitekt platform and start using it in workflows
-
-You can also install mikro-napari directly in your enviroment 
-
-```bash
-pip install mikro-napari napari[pyqt5]
-```
-
-
-","['Framework :: napari', 'License :: Other/Proprietary License', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11']","['Repository, https://github.com/jhnnsrs/mikro-napari']",,,mikro-napari.arkitekt_widget,,,,,https://pypi.org/project/mikro-napari,,
+48,Mikro Napari,0.1.63,,,mikro-napari,jhnnsrs,,CC BY-NC 3.0,,A napari plugin to interact with and provide functionality for a connected arkitekt server,,,,,,,,,,,,,https://pypi.org/project/mikro-napari,,
 49,misic-napari,0.2.3,2022-02-11,2023-06-18,misic-napari,"S. Panigrahi & L. Espinosa, IAM, LCB",spanigrahi@imm.cnrs.fr,MIT,https://github.com/pswapnesh/MiSiC,Segmentation of bacteria agnostic to imaging modality,>=3.6,"['tensorflow', 'termcolor']","# misic-napari
 
 <!-- [![License](https://img.shields.io/pypi/l/misic-napari-plugin.svg?color=green)](https://github.com/pswap/misic-napari-plugin/raw/master/LICENSE)
@@ -4861,35 +4307,7 @@ If you encounter any problems, please
 [file an issue](https://github.com/funkelab/motile-napari-plugin/issues) 
 along with a detailed description.
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/funkelab/motile-napari-plugin/issues', 'Documentation, https://github.com/funkelab/motile-napari-plugin#README.md', 'Source Code, https://github.com/funkelab/motile-napari-plugin', 'User Support, https://github.com/funkelab/motile-napari-plugin/issues']",,,motile-plugin.motile_widget,motile-plugin.Fluo_N2DL_HeLa,,,,https://pypi.org/project/motile-plugin,,
-56,MouseCHD,0.0.2a0,,,mousechd-napari,Hoa Nguyen,ntthoa.uphcm@gmail.com,MIT,,A tool for heart segmentation and congenital heart defect detection in mice.,>=3.9,"['setuptools', 'packaging', 'mousechd', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'""]","# Napari plugin for MouseCHD project
-
-![](https://raw.githubusercontent.com/hnguyentt/mousechd-napari/master/assets/thumbnail.png)
-
-*Tool for heart segmentation and congenital heart defect detection in mice.*
-
-## Installation
-### From Bundle
-(1) Install Napari by following this instruction https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-a-bundled-app
-
-(2) Install `mousechd-napari` plugin:
-    * Run Napari
-    * `Plugins` --> `Install/Uninstall Plugins ...` --> Search for `mousechd_napari` --> Click on `install`.
-
-(3) Restart Napari to run the plugin
-
-### From code
-```bash
-conda create -n mousechd_napari python=3.9
-conda activate mousechd_napari
-pip install ""napari[all]""
-pip install mousechd_napari
-napari
-```
-
-## How to use
-
-Please find details instruction in folder [docs](https://github.com/hnguyentt/mousechd-napari/tree/master/docs)
-","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/hnguyentt/mousechd-napari/issues', 'Documentation, https://github.com/hnguyentt/mousechd-napari#README.md', 'Source Code, https://github.com/hnguyentt/mousechd-napari', 'User Support, https://github.com/hnguyentt/mousechd-napari/issues']",mousechd-napari.get_reader,,mousechd-napari.widget,mousechd-napari.sample,"['*.nrrd', '*.nii.gz', '*.dcm']",,,https://pypi.org/project/mousechd-napari,,
+56,MouseCHD,0.0.2a0,,,mousechd-napari,Hoa Nguyen,,MIT,,A tool for heart segmentation and congenital heart defect detection in mice.,,,,,,,,,,,,,https://pypi.org/project/mousechd-napari,,
 57,MSI-Explorer,1.0.1,,,MSI-Explorer,lennart kowitz,lennart.kowitz@isas.de,BSD-3-Clause,,a napari plug-in for biochemical annotation of mass spectrometry imaging data,>=3.8,"['numpy', 'qtpy', 'pyimzml', 'matplotlib', 'vaex', 'opencv-python', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# MSI-Explorer
 
 [![License BSD-3](https://img.shields.io/pypi/l/MSI-Explorer.svg?color=green)](https://github.com/MMV-Lab/MSI-Explorer/raw/main/LICENSE)
@@ -5464,78 +4882,7 @@ This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookie
 [PyPI]: https://pypi.org/
 [ortho-view-napari]: https://github.com/JoOkuma/ortho-view-napari
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/gatoniel/napari-3d-ortho-viewer/issues', 'Documentation, https://github.com/gatoniel/napari-3d-ortho-viewer#README.md', 'Source Code, https://github.com/gatoniel/napari-3d-ortho-viewer', 'User Support, https://github.com/gatoniel/napari-3d-ortho-viewer/issues']",,,napari-3d-ortho-viewer.make_ortho_viewer_widget,,,,,https://pypi.org/project/napari-3d-ortho-viewer,https://github.com/gatoniel/napari-3d-ortho-viewer,
-61,3D Movies Registration,0.0.6,,,napari-3dtimereg,Gaëlle Letort,gaelle.letort@pasteur.fr,BSD-3-Clause,,Registration of 3D movies applied to all channels,>=3.8,"['numpy', 'napari', 'magicgui', 'qtpy', 'tifffile', 'imaris-ims-file-reader', 'czifile', 'itk ==5.3.0', 'itk-registration', 'itk-elastix']","# napari-3dtimereg
-
-[![License BSD-3](https://img.shields.io/pypi/l/napari-3dtimereg.svg?color=green)](https://gitlab.pasteur.fr/gletort/napari-3dtimereg/-/blob/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-3dtimereg.svg?color=green)](https://pypi.org/project/napari-3dtimereg)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-3dtimereg.svg?color=green)](https://python.org)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-3dtimereg)](https://napari-hub.org/plugins/napari-3dtimereg)
-
-Temporal registration of 2D/3D movies on one channel based on [itk-elastix](https://pypi.org/project/itk-elastix/), and transpose alignement to the other channels.
-
-Adaptated from [multireg](https://gitlab.pasteur.fr/gletort/multireg) for temporal movies.
-For a tutorial on using `elastix` for registration, see [this tutorial](https://m-albert.github.io/elastix_tutorial/intro.html).
-
-
-----------------------------------
-## Installation
-
-* You can install the plugin directly in `Napari` by going to `Plugins>Install/Uninstall plugins` and search for `napari-3dtimereg`
-
-* Or you can install `napari-3dtimereg` via [pip]:
-
-    pip install napari-3dtimereg
-
-
-## Usage
-
-You can launch `3dtimereg` in napari by going to `Plugins>Do 3D movie registration (napari-3dtimereg)`.
-
-### Choose movie and reference chanel
-
-First, choose select the movie that you want to register. The plugin will create a folder `aligned` in the folder of your selected movie where the results will be saved.
-
-Choose the color chanel on which to calculate the registration (`reference chanel`). Color chanels are numbered from 0 to nchanels, and you can see their respective number in the layer list on the left panel of Napari. Click on `Update` when the correct chanel is selected to go to the registration calculation step.
-
-### Calculate temporal alignement
-
-The registration is calculated iteratively from one frame to another. Thus the first frame is not moved and all the other frames are aligned to it.
-You can tune several parameters in this plugin:
-
-![parameters screenshot](./imgs/parameters.png ""Registration parameters"")
-
-The other parameters are parameters to use [itk-elastix](https://elastix.lumc.nl/) to calculate the registration.
-* `show log`: to see the log of Elastix calculation
-* `do rigid`: performs a rigid (affine) transformation step, that allowed to correct for translations/rotations.
-* `do bspline`: performs a b-spline based transformation step, that allowed for local deformations in the image.
-* `show advanced parameters`: to control the parameters used in the rigid and/or bspline transformations. These parameters control the size of the local registrations calculated, the resolutions at which the transformations are calculated, and can thus greatly impact the results.
-* `final order`: is the final order of the B-Splines used for the registration. 
-* `resolution`: is the number of consecutives resolutions at which the registration will be made. First the registration is made at the lowest level of resolution, correcting global deformations/motions, then at each step, the registration is done on higher resolution, allowing to correct for more local deformations.
-* `final spacing`: is the physical spacing of the smallest resolution.
-* `iterations`: are the maximum number of iterations allowed to minimize the distance between the two images for each resolution and type of registration.
-
-If both rigid and bspline transformations, the program first applies the rigid transformation to allow for a global registration of the images. Then it will performs the second step of b-spline transformation that can includes local deformations.
-
-For each frame, after calculating the registration on the reference chanel, the plugin will apply the calculated transformation to all the other color chanels of the initial movie. All results are saved as separated images in the `aligned` folder during the computation.
-
-### Create the final aligned movie
-
-When all frames have been processed, each color chanel and each frame have been saved in the `aligned` folder as separated images. This is usefull to calculate the registration on large movies without having to keep all the intermediates and calculated images in memory. You can directly use these separated images, or reconstruct a single composite movie of the result.
-
-If you click on `Concatenate aligned images` on the plugin interface, the plugin will create a single composite movie from the aligned images, save it and delete the separated images in the `aligned` folder. 
-
-## License
-
-Distributed under the terms of the [BSD-3] license, ""napari-3dtimereg"" is free and open source software
-
-
-[napari]: https://github.com/napari/napari
-[@napari]: https://github.com/napari
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-","['Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://gitlab.pasteur.fr/gletort/napari-3dtimereg/issues', 'Documentation, https://gitlab.pasteur.fr/gletort/napari-3dtimereg#README.md', 'Source Code, https://gitlab.pasteur.fr/gletort/napari-3dtimereg']",,,napari-3dtimereg.registration,,,,,https://pypi.org/project/napari-3dtimereg,,
+61,3D Movies Registration,0.0.6,,,napari-3dtimereg,Gaëlle Letort,,BSD-3-Clause,,Registration of 3D movies applied to all channels,,,,,,,,,,,,,https://pypi.org/project/napari-3dtimereg,,
 62,napari-accelerated-pixel-and-object-classification,0.14.1,2022-03-31,2023-11-05,napari-accelerated-pixel-and-object-classification,Robert Haase,robert.haase@tu-dresden.de,BSD-3,https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification,Pixel and label classification using OpenCL-based Random Forest Classifiers,>=3.7,"['napari-plugin-engine >=0.1.4', 'numpy', 'apoc >=0.12.0', 'napari-tools-menu >=0.1.17', 'napari-time-slicer', 'superqt', 'imageio !=2.22.1', 'napari >=0.4.11', 'napari-assistant >=0.4.7']","# napari-accelerated-pixel-and-object-classification (APOC)
 
 [![License](https://img.shields.io/pypi/l/napari-accelerated-pixel-and-object-classification.svg?color=green)](https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/LICENSE)
@@ -8074,7 +7421,109 @@ This project has been made possible in part by grant number [2021-240341 (Napari
 [BSD-3]: http://opensource.org/licenses/BSD-3-Clause
 
 ","['Framework :: napari', 'License :: OSI Approved :: BSD License', 'Topic :: Scientific/Engineering :: Image Processing', 'Topic :: Scientific/Engineering :: Information Analysis', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent']","['Bug Tracker, https://github.com/haesleinhuepf/napari-assistant/issues', 'Documentation, https://github.com/haesleinhuepf/napari-assistant/', 'Source Code, https://github.com/haesleinhuepf/napari-assistant', 'User Support, https://forum.image.sc/']",,,napari-assistant.Assistant,,,,,https://pypi.org/project/napari-assistant,https://github.com/haesleinhuepf/napari-assistant,
-81,BacSeg,1.0.18,,,napari-bacseg,,,,,"Bacterial segmentation and analysis platform than can inport/export files in multiple formats. Integrating many tools such as Cellpose, ColiCoords, Oufti/MicrobeTracker.",,,,,,,,,,,,,https://pypi.org/project/napari-bacseg,,
+81,BacSeg,1.0.18,,,napari-bacseg,Piers Turner,Piers Turner <piers.turner@physics.ox.ac.uk>,,,"Bacterial segmentation and analysis platform than can inport/export files in multiple formats. Integrating many tools such as Cellpose, ColiCoords, Oufti/MicrobeTracker.",>=3.9,"['napari[all] >=0.4.19', 'torch', 'cellpose >=3.0.1', 'opencv-python', 'picassosr ==0.6.5', 'numpy', 'pyqt5', 'pyqt6', 'qtpy', 'scipy', 'natsort', 'tqdm', 'imagecodecs', 'tifffile', 'pandas', 'mat4py', 'glob2', 'matplotlib', 'scikit-image', 'roifile', 'openpyxl', 'shapely', 'colicoords', 'psutil', 'xmltodict', 'astropy', 'tiler', 'imageio-ffmpeg', 'aicspylibczi', 'czifile', 'omnipose', 'h5py', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-BacSeg
+
+[![License BSD-3](https://img.shields.io/pypi/l/napari-bacseg.svg?color=green)](https://github.com/piedrro/napari-bacseg/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-bacseg.svg?color=green)](https://pypi.org/project/napari-bacseg)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-bacseg.svg?color=green)](https://python.org)
+[![tests](https://github.com/piedrro/napari-bacseg/workflows/tests/badge.svg)](https://github.com/piedrro/napari-bacseg/actions)
+[![codecov](https://codecov.io/gh/piedrro/napari-bacseg/branch/main/graph/badge.svg)](https://codecov.io/gh/piedrro/napari-bacseg)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-bacseg)](https://napari-hub.org/plugins/napari-bacseg)
+
+Bacterial segmentation and analysis platform than can inport/export files in multiple formats. Integrating many tools such as Cellpose, ColiCoords, Oufti/MicrobeTracker.
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+## Installing BacSeg
+
+Create a virtual environment and then activate it:
+
+    conda create –-name napari-bacseg python==3.9
+    conda activate napari-bacseg
+
+Install `napari-bacseg` via [pip]:
+
+    pip install napari-bacseg
+
+Launch Napari:
+
+    Napari
+
+Select **napari-bacseg** from the **Plugins** dropdown menu
+
+
+## Installing BacSeg From GitHub
+
+    conda create –-name napari-bacseg python==3.9
+    conda activate napari-bacseg
+    conda install -c anaconda git
+    conda update --all
+
+    pip install napari[all]
+
+    pip install git+https://github.com/piedrro/napari-bacseg.git
+
+## Updating BacSeg From Github
+Once you have installed the plugin, you can update the plugin by running the following commands:
+
+    pip install git+https://github.com/piedrro/napari-bacseg.git
+
+## GPU Installation
+ Once you have installed the plugin, you can install the GPU version of the plugin by running the following commands:
+
+    pip uninstall torch torchvision torchaudio -y
+    pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+
+If the latest CUDA versions don't work, try an older version like cuda 11.3:
+
+    pip uninstall torch torchvision torchaudio -y
+    pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu113
+
+
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""napari-bacseg"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/piedrro/napari-bacseg/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Framework :: napari', 'Environment :: Plugins', 'License :: OSI Approved :: BSD License', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent']","['Homepage, https://github.com/piedrro/napari-bacseg', 'Bug Tracker, https://github.com/piedrro/napari-bacseg/issues']",,,napari-bacseg.make_qwidget,,,,,https://pypi.org/project/napari-bacseg,,
 82,BaSiCpy shadow correction in napari,0.0.3,,,napari-basicpy,Tim Morello,tdmorello@gmail.com,BSD-3-Clause,,BaSiCPy illumination correction for napari,>=3.8,"['basicpy >=1.2.0', 'numpy', 'qtpy', ""black ; extra == 'dev'"", ""flake8 ; extra == 'dev'"", ""flake8-black ; extra == 'dev'"", ""flake8-docstrings ; extra == 'dev'"", ""flake8-isort ; extra == 'dev'"", ""isort ; extra == 'dev'"", ""mypy ; extra == 'dev'"", ""pre-commit ; extra == 'dev'"", ""pydocstyle ; extra == 'dev'"", ""pytest ; extra == 'dev'"", ""pytest-qt ; extra == 'dev'"", ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""tox ; extra == 'tox-testing'"", ""pytest ; extra == 'tox-testing'"", ""pytest-cov ; extra == 'tox-testing'"", ""pytest-qt ; extra == 'tox-testing'"", ""napari ; extra == 'tox-testing'"", ""pyqt5 ; extra == 'tox-testing'""]","# napari-basicpy
 
 [![License](https://img.shields.io/pypi/l/napari-basicpy.svg?color=green)](https://github.com/tdmorello/napari-basicpy/raw/main/LICENSE)
@@ -9841,7 +9290,109 @@ and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/issues', 'Documentation, https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose#README.md', 'Source Code, https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose', 'User Support, https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/issues']",,,napari-brainbow-diagnose.DiagnoseWidget,napari-brainbow-diagnose.make_rgb_cube_data,,,,https://pypi.org/project/napari-brainbow-diagnose,https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose,
-101,Brainways,0.1.11.1,,,napari-brainways,Ben Kantor,,GPL-3.0,,Brainways UI,,,,,,,,,,,,,https://pypi.org/project/napari-brainways,,
+101,Brainways,0.1.11.1,,,napari-brainways,Ben Kantor,benkantor@mail.tau.ac.il,GPL-3.0,,Brainways UI,>=3.9,"['brainways[all] ==0.1.11', 'datasets ==2.15.0', 'importlib-resources', 'napari[all] ==0.4.18', 'qtpy ==2.3.1', ""brainways-reg-model ; extra == 'all'"", ""py ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt <4.1.0 ; extra == 'testing'"", ""tox ; extra == 'testing'""]","# Overview
+
+[![DOI](https://img.shields.io/badge/DOI-10.1101/2023.05.25.542252-green.svg)](https://doi.org/10.1101/2023.05.25.542252)
+[![License GNU GPL v3.0](https://img.shields.io/pypi/l/napari-brainways.svg?color=green)](https://github.com/bkntr/napari-brainways/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-brainways.svg?color=green)](https://pypi.org/project/napari-brainways)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-brainways.svg?color=green)](https://python.org)
+[![tests](https://github.com/bkntr/napari-brainways/workflows/tests/badge.svg)](https://github.com/bkntr/napari-brainways/actions)
+[![codecov](https://codecov.io/gh/bkntr/napari-brainways/branch/main/graph/badge.svg)](https://codecov.io/gh/bkntr/napari-brainways)
+[![Documentation Status](https://readthedocs.org/projects/napari-brainways/badge/?version=latest)](https://napari-brainways.readthedocs.io/en/latest/?badge=latest)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-brainways)](https://napari-hub.org/plugins/napari-brainways)
+
+<!-- markdownlint-disable MD026 -->
+## What Is Brainways?
+<!-- markdownlint-enable MD026 -->
+
+Brainways is an AI-based tool for automated registration, quantification and generation of brain-wide activity networks based on fluorescence in coronal slices.
+
+![Brainways UI](docs/assets/brainways-ui.gif)
+
+<!-- markdownlint-disable MD026 -->
+## Why Brainways?
+<!-- markdownlint-enable MD026 -->
+
+Coronal slice registration, cell quantification and whole-brain contrast analysis between experimental conditions should be made easily accessible from a single software, without requiring programming experience.
+Customization should be made easy by having a highly flexible pythonic backend.
+
+## Getting Started
+
+To install and run brainways, run the following in your python environment:
+
+```bash
+pip install napari-brainways
+brainways ui
+```
+
+Follow our [getting started guide](https://napari-brainways.readthedocs.io/en/latest/getting_started/) for more details.
+
+## How it works
+
+Brainways allows users to register, quantify and provide statistical contrast analysis by following several simple steps:
+
+1. Rigid registration of coronal slices to a 3D atlas.
+1. Non-rigid registration of coronal slices to a 3D atlas, to account for individual difference and imperfections in acquisition procedure.
+1. Cell detection (using [StarDist](https://github.com/stardist/stardist)).
+1. Quantification of cell counts per brain region.
+1. Statistical analysis:
+    * ANOVA contrast analysis.
+    * PLS (Partial Least Square) analysis.
+    * Network graph creation.
+
+<!-- For a quick 10 minute overview of brainways, check out the demo presented to The Social Club community
+meeting:
+
+[![Brainways Overview Demo](https://img.youtube.com/vi/aWDIQMbp1cc/0.jpg)](https://youtu.be/aWDIQMbp1cc?t=1m4s) -->
+
+## Architecture
+
+Brainways is implemented as three python packages. [*napari-brainways*](https://github.com/bkntr/napari-brainways) contains the GUI implementation as a [napari](https://napari.org/stable/) plugin. napari-brainways is using [*brainways*](https://github.com/bkntr/brainways) as its backend. All of the functionality is implemented in the brainways package. This separation was done to guarantee that brainways is a GUI-agnostic software, and can be fully accessed and manipulated through python code to allow custom complex usage scenarios. The code that was used to train, evaluate and run the automatic registration model resides in [*brainways-reg-model*](https://github.com/bkntr/brainways-reg-model).
+
+## Development Status
+
+Brainways is being actively developed by Ben Kantor of Bartal lab, Tel Aviv University, Israel. Our releases can be found [here](https://github.com/bkntr/napari-brainways/releases).
+
+## Citation
+
+If you use brainways, please cite [Kantor and Bartal (2023)](https://doi.org/10.1101/2023.05.25.542252):
+
+    @article{kantor2023brainways,
+      title={Brainways: An Open-Source AI-based Software For Registration and Analysis of Fluorescent   Markers on Coronal Brain Slices},
+      author={Kantor, Ben and Ben-Ami Bartal, Inbal},
+      journal={bioRxiv},
+      pages={2023--05},
+      year={2023},
+      publisher={Cold Spring Harbor Laboratory}
+    }
+
+## License
+
+Distributed under the terms of the [GNU GPL v3.0] license,
+""napari-brainways"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/bkntr/napari-brainways/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/bkntr/napari-brainways/issues', 'Documentation, https://github.com/bkntr/napari-brainways#README.md', 'Source Code, https://github.com/bkntr/napari-brainways', 'User Support, https://github.com/bkntr/napari-brainways/issues']",napari-brainways.read_bwp,,napari-brainways.make_qwidget,napari-brainways.load_sample_project,['*.bwp'],,,https://pypi.org/project/napari-brainways,,
 102,napari-brightness-contrast,0.1.8,2022-02-04,2023-06-18,napari-brightness-contrast,Robert Haase,robert.haase@tu-dresden.de,BSD-3-Clause,https://github.com/haesleinhuepf/napari-brightness-contrast,Advanced layer visualization options,>=3.7,"['napari-plugin-engine (>=0.1.4)', 'napari', 'numpy', 'pyqtgraph', 'superqt', 'napari-tools-menu', ""pytest ; extra == 'tests'"", ""pytest-qt ; extra == 'tests'""]","# napari-brightness-contrast
 
 [![License](https://img.shields.io/pypi/l/napari-brightness-contrast.svg?color=green)](https://github.com/haesleinhuepf/napari-brightness-contrast/raw/master/LICENSE)
@@ -10502,422 +10053,9 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/tim-vdl/napari-cell-centroid-annotator/issues', 'Documentation, https://github.com/tim-vdl/napari-cell-centroid-annotator#README.md', 'Source Code, https://github.com/tim-vdl/napari-cell-centroid-annotator', 'User Support, https://github.com/tim-vdl/napari-cell-centroid-annotator/issues']",napari-cell-centroid-annotator.get_reader,,napari-cell-centroid-annotator.make_annotate_centroids_widget,,"['*.tif', '*.tiff', '*.csv', '*.npy']",,,https://pypi.org/project/napari-cell-centroid-annotator,https://github.com/tim-vdl/napari-cell-centroid-annotator,
-110,napari-chatgpt | Omega,2024.5.15,,,napari-chatgpt,Loic A. Royer and contributors,royerloic@gmail.com,BSD-3-Clause,,A napari plugin to process and analyse images with chatGPT.,>=3.9,"['numpy', 'magicgui', 'scikit-image', 'qtpy', 'QtAwesome', 'langchain ==0.2.0rc2', 'langchain-community ==0.2.0rc1', 'langchain-openai ==0.1.6', 'langchain-anthropic ==0.1.11', 'openai ==1.29.0', 'anthropic', 'fastapi', 'uvicorn', 'websockets', 'tiktoken', 'wikipedia', 'lxml', 'gTTS', 'playsound', 'matplotlib', 'xarray', 'arbol', 'playwright', 'duckduckgo-search ==5.3.0b4', 'ome-zarr', 'transformers', 'cryptography', 'tabulate', 'numba', 'imageio[ffmpeg,pyav]', 'notebook', 'nbformat', 'jedi', 'black', 'lxml-html-clean', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","## Home of _Omega_, a napari-aware autonomous LLM-based agent specialized in image processing and analysis.
-
-[![License BSD-3](https://img.shields.io/pypi/l/napari-chatgpt.svg?color=green)](https://github.com/royerlab/napari-chatgpt/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-chatgpt.svg?color=green)](https://pypi.org/project/napari-chatgpt)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-chatgpt.svg?color=green)](https://python.org)
-[![tests](https://github.com/royerlab/napari-chatgpt/actions/workflows/test_and_deploy.yml/badge.svg)](https://github.com/royerlab/napari-chatgpt/actions/workflows/test_and_deploy.yml)
-[![codecov](https://codecov.io/gh/royerlab/napari-chatgpt/branch/main/graph/badge.svg)](https://codecov.io/gh/royerlab/napari-chatgpt)
-[![Downloads](https://pepy.tech/badge/napari-chatgpt)](https://pepy.tech/project/napari-chatgpt)
-[![Downloads](https://pepy.tech/badge/napari-chatgpt/month)](https://pepy.tech/project/napari-chatgpt)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-chatgpt)](https://napari-hub.org/plugins/napari-chatgpt)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10828225.svg)](https://doi.org/10.5281/zenodo.10828225)
-[![GitHub stars](https://img.shields.io/github/stars/royerlab/napari-chatgpt?style=social)](https://github.com/royerlab/napari-chatgpt/)
-[![GitHub forks](https://img.shields.io/github/forks/royerlab/napari-chatgpt?style=social)](https://git:hub.com/royerlab/napari-chatgpt/)
-
-<img src='https://github.com/royerlab/napari-chatgpt/assets/1870994/c85185d2-6d16-472d-a2c8-5680ea869bf2' height='300'>
-<img height=""300"" alt=""image"" src=""https://github.com/royerlab/napari-chatgpt/assets/1870994/f3ea245e-dd86-4ff2-802e-48c2073cb6f9"">
-
-
-A [napari](napari.org) plugin that leverages OpenAI's Large Language Model
-ChatGPT to implement _Omega_
-a napari-aware agent capable of performing image processing and analysis tasks
-in a conversational manner.
-
-This repository started as a 'week-end project'
-by [Loic A. Royer](https://twitter.com/loicaroyer)
-who leads a [research group](https://royerlab.org) at
-the [Chan Zuckerberg Biohub](https://royerlab.org). It
-leverages [OpenAI](https://openai.com)'s ChatGPT API via
-the [LangChain](https://python.langchain.com/en/latest/index.html) Python
-library, as well as [napari](https://napari.org), a fast, interactive,
-multi-dimensional
-image viewer for
-Python, [another](https://ilovesymposia.com/2019/10/24/introducing-napari-a-fast-n-dimensional-image-viewer-in-python/)
-week-end project, initially started by Loic and [Juan Nunez-Iglesias](https://github.com/jni).
-
-# What is Omega?
-
-Omega is an LLM-based and tool-armed autonomous agent that demonstrates the
-potential for Large Language Models (LLMs) to be applied to image processing,
-analysis and visualization.
-Can LLM-based agents write image processing code and napari widgets, correct its
-coding mistakes, performing follow-up analysis, and controlling the napari viewer? 
-The answer appears to be yes.
-
-The preprint can be downloaded here: [10.5281/zenodo.10828225](https://doi.org/10.5281/zenodo.10828225)
-
-
-#### In this video, I ask Omega to segment an image using the [SLIC](https://www.iro.umontreal.ca/~mignotte/IFT6150/Articles/SLIC_Superpixels.pdf) algorithm. It makes a first attempt using the implementation in scikit-image but fails because of an inexistent 'multichannel' parameter. Realizing that, Omega tries again, and this time succeeds:
-
-https://user-images.githubusercontent.com/1870994/235768559-ca8bfa84-21f5-47b6-b2bd-7fcc07cedd92.mp4
-
-#### After loading a sample 3D image of cell nuclei in napari, I asked Omega to segment the nuclei using the Otsu method. My first request was vague, so it just segmented foreground versus background. I then ask to segment the foreground into distinct segments for each connected component. Omega does a rookie mistake by forgetting to 'import np'. No problem; it notices, tries again, and succeeds:
-
-https://user-images.githubusercontent.com/1870994/235769990-a281a118-1369-47aa-834a-b491f706bd48.mp4
-
-#### In this video, one of my favorites, I ask Omega to make a 'Max color projection widget.' It is not a trivial task, but it manages!
-
-https://github.com/royerlab/napari-chatgpt/assets/1870994/bb9b35a4-d0aa-4f82-9e7c-696ef5859a2f
-
-As LLMs improve, Omega will become even more adept at handling complex
-image processing and analysis tasks. GPT 4.0 has been a significant upgrade
-compared to GPT 3.5, and many of the videos (see below and here) are highly reproducible, 
-with a typically 90% success rate (see preprint for a reproducibility analysis).
-While open-source models are promising and rapidly improving, they must get better to run Omega reliably. 
-More recent models by OpenAI's competitors, such as Google and Anthropic, are great news, 
-but Omega still needs to support these newer models fully -- it seems every week comes with a new batch of models.
-
-Omega could eventually help non-experts process and analyze images, especially
-in the bioimage domain.
-It is also potentially valuable for educative purposes as it could
-assist in teaching image processing and analysis, making it more accessible.
-Although ChatGPT, which powers Omega, may still need to be on par with an expert image
-analyst or computer vision expert, it is just a matter of time...
-
-Omega holds a conversation with the user and uses different tools to answer questions, 
-download and operate on images, write widgets for napari, and more.
-
-## Omega's Built-in AI-Augmented Code Editor
-
-The Omega AI-Augmented Code Editor is a new feature within Omega, designed to enhance the Omega's user experience. This editor is not just a text editor; it's a powerful interface that interacts with the Omega dialogue agent to generate, optimize, and manage code for advanced image analysis tasks.
-
-<img src='https://github.com/royerlab/napari-chatgpt/assets/1870994/cf9b1c15-f11a-4e25-a73d-d96915c46c6a' width='800'>
-
-#### Key Features
-- **Code Highlighting and Completion**: For ease of reading and writing, the code editor comes with built-in syntax highlighting and intelligent code completion features.
-- **LLM-Augmented Tools**: The editor is equipped with AI tools that assist in commenting, cleaning up, fixing, modifying, and performing safety checks on the code.
-- **Persistent Code Snippets**: Users can save and manage snippets of code, preserving their work across multiple Napari sessions.
-- **Network Code Sharing (Code-Drop)**: Facilitates the sharing of code snippets across the local network, empowering collaborative work and knowledge sharing.
-
-#### Usage Scenarios
-- **Widget Creation**: Expert users can create widgets using the Omega dialogue agent and retain them for future use.
-- **Collaboration**: Share custom widgets with colleagues or the community, even if they don't have access to an API key.
-- **Learning**: New users can learn from the AI-augmented suggestions, improving their coding skills in Python and image analysis workflows.
-
-You can find more information in the corresponding [wiki page](https://github.com/royerlab/napari-chatgpt/wiki/OmegaCodeEditor).
-
-----------------------------------
-
-## Omega's Installation instructions:
-
-Assuming you have a Python environment with a working napari installation, you can simply:
-
-    pip install napari-chatgpt
-
-Or install the plugin from napari's plugin installer.
-
-For detailed instructions and variations, check [this page](http://github.com/royerlab/napari-chatgpt/wiki/InstallOmega) of our wiki.
-    
-## Requirements:
-
-You need an OpenAI key; there is no way around this, I have been experimenting with 
-other models, including open-source models, but right now, the best results, by far, are obtained with ChatGPT 4 (and to
-a lesser extent 3.5). Check [here](https://github.com/royerlab/napari-chatgpt/wiki/OpenAIKey) for details on how to get your OpenAI key. In particular, check [this](https://github.com/royerlab/napari-chatgpt/wiki/AccessToGPT4) for how to gain access to GPT-4 models.
-
-## Usage:
-
-Check this [page](https://github.com/royerlab/napari-chatgpt/wiki/HowToStartOmega) of our [wiki](https://github.com/royerlab/napari-chatgpt/wiki) for details on how to start Omega. 
-
-## Tips, Tricks, and Example prompts:
-
-Check our guide on how to prompt Omega and some examples [here](https://github.com/royerlab/napari-chatgpt/wiki/Tips&Tricks).
-
-## Video Demos:
-
-You can check the original release videos [here](https://github.com/royerlab/napari-chatgpt/wiki/VideoDemos).
-You can also find the latest preprint videos on [Vimeo](https://vimeo.com/showcase/10983382).
-
-## How does Omega work?
-
-Check our preprint here: [10.5281/zenodo.8240289](10.5281/zenodo.8240289)
-and our [wiki page](https://github.com/royerlab/napari-chatgpt/wiki/OmegaDesign) on Omega's design and architecture.
-
-## Cost:
-
-Developing the initial version of Omega cost me $13.97, hardly a fortune. 
-OpenAI [pricing](https://openai.com/pricing) on ChatGPT 4 is very reasonable at 0.01 dollars per 1K tokens, which means $1 per 750000 words. 
-
-Note: you can limit the burn rate to a certain amount of dollars per month, just
-in case you let Omega think over the weekend and forget to stop it (don't worry, 
-this is actually **not** possible).
-
-## Disclaimer:
-
-Do not use this software lightly; it will download libraries of its own volition
-and write any code it deems necessary; it might do what you ask, even
-if it is a very bad idea. Also, beware that it might _misunderstand_ what you ask and
-then do something bad in ways that elude you. For example, it is unwise to use Omega to delete 
-'some' files from your system; it might end up deleting more than that if you are unclear in 
-your request.  
-Omega is generally safe as long as you do not make dangerous requests. To be 100% safe, and
-if your experiments with Omega could be potentially problematic, I recommend using this 
-software from within a sandboxed virtual machine.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
-BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
-THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-## Contributing
-
-Contributions are extremely welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [BSD-3] license,
-""napari-chatgpt"" is free and open-source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed
-description.
-
-[napari]: https://github.com/napari/napari
-
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-
-[@napari]: https://github.com/napari
-
-[MIT]: http://opensource.org/licenses/MIT
-
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-
-[file an issue]: https://github.com/royerlab/napari-chatgpt/issues
-
-[napari]: https://github.com/napari/napari
-
-[tox]: https://tox.readthedocs.io/en/latest/
-
-[pip]: https://pypi.org/project/pip/
-
-[PyPI]: https://pypi.org/
-","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/royerlab/napari-chatgpt/issues', 'Documentation, https://github.com/royerlab/napari-chatgpt#README.md', 'Source Code, https://github.com/royerlab/napari-chatgpt', 'User Support, https://github.com/royerlab/napari-chatgpt/issues']",,,napari-chatgpt.start_omega,,,,,https://pypi.org/project/napari-chatgpt,,
-111,napari-checkerboard,0.0.3,,,napari-checkerboard,Viktor van der Valk,v.o.van_der_valk@lumc.nl,Apache Software License 2.0,,Compare two images with the itk checkerboard filter,>=3.6,"['napari-plugin-engine (>=0.1.4)', 'numpy (>=1.19.0)', 'napari (>=0.4.6)', 'magicgui (>=0.2.6)', 'itk-elastix (>=0.11.1)', 'itk-napari-conversion (>=0.3.1)', 'napari-itk-io (>=0.1.0)']","# napari-checkerboard
-
-[![License](https://img.shields.io/pypi/l/napari-checkerboard.svg?color=green)](https://github.com/ViktorvdValk/napari-checkerboard/raw/master/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-checkerboard.svg?color=green)](https://pypi.org/project/napari-checkerboard)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-checkerboard.svg?color=green)](https://python.org)
-[![tests](https://github.com/ViktorvdValk/napari-checkerboard/workflows/tests/badge.svg)](https://github.com/ViktorvdValk/napari-checkerboard/actions)
-[![codecov](https://codecov.io/gh/ViktorvdValk/napari-checkerboard/branch/master/graph/badge.svg)](https://codecov.io/gh/ViktorvdValk/napari-checkerboard)
-
-Compare two images with the itk checkerboard filter
-
-
-<img width=""1430"" alt=""Screenshot 2021-05-12 at 15 03 17"" src=""https://user-images.githubusercontent.com/33719474/117979519-48bd4680-b333-11eb-874c-d9ec09681d93.png"">
-
-
-----------------------------------
-
-This [napari] plugin was generated with [Cookiecutter] using with [@napari]'s [cookiecutter-napari-plugin] template.
-
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/docs/plugins/index.html
--->
-
-## Installation
-
-You can install `napari-checkerboard` via [pip]:
-
-    pip install napari-checkerboard
-
-## Contributing
-
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [Apache Software License 2.0] license,
-""napari-checkerboard"" is free and open source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed description.
-
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-[file an issue]: https://github.com/ViktorvdValk/napari-checkerboard/issues
-[napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-
-
-","['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: Apache Software License']",,,,napari-checkerboard.checkerboard,,,,,https://pypi.org/project/napari-checkerboard,,
-112,napari-clemreg,0.2.0,,,napari-clemreg,Daniel Krentzel,dkrentzel@pm.me,MIT,,A plugin for registering multimodal image volumes based on common segmented structures of interest with point-clouds.,>=3.7,"['typing-extensions', 'setuptools', 'packaging', 'numpy ==1.22.0', 'magicgui ==0.7.3', 'scipy ==1.10.1', 'napari', 'scikit-image ==0.21.0', 'h5py ==3.9.0', 'matplotlib ==3.7.3', 'imageio ==2.31.5', 'tifffile ==2023.7.10', 'probreg ==0.3.6', 'open3d ==0.17.0', 'transforms3d ==0.4.1', 'tqdm ==4.66.1', 'empanada-dl ==0.1.7', 'torch ==2.0.1', 'connected-components-3d ==3.12.3']","# napari-clemrerg
-### An automated point cloud based registration algorithm for correlative light and volume electron microscopy
-
-[![License](https://img.shields.io/pypi/l/napari-clemreg.svg?color=green)](https://github.com/krentzd/napari-clemreg/raw/master/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-clemreg.svg?color=green)](https://pypi.org/project/napari-clemreg)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-clemreg.svg?color=green)](https://python.org)
-
-[//]: # ([![codecov]&#40;https://codecov.io/gh/krentzd/napari-clemreg/branch/master/graph/badge.svg&#41;]&#40;https://codecov.io/gh/krentzd/napari-clemreg&#41;)
-[//]: # ([![tests]&#40;https://github.com/krentzd/napari-clemreg/workflows/tests/badge.svg&#41;]&#40;https://github.com/krentzd/napari-clemreg/actions&#41;)
-
-## Installation
-
-To install `napari-clemreg` it is recommended to create a fresh [conda] environment with Python 3.9:
-
-```
-conda create -n clemreg_env python=3.9
-```
-Next, install `napari` with the following command via [pip]: 
-
-```
-pip install ""napari[all]""
-```
-
-Finally, `napari-clemreg` can be installed with:
-```
-pip install napari-clemreg
-```
-When installing `napari-clemreg` on a Windows machine, the following error might appear:
-```
-error Microsoft Visual C++ 14.0 is required
-```
-Ensure that [Visual Studios C++ 14.00](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16) is installed
-## Usage
-CLEM-reg is the combination of 5 main steps, MitoNet segmentation, LoG segmentation,
-point cloud sampling, point cloud registration and lastly image warping. These 5 steps 
-can be run all at once using the run registration widget shown below with the tick next to it.
-Alternatively, they can be run individually with the numbered widgets.
-
-![clemreg_widget_options.png](docs%2Fimages%2Fclemreg_widget_options.png)
-
-### Run Registration
-
-
-
-![registration_labels.png](docs%2Fimages%2FCLEMreg-fig.png)
-
-1. **Moving Image** - Here you select your light microscopy (LM) data which will
-be warped to align with the fixed electron microscopy (EM) image.
-2. **Fixed Image** - Here you select your EM data which will
-act as the reference point for the LM to be aligned to.
-3. **Registration Algorithm** - Here you can decide which type of registration algorith
-will be used for the registration of inputted LM and EM. In terms of speed of each algorithm
-the following is the generally true, Rigid CPD > Affine CPD > BCPD.
-4. **MitoNet Segmentation Parameters** - Here are the advanced options for the segmentation
-of the mitochondria in the EM data.
-   1. Prediction Across Three Axis - By selecting this option MitoNet will run segmentation
-across all three axis of the EM volume and then these three predictions will be aggregate.
-5. **LoG Segmentation Parameters** - Here are the advanced options for the segmentation of 
-the mitochondria in the LM data.
-   1. Sigma - Sigma value for the Laplacian of Gaussian filter.
-   2. Threshold - Threshold value for the segmenting the LM data.
-6. **Point Cloud Sampling** - Here are the advanced options for the point cloud sampling of the 
-segmentations of the LM and EM data.
-   1. Sampling Frequency - Frequency of point sampling from the fixed and moving segmentation. The greater the value the more points in the point cloud.
-   2. Sigma - Sigma value for the canny edge filter.
-7. **Point Cloud Registration** - Here are the advanced options for the registration of the point clouds
-of both the LM and EM data.
-   1. Voxel Size - The size voxel size of each point. Smaller the size the less memory consumption.
-   2. Subsampling - Downsampling of the point clouds to reduce memory consumption. Greater the number the fewer points in the point cloud.
-   3. Maximum Iterations - The number of round of point cloud registration. If too small it won't converge on an opitmal registration.
-8. **Image Warping** - Here are the advanced options for the image warping of the moving LM images.
-   1. Interpolation Order - The order of the spline interpolation.
-   2. Aproximate Grid - Controls the ""resolution"" of the grid onto which you're warping. A higher value reduces the step size between coordinates.
-   3. Sub-division Factor - Controls the size of the chunk when applying the warping.
-9. **Save Parameters** - Here you can select the option to save the advanced options you've selected
-to a JSON file which can be kept for reproducibility as well as running the registration again.
-10. **Visualise Intermediate Results** - Here you can select to view the outputs of each step as they
-are completed.
-
-### Split Registration
-As well as being able to run all the steps of CLEM-reg in one widget (the `Run registration` widget),
-you are also able to do all these steps independently using the `Split Registration` functionality. 
-
-There are four separate widgets that encapsulate the 5 steps of CLEM-reg each of which have
-their own unique input and output:
-1. `MitoNet Segmentation` 
-   - **Input**: EM Image
-   - **Output**: EM Segmentation
-2. `LoG Segmentation`
-   - **Input**: LM Image
-   - **Output**: LM Segmentation
-3. `Point Cloud Sampling`
-   - **Input**: LM Segmentation & EM Segmentation
-   - **Output**: LM Point Cloud & LM Point Cloud
-4. `Point Cloud Registration & Image Warping`
-   - **Input**: EM Image, LM Image, LM Point Cloud & EM Point Cloud
-   - **Output**: Registered LM Image, Registered LM Point Cloud
-
-### Registering Multiple LM Channels
-One can register multiple LM channels at once by doing the following.
-
-1. Start by splitting the LM channels into the separate layers by right-clicking on
-the layer and then selecting `Split Stack`.
-![merged-channel-split-options.png](docs%2Fimages%2Fmerged-channel-split-options.png)
-This will result in each of the channels having their own individual layer. 
-
-2. Once this is done we must link all the LM layers together, this is done 
-by selecting all the layers which will highlight them in blue, once again right-clicking
-on the layer and then selecting `Link Layers.`
-![split-channels-link-layers.png](docs%2Fimages%2Fsplit-channels-link-layers.png)
-
-3. When you finally go to run CLEM-reg ensure that for the `Moving Image`
-you select the LM layer that contains mitochondria.
-
-## Contributing
-
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [MIT] license,
-""napari-clemreg"" is free and open source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed description.
-
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-[file an issue]: https://github.com/krentzd/napari-clemreg/issues
-[napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-[conda]: https://docs.conda.io/en/latest/
-
-This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
-","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: MIT License']","['Bug Tracker, https://github.com/krentzd/napari-clemreg/issues', 'Documentation, https://github.com/krentzd/napari-clemreg#README.md', 'Source Code, https://github.com/krentzd/napari-clemreg', 'User Support, https://github.com/krentzd/napari-clemreg/issues']",napari-clemreg.get_reader,,napari-clemreg.make_run_registration,napari-clemreg.sample_data,"['*.tif', '*.tiff']",,,https://pypi.org/project/napari-clemreg,,
+110,napari-chatgpt | Omega,2024.5.15,,,napari-chatgpt,Loic A. Royer and contributors,,BSD-3-Clause,,A napari plugin to process and analyse images with chatGPT.,,,,,,,,,,,,,https://pypi.org/project/napari-chatgpt,,
+111,napari-checkerboard,0.0.3,,,napari-checkerboard,Viktor van der Valk,,Apache Software License 2.0,,Compare two images with the itk checkerboard filter,,,,,,,,,,,,,https://pypi.org/project/napari-checkerboard,,
+112,napari-clemreg,0.2.0,,,napari-clemreg,Daniel Krentzel,,MIT,,A plugin for registering multimodal image volumes based on common segmented structures of interest with point-clouds.,,,,,,,,,,,,,https://pypi.org/project/napari-clemreg,,
 113,napari clipboard,0.0.1,2023-10-29,2023-10-29,napari-clipboard,Kyle Harrington,czi@kyleharrington.com,BSD-3-Clause,https://pypi.org/project/napari-clipboard,A plugin for creating napari layers from the System clipboard,>=3.8,"['numpy', 'magicgui', 'qtpy', 'napari', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-clipboard
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-clipboard.svg?color=green)](https://github.com/kephale/napari-clipboard/raw/main/LICENSE)
@@ -11360,7 +10498,105 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 
 ","['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: MIT License']",,napari-compressed-labels-io.get_zarr_labels,napari-compressed-labels-io.labels_to_zarr,,,['*'],,,https://pypi.org/project/napari-compressed-labels-io,https://github.com/DragaDoncila/napari-compressed-labels-io,
-116,Napari Conference,0.1.0,,,napari-conference,Kyle Harrington,,BSD-3-Clause,,A simple plugin that allows you to use napari + your webcam in video calls,,,,,,,,,,,,,https://pypi.org/project/napari-conference,,
+116,Napari Conference,0.1.0,,,napari-conference,Kyle Harrington,czi@kyleharrington.com,BSD-3-Clause,,A simple plugin that allows you to use napari + your webcam in video calls,>=3.8,"['numpy', 'magicgui', 'qtpy', 'opencv-python', 'pyvirtualcam', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-conference
+
+[![License BSD-3](https://img.shields.io/pypi/l/napari-conference.svg?color=green)](https://github.com/kephale/napari-conference/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-conference.svg?color=green)](https://pypi.org/project/napari-conference)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-conference.svg?color=green)](https://python.org)
+[![tests](https://github.com/kephale/napari-conference/workflows/tests/badge.svg)](https://github.com/kephale/napari-conference/actions)
+[![codecov](https://codecov.io/gh/kephale/napari-conference/branch/main/graph/badge.svg)](https://codecov.io/gh/kephale/napari-conference)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-conference)](https://napari-hub.org/plugins/napari-conference)
+
+A simple plugin that allows you to use napari + your webcam in video
+calls
+
+![Example screenshot of a person using napari conference with the
+napari viewer and napari conference widget shown](napari_conference_example.png)
+
+## Usage
+
+1. `Plugins>start conference`
+2. Check `running` checkbox
+3. Press `Update` button to update any setting (and start/stop)
+
+If things work in zoom but you don't show up, then make sure `blur
+background` is disabled.
+
+## Installation
+
+### Prerequisites
+
+You will need to:
+
+- follow `pyvirtualcam`'s installation instructions:
+https://github.com/letmaik/pyvirtualcam#installation
+- install `napari` from source to get the new async slicing updates 
+
+Note: I needed to install `pyvirtualcam` from source on my MacOS M1
+with python=3.10.
+
+
+
+[Not available on pypi yet] You can install `napari-conference` via [pip]:
+
+    pip install napari-conference
+
+
+
+To install latest development version :
+
+    pip install git+https://github.com/kephale/napari-conference.git
+
+
+## Known Issues
+
+- resizing the napari window while streaming causes a crash
+- cannot be restarted after stopping the widget
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""napari-conference"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/kephale/napari-conference/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/kephale/napari-conference/issues', 'Documentation, https://github.com/kephale/napari-conference#README.md', 'Source Code, https://github.com/kephale/napari-conference', 'User Support, https://github.com/kephale/napari-conference/issues']",,,napari-conference.make_widget,,,,,https://pypi.org/project/napari-conference,,
 117,Conidie,1.0.2,2023-04-11,2023-06-18,napari-conidie,Herearii Metuarea,herearii.metuarea@gmail.com,BSD-3-Clause,https://github.com/hereariim/napari-conidie,A segmentation tool to get conidie and hyphe,>=3.8,"['numpy', 'magicgui', 'qtpy', 'pandas', 'h5py', 'scikit-image', 'napari', 'matplotlib', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-conidie
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-conidie.svg?color=green)](https://github.com/hereariim/napari-conidie/raw/main/LICENSE)
@@ -11586,7 +10822,74 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/guiwitz/napari-convpaint/issues', 'Documentation, https://github.com/guiwitz/napari-convpaint#README.md', 'Source Code, https://github.com/guiwitz/napari-convpaint', 'User Support, https://github.com/guiwitz/napari-convpaint/issues']",,,napari-convpaint.make_qwidget,napari-convpaint.labelcell3d,,,,https://pypi.org/project/napari-convpaint,https://github.com/guiwitz/napari-convpaint,
-120,Cookiecut,0.1.1,,,napari-cookiecut,Sean Martin,,BSD-3-Clause,,Fixed cut,,,,,,,,,,,,,https://pypi.org/project/napari-cookiecut,,
+120,Cookiecut,0.1.1,,,napari-cookiecut,Sean Martin,martins7@tcd.ie,BSD-3-Clause,,Fixed cut,>=3.8,"['numpy', 'magicgui', 'qtpy', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-cookiecut
+
+[![License BSD-3](https://img.shields.io/pypi/l/napari-cookiecut.svg?color=green)](https://github.com/seankmartin/napari-cookiecut/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-cookiecut.svg?color=green)](https://pypi.org/project/napari-cookiecut)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-cookiecut.svg?color=green)](https://python.org)
+[![tests](https://github.com/seankmartin/napari-cookiecut/workflows/tests/badge.svg)](https://github.com/seankmartin/napari-cookiecut/actions)
+[![codecov](https://codecov.io/gh/seankmartin/napari-cookiecut/branch/main/graph/badge.svg)](https://codecov.io/gh/seankmartin/napari-cookiecut)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-cookiecut)](https://napari-hub.org/plugins/napari-cookiecut)
+
+A fixed version of a cookiecut napari plugin template that has been set up with all the basic functionality following the README for reference.
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+## Installation
+
+You can install `napari-cookiecut` via [pip]:
+
+    pip install napari-cookiecut
+
+
+
+To install latest development version :
+
+    pip install git+https://github.com/seankmartin/napari-cookiecut.git
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""napari-cookiecut"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/seankmartin/napari-cookiecut/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/seankmartin/napari-cookiecut/issues', 'Documentation, https://github.com/seankmartin/napari-cookiecut#README.md', 'Source Code, https://github.com/seankmartin/napari-cookiecut', 'User Support, https://github.com/seankmartin/napari-cookiecut/issues']",napari-cookiecut.get_reader,napari-cookiecut.write_multiple,napari-cookiecut.make_qwidget,napari-cookiecut.make_sample_data,['*.npy'],,['.npy'],https://pypi.org/project/napari-cookiecut,,
 121,Napari Correct Drift,0.4.0,2023-08-01,2023-11-06,napari-correct-drift,Christoph Sommer,christoph.sommer@ist.ac.at,BSD-3-Clause,https://github.com/sommerc/napari-correct-drift,Drift correction 2D/3D for Napari similar to Fijis Correct 3D drift macro,>=3.8,"['napari', 'numpy', 'qtpy', 'pandas', 'scikit-image', 'scipy', 'dask', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-correct-drift
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-correct-drift.svg?color=green)](https://github.com/sommerc/napari-correct-drift/raw/main/LICENSE)
@@ -12889,7 +12192,71 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: MIT License']","['Bug Tracker, https://github.com/ebouilhol/napari-DeepSpot/issues', 'Documentation, https://github.com/ebouilhol/napari-DeepSpot#README.md', 'Source Code, https://github.com/ebouilhol/napari-DeepSpot', 'User Support, https://github.com/ebouilhol/napari-DeepSpot/issues']",,,napari-DeepSpot.EnhanceSpot,,,,,https://pypi.org/project/napari-DeepSpot,https://github.com/ebouilhol/napari-DeepSpot,
-136,Demo plugin ported from npe2 example,0.2.5,,,napari-demo,napari hub team,,BSD-3,,example plugin for napari plugin developers,,,,,,,,,,,,,https://pypi.org/project/napari-demo,,
+136,Demo plugin ported from npe2 example,0.2.5,,,napari-demo,napari hub team,team@napari-hub.org,BSD-3,,example plugin for napari plugin developers,>=3.7,"['pydantic', 'npe2', 'numpy']","# napari-demo
+
+[![License](https://img.shields.io/pypi/l/napari-demo.svg?color=green)](https://github.com/chanzuckerberg/napari-demo/raw/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-demo.svg?color=green)](https://pypi.org/project/napari-demo)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-demo.svg?color=green)](https://python.org)
+[![tests](https://github.com/chanzuckerberg/napari-demo/workflows/tests/badge.svg)](https://github.com/chanzuckerberg/napari-demo/actions)
+[![codecov](https://codecov.io/gh/chanzuckerberg/napari-demo/branch/master/graph/badge.svg)](https://codecov.io/gh/chanzuckerberg/napari-demo)
+
+This is a demo plugin implementation of https://github.com/napari/napari/blob/master/examples/magic_image_arithmetic.py
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using with [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/docs/plugins/index.html
+-->
+
+## Installation
+
+You can install `napari-demo` via [pip]:
+
+    pip install napari-demo
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""napari-demo"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+To report security issues, see [security](SECURITY.md)
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+[file an issue]: https://github.com/chanzuckerberg/napari-demo/issues
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+
+
+## Code of Conduct
+
+This project adheres to the Contributor Covenant [code of conduct](https://github.com/chanzuckerberg/.github/blob/master/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [opensource@chanzuckerberg.com](mailto:opensource@chanzuckerberg.com).
+
+","['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Programming Language :: Python', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Software Development :: Testing', 'Operating System :: OS Independent', 'Framework :: napari']","['Source Code, https://github.com/chanzuckerberg/napari-demo']",napari-demo.some_reader,napari-demo.my_writer,napari-demo.image_arithmetic,napari-demo.generate_random_data,"['*.fzy', '*.fzzy']","['.tif', '.tiff']","['.pcd', '.e57']",https://pypi.org/project/napari-demo,,
 137,DenoiSeg,0.0.1rc2,,,napari-denoiseg,"Tom Burke, Joran Deschamps",joran.deschamps@fht.org,BSD-3-Clause,,A napari plugin performing joint denoising and segmentation of microscopy images using DenoiSeg.,>=3.7,"['numpy', 'pyqtgraph', 'denoiseg (>=0.3.0)', 'bioimageio.core', 'magicgui', 'qtpy', 'napari-time-slicer (>=0.4.9)', 'napari (<=0.4.15)', 'vispy (<=0.9.6)', 'imageio (!=2.11.0,!=2.22.1,>=2.5.0)', 'tensorflow ; platform_system != ""Darwin"" or platform_machine != ""arm64""', 'tensorflow-macos ; platform_system == ""Darwin"" and platform_machine == ""arm64""', 'tensorflow-metal ; platform_system == ""Darwin"" and platform_machine == ""arm64""', ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-denoiseg
 
 [![License](https://img.shields.io/pypi/l/napari-denoiseg.svg?color=green)](https://github.com/juglab/napari-denoiseg/raw/main/LICENSE)
@@ -13948,68 +13315,7 @@ local variables and posted to https://github.com/napari/napari/issues
 Sentry retains event data for 90 days by default.  For complete details,
 see Sentry's page on [Security & Compliance](https://sentry.io/security/)
 ","['Development Status :: 3 - Alpha', 'Framework :: napari', 'License :: OSI Approved :: BSD License', 'Natural Language :: English', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10']","['Source Code, https://github.com/tlambert03/napari-error-reporter']",,,,,,,,https://pypi.org/project/napari-error-reporter,https://github.com/tlambert03/napari-error-reporter,
-147,Explorer,0.0.2,,,napari-explorer,Tim Monko,timmonko@gmail.com,BSD-3-Clause,,"Browse files in a folder, filter, and open within napari",>=3.8,"['numpy', 'magicgui', 'qtpy', 'napari', 'napari-aicsimageio', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-explorer
-
-[![License BSD-3](https://img.shields.io/pypi/l/napari-explorer.svg?color=green)](https://github.com/TimMonko/napari-explorer/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-explorer.svg?color=green)](https://pypi.org/project/napari-explorer)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-explorer.svg?color=green)](https://python.org)
-[![tests](https://github.com/TimMonko/napari-explorer/workflows/tests/badge.svg)](https://github.com/TimMonko/napari-explorer/actions)
-[![codecov](https://codecov.io/gh/TimMonko/napari-explorer/branch/main/graph/badge.svg)](https://codecov.io/gh/TimMonko/napari-explorer)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-explorer)](https://napari-hub.org/plugins/napari-explorer)
-
-Browse files in a folder, filter, and open within napari
-
-----------------------------------
-
-This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
-
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-
-## Installation
-
-You can install `napari-explorer` via [pip]:
-
-    pip install napari-explorer
-
-
-
-
-## Contributing
-
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [BSD-3] license,
-""napari-explorer"" is free and open source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed description.
-
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-
-[napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']",,,,napari-explorer.folder_explorer,,,,,https://pypi.org/project/napari-explorer,,
+147,Explorer,0.0.2,,,napari-explorer,Tim Monko,,BSD-3-Clause,,"Browse files in a folder, filter, and open within napari",,,,,,,,,,,,,https://pypi.org/project/napari-explorer,,
 148,napari feature classifier,0.1.1,2022-06-16,2023-07-25,napari-feature-classifier,Joel Luethi and Max Hess,joel.luethi@uzh.ch,BSD-3-Clause,https://github.com/fractal-napari-plugins-collection/napari-feature-classifier,An interactive classifier plugin to use with label images and feature measurements,>=3.9,"['numpy', 'napari', 'matplotlib', 'magicgui', 'pandas', 'scikit-learn (>=1.2.2)', 'pandera', 'xxhash', 'hypothesis']","# napari-feature-classifier
 
 [![License](https://img.shields.io/pypi/l/napari-feature-classifier.svg?color=green)](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/raw/main/LICENSE)
@@ -14820,138 +14126,7 @@ Mandal S, Tannert A, Ebert C, Guliev RR, Ozegowski Y, Carvalho L, Wildemann B, E
 
 This project is a part of the European Union's Horizon 2020 research and innovation program under grant agreement No 861122 (ITN IMAGE-IN). We acknowledge support from the Jena Biophotonics and Imaging Laboratory (JBIL), from the European Union via EFRE funds within the Thüringer Innovationszentrum für Medizintechnik-Lösungen (ThIMEDOP, FKZ IZN 2018 0002), the BMBF via the funding program Photonics Research Germany (LPI, FKZ: 13N15713) and via the CSCC (FKZ 01EO1502) and the Institute of Anatomical and Molecular Pathology, University Coimbra, Portugal.
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']",,napari-findaureus.get_reader,,napari-findaureus.make_magic_widget,,"['*.czi', '*.nd2', '*.lif', '*.tiff']",,,https://pypi.org/project/napari-findaureus,,
-156,FLIM phasor plotter,0.0.6,,,napari-flim-phasor-plotter,"Marcelo L. Zoccoler, Cornelia Wetzker",marzoccoler@gmail.com,BSD-3-Clause,,A plugin that performs phasor plot from TCSPC FLIM data.,>=3.8,"['numpy', 'magicgui', 'qtpy', 'napari-clusters-plotter', 'sdtfile', 'natsort', 'rocket-fft', 'dask', 'zarr', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-flim-phasor-plotter
-
-[![License BSD-3](https://img.shields.io/pypi/l/napari-flim-phasor-plotter.svg?color=green)](https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-flim-phasor-plotter.svg?color=green)](https://pypi.org/project/napari-flim-phasor-plotter)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-flim-phasor-plotter.svg?color=green)](https://python.org)
-[![tests](https://github.com/zoccoler/napari-flim-phasor-plotter/workflows/tests/badge.svg)](https://github.com/zoccoler/napari-flim-phasor-plotter/actions)
-[![codecov](https://codecov.io/gh/zoccoler/napari-flim-phasor-plotter/branch/main/graph/badge.svg)](https://codecov.io/gh/zoccoler/napari-flim-phasor-plotter)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-flim-phasor-plotter)](https://napari-hub.org/plugins/napari-flim-phasor-plotter)
-
-Napari-flim-phasor-plotter is a [napari](https://napari.org/stable/) plugin to interactively load and show raw fluorescence lifetime imaging microscopy (FLIM) single images and series and generate phasor plots. These are Fourier transforms of the decay data being visualized using the [napari-clusters-plotter](https://github.com/BiAPoL/napari-clusters-plotter) plotter, adapted to suit the FLIM context. This allows qualitative and quantitative downstream analysis of FLIM images.  
-
-----------------------------------
-
-## Usage
-
-Open a FLIM image to visualize it both as a 'FLIM image series' being a sequence of intensity images each corresponding to an individual time point of the FLIM 'micro-time', plus as a timely summed up image. Scrolling through the FLIM time series provides a first glimpse of lifetimes across image regions.
-
-Call the plugin from the menu `Plugins > FLIM phasor plotter > Make FLIM Phasor Plot` to generate a phasor plot by pixel-wise Fourier transformation of the decay data. Hereby, select the FLIM image to be used, specify the laser pulse frequency if not read properly from metadata. Define an intensity threshold to exclude pixels of low photon counts, optionally a median filter, and a harmonic for optimal visualization. `Run` creates the phasor plot and an additional labels layer in the layer list. Below is a demonstration:
-
-![](https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/napari_FLIM_phasor_calculator_Demo.gif)
-
-Change the color-code of the phasor plot to a density plot of various ‘Colormaps’ from the pulldown `Expand for advanced options` and select `HISTOGRAM`. Manually encircle a region of interest in the phasor plot to highlight the corresponding pixels in the newly created image layer. Hold ‘Shift’ to select and visualize several clusters to investigate image regions of similar FLIM patterns. 
-
-### Input Data
-
-This plugin integrates with [napari-clusters-plotter plugin](https://github.com/BiAPoL/napari-clusters-plotter).
-
-This plugin can read the following FLIM file types:
-  - "".ptu""
-  - "".sdt""
-  - "".tif""
-  - "".zarr""
-
-This plugin works with the following data shapes:
-  - 2D FLIM images (actually 3D data where FLIM counts are in the first axis).
-  - 3D FLIM images (actually 4D data where FLIM counts are in the first axis).
-  - 3D timelapse FLIM images (actually 5D data where FLIM counts are in the first axis).
-  - Multichannel '.tif' or '.zarr' data may need to be loaded separately.
-
-The plugin outputs data axes in the following order (data from multiple detectors are displayed as distinct napari layers):
-
-(`flim_counts`, `time`, `z`, `y`, `x`)
-
-It also outputs the standard intensity image in another layer by summing the `flim_counts` dimension.
-
-### Data Conversion
-
-If a collection of raw (uncompressed) images are larger than 4GB, we recommend converting them to `.zarr`. This can be done via `Plugins > napari-flim-phasor-plotter > Convert to zarr`.
-
-_Warning: In the current version, lazy loading with `.zarr` is available, but processing may still load all data into memory, so keep track of your memory usage._
-
-![](https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/convert_to_zarr.png)
-
-If you have multiple slices or time-points as separated files, you can choose a folder containing the files. In order for the plugin to properly build a stack, the file names must contain some indication about which slice or time-point they represent, i.e., **each file name should contain a `_t` and/or `_z` followerd by a number**.
-
-Here are a few example templates:
-- timelapse:
-  - `image_t001.ptu`
-  - `image_t002.ptu`
-- z-stack:
-  - `image_z01.sdt`
-  - `image_z02.sdt`
-- 3D timelapse:
-  - `image_t001_z001.tif`
-  - `image_t001_z002.tif`
-  - ...
-  - `image_t002_z001.tif`
-
-
-## Installation
-
-You can install `napari-flim-phasor-plotter` via [pip]. Follow these steps from a terminal.
-
-We recommend using `mamba-forge` whenever possible. Click [here](https://github.com/conda-forge/miniforge#mambaforge) to choose the right download option for your OS.
-**If you use `mamba-forge`, replace the `conda` term whenever you see it below with `mamba`.**
-
-Create a conda environment:
-
-    conda create -n napari-flim-phasor-env python=3.9
-    
-Activate the environment:
-
-    conda activate napari-flim-phasor-env
-    
-Then install `napari` and `napari-clusturs-plotter` (plus git if on Windows):
-
-    conda install -c conda-forge napari==0.4.17 napari-clusters-plotter git pyqt
-
-_Optional: we **strongly** recommend having the `devbio-napari` plugin bundle also installed for post-processing. This can be done with:_
-
-    conda install -c conda-forge devbio-napari
-
-Finally install `napari-flim-phasor-plotter` plugin with:
-
-    pip install napari-flim-phasor-plotter
- 
-Alternatively, clone this repository and install the latest plugin development version with:
-
-    pip install git+https://github.com/zoccoler/napari-flim-phasor-plotter.git
-
-## Contributing
-
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [BSD-3] license,
-""napari-flim-phasor-plotter"" is free and open source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed description.
-
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-
-[file an issue]: https://github.com/zoccoler/napari-flim-phasor-plotter/issues
-
-[napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/zoccoler/napari-flim-phasor-plotter/issues', 'Documentation, https://github.com/zoccoler/napari-flim-phasor-plotter#README.md', 'Source Code, https://github.com/zoccoler/napari-flim-phasor-plotter', 'User Support, https://github.com/zoccoler/napari-flim-phasor-plotter/issues']",napari-flim-phasor-plotter.get_reader,,napari-flim-phasor-plotter.calculate_phasors,napari-flim-phasor-plotter.load_seminal_receptacle_image,"['*.ptu', '*.PTU', '*.sdt', '*.SDT', '*.tif', '*.zarr']",,,https://pypi.org/project/napari-flim-phasor-plotter,,
+156,FLIM phasor plotter,0.0.6,,,napari-flim-phasor-plotter,"Marcelo L. Zoccoler, Cornelia Wetzker",,BSD-3-Clause,,A plugin that performs phasor plot from TCSPC FLIM data.,,,,,,,,,,,,,https://pypi.org/project/napari-flim-phasor-plotter,,
 157,napari-folder-browser,0.1.4,2022-02-04,2023-06-18,napari-folder-browser,Robert Haase,robert.haase@tu-dresden.de,BSD-3-Clause,https://github.com/haesleinhuepf/napari-folder-browser,Browse folders of images and open them using double-click,>=3.7,"['napari-plugin-engine >=0.1.4', 'napari-tools-menu']","# napari-folder-browser
 
 [![License](https://img.shields.io/pypi/l/napari-folder-browser.svg?color=green)](https://github.com/haesleinhuepf/napari-folder-browser/raw/master/LICENSE)
@@ -21875,7 +21050,127 @@ Use the github issue tracker if you experinece unexpected behaviour.
 
 You can contact me in [e-mail](mailto:tasnadi.ervin@MY-INSTITUTE) where MY-INSTITUTE is `brc.hu`.
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/etasnadi/napari_nucleaizer/issues', 'Documentation, https://napari-nucleaizer-docs.readthedocs.io/en/latest/index.html', 'Source Code, https://github.com/etasnadi/napari_nucleaizer', 'User Support, https://github.com/etasnadi/napari_nucleaizer/issues']",,,napari-nucleaizer.launch,,,,,https://pypi.org/project/napari-nucleaizer,,
-237,napari-nyxus,0.1.3,,,napari-nyxus,Jesse McKinzie,,,,A napari plugin for calculating features from intensity-label image data,,,,,,,,,,,,,https://pypi.org/project/napari-nyxus,,
+237,napari-nyxus,0.1.3,,,napari-nyxus,Jesse McKinzie,Jesse.McKinzie@axleinfo.com,,,A napari plugin for calculating features from intensity-label image data,,"['napari', 'pandas', 'numpy', 'nyxus >=0.5.0', 'imagecodecs', 'magicgui', 'napari-workflows', 'qtpy', 'superqt', 'napari-skimage-regionprops >=0.10.1']","# Nyxus Napari
+
+Nyxus Napari is a Napari plugin for running feature calculations on image-segmentation image pairs, using the
+Nyxus application to compute features. Nyxus is a feature-rich, highly optimized, Python/C++ application capable 
+of analyzing images of arbitrary size and assembling complex regions of interest (ROIs) split across multiple image tiles and files. 
+
+For more information on Nyxus, see https://github.com/PolusAI/nyxus.
+ 
+# Installation 
+
+To install Napari, it is recommended to first create a separate Conda environment. 
+
+```
+conda create -y -n napari-env -c conda-forge python=3.9
+conda activate napari-env
+```
+
+After creating the Conda environment,
+install Napari using pip
+
+```
+python -m pip install ""napari[all]""
+python -m pip install ""napari[all]"" --upgrade
+```
+
+or using conda
+
+```
+conda install -c conda-forge napari
+conda update napari
+```
+
+Next, Nyxus must be installed. Note that the version of Nyxus must be greater than or equal to `0.50` to run the Napari plugin.
+
+`pip install nyxus`
+
+or build from source using the instructions at https://github.com/PolusAI/nyxus#building-from-source using the conda build for the
+python API.
+
+After installing Napari and Nyxus, the Nyxus Napari plugin can be installed by cloning this repo and then building the plugin from the source. 
+An example of this process is provided below.
+
+```
+git clone https://github.com/PolusAI/napari-nyxus.git
+cd napari_nyxus
+pip install -e .
+```
+
+Napari can then be ran by running 
+
+```
+napari
+````
+
+# Use
+After installing the plugin, start Napari by running the command `napari` from the command line. Once the Napari 
+GUI is loaded, the Nyxus plugin can be loaded from the `Plugins` menu in the toolbar by going to Plugins -> nyxus-napari.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/plugin_menu.png)
+
+A widget will appear in the Napari viewer to run Nyxus.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/nyxus_loaded.png)
+
+As shown by the example above, Nyxus will take in Intensity and Segmentation images. These parameters can either be a stack
+of images or a single image pair. To load an image pair, use File -> Open File(s)... and select the images to load.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/open_image.png)
+
+
+Note that this method can also be used to open a stack of image, by using File -> Open Folder... instead of images. 
+
+If the segmentation is loaded as an Image type in the napari viewer, it must first be converted to the Labels type. The image can converted as shown below.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/convert_to_labels.png)
+
+The loaded files can then be selected with the Intensity and Segmentation drop down menus. Other parameters can also be changed,
+such as which features to calculate. For more information on the available features, see https://nyxus.readthedocs.io/en/latest/featurelist.html.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/setup_calculation.png)
+
+After running Nyxus, the feature calculations will also appear in the Napari viewer.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/feature_results.png)
+
+The Nyxus Napari plugin provides functionality to interact with the table containing the feature calculations. First, click on the segmentation image and then select `show selected` in the layer controls. 
+
+
+Then, if a value is clicked in the `label` column of the table, the respective ROI will be highlighted in the segmentation image in the viewer.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/click_label.png)
+
+To select the ROI and have it added to a separate Labels image, the label in the table can be double clicked. Each double clicked label will be added to the same Labels image as show below. To unselect, the ROI, double click its respective label again.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/double_click_label.png)
+
+This feature can also be used in the opposite way, i.e. if an ROI is clicked in the segmentation image, the respective row in the 
+feature table will be highlighted.
+
+If one of the column headers are double clicked, a colormap will be generated in the Napari viewer showing the values of the features in the clicked
+column. For example, if `Intensity` features are calculated, the `INTEGRATED_INTENSITY` column can be clicked and the colormap will appear.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/feature_colormap.png)
+
+Once the colormap is loaded, a slider will appear in the window with the minimum value being the minimum value of the feature colormap and the 
+maximum value of the slider is the maximum value of the colormap. By adjusting the ranges in the slider, a new label image will appear in the viewer
+that contains the ROIs who's features values fall within the slider values.
+
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/slider_feature.png)
+
+The new labels resulting from the range slider selector can then be used to run Nyxus on by using the labels image as the `Segmentation` parameter.
+
+![](docs/source/img/run_on_colormap_labels.png)
+
+# Limitations
+
+While Nyxus Napari provides batched processing for large sets of images where each individual image will fit into RAM, 
+it does not provide functionality to handle large single images that do not fit into RAM or that are larger than the 
+limitations of Napari. For large images, it is recommended to install the Python or CLI version of Nyxus. 
+For more information, see https://github.com/PolusAI/nyxus. 
+",['Framework :: napari'],,,,napari-nyxus.nyxus_widget,,,,,https://pypi.org/project/napari-nyxus,,
 238,obj file reader,1.0.0,2023-04-12,2023-06-18,napari-obj,Léo Guignard,leo.guignard@univ-amu.fr,MIT,https://github.com/guignardlab/napari-obj,A plugin to read .obj files,>=3.8,"['numpy', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'""]","# napari-obj
 
 <!-- [![License MIT](https://img.shields.io/pypi/l/napari-obj.svg?color=green)](https://github.com/guignardlab/napari-obj/raw/main/LICENSE)
@@ -22314,7 +21609,74 @@ Moore](https://github.com/will-moore).
 The napari reader plugin and GUI browser was created by [Talley
 Lambert](https://github.com/tlambert03/)
 ","['Development Status :: 3 - Alpha', 'Environment :: X11 Applications :: Qt', 'Framework :: napari', 'Intended Audience :: Developers', 'Intended Audience :: Education', 'Intended Audience :: End Users/Desktop', 'Intended Audience :: Science/Research', 'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)', 'Natural Language :: English', 'Operating System :: OS Independent', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering', 'Topic :: Scientific/Engineering :: Bio-Informatics', 'Topic :: Scientific/Engineering :: Information Analysis', 'Topic :: Scientific/Engineering :: Visualization', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: Utilities']","['homepage, https://github.com/tlambert03/napari-omero', 'repository, https://github.com/tlambert03/napari-omero']",napari-omero.get_reader,,napari-omero.widget,,['omero://*'],,,https://pypi.org/project/napari-omero,https://github.com/tlambert03/napari-omero,
-242,OpenFIBSEM Napari,0.1.5,,,napari-openfibsem,Patrick Cleeve,,MIT,,OpenFIBSEM Applications,,,,,,,,,,,,,https://pypi.org/project/napari-openfibsem,,
+242,OpenFIBSEM Napari,0.1.5,,,napari-openfibsem,Patrick Cleeve,patrick.cleeve@monash.edu,MIT,,OpenFIBSEM Applications,>=3.9,"['fibsem >=0.3.2a1', 'autolamella >=0.3.2a1', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-openfibsem
+
+[![License MIT](https://img.shields.io/pypi/l/napari-openfibsem.svg?color=green)](https://github.com/DeMarcoLab/napari-openfibsem/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-openfibsem.svg?color=green)](https://pypi.org/project/napari-openfibsem)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-openfibsem.svg?color=green)](https://python.org)
+[![tests](https://github.com/DeMarcoLab/napari-openfibsem/workflows/tests/badge.svg)](https://github.com/DeMarcoLab/napari-openfibsem/actions)
+[![codecov](https://codecov.io/gh/DeMarcoLab/napari-openfibsem/branch/main/graph/badge.svg)](https://codecov.io/gh/DeMarcoLab/napari-openfibsem)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-openfibsem)](https://napari-hub.org/plugins/napari-openfibsem)
+
+OpenFIBSEM Applications
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+## Installation
+
+You can install `napari-openfibsem` via [pip]:
+
+    pip install napari-openfibsem
+
+
+
+To install latest development version :
+
+    pip install git+https://github.com/DeMarcoLab/napari-openfibsem.git
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [MIT] license,
+""napari-openfibsem"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/DeMarcoLab/napari-openfibsem/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/DeMarcoLab/napari-openfibsem/issues', 'Documentation, https://github.com/DeMarcoLab/napari-openfibsem#README.md', 'Source Code, https://github.com/DeMarcoLab/napari-openfibsem', 'User Support, https://github.com/DeMarcoLab/napari-openfibsem/issues']",,,napari-openfibsem.fibsem,,,,,https://pypi.org/project/napari-openfibsem,,
 243,napari OrganoidCounter,0.2.3,2023-10-29,2023-11-22,napari-organoid-counter,christinab12,christina.bukas@helmholtz-muenchen.de,MIT,https://pypi.org/project/napari-organoid-counter,A plugin to automatically count lung organoids,"<3.11,>=3.8","['napari[all] >=0.4.17', 'napari-aicsimageio >=0.7.2', 'torch >=1.13.1', 'torchvision >=0.14.1', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# Napari Organoid Counter - Version 0.2 is out! 
 
 ![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
@@ -26977,7 +26339,95 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/guiwitz/napari-serialcellpose/issues', 'Documentation, https://github.com/guiwitz/napari-serialcellpose#README.md', 'Source Code, https://github.com/guiwitz/napari-serialcellpose', 'User Support, https://github.com/guiwitz/napari-serialcellpose/issues']",,,napari-serialcellpose.make_qwidget,,,,,https://pypi.org/project/napari-serialcellpose,,
-292,shape odyssey,0.1.1,,,napari-shape-odyssey,Johannes Soltwedel,,BSD-3-Clause,,Analyze shapes of meshes,,,,,,,,,,,,,https://pypi.org/project/napari-shape-odyssey,,
+292,shape odyssey,0.1.1,,,napari-shape-odyssey,Johannes Soltwedel,johannes_richard.soltwedel@tu-dresden.de,BSD-3-Clause,,Analyze shapes of meshes,>=3.8,"['numpy', 'vedo', 'pandas', 'napari', 'napari-stress', 'napari-process-points-and-surfaces', 'pyfmaps', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""PyQt5 ; extra == 'testing'""]","# napari-shape-odyssey
+
+[![License BSD-3](https://img.shields.io/pypi/l/napari-shape-odyssey.svg?color=green)](https://github.com/jo-mueller/napari-shape-odyssey/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-shape-odyssey.svg?color=green)](https://pypi.org/project/napari-shape-odyssey)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-shape-odyssey.svg?color=green)](https://python.org)
+[![tests](https://github.com/jo-mueller/napari-shape-odyssey/workflows/tests/badge.svg)](https://github.com/jo-mueller/napari-shape-odyssey/actions)
+[![codecov](https://codecov.io/gh/jo-mueller/napari-shape-odyssey/branch/main/graph/badge.svg)](https://codecov.io/gh/jo-mueller/napari-shape-odyssey)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-shape-odyssey)](https://napari-hub.org/plugins/napari-shape-odyssey)
+
+Analyze shapes of meshes: This plugin provides advanced measures of shape for meshes. It is based largely on the following libraries and tools:
+
+* [PyFM](https:/github.com/robinmagnet/pyfm)
+* [boundary-first-flattening](https://github.com/GeometryCollective/boundary-first-flattening)
+
+## Shape analysis
+
+This plugin provides Laplace spectra ([Reuter, Wolter, Peinecke (2005)](https://dl.acm.org/doi/abs/10.1145/1060244.1060256)), heat kernel signatures ([Bronstein & Kokkinos (2010)](https://ieeexplore.ieee.org/abstract/document/5539838/)) & wave kernel signatures ([Audrey, Schlickewei, Cremers et al.](https://ieeexplore.ieee.org/abstract/document/6130444)).
+
+**Laplace spectra** can be imagined to be the equivalent of resonance modes on the surface of a mesh. The resonance and the resonance modes can, for typical objects, look like this:
+
+![](https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/Eigenvalues.gif)
+
+**Heat kernel signatures**: Heat dissipation on a mesh depends on local geometry. You can use the heat kernel signature to easily generate a large number of local features of shape
+
+![](https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/heat_kernel_signature.gif)
+
+## Unwrapping
+
+This plugin provides a number of methods to unwrap a mesh into basic shapes such as spheres or disks. The method relies on [boundary-first flattening](https://github.com/GeometryCollective/boundary-first-flattening) - currently it's only available on Windows.
+
+![](https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/unwrap_to_sphere.png)
+
+
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+## Installation
+
+You can install `napari-shape-odyssey` via [pip]:
+
+´´´bash
+    pip install napari-shape-odyssey
+    napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
+    pyFM @ git+https://github.com/RobinMagnet/pyFM.git
+´´´
+
+
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""napari-shape-odyssey"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/jo-mueller/napari-shape-odyssey/issues', 'Documentation, https://jo-mueller.github.io/napari-shape-odyssey/intro.html', 'Source Code, https://github.com/jo-mueller/napari-shape-odyssey', 'User Support, https://github.com/jo-mueller/napari-shape-odyssey/issues']",napari-shape-odyssey.get_reader,napari-shape-odyssey.write_multiple,napari-shape-odyssey.shape_fingerprint_spectral,,"['*.obj', '*.stl', '*.off', '*.ply', '*.vtk', '*.vtp']",,['.npy'],https://pypi.org/project/napari-shape-odyssey,,
 293,napari sif file reader,0.0.2,2023-04-11,2023-11-06,napari-sif-reader,Ruben Lopez,rjlopez2@gmail.com,BSD-3-Clause,https://github.com/rjlopez2/napari-sif-reader,This is a simple wraper to read .sif format files from Andor Technology.,>=3.8,"['numpy', 'sif-parser', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pillow ; extra == 'testing'""]","# napari-sif-reader
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-sif-reader.svg?color=green)](https://github.com/rjlopez2/napari-sif-reader/raw/main/LICENSE)
@@ -29586,7 +29036,136 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/RoccoDAnt/napari-superres/issues', 'Documentation, https://github.com/RoccoDAnt/napari-superres#README.md', 'Source Code, https://github.com/RoccoDAnt/napari-superres', 'User Support, https://github.com/RoccoDAnt/napari-superres/issues']",napari-superres.get_reader,napari-superres.write_multiple,napari-superres.make_mssr_caller,,['*.npy'],,['.npy'],https://pypi.org/project/napari-superres,,
-317,napari-svetlana,0.3.2,,,napari-svetlana,Clément Cazorla,,GPL-3.0-only,,A classification plugin for the ROIs of a segmentation mask.,,,,,,,,,,,,,https://pypi.org/project/napari-svetlana,,
+317,napari-svetlana,0.3.2,,,napari-svetlana,Clément Cazorla,clement.cazorla31@gmail.com,GPL-3.0-only,,A classification plugin for the ROIs of a segmentation mask.,>=3.9,"['napari-plugin-engine >=0.1.4', 'numpy', 'albumentations ==1.0.3', 'joblib ==1.2.0', 'light-the-torch', 'matplotlib', 'opencv-python ==4.8.1.78', 'PyQt5', 'cupy-cuda102 ==10.6.0', 'xlsxwriter', 'pandas', 'npe2', 'pooch', 'cucim ==22.6.0 ; platform_system == ""Linux""']","# napari_svetlana
+
+[![License](https://img.shields.io/pypi/l/napari_svetlana.svg?color=green)](https://bitbucket.org/koopa31/napari_svetlana/src/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari_svetlana.svg?color=green)](https://pypi.org/project/napari_svetlana)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari_svetlana.svg?color=green)](https://python.org)
+[![tests](https://bitbucket.org/koopa31/napari_svetlana/workflows/tests/badge.svg)](https://bitbucket.org/koopa31/napari_svetlana/actions)
+[![codecov](https://codecov.io/gh/koopa31/napari_svetlana/branch/main/graph/badge.svg)](https://codecov.io/gh/koopa31/napari_svetlana)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-svetlana)](https://napari-hub.org/plugins/napari-svetlana)
+[![Documentation](https://readthedocs.org/projects/svetlana-documentation/badge/?version=latest)](https://svetlana-documentation.readthedocs.io/en/latest/)
+
+The aim of this plugin is to classify the output of a segmentation algorithm.
+The inputs are :
+<ul>
+  <li>A folder of raw images</li>
+  <li>Their segmentation masks where each ROI has its own label.</li>
+</ul>
+
+Svetlana can process 2D, 3D and multichannel image. If you want to use it to work on cell images, we strongly
+recommend the use of [Cellpose](https://www.cellpose.org) for the segmentation part, as it provides excellent quality results and a standard output format
+accepted by Svetlana (labels masks). 
+
+If you use this plugin please cite the [paper](https://hal.inria.fr/hal-03927879): 
+
+Cazorla, C., Weiss, P., & Morin, R. (2023). Svetlana: a Supervised Segmentation Classifier for Napari.
+
+```bibtex
+@unpublished{weiss:hal-03927879,
+  TITLE = {{Svetlana: a Supervised Segmentation Classifier for Napari}},
+  AUTHOR = {Weiss, Pierre and Cazorla, Cl{\'e}ment and Morin, Renaud},
+  URL = {https://hal.inria.fr/hal-03927879},
+  NOTE = {working paper or preprint},
+  YEAR = {2023},
+  MONTH = Jan,
+  PDF = {https://hal.inria.fr/hal-03927879/file/main_nature.pdf},
+  HAL_ID = {hal-03927879},
+  HAL_VERSION = {v1},
+}
+
+```
+
+
+![](https://bitbucket.org/koopa31/napari_svetlana/raw/bca8788111b38d97bd172c7caac87cc488ace699/images/Videogif.gif)
+
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/plugins/stable/index.html
+-->
+
+## Installation
+
+First install Napari in a Python 3.9 Conda environment following these instructions :
+
+```bash
+conda create -n svetlana_env python=3.9
+conda activate svetlana_env
+conda install pip
+python -m pip install ""napari[all]""==0.4.17
+```
+
+Then, you can install `napari_svetlana` via [pip](https://pypi.org/project/napari-svetlana/), or directly from the Napari plugin manager (see Napari documentation):
+```bash
+pip install napari_svetlana
+```
+WARNING:
+
+If you have a Cuda compatible GPU on your computer, some computations may be accelerated
+using [Cupy](https://pypi.org/project/cupy/). Unfortunately, Cupy needs Cudatoolkit to be installed. This library can only be installed via 
+Conda while the plugin is a pip plugin, so it must be installed manually for the moment:
+```bash
+conda install cudatoolkit=10.2 
+```
+Also note that the library ([Cucim](https://pypi.org/project/cucim/)) that we use to improve these performances, computing morphological operations on GPU
+is unfortunately only available for Linux systems. Hence, if you are a Windows user, this installation is not necessary.
+
+## Tutorial
+
+Many advanced features are available in Svetlana, such as data augmentation or contextual information reduction, to optimize the performance of your classifier. Thus, we strongly encourage you to
+check our [Youtube tutorial](https://www.youtube.com/watch?v=u_FKuHta-RE) and
+our [documentation](https://svetlana-documentation.readthedocs.io/en/latest/).
+A button called **TRY ON DEMO IMAGE** is available in the annotation plugin and enables you to apply the YouTube
+tutorial to the same test images to learn how to use the plugin. Feel free to try it to test all the features
+that Svetlana offers.
+
+## Similar Napari plugins
+
+Joel Luethi developed a similar method for objects classification called [napari feature classifier](https://www.napari-hub.org/plugins/napari-feature-classifier).
+Also, [apoc](https://www.napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification) by Robert Haase is available in Napari for pixels and objects classification.
+
+## Contributing
+
+Contributions are very welcome.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""napari_svetlana"" is free and open source software
+
+## Acknowledgements
+
+The method was developed by [Clément Cazorla](https://koopa31.github.io/), [Renaud Morin](https://www.linkedin.com/in/renaud-morin-6a42665b/?originalSubdomain=fr) and [Pierre Weiss](https://www.math.univ-toulouse.fr/~weiss/). And the plugin was written by
+Clément Cazorla. The project is co-funded by [Imactiv-3D](https://www.imactiv-3d.com/) and [CNRS](https://www.cnrs.fr/fr).
+
+## Issues
+
+If you encounter any problems, please [file an issue](https://bitbucket.org/koopa31/napari_svetlana/issues?status=new&status=open) along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)']","['Bug Tracker, https://bitbucket.org/koopa31/napari_svetlana/issues?status=new&status=open', 'Documentation, https://svetlana-documentation.readthedocs.io/en/latest/', 'Source Code, https://bitbucket.org/koopa31/napari_svetlana/src/main/', 'User Support, https://bitbucket.org/koopa31/napari_svetlana/issues?status=new&status=open']",napari-svetlana.get_reader,napari-svetlana.write_image,napari-svetlana.Annotation,,['*.npy'],,,https://pypi.org/project/napari-svetlana,,
 318,napari SVG,0.1.10,2020-06-03,2023-06-27,napari-svg,Nicholas Sofroniew,sofroniewn@gmail.com,BSD-3,https://github.com/napari/napari-svg,A plugin for reading and writing svg files with napari,>=3.7,"['imageio (>=2.5.0)', 'numpy (>=1.16.0)', 'napari-plugin-engine (>=0.1.4)', 'vispy (>=0.6.4)', ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""napari (>=0.4) ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-svg
 
 [![License](https://img.shields.io/pypi/l/napari-svg.svg?color=green)](https://github.com/napari/napari-svg/raw/master/LICENSE)
@@ -30606,7 +30185,102 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [conda]: https://docs.anaconda.com/free/miniconda/index.html
 [file an issue]: https://github.com/ehgus/napari-tomocube-data-viewer/issues
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/ehgus/napari-tomocube-data-viewer/issues', 'Documentation, https://github.com/ehgus/napari-tomocube-data-viewer #README.md', 'Source Code, https://github.com/ehgus/napari-tomocube-data-viewer', 'User Support, https://github.com/ehgus/napari-tomocube-data-viewer/issues']",napari-tomocube-data-viewer.get_reader,,,,['*.TCF'],,,https://pypi.org/project/napari-tomocube-data-viewer,https://github.com/ehgus/napari-tomocube-data-viewer,
-330,ToMoDL Reconstruction,0.1.17,,,napari-tomodl,"Marcos Antonio Obando, Germán Mato, Teresa Correia",,MIT,,A plugin for optical projection tomography reconstruction with model-based neural networks.,,,,,,,,,,,,,https://pypi.org/project/napari-tomodl,,
+330,ToMoDL Reconstruction,0.1.17,,,napari-tomodl,"Marcos Antonio Obando, Germán Mato, Teresa Correia",marcos.obando@ib.edu.ar,MIT,,A plugin for optical projection tomography reconstruction with model-based neural networks.,<=3.9,"['magicgui', 'qtpy', 'napari[all]', 'pyqt5', 'phantominator', 'opencv-python', 'scikit-image', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-tomodl
+
+[![License MIT](https://img.shields.io/pypi/l/napari-tomodl.svg?color=green)](https://github.com/marcoso96/napari-tomodl/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-tomodl.svg?color=green)](https://pypi.org/project/napari-tomodl)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-tomodl.svg?color=green)](https://python.org)
+[![tests](https://github.com/marcoso96/napari-tomodl/workflows/tests/badge.svg)](https://github.com/marcoso96/napari-tomodl/actions)
+[![codecov](https://codecov.io/gh/marcoso96/napari-tomodl/branch/main/graph/badge.svg)](https://codecov.io/gh/marcoso96/napari-tomodl)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-tomodl)](https://napari-hub.org/plugins/napari-tomodl)
+
+A plugin for optical projection tomography reconstruction with model-based neural networks.
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+## Introduction and usage
+
+ToMoDL allows users to reconstruct tomography images from its raw projections juts from uploading them as an ordered stack of files into the napari viewer.
+
+1 - Load ordered stack: Click File -> Open Files as Stack... and load the angular projections for parallel beam optical tomography reconstruction.
+
+![plot](https://raw.githubusercontent.com/marcoso96/ToMoDL/main/napari-tomodl/figures/fig3.png)
+
+2 - Select the current volume in the dropdown menu with the button 'Select image layer'. Notice that the projections should be in grayscale and more than one slide in the stack.
+
+![plot](https://raw.githubusercontent.com/marcoso96/ToMoDL/main/napari-tomodl/figures/fig4.png)
+
+3 - If the axis is not correctly aligned in acquisition time, we provide an algorithm to do so by clicking on 'Align axis'. This will align the sinogram respect to the center of the detector in order to maximise the variance of the reconstructions. See Walls et al. 
+
+4 - Reshape the reconstructed volume to a desired size. This can be useful to prevent exhausting your computing capabilities.
+
+5 - Clip to circle should be False by default.
+
+6 - Choose if filtering should be used. By the moment we only allow using ramp filtering for FBP only (both CPU and GPU).
+
+7 - Choose the correct order of the axis of the projections (T -> Theta axis, Q -> Detector axis)
+
+8 - Reconstruct! A new Layer should be created on top of the projections stack containing the reconstructed volume.
+
+![plot](https://raw.githubusercontent.com/marcoso96/ToMoDL/main/napari-tomodl/figures/fig2.png)
+
+## Installation
+
+This package requires [torch-radon] for optimized GPU tomographic reconstruction:
+
+    pip install 'torch-radon @ https://rosh-public.s3-eu-west-1.amazonaws.com/radon-v2/cuda-11.1/torch-1.8/torch_radon-2.0.0-cp38-cp38-linux_x86_64.whl'
+
+and `PyTorch == 1.8.0` via wheel, which can be downloaded and installed with: 
+
+    pip install 'torch @ https://download.pytorch.org/whl/cu111/torch-1.8.0%2Bcu111-cp38-cp38-linux_x86_64.whl'
+
+You can install `napari-tomodl` via [pip]:
+
+    pip install napari-tomodl
+
+
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [MIT] license,
+""napari-tomodl"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[napari]: https://github.com/napari/napari
+[torch-radon]: https://github.com/matteo-ronchetti/torch-radon
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']",,,,napari-tomodl.make_reconstruct_widget,,,,,https://pypi.org/project/napari-tomodl,,
 331,napari-tomoslice,0.0.7,2022-02-02,2023-06-18,napari-tomoslice,Alister Burt,alisterburt@gmail.com,BSD-3-Clause,https://github.com/alisterburt/napari-tomoslice,A napari plugin for interacting with electron cryotomograms,>=3.7,"['napari-plugin-engine (>=0.1.4)', 'numpy', 'napari (==0.4.12)', 'mrcfile', 'typer']","# napari-tomoslice
 
 [![License](https://img.shields.io/pypi/l/napari-tomoslice.svg?color=green)](https://github.com/alisterburt/napari-tomoslice/raw/master/LICENSE)
@@ -33096,7 +32770,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/kephale/napari-zulip/issues', 'Documentation, https://github.com/kephale/napari-zulip#README.md', 'Source Code, https://github.com/kephale/napari-zulip', 'User Support, https://github.com/kephale/napari-zulip/issues']",,,napari-zulip.screenshot_to_Zulip,,,,,https://pypi.org/project/napari-zulip,https://github.com/kephale/napari-zulip,
 361,CellSeg3D,0.2.0,2022-07-11,2023-12-15,napari_cellseg3d,,,MIT,https://github.com/AdaptiveMotorControlLab/CellSeg3d,Plugin for cell segmentation in 3D,,,,,,,,,,,,,https://pypi.org/project/napari_cellseg3d,https://github.com/AdaptiveMotorControlLab/CellSeg3d,
 362,napari_hello,0.1.0,,,napari_hello,Your Name,,,,My napari plugin,,,,,,,,,,,,,https://pypi.org/project/napari_hello,,
-363,napari_psf_analysis,1.1.3,2022-07-07,2023-06-18,napari_psf_analysis,Tim-Oliver Buchholz,,BSD-3-Clause,https://github.com/fmi-faim/napari-psf-analysis,A plugin to analyse point spread functions (PSFs).,,,,,,,,,,,,,https://pypi.org/project/napari_psf_analysis,https://github.com/fmi-faim/napari-psf-analysis,
+363,napari_psf_analysis,1.1.3,,,napari_psf_analysis,Tim-Oliver Buchholz,,BSD-3-Clause,,A plugin to analyse point spread functions (PSFs).,,,,,,,,,,,,,https://pypi.org/project/napari_psf_analysis,,
 364,napari_stress,0.3.5,2023-12-08,2024-01-15,napari_stress,"Johannes Soltwedel, Ben J. Gross, Elijah Shelton, Carlos Gomez, Otger Campas",,BSD-3-Clause,https://pypi.org/project/napari-stress,Interactive surface analysis in napari for measuring mechanical stresses in biological tissues,,,,,,,,,,,,,https://pypi.org/project/napari-stress,,
 365,napari_video,0.2.9,2022-02-05,2023-06-18,napari_video,Jan Clemens,clemensjan@googlemail.com,,https://github.com/janclemenslab/napari-video,napari plugin for reading videos.,>=3.6,"['numpy', 'pyvideoreader']","# napari-video
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari_video)](https://napari-hub.org/plugins/napari_video)
@@ -33268,7 +32942,164 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/haesleinhuepf/natari/issues', 'Documentation, https://github.com/haesleinhuepf/natari#README.md', 'Source Code, https://github.com/haesleinhuepf/natari', 'User Support, https://github.com/haesleinhuepf/natari/issues']",,,natari.napari_experimental_provide_function,,,,,https://pypi.org/project/natari,https://github.com/haesleinhuepf/natari,
-368,Nellie,0.2,,,nellie,Austin E. Y. T. Lefebvre,,,,"Automated organelle segmentation, tracking, and hierarchical feature extraction in 2D/3D live-cell microscopy",,,,,,,,,,,,,https://pypi.org/project/nellie,,
+368,Nellie,0.2,,,nellie,Austin E. Y. T. Lefebvre,austin.e.lefebvre+nellie@gmail.com,,,"Automated organelle segmentation, tracking, and hierarchical feature extraction in 2D/3D live-cell microscopy",>=3.9,"['numpy ==1.26.4', 'scipy ==1.12.0', 'scikit-image ==0.22.0', 'nd2 ==0.9.0', 'ome-types ==0.5.1.post1', 'pandas ==2.2.1', 'matplotlib ==3.8.3', 'napari[all]']","# Nellie
+## Automated organelle segmentation, tracking, and hierarchical feature extraction in 2D/3D live-cell microscopy
+
+<img src=""https://github.com/aelefebv/nellie/assets/26515909/96b7a113-be60-4028-bcd9-b444bdb943f6"" width=""200px"" align=""left"" /> *arXiv* 
+
+  [Preprint Link](https://arxiv.org/abs/2403.13214) | [Cite](#reference)
+
+**Abstract:** The analysis of dynamic organelles remains a formidable challenge, though key to understanding biological processes. We introduce Nellie, an automated and unbiased pipeline for segmentation, tracking, and feature extraction of diverse intracellular structures. Nellie adapts to image metadata, eliminating user input. Nellie’s preprocessing pipeline enhances structural contrast on multiple intracellular scales allowing for robust hierarchical segmentation of sub-organellar regions. Internal motion capture markers are generated and tracked via a radius-adaptive pattern matching scheme, and used as guides for sub-voxel flow interpolation. Nellie extracts a plethora of features at multiple hierarchical levels for deep and customizable analysis. Nellie features a Napari-based GUI that allows for code-free operation and visualization, while its modular open-source codebase invites customization by experienced users. 
+
+**Nellie's pipeline and Napari plugin are both very much in early stages,** therefore [I highly encourage any and all feedback](#getting-help).
+
+## Example output intermediates
+
+https://github.com/aelefebv/nellie/assets/26515909/1df8bf1b-7116-4d19-b5fb-9658f744675b
+
+## Installation
+
+**Notes:** 
+- It is recommended (but usually not required) to [create a new environment](https://docs.python.org/3/library/venv.html) for Nellie to avoid conflicts with other packages.
+- May take several minutes to install.
+- Choose one of the following methods, and only one!
+### Option 1. Via Napari plugin manager:
+If not already installed, install Napari: https://napari.org/stable/tutorials/fundamentals/installation
+1. Open Napari
+2. Go to ```Plugins > Install/Uninstall Plugins...```
+3. Search for Nellie and click ```Install```
+### Option 2. Via PIP:
+```bash
+pip install nellie
+```
+#### Option 2a for NVIDIA GPU acceleration, optional (Windows, Linux):
+To use GPU acceleration via NVIDIA GPUs, you also need to install cupy:
+```bash
+pip install cupy-cudaXXx
+```
+- replace ```cupy-cudaXXx``` with the [appropriate version](https://docs.cupy.dev/en/stable/install.html#installing-cupy) for your CUDA version.
+  - i.e. ```cupy-cuda11x``` for CUDA 11.x or ```cupy-cuda12x``` for CUDA 12.x
+- if you don't have CUDA installed, [go here](https://docs.cupy.dev/en/stable/install.html).
+- Mac Metal GPU-acceleration coming... eventually.
+
+## Usage
+The sample dataset shown below is in the repo if you want to play around without, and can be downloaded [here](https://github.com/aelefebv/nellie/tree/main/sample_data).
+
+https://github.com/aelefebv/nellie/assets/26515909/05199fed-ed8c-4237-b3ba-0a3f4cdcb337
+
+### General data preparation
+- It is strongly recommended to have your data in a parsable format, such as .ome.tif, .nd2, or other raw data files from microscopes.
+  - Importing into ImageJ/FIJI and saving via BioFormats with the proper image dimensions should do the trick.
+  - If the metadata cannot be parsed, you will have to manually enter it.
+- It is also recommended to crop your image as much as possible to reduce processing time and memory usage. But really, unless you have massive lightsheet data, it should be pretty fast.
+
+https://github.com/aelefebv/nellie/assets/26515909/372d07a8-15a0-4926-8594-108dd4b97280
+
+### Running Nellie's processing pipeline
+1. Start Napari (open a Terminal and type napari)
+    ```bash
+    napari
+    ```
+2. Go to 
+```Plugins > Nellie (nellie)``` then to the ```File select``` tab.
+3. Click ```Select File``` of ```Select Folder``` to select your image(s).
+   - If the metadata boxes do not fill in automatically and turn red, this means Nellie did not detect that metadata portion from your image, and you must manually enter it or reformat your image and try again.
+     - The metadata slot will appear green if it is in the correct format.
+   - *Note, if you are batch processing, the metadata must be the same for all images if any of them are in an incorrect format (this will be fixed eventually). If they are different, but all pass validation, then it will process fine.
+   - You can preview 2 time points of your image via the ```Open preview``` button once the metadata is filled in to ensure it looks correct.
+4. Click the ```Process``` tab.
+   - If you have multiple fluorescence channels, select the channel you want to process/analyze.
+   - If you only want to analyze up to a certain timepoint, you can set this in slider. By default it will run all timepoints.
+   - If you have odd noise on the edges of your image, check the ```Remove image edges``` checkbox.
+5. You can run the full pipeline with ```Run Nellie```, or run individual steps below.
+    - Steps can only be run once its previous step has been run.
+    - Likewise, visualizations in the ```Visualization``` tab can only be opened once its respective step has been run.
+6. All intermediate files and output csvs will be saved to ```[image_directory]/nellie_output/```.
+   - A separate .csv is created for each level of the organellar hierarchy.
+7. Once features have been exported, Nellie will automatically detect this, and allow analysis via the ```Analyze``` tab.
+   - Analysis at this point is optional, but can be helpful for visualizing, and selectively exporting data.
+
+### Using Nellie's visualization plugin
+1. Follow the previous processing steps, you only need to do this once per file as long as you don't move or delete the files.
+2. Open the ```Visualization``` tab
+3. Select a visualization from the list.
+   1. ```Raw```: Visualize the raw data for the processed channel.
+   2. ```Preprocessed```: Visualize the contrast-enhanced data.
+   3. ```Segmentation```: Visualize the organelle and branch instance segmentation masks.
+   4. ```Mocap Markers```: Visualize the mocap markers used for waypoints.
+   5. ```Reassigned Labels```: Visualize the organelle and branch instance segmentation masks where voxels are reassigned based on the first timepoint.
+4. To visualize tracks, open and select one of the segmentation layers.
+5. ```Alt+Click``` on a label to visualize the track of that selected organelle/branch across all timepoints.
+   - If the segmentation labels are selected, it will generate tracks for all voxels in the selected timepoint only.
+   - If the reassigned labels are selected, you can choose to generate tracks for all voxels across all timepoints.
+   - You can skip voxels to track so that the area is not too crowded by tracks.
+   - *Note: If you have a 3D image, toggle to 2D mode via the ```Toggle 2D/3D view``` at the bottom left before ```Alt+Click```ing (eventually I'll get it to work while in 3D mode).
+
+### Using Nellie's analysis plugin
+
+https://github.com/aelefebv/nellie/assets/26515909/7f4f09a4-3687-4635-988d-e1d16ad2a4af
+
+1. Follow the previous processing steps, you only need to do this once per file as long as you don't move or delete the files.
+2. Open the ```Analyze``` tab, select the hierarchy level you want to visualize from the dropdown.
+3. Select the level-specific feature you want to visualize from the new dropdown.
+4. A histogram of all the data will be displayed.
+   - This histogram can be directly exported via the ```Save graph``` button. A .png will be saved to ```[image_directory]/nellie_output/graphs/``` with the current datetime.
+   - The values of the histogram can be exported via the ```Export graph data``` button. A .csv will be saved to ```[image_directory]/nellie_output/graphs/``` with the current datetime.
+   - The histogram's x-axis can be viewed in log10 scale via the ```Log scale``` checkbox.
+   - By default, the histogram shows lines at the mean +/- 1 standard deviation. This can instead be switched to median and quartiles via the ```Median view``` checkbox.
+5. Press the ```Overlay mask``` button to colormap the organelle mask based on your selected feature.
+   - Once overlaid, toggle the ```Timepoint data``` checkbox to allow you to select a specific timepoint to visualize via the slider.
+
+## Other features
+- Nellie's plugin offers an ```Easy screenshot``` feature:
+  - Press the button under ```Easy screenshot``` or hit Ctrl/Cmd-Shift-E after clicking your image.
+  - The .png will be saved to ```[image_directory]/nellie_output/screenshots/``` with the current datetime.
+
+## Feedback / Getting Help
+A few options are available for providing feedback or getting help with Nellie:
+
+[Github Issues](https://github.com/aelefebv/nellie/issues/new) | [email](mailto:austin.e.lefebvre+nellie@gmail.com) | [X](https://twitter.com/Austin_Lefebvre) | wherever else you can find me!
+
+To avoid any unnecessary back-and-forth, please include any/all (if possible) of the following information in your bug report:
+- What kind of computer do you have, and what are its specs?
+- Send me screenshots of what is not working.
+- Send me any error logs in your terminal.
+- Send me the file you ran (if possible).
+- Any other information that might be helpful
+
+## License
+Nellie © 2024 by [Austin E. Y. T. Lefebvre](https://github.com/aelefebv) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+## Reference
+If you used Nelly or found this work useful in your own research, please cite our [arXiv preprint](https://arxiv.org/abs/2403.13214):
+
+Lefebvre, A. E. Y. T., Sturm, G., et. al. Nellie: Automated organelle segmentation, tracking, and hierarchical feature extraction in 2D/3D live-cell microscopy, arXiv, 2024, https://arxiv.org/abs/2403.13214
+
+```
+@misc{lefebvre2024nellie,
+      title={Nellie: Automated organelle segmentation, tracking, and hierarchical feature extraction in 2D/3D live-cell microscopy}, 
+      author={Austin E. Y. T. Lefebvre and Gabriel Sturm and Ting-Yu Lin and Emily Stoops and Magdalena Preciado Lopez and Benjamin Kaufmann-Malaga and Kayley Hake},
+      year={2024},
+      eprint={2403.13214},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+
+## More fun examples
+### Microtubule growing ends:
+
+https://github.com/aelefebv/nellie/assets/26515909/88578dc9-f5c5-4188-a0e2-4e37037a44a9
+
+### Endoplasmic reticulum:
+
+https://github.com/aelefebv/nellie/assets/26515909/db76d388-a9cc-4650-b93d-69d357ace418
+
+### Peroxisomes:
+
+https://github.com/aelefebv/nellie/assets/26515909/58bda3cb-6489-4620-8584-a3728cd6b2ec
+
+",['Framework :: napari'],,,,nellie.loader,,,,,https://pypi.org/project/nellie,,
 369,nfinder,0.3,2022-02-04,2023-06-18,nfinder,Santiago N. Rodriguez Alvarez,rodriguezsantiago96@gmail.com,,https://github.com/santi-rodriguez/nfinder,Automatic inference of neighboring cells based on their Delaunay triangulation.,>=3.7,,"# Nfinder
 Automatic inference of neighboring cells based on their Delaunay triangulation.
 
@@ -33556,7 +33387,66 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Science/Research', 'Framework :: napari', 'Topic :: Scientific/Engineering', 'Topic :: Scientific/Engineering :: Visualization', 'Topic :: Scientific/Engineering :: Information Analysis', 'Topic :: Scientific/Engineering :: Bio-Informatics', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/ndcn/organelle-segmenter-plugin/issues', 'Documentation, https://github.com/ndcn/organelle-segmenter-plugin#README.md', 'Source Code, https://github.com/ndcn/organelle-segmenter-plugin', 'User Support, https://github.com/ndcn/organelle-segmenter-plugin/issues']",organelle-segmenter-plugin.get_reader,,organelle-segmenter-plugin.make_batch_widget,,"['*.xyz', '*.czi', '*.tif', '*.tiff']",,,https://pypi.org/project/organelle-segmenter-plugin,,
-373,ortho-view-napari,0.1.1,,,ortho-view-napari,Jordao Bragantini,,BSD-3,,It displays the lateral view of the current 3D stack. This could be a starting point for a orthorviewer.,,,,,,,,,,,,,https://pypi.org/project/ortho-view-napari,,
+373,ortho-view-napari,0.1.1,,,ortho-view-napari,Jordao Bragantini,jordao.bragantini@czbiohub.org,BSD-3,,It displays the lateral view of the current 3D stack. This could be a starting point for a orthorviewer.,>=3.7,"['napari-plugin-engine (>=0.1.4)', 'numpy']","# ortho-view-napari
+
+[![License](https://img.shields.io/pypi/l/ortho-view-napari.svg?color=green)](https://github.com/JoOkuma/ortho-view-napari/raw/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/ortho-view-napari.svg?color=green)](https://pypi.org/project/ortho-view-napari)
+[![Python Version](https://img.shields.io/pypi/pyversions/ortho-view-napari.svg?color=green)](https://python.org)
+[![tests](https://github.com/JoOkuma/ortho-view-napari/workflows/tests/badge.svg)](https://github.com/JoOkuma/ortho-view-napari/actions)
+[![codecov](https://codecov.io/gh/JoOkuma/ortho-view-napari/branch/master/graph/badge.svg)](https://codecov.io/gh/JoOkuma/ortho-view-napari)
+
+It displays the lateral view of the current 3D stack. This could be a starting point for a orthorviewer.
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using with [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/docs/plugins/index.html
+-->
+
+## Installation
+
+You can install `ortho-view-napari` via [pip]:
+
+    pip install ortho-view-napari
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""ortho-view-napari"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+[file an issue]: https://github.com/JoOkuma/ortho-view-napari/issues
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+
+
+","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/JoOkuma/ortho-view-napari/issues', 'Documentation, https://github.com/JoOkuma/ortho-view-napari#README.md', 'Source Code, https://github.com/JoOkuma/ortho-view-napari', 'User Support, https://github.com/JoOkuma/ortho-view-napari/issues']",,,ortho-view-napari.Widget,,,,,https://pypi.org/project/ortho-view-napari,,
 374,Palmari,0.3.0,2022-07-06,2023-06-18,palmari,Hippolyte Verdier,hverdier@pasteur.fr,"""CeCILL""",https://github.com/hippover/palmari,"Palmari provides a plugin to analyze PALM movies, as well as microscope recordings of other SMLM-based SPT modalities. Set up your pipeline on one file, run it on a folder !",>=3.8,"['click', 'dask (>=2022.1.0)', 'dask-image (>=2021.12.0)', 'imageio-ffmpeg', 'magicgui (>=0.5.0)', 'matplotlib (>=3.5)', 'munkres', 'napari', 'napari-aicsimageio', 'numpy', 'pandas', 'pyyaml', 'qtpy', 'scikit-image (>=0.18.3)', 'scikit-learn', 'toml', 'tqdm', 'trackpy (>=0.5.0)', ""tox ; extra == 'testing'"", ""PyQt5 ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'""]","# Palmari
 
 [![Documentation Status](https://readthedocs.org/projects/palmari/badge/?version=latest)](https://palmari.readthedocs.io/en/latest/?badge=latest)
