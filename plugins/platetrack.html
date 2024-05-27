@@ -128,13 +128,13 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Plugin type<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=reader">Reader</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=widget">Widget</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Open extension<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.csv">*.csv</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.parquet">*.parquet</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -160,7 +160,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.7">3.7</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">trackpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">plateletanalysis</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +221,94 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        Not available
+                                        
+        <style>
+        pre {
+   background-color: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+        code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27,31,35,0.05);
+    border-radius: 6px;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+/* Remove margin and padding from the last child to avoid extra space */
+pre > code:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+        </style>
+        <p>A small napari plugin for tracking platelets. Platetrack requires a segmentation and an image containing raw data. We recomend trying the napari plugin iterseg to generate these. Platetrack uses trackpy for tracking and outputs a dataframe with platelet coordinates, tracking information, and several other variables, which provide information about each platelet. </p>
+<h2>Installation</h2>
+<p>There are three main ways to install platetrack:</p>
+<h3>Install Using pip</h3>
+<p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
+<p><code>bash
+pip install platetrack</code></p>
+<h3>Install via napari hub</h3>
+<p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
+<p><code>bash
+install napari
+napari</code></p>
+<p>Once napari has opened (this may take a second the first time you open it), go to the pannel at the top of the screen and select the 'plugins' dropdown. Then select install/uninstall plugins. A new window will open showing available plugins. Either scroll down to or search 'platetrack' and click 'install'. </p>
+<h3>Install from Source Code</h3>
+<p><em>please use this for now</em></p>
+<p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
+<p><code>bash
+git clone &lt;repository https or ssh&gt;
+cd platetrack
+pip install .</code></p>
+<h2>Opening Platetrack</h2>
+<p>Once annotrack is properly installed you will be able to open platetrack by opening napari. You can open napari through the command line (terminal (MacOS or Ubuntu) or annaconda prompt (windows)) as follows:</p>
+<p><code>bash
+napari</code></p>
+<p>You can find the platetrack widgets by selecting the dropdown 'plugins' at the pannel at the top of the screen and selecting the platetrack widget 'track_platelets'.  </p>
+<h2>Tracking Platelets</h2>
+<p>You can track platelets and obtain a dataframe of information about platelet observation by providing an image/s (t, z, y, x) and a segmentation (t, z, y, x). There are no specific file format requirements, only that you first load the image and segmentation into napari. The napari plugin iterseg provides a widget that will help you load zarr format files. If you have an image with multiple channels (i.e., laser colours), load them into separate napari layers. Iterseg has an option for this called "split channels". Otherwise, refer to the napari website for instructions on using napari layers. </p>
+<h3>Parameters for widget</h3>
+<ul>
+<li><strong>labels_layer</strong>: The napari layer containing the segmentation.</li>
+<li><strong>image_layer</strong>: The napari layer containing the image (you only need this if you don't want to use all image layers).</li>
+<li><strong>use_all_image_layers</strong>: If you have several image channels selecting this will obtain information about each channel. The info about image intensity will be stored in columns of the data frame named <em>[layer name]</em><em>max, <em>[layer name]</em>_mean</em>, </li>
+<li><strong>sample_name</strong>: what is the name of the sample (i.e., an identifyer for the biological sample including, for example, the animal number, date, experimental conditions, etc.). This is important if you are planning to combine data frames with different treatment groups. </li>
+<li><strong>treatment_name</strong>: name of treatement group or experimental condition (will be added as a categorical variable). This is important if you are planning to combine data frames with different treatment groups. </li>
+<li><strong>x_microns</strong>: How big are pixels in the x axis (probably in microns). We need this so that physical rather than pixel coordinates can be computed. </li>
+<li><strong>y_microns</strong>: How big are pixels in the y axis (probably in microns). We need this so that physical rather than pixel coordinates can be computed. </li>
+<li><strong>z_microns</strong>: How big are pixels in the z axis (probably in microns). We need this so that physical rather than pixel coordinates can be computed. </li>
+<li><strong>save_dir</strong>: Directory into which you want to save output data</li>
+<li><strong>save_file</strong>: name to give the file, </li>
+<li><strong>save_format</strong>: There are two options for save format "parquet" or "csv".  </li>
+<li><strong>search_range</strong>: This is a parameter for the tracking. The search range is how far away (in physical units, e.g., microns) the tracking algorithm will look for the same platelet at the next time point. This can be reduced if trackpy is running out of computational resources due to a high number of observations (platelets)  </li>
+<li><strong>xy_origin</strong>: If you are rotating the data (e.g., you might want to align the blood flow with the y axis like we do) this parameter defines the centre of rotation. If you would like to use the geometric centre of the image just use "centre". Otherwise, provide a tuple (computer word – basically a list of numbers between brackets) of coordinates in physical units in yx format (e.g., (126, 148)). </li>
+<li><strong>rotation</strong>: The number of degrees by which to rotate the data counterclockwise. </li>
+</ul>
+<h2>Platelet data outputted</h2>
+<p>A number of variables are computed about the platelets alongside the tracking. Each variable is reported for every platelet observation (execpt veclocity, which is only reported for tracked platelets after the first observation). </p>
+<ul>
+<li>Mean platelet intensity in each image channel</li>
+<li>Max platelet pixel intensity in each channel</li>
+<li>Platelet elongation (0-1, 0 being least elongated, 1 being most elongated)</li>
+<li>Platelet flatness (0-1, 0 being least flat, 1 being most flat)</li>
+<li>Platelet velocity (dv)</li>
+<li>Platelet coordinate velocities (dvx, dvy, dvz)</li>
+<li>Platelet local density (density of platlets in a 15 um radius around the platelet)</li>
+<li>Lists of platelet neighbours within 15 um radius</li>
+<li>Lists of distances of each platelet neighbours within 15 um radius</li>
+</ul>
+<h2>Contributing and User Support</h2>
+<p><strong>User support:</strong> If you have an issue with platetrack please add an issue (go to the Issues tab at the top of the GitHub page). If your issue is a bug, please include as much information as possible to help debug the problem. Examples of information include: details about the image and segmentation data (dimensions), number of images, number of samples you are trying to take. If you are requesting an improvement, try to be as clear as possible about what you need. </p>
+<p><strong>Contributing:</strong> If you want to contribute to platetrack, please fork the repo and if you want to make changes make a pull request with as much detail about the change as possible. Please ensure any changes you want to make don't break the existing functions.</p>
+        
 
                                     </div>
                                 </div>
@@ -293,14 +380,14 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Plugin
                                                     type<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=reader">Reader</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=widget">Widget</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Open
                                                     extension<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.csv">*.csv</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.parquet">*.parquet</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -324,7 +411,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.7">3.7</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -343,7 +430,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">trackpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">plateletanalysis</li></ul>
                                             </div>
                                         </div>
                                     </div>
