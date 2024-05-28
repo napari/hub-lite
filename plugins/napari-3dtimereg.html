@@ -128,7 +128,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Plugin type<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=widget">Widget</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -160,7 +160,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">imaris-ims-file-reader</li><li class="MetadataList_textItem__KKmMN">czifile</li><li class="MetadataList_textItem__KKmMN">itk ==5.3.0</li><li class="MetadataList_textItem__KKmMN">itk-registration</li><li class="MetadataList_textItem__KKmMN">itk-elastix</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +221,77 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        Not available
+                                        
+        <style>
+        pre {
+   background-color: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+        code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27,31,35,0.05);
+    border-radius: 6px;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+/* Remove margin and padding from the last child to avoid extra space */
+pre > code:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+        </style>
+        <p><a href="https://gitlab.pasteur.fr/gletort/napari-3dtimereg/-/blob/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-3dtimereg.svg?color=green" /></a>
+<a href="https://pypi.org/project/napari-3dtimereg"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-3dtimereg.svg?color=green" /></a>
+<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-3dtimereg.svg?color=green" /></a>
+<a href="https://napari-hub.org/plugins/napari-3dtimereg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-3dtimereg" /></a></p>
+<p>Temporal registration of 2D/3D movies on one channel based on <a href="https://pypi.org/project/itk-elastix/">itk-elastix</a>, and transpose alignement to the other channels.</p>
+<p>Adaptated from <a href="https://gitlab.pasteur.fr/gletort/multireg">multireg</a> for temporal movies.
+For a tutorial on using <code>elastix</code> for registration, see <a href="https://m-albert.github.io/elastix_tutorial/intro.html">this tutorial</a>.</p>
+<hr />
+<h2>Installation</h2>
+<ul>
+<li>
+<p>You can install the plugin directly in <code>Napari</code> by going to <code>Plugins&gt;Install/Uninstall plugins</code> and search for <code>napari-3dtimereg</code></p>
+</li>
+<li>
+<p>Or you can install <code>napari-3dtimereg</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
+<p>pip install napari-3dtimereg</p>
+</li>
+</ul>
+<h2>Usage</h2>
+<p>You can launch <code>3dtimereg</code> in napari by going to <code>Plugins&gt;Do 3D movie registration (napari-3dtimereg)</code>.</p>
+<h3>Choose movie and reference chanel</h3>
+<p>First, choose select the movie that you want to register. The plugin will create a folder <code>aligned</code> in the folder of your selected movie where the results will be saved.</p>
+<p>Choose the color chanel on which to calculate the registration (<code>reference chanel</code>). Color chanels are numbered from 0 to nchanels, and you can see their respective number in the layer list on the left panel of Napari. Click on <code>Update</code> when the correct chanel is selected to go to the registration calculation step.</p>
+<h3>Calculate temporal alignement</h3>
+<p>The registration is calculated iteratively from one frame to another. Thus the first frame is not moved and all the other frames are aligned to it.
+You can tune several parameters in this plugin:</p>
+<p><img alt="parameters screenshot" src="./imgs/parameters.png" title="Registration parameters" /></p>
+<p>The other parameters are parameters to use <a href="https://elastix.lumc.nl/">itk-elastix</a> to calculate the registration.
+* <code>show log</code>: to see the log of Elastix calculation
+* <code>do rigid</code>: performs a rigid (affine) transformation step, that allowed to correct for translations/rotations.
+* <code>do bspline</code>: performs a b-spline based transformation step, that allowed for local deformations in the image.
+* <code>show advanced parameters</code>: to control the parameters used in the rigid and/or bspline transformations. These parameters control the size of the local registrations calculated, the resolutions at which the transformations are calculated, and can thus greatly impact the results.
+* <code>final order</code>: is the final order of the B-Splines used for the registration. 
+* <code>resolution</code>: is the number of consecutives resolutions at which the registration will be made. First the registration is made at the lowest level of resolution, correcting global deformations/motions, then at each step, the registration is done on higher resolution, allowing to correct for more local deformations.
+* <code>final spacing</code>: is the physical spacing of the smallest resolution.
+* <code>iterations</code>: are the maximum number of iterations allowed to minimize the distance between the two images for each resolution and type of registration.</p>
+<p>If both rigid and bspline transformations, the program first applies the rigid transformation to allow for a global registration of the images. Then it will performs the second step of b-spline transformation that can includes local deformations.</p>
+<p>For each frame, after calculating the registration on the reference chanel, the plugin will apply the calculated transformation to all the other color chanels of the initial movie. All results are saved as separated images in the <code>aligned</code> folder during the computation.</p>
+<h3>Create the final aligned movie</h3>
+<p>When all frames have been processed, each color chanel and each frame have been saved in the <code>aligned</code> folder as separated images. This is usefull to calculate the registration on large movies without having to keep all the intermediates and calculated images in memory. You can directly use these separated images, or reconstruct a single composite movie of the result.</p>
+<p>If you click on <code>Concatenate aligned images</code> on the plugin interface, the plugin will create a single composite movie from the aligned images, save it and delete the separated images in the <code>aligned</code> folder. </p>
+<h2>License</h2>
+<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license, "napari-3dtimereg" is free and open source software</p>
+        
 
                                     </div>
                                 </div>
@@ -293,7 +363,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Plugin
                                                     type<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=widget">Widget</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -324,7 +394,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -343,7 +413,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">imaris-ims-file-reader</li><li class="MetadataList_textItem__KKmMN">czifile</li><li class="MetadataList_textItem__KKmMN">itk ==5.3.0</li><li class="MetadataList_textItem__KKmMN">itk-registration</li><li class="MetadataList_textItem__KKmMN">itk-elastix</li></ul>
                                             </div>
                                         </div>
                                     </div>
