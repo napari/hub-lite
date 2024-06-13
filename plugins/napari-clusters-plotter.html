@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.7.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.8.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari-plugin-engine >=0.1.4</li><li class="MetadataList_textItem__KKmMN">numpy <=1.23.5,>=1.21</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">umap-learn</li><li class="MetadataList_textItem__KKmMN">napari-tools-menu</li><li class="MetadataList_textItem__KKmMN">napari-skimage-regionprops >=0.3.1</li><li class="MetadataList_textItem__KKmMN">hdbscan</li><li class="MetadataList_textItem__KKmMN">joblib</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari-plugin-engine >=0.1.4</li><li class="MetadataList_textItem__KKmMN">numpy <=1.23.5,>=1.21</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">umap-learn</li><li class="MetadataList_textItem__KKmMN">napari-tools-menu</li><li class="MetadataList_textItem__KKmMN">napari-skimage-regionprops >=0.3.1</li><li class="MetadataList_textItem__KKmMN">hdbscan</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">dask</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scipy</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -256,7 +256,7 @@ pre > code:last-child {
 <a href="https://pypi.org/project/napari-clusters-plotter"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-clusters-plotter.svg?color=green" /></a>
 <a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-clusters-plotter.svg?color=green" /></a>
 <a href="https://anaconda.org/conda-forge/napari-clusters-plotter"><img alt="Anaconda-Server Badge" src="https://anaconda.org/conda-forge/napari-clusters-plotter/badges/version.svg" /></a>
-<a href="https://github.com/BiAPoL/napari-clusters-plotter/actions"><img alt="tests" src="https://github.com/BiAPoL/napari-clusters-plotter/workflows/tests/badge.svg" /></a>
+<a href="https://github.com/BiAPoL/napari-clusters-plotter/actions/workflows/test_and_deploy.yml"><img alt="tests" src="https://github.com/BiAPoL/napari-clusters-plotter/actions/workflows/test_and_deploy.yml/badge.svg" /></a>
 <a href="https://codecov.io/gh/BiAPoL/napari-clusters-plotter"><img alt="codecov" src="https://codecov.io/gh/BiAPoL/napari-clusters-plotter/branch/main/graph/badge.svg?token=R6W2KO1NJ8" /></a>
 <a href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a>
 <a href="https://anaconda.org/conda-forge/napari-clusters-plotter"><img alt="Anaconda-Server Badge" src="https://anaconda.org/conda-forge/napari-clusters-plotter/badges/downloads.svg" /></a>
@@ -265,6 +265,7 @@ pre > code:last-child {
 <p>A napari-plugin for clustering objects according to their properties.</p>
 <p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/screencast2_timelapse.gif" width="700"/></p>
 <hr />
+<p><strong>Note: support for other layers besides the <code>Labels</code> layer as described below is currently only available in the development version. This note will be removed as soon as there is a new release.</strong></p>
 <p>Jump to:
 - <a href="#usage">Usage</a>
   - <a href="#starting-point">Starting point</a>
@@ -282,9 +283,15 @@ pre > code:last-child {
 - <a href="#acknowledgements">Acknowledgements</a></p>
 <h2>Usage</h2>
 <h3>Starting point</h3>
-<p>For clustering objects according to their properties, the starting point is a <a href="example_data/blobs.tif">grey-value image</a> and a label image
-representing a segmentation of objects. For segmenting objects, you can for example use the
-<a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes#voronoi-otsu-labelling">Voronoi-Otsu-labelling approach</a>
+<p>For clustering objects according to their properties, the starting point is a <a href="example_data/blobs.tif">grey-value image</a> and another layer containing derived measurements in the <code>.features</code> property. Here are the supported layer types along with <em>examples of what they may represent</em>:
+1. <code>Labels</code> layer containing a label image representing a <strong>segmentation</strong> of objects.
+2. <code>Points</code> layer containing points representing centroid <strong>coordinates</strong> of objects.
+3. <code>Surface</code> layer containing a surface representing a <strong>segmentation</strong> of an object.
+4. <code>Labels</code> layer containing a time-lapse label image representing <strong>tracking</strong> results, where each label number/color correspond to a unique track ID.</p>
+<p>Check the <a href="./example_data/">examples data folder</a> to learn how to load these data with code.</p>
+<h3>1. Labels layer with Segmentation Results</h3>
+<p>The label image should not contain objects with the label <code>0</code> as these objects cannot be separated from the background, which is <code>0</code> as well in many images and would lead into erroneous behaviour when performing the clustering.
+For segmenting objects, you can for example use the <a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes#voronoi-otsu-labelling">Voronoi-Otsu-labelling approach</a>
 in the napari plugin <a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">napari-segment-blobs-and-things-with-membranes</a>.</p>
 <p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/starting_point.png" /></p>
 <p>In case you have 2D time-lapse data you need to convert it into a suitable shape using the menu <code>Tools &gt; Utilities &gt; Convert 3D stack to 2D time-lapse (time-slicer)</code> (<a href="https://www.napari-hub.org/plugins/napari-time-slicer">documentation</a>).</p>
@@ -294,9 +301,9 @@ Use the menu <code>Tools &gt; Measurement tables &gt; Regionprops (scikit-image,
 Select the image, the corresponding label image and the measurements to analyse and click on <code>Run</code>.
 A table with the measurements will open and afterwards, you can save and/or close the measurement table.
 At this point it is recommended to close the table and the Measure widget to free space for following steps.</p>
-<p>You can also load your own measurements you can do this using the menu <code>Tools &gt; Measurement tables &gt; Load from CSV (nsr)</code>.
-If you load custom measurements, please make sure that there is a <code>label</code> column that specifies the which measurement belongs to which labeled object.
-Tables for time-lapse data need to include an additional column named <code>frame</code>.</p>
+<p>You can also load your own measurements. You can do this using the menu <code>Tools &gt; Measurement &gt; Load from CSV (nsr)</code>.
+If you load custom measurements, please make sure that there is a <code>label</code> column that specifies which measurement belongs to which labeled object.
+Make sure to avoid the label <code>0</code> as this is reserved for the background. Tables for time-lapse data need to include an additional column named <code>frame</code>.</p>
 <h3>Plotting</h3>
 <p>Once measurements were saved in the labels layer which was analysed, you can then plot these measurements using the menu <code>Tools &gt; Visualization &gt; Plot measurements (ncp)</code>.</p>
 <p>In this widget, you can select the labels layer which was analysed and the measurements which should be plotted
@@ -325,7 +332,34 @@ Datapoints of the current time frame are highlighted in bright color and you can
 <p>You can also manually select groups using the lasso tool and plot a measurement per frame and see how the group behaves in time.
 Furthermore, you could also select a group in time and see where the datapoints lie in a different feature space:</p>
 <p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/timelapse_manual_clustering_tips.gif" /></p>
-<p>If you have custom measurements from tracking data where each column specifies measurements for a track instead of a label at a specific time point, the <code>frame</code> column must not be added.</p>
+<p>If you have custom measurements from <strong>tracking data</strong> where each column specifies measurements for a track instead of a label at a specific time point, the <code>frame</code> column must not be added. Check <a href="">below</a> how tracking data and features should look like.</p>
+<h3>2. Points Layer with Coordinates</h3>
+<p>The <code>Points</code> layer typically contains coordinates of objects of interest (for example, object centroids).</p>
+<p>To get these coordinates, you can apply spot detection algorithms (check references <a href="https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_peak_local_max.html">here with scikit-image</a>, <a href="https://haesleinhuepf.github.io/BioImageAnalysisNotebooks/23_blob_detection/local_maxima_detection.html">here with pyclesperanto</a> and <a href="https://github.com/weigertlab/napari-spotiflow?tab=readme-ov-file#napari-spotiflow">here for the spotflow plugin</a>) or, if you have segmentation results, use objects centroids as coordinates. This last approach can be done via <code>Tools &gt; Points &gt; Create points from labels centroids (nppas)</code> from the <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#napari-process-points-and-surfaces-nppas">napari-process-points-and-surfaces plugin</a>:</p>
+<p><img alt="" src="./images/points.png" /></p>
+<p>You can load object features to these points by assigning them to the <code>.feature</code> attribute of the <code>Points</code> layer, like this in Python:</p>
+<p><code>points_layer.features = features_table</code></p>
+<p>The number of rows in the table should match the number of points.</p>
+<p>You can cluster these features using the same algorithms explained furhter down, or manually, and get points colored accordingly, like shown below:</p>
+<p><img alt="" src="./images/points_manual.png" /></p>
+<p>Check also <a href="./example_data/points_data/loading_points_data_example.ipynb">this notebook</a> to learn how to load these data from code.</p>
+<h3>3. Surface Layer with Segmentation Results</h3>
+<p>The <code>Surface</code> layer could contain a surface representing a segmentation result.</p>
+<p>To generate this surface from a labeled image containing the segmentation results, a classical algorithm is the <a href="https://en.wikipedia.org/wiki/Marching_cubes">Marching Cubes</a>. It is available in <a href="https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.marching_cubes">scikit-image</a>, and you can also apply it via <code>Tools &gt; Surfaces &gt; Create surface from any label (marching cubes, scikit-image, nppas)</code> from the <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#napari-process-points-and-surfaces-nppas">napari-process-points-and-surfaces plugin</a>. Choose which label id number you want to turn into a surface and click on <code>Run</code>:</p>
+<p><img alt="" src="./images/surface.png" /></p>
+<p>You will notice that the surface layer will be created.</p>
+<p><img alt="" src="./images/surface2.png" /></p>
+<p>You can derive quantitative measurements from the vertices of a surface via <code>Tools &gt; Measurement tables &gt; Surface quality table (vedo, nppas)</code> from <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#surface-measurements-and-annotations">napari-process-points-and-surfaces plugin</a>:</p>
+<p><img alt="" src="./images/surface3.png" /></p>
+<p>Surface vertex measurements can be plotted and classified the same way with the plotter (<code>Tools &gt; Visualization &gt; Plot measurements (ncp)</code>):</p>
+<p><img alt="" src="./images/surface4.png" /></p>
+<p>Check <a href="./example_data/surface_data/loading_surface_data_example.ipynb">this notebook</a> to learn how to load these data from code.</p>
+<h3>4. Labels Layer with Tracking Results</h3>
+<p>The <strong><code>Labels</code></strong> layer can be also used to display tracking results.</p>
+<p><a href="https://github.com/BiAPoL/napari-clusters-plotter-example-notebooks/tree/main/notebooks/mastodon">These notebooks</a> show you examples of how to load and format tracking features from <a href="https://imagej.net/plugins/mastodon">Mastodon</a> in a way compatible with napari-clusters-plotter.</p>
+<p>For example, if you have a time-lapse labeled image where each label number represents a unique track ID, you can load tracking features to this <code>Labels</code> layer and use the plotter to cluster them. In the 'gif' below, the <code>Tracks</code> layer is NOT used for clustering, it is just shown along as a convenience. There is currently no support for the <code>Tracks</code> layer.</p>
+<p><img alt="" src="./images/tracking_labels.gif" /></p>
+<p>Check <a href="./example_data/tracking_data/loading_tracking_data_example.ipynb">this notebook</a> to learn how to load these data from code.</p>
 <h3>Dimensionality reduction</h3>
 <p>For getting more insights into your data, you can reduce the dimensionality of the measurements, using these algorithms:
 * <a href="https://umap-learn.readthedocs.io/en/latest/">Uniform Manifold Approximation Projection (UMAP)</a>
@@ -425,7 +459,7 @@ with a detailed description.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.7.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.8.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -532,7 +566,7 @@ with a detailed description.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari-plugin-engine >=0.1.4</li><li class="MetadataList_textItem__KKmMN">numpy <=1.23.5,>=1.21</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">umap-learn</li><li class="MetadataList_textItem__KKmMN">napari-tools-menu</li><li class="MetadataList_textItem__KKmMN">napari-skimage-regionprops >=0.3.1</li><li class="MetadataList_textItem__KKmMN">hdbscan</li><li class="MetadataList_textItem__KKmMN">joblib</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari-plugin-engine >=0.1.4</li><li class="MetadataList_textItem__KKmMN">numpy <=1.23.5,>=1.21</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">umap-learn</li><li class="MetadataList_textItem__KKmMN">napari-tools-menu</li><li class="MetadataList_textItem__KKmMN">napari-skimage-regionprops >=0.3.1</li><li class="MetadataList_textItem__KKmMN">hdbscan</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">dask</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scipy</li></ul>
                                             </div>
                                         </div>
                                     </div>

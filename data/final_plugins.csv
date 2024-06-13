@@ -11364,13 +11364,13 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/kephale/napari-clipboard/issues', 'Documentation, https://github.com/kephale/napari-clipboard#README.md', 'Source Code, https://github.com/kephale/napari-clipboard', 'User Support, https://github.com/kephale/napari-clipboard/issues']",,,napari-clipboard.image_from_clipboard,,,,,https://pypi.org/project/napari-clipboard,,
-116,napari-clusters-plotter,0.7.3,2022-02-17,2023-09-06,napari-clusters-plotter,"Laura Zigutyte, Ryan Savill, Johannes Müller, Marcelo Zoccoler, Thorsten Wagner, Robert Haase","zigutyte@gmail.com, robert.haase@tu-dresden.de",BSD-3-Clause,https://github.com/BiAPoL/napari-clusters-plotter,A plugin to use with napari for clustering objects according to their properties,>=3.7,"['napari-plugin-engine >=0.1.4', 'numpy <=1.23.5,>=1.21', 'scikit-learn', 'matplotlib', 'pandas', 'umap-learn', 'napari-tools-menu', 'napari-skimage-regionprops >=0.3.1', 'hdbscan', 'joblib']","# napari-clusters-plotter
+116,napari-clusters-plotter,0.8.0,2022-02-17,2023-09-06,napari-clusters-plotter,"Laura Zigutyte, Ryan Savill, Johannes Müller, Marcelo Zoccoler, Thorsten Wagner, Robert Haase","zigutyte@gmail.com, robert.haase@tu-dresden.de",BSD-3-Clause,https://github.com/BiAPoL/napari-clusters-plotter,A plugin to use with napari for clustering objects according to their properties,>=3.7,"['napari-plugin-engine >=0.1.4', 'numpy <=1.23.5,>=1.21', 'scikit-learn', 'matplotlib', 'pandas', 'umap-learn', 'napari-tools-menu', 'napari-skimage-regionprops >=0.3.1', 'hdbscan', 'qtpy', 'dask', 'napari', 'magicgui', 'scikit-image', 'superqt', 'scipy']","# napari-clusters-plotter
 
 [![License](https://img.shields.io/pypi/l/napari-clusters-plotter.svg?color=green)](https://github.com/lazigu/napari-clusters-plotter/raw/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-clusters-plotter.svg?color=green)](https://pypi.org/project/napari-clusters-plotter)
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-clusters-plotter.svg?color=green)](https://python.org)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/napari-clusters-plotter/badges/version.svg)](https://anaconda.org/conda-forge/napari-clusters-plotter)
-[![tests](https://github.com/BiAPoL/napari-clusters-plotter/workflows/tests/badge.svg)](https://github.com/BiAPoL/napari-clusters-plotter/actions)
+[![tests](https://github.com/BiAPoL/napari-clusters-plotter/actions/workflows/test_and_deploy.yml/badge.svg)](https://github.com/BiAPoL/napari-clusters-plotter/actions/workflows/test_and_deploy.yml)
 [![codecov](https://codecov.io/gh/BiAPoL/napari-clusters-plotter/branch/main/graph/badge.svg?token=R6W2KO1NJ8)](https://codecov.io/gh/BiAPoL/napari-clusters-plotter)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/napari-clusters-plotter/badges/downloads.svg)](https://anaconda.org/conda-forge/napari-clusters-plotter)
@@ -11382,6 +11382,7 @@ A napari-plugin for clustering objects according to their properties.
 <img src=""https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/screencast2_timelapse.gif"" width=""700""/>
 
 ----------------------------------
+**Note: support for other layers besides the `Labels` layer as described below is currently only available in the development version. This note will be removed as soon as there is a new release.**
 
 Jump to:
 - [Usage](#usage)
@@ -11403,9 +11404,18 @@ Jump to:
 ## Usage
 
 ### Starting point
-For clustering objects according to their properties, the starting point is a [grey-value image](example_data/blobs.tif) and a label image
-representing a segmentation of objects. For segmenting objects, you can for example use the
-[Voronoi-Otsu-labelling approach](https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes#voronoi-otsu-labelling)
+For clustering objects according to their properties, the starting point is a [grey-value image](example_data/blobs.tif) and another layer containing derived measurements in the `.features` property. Here are the supported layer types along with *examples of what they may represent*:
+1. `Labels` layer containing a label image representing a **segmentation** of objects.
+2. `Points` layer containing points representing centroid **coordinates** of objects.
+3. `Surface` layer containing a surface representing a **segmentation** of an object.
+4. `Labels` layer containing a time-lapse label image representing **tracking** results, where each label number/color correspond to a unique track ID.
+
+Check the [examples data folder](./example_data/) to learn how to load these data with code.
+
+### 1. Labels layer with Segmentation Results
+
+The label image should not contain objects with the label `0` as these objects cannot be separated from the background, which is `0` as well in many images and would lead into erroneous behaviour when performing the clustering.
+For segmenting objects, you can for example use the [Voronoi-Otsu-labelling approach](https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes#voronoi-otsu-labelling)
 in the napari plugin [napari-segment-blobs-and-things-with-membranes](https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes).
 
 ![](https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/starting_point.png)
@@ -11419,9 +11429,9 @@ Select the image, the corresponding label image and the measurements to analyse 
 A table with the measurements will open and afterwards, you can save and/or close the measurement table.
 At this point it is recommended to close the table and the Measure widget to free space for following steps.
 
-You can also load your own measurements you can do this using the menu `Tools > Measurement tables > Load from CSV (nsr)`.
-If you load custom measurements, please make sure that there is a `label` column that specifies the which measurement belongs to which labeled object.
-Tables for time-lapse data need to include an additional column named `frame`.
+You can also load your own measurements. You can do this using the menu `Tools > Measurement > Load from CSV (nsr)`.
+If you load custom measurements, please make sure that there is a `label` column that specifies which measurement belongs to which labeled object.
+Make sure to avoid the label `0` as this is reserved for the background. Tables for time-lapse data need to include an additional column named `frame`.
 
 ### Plotting
 
@@ -11472,7 +11482,61 @@ Furthermore, you could also select a group in time and see where the datapoints 
 
 ![](https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/timelapse_manual_clustering_tips.gif)
 
-If you have custom measurements from tracking data where each column specifies measurements for a track instead of a label at a specific time point, the `frame` column must not be added.
+If you have custom measurements from **tracking data** where each column specifies measurements for a track instead of a label at a specific time point, the `frame` column must not be added. Check [below]() how tracking data and features should look like.
+
+### 2. Points Layer with Coordinates
+
+The `Points` layer typically contains coordinates of objects of interest (for example, object centroids).
+
+To get these coordinates, you can apply spot detection algorithms (check references [here with scikit-image](https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_peak_local_max.html), [here with pyclesperanto](https://haesleinhuepf.github.io/BioImageAnalysisNotebooks/23_blob_detection/local_maxima_detection.html) and [here for the spotflow plugin](https://github.com/weigertlab/napari-spotiflow?tab=readme-ov-file#napari-spotiflow)) or, if you have segmentation results, use objects centroids as coordinates. This last approach can be done via `Tools > Points > Create points from labels centroids (nppas)` from the [napari-process-points-and-surfaces plugin](https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#napari-process-points-and-surfaces-nppas):
+
+![](./images/points.png)
+
+You can load object features to these points by assigning them to the `.feature` attribute of the `Points` layer, like this in Python:
+
+`points_layer.features = features_table`
+
+The number of rows in the table should match the number of points.
+
+You can cluster these features using the same algorithms explained furhter down, or manually, and get points colored accordingly, like shown below:
+
+![](./images/points_manual.png)
+
+Check also [this notebook](./example_data/points_data/loading_points_data_example.ipynb) to learn how to load these data from code.
+
+### 3. Surface Layer with Segmentation Results
+
+The `Surface` layer could contain a surface representing a segmentation result.
+
+To generate this surface from a labeled image containing the segmentation results, a classical algorithm is the [Marching Cubes](https://en.wikipedia.org/wiki/Marching_cubes). It is available in [scikit-image](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.marching_cubes), and you can also apply it via `Tools > Surfaces > Create surface from any label (marching cubes, scikit-image, nppas)` from the [napari-process-points-and-surfaces plugin](https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#napari-process-points-and-surfaces-nppas). Choose which label id number you want to turn into a surface and click on `Run`:
+
+![](./images/surface.png)
+
+You will notice that the surface layer will be created.
+
+![](./images/surface2.png)
+
+You can derive quantitative measurements from the vertices of a surface via `Tools > Measurement tables > Surface quality table (vedo, nppas)` from [napari-process-points-and-surfaces plugin](https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#surface-measurements-and-annotations):
+
+![](./images/surface3.png)
+
+Surface vertex measurements can be plotted and classified the same way with the plotter (`Tools > Visualization > Plot measurements (ncp)`):
+
+![](./images/surface4.png)
+
+Check [this notebook](./example_data/surface_data/loading_surface_data_example.ipynb) to learn how to load these data from code.
+
+### 4. Labels Layer with Tracking Results
+
+The **`Labels`** layer can be also used to display tracking results.
+
+[These notebooks](https://github.com/BiAPoL/napari-clusters-plotter-example-notebooks/tree/main/notebooks/mastodon) show you examples of how to load and format tracking features from [Mastodon](https://imagej.net/plugins/mastodon) in a way compatible with napari-clusters-plotter.
+
+For example, if you have a time-lapse labeled image where each label number represents a unique track ID, you can load tracking features to this `Labels` layer and use the plotter to cluster them. In the 'gif' below, the `Tracks` layer is NOT used for clustering, it is just shown along as a convenience. There is currently no support for the `Tracks` layer.
+
+![](./images/tracking_labels.gif)
+
+Check [this notebook](./example_data/tracking_data/loading_tracking_data_example.ipynb) to learn how to load these data from code.
 
 ### Dimensionality reduction
 
@@ -13114,7 +13178,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Education', 'Intended Audience :: Science/Research', 'Framework :: napari', 'Topic :: Scientific/Engineering', 'Topic :: Scientific/Engineering :: Visualization', 'Topic :: Scientific/Engineering :: Information Analysis', 'Topic :: Scientific/Engineering :: Bio-Informatics', 'Topic :: Scientific/Engineering :: Artificial Intelligence', 'Topic :: Scientific/Engineering :: Image Processing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)']","['Bug Tracker, https://github.com/deep-finder/napari-deepfinder/issues', 'Documentation, https://deep-finder.github.io/napari-deepfinder/', 'Source Code, https://github.com/deep-finder/napari-deepfinder', 'User Support, https://github.com/deep-finder/napari-deepfinder/issues']",napari-deepfinder.get_reader,napari-deepfinder.write_annotations,napari-deepfinder.make_reorder_widget,,"['*.mrc', '*.map', '*.rec', '*.h5', '*.tif', '*.TIF', '*.xml', '*.ods', '*.xls', '*.xlsx']",['.xml'],['.mrc'],https://pypi.org/project/napari-deepfinder,,
-136,napari DeepLabCut,0.2.1.6,2022-07-05,2023-12-08,napari-deeplabcut,"Team DeepLabCut, Lead by Jessy Lauer",admin@deeplabcut.org,BSD-3-Clause,https://github.com/DeepLabCut/napari-deeplabcut,napari + DeepLabCut annotation tool,>=3.9,"['dask-image', 'matplotlib >=3.3', 'napari ==0.4.18', 'natsort', 'numpy', 'opencv-python-headless', 'pandas', 'pyyaml', 'qtpy >=2.4', 'scikit-image', 'tables', ""pyside6 ==6.4.2 ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""tox ; extra == 'testing'""]","# napari-deeplabcut: keypoint annotation for pose estimation
+136,napari DeepLabCut,0.2.1.7,2022-07-05,2023-12-08,napari-deeplabcut,"Team DeepLabCut, Lead by Jessy Lauer",admin@deeplabcut.org,BSD-3-Clause,https://github.com/DeepLabCut/napari-deeplabcut,napari + DeepLabCut annotation tool,>=3.9,"['dask-image', 'matplotlib >=3.3', 'napari ==0.4.18', 'natsort', 'numpy', 'opencv-python-headless', 'pandas', 'pyyaml', 'qtpy >=2.4', 'scikit-image', 'scipy', 'tables', ""pyside6 ==6.4.2 ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""tox ; extra == 'testing'""]","# napari-deeplabcut: keypoint annotation for pose estimation
 
 
 
@@ -18574,7 +18638,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Scientific/Engineering :: Image Processing', 'Topic :: Scientific/Engineering :: Information Analysis', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/haesleinhuepf/napari-layer-details-display/issues', 'Documentation, https://github.com/haesleinhuepf/napari-layer-details-display#README.md', 'Source Code, https://github.com/haesleinhuepf/napari-layer-details-display', 'User Support, https://github.com/haesleinhuepf/napari-layer-details-display/issues']",,,napari-layer-details-display.LayerDetailsDisplay,,,,,https://pypi.org/project/napari-layer-details-display,https://github.com/haesleinhuepf/napari-layer-details-display,
-195,Layer Table,0.0.12,2022-07-07,2023-06-18,napari-layer-table,Robert Cudmore,rhcudmore@ucdavis.edu,GPL-3.0-only,https://github.com/mapmanager/napari-layer-table,A plugin to display a layer as a table.,>=3.8,['numpy'],"# napari-layer-table
+195,Layer Table,0.0.13,2022-07-07,2023-06-18,napari-layer-table,Robert Cudmore,rhcudmore@ucdavis.edu,GPL-3.0-only,https://github.com/mapmanager/napari-layer-table,A plugin to display a layer as a table.,>=3.9,['numpy'],"# napari-layer-table
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![PyPI version](https://badge.fury.io/py/napari-layer-table.svg)](https://badge.fury.io/py/napari-layer-table)
@@ -18677,7 +18741,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [tox]: https://tox.readthedocs.io/en/latest/
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
-","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)']","['Bug Tracker, https://github.com/mapmanager/napari-layer-table/issues', 'Documentation, https://github.com/mapmanager/napari-layer-table#README.md', 'Source Code, https://github.com/mapmanager/napari-layer-table', 'User Support, https://github.com/mapmanager/napari-layer-table/issues']",,,napari-layer-table.make_my_qwidget,,,,,https://pypi.org/project/napari-layer-table,https://github.com/mapmanager/napari-layer-table,
+","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Operating System :: OS Independent', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)']","['Bug Tracker, https://github.com/mapmanager/napari-layer-table/issues', 'Documentation, https://github.com/mapmanager/napari-layer-table#README.md', 'Source Code, https://github.com/mapmanager/napari-layer-table', 'User Support, https://github.com/mapmanager/napari-layer-table/issues']",,,napari-layer-table.make_my_qwidget,,,,,https://pypi.org/project/napari-layer-table,https://github.com/mapmanager/napari-layer-table,
 196,napari-lazy-openslide,0.3.0,2022-02-17,2023-06-18,napari-lazy-openslide,Trevor Manz,trevor.j.manz@gmail.com,BSD-3,https://github.com/manzt/napari-lazy-openslide,A plugin to lazily load multiscale whole-slide images with openslide and dask,>=3.6,"['napari-plugin-engine (>=0.1.4)', 'zarr (>=2.11.0)', 'numpy', 'dask[array]', 'openslide-python']","# napari-lazy-openslide
 
 [![License](https://img.shields.io/pypi/l/napari-lazy-openslide.svg?color=green)](https://github.com/manzt/napari-lazy-openslide/raw/master/LICENSE)
@@ -22697,7 +22761,7 @@ Use the github issue tracker if you experinece unexpected behaviour.
 
 You can contact me in [e-mail](mailto:tasnadi.ervin@MY-INSTITUTE) where MY-INSTITUTE is `brc.hu`.
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/etasnadi/napari_nucleaizer/issues', 'Documentation, https://napari-nucleaizer-docs.readthedocs.io/en/latest/index.html', 'Source Code, https://github.com/etasnadi/napari_nucleaizer', 'User Support, https://github.com/etasnadi/napari_nucleaizer/issues']",,,napari-nucleaizer.launch,,,,,https://pypi.org/project/napari-nucleaizer,,
-241,napari-nyxus,0.1.3,,,napari-nyxus,Jesse McKinzie,Jesse.McKinzie@axleinfo.com,,,A napari plugin for calculating features from intensity-label image data,,"['napari', 'pandas', 'numpy', 'nyxus >=0.5.0', 'imagecodecs', 'magicgui', 'napari-workflows', 'qtpy', 'superqt', 'napari-skimage-regionprops >=0.10.1']","# Nyxus Napari
+241,napari-nyxus,0.2.0,,,napari-nyxus,Jesse McKinzie,Jesse.McKinzie@axleinfo.com,,,A napari plugin for calculating features from intensity-label image data,,"['napari', 'pandas', 'numpy', 'nyxus >=0.5.0', 'imagecodecs', 'magicgui', 'napari-workflows', 'qtpy', 'superqt', 'napari-skimage-regionprops >=0.10.1', 'matplotlib', 'filepattern >=2.0.0']","# Nyxus Napari
 
 Nyxus Napari is a Napari plugin for running feature calculations on image-segmentation image pairs, using the
 Nyxus application to compute features. Nyxus is a feature-rich, highly optimized, Python/C++ application capable 
@@ -22809,7 +22873,7 @@ that contains the ROIs who's features values fall within the slider values.
 
 The new labels resulting from the range slider selector can then be used to run Nyxus on by using the labels image as the `Segmentation` parameter.
 
-![](docs/source/img/run_on_colormap_labels.png)
+![](https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/run_on_colormap_labels.png)
 
 # Limitations
 
@@ -37129,7 +37193,7 @@ microscope (currently, only strictly orthogonal illumination and detection are
 supported).  See the [lightsheet.ipynb](notebooks/lightsheet.ipynb) Jupyter notebook for
 examples.
 ","['Development Status :: 3 - Alpha', 'Framework :: napari', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)', 'Natural Language :: English', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10']","['Source Code, https://github.com/tlambert03/psfmodels']",,,psfmodels.make_psf,,,,,https://pypi.org/project/psfmodels,https://github.com/tlambert03/psfmodels,
-391,pssr,2.0.1,,,pssr,Hayden Stites,,MIT,,Point-Scanning Super-Resolution,">=3.9,<4.0","['czifile (>=2019.7.2,<2020.0.0)', 'napari (>=0.4.13,<0.5.0) ; extra == ""napari""', 'numpy (>=1.22.4,<2.0.0)', 'pillow (>=9.1.0)', 'psutil (>=5.0.0)', 'pytorch-msssim (>=1.0.0,<2.0.0)', 'scikit-image (>=0.18.0)', 'scikit-optimize (>=0.9.0)', 'tifffile (>=2019.7.26)', 'timm (>=0.8.0)', 'torch (>=1.11.0)', 'tqdm (>=4.0.0,<5.0.0)']","# Point-Scanning Super-Resolution (**PSSR**)
+391,pssr,2.0.1.post1,,,pssr,Hayden Stites,,MIT,,Point-Scanning Super-Resolution,">=3.9,<4.0","['czifile (>=2019.7.2,<2020.0.0)', 'napari (>=0.4.13,<0.5.0) ; extra == ""napari""', 'numpy (>=1.22.4,<2.0.0)', 'pillow (>=9.1.0)', 'psutil (>=5.0.0)', 'pytorch-msssim (>=1.0.0,<2.0.0)', 'scikit-image (>=0.18.0)', 'scikit-optimize (>=0.9.0)', 'tifffile (>=2019.7.26)', 'timm (>=0.8.0)', 'torch (>=1.11.0)', 'tqdm (>=4.0.0,<5.0.0)']","# Point-Scanning Super-Resolution (**PSSR**)
 
 **PSSR** is a standardized [PyTorch](https://pytorch.org)-based workflow for super-resolution tasks using microscopy images.
 This is the official reimplementation of the methods described in the original paper: [Deep learning-based point-scanning super-resolution imaging](https://www.nature.com/articles/s41592-021-01080-z),
