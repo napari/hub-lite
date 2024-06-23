@@ -1520,7 +1520,7 @@ Bove A, Gradeci D, Fujita Y, Banerjee S, Charras G and Lowe AR.
 }
 ```
 ","['Framework :: napari', 'Intended Audience :: Science/Research', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: C++', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering :: Bio-Informatics', 'Topic :: Scientific/Engineering :: Image Recognition', 'Topic :: Scientific/Engineering :: Visualization']","['bugtracker, https://github.com/quantumjot/btrack/issues', 'documentation, https://btrack.readthedocs.io', 'homepage, https://github.com/quantumjot/btrack', 'usersupport, https://github.com/quantumjot/btrack/discussions']",btrack.read_btrack,btrack.write_hdf,btrack.track,,"['*.h5', '*.hdf', '*.hdf5']","['.h5', '.hdf', '.hdf5']",,https://pypi.org/project/btrack,https://github.com/quantumjot/BayesianTracker,
-16,cell-AAP,0.0.3,,,cell-AAP,Anish Virdi,,,,,>=3.8,"['napari[all] >=0.4.19', 'numpy >=1.26.4', 'opencv-python >=4.9.0', 'tifffile >=2024.2.12', 'torch >=2.3.0', 'torchvision >=0.18.0', 'scikit-image >=0.22.0', 'qtpy >=2.4.1', 'pillow >=10.3.0', 'scipy >=1.3.0']","# cellular-Automated Annotation Pipeline
+16,cell-AAP,0.0.7,,,cell-AAP,Anish Virdi,,,,,>=3.8,"['napari[all] >=0.4.19', 'numpy >=1.26.4', 'opencv-python >=4.9.0', 'tifffile >=2024.2.12', 'torch >=2.3.0', 'torchvision >=0.18.0', 'scikit-image >=0.22.0', 'qtpy >=2.4.1', 'pillow >=10.3.0', 'scipy >=1.3.0', 'timm >=1.0.7']","# cellular-Automated Annotation Pipeline
 Utilities for the semi-automated generation of instance segmentation annotations to be used for neural network training. Utilities are built ontop of [UMAP](https://github.com/lmcinnes/umap), [HDBSCAN](https://arxiv.org/abs/1911.02282) and a finetuned encoder version of FAIR's [Segment Anything Model](https://github.com/facebookresearch/segment-anything/tree/main?tab=readme-ov-file) developed by Computational Cell Analytics for the project [micro-sam](https://github.com/computational-cell-analytics/micro-sam/tree/master/micro_sam/sam_annotator). In addition to providing utilies for annotation building, we train a network, FAIR's [detectron2](https://github.com/facebookresearch/detectron2) to 
 1. Demonstrate the efficacy of our utilities. 
 2. Be used for microscopy annotation of supported cell lines 
@@ -1553,7 +1553,7 @@ If a conda distribution has been installed:
 
 3. Then install cell-AAP from PyPi
 
-        pip install cell-AAP==0.0.3
+        pip install cell-AAP --upgrade
 
 4. Finally detectron2 must be built from source, atop cell-AAP
     
@@ -1587,6 +1587,15 @@ Note: Finding the optimal set of parameters requires some trial and error, to as
 | **Dropping M-phase**       | Confidence $\Downarrow$ <br> Number of Cells $\Uparrow$ | Confidence $\Downarrow$ <br> Number of cells $\Downarrow$ |
 | **Missclasifying M-phase** | Confidence $\Uparrow$ <br> Number of Cells $\Uparrow$   | Confidence $\Uparrow$ <br> Number of Cells $\Downarrow$   |
 
+
+# Intepreting Results 
+
+Once inference is complete the following colors indicate class prediction
+- Red: Non-mitotic
+- Blue: Mitotic
+- Purple: Interclass double prediction
+
+Note: Interclass double predictions are often early prophase cells that the network is not ""confident"" in, to mitigate such predictions increase the minimum confidence threshold. This will typically result in most double predictions regressing to the Non-mitotic class. 
 
 
 
