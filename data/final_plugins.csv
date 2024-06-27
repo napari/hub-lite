@@ -40,63 +40,105 @@ See https://napari.org/stable/plugins/first_plugin.html#add-a-napari-yaml-manife
 ## Issues
 If you encounter any problems, please [file an issue](https://github.com/Luxendo/acquifer-napari/issues) along with a detailed description.
 ","['Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)']","['HomePage, https://acquifer.de', 'Twitter, https://twitter.com/myacquifer', 'Bug Tracker, https://github.com/Luxendo/acquifer-napari/issues', 'Documentation, https://github.com/Luxendo/acquifer-napari#README.md', 'Source Code, https://github.com/Luxendo/acquifer-napari']",acquifer-napari.get_reader,,,,['*'],,,https://pypi.org/project/acquifer-napari,https://github.com/acquifer/acquifer-napari,
-1,affinder,0.3.2,2022-01-28,2023-08-08,affinder,Juan Nunez-Iglesias,juan.nunez-iglesias@monash.edu,BSD-3,https://github.com/jni/affinder,Quickly find the affine matrix mapping one image to another using manual correspondence points annotation,>=3.9,"['napari >=0.4.17', 'npe2 >=0.1.2', 'numpy', 'scikit-image', 'magicgui >=0.3.7', 'toolz', ""furo ; extra == 'docs'"", ""myst-parser ; extra == 'docs'"", ""coverage ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""scikit-image[data] ; extra == 'testing'"", ""napari[pyqt5] !=0.4.18 ; extra == 'testing'"", ""pygments !=2.16 ; extra == 'testing'"", ""zarr ; extra == 'testing'""]","# affinder
+1,affinder,0.4.0,2022-01-28,2023-08-08,affinder,Juan Nunez-Iglesias,juan.nunez-iglesias@monash.edu,BSD-3,https://github.com/jni/affinder,Quickly find the affine matrix mapping one image to another using manual correspondence points annotation,>=3.9,"['napari >=0.4.17', 'npe2 >=0.1.2', 'numpy', 'scikit-image >=0.19.2', 'magicgui >=0.3.7', 'toolz', ""furo ; extra == 'docs'"", ""myst-parser ; extra == 'docs'"", ""coverage ; extra == 'testing'"", ""pydantic <2 ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""scikit-image[data] ; extra == 'testing'"", ""napari[pyqt5] !=0.4.18 ; extra == 'testing'"", ""pygments !=2.16 ; extra == 'testing'"", ""zarr ; extra == 'testing'""]","# Description
 
-[![License](https://img.shields.io/pypi/l/affinder.svg?color=green)](https://github.com/napari/affinder/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/affinder.svg?color=green)](https://pypi.org/project/affinder)
-[![Python Version](https://img.shields.io/pypi/pyversions/affinder.svg?color=green)](https://python.org)
-[![tests](https://github.com/jni/affinder/workflows/tests/badge.svg)](https://github.com/jni/affinder/actions)
-[![codecov](https://codecov.io/gh/jni/affinder/branch/main/graph/badge.svg)](https://codecov.io/gh/jni/affinder)
+This GUI plugin allows you to quickly find the affine matrix mapping
+one image to another using manual correspondence points annotation.
 
-Quickly find the affine matrix mapping one image to another using manual correspondence points annotation
+More simply, this plugin allows you to select corresponding points
+on an image, and a second image you wish to transform. It computes 
+the requisite transformation matrix using Affine Transform, Euclidean Transform, 
+or Similarity Transform, and performs this transformation on the
+moving image, aligning it to the reference image.
 
-----------------------------------
+https://user-images.githubusercontent.com/17995243/120086403-f1d0b300-c121-11eb-8000-a44a2ac54339.mp4
 
-This [napari] plugin was generated with [Cookiecutter] using with [@napari]'s [cookiecutter-napari-plugin] template.
 
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
+# Who is This For?
 
-and review the napari docs for plugin developers:
-https://napari.org/docs/plugins/index.html
--->
+This is a simple plugin which can be used on any 2D images, provided
+they can be loaded as layers into napari. The images need not be the same
+file format and this plugin also works with labels layers.
 
-## Installation
+No prior understanding of the transformation methods is required, as
+they perform in the background based on the reference points selected.
 
-You can install `affinder` via [pip]:
+# How to Guide
 
-    pip install affinder
+You will need a combination of two or more 2D image and/or labels layers 
+loaded into napari. Once you have installed affinder, you can find it in
+the dock widgets menu.
 
-## Contributing
+![Affinder widget in the Plugins->Add Dock Widget menu](https://i.imgur.com/w7MCXQy.png)
 
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
+The first two dropdown boxes will be populated with the layers currently
+loaded into napari. Select a layer to use as reference, and another to
+transform.
 
-## License
+![Dropdowns allow you to select the reference and moving layers](https://i.imgur.com/Tdbm1sX.png)
 
-Distributed under the terms of the [BSD-3] license,
-""affinder"" is free and open source software
+Next, you can select the transformation model to use (affine is selected by default
+and is the least rigid transformation of those available). See [below](#transformation-models) for a
+description of the different models.
 
-## Issues
+Finally, you can optionally select a path to a text file for saving out the
+resulting transformation matrix.
 
-If you encounter any problems, please [file an issue] along with a detailed description.
+When you click Start, affinder will add two points layers to napari. 
+The plugin will also bring your reference image in focus, and its associated points
+layer. You can then start adding reference points by clicking on your image.
 
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-[file an issue]: https://github.com/jni/affinder/issues
-[napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
+![Adding reference points to layer](https://i.imgur.com/WPzNtyy.png)
+
+Once three points are added, affinder will switch focus to the moving image,
+and you should then proceed to select the corresponding three points.
+
+![Adding corresponding points to newly focused layer](https://i.imgur.com/JVZCvmp.png)
+
+affinder will immediately transform the moving image to align the points you've
+selected when you add your third corresponding point to your moving image.
+
+![The moving image is transformed once three points are added](https://i.imgur.com/NTne9fj.png)
+
+From there, you can continue iteratively adding points until you 
+are happy with the alignment. Affinder will switch focus between
+reference and moving image with each point.
+
+Click Finish to exit affinder.
+
+## Transformation Models
+
+There are three transformation models available for use with affinder.
+They are listed here in order of increasing rigidity in the types of
+transforms they will allow. The eponymous Affine Transform is the 
+least rigid and is the default choice.
+
+- [**Affine Transform**](https://en.wikipedia.org/wiki/Affine_transformation): 
+the least rigid transformation, it preserves
+lines and parallelism, but not necessarily distance and angles. Translation,
+scaling, similarity, reflection, rotation and shearing are all valid
+affine transformations.
+
+- [**Similarity Transform**](https://en.wikipedia.org/wiki/Similarity_(geometry)): 
+this is a ""shape preserving"" transformation, producing objects which are 
+geometrically similar. Translation, rotation, reflection and uniform scaling are 
+valid similarity transforms. Shearing is not.
+
+- [**Euclidean Transform**](https://en.wikipedia.org/wiki/Rigid_transformation):
+Also known as a rigid transformation, this transform preserves the Euclidean
+distance between each pair of points on the image. This includes rotation,
+translation and reflection but not scaling or shearing.
+
+# Getting Help
+
+If you find a bug with affinder, or would like support with using it, please raise an
+issue on the [GitHub repository](https://github.com/jni/affinder).
+
+# How to Cite
+
+Many plugins may be used in the course of published (or publishable) research, as well as
+during conference talks and other public facing events. If you'd like to be cited in
+a particular format, or have a DOI you'd like used, you should provide that information here.
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']",,,,affinder.start_affinder,,,,,https://pypi.org/project/affinder,https://github.com/jni/affinder,
 2,AlveolEye,0.1.2,,,AlveolEye,Joseph Hirsh,josephhirsh9@gmail.com,MIT,,Reads lung slides with AI-driven and classical methods,>=3.8,"['numpy', 'magicgui', 'qtpy', ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""qtpy ; extra == 'testing'""]","<!--
 [![License MIT](https://img.shields.io/pypi/l/automated-lung-morphometry.svg?color=green)](https://github.com/Quooooooookka/automated-lung-morphometry/raw/main/LICENSE)
@@ -5374,7 +5416,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://gitlab.pasteur.fr/gletort/multireg/issues', 'Documentation, https://gitlab.pasteur.fr/gletort/multireg#README.md', 'Source Code, https://gitlab.pasteur.fr/gletort/multireg']",,,multireg.registration,,,,,https://pypi.org/project/multireg,,
-62,3D Counter,0.2.1,2023-10-29,2024-05-03,napari-3d-counter,Peter Newstein,peternewstein@gmail.com,GPL-3.0-or-later,https://pypi.org/project/napari-3d-counter,A simple plugin for counting objects in 3D images,>=3.8,"['numpy', 'qtpy', 'pandas', 'scikit-image', 'matplotlib', 'napari <=0.4.19', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-3d-counter
+62,3D Counter,0.2.2,2023-10-29,2024-05-03,napari-3d-counter,Peter Newstein,peternewstein@gmail.com,GPL-3.0-or-later,https://pypi.org/project/napari-3d-counter,A simple plugin for counting objects in 3D images,>=3.8,"['numpy', 'qtpy', 'pandas', 'scikit-image', 'matplotlib', 'napari <=0.4.19', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# napari-3d-counter
 
 [![License GNU GPL v3.0](https://img.shields.io/pypi/l/napari-3d-counter.svg?color=green)](https://github.com/pnewstein/napari-3d-counter/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-3d-counter.svg?color=green)](https://pypi.org/project/napari-3d-counter)
@@ -39663,7 +39705,7 @@ https://napari.org/plugins/stable/index.html
 [PyPI]: https://pypi.org/
 [yt]: https://yt-project.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Topic :: Software Development :: Testing']","['Bug Tracker, https://github.com/data-exp-lab/yt-napari/issues', 'Documentation, https://github.com/data-exp-lab/yt-napari#README.md', 'Source Code, https://github.com/data-exp-lab/yt-napari', 'User Support, https://github.com/data-exp-lab/yt-napari/issues']",yt-napari.get_reader,,yt-napari.reader_widget,,['*.json'],,,https://pypi.org/project/yt-napari,https://github.com/data-exp-lab/yt-napari,
-417,zarpaint,0.3.1,2023-11-18,2023-11-18,zarpaint,Abigail McGovern and Juan Nunez-Iglesias,juan.nunez-iglesias@monash.edu,BSD-3,https://pypi.org/project/zarpaint,Paint segmentations directly to on-disk/remote zarr arrays,>=3.7,"['magicgui', 'napari >=0.4.11.dev80', 'napari-plugin-engine >=0.1.4', 'numpy', 'pyyaml', 'qtpy', 'scipy', 'scikit-image', 'toolz', 'zarr', ""tensorstore ; extra == 'all'"", ""coverage ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari[pyqt5] ; extra == 'testing'""]","# zarpaint
+417,zarpaint,0.4.0,2023-11-18,2023-11-18,zarpaint,Abigail S McGovern and Juan Nunez-Iglesias,juan.nunez-iglesias@monash.edu,BSD-3,https://pypi.org/project/zarpaint,Paint segmentations directly to on-disk/remote zarr arrays,>=3.7,"['magicgui', 'napari >=0.4.19', 'numpy', 'pyyaml', 'qtpy', 'scipy', 'scikit-image >=0.21', 'toolz', 'zarr <3,>=2.11', ""tensorstore ; extra == 'all'"", ""coverage ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari[pyqt5] ; extra == 'testing'""]","# zarpaint
 
 [![License](https://img.shields.io/pypi/l/zarpaint.svg?color=green)](https://github.com/jni/zarpaint/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/zarpaint.svg?color=green)](https://pypi.org/project/zarpaint)
@@ -39720,4 +39762,4 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [tox]: https://tox.readthedocs.io/en/latest/
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
-","['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']",,zarpaint.get_reader,,zarpaint.add_points_3d_with_alt_click,,['*.zarr'],,,https://pypi.org/project/zarpaint,,
+","['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']",,zarpaint.get_reader,,zarpaint.add_points_3d_with_alt_click,,['*.zarr'],,,https://pypi.org/project/zarpaint,,
