@@ -128,7 +128,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Plugin type<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=widget">Widget</a></li></ul>
+                                        
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -160,7 +160,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                        
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">imaris-ims-file-reader</li><li class="MetadataList_textItem__KKmMN">czifile</li><li class="MetadataList_textItem__KKmMN">itk-registration</li><li class="MetadataList_textItem__KKmMN">itk-elastix</li></ul>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -221,127 +221,7 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://gitlab.pasteur.fr/gletort/multireg/blob/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/multireg.svg?color=green" /></a>
-<a href="https://pypi.org/project/multireg"><img alt="PyPI" src="https://img.shields.io/pypi/v/multireg.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/multireg.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/multireg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/multireg" /></a></p>
-<p>Registration of 3D multiplex images with one common chanel, based on itk-elastix.</p>
-<p>Napari plugin to align 3D stacks that have one common field of view in one chanel used to calculate the alignement. The plugin will apply the registration to all other chanels and output one final stack with all the aligned chanels.</p>
-<p>The stacks <strong>must have one common chanel</strong> (typically cell junctions and nuclei) that is used to calculate the registration transformation. It can be rotated, translated, deformed, and with a wider field of view. 
-Then the calculated transformation is applied to all the other chanels for each stack.</p>
-<p>The final result is <strong>one multi-chanel 3D stack</strong>, with the first chanel being an average (or not) of the common chanel and each other chanel the registered chanels from the multiple stacks. The common chanel can be averaged between the different chanels, which improves its quality.</p>
-<p>The plugin save and load files to a folder named <code>aligned</code> and created in the same directory as the source images.</p>
-<p>Example of usage of this module is in the case of imaging the same cells with washing out or moving the sample in between. The corresponding cells will not be at the same position in the new stacks, and can even be deformed by the procedure. This plugin realign the images based on one common chanel on which the transformation is calculated. </p>
-<hr />
-<h2>Installation</h2>
-<ul>
-<li>
-<p>You can install the plugin directly in <code>Napari</code> by going to <code>Plugins&gt;Install/Uninstall plugins</code> and search for <code>multireg</code></p>
-</li>
-<li>
-<p>Or you can install <code>multireg</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<p>pip install multireg</p>
-</li>
-</ul>
-<h2>Usage</h2>
-<p>You can launch <code>multireg</code> in napari by going to <code>Plugins&gt;multireg: do multiplex registration</code>.</p>
-<h3>Fixed image</h3>
-<p>It will open a prompt to ask you to select the reference (fixed) image, compared to which all other images will be aligned.
-Then you have to choose the <code>reference chanel</code> that will be used in all the stacks to calculate the alignement. So this chanel should be common to all stacks.</p>
-<p><img alt="" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/plugin_step0.png" /></p>
-<h4>Reference points</h4>
-<p>The first part of the registration relies on reference points manually selected, because the common field of view can be quite far from each other in the acquisition. So first a affine registration is applied to bring close the region of interest between the two stacks to match. 
-<br> <em>Note that if your stacks did not move a lot then you could calculate the transformation without using the reference points. There's an option in the alignement calculation panel for this.</em></p>
-<p><img alt="" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/plugin_fixedpoints.png" /></p>
-<p>You have to manually placed a few reference points (4-5 should be enough). Try to spread them in the image (in x,y and z) on landmarks to recognize them in other images. </p>
-<p>To add a new reference point, click on the "plus" sign in the left panel. To select one, click on the arrow icon (or press 3), then on the point. You can move the point in x and y. To move it in z, press <code>u</code> for up and <code>d</code> for down. </p>
-<p>When all points are placed, save them. The <strong>points have to be saved</strong> to be correctly loaded by the alignement calculation step.
-Then click on <code>Fixed points done</code> to continue to the next step.</p>
-<h3>Moving images</h3>
-<p>Then you can choose one of the images you want to align with the reference image. Its chanel that is common to the fixed image should be the same chanel, selected in the first step (the <code>reference chanel</code>). Select the file of the moving image to align by clicking on <code>select file</code>. This will open the new image and go to the step of placing the moving points in this image.</p>
-<p>When you will have process all the moving images, you can click on <code>All done</code> to finish the plugin by creating the <a href="#create-resulting-image">resulting stack</a>.</p>
-<p><img alt="moving image step" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/plugin_movingimg.png" /></p>
-<h4>Moving points</h4>
-<p>You now have to locate where the region of interest (the fixed image) is in your new image and find the landmarks referenced in the fixed image are in this new image. This allows the plugin to put together the region of interest in the two images in a first step, before to fine-tune the registration.</p>
-<p>For each point placed in the fixed image, place the corresponding point in the moving image. By default, the moving points are placed close to the fixed points. 
-* Each point must have the same label (number) as its corresponding fixed points to associate them correctly. You can change a point label by selecting it and putting the new value in <code>param</code> and clicking on <code>update</code>.</p>
-<ul>
-<li>
-<p>When a point is selected, you can drag it to its desired location. To move it in the Z direction, you can press <code>u</code> to move it to the next Z (up direction) and <code>d</code> (down) to the previous Z. The viewed slice will also move, following the point new position, when you do so.</p>
-</li>
-<li>
-<p>You can click on <code>side_by_side_view</code> to see the two images (fixed and moving) with their placed points at the same time.</p>
-</li>
-<li>
-<p>You can click on <code>two_windows_view</code> to see the fixed image and points in a separate Napari window. This allows to have visualize separatly the fixed and moving images and points, and thus to see different z-slices or zoom for each image. The new window will be closed automatically by the plugin if you unselect this option or when you click on <code>Moving done</code>.</p>
-</li>
-</ul>
-<p><img alt="two window" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/twowin.png" /></p>
-<p>When all the moving points have been correctly placed, click on <code>Save points</code> to save this positions and let it be usable by the alignement step. The points <strong>have to be saved</strong> in the point file to be correctly loaded in the alignement step.</p>
-<h3>Alignement calculation</h3>
-<p>This step is the core of the plugin. The transformation necessary to change the moving image to match with the fixed image on the <code>reference chanel</code> is calculated based on <a href="https://pypi.org/project/itk-elastix/">itk-elastix</a> python module. It is decomposed in two steps. </p>
-<ol>
-<li>
-<p>First a global <strong>affine registration</strong> is performed, based on the correspondance between the reference and moving points (<code>do rigid</code> option). This allows to locate the fixed image postion within the moving image and apply a first <strong>shearing, scaling, rotation and translation</strong> to super-impose the region of interest. </p>
-</li>
-<li>
-<p>The second step fine-tunes the registration. It doesn't use the reference points (except if rigid transformation was not selected) anymore but calculate the matching based on the images local intensities. <strong>Non-rigid transformation</strong> based on B-spline is performed at this step, thus allowing to compensate for <strong>local deformations</strong> in the moving image (<code>do bspline</code> option).</p>
-</li>
-</ol>
-<p>The option <code>use reference points</code> determines if the previously placed reference points should be used or if the registration is only based on intensities matching. It's possible to use only the intensities if the two images are not so far away from each other. The reference points will be used only in the first pass (either rigid or bspline) when both are selected. If only one is selected, the points will be used on the selected transformation.</p>
-<p>The option <code>strong_weight_points</code> allows to give more importance to reference points than to intensities matching when calculating the registration. The weights will be 0.2 for the intensity metric and 0.8 for points metric. Note that if both rigid and bspline transformations are selected, the second transformation (bspline) do not use the points.</p>
-<p><img alt="apply alignement step" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/interm.png" /></p>
-<p>You can click on <code>show advanced parameters</code> to tune the parameters of the non rigid transformation. After calculating the registration, the plugin will add a new layer, which is the moving image after alignement, so you can check the sucess of the regristration. <code>show intermediate_layer</code> will also add the moving image aligned after the first step only (the points matching with affine registration).</p>
-<p><img alt="calculate alignement step" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/align.png" /></p>
-<h3>Apply alignement</h3>
-<p>Once the calculated registration is satisfying, you can apply it to all the chanels of your moving image, or only to a few. By default, all chanels are selected in the <code>Apply alignement</code> panel, but you can unselect the chanels that you don't want to align in the parameter <code>align chanels</code>. 
-When you click on <code>Align images</code>, the plugin will apply the transformation on the selected chanels of the moving image and save each of them in the <code>aligned</code> folder as individual <code>.tif</code> files. </p>
-<p><img alt="apply alignement step" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/goalign.png" /></p>
-<h3>Create resulting image</h3>
-<p>This step allows to save a single 3D multi-chanels stack with all the aligned chanels. </p>
-<p>The common chanel present in all the images can be averaged together after alignement to obtain a much less noisy image. By default, the aligned <code>reference chanel</code> of all the images are averaged together to create the final image first chanel. However, it is possible to unselect some images in the first panel (<code>average chanels</code> parameter) if you do not wish to use all the images or do an average.</p>
-<p><img alt="create result image" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/create.png" /></p>
-<p>Then each aligned chanel of all the images that were not the reference chanel are stacked together in the final resulting image. Here also, if you don't want to keep all the other chanels in the resulting image, you can unselect the one that you don't want stacked, in the <code>add_chanels</code> parameter. 
-All the aligned chanels have been previously saved in the <code>aligned</code> folder. If <code>delete_files</code> is checked (default) all these interemediate files will be deleted and only the final resulting stack will be saved in that folder.</p>
-<p>You will end-up with a final 3D multi-chanels stack, saved as a <code>.tif</code> file in the <code>aligned</code> folder, with the same name as your fixed image. It can have a lot of chanels if you stacked together multiple images.
-In napari, you can separate the chanels by right clicking on the layer and select <code>Split stack</code>. 
-In Fiji, you can make the stack as a composite to see the chanels with different colors.</p>
-<p><img alt="final image" src="https://gitlab.pasteur.fr/gletort/multireg/raw/main/imgs/reslayer.png" /></p>
-<h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"multireg" is free and open source software</p>
-<h2>Plugin initialization</h2>
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<h2>Issues</h2>
-<p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+                                        Not available
 
                                     </div>
                                 </div>
@@ -413,7 +293,7 @@ In Fiji, you can make the stack as a composite to see the chanels with different
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Plugin
                                                     type<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=widget">Widget</a></li></ul>
+                                                    
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -444,7 +324,7 @@ In Fiji, you can make the stack as a composite to see the chanels with different
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                                    
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -463,7 +343,7 @@ In Fiji, you can make the stack as a composite to see the chanels with different
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">imaris-ims-file-reader</li><li class="MetadataList_textItem__KKmMN">czifile</li><li class="MetadataList_textItem__KKmMN">itk-registration</li><li class="MetadataList_textItem__KKmMN">itk-elastix</li></ul>
+                                                    
                                             </div>
                                         </div>
                                     </div>
