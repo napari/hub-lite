@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -252,8 +252,9 @@ pre > code:last-child {
 <p><a href="https://stand-with-ukraine.pp.ua"><img alt="Stand With Ukraine" src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg" /></a></p>
 <p><a href="https://napari-hub.org/plugins/domb-napari"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/domb-napari" /></a>
 <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/domb-napari" />
-<img alt="PyPI - License" src="https://img.shields.io/pypi/l/domb-napari" />
-<img alt="Website" src="https://img.shields.io/website?up_message=domb.bio%2Fnapari&amp;up_color=%2323038C93&amp;url=https%3A%2F%2Fdomb.bio%2Fnapari%2F" /></p>
+<img alt="PyPI - License" src="https://img.shields.io/pypi/l/domb-napari" /></p>
+<!-- ![Website](https://img.shields.io/website?up_message=domb.bio%2Fnapari&up_color=%2323038C93&url=https%3A%2F%2Fdomb.bio%2Fnapari%2F) -->
+
 <p><strong>napari Toolkit of Department of Molecular Biophysics <br /> Bogomoletz Institute of Physiology of NAS of Ukraine, Kyiv,  Ukraine</strong></p>
 <p>This plugin offers widgets specifically designed to analyze the redistribution of fluorescence-labeled proteins in widefield epifluorescence time-lapse acquisitions. It is particularly useful for studying various phenomena, including:
 - Calcium-dependent translocation of neuronal calcium sensors.
@@ -275,9 +276,9 @@ pre > code:last-child {
 </ul>
 <h3>Multichannel stack preprocessing</h3>
 <ul>
-<li><code>stack order</code> - Represents the order of axes in the input data array (T - time, C - color, X and Y - image dimensions). If the input image stack has four dimensions (time, channel, x-axis, y-axis), channels will be split into individual three-dimensional images (time, x-axis, y-axis), each with the <code>_ch%index%</code> suffix.</li>
-<li><code>median filter</code> - provides frame-by-frame image smoothing using a kernel of size specified in <code>median kernel</code>.</li>
-<li><code>background subtraction</code> - compensates for background fluorescence intensity. Background intensity is estimated frame by frame as the mean intensity value outside of a simple Otsu mask.</li>
+<li><code>stack order</code> -  represents the order of axes in the input data array: T (time), C (color), X, and Y (image dimensions). If the input image stack has four dimensions (time, channel, x-axis, y-axis), channels will be split into individual three-dimensional images (time, x-axis, y-axis), each labeled with the <code>_ch%index%</code> suffix.</li>
+<li><code>median filter</code> - provides frame-by-frame image smoothing with a kernel of size specified in <code>median kernel</code>.</li>
+<li><code>background subtraction</code> -  compensates for background fluorescence intensity. Background intensity is estimated frame by frame as the 1st percentile of frame intensity.</li>
 <li>If the <code>photobleaching correction</code> option is selected, the image will undergo correction using either an exponential (method <code>exp</code>) or bi-exponential (method <code>bi_exp</code>) fitting.</li>
 <li>Image stacks can be cropped according to start and stop indexes specified in <code>frames range</code> if <code>drop frames</code> is selected.</li>
 </ul>
@@ -309,8 +310,7 @@ pre > code:last-child {
 <hr />
 <h2>FRET detection</h2>
 <p>Widgets for detection and analysis of Förster resonance energy transfer multispectral image stacks.</p>
-<p>Based on <a href="https://pubmed.ncbi.nlm.nih.gov/15189889/">Zal and Gascoigne, 2004</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/16815904/">Chen et al., 2006</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/37014867/">Kamino et al., 2023</a></p>
-<p><em>Under development: calculation of crosstalk coefficients and G-factor, B-FRET estimation.</em></p>
+<p>Based on <a href="https://pubmed.ncbi.nlm.nih.gov/15189889/">Zal and Gascoigne, 2004</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/16815904/">Chen et al., 2006</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/37014867/">Kamino et al., 2023</a>.</p>
 <h3>E-FRET estimation</h3>
 <p>E-FRET estimation with 3-cube approach.</p>
 <p>This method utilizes default values for <code>a</code> and <code>d</code> coefficients and the <code>G</code>-factor, optimized for the pair EYFP and ECFP in our experimental setup:
@@ -321,10 +321,11 @@ pre > code:last-child {
 - Acceptor excitation wavelength 505 nm</p>
 <p>Parameters:
 - <code>DD img</code> - donor emission channel image acquired with the donor excitation wavelength.
-- <code>AD img</code> - Acceptor emission channel image acquired with the donor excitation wavelength.
-- <code>AA img</code> - Acceptor emission channel image acquired with the acceptor excitation wavelength.
-- <code>output type</code> - Type of output image: sensitized emission (Fc), apparent FRET efficiency (Eapp), or FRET efficiency with photobleaching correction (Ecorr).</p>
-<p>If the <code>save normalized</code> option is selected, an additional image will be saved. This image is normalized to the absolute intensity of the <code>AA img</code>, resulting in reduced background noise amplitude.</p>
+- <code>AD img</code> - acceptor emission channel image acquired with the donor excitation wavelength.
+- <code>AA img</code> - acceptor emission channel image acquired with the acceptor excitation wavelength.
+- <code>output type</code> - type of output image: sensitized emission (<code>Fc</code>), apparent FRET efficiency (<code>Eapp</code>), or FRET efficiency with photobleaching correction (<code>Ecorr</code>).</p>
+<p>If the <code>save normalized</code> option is selected, an additional image will be saved. This image is normalized to the absolute intensity of the <code>AA img</code>, which results in reduced background noise amplitude.</p>
+<p><em>Note: normalized images are useful for visual control and mask building only; they are not representative for quantitative analysis.</em></p>
 <p>Raw Eapp| <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_raw.png" />
 :-:|:-:
 <strong>Normalized Eapp</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_norm.png" /></p>
@@ -348,18 +349,18 @@ pre > code:last-child {
 </ul>
 <p>Additionally, you can save ROI intensity profiles as .csv files using the save data frame option and specifying the <code>saving path</code>. The output data frames named %img_name%_lab_prof.csv will include the following columns:</p>
 <ul>
-<li><code>id</code> - Unique image ID, the name of the input napari.Image object.</li>
+<li><code>id</code> - unique image ID, the name of the input <code>napari.Image</code> object.</li>
 <li><code>roi</code> - ROI number, consecutively numbered starting from 1.</li>
 <li><code>int</code> - ROI mean intensity, either raw or ΔF/F0, according to the selected intensity option.</li>
-<li><code>index</code> - Frame index.</li>
-<li><code>time</code> - Frame time point, adjusted according to the time scale.</li>
+<li><code>index</code> - frame index.</li>
+<li><code>time</code> - frame time point, adjusted according to the <code>time scale</code>.</li>
 </ul>
-<p><em>Note: The data frame will contain information for all ROIs; amplitude filtering and crop options pertain to plotting only.</em></p>
+<p><em>Note: the data frame will contain information for all ROIs; amplitude filtering and crop options pertain to plotting only.</em></p>
 <p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_abs.png" />
 :-------------------------:|:-------------------------:
 <strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_df.png" /></p>
 <h3>Stat profiles</h3>
-<p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in labels. It can handle up to three images (img 0, img 1, and img 2) as inputs, depending on the selected profiles num.</p>
+<p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in <code>labels</code>. It can handle up to three images (<code>img 0</code>, <code>img 1</code>, and <code>img 2</code>) as inputs, depending on the selected <code>profiles num</code>.</p>
 <p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
 <p>The <code>stat method</code> allows for the estimation of intensity and associated errors through the following methods:
 - <code>se</code> - mean +/- standard error of the mean.
@@ -383,7 +384,7 @@ pre > code:last-child {
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.1</li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -2424,7 +2424,7 @@ https://napari.org/plugins/stable/index.html
 [PyPI]: https://pypi.org/
 
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/zcqwh/disease-classifier/issues', 'Documentation, https://github.com/zcqwh/disease-classifier#README.md', 'Source Code, https://github.com/zcqwh/disease-classifier', 'User Support, https://github.com/zcqwh/disease-classifier/issues']",,,disease-classifier.make_qwidget,,,,,https://pypi.org/project/disease-classifier,,
-27,domb-napari,0.2.0,2023-12-08,2024-07-11,domb-napari,Borys Olifirov,omnia.fatum@gmail.com,MIT,https://pypi.org/project/domb-napari,napari plugin for analyzing fluorescence-labeled proteins redistribution,>=3.8,"['napari', 'domb', 'dipy']","domb-napari
+27,domb-napari,0.2.1,2023-12-08,2024-07-11,domb-napari,Borys Olifirov,omnia.fatum@gmail.com,MIT,https://pypi.org/project/domb-napari,napari plugin for analyzing fluorescence-labeled proteins redistribution,>=3.8,"['napari', 'domb', 'dipy']","domb-napari
 ===========
 
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
@@ -2432,7 +2432,7 @@ https://napari.org/plugins/stable/index.html
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/domb-napari)](https://napari-hub.org/plugins/domb-napari)
 ![PyPI - Version](https://img.shields.io/pypi/v/domb-napari)
 ![PyPI - License](https://img.shields.io/pypi/l/domb-napari)
-![Website](https://img.shields.io/website?up_message=domb.bio%2Fnapari&up_color=%2323038C93&url=https%3A%2F%2Fdomb.bio%2Fnapari%2F)
+<!-- ![Website](https://img.shields.io/website?up_message=domb.bio%2Fnapari&up_color=%2323038C93&url=https%3A%2F%2Fdomb.bio%2Fnapari%2F) -->
 
 __napari Toolkit of Department of Molecular Biophysics <br /> Bogomoletz Institute of Physiology of NAS of Ukraine, Kyiv,  Ukraine__
 
@@ -2444,12 +2444,15 @@ This plugin offers widgets specifically designed to analyze the redistribution o
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/translocation.gif)
 __Hippocalcin (neuronal calcium sensor) redistributes in dendritic branches upon NMDA application__
 
+
 ---
+
 
 ## Detection of fluorescence redistributions
 A set of widgets designed for preprocessing multispectral image stacks and detecting redistributions in fluorescence intensity. These widgets specifically analyze differential ""red-green"" image series to identify changes in fluorescence intensity.
 
 Inspired by [Dovgan et al., 2010](https://pubmed.ncbi.nlm.nih.gov/20704590/) and [Osypenko et al., 2019](https://www.sciencedirect.com/science/article/pii/S0969996119301974?via%3Dihub).
+
 
 ### Dual-view stack registration
 Registration of four-channel image stacks, including two excitation wavelengths and two emission pathbands, acquired with a dual-view beam splitter. This setup detects different spectral pathbands using distinct sides of the CCD matrix.
@@ -2461,9 +2464,9 @@ Registration of four-channel image stacks, including two excitation wavelengths 
 
 
 ### Multichannel stack preprocessing
-- `stack order` - Represents the order of axes in the input data array (T - time, C - color, X and Y - image dimensions). If the input image stack has four dimensions (time, channel, x-axis, y-axis), channels will be split into individual three-dimensional images (time, x-axis, y-axis), each with the `_ch%index%` suffix.
-- `median filter` - provides frame-by-frame image smoothing using a kernel of size specified in `median kernel`.
-- `background subtraction` - compensates for background fluorescence intensity. Background intensity is estimated frame by frame as the mean intensity value outside of a simple Otsu mask.
+- `stack order` -  represents the order of axes in the input data array: T (time), C (color), X, and Y (image dimensions). If the input image stack has four dimensions (time, channel, x-axis, y-axis), channels will be split into individual three-dimensional images (time, x-axis, y-axis), each labeled with the `_ch%index%` suffix.
+- `median filter` - provides frame-by-frame image smoothing with a kernel of size specified in `median kernel`.
+- `background subtraction` -  compensates for background fluorescence intensity. Background intensity is estimated frame by frame as the 1st percentile of frame intensity.
 - If the `photobleaching correction` option is selected, the image will undergo correction using either an exponential (method `exp`) or bi-exponential (method `bi_exp`) fitting.
 - Image stacks can be cropped according to start and stop indexes specified in `frames range` if `drop frames` is selected.
 
@@ -2485,6 +2488,7 @@ If `save MIP` is selected, the maximal intensity projection (MIP) of the differe
 
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rg_series.png)
 
+
 ### Up masking
 Generates labels for insertion sites (regions with increasing intensity) based on `-red-green` images. Returns labels layer with `_up-labels` suffix.
 
@@ -2497,19 +2501,21 @@ Parameters:
 
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_masking.png)
 
+
 ### Intensity masking
 Extension of __Up Masking__ widget. Detects regions with increasing (`masking mode` - `up`) or decreasing (`masking mode` - `down`) intensity in `-red-green` images. Returns a labels layer with either `_up-labels` or `_down-labels` suffix, depending on the mode.
 
 ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/int_masking.png)
 
+
 ---
+
 
 ## FRET detection
 Widgets for detection and analysis of Förster resonance energy transfer multispectral image stacks.
 
-Based on [Zal and Gascoigne, 2004](https://pubmed.ncbi.nlm.nih.gov/15189889/), [Chen et al., 2006](https://pubmed.ncbi.nlm.nih.gov/16815904/) and [Kamino et al., 2023](https://pubmed.ncbi.nlm.nih.gov/37014867/)
+Based on [Zal and Gascoigne, 2004](https://pubmed.ncbi.nlm.nih.gov/15189889/), [Chen et al., 2006](https://pubmed.ncbi.nlm.nih.gov/16815904/) and [Kamino et al., 2023](https://pubmed.ncbi.nlm.nih.gov/37014867/).
 
-_Under development: calculation of crosstalk coefficients and G-factor, B-FRET estimation._
 
 ### E-FRET estimation
 E-FRET estimation with 3-cube approach.
@@ -2523,22 +2529,27 @@ This method utilizes default values for `a` and `d` coefficients and the `G`-fac
 
 Parameters:
 - `DD img` - donor emission channel image acquired with the donor excitation wavelength.
-- `AD img` - Acceptor emission channel image acquired with the donor excitation wavelength.
-- `AA img` - Acceptor emission channel image acquired with the acceptor excitation wavelength.
-- `output type` - Type of output image: sensitized emission (Fc), apparent FRET efficiency (Eapp), or FRET efficiency with photobleaching correction (Ecorr).
+- `AD img` - acceptor emission channel image acquired with the donor excitation wavelength.
+- `AA img` - acceptor emission channel image acquired with the acceptor excitation wavelength.
+- `output type` - type of output image: sensitized emission (`Fc`), apparent FRET efficiency (`Eapp`), or FRET efficiency with photobleaching correction (`Ecorr`).
 
-If the `save normalized` option is selected, an additional image will be saved. This image is normalized to the absolute intensity of the `AA img`, resulting in reduced background noise amplitude.
+If the `save normalized` option is selected, an additional image will be saved. This image is normalized to the absolute intensity of the `AA img`, which results in reduced background noise amplitude.
+
+_Note: normalized images are useful for visual control and mask building only; they are not representative for quantitative analysis._
 
 Raw Eapp| ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_raw.png)
 :-:|:-:
 __Normalized Eapp__|![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_norm.png)
 
+
 ---
+
 
 ## Exo-/endo-cytosis monitoring with pH-sensitive tag
 A set of widgets designed for the analysis of image series containing the pH-sensitive fluorescence protein Superecliptic pHluorin (SEP).
 
 Insipred by [Fujii et al., 2017](https://pubmed.ncbi.nlm.nih.gov/28474392/) and [Sposini et al., 2020](https://www.nature.com/articles/s41596-020-0371-z).
+
 
 ### SEP image preprocessing
 Processes image series obtained through repetitive pH exchange methods (such as U-tube or ppH approaches). `pH 1st frame` option indicates the 1st frame pH. By default frames with odd indexes, including index 0, are interpreted as images acquired at pH 7.0, representing total fluorescence intensity (saved with the suffix `_total`). Even frames are interpreted as images obtained at acidic pH (5.5-6.0), representing intracellular fluorescence only (saved with the suffix `_intra`).
@@ -2547,7 +2558,9 @@ If `calc surface img` is selected, an additional total fluorescence image with s
 
 The `calc projections` option allows obtaining individual pH series projections (pixel-wise series MIP - pixel-wise series average) for the detection of individual exo/endocytosis events.
 
+
 ---
+
 
 ## Intensty profiles building and data frame saving
 ### ROIs profiles
@@ -2560,13 +2573,13 @@ This widget builds a plot with mean intensity profiles for each Region of Intere
 
 Additionally, you can save ROI intensity profiles as .csv files using the save data frame option and specifying the `saving path`. The output data frames named %img_name%_lab_prof.csv will include the following columns:
 
-- `id` - Unique image ID, the name of the input napari.Image object.
+- `id` - unique image ID, the name of the input `napari.Image` object.
 - `roi` - ROI number, consecutively numbered starting from 1.
 - `int` - ROI mean intensity, either raw or ΔF/F0, according to the selected intensity option.
-- `index` - Frame index.
-- `time` - Frame time point, adjusted according to the time scale.
+- `index` - frame index.
+- `time` - frame time point, adjusted according to the `time scale`.
 
-_Note: The data frame will contain information for all ROIs; amplitude filtering and crop options pertain to plotting only._
+_Note: the data frame will contain information for all ROIs; amplitude filtering and crop options pertain to plotting only._
 
 Absolute intensity         | ![](https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_abs.png)
 :-------------------------:|:-------------------------:
@@ -2574,7 +2587,7 @@ __ΔF/F0__|![](https://raw.githubusercontent.com/wisstock/domb-napari/master/ima
 
 
 ### Stat profiles
-This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in labels. It can handle up to three images (img 0, img 1, and img 2) as inputs, depending on the selected profiles num.
+This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in `labels`. It can handle up to three images (`img 0`, `img 1`, and `img 2`) as inputs, depending on the selected `profiles num`.
 
 `time scale`, `ΔF win`, and `absolute intensity` parameters are identical as described in the __ROIs profiles__ widget.
 
@@ -3438,11 +3451,11 @@ Distributed under the terms of the [BSD-3] license, **Hesperos** is a free and o
 [Anaconda]: https://www.anaconda.com/products/distribution#Downloads
 [VoxelLearning]: https://github.com/DecBayComp/VoxelLearning
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Operating System :: MacOS :: MacOS X', 'Operating System :: Microsoft :: Windows', 'License :: OSI Approved :: BSD License']","['Documentation, https://github.com/chgodard/hesperos/blob/main/README.md', 'Source Code, https://github.com/chgodard/hesperos']",,,hesperos.make_manual_segmentation_widget,,,,,https://pypi.org/project/hesperos,https://github.com/chgodard/hesperos,
-36,hipocount-napari,2024.2.5,,,hipocount-napari,Borys Olifirov,omnia.fatum@gmail.com,MIT,,Quantitative analysis of immunofluorescence images of hippocampal slices,>=3.8,['napari'],"hipocount-napari
+36,hipocount-napari,0.0.1,,,hipocount-napari,Borys Olifirov,omnia.fatum@gmail.com,MIT,,Quantitative analysis of immunofluorescence images of hippocampal slices,>=3.8,['napari'],"hipocount-napari
 ================
 
 Quantitative analysis of immunofluorescence images of hippocampal slices
-","['Framework :: napari', 'Development Status :: 3 - Alpha', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Operating System :: OS Independent', 'Topic :: Scientific/Engineering :: Bio-Informatics', 'Topic :: Scientific/Engineering :: Image Processing', 'Topic :: Scientific/Engineering :: Image Recognition', 'Topic :: Utilities']","['Documentation, https://domb.bio/', 'Source Code, https://github.com/wisstock/domb-napari', 'Bug Tracker, https://github.com/wisstock/domb-napari/issues', 'User Support, https://github.com/wisstock/domb-napari/issues']",,,hipocount-napari.stack_process_widget,,,,,https://pypi.org/project/hipocount-napari,,
+","['Framework :: napari', 'Development Status :: 3 - Alpha', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Operating System :: OS Independent', 'Topic :: Scientific/Engineering :: Bio-Informatics', 'Topic :: Scientific/Engineering :: Image Processing', 'Topic :: Scientific/Engineering :: Image Recognition', 'Topic :: Utilities']","['Documentation, https://github.com/wisstock/hipocount-napari', 'Source Code, https://github.com/wisstock/hipocount-napari', 'Bug Tracker, https://github.com/wisstock/hipocount-napari/issues', 'User Support, https://github.com/wisstock/hipocount-napari/issues']",,,hipocount-napari.stack_process_widget,,,,,https://pypi.org/project/hipocount-napari,,
 37,iacs-ipac-reader,0.0.13,2022-02-11,2023-06-18,iacs-ipac-reader,Chenqi Zhang,cqzhang@g.ecc.u-tokyo.ac.jp,BSD-3-Clause,https://github.com/zcqwh/iacs_ipac_reader,A reader plugin for read iacs/ipac images and export .rtdc files.,>=3.7,"['h5py (>=3.5.0)', 'napari (>=0.4.12)', 'napari-plugin-engine (>=0.2.0)', 'numpy (>=1.21.4)', 'opencv-contrib-python-headless (>=4.4.0.46)', 'openpyxl (>=3.0.9)', 'sklearn (>=0.0)', 'PyQt5 (==5.12.3)', 'pandas (>=1.4.0)']","# iacs_ipac_reader
 
 [![License](https://img.shields.io/pypi/l/iacs_ipac_reader.svg?color=green)](https://github.com/zcqwh/iacs_ipac_reader/raw/main/LICENSE)
@@ -15344,7 +15357,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']",,napari-fast4dreg.get_reader,napari-fast4dreg.write_multiple,napari-fast4dreg.make_function_widget,napari-fast4dreg.make_sample_data,['*.npy'],,['.npy'],https://pypi.org/project/napari-fast4dreg,,
-157,napari feature classifier,0.1.2,2022-06-16,2023-07-25,napari-feature-classifier,Joel Luethi and Max Hess,joel.luethi@uzh.ch,BSD-3-Clause,https://github.com/fractal-napari-plugins-collection/napari-feature-classifier,An interactive classifier plugin to use with label images and feature measurements,>=3.9,"['numpy <2.0', 'napari <0.4.19', 'matplotlib', 'magicgui', 'pandas', 'scikit-learn >=1.2.2', 'pandera <0.20.0', 'xxhash', 'hypothesis']","# napari-feature-classifier
+157,napari feature classifier,0.1.2,2022-06-16,2024-07-23,napari-feature-classifier,Joel Luethi and Max Hess,joel.luethi@uzh.ch,BSD-3-Clause,https://github.com/fractal-napari-plugins-collection/napari-feature-classifier,An interactive classifier plugin to use with label images and feature measurements,>=3.9,"['numpy <2.0', 'napari <0.4.19', 'matplotlib', 'magicgui', 'pandas', 'scikit-learn >=1.2.2', 'pandera <0.20.0', 'xxhash', 'hypothesis']","# napari-feature-classifier
 
 [![License](https://img.shields.io/pypi/l/napari-feature-classifier.svg?color=green)](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-feature-classifier.svg?color=green)](https://pypi.org/project/napari-feature-classifier)
@@ -22211,7 +22224,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/brisvag/napari-molecule-reader/issues', 'Documentation, https://github.com/brisvag/napari-molecule-reader#README.md', 'Source Code, https://github.com/brisvag/napari-molecule-reader', 'User Support, https://github.com/brisvag/napari-molecule-reader/issues']",napari-molecule-reader.get_reader,,,,"['*.pdb', '*.cif']",,,https://pypi.org/project/napari-molecule-reader,https://github.com/brisvag/napari-molecule-reader,
-227,MolTrack,0.0.51,,,napari-moltrack,Piers Turner,piers.turner@physics.ox.ac.uk,"
+227,MolTrack,0.0.54,,,napari-moltrack,Piers Turner,piers.turner@physics.ox.ac.uk,"
 Copyright (c) 2024, Piers Turner
 All rights reserved.
 
@@ -22244,8 +22257,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [![License BSD-3](https://img.shields.io/pypi/l/napari-moltrack.svg?color=green)](https://github.com/piedrro/napari-moltrack/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-moltrack.svg?color=green)](https://pypi.org/project/napari-moltrack)
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-moltrack.svg?color=green)](https://python.org)
-[![tests](https://github.com/piedrro/napari-moltrack/workflows/tests/badge.svg)](https://github.com/piedrro/napari-moltrack/actions)
-[![codecov](https://codecov.io/gh/piedrro/napari-moltrack/branch/main/graph/badge.svg)](https://codecov.io/gh/piedrro/napari-moltrack)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-moltrack)](https://napari-hub.org/plugins/napari-moltrack)
 
 A Napari plugin for single molecule localisation *and* tracking based on **Picasso**, **GPUfit** and **Trackpy**.
@@ -31681,37 +31692,25 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing', 'Topic :: Scientific/Engineering :: Visualization']","['Bug Tracker, https://github.com/drchrisch/napari-spofi/issues', 'Documentation, https://github.com/drchrisch/napari-spofi#README.md', 'Source Code, https://github.com/drchrisch/napari-spofi', 'User Support, https://github.com/drchrisch/napari-spofi/issues']",,,napari-spofi.widget,,,,,https://pypi.org/project/napari-spofi,,
-326,napari-spotiflow,0.2.0,,,napari-spotiflow,"Albert Dominguez Mantes, Martin Weigert","albert.dominguezmantes@epfl.ch, martin.weigert@epfl.ch",BSD-3-Clause,,Napari plugin for Spotiflow,"<3.12,>=3.9","['spotiflow', 'npe2', 'napari']","[![License: BSD-3](https://img.shields.io/badge/License-BSD3-blue.svg)](https://www.gnu.org/licenses/bsd3)
+326,napari-spotiflow,0.2.1,,,napari-spotiflow,"Albert Dominguez Mantes, Martin Weigert","albert.dominguezmantes@epfl.ch, martin.weigert@epfl.ch",BSD 3-Clause,,Napari plugin for Spotiflow,"<3.12,>=3.9","['spotiflow', 'npe2', 'napari']","[![License: BSD-3](https://img.shields.io/badge/License-BSD3-blue.svg)](https://www.gnu.org/licenses/bsd3)
 [![PyPI](https://img.shields.io/pypi/v/napari-spotiflow.svg?color=green)](https://pypi.org/project/napari-spotiflow)
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-spotiflow.svg?color=green)](https://python.org)
 [![tests](https://github.com/weigertlab/napari-spotiflow/workflows/tests/badge.svg)](https://github.com/weigertlab/napari-spotiflow/actions)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/napari-spotiflow)](https://pypistats.org/packages/napari-spotiflow)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-spotiflow)](https://napari-hub.org/plugins/napari-spotiflow)
 
-![Logo](artwork/spotiflow_logo.png)
+![Logo](https://github.com/weigertlab/napari-spotiflow/raw/main/artwork/spotiflow_logo.png)
 ---
 
-# napari-spotiflow
+# Spotiflow: napari plugin
 
-Napari plugin for *Spotiflow*, a deep learning-based, threshold-agnostic, and subpixel-accurate spot detection method for fluorescence microscopy. For the main repo, see [here](https://github.com/weigertlab/spotiflow). 
+Napari plugin for *Spotiflow*, a deep learning-based, threshold-agnostic, and subpixel-accurate spot detection method for fluorescence microscopy. The plugin allows using several pre-trained models as well as user-trained ones. For the main repository, see [here](https://github.com/weigertlab/spotiflow). 
 
-  
 https://github.com/weigertlab/napari-spotiflow/assets/11042162/02940480-daa9-4a21-8cf5-ad73c26c9838
 
 If you use this plugin for your research, please [cite us](https://github.com/weigertlab/spotiflow#how-to-cite).
 
 ----------------------------------
-
-# Usage 
-
-1. Open the image (or open one of our samples, _e.g._ `File > Open Sample > napari-spotiflow > HybISS`)
-2. Start the plugin `Plugins > napari-spotiflow`
-3. Select model (pretrained or custom trained) and optionally adjust any other parameters
-4. Click `run`
-
-## Supported input formats
-- 2D (YX, YXC or CYX)
-- 2D+t (TYX, TYXC or TCYX)
 
 ## Installation
 
@@ -31720,6 +31719,20 @@ The plugin can be installed directly from PyPi (make sure you use a conda enviro
 ```
 pip install napari-spotiflow
 ```
+
+## Usage 
+
+1. Open the image (or open one of our samples, _e.g._ `File > Open Sample > napari-spotiflow > HybISS`)
+2. Start the plugin `Plugins > napari-spotiflow`
+3. Select model (pre-trained or custom trained) and optionally adjust any other parameters
+4. Click `Run`
+
+## Supported input formats
+- 2D (YX, YXC or CYX)
+- 2D+t (TYX, TYXC or TCYX)
+
+## How to cite
+See the [main repository's _How to cite_ section](https://github.com/weigertlab/spotiflow?tab=readme-ov-file#how-to-cite).
 ","['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/weigertlab/napari-spotiflow/issues', 'Documentation, https://github.com/weigertlab/napari-spotiflow#README.md', 'Source Code, https://github.com/weigertlab/napari-spotiflow', 'User Support, https://github.com/weigertlab/napari-spotiflow/issues']",napari-spotiflow.reader,,napari-spotiflow.widget,napari-spotiflow.data.hybiss_2d,['*.csv'],,,https://pypi.org/project/napari-spotiflow,,
 327,Spreadsheet,0.0.4,2023-12-08,2023-12-08,napari-spreadsheet,Hanjin Liu,liuhanjin-sc@g.ecc.u-tokyo.ac.jp,BSD-3-Clause,https://pypi.org/project/napari-spreadsheet,A spreadsheet widget for napari,>=3.8,"['magicgui', 'napari', 'numpy', 'pandas', 'qtpy', 'tabulous (>=0.5.0)', ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""tox ; extra == 'testing'""]","# napari-spreadsheet
 
