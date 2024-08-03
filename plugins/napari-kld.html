@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy ==1.26.4</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision</li><li class="MetadataList_textItem__KKmMN">fft-conv-pytorch</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy ==1.26.4</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">torch ==2.0</li><li class="MetadataList_textItem__KKmMN">torchvision</li><li class="MetadataList_textItem__KKmMN">fft-conv-pytorch</li><li class="MetadataList_textItem__KKmMN">pytorch-msssim</li><li class="MetadataList_textItem__KKmMN">tensorboard</li><li class="MetadataList_textItem__KKmMN">pydicom</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -280,21 +280,11 @@ pre > code:last-child {
 <a href="https://pypi.org/project/napari-kld"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-kld.svg?color=green" /></a>
 <a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-kld.svg?color=green" /></a>
 <a href="https://napari-hub.org/plugins/napari-kld"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-kld" /></a></p>
-<p><font color=red> <strong>This plugin is not completed.</strong> </font></p>
-<hr />
-<h3>Kernel Learning Deconvolution (KLD)</h3>
-<p>Kernel learning deconvolution  is a rapid deconvolution algorithm for fluorescence microscopic image, which learns the forward and backward kernels in Richardson-Lucy Deconvolution (KLD) from paired low-/high-resolution images.</p>
-<p>It only requires one sample to training the model, and two iteration to achieve a superior deconvolution perfromance compared to RLD and its variants using unmatched backward projection.</p>
-<hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/napari-plugin-template#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-
+<p><code>napari-kld</code> is a <code>napari</code> plugin that implements kernel learning deconvolution algrotihm.</p>
+<h2>Kernel Learning Deconvolution (KLD)</h2>
+<p>KLD is a rapid deconvolution algorithm for fluorescence microscopic image, which learns the forward and backward kernels in Richardson-Lucy Deconvolution (RLD) from paired low-resolution (LR) and high-resolution (HR) images.</p>
+<p>It only requires <strong>one sample</strong> to training the model, and <strong>two iterations</strong> to achieve a superior deconvolution performance compared to RLD and its variants using unmatched backward projection.</p>
+<p>*<em>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</em></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-kld</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <pre><code>pip install napari-kld
@@ -303,66 +293,182 @@ https://napari.org/stable/plugins/index.html
 <p>This plugin includes two part:</p>
 <ul>
 <li>
-<p><code>RL Deconvolution</code> : Conventional RLD algorithm using different type of backward kernels (including matched backward kernel [<code>Traditional</code>] and unmatched backward kernels [<code>Guassian</code>, <code>Butterworth</code>, <code>Wiener-Butterworth</code>]). The forward kernel (i.e., PSF) must to be known.</p>
+<p><code>RL Deconvolution</code> : Conventional RLD algorithm using different type of backward kernels (including matched backward kernel [<code>Traditional</code>] and unmatched backward kernels [<code>Guassian</code>, <code>Butterworth</code>, <code>Wiener-Butterworth (WB)</code>]). The forward kernel, i.e., point spread function (PSF), is required.</p>
 </li>
 <li>
 <p><code>KL Deconvolution</code> : KLD using learned forward/backward kernels.</p>
 </li>
 </ul>
-<h2>RL Deconvolution</h2>
-<h2>KL Deconvolution</h2>
-<h3>When only with Point Spread Function (PSF)</h3>
-<p>When you only have a PSF to do deconvolution, you can train the model using simulated data.</p>
+<h2><strong>RL Deconvolution</strong></h2>
+<p>The conventional RLD using different type of backward kernels.</p>
 <ol>
 <li>
-<p>Generate simulaiton data</p>
+<p>Open <code>napari</code> and load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>RL Deconvolution</code></p>
 </li>
 <li>
-<p>Train the model under supervised mode</p>
+<p>Load input low-resolution (LR) image: <code>File</code> &gt; <code>Open File(s)</code> &gt; <code>[choose the image to be deconvolved]</code> &gt; <code>[the image will appear in the layer list of napari]</code>, such as the simulated image <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/raw/0.tif"</code>.</p>
 </li>
 <li>
-<p>Apply the trained model on real data</p>
+<p>Choose the name of loaded image in <code>Input RAW data</code>, such as <code>"0"</code>.</p>
+</li>
+<li>
+<p>Press <code>Choose</code> to choose a <code>PSF</code> correspongding to the loaded image, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif"</code>.</p>
+</li>
+<li>
+<p>Choose the type of backward kernel in <code>Method</code> combo box:</p>
+<ul>
+<li><code>Traditional</code> : the backward kernel is just the flip of forward kernel (i.e., PSF).</li>
+<li><code>Guassian</code> : Guassian-shaped backward kernel, thw FWHM of which is same as the forward kernel.</li>
+<li><code>Butterworth</code> : Butterworth-shaped backward kernel, which is constructed using Butterworth filter.</li>
+<li><code>WB</code> : WB-shaped backward kernel, which is constructed by combining Wiener and Butterworth filter.</li>
+</ul>
+</li>
+<li>
+<p>Set the number of RL iterations <code>Iterations</code> and parameters of backward kernel*.</p>
+</li>
+<li>
+<p>Press <code>run</code> button to do deconvolution.</p>
+</li>
+<li>
+<p>Wait the <code>progress bar</code> to reach 100%.</p>
+</li>
+<li>
+<p>The output deconved image will appear in the layer list named as <code>{name of input image}_deconv_{Method}_iter_{Iterations}</code>, such as <code>"0_deconv_traditional_iter_30"</code>.</p>
 </li>
 </ol>
-<h4>Simulation data generation</h4>
+<p>*<em>The adjustment of parameters of backward kernels should refer to the paper : Guo, M. et al. Rapid image deconvolution and multiview fusion for optical microscopy. Nat Biotechnol 38, 1337–1346 (2020).</em></p>
+<h2><strong>KL Deconvolution</strong></h2>
+<h3><strong>When yuo have paired LR image and HR image</strong></h3>
+<p>When we have paired LR image and HR image, we can treat LR image as <strong>raw input</strong> and HR image as <strong>ground truth</strong> (GT). We can first learn the forward kernel and then learn the backward kernel in a <strong>supervised strategy</strong>.</p>
+<h4><strong>Training of Forward Projection</strong></h4>
+<p>Train the forward projection to learn forward kernel.</p>
 <ol>
 <li>
-<p>Load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
+<p>Open <code>napari</code> and load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
+</li>
+<li>
+<p>Choose <code>Training</code> tab.</p>
+</li>
+<li>
+<p>Choose <code>Data Directory</code>, such as <code>"test/data/real/2D/train"</code>. Then the dimention of training data will show in the <code>Dimension</code> box.</p>
+</li>
+<li>
+<p>Choose <code>Output Directory</code>, such as <code>"test/data/real/2D"</code>.</p>
+</li>
+<li>
+<p><code>PSF Directory</code> is not required as the PSF is unknown.</p>
+</li>
+<li>
+<p>If the raw input and GT image have different intensity, please check the <code>Preprocess</code> check box, which will rescale the input and GT images to have the same intensity. Here, do not check.</p>
+</li>
+<li>
+<p>In the <code>Forward Projection</code> box, set the parameters of training:</p>
+<ul>
+<li><code>Epoch</code> : number of epochs of training.</li>
+<li><code>Batch Size</code> : batch size of training data used during training.</li>
+<li><code>Kernel Size (z, xy)</code> : the size of forward kernel to learned.</li>
+<li><code>Optimizer</code> : the optimization algorithm. Default: Adam.</li>
+<li><code>Learning Rate</code> : learning rate of training.</li>
+<li><code>Decay Step</code> ： the decay step of learning rate. Note: <code>0</code> for no decay.</li>
+<li><code>Decay Rate</code> : the decay rate of learning rate.</li>
+</ul>
+</li>
+<li>
+<p>Press <code>run</code> button. You can press the <code>stop</code> button to end the training.</p>
+</li>
+<li>
+<p>Wait the <code>progress bar</code> to reach 100% and training finished.</p>
+</li>
+</ol>
+<p>After the training of forward projection, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>forward_bs_{batch size}_lr_{learning rate}_ks_{kernel size (z)}_{kernel size (xy)}</code>, such as <code>"test/data/real/2D/checkpoints/forward_bs_1_lr_0.001_ks_1_31"</code>, which consists of:
+- a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.
+- many model checkpoints, named as <code>epoch_{epoch}.pt</code>.
+- a <code>parameters.json</code> file saving the parameters used to training the model.</p>
+<h4><strong>Training of Backward Projection</strong></h4>
+<p>After training of forward projeciton, we can freeze the forward projeciton and then train the backward projeciton.</p>
+<ol>
+<li>
+<p>Open <code>napari</code> and load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
+</li>
+<li>
+<p>Choose <code>Training</code> tab.</p>
+</li>
+<li>
+<p>Choose <code>Data Directory</code>, such as <code>"test/data/2D/real/train"</code>. Then the dimention of training data will show in the <code>Dimension</code> box.</p>
+</li>
+<li>
+<p>Choose <code>Output Directory</code>, such as <code>"test/data/2D/real"</code>.</p>
+</li>
+<li>
+<p><code>PSF Directory</code> is no required as the PSF is unknown.</p>
+</li>
+<li>
+<p>If the raw input and GT image have different intensity, please check the <code>Preprocess</code> check box, which will rescale the input and GT images to have the same intensity. Here, do not check.</p>
+</li>
+<li>
+<p>In the <code>Backward Projeciton</code> box, set parameters for the trianing of backward projeciton.</p>
+<ul>
+<li><code>Training strategy</code> : <code>supervised</code> training or <code>self-supervised</code> training. Here, set as <code>supervised</code>, as we have the GT images. When choosing the <code>self-supervised</code> mode, a PSF is required.</li>
+<li><code>Iterations (RL)</code> : The number of iterations of RL iterative procedure. Default: 2.</li>
+<li><code>Epoch</code> : The number fo epochs used to traing the model.</li>
+<li><code>Batch Size</code> : The batch size used to training the model.</li>
+<li><code>Kernel Size (z, xy)</code>: The size of backward kernel, <code>x</code> and <code>y</code> have the same size.</li>
+<li><code>FP directory</code> : the directory of the pre-trained forward projeciton model, such as <code>"test/data/real/2D/checkpoints/forward_bs_1_lr_0.001_ks_1_31/epoch_500.pt"</code></li>
+<li><code>Optimizer</code> : Optimization algorithm. Default: Adam.</li>
+<li><code>Learning Rate</code> : The learning rate used to trianing the model.</li>
+<li><code>Decay Step</code> : the decay step of learning rate.</li>
+<li><code>Decay Rate</code> : the decay rate of learning rate.</li>
+</ul>
+</li>
+<li>
+<p>Press <code>run</code> button. You can press the <code>stop</code> button to end the training.</p>
+</li>
+<li>
+<p>Wait the <code>progress bar</code> to reach 100% and then the training finishes.</p>
+</li>
+</ol>
+<p>When the training finishes, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}</code>, such as <code>"test/data/real/2D/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_1_31"</code>, which consists of:</p>
+<ul>
+<li>a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.</li>
+<li>many model checkpoints, named as <code>epoch_{epoch}.pt</code>.</li>
+<li>a <code>parameters.json</code> file saving the parameters used to training the model.</li>
+</ul>
+<p>Now we get the learned forward projection and backward projection.</p>
+<p>Next, we can use them to do <code>Prediction</code>.</p>
+<h3><strong>When you only have a PSF</strong></h3>
+<p>When you only have a PSF to do deconvolution, you can train the model using simulated data following the below steps:</p>
+<ol>
+<li>Generate simulaiton data.</li>
+<li>Train the model under supervised mode.</li>
+<li>Apply the trained model on real data.</li>
+</ol>
+<h4><strong>Simulation data generation</strong></h4>
+<ol>
+<li>
+<p>Open <code>napari</code> and load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
 </li>
 <li>
 <p>Choose <code>Simulation</code> tab.</p>
 </li>
 <li>
-<p>Choose the <code>Output directory</code> of the generated simulation data, such as <code>"napari-kld\src\napari_kld\_tests\work_directory\data\simulation"</code>.</p>
+<p>Choose the <code>Output Directory</code> of the generated simulation data, such as <code>"test\data\simulation"</code>.</p>
 </li>
 <li>
-<p>Choose the <code>PSF directory</code> (only support 2D/3D PSF file save as .tif, axes = (z, y, x)), such as <code>"D:\GitHub\napari-kld\src\napari_kld\_tests\work_directory\data\simulation\PSF.tif"</code>.</p>
+<p>Choose the <code>PSF Directory</code> (only support 2D/3D PSF file save as .tif, axes = (y, x) or (z, y, x)), such as <code>"test\data\simulation\psf.tif"</code>.</p>
 </li>
 <li>
 <p>Adjust the parameters as needed.</p>
 <ul>
-<li>
-<p><code>Image shape</code> : the shape of simulated image, when <code>z=1</code>, 2D images will be generated.</p>
-</li>
-<li>
-<p><code>PSF crop</code> : when the input PSF is too large, you can crop the PSF to acuqire a smaller PSF, which is normalized after cropping. All the PSF will be converted to have an odd shape.</p>
-</li>
-<li>
-<p><code>Num of simulation</code> : number of generated images.</p>
-</li>
-<li>
-<p><code>Gaussian (std)</code> : The standard deviation of Gaussian noise added in the generated low-resolution raw images. The mean of Gaussian noise = 0. Default: 0 (i.e., without gaussian noise).</p>
-</li>
-<li>
-<p><code>Poisson</code> : whether to add Poisson noise, if <code>True</code>, make the <code>Enable</code> checked.</p>
-</li>
-<li>
-<p><code>Ratio</code> : the ratio multiply on ground truth (GT) image to control the level of Poisson noise, thus</p>
-</li>
+<li><code>Image Shape</code> : the shape of simulated image, when <code>z=1</code>, 2D image will be generated.</li>
+<li><code>PSF Crop</code> : when the input PSF is too large, you can crop the PSF to acuqire a smaller PSF. All the PSF will be converted to have an odd shape and normalized.</li>
+<li><code>Num of Simulations</code> : number of generated images.</li>
+<li><code>Gaussian (std)</code> : the standard deviation (std) of Gaussian noise added in the generated LR images. The mean of Gaussian noise = 0. Default: 0 (i.e., without gaussian noise).</li>
+<li><code>Poisson</code> : whether to add Poisson noise, if <code>True</code>, make the <code>Enable</code> checked.</li>
+<li><code>Ratio</code> : a ratio factor multiplied on GT image to control the level of Poisson noise, thus the simulated raw input LR image RAW can be expressed as:</li>
 </ul>
 <p>$$ RAW = Possion((GT \cdot Ratio)\times PSF) + Gaussian $$</p>
 <ul>
-<li><code>Scale factor</code> : downsampling scale factor. Default: 1.</li>
+<li><code>Scale Factor</code> : downsampling scale factor. Default: 1.</li>
 </ul>
 </li>
 <li>
@@ -372,249 +478,148 @@ https://napari.org/stable/plugins/index.html
 <p>Wait the <code>progress bar</code> to reach 100%.</p>
 </li>
 </ol>
-<p>The generated simulation data will be save in <code>Output directory</code>, such as: <code>"D:\GitHub\napari-kld\src\napari_kld\_tests\work_directory\data\simulation\data\train"</code></p>
+<p>The generated simulation data will be save in <code>Output directory</code>, named as <code>"data_{shape_z}_{shape_y}_{shape_x}_gauss_{std of Gaussian noise}_poiss_{whether to add Poisson noise}_ratio_{Ratio}"</code>, such as: <code>"test\data\simulation\data_128_128_128_gauss_0.0_poiss_0_ratio_1.0\train"</code></p>
 <ul>
-<li><code>"data\train\gt"</code> save the GT images.</li>
-<li><code>"data\train\raw"</code> save the RAW images with blur and noise.</li>
-<li><code>"data\train\parameters.json"</code> is the dictionary of parameter used to generate the simulated data.</li>
-<li><code>"data\train\psf.tif"</code> is the psf used in generation of simulation data (as the original PSF may be cropped)</li>
+<li><code>"data\train\gt"</code> saves the GT images which consist of structures with various shapes*.</li>
+<li><code>"data\train\raw"</code> saves the RAW images with blur and noise.</li>
+<li><code>"data\train\parameters.json"</code> is a dictionary of parameters used to generate the simulation data.</li>
+<li><code>"data\train\psf.tif"</code> is the PSF used in the simulation data generation (as the original PSF may be cropped).</li>
 <li><code>"data\train\train.txt</code> save all the image used to train the model.</li>
 </ul>
+<p>After you generate simulation data, you can use them to train the model.</p>
+<p>*<em>the code was refered to the paper: Li, Y. et al. Incorporating the image formation process into deep learning improves network performance. Nat Methods 19, 1427–1437 (2022).</em></p>
 <p><em>You may need to adjust the noise level in the image accordding to the real acuqired data.</em></p>
-<p>After you generate simulated data, you can use them to train the model.</p>
-<h4>Training with known PSF and simulated data</h4>
+<h4><strong>Training with known PSF and simulated data</strong></h4>
 <p>The simulated data should be those generated using the known PSF.</p>
 <ol>
 <li>
-<p>Load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
+<p>Open <code>napari</code> and load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
 </li>
 <li>
 <p>Choose <code>Training</code> tab.</p>
 </li>
 <li>
-<p>Choose <code>Data Directory</code> (such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/simulation/data/train"</code>) which saves the data used to train the model in should include:</p>
+<p>Choose <code>Data Directory</code>, such as <code>test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train"</code>, which saves the data used to train the model in should include:</p>
 <ul>
 <li>A <code>gt</code> folder saves the GT images</li>
-<li>A <code>raw</code> folder save the low-resolution raw input images with the same file name of GT images</li>
-<li>A <code>train.txt</code> file saves all the file name used to train the model (does not need to list all the file in <code>gt</code>/<code>raw</code> folder).</li>
+<li>A <code>raw</code> folder save the raw input LR images with the same file name as GT images</li>
+<li>A <code>train.txt</code> file saves all the file names used to train the model (does not need to list all the files in <code>gt</code>/<code>raw</code> folder but at least one).</li>
 </ul>
 </li>
 <li>
-<p>Choose a <code>Output Directory</code> to save the model checkpoints, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/simulation"</code>.</p>
+<p>Choose a <code>Output Directory</code> to save the model checkpoints, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0"</code>.</p>
 </li>
 <li>
-<p>Choose <code>PSF Directory</code> of the PSF used to generate the data, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/simulation/data/train/psf.tif"</code>. Then the <code>Forward Projection</code> group box will be invisible as we do not need to learn the forward kernel when we know the PSF. Just use the PSF as the froward kernel.</p>
+<p>Choose <code>PSF Directory</code> of the PSF corresponding to the data, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif"</code>. Then the <code>Forward Projection</code> group box will be invisible as we do not need to learn the forward kernel when we know the PSF. Just use the PSF as the forward kernel.</p>
 </li>
 <li>
-<p>Set the <code>Image Channels</code> and the <code>Dimension</code> of input data.</p>
+<p>If the raw input and GT image have different intensity, please check the <code>Preprocess</code> check box, which will rescale the input and GT images to have the same intensity. Here, do not check.</p>
 </li>
 <li>
 <p>Then set parameters to learn the backward kernel.</p>
 <ul>
-<li><code>Training strategy</code> : <code>supervised</code> training or <code>self-supervised</code> training. Set as <code>supervised</code>, as we have the GT images.</li>
-<li><code>Iteration (RL)</code> : The number of iterations of RL iterative procedure. Default: 2.</li>
-<li><code>Epoch</code> : The number fo epochs used to traing the model.</li>
-<li><code>Batch Size</code> : The batch size used to training the model.</li>
-<li><code>Kernel Size (z, xy)</code>: The size of backward kernel, <code>x</code> and <code>y</code> have the same size.</li>
-<li><code>FP directory</code> : the directory of the forward projeciton model. Here, it is empty (i.e., <code>""</code>) as the PSF is known.</li>
-<li><code>Learning Rate</code> : The learning rate used to trianing the model.</li>
+<li><code>Training Strategy</code> : <code>supervised</code> training or <code>self-supervised</code> training. Here, set as <code>supervised</code>, as we have the GT images.</li>
+<li><code>Iterations (RL)</code> : the number of iterations of RL iteration procedure. Default: 2.</li>
+<li><code>Epoch</code> : the number fo epochs used to traing the model.</li>
+<li><code>Batch Size</code> : the batch size used to training the model.</li>
+<li><code>Kernel Size (z, xy)</code>: the size of backward kernel, <code>x</code> and <code>y</code> directions have the same size.</li>
+<li><code>FP Directory</code> : the directory of the forward projeciton model. Here, it is disabled as the PSF is known.</li>
+<li><code>Optimizer</code> : Optimization algorithm. Default: Adam.</li>
+<li><code>Learning Rate</code> : the learning rate used to trianing the model.</li>
+<li><code>Decay Step</code> : the decay step of learning rate.</li>
+<li><code>Decay Rate</code> : the decay rate of learning rate.</li>
 </ul>
 </li>
 <li>
 <p>Press <code>run</code> button. You can press the <code>stop</code> button to end the training.</p>
 </li>
 <li>
-<p>Wait the <code>progress bar</code> to reach 100%.</p>
-</li>
-<li>
-<p>Training finished.</p>
+<p>Wait the <code>progress bar</code> to reach 100% and the training finishes.</p>
 </li>
 </ol>
-<p>When the training finished, a checkpoints folder will be created in Ouput Directory such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/simulation/checkpoints"</code>.</p>
+<p>When the training finishes, a checkpoints folder will be created in <code>Output Directory</code> such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/checkpoints"</code>.</p>
 <p>The models is save in <code>/checkpoints</code> folder, which is named as <code>"backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}"</code>, such as <code>"/checkpoints/backward_bs_1_lr_1e-06_iter_2_ks_1_31"</code>, consists of:</p>
 <ul>
 <li>A <code>log</code> folder saved the <code>Tensorboard</code> log, which can be open with <code>Tensorboard</code>.</li>
 <li>Many model checkpoints, named as <code>epoch_{epoch}.pt</code>.</li>
 <li>A <code>parameters.json</code> file saving the parameters used to training the model.</li>
 </ul>
-<h3>When only with paired low-resolution (LR) image (as RAW) and high-resolution (HR) image (as GT)</h3>
-<p>When we only have paired LR image and HR image, we can first learned the forward kernel and then learn the backward kernel in a supervised strategy.</p>
-<h4>Training of Forward Projection</h4>
-<ol>
-<li>
-<p>Load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
-</li>
-<li>
-<p>Choose <code>Training</code> tab.</p>
-</li>
-<li>
-<p>Choose <code>Data Directory</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/real/train"</code>.</p>
-</li>
-<li>
-<p>Choose <code>Output Directory</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/real"</code>.</p>
-</li>
-<li>
-<p><code>PSF Directory</code> is no required as the PSF is unknown.</p>
-</li>
-<li>
-<p>Set parameter of parameters about data.</p>
-<ul>
-<li><code>Image Channel</code> : the channel of input image.</li>
-<li><code>Dimension</code> : dimension of input image.</li>
-</ul>
-</li>
-<li>
-<p>In the <code>Forward Projection</code> box, set the parameters of training:</p>
-<ul>
-<li><code>Epoch</code> : number of epochs of training.</li>
-<li><code>Batch Size</code> : batch size of training data used during training.</li>
-<li><code>Kernel size (z, xy)</code> : the size of forward kernel to learned.</li>
-<li><code>Learning Rate</code> : learning rate of training.</li>
-</ul>
-</li>
-<li>
-<p>Press <code>run</code> button. You can press the <code>stop</code> button to end the training.</p>
-</li>
-<li>
-<p>Wait the <code>progress bar</code> to reach 100%.</p>
-</li>
-<li>
-<p>Training finished.</p>
-</li>
-</ol>
-<p>After the training of forward projection, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>forward_bs_{batch size}_lr_{learning rate}_ks_{kernel size (z)}_{kernel size (xy)}</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/real/checkpoints/forward_bs_1_lr_0.001_ks_1_31"</code>, which consists of:
-- a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.
-- many model checkpoints, named as <code>epoch_{epoch}.pt</code>.
-- a <code>parameters.json</code> file saving the parameters used to training the model.</p>
-<h4>Training of Backward Projection</h4>
-<p>After training of dorward projeciton, we can freeze the forward projeciton and then train the backward projeciton.</p>
-<ol>
-<li>
-<p>Load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
-</li>
-<li>
-<p>Choose <code>Training</code> tab.</p>
-</li>
-<li>
-<p>Choose <code>Data Directory</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/real/train"</code>.</p>
-</li>
-<li>
-<p>Choose <code>Output Directory</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/real"</code>.</p>
-</li>
-<li>
-<p><code>PSF Directory</code> is no required as the PSF is unknown.</p>
-</li>
-<li>
-<p>set parameter of parameters about data.</p>
-<ul>
-<li><code>Image Channel</code> : the channel of input image.</li>
-<li><code>Dimension</code> : dimension of input image.</li>
-</ul>
-</li>
-<li>
-<p>In the <code>Backward Projeciton</code> box, set parameters for the trianing of backward projeciton.</p>
-<ul>
-<li><code>Training strategy</code> : <code>supervised</code> training or <code>self-supervised</code> training. Set as <code>supervised</code>, as we have the GT images.</li>
-<li><code>Iteration (RL)</code> : The number of iterations of RL iterative procedure. Default: 2.</li>
-<li><code>Epoch</code> : The number fo epochs used to traing the model.</li>
-<li><code>Batch Size</code> : The batch size used to training the model.</li>
-<li><code>Kernel Size (z, xy)</code>: The size of backward kernel, <code>x</code> and <code>y</code> have the same size.</li>
-<li><code>FP directory</code> : the directory of the forward projeciton model, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/real/checkpoints/forward_bs_1_lr_0.001_ks_1_31/epoch_100.pt"</code></li>
-<li><code>Learning Rate</code> : The learning rate used to trianing the model.</li>
-</ul>
-</li>
-<li>
-<p>Press <code>run</code> button. You can press the <code>stop</code> button to end the training.</p>
-</li>
-<li>
-<p>Wait the <code>progress bar</code> to reach 100%.</p>
-</li>
-<li>
-<p>Training finished.</p>
-</li>
-</ol>
-<p>When the training finishes, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_1_31"</code>, which consists of:
-- a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.
-- many model checkpoints, named as <code>epoch_{epoch}.pt</code>.
-- a <code>parameters.json</code> file saving the parameters used to training the model.</p>
-<p>Now we get the learned forward projection and backward projection.</p>
-<h3>When only with LR image and corresponding PSF</h3>
+<h3><strong>When you only have LR image and corresponding PSF</strong></h3>
 <p>When we only have LR image and its PSF, we can traing the backward projection through supervised training using simulation data as introduced above. The plugin also provide an alternative self-supervised training stratergy to learn the backward kernel.</p>
 <ol>
 <li>
-<p>load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
+<p>Open <code>napari</code> and load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
 </li>
 <li>
-<p>choose <code>Training</code> tab.</p>
+<p>Choose <code>Training</code> tab.</p>
 </li>
 <li>
-<p>choose <code>Data Directory</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/real/train"</code>.</p>
+<p>Choose <code>Data Directory</code>, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train"</code>.</p>
 </li>
 <li>
-<p>choose <code>Output Directory</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/data/real"</code>.</p>
+<p>choose <code>Output Directory</code>, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0"</code>.</p>
 </li>
 <li>
-<p>choose <code>PSF Directory</code>. Now the Forward Projection box will be invisiable.</p>
+<p>Choose <code>PSF Directory</code>, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif"</code> then the <code>Forward Projection</code> box will be invisiable.</p>
 </li>
 <li>
-<p>set parameter of parameters about data.</p>
-<ul>
-<li><code>Image Channel</code> : the channel of input image.</li>
-<li><code>Dimension</code> : dimension of input image.</li>
-</ul>
+<p>As there is no GT image, preprocessing is not needed. Do not check <code>Preprocess</code> check box.</p>
 </li>
 <li>
 <p>In the <code>Backward Projeciton</code> box, set parameters for the trianing of backward projeciton.</p>
 <ul>
 <li><code>Training strategy</code> : <code>supervised</code> training or <code>self-supervised</code> training. Set as <code>self-supervised</code>, as we do not have the GT images.</li>
-<li><code>Iteration (RL)</code> : The number of iterations of RL iterative procedure. Default: 2.</li>
-<li><code>Epoch</code> : The number fo epochs used to traing the model.</li>
-<li><code>Batch Size</code> : The batch size used to training the model.</li>
-<li><code>Kernel Size (z, xy)</code>: The size of backward kernel, <code>x</code> and <code>y</code> have the same size.</li>
-<li><code>FP directory</code> is not required as the PSF is known.</li>
-<li><code>Learning Rate</code> : The learning rate used to trianing the model.</li>
+<li><code>Iterations (RL)</code> : the number of iterations of RL iteration procedure. Default: 2.</li>
+<li><code>Epoch</code> : the number fo epochs used to traing the model.</li>
+<li><code>Batch Size</code> : the batch size used to training the model.</li>
+<li><code>Kernel Size (z, xy)</code>: the size of backward kernel, <code>x</code> and <code>y</code> directions have the same size.</li>
+<li><code>FP Directory</code> : the directory of the forward projeciton model. Here, it is disabled as the PSF is known.</li>
+<li><code>Optimizer</code> : Optimization algorithm. Default: Adam.</li>
+<li><code>Learning Rate</code> : the learning rate used to trianing the model.</li>
+<li><code>Decay Step</code> : the decay step of learning rate.</li>
+<li><code>Decay Rate</code> : the decay rate of learning rate.</li>
 </ul>
 </li>
 <li>
 <p>Press <code>run</code> button. You can press the <code>stop</code> button to end the training.</p>
 </li>
 <li>
-<p>Wait the <code>progress bar</code> to reach 100%.</p>
-</li>
-<li>
-<p>Training finished.</p>
+<p>Wait the <code>progress bar</code> to reach 100% and training finishes.</p>
 </li>
 </ol>
-<p>When the training finishes, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}_ss</code>, such as <code>"D:/GitHub/napari-kld/src/napari_kld/_tests/work_directory/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_31_31_ss"</code>, which consists of:
-- a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.
-- many model checkpoints, named as <code>epoch_{epoch}.pt</code>.
-- a <code>parameters.json</code> file saving the parameters used to training the model.</p>
-<h3>Prediction</h3>
+<p>When the training finishes, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}_ss</code>, such as <code>"/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_31_31_ss"</code>, which consists of:</p>
+<ul>
+<li>a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.</li>
+<li>many model checkpoints, named as <code>epoch_{epoch}.pt</code>.</li>
+<li>a <code>parameters.json</code> file saving the parameters used to training the model.</li>
+</ul>
+<p><em>The performance of self-supervised learning may be inferior to supervised learning according to our experiments.</em></p>
+<h3><strong>Prediction</strong></h3>
 <p>Use the learned forward/backward kernel to do deconvolution.</p>
 <ol>
 <li>
-<p>load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
+<p>Open <code>napari</code> and load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>KL Deconvolution</code></p>
 </li>
 <li>
-<p>choose <code>Prediction</code> tab.</p>
+<p>Choose <code>Prediction</code> tab.</p>
 </li>
 <li>
-<p>load raw input low-resolution image through <code>napari</code>: <code>File</code> &gt; <code>Open File(s)</code> &gt; <code>[choose the image to be deconvolved]</code> &gt; <code>[the image will appear in the layer list of napari]</code>, such as <code>"F:\Datasets\BioSR\F-actin_Nonlinear\raw_noise_9\16.tif"</code>.</p>
+<p>Load raw input low-resolution image through <code>napari</code>: <code>File</code> &gt; <code>Open File(s)</code> &gt; <code>[choose the image to be deconvolved]</code> &gt; <code>[the image will appear in the layer list of napari]</code>, such as <code>"test/data/real/2D/test/raw/2.tif"</code>.</p>
 </li>
 <li>
-<p>choose the loaded image in <code>Input RAW data</code> box, e.g., <code>16</code>.</p>
+<p>Choose the loaded image in <code>Input RAW data</code> box, e.g., <code>16</code>.</p>
 </li>
 <li>
-<p>if the PSF is known, choose the <code>PSF directory</code>.</p>
+<p>If the PSF is known, choose the <code>PSF directory</code>.</p>
 </li>
 <li>
-<p>if the PSF is unknown, choose the <code>Forward Projection</code> directory.*</p>
+<p>If the PSF is unknown, choose the <code>Forward Projection</code> directory. If both the directories of PSF and Forward Projeciton is choosen, KLD will directly use the PSF selected.</p>
 </li>
 <li>
-<p>choose the Backward Projeciton directory.</p>
+<p>Choose the <code>Backward Projeciton</code> directory.</p>
 </li>
 <li>
-<p>set the number of RL iterations at <code>Iterations (RL)</code>. Default: 2.</p>
+<p>Set the number of RL iterations at <code>Iterations (RL)</code>. Default: 2.</p>
 </li>
 <li>
 <p>Press run to do deconvolution.</p>
@@ -623,18 +628,17 @@ https://napari.org/stable/plugins/index.html
 <p>Wait the progress bar to reach 100%.</p>
 </li>
 </ol>
-<p>The deconvolved image will directly shwo in the <code>layer list</code> of <code>napari</code>, named as <code>"{input data name}_deconvo_iter_{number of RL iterations}"</code>, e.g., <code>"16_deconv_iter_2"</code>. You can save it as needed.</p>
-<p>*<em>If both the directories of PSF and Forward Projeciton is choosen, KLD will directly use the PSF selected.</em></p>
-<h3>Others</h3>
+<p>The deconvolved image will be directly shown in the <code>layer list</code> of <code>napari</code>, named as <code>"{input data name}_deconvo_iter_{number of RL iterations}"</code>, e.g., <code>"16_deconv_iter_2"</code>. You can save it as needed.</p>
+<h3><strong>Others</strong></h3>
 <p>The <code>log</code> tab print the message during running.
 Press <code>clean</code> button will clean all the text in the <code>log</code> box.</p>
-<h3>Notice</h3>
+<h3><strong>Notice</strong></h3>
 <ul>
 <li>
-<p><em>The training time may be very long if we set the kernel size or the number of epoches too large, especially for 3D images.</em></p>
+<p><em>Currently, the plugin is runned on CPU. We have tried to run the training on GPU, but the training time did not decrease (maybe it is because the FFT-based covnlution was not optimized on GPU). We are trying to make improvements.</em></p>
 </li>
 <li>
-<p><em>Now the plugin is runned on CPU. We have try to run the training on GPU, but the training time did not decrease (maybe it is because the covnlution based on FFT was not optimized on GPU). We are trying to make improvements.</em></p>
+<p><em>The training time may be very long if we set the kernel size or the number of epoches too large, especially for 3D images.</em></p>
 </li>
 </ul>
 <h2>Contributing</h2>
@@ -659,7 +663,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -794,7 +798,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy ==1.26.4</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision</li><li class="MetadataList_textItem__KKmMN">fft-conv-pytorch</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy ==1.26.4</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">torch ==2.0</li><li class="MetadataList_textItem__KKmMN">torchvision</li><li class="MetadataList_textItem__KKmMN">fft-conv-pytorch</li><li class="MetadataList_textItem__KKmMN">pytorch-msssim</li><li class="MetadataList_textItem__KKmMN">tensorboard</li><li class="MetadataList_textItem__KKmMN">pydicom</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
                                             </div>
                                         </div>
                                     </div>

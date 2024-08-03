@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -278,7 +278,7 @@ pre > code:last-child {
 <ul>
 <li><code>stack order</code> -  represents the order of axes in the input data array: T (time), C (color), X, and Y (image dimensions). If the input image stack has four dimensions (time, channel, x-axis, y-axis), channels will be split into individual three-dimensional images (time, x-axis, y-axis), each labeled with the <code>_ch%index%</code> suffix.</li>
 <li><code>median filter</code> - provides frame-by-frame image smoothing with a kernel of size specified in <code>median kernel</code>.</li>
-<li><code>background subtraction</code> -  compensates for background fluorescence intensity. Background intensity is estimated frame by frame as the 1st percentile of frame intensity.</li>
+<li><code>background subtraction</code> -  compensates for background fluorescence intensity. Background intensity is estimated frame by frame as the 0.5 percentile of frame intensity.</li>
 <li>If the <code>photobleaching correction</code> option is selected, the image will undergo correction using either an exponential (method <code>exp</code>) or bi-exponential (method <code>bi_exp</code>) fitting.</li>
 <li>Image stacks can be cropped according to start and stop indexes specified in <code>frames range</code> if <code>drop frames</code> is selected.</li>
 </ul>
@@ -307,6 +307,17 @@ pre > code:last-child {
 <h3>Intensity masking</h3>
 <p>Extension of <strong>Up Masking</strong> widget. Detects regions with increasing (<code>masking mode</code> - <code>up</code>) or decreasing (<code>masking mode</code> - <code>down</code>) intensity in <code>-red-green</code> images. Returns a labels layer with either <code>_up-labels</code> or <code>_down-labels</code> suffix, depending on the mode.</p>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/int_masking.png" /></p>
+<h3>Dots patterns masking</h3>
+<p>Creates labels for bright dot elements on an image, such as pre- and postsynaptic fluorescence markers (e.g., Bassoon/Synaptobrevin for presynapses, PSD-95/Homer for postsynapses, etc.). It returns a labels layer with the <code>_dots-labels</code> suffix.</p>
+<p>The widget detects the location on the MIP (Maximum Intensity Projection) of the input time series image and applies simple round masks to each detected dot. Watershed segmentation is then used to prevent the merging of overlapping masks.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>background_level</code> - Background level for filtering out low-intensity elements. This is specified as a percentile of the MIP intensity.</li>
+<li><code>detection_level</code> - Minimum intensity of dots, specified as a percentile of the MIP's maximum intensity.</li>
+<li><code>mask_diameter</code> - Diameter in pixels for the round mask of each individual dot.</li>
+<li><code>minimal_distance</code> - Minimum distance in pixels between the centers of individual round masks.</li>
+</ul>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/dots_making.png" /></p>
 <hr />
 <h2>FRET detection</h2>
 <p>Widgets for detection and analysis of Förster resonance energy transfer multispectral image stacks.</p>
@@ -319,11 +330,13 @@ pre > code:last-child {
 - Dual-view system with Chroma 505DCXR beam splitter
 - Donor excitation wavelength 435 nm
 - Acceptor excitation wavelength 505 nm</p>
-<p>Parameters:
-- <code>DD img</code> - donor emission channel image acquired with the donor excitation wavelength.
-- <code>AD img</code> - acceptor emission channel image acquired with the donor excitation wavelength.
-- <code>AA img</code> - acceptor emission channel image acquired with the acceptor excitation wavelength.
-- <code>output type</code> - type of output image: sensitized emission (<code>Fc</code>), apparent FRET efficiency (<code>Eapp</code>), or FRET efficiency with photobleaching correction (<code>Ecorr</code>).</p>
+<p>Parameters:</p>
+<ul>
+<li><code>DD img</code> - donor emission channel image acquired with the donor excitation wavelength.</li>
+<li><code>AD img</code> - acceptor emission channel image acquired with the donor excitation wavelength.</li>
+<li><code>AA img</code> - acceptor emission channel image acquired with the acceptor excitation wavelength.</li>
+<li><code>output type</code> - type of output image: sensitized emission (<code>Fc</code>), apparent FRET efficiency (<code>Eapp</code>), or FRET efficiency with photobleaching correction (<code>Ecorr</code>).</li>
+</ul>
 <p>If the <code>save normalized</code> option is selected, an additional image will be saved. This image is normalized to the absolute intensity of the <code>AA img</code>, which results in reduced background noise amplitude.</p>
 <p><em>Note: normalized images are useful for visual control and mask building only; they are not representative for quantitative analysis.</em></p>
 <p>Raw Eapp| <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_raw.png" />
@@ -384,7 +397,7 @@ pre > code:last-child {
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.2</li>
                                                 </ul>
                                             </div>
                                         </div>
