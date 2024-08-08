@@ -903,11 +903,12 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/BiAPoL/biaplotter/issues', 'Documentation, https://github.com/BiAPoL/biaplotter#README.md', 'Source Code, https://github.com/BiAPoL/biaplotter', 'User Support, https://github.com/BiAPoL/biaplotter/issues']",,,biaplotter.make_qwidget,,,,,https://pypi.org/project/biaplotter,,
-10,blik,0.8.0,2022-07-11,2023-11-16,blik,Lorenzo Gaifas,Lorenzo Gaifas <brisvag@gmail.com>,GPLv3,https://github.com/gutsche-lab/blik,Python tool for visualising and interacting with cryo-ET and subtomogram averaging data.,>=3.10,"['cryohub>=0.6.4', 'cryotypes>=0.2.0', 'dask', 'einops', 'magicgui>=0.4.0', 'morphosamplers[segment]>=0.0.10', 'numpy', 'packaging', 'pandas', 'pydantic<2', 'scipy', ""napari-label-interpolator>=0.1.1; extra == 'all'"", ""napari-properties-plotter; extra == 'all'"", ""napari-properties-viewer; extra == 'all'"", ""napari[all]>=0.5.0; extra == 'all'"", ""black; extra == 'dev'"", ""ipython; extra == 'dev'"", ""mypy; extra == 'dev'"", ""napari[all]>=0.5.0; extra == 'dev'"", ""pdbpp; extra == 'dev'"", ""pre-commit; extra == 'dev'"", ""pytest-cov; extra == 'dev'"", ""pytest-qt; extra == 'dev'"", ""pytest>=6.0; extra == 'dev'"", ""rich; extra == 'dev'"", ""ruff; extra == 'dev'"", ""napari[all]>=0.5.0; extra == 'test'"", ""pytest-cov; extra == 'test'"", ""pytest-qt; extra == 'test'"", ""pytest>=6.0; extra == 'test'""]","![logo](https://github.com/brisvag/blik/raw/main/docs/images/logo.png)
+10,blik,0.9.0,2022-07-11,2023-11-16,blik,Lorenzo Gaifas,Lorenzo Gaifas <brisvag@gmail.com>,GPLv3,https://github.com/gutsche-lab/blik,Python tool for visualising and interacting with cryo-ET and subtomogram averaging data.,>=3.10,"['cryohub>=0.6.4', 'cryotypes>=0.2.0', 'dask', 'einops', 'magicgui>=0.4.0', 'morphosamplers[segment]>=0.0.10', 'numpy', 'packaging', 'pandas', 'pydantic<2', 'scipy', ""napari-label-interpolator>=0.1.1; extra == 'all'"", ""napari-properties-plotter; extra == 'all'"", ""napari-properties-viewer; extra == 'all'"", ""napari[all]>=0.5.0; extra == 'all'"", ""black; extra == 'dev'"", ""ipython; extra == 'dev'"", ""mypy; extra == 'dev'"", ""napari[all]>=0.5.0; extra == 'dev'"", ""pdbpp; extra == 'dev'"", ""pre-commit; extra == 'dev'"", ""pytest-cov; extra == 'dev'"", ""pytest-qt; extra == 'dev'"", ""pytest>=6.0; extra == 'dev'"", ""rich; extra == 'dev'"", ""ruff; extra == 'dev'"", ""napari[all]>=0.5.0; extra == 'test'"", ""pytest-cov; extra == 'test'"", ""pytest-qt; extra == 'test'"", ""pytest>=6.0; extra == 'test'""]","![logo](https://github.com/brisvag/blik/raw/main/docs/images/logo.png)
 
 # blik
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10090438.svg)](https://zenodo.org/doi/10.5281/zenodo.10090438)
+[![Paper DOI](https://zenodo.org/badge/DOI/10.1371/journal.pbio.3002447.svg)](https://doi.org/10.1371/journal.pbio.3002447)
 [![License](https://img.shields.io/pypi/l/blik.svg?color=green)](https://github.com/brisvag/blik/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/blik.svg?color=green)](https://pypi.org/project/blik)
 [![Python Version](https://img.shields.io/pypi/pyversions/blik.svg?color=green)](https://python.org)
@@ -959,13 +960,14 @@ The `-w blik` is important for proper initialization of all the layers. Always o
 The main widget has a few functions:
 
 - `experiment`: quickly switch to a different experiment id (typically, everything related to an individual tomogram such as volume, particles and segmentations)
-- `new`: generate a new `segmentation`, a new manually-picked set of `particles`, or a new `surface picking` or `filament picking` for segmentation, particle generation or volume resampling.
+- `new`: generate a new `segmentation`, a new manually-picked set of `particles`, or a new `surface`, `sphere`, or `filament picking` for segmentation, particle generation or volume resampling.
 - `add to exp`: add a layer to the currently selected `experiment` (just a shorthand for `layer.metadata['experiment_id'] = current_exp_id`)
 - `slice_thickness`: changes the slicing thickness in all dimensions in napari. Images will be averaged over that thickness, and all particles in the slice will be displayed.
 
-There are also widgets for picking of both surfaces and filaments.
+There are also widgets for picking surfaces, spheres and filaments:
 
 - `surface`: process a previously picked `surface picking` layer to generate a surface mesh and distribute particles on it for subtomogram averaging, or resample a tomogram along the surface.
+- `sphere`: process a previously picked `sphere picking` layer to generate a sphere mesh and distribute particles on it for subtomogram averaging.
 - `filament`: process a previously picked `filament picking` layer to generate a filament and distribute particles on it for subtomogram averaging, or resample a tomogram along the filament.
 
 # References
@@ -1076,7 +1078,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
 ","['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Science/Research', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering :: Image Recognition']","['Homepage, https://brainglobe.info', 'Source Code, https://github.com/brainglobe/brainglobe-napari-io', 'Bug Tracker, https://github.com/brainglobe/brainglobe-napari-io/issues', 'Documentation, https://docs.brainglobe.info', 'User Support, https://forum.image.sc/tag/brainglobe', 'Twitter, https://twitter.com/brain_globe']",brainglobe-napari-io.brainreg_read_dir,brainglobe-napari-io.cellfinder_write_multiple_xml,,,['*.tiff'],['.xml'],,https://pypi.org/project/brainglobe-napari-io,,https://brainglobe.info
-12,brainglobe-segmentation,1.2.4,2023-11-18,2024-05-29,brainglobe-segmentation,"Adam Tyson, Horst Obenhaus","""Adam Tyson, Horst Obenhaus"" <code@adamltyson.com>",BSD-3-Clause,https://pypi.org/project/brainglobe-segmentation,Segmentation of anatomical structures in a common coordinate space,>=3.9,"['brainglobe-atlasapi >=2.0.1', 'brainglobe-napari-io >=0.3.0', 'brainglobe-utils >=0.5.0', 'napari >=0.4.5', 'numpy', 'pandas[hdf5]', 'qtpy', 'scikit-image', 'scipy', 'tifffile', ""black ; extra == 'dev'"", ""gitpython ; extra == 'dev'"", ""pre-commit ; extra == 'dev'"", ""pytest ; extra == 'dev'"", ""coverage ; extra == 'dev'"", ""pytest-cov ; extra == 'dev'"", ""pytest-qt ; extra == 'dev'"", ""napari-time-slicer ; extra == 'dev'""]","[![Python Version](https://img.shields.io/pypi/pyversions/brainglobe-segmentation.svg)](https://pypi.org/project/brainglobe-segmentation)
+12,brainglobe-segmentation,1.2.5,2023-11-18,2024-05-29,brainglobe-segmentation,"Adam Tyson, Horst Obenhaus","""Adam Tyson, Horst Obenhaus"" <code@adamltyson.com>",BSD-3-Clause,https://pypi.org/project/brainglobe-segmentation,Segmentation of anatomical structures in a common coordinate space,>=3.10,"['brainglobe-atlasapi>=2.0.1', 'brainglobe-napari-io>=0.3.0', 'brainglobe-utils>=0.5.0', 'napari>=0.4.5', 'numpy<2.0', 'pandas[hdf5]', 'qtpy', 'scikit-image', 'scipy', 'tifffile', 'black; extra == ""dev""', 'gitpython; extra == ""dev""', 'pre-commit; extra == ""dev""', 'pytest; extra == ""dev""', 'coverage; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'napari-time-slicer; extra == ""dev""']","[![Python Version](https://img.shields.io/pypi/pyversions/brainglobe-segmentation.svg)](https://pypi.org/project/brainglobe-segmentation)
 [![PyPI](https://img.shields.io/pypi/v/brainglobe-segmentation.svg)](https://pypi.org/project/brainglobe-segmentation)
 [![Wheel](https://img.shields.io/pypi/wheel/brainglobe-segmentation.svg)](https://pypi.org/project/brainglobe-segmentation)
 [![Development Status](https://img.shields.io/pypi/status/brainglobe-segmentation.svg)](https://github.com/brainglobe/brainglobe-segmentation)
@@ -1101,22 +1103,19 @@ conda install -c conda-forge brainglobe-segmentation
 ```
 
 N.B. Your data will need to be registered to an anatomical atlas first.
-## Usage
 
+## Usage
 See [user guide](https://brainglobe.info/documentation/brainglobe-segmentation/index.html).
 
-If you have any questions, head over to the [image.sc forum](https://forum.image.sc/tag/brainglobe).
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
 
-## Contributing
-
-Contributions are very welcome. Please see the [developers guide](https://brainglobe.info/community/developers/index.html).
-
-### Citing brainglobe-segmentation
+## Citing brainglobe-segmentation
 
 If you find brainglobe-segmentation useful, and use it in your research, please let us know and also cite the paper:
 
 > Tyson, A. L., V&eacute;lez-Fort, M.,  Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T.,  Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 [doi.org/10.1038/s41598-021-04676-9](https://doi.org/10.1038/s41598-021-04676-9)
-","['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Developers', 'Intended Audience :: Science/Research', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11']","['Homepage, https://brainglobe.info/', 'Source Code, https://github.com/brainglobe/brainglobe-segmentation', 'Bug Tracker, https://github.com/brainglobe/brainglobe-segmentation/issues', 'Documentation, https://brainglobe.info/documentation/brainglobe-segmentation/index.html', 'User Support, https://forum.image.sc/tag/brainglobe']",,,brainglobe-segmentation.SegmentationWidget,,,,,https://pypi.org/project/brainglobe-segmentation,,
+","['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Developers', 'Intended Audience :: Science/Research', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12']","['Homepage, https://brainglobe.info/', 'Source Code, https://github.com/brainglobe/brainglobe-segmentation', 'Bug Tracker, https://github.com/brainglobe/brainglobe-segmentation/issues', 'Documentation, https://brainglobe.info/documentation/brainglobe-segmentation/index.html', 'User Support, https://forum.image.sc/tag/brainglobe']",,,brainglobe-segmentation.SegmentationWidget,,,,,https://pypi.org/project/brainglobe-segmentation,,
 13,BrainGlobe,0.6.1,2023-07-07,2024-08-03,brainglobe-utils,Adam Tyson,Adam Tyson <code@adamltyson.com>,MIT,https://github.com/brainglobe/BrainGlobe-utils,Shared general purpose tools for the BrainGlobe project,>=3.10,"['brainglobe-atlasapi >=2.0.1', 'brainglobe-space', 'configobj', 'natsort', 'nibabel >=2.1.0', 'numba', 'numpy', 'dask', 'pandas', 'psutil', 'pyarrow', 'PyYAML', 'scikit-image', 'scipy', 'slurmio', 'tifffile', 'tqdm', ""black ; extra == 'dev'"", ""coverage ; extra == 'dev'"", ""mypy ; extra == 'dev'"", ""pre-commit ; extra == 'dev'"", ""pyqt5 ; extra == 'dev'"", ""pytest-cov ; extra == 'dev'"", ""pytest-qt ; extra == 'dev'"", ""pytest-mock ; extra == 'dev'"", ""pytest ; extra == 'dev'"", ""ruff ; extra == 'dev'"", ""scikit-image ; extra == 'dev'"", ""setuptools-scm ; extra == 'dev'"", ""tox ; extra == 'dev'"", ""pooch ; extra == 'dev'"", ""brainglobe-utils[napari] ; extra == 'dev'"", ""brainglobe-utils[qt] ; extra == 'napari'"", ""napari[all] ; extra == 'napari'"", ""qtpy ; extra == 'qt'"", ""superqt ; extra == 'qt'""]","# brainglobe-utils
 
 Shared general purpose tools for the BrainGlobe project, including [citation generation](#citations-for-brainglobe-tools).
@@ -1563,7 +1562,7 @@ A tool to support painting in cellular architecture
 
 ![cellcanvas_screenshot](cover.png)
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/cellcanvas/cellcanvas/issues', 'Documentation, https://github.com/cellcanvas/cellcanvas#README.md', 'Source Code, https://github.com/cellcanvas/cellcanvas', 'User Support, https://github.com/cellcanvas/cellcanvas/issues']",,,cellcanvas.make_qwidget,,,,,https://pypi.org/project/cellcanvas,,
-19,cellfinder,1.3.1,,,cellfinder,"Adam Tyson, Christian Niedworok, Charly Rousseau","""Adam Tyson, Christian Niedworok, Charly Rousseau"" <code@adamltyson.com>",BSD-3-Clause,,Automated 3D cell detection in large microscopy images,>=3.10,"['brainglobe-utils >=0.5.0', 'brainglobe-napari-io >=0.3.4', 'dask[array]', 'fancylog >=0.0.7', 'natsort', 'numba', 'numpy', 'scikit-image', 'scikit-learn', 'keras >=3.0.0', 'torch >=2.1.0', 'tifffile', 'tqdm', ""black ; extra == 'dev'"", ""pre-commit ; extra == 'dev'"", ""pyinstrument ; extra == 'dev'"", ""pytest-cov ; extra == 'dev'"", ""pytest-mock ; extra == 'dev'"", ""pytest-qt ; extra == 'dev'"", ""pytest-timeout ; extra == 'dev'"", ""pytest ; extra == 'dev'"", ""tox ; extra == 'dev'"", ""brainglobe-napari-io ; extra == 'napari'"", ""magicgui ; extra == 'napari'"", ""napari-ndtiffs ; extra == 'napari'"", ""napari-plugin-engine >=0.1.4 ; extra == 'napari'"", ""napari[pyqt5] ; extra == 'napari'"", ""pooch >=1 ; extra == 'napari'"", ""qtpy ; extra == 'napari'""]","[![Python Version](https://img.shields.io/pypi/pyversions/cellfinder.svg)](https://pypi.org/project/cellfinder)
+19,cellfinder,1.3.2,,,cellfinder,"Adam Tyson, Christian Niedworok, Charly Rousseau","""Adam Tyson, Christian Niedworok, Charly Rousseau"" <code@adamltyson.com>",BSD-3-Clause,,Automated 3D cell detection in large microscopy images,>=3.10,"['brainglobe-utils>=0.5.0', 'brainglobe-napari-io>=0.3.4', 'dask[array]', 'fancylog>=0.0.7', 'natsort', 'numba', 'numpy<2', 'scikit-image', 'scikit-learn', 'keras>=3.0.0', 'torch>=2.1.0', 'tifffile', 'tqdm', 'black; extra == ""dev""', 'pre-commit; extra == ""dev""', 'pyinstrument; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-mock; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'pytest-timeout; extra == ""dev""', 'pytest; extra == ""dev""', 'tox; extra == ""dev""', 'brainglobe-napari-io; extra == ""napari""', 'magicgui; extra == ""napari""', 'napari-ndtiffs; extra == ""napari""', 'napari-plugin-engine>=0.1.4; extra == ""napari""', 'napari[pyqt5]; extra == ""napari""', 'pooch>=1; extra == ""napari""', 'qtpy; extra == ""napari""']","[![Python Version](https://img.shields.io/pypi/pyversions/cellfinder.svg)](https://pypi.org/project/cellfinder)
 [![PyPI](https://img.shields.io/pypi/v/cellfinder.svg)](https://pypi.org/project/cellfinder)
 [![Downloads](https://pepy.tech/badge/cellfinder)](https://pepy.tech/project/cellfinder)
 [![Wheel](https://img.shields.io/pypi/wheel/cellfinder.svg)](https://pypi.org/project/cellfinder)
@@ -32212,7 +32211,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/sebgoti/napari-spatial-omics/issues', 'Documentation, https://github.com/sebgoti/napari-spatial-omics#README.md', 'Source Code, https://github.com/sebgoti/napari-spatial-omics', 'User Support, https://github.com/sebgoti/napari-spatial-omics/issues']",napari-spatial-omics.napari_get_reader,,napari-spatial-omics.example_magic_widget,,['*'],,,https://pypi.org/project/napari-spatial-omics,https://github.com/sebgoti/napari-spatial-omics,
-329,napari spatialdata,0.5.0.post1,2022-08-18,2024-07-12,napari-spatialdata,giovanni palla,giov.pll@gmail.com,BSD-3-Clause,https://github.com/scverse/napari-spatialdata.git,Interactive visualization of spatial omics data with napari,>=3.9,"['anndata', 'click', 'cycler', 'dask >=2024.4.1', 'geopandas', 'loguru', 'matplotlib', 'napari >=0.4.19.post1', 'napari-matplotlib', 'numba', 'numpy', 'packaging', 'pandas', 'pillow', 'qtpy', 'scanpy', 'scipy', 'shapely', 'scikit-learn', 'spatialdata >=0.2.1', 'superqt', 'typing-extensions >=4.8.0', 'vispy', 'xarray', ""PyQt5 ; extra == 'all'"", ""sphinx >=4.5 ; extra == 'doc'"", ""sphinx-book-theme >=1.0.0 ; extra == 'doc'"", ""myst-parser ; extra == 'doc'"", ""sphinxcontrib-bibtex >=1.0.0 ; extra == 'doc'"", ""sphinx-autodoc-typehints >=1.11.0 ; extra == 'doc'"", ""sphinx-autobuild ; extra == 'doc'"", ""scanpydoc ; extra == 'doc'"", ""ipykernel ; extra == 'doc'"", ""ipython ; extra == 'doc'"", ""sphinx-copybutton ; extra == 'doc'"", ""sphinx-qt-documentation ; extra == 'doc'"", ""myst-nb ; extra == 'doc'"", ""squidpy ; extra == 'doc'"", ""spatialdata >=0.1.0-pre0 ; extra == 'pre'"", ""pydantic <2 ; extra == 'readthedocs'"", ""loguru ; extra == 'test'"", ""pytest ; extra == 'test'"", ""pytest-cov ; extra == 'test'"", ""pytest-qt ; extra == 'test'"", ""pre-commit >=2.9.0 ; extra == 'test'""]","![SpatialData banner](https://github.com/scverse/spatialdata/blob/main/docs/_static/img/spatialdata_horizontal.png?raw=true)
+329,napari spatialdata,0.5.1,2022-08-18,2024-07-12,napari-spatialdata,giovanni palla,giov.pll@gmail.com,BSD-3-Clause,https://github.com/scverse/napari-spatialdata.git,Interactive visualization of spatial omics data with napari,>=3.9,"['anndata', 'click', 'cycler', 'dask>=2024.4.1', 'geopandas', 'loguru', 'matplotlib', 'napari>=0.4.19.post1', 'napari-matplotlib', 'numba', 'numpy', 'packaging', 'pandas', 'pillow', 'qtpy', 'scanpy', 'scipy', 'shapely', 'scikit-learn', 'spatialdata>=0.2.1', 'superqt', 'typing-extensions>=4.8.0', 'vispy', 'xarray', 'xarray-datatree', 'napari[pyqt5]; extra == ""all""', 'sphinx>=4.5; extra == ""doc""', 'sphinx-book-theme>=1.0.0; extra == ""doc""', 'myst-parser; extra == ""doc""', 'sphinxcontrib-bibtex>=1.0.0; extra == ""doc""', 'sphinx-autodoc-typehints>=1.11.0; extra == ""doc""', 'sphinx-autobuild; extra == ""doc""', 'scanpydoc; extra == ""doc""', 'ipykernel; extra == ""doc""', 'ipython; extra == ""doc""', 'sphinx-copybutton; extra == ""doc""', 'sphinx-qt-documentation; extra == ""doc""', 'myst-nb; extra == ""doc""', 'squidpy; extra == ""doc""', 'spatialdata>=0.1.0-pre0; extra == ""pre""', 'pydantic<2; extra == ""readthedocs""', 'loguru; extra == ""test""', 'pytest; extra == ""test""', 'pytest-cov; extra == ""test""', 'pytest-qt; extra == ""test""', 'pre-commit>=2.9.0; extra == ""test""']","![SpatialData banner](https://github.com/scverse/spatialdata/blob/main/docs/_static/img/spatialdata_horizontal.png?raw=true)
 
 # napari-spatialdata: interactive exploration and annotation of spatial omics data
 
@@ -32231,21 +32230,9 @@ This repository contains a napari plugin for interactively exploring and annotat
 
 You can install `napari-spatialdata` via [pip]:
 
-    pip install napari-spatialdata[extra]
+    pip install napari-spatialdata[all]
 
-The `extra` command will install the qt bindings `PyQt5`.
-
-Note: if you have an M1/M2 Mac then you may get an error when installing `PyQt5` via `pip`. A solution is to first install `napari` via conda (which will correctly install `PyQt5`), using
-
-```
-mamba install -c conda-forge napari pyqt
-```
-
-and then install `napari-spatialdata` via `pip`, but without the `extra` option:
-
-```
-pip install napari-spatialdata
-```
+The `all` command will install the qt bindings `PyQt5`.
 
 You can find more details on this in the [installation instructions](https://spatialdata.scverse.org/en/latest/installation.html).
 
