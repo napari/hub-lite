@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -294,30 +294,49 @@ pre > code:last-child {
 <p><code>normalize by int</code>  function normalizes the differential images relative to the absolute intensity of the input image stack, which helps to reduce background noise amplitude.</p>
 <p>If <code>save MIP</code> is selected, the maximal intensity projection (MIP) of the differential image stack will be saved with the <code>_red-green-MIP</code> suffix.</p>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rg_series.png" /></p>
-<h3>Up masking</h3>
-<p>Generates labels for insertion sites (regions with increasing intensity) based on <code>-red-green</code> images. Returns labels layer with <code>_up-labels</code> suffix.</p>
-<p>Parameters:</p>
-<ul>
-<li><code>detection img index</code> - index of the frame from <code>-red-green</code> image used for insertion sites detection.</li>
-<li><code>insertion threshold</code> - threshold value for insertion site detection, intensity on selected <code>_red-green</code> frame normalized in -1 - 0 range.</li>
-<li><code>opening footprint</code> - footprint size in pixels for mask filtering with morphology opening (disabled if 0).</li>
-<li><code>save mask</code> - if selected, a total up mask (containing all ROIs) will be created with the <code>_up-mask</code> suffix.</li>
-</ul>
-<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_masking.png" /></p>
-<h3>Intensity masking</h3>
-<p>Extension of <strong>Up Masking</strong> widget. Detects regions with increasing (<code>masking mode</code> - <code>up</code>) or decreasing (<code>masking mode</code> - <code>down</code>) intensity in <code>-red-green</code> images. Returns a labels layer with either <code>_up-labels</code> or <code>_down-labels</code> suffix, depending on the mode.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/int_masking.png" /></p>
+<hr />
+<h2>Masking</h2>
 <h3>Dots patterns masking</h3>
 <p>Creates labels for bright dot elements on an image, such as pre- and postsynaptic fluorescence markers (e.g., Bassoon/Synaptobrevin for presynapses, PSD-95/Homer for postsynapses, etc.). It returns a labels layer with the <code>_dots-labels</code> suffix.</p>
 <p>The widget detects the location on the MIP (Maximum Intensity Projection) of the input time series image and applies simple round masks to each detected dot. Watershed segmentation is then used to prevent the merging of overlapping masks.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>background_level</code> - Background level for filtering out low-intensity elements. This is specified as a percentile of the MIP intensity.</li>
-<li><code>detection_level</code> - Minimum intensity of dots, specified as a percentile of the MIP's maximum intensity.</li>
-<li><code>mask_diameter</code> - Diameter in pixels for the round mask of each individual dot.</li>
-<li><code>minimal_distance</code> - Minimum distance in pixels between the centers of individual round masks.</li>
+<li><code>background level</code> - Background level for filtering out low-intensity elements. This is specified as a percentile of the MIP intensity.</li>
+<li><code>detection level</code> - Minimum intensity of dots, specified as a percentile of the MIP's maximum intensity.</li>
+<li><code>mask diameter</code> - Diameter in pixels for the round mask of each individual dot.</li>
+<li><code>minimal distance</code> - Minimum distance in pixels between the centers of individual round masks.</li>
 </ul>
-<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/dots_making.png" /></p>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/dots_masking.png" />
+<strong>Hippocalcin (green) and PSD95 (magents) in dendritic branches</strong></p>
+<h3>Up masking</h3>
+<p>Generates labels for regions with high intensity based on raw or -red-green images. Returns a labels layer with the <code>_up-labels</code> suffix.</p>
+<p>The widget provides two detection modes:</p>
+<ul>
+<li>Global masking with a fixed threshold for the entire image.</li>
+<li>In-ROIs masking with a loop over individual ROIs in the input <code>ROIs mask</code> with separate detections.</li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><code>det frame index</code> - index of the frame from the input image used for label detection.</li>
+<li><code>det th</code> - treshold value for detecting bright sites, where the intensity on the selected frame is normalized in the range of -1 to 0.</li>
+<li><code>in ROIs det</code> - option for activating in-ROIs masking.</li>
+<li><code>in ROIs det method</code> - method for in-ROIs masking; otsu provides simple Otsu thresholding, while the threshold method is identical to global detection on nomilized detection frame.</li>
+<li><code>in_ROIs_det_th_corr</code> - caling factor for the det th threshold value for in-ROIs masking.</li>
+<li><code>final opening fp</code> - footprint size in pixels for mask filtering using morphological opening (disabled if set to 0).</li>
+<li><code>final dilation fp</code> - footprint size in pixels for mask morphological dilation (disabled if set to 0).</li>
+<li><code>save total up mask</code> - if selected, a total up mask (containing all ROIs) will be created with the _up-mask suffix.</li>
+</ul>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels.png" />
+<strong>Gplobal up labels</strong></p>
+<p>The In-ROIs masking option can be particularly useful for co-localization detection. By applying a broad reference mask to several target images, you can create more precise labels for ROIs in specified cell compartments. The following examples demonstrate the detection of mutual locations for static PSD-95 enriched sites (postsynaptic membranes) and HPCA translocation sites only in the vicinity of synapses, using <code>_dots-labels</code> for PSD95-mRFP images.</p>
+<p><em>Note: In the In-ROIs masking mode, labels of detected sites correspond to the matching labels from the input ROIs mask.</em></p>
+<p>In-ROIs masking (reference)|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_1.png" />
+:------------------:|:-------------------------:
+<strong>In-ROIs maskin (translocation)</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_2.png" />
+<strong>Masks overlay</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_overlay.png" /></p>
+<h3>Intensity masking</h3>
+<p>Extension of <strong>Up Masking</strong> widget. Detects regions with increasing (<code>masking mode</code> - <code>up</code>) or decreasing (<code>masking mode</code> - <code>down</code>) intensity in <code>-red-green</code> images. Returns a labels layer with either <code>_up-labels</code> or <code>_down-labels</code> suffix, depending on the mode.</p>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/int_labels.png" /></p>
 <hr />
 <h2>FRET detection</h2>
 <p>Widgets for detection and analysis of Förster resonance energy transfer multispectral image stacks.</p>
@@ -360,11 +379,12 @@ pre > code:last-child {
 <li><code>ΔF amplitude lim</code> - allows filtering of ROIs by minimum and maximum ΔF/F0 amplitudes. Note: Amplitude filtering works with ΔF/F0 profiles only.</li>
 <li><code>profiles crop</code> - if selected, only a specified range of intensity profile indexes will be plotted, corresponding to the start and stop indexes from <code>profiles range</code>.</li>
 </ul>
-<p>Additionally, you can save ROI intensity profiles as .csv files using the save data frame option and specifying the <code>saving path</code>. The output data frames named %img_name%_lab_prof.csv will include the following columns:</p>
+<p>Additionally, you can save ROI intensity profiles as .csv files using the <code>save data frame</code> option and specifying the <code>saving path</code>. The output data frames named %img_name%_lab_prof.csv will include the following columns:</p>
 <ul>
 <li><code>id</code> - unique image ID, the name of the input <code>napari.Image</code> object.</li>
 <li><code>roi</code> - ROI number, consecutively numbered starting from 1.</li>
 <li><code>int</code> - ROI mean intensity, either raw or ΔF/F0, according to the selected intensity option.</li>
+<li><code>dist</code> - average distance in px to the ROI from the frame, (if <code>save ROIs distances in data frame</code> option is selected).</li>
 <li><code>index</code> - frame index.</li>
 <li><code>time</code> - frame time point, adjusted according to the <code>time scale</code>.</li>
 </ul>
@@ -372,8 +392,8 @@ pre > code:last-child {
 <p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_abs.png" />
 :-------------------------:|:-------------------------:
 <strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_df.png" /></p>
-<h3>Stat profiles</h3>
-<p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in <code>labels</code>. It can handle up to three images (<code>img 0</code>, <code>img 1</code>, and <code>img 2</code>) as inputs, depending on the selected <code>profiles num</code>.</p>
+<h3>Multiple images stat profiles</h3>
+<p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in <code>lab</code>. It can handle up to three images (<code>img 0</code>, <code>img 1</code>, and <code>img 2</code>) as inputs, depending on the selected <code>profiles num</code>.</p>
 <p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
 <p>The <code>stat method</code> allows for the estimation of intensity and associated errors through the following methods:
 - <code>se</code> - mean +/- standard error of the mean.
@@ -382,6 +402,16 @@ pre > code:last-child {
 <p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_abs.png" />
 :-------------------------:|:-------------------------:
 <strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_df.png" /></p>
+<h3>Multiple labels stat profiles</h3>
+<p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) for one target <code>img</code>. It can handle up to three labels (<code>lab 0</code>, <code>lab 1</code>, and <code>lab 2</code>), depending on the selected <code>profiles num</code>.</p>
+<p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
+<p>The <code>stat method</code> allows for the estimation of intensity and associated errors through the following methods:
+- <code>se</code> - mean +/- standard error of the mean.
+- <code>iqr</code> - median +/- interquartile range.
+- <code>ci</code> - mean +/- 95% confidence interval based on the t-distribution.</p>
+<p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_lab_abs.png" />
+:-------------------------:|:-------------------------:
+<strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_lab_df.png" /></p>
         
 
                                     </div>
@@ -397,7 +427,7 @@ pre > code:last-child {
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
