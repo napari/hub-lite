@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.10</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.11</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless</li><li class="MetadataList_textItem__KKmMN">tensorflow</li><li class="MetadataList_textItem__KKmMN">PyQt5</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-xvfb ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">numpy ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">magicgui ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">qtpy ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">scikit-image ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pandas ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">tensorflow ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">PyQt5 ; extra == 'testing'</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless</li><li class="MetadataList_textItem__KKmMN">tensorflow</li><li class="MetadataList_textItem__KKmMN">PyQt5</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-xvfb; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">numpy; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">magicgui; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">qtpy; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">scikit-image; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pandas; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">tensorflow; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@ https://napari.org/stable/plugins/index.html!
 </code></pre>
 <h2>Description</h2>
 <p>This plugin is a tool to perform image inference. The inference is open to the model for image segmentation (binary or multiclass), image classification and object detection. The dimension of image should be the same size with the input of model.
-Currently compatible with tensorflow h5 models. In this format, the h5 file must contain all the elements of the model (architecture, weights, etc). Several ongoing developments, feel free to contact us if you have some request.</p>
+Currently compatible with tensorflow h5 models and torch torchscript models. In this format, the model file must contain all the elements of the model (architecture, weights, etc). Several ongoing developments, feel free to contact us if you have some request.</p>
 <h2>Contact</h2>
 <p>Imhorphen team, bioimaging research group</p>
 <p>42 rue George Morel, Angers, France</p>
@@ -306,7 +306,7 @@ Currently compatible with tensorflow h5 models. In this format, the h5 file must
     ...
     └── im_n.JPG</code></p>
 <ul>
-<li>A tensorflow h5 file (.h5) which is the segmentation model</li>
+<li>A model file (.h5 , pt or torchscript) which is the segmentation model</li>
 <li>A text file (.txt) containing the names of the classes (optional)</li>
 </ul>
 <p>The Ok button is used to validate the imported elements. The Run button is used to launch the segmentation.</p>
@@ -352,7 +352,7 @@ Currently compatible with tensorflow h5 models. In this format, the h5 file must
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.10</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.11</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -459,7 +459,7 @@ Currently compatible with tensorflow h5 models. In this format, the h5 file must
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless</li><li class="MetadataList_textItem__KKmMN">tensorflow</li><li class="MetadataList_textItem__KKmMN">PyQt5</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-xvfb ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">numpy ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">magicgui ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">qtpy ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">scikit-image ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pandas ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">tensorflow ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">PyQt5 ; extra == 'testing'</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless</li><li class="MetadataList_textItem__KKmMN">tensorflow</li><li class="MetadataList_textItem__KKmMN">PyQt5</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-xvfb; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">numpy; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">magicgui; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">qtpy; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">scikit-image; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pandas; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">tensorflow; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
