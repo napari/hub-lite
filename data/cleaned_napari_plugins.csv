@@ -1997,7 +1997,7 @@ A tool to support interactive machine learning for cryoET data
 
 ![cryocanvas screenshot](cover.png)
 ",text/markdown,https://github.com/kephale/cryocanvas,Kyle Harrington,czii@kyleharrington.com,MIT,"['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['numpy', 'magicgui', 'qtpy', 'scikit-image', 'toolz', 'scikit-learn', 'psygnal', 'superqt', 'zarr', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]",>=3.8,"['Bug Tracker, https://github.com/kephale/cryocanvas/issues', 'Documentation, https://github.com/kephale/cryocanvas#README.md', 'Source Code, https://github.com/kephale/cryocanvas', 'User Support, https://github.com/kephale/cryocanvas/issues']",['testing'],False,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"['Annotation', 'Segmentation']",,,,,,,,,,cryocanvas.make_qwidget,Example QWidget,False,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-23,cut-detector,1.1.2,Cut Detector,Automatic Cut Detector,Thomas Bonte,BSD-3-Clause,https://github.com/15bonte/cut-detector,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,public,,0.2.1,cut-detector.whole_process,Single Video,cut_detector._widget:whole_process,,,,2.1,cut-detector,1.1.2,,Automatic Cut Detector,"# Cut Detector
+23,cut-detector,1.2.0,Cut Detector,Automatic Cut Detector,Thomas Bonte,BSD-3-Clause,https://github.com/15bonte/cut-detector,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,public,,0.2.1,cut-detector.whole_process,Single Video,cut_detector._widget:whole_process,,,,2.1,cut-detector,1.2.0,,Automatic Cut Detector,"# Cut Detector
 
 [![License BSD-3](https://img.shields.io/pypi/l/cut-detector.svg?color=green)](https://github.com/15bonte/cut-detector/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/cut-detector.svg?color=green)](https://pypi.org/project/cut-detector)
@@ -2006,16 +2006,13 @@ A tool to support interactive machine learning for cryoET data
 [![codecov](https://codecov.io/gh/15bonte/cut-detector/branch/main/graph/badge.svg)](https://codecov.io/gh/15bonte/cut-detector)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cut-detector)](https://napari-hub.org/plugins/cut-detector)
 
-Automatic micro-tubules cut detector.
+Automatic micro-tubule cut detector.
 
 https://github.com/user-attachments/assets/89d63336-729c-43c1-8fa3-43a4ec4cfc87
 
 ---
 
 This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
-
-
-
 
 <!--
 Don't miss the full getting started guide to set up your new package:
@@ -2085,6 +2082,17 @@ To update cut-detector to the latest version, open an Anaconda prompt and use th
 conda activate cut_detector
 pip install cut-detector --upgrade
 ```
+
+## Definitions
+
+Each detected cell division is labeled with one of the following categories:
+
+- NORMAL: Division happening as expected, where (at least) 1 micro-tubule cut is detected.
+- NO_MID_BODY_DETECTED: Along the cell division, no mid-body was detected on the MKLP1 channel. This category encompasses different cases: the detection may have failed, the mid-body may not express the fluorescence, or this may not actually be a division.
+- MORE_THAN_TWO_DAUGHTER_TRACKS: Tripolar division. This category encompasses both actual tripolar divisions and wrong identifications of daughter cells (mainly caused by segmentation issues).
+- NEAR_BORDER: Division close to the border of the image, hence ignored as it is likely to be difficult to detect micro-tubule cuts. A division is classified as NEAR_BORDER as soon as the distance between 1 detected mid-body and the border of the image is less than 20px.
+- NO_CUT_DETECTED: Division whose mid-body was detected, but with all micro-tubule bridges classified as ""No cut"". Likely to be at the end of the video, cells dying before the end of division, or cells going out of frame.
+- TOO_SHORT_CUT: First micro-tubule cut detected before 50 minutes. Ignored as this is very unlikely, so it is probably caused by a wrong division detection.
 
 ## Contributing
 
@@ -5533,9 +5541,9 @@ If you encounter any problems, please
 [file an issue](https://github.com/funkelab/motile-napari-plugin/issues)
 along with a detailed description.
 ",text/markdown,https://github.com/funkelab/motile-napari-plugin,Caroline Malin-Mayor,malinmayorc@janelia.hhmi.org,BSD-3-Clause,"['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering :: Image Processing']","['napari[all]', 'numpy', 'magicgui', 'qtpy', 'scikit-image', 'motile >=0.2.1', 'motile-toolbox >=0.2.5', 'pydantic', 'tifffile[all]', 'fonticon-fontawesome6', 'pyqtgraph', 'lxml-html-clean', ""sphinx ; extra == 'docs'"", ""sphinx-autoapi ; extra == 'docs'"", ""sphinx-rtd-theme ; extra == 'docs'"", ""myst-parser ; extra == 'docs'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]",>=3.10,"['Bug Tracker, https://github.com/funkelab/motile-napari-plugin/issues', 'Documentation, https://github.com/funkelab/motile-napari-plugin#README.md', 'Source Code, https://github.com/funkelab/motile-napari-plugin', 'User Support, https://github.com/funkelab/motile-napari-plugin/issues']","['docs', 'testing']",False,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,['Utilities'],motile-plugin.solve,Run motile tracking (backend only),motile_plugin.backend.solve:solve,motile-plugin.Fluo_N2DL_HeLa,Load Fluo-N2DL-HeLa tracking dataset,motile_plugin.example_data:Fluo_N2DL_HeLa,,,,motile-plugin.motile_widget,Motile Tracking,False,,,,,,,,,,,,,,,,,,,,motile-plugin.Fluo_N2DL_HeLa,Fluo-N2DL-HeLa,Fluo-N2DL-HeLa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-62,mousechd-napari,0.0.2a0,MouseCHD,A tool for heart segmentation and congenital heart defect detection in mice.,Hoa Nguyen,MIT,https://github.com/hnguyentt/mousechd-napari,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,public,,0.2.1,mousechd-napari.get_reader,Open data with MouseCHD,mousechd_napari._reader:napari_get_reader,mousechd-napari.get_reader,"['*.nrrd', '*.nii.gz', '*.dcm']",True,2.1,mousechd-napari,0.0.2a0,,A tool for heart segmentation and congenital heart defect detection in mice.,"# Napari plugin for MouseCHD project
+62,mousechd-napari,0.0.3,MouseCHD,A tool for heart segmentation and congenital heart defect detection in mice.,Hoa Nguyen,MIT,https://github.com/hnguyentt/mousechd-napari,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,public,,0.2.1,mousechd-napari.get_reader,Open data with MouseCHD,mousechd_napari._reader:napari_get_reader,mousechd-napari.get_reader,"['*.nrrd', '*.nii.gz', '*.dcm']",True,2.1,mousechd-napari,0.0.3,,A tool for heart segmentation and congenital heart defect detection in mice.,"# Napari plugin for MouseCHD project
 
-![](https://raw.githubusercontent.com/hnguyentt/mousechd-napari/master/assets/thumbnail.png)
+![](https://raw.githubusercontent.com/hnguyentt/mousechd-napari/master/assets/demo.gif)
 
 *Tool for heart segmentation and congenital heart defect detection in mice.*
 
@@ -5545,7 +5553,7 @@ along with a detailed description.
 
 (2) Install `mousechd-napari` plugin:
     * Run Napari
-    * `Plugins` --> `Install/Uninstall Plugins ...` --> Search for `mousechd_napari` --> Click on `install`.
+    * `Plugins` --> `Install/Uninstall Plugins ...` --> Search for `mousechd-napari` --> Click on `install`.
 
 (3) Restart Napari to run the plugin
 
@@ -5554,14 +5562,13 @@ along with a detailed description.
 conda create -n mousechd_napari python=3.9
 conda activate mousechd_napari
 pip install ""napari[all]""
-pip install mousechd_napari
+pip install mousechd-napari
 napari
 ```
 
 ## How to use
-
 Please find details instruction in folder [docs](https://github.com/hnguyentt/mousechd-napari/tree/master/docs)
-",text/markdown,https://github.com/hnguyentt/mousechd-napari,Hoa Nguyen,ntthoa.uphcm@gmail.com,MIT,"['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['setuptools', 'packaging', 'mousechd', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'""]",>=3.9,"['Bug Tracker, https://github.com/hnguyentt/mousechd-napari/issues', 'Documentation, https://github.com/hnguyentt/mousechd-napari#README.md', 'Source Code, https://github.com/hnguyentt/mousechd-napari', 'User Support, https://github.com/hnguyentt/mousechd-napari/issues']",['testing'],False,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,mousechd-napari.widget,Create MouseCHD widget,mousechd_napari._widget:MouseCHD,mousechd-napari.sample,sample,mousechd_napari.sample_data:load_sample,,,,mousechd-napari.widget,MouseCHD,False,,,,,,,,,,,,,,,,,,,,mousechd-napari.sample,sample,micro-CT scan,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+",text/markdown,https://github.com/hnguyentt/mousechd-napari,Hoa Nguyen,ntthoa.uphcm@gmail.com,MIT,"['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['setuptools', 'packaging', 'mousechd', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""']",>=3.9,"['Bug Tracker, https://github.com/hnguyentt/mousechd-napari/issues', 'Documentation, https://github.com/hnguyentt/mousechd-napari#README.md', 'Source Code, https://github.com/hnguyentt/mousechd-napari', 'User Support, https://github.com/hnguyentt/mousechd-napari/issues']",['testing'],False,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,mousechd-napari.widget,Create MouseCHD widget,mousechd_napari._widget:MouseCHD,mousechd-napari.sample,sample,mousechd_napari.sample_data:load_sample,,,,mousechd-napari.widget,MouseCHD,False,,,,,,,,,,,,,,,,,,,,mousechd-napari.sample,sample,micro-CT scan,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 63,MSI-Explorer,1.0.1,MSI-Explorer,a napari plug-in for biochemical annotation of mass spectrometry imaging data,lennart kowitz,BSD-3-Clause,https://github.com/MMV-Lab/MSI-Explorer,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,public,,0.2.1,MSI-Explorer.get_reader,Open data with MSI-Explorer,msi_explorer._reader:napari_get_reader,msi_explorer.get_reader,['*.imzML'],False,2.1,MSI-Explorer,1.0.1,,a napari plug-in for biochemical annotation of mass spectrometry imaging data,"# MSI-Explorer
 
 [![License BSD-3](https://img.shields.io/pypi/l/MSI-Explorer.svg?color=green)](https://github.com/MMV-Lab/MSI-Explorer/raw/main/LICENSE)
@@ -13878,38 +13885,211 @@ This plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-na
 [open a pull request]: https://github.com/chanzuckerberg/napari-cryoet-data-portal/pulls
 [latest napari installation instructions]: https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-python-package-recommended
 ",text/markdown,https://github.com/chanzuckerberg/napari-cryoet-data-portal,Andy Sweet,andrewdsweet@gmail.com,MIT,"['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['cmap', 'cryoet-data-portal~=3.0', 'fsspec[http,s3]', 'npe2', 'numpy', 'napari>=0.4.19', 'napari-ome-zarr', 'ndjson', 'qtpy', 'superqt', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-mock; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'pyqt5; extra == ""testing""']",>=3.8,"['Bug Tracker, https://github.com/chanzuckerberg/napari-cryoet-data-portal/issues', 'Documentation, https://github.com/chanzuckerberg/napari-cryoet-data-portal#README.md', 'Source Code, https://github.com/chanzuckerberg/napari-cryoet-data-portal', 'User Support, https://github.com/chanzuckerberg/napari-cryoet-data-portal/issues']",['testing'],False,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,napari-cryoet-data-portal.tomogram_ome_zarr_reader,Read tomograms in the OME-Zarr format,napari_cryoet_data_portal._reader:tomogram_ome_zarr_reader,napari-cryoet-data-portal.points_annotations_reader,Read points annotations,napari_cryoet_data_portal._reader:points_annotations_reader,napari-cryoet-data-portal.tomogram_10000_ts_026,Tomogram 10000-TS_026,napari_cryoet_data_portal._sample_data:tomogram_10000_ts_026,napari-cryoet-data-portal.DataPortalWidget,CryoET Data Portal,False,,,,,,,,,,napari-cryoet-data-portal.tomogram_10000_ts_027,Tomogram 10000-TS_027,napari_cryoet_data_portal._sample_data:tomogram_10000_ts_027,,,,,,,,napari-cryoet-data-portal.tomogram_10000_ts_026,tomogram-10000-ts-026,Tomogram 10000-TS_026,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,napari-cryoet-data-portal.tomogram_10000_ts_027,tomogram-10000-ts-027,Tomogram 10000-TS_027,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-135,napari-cryofibsem-imgpro,0.1,Cryo-FIB/SEM Image Post-Processing,A napari plugin for post-processing of Cryo-FIB/SEM image stacks,Shaina Vivienne To,"
-Copyright (c) 2024, Shaina Vivienne To
-All rights reserved.
+135,napari-cryofibsem-imgpro,0.0.1,Cryo-FIB/SEM Image Post-Processing,A napari plugin for post-processing of Cryo-FIB/SEM image stacks,Shaina Vivienne To,"Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
+   1. Definitions.
 
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
+      ""License"" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
 
-* Neither the name of copyright holder nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
+      ""Licensor"" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ""AS IS""
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-",https://github.com/shainatorumc/napari-cryofibsem-imgpro,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,public,,0.2.0,napari-cryofibsem-imgpro.get_reader,Open data with Cryo-FIB/SEM Image Post-Processing,napari_cryofibsem_imgpro._reader:napari_get_reader,napari-cryofibsem-imgpro.get_reader,['*.npy'],False,2.1,napari-cryofibsem-imgpro,0.1,,A napari plugin for post-processing of Cryo-FIB/SEM image stacks,"# napari-cryofibsem-imgpro
+      ""Legal Entity"" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      ""control"" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      ""You"" (or ""Your"") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      ""Source"" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      ""Object"" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      ""Work"" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      ""Derivative Works"" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      ""Contribution"" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, ""submitted""
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as ""Not a Contribution.""
+
+      ""Contributor"" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a ""NOTICE"" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an ""AS IS"" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets ""[]""
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same ""printed page"" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright 2024 Shaina V. To
+
+   Licensed under the Apache License, Version 2.0 (the ""License"");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an ""AS IS"" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+",https://github.com/shainatorumc/napari-cryofibsem-imgpro,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,public,,0.2.1,napari-cryofibsem-imgpro.get_reader,Open data with Cryo-FIB/SEM Image Post-Processing,napari_cryofibsem_imgpro._reader:napari_get_reader,napari-cryofibsem-imgpro.get_reader,['*.npy'],False,2.1,napari-cryofibsem-imgpro,0.0.1,,A napari plugin for post-processing of Cryo-FIB/SEM image stacks,"# napari-cryofibsem-imgpro
 ### A napari plugin for restoration and enhancement of Cryo-FIB/SEM images
 
-[![License BSD-3](https://img.shields.io/pypi/l/napari-cryofibsem-imgpro.svg?color=green)](https://github.com/shainatorumc/napari-cryofibsem-imgpro/raw/main/LICENSE)
+[![License Apache 2.0](https://img.shields.io/pypi/l/napari-cryofibsem-imgpro.svg?color=green)](https://github.com/EMCRUMC/napari-cryofibsem-imgproc/blob/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-cryofibsem-imgpro.svg?color=green)](https://pypi.org/project/napari-cryofibsem-imgpro)
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-cryofibsem-imgpro.svg?color=green)](https://python.org)
 [![tests](https://github.com/shainatorumc/napari-cryofibsem-imgpro/workflows/tests/badge.svg)](https://github.com/shainatorumc/napari-cryofibsem-imgpro/actions)
@@ -13982,34 +14162,207 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [conda]: https://docs.conda.io/en/latest/
 
 This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
-",text/markdown,https://github.com/shainatorumc/napari-cryofibsem-imgpro,Shaina Vivienne To,shaina.to@radboudumc.nl,"
-Copyright (c) 2024, Shaina Vivienne To
-All rights reserved.
+",text/markdown,https://github.com/shainatorumc/napari-cryofibsem-imgpro,Shaina Vivienne To,shaina.to@radboudumc.nl,"Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
+   1. Definitions.
 
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
+      ""License"" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
 
-* Neither the name of copyright holder nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
+      ""Licensor"" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ""AS IS""
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      ""Legal Entity"" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      ""control"" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      ""You"" (or ""Your"") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      ""Source"" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      ""Object"" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      ""Work"" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      ""Derivative Works"" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      ""Contribution"" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, ""submitted""
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as ""Not a Contribution.""
+
+      ""Contributor"" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a ""NOTICE"" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an ""AS IS"" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets ""[]""
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same ""printed page"" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright 2024 Shaina V. To
+
+   Licensed under the Apache License, Version 2.0 (the ""License"");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an ""AS IS"" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 ","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Topic :: Scientific/Engineering :: Image Processing']","['numpy', 'magicgui', 'qtpy', 'scikit-image', 'PyWavelets', 'opencv-python', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'pyqt5; extra == ""testing""']",>=3.10,"['Bug Tracker, https://github.com/shainatorumc/napari-cryofibsem-imgpro/issues', 'Documentation, https://github.com/shainatorumc/napari-cryofibsem-imgpro#README.md', 'Source Code, https://github.com/shainatorumc/napari-cryofibsem-imgpro', 'User Support, https://github.com/shainatorumc/napari-cryofibsem-imgpro/issues']",['testing'],False,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"['Annotation', 'Segmentation', 'Acquisition']",napari-cryofibsem-imgpro.write_multiple,Save multi-layer data with Cryo-FIB/SEM Image Post-Processing,napari_cryofibsem_imgpro._writer:write_multiple,napari-cryofibsem-imgpro.write_single_image,Save image data with Cryo-FIB/SEM Image Post-Processing,napari_cryofibsem_imgpro._writer:write_single_image,napari-cryofibsem-imgpro.make_sample_data,Load sample data from Cryo-FIB/SEM Image Post-Processing,napari_cryofibsem_imgpro._sample_data:make_sample_data,napari-cryofibsem-imgpro.make_decurtain_widget,Decurtaining,False,napari-cryofibsem-imgpro.make_decharge_widget,Decharging,False,napari-cryofibsem-imgpro.make_denoise_widget,Denoising,False,napari-cryofibsem-imgpro.make_contrast_widget,Enhancing Contrast,False,napari-cryofibsem-imgpro.make_decurtain_widget,Make decurtain widget,napari_cryofibsem_imgpro:decurtain,napari-cryofibsem-imgpro.write_multiple,"['image*', 'labels*']",,napari-cryofibsem-imgpro.write_single_image,['image'],['.npy'],,napari-cryofibsem-imgpro.make_sample_data,unique_id.1,Cryo-FIB/SEM Image Post-Processing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,napari-cryofibsem-imgpro.make_decharge_widget,Make decharge widget,napari_cryofibsem_imgpro:decharge,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,napari-cryofibsem-imgpro.make_denoise_widget,Make denoise widget,napari_cryofibsem_imgpro:denoise,napari-cryofibsem-imgpro.make_contrast_widget,Make contrast widget,napari_cryofibsem_imgpro:contrast,napari-cryofibsem-imgpro.make_brightness_widget,Make brightness widget,napari_cryofibsem_imgpro:brightness,,,,,,,,,,,napari-cryofibsem-imgpro.make_brightness_widget,Correcting Brightness,False,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 136,napari-cryofibsem-monitor,0.0.3,napari-cryofibsem-monitor,A plugin to monitor the creation of lamella using AutoTEM on a TFS Acquilos instrument,Johannes Elferich,MIT,https://github.com/jojoelfe/napari-cryofibsem-monitor,61f54f348d5f589364a19f52,['conda'],,https://github.com/jojoelfe/napari-cryofibsem-monitor,True,,,conda-forge,conda-forge,,"A community-led collection of recipes, build infrastructure, and distributions for the conda package manager.",2015-04-11 10:15:08.727000+00:00,org,conda-forge/napari-cryofibsem-monitor,http://api.anaconda.org/packages/conda-forge/napari-cryofibsem-monitor,http://anaconda.org/conda-forge/napari-cryofibsem-monitor,"['0.0.1', '0.0.3']",0.0.3,0.0.3,['noarch'],4.0,,['pyhd8ed1ab_0'],0.0.1,conda-forge/napari-cryofibsem-monitor/0.0.1,1.0,0.0,2022-01-29 14:29:05.393000+00:00,2023-06-18 08:40:39.385000+00:00,conda,noarch/napari-cryofibsem-monitor-0.0.1-pyhd8ed1ab_0.tar.bz2,0.0,MIT,False,python,"['imreg_dft', 'matplotlib-base', 'napari', 'napari-plugin-engine >=0.1.4', 'numpy', 'python >=3.7', 'tifffile']",noarch,1643466390151.0,None-any-None,pyhd8ed1ab_0,2022-01-29 14:29:06.518000+00:00,7f5087748132b3b1dca8ed79928c0d0e,None,10172.0,conda-forge/napari-cryofibsem-monitor/0.0.1/noarch/napari-cryofibsem-monitor-0.0.1-pyhd8ed1ab_0.tar.bz2,//api.anaconda.org/download/conda-forge/napari-cryofibsem-monitor/0.0.1/noarch/napari-cryofibsem-monitor-0.0.1-pyhd8ed1ab_0.tar.bz2,conda,0.0.1,conda-forge,['main'],public,,0.1.0,napari-cryofibsem-monitor.ExampleQWidget,Monitor,napari_cryofibsem_monitor._dock_widget:ExampleQWidget,,,,2.1,napari-cryofibsem-monitor,0.0.3,,A plugin to monitor the creation of lamella using AutoTEM on a TFS Acquilos instrument,"# napari-cryofibsem-monitor
 
@@ -33232,7 +33585,7 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,public,,0.2.1,napari-skimage.make_farid_widget,Make Farid filter widget,napari_skimage.skimage_filter_widget:farid_filter_widget,,,,2.1,napari-skimage,0.4.0,,A plugin to apply scikit-image operations,"# napari-skimage
+",,66ebf2385a33da3e4904a6e7,['conda'],,https://pypi.org/project/napari-skimage/,True,,,conda-forge,conda-forge,,"A community-led collection of recipes, build infrastructure, and distributions for the conda package manager.",2015-04-11 10:15:08.727000+00:00,org,conda-forge/napari-skimage,http://api.anaconda.org/packages/conda-forge/napari-skimage,http://anaconda.org/conda-forge/napari-skimage,['0.4.0'],0.4.0,0.4.0,['noarch'],5.0,https://github.com/guiwitz/napari-skimage,['pyh9208f05_0'],0.4.0,conda-forge/napari-skimage/0.4.0,1.0,0.0,2024-09-19 09:43:16.763000+00:00,2024-09-19 09:43:21.053000+00:00,conda,noarch/napari-skimage-0.4.0-pyh9208f05_0.conda,0.0,BSD-3-Clause,False,python,"['magicgui', 'napari', 'numpy', 'python >=3.9', 'qtpy', 'scikit-image']",noarch,1726738864382.0,None-any-None,pyh9208f05_0,2024-09-19 09:43:18.131000+00:00,eef90089825e770264d205fd4e24958b,d6b668c92825e13c90a2d8346f4cf5c4bdc1341261e166520b5126e2f809f54c,20400.0,conda-forge/napari-skimage/0.4.0/noarch/napari-skimage-0.4.0-pyh9208f05_0.conda,//api.anaconda.org/download/conda-forge/napari-skimage/0.4.0/noarch/napari-skimage-0.4.0-pyh9208f05_0.conda,conda,0.4.0,conda-forge,['main'],public,,0.2.1,napari-skimage.make_farid_widget,Make Farid filter widget,napari_skimage.skimage_filter_widget:farid_filter_widget,,,,2.1,napari-skimage,0.4.0,,A plugin to apply scikit-image operations,"# napari-skimage
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-skimage.svg?color=green)](https://github.com/guiwitz/napari-skimage/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-skimage.svg?color=green)](https://pypi.org/project/napari-skimage)

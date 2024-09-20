@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.1.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.2.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -254,7 +254,7 @@ pre > code:last-child {
 <a href="https://github.com/15bonte/cut-detector/actions"><img alt="tests" src="https://github.com/15bonte/cut-detector/workflows/tests/badge.svg" /></a>
 <a href="https://codecov.io/gh/15bonte/cut-detector"><img alt="codecov" src="https://codecov.io/gh/15bonte/cut-detector/branch/main/graph/badge.svg" /></a>
 <a href="https://napari-hub.org/plugins/cut-detector"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cut-detector" /></a></p>
-<p>Automatic micro-tubules cut detector.</p>
+<p>Automatic micro-tubule cut detector.</p>
 <p>https://github.com/user-attachments/assets/89d63336-729c-43c1-8fa3-43a4ec4cfc87</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -301,6 +301,16 @@ pip install -e .</code></p>
 <p>To update cut-detector to the latest version, open an Anaconda prompt and use the following commands:</p>
 <p><code>conda activate cut_detector
 pip install cut-detector --upgrade</code></p>
+<h2>Definitions</h2>
+<p>Each detected cell division is labeled with one of the following categories:</p>
+<ul>
+<li>NORMAL: Division happening as expected, where (at least) 1 micro-tubule cut is detected.</li>
+<li>NO_MID_BODY_DETECTED: Along the cell division, no mid-body was detected on the MKLP1 channel. This category encompasses different cases: the detection may have failed, the mid-body may not express the fluorescence, or this may not actually be a division.</li>
+<li>MORE_THAN_TWO_DAUGHTER_TRACKS: Tripolar division. This category encompasses both actual tripolar divisions and wrong identifications of daughter cells (mainly caused by segmentation issues).</li>
+<li>NEAR_BORDER: Division close to the border of the image, hence ignored as it is likely to be difficult to detect micro-tubule cuts. A division is classified as NEAR_BORDER as soon as the distance between 1 detected mid-body and the border of the image is less than 20px.</li>
+<li>NO_CUT_DETECTED: Division whose mid-body was detected, but with all micro-tubule bridges classified as "No cut". Likely to be at the end of the video, cells dying before the end of division, or cells going out of frame.</li>
+<li>TOO_SHORT_CUT: First micro-tubule cut detected before 50 minutes. Ignored as this is very unlikely, so it is probably caused by a wrong division detection.</li>
+</ul>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -324,7 +334,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.1.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.2.0</li>
                                                 </ul>
                                             </div>
                                         </div>
