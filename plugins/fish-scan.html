@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.9</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -300,6 +300,55 @@ https://napari.org/stable/plugins/index.html
 <p>To install latest development version :</p>
 <pre><code>pip install git+https://github.com/ariannaravera/fish-scan.git
 </code></pre>
+<h2>Tutorial</h2>
+<h3>1. Color correction</h3>
+<p>With this tool you can correct colors in your image.</p>
+<ol>
+<li>Open your image in napari by grabbing and dropping it or opening from the menu</li>
+<li>Click on “Select the area” to select a rectagular area of the color you wanna correct</li>
+<li>Draw the rectangle in the area in which you have that color, eg. white area, as in the example below</li>
+<li>Select the color name in the dropdown box, eg. in this case white</li>
+<li>Click on “Correct color”</li>
+<li>If you’re satisfied of the correction made, it is IMPORTANT to select as input “Image”(first box) the name of the new generated image (usually, “Currect_corrected_...)*</li>
+<li>Cuntinue your colors corrections re-starting from step 2</li>
+</ol>
+<h4>Nomenclature:</h4>
+<ul>
+<li>you MUSH have your original image with its original name (in this case “Group2_FishID_25April…”)</li>
+<li>then, once you start correcting the image, the new generated images will be called as “Current_corrected_<em>original-name</em>”</li>
+<li>if you perform the correction more times, your previous corrected image will be named “Previous_corrected_<em>original-name</em>” and the new generated always “Current_corrected_<em>original-name</em>”.</li>
+</ul>
+<p>This allows you to keep as “previous” the result that you already liked and approved, while the “current” you can play and experiment new corrections. 
+Be aware that if you select as input image of the correction “previous” this means that you didn’t like the “current” one and it will be overwrite (while the “previous” remain the same), otherwise if you liked the “current” and you use it as input image of the new correction, then the “current” will become “previous” and the new result “current”.
+At anytime if you want you can re-start from the original image by selecting it as input image (original image is NEVER changed).
+ </p>
+<h3>2. Set Scale</h3>
+<p>With this tool you can automatically measure your fish if a scale is in the image.</p>
+<ol>
+<li>
+<p>Click on “Select 1 cm” and draw a line on the scale represeting 1cm, as in this example:</p>
+</li>
+<li>
+<p>Click on “Set scale” and your fish will be automaticall measure in your final analysis with this scale
+ </p>
+</li>
+</ol>
+<h3>3. Segmentation &amp; Analysis</h3>
+<p>With this tool you can segment your fish.</p>
+<p>Steps:
+1.  Select the “Image” you want to analyse (be aware of the nomenclature*)
+2.  Click “Select fish area” button
+3.  Start drawing your mask with the brush (yellow arrow below). I suggest to start drwaing the fish contours and then with the paint bucket (red arrow below) fill the inside. Adjust it with the eraser (orange arrow below) if needed</p>
+<ol>
+<li>Select the output folder you want the results saved in by clicking “Browse”</li>
+<li>Finally, click on “Analyse the fish” to generate your analysis</li>
+</ol>
+<p>Here is an example of the results you obtain from it:
+•   two graphs per image,
+o   one representing the percentage of the 3 dominant color you want to study (black, white and orange) </p>
+<p>o   one with the composition of the real RGB values found in the image (the ones that are categorized in the 3 main classes you have in graph 1)</p>
+<p>•   one csv file in which there are the number of black, white and orange pixels, their percentages (same values of graph 1), the length of the fish in pixels (always provided) and the length converted in cm (if a scale was provided).
+o   If in the output folder chosen there were already a previously created csv we will append to that the new info, otherwise a new csv is created.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -323,7 +372,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.9</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -458,7 +507,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
                                             </div>
                                         </div>
                                     </div>
