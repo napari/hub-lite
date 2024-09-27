@@ -23779,22 +23779,18 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 
 ","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/zoccoler/napari-metroid/issues', 'Documentation, https://github.com/zoccoler/napari-metroid#README.md', 'Source Code, https://github.com/zoccoler/napari-metroid', 'User Support, https://github.com/zoccoler/napari-metroid/issues']",,napari-metroid.write_multiple,napari-metroid.make_qwidget,napari-metroid.make_cell1_AP1_data,,,['.npy'],https://pypi.org/project/napari-metroid,https://github.com/zoccoler/napari-metroid,
-233,napari-micromanager,0.1.0,2022-02-14,2023-10-17,napari-micromanager,"Federico Gasparoli, Talley Lambert","Federico Gasparoli <federico.gasparoli@gmail.com>, Talley Lambert <talley.lambert@gmail.com>",BSD 3-Clause,https://github.com/tlambert03/napari-micromanager,Micro-Manager GUI interface in napari.,>=3.8,"['fonticon-materialdesignicons6', 'napari>=0.4.13', 'pymmcore-plus>=0.9.3', 'pymmcore-widgets>=0.7.0rc1', 'superqt>=0.5.1', 'tifffile', 'useq-schema>=0.4.1', 'zarr', ""isort; extra == 'dev'"", ""mda-simulator; extra == 'dev'"", ""mypy; extra == 'dev'"", ""pre-commit; extra == 'dev'"", ""ruff; extra == 'dev'"", ""pyqt5; extra == 'pyqt5'"", ""pyqt6; extra == 'pyqt6'"", ""pyside2; extra == 'pyside2'"", ""pyside6; extra == 'pyside6'"", ""pytest; extra == 'test'"", ""pytest-cov; extra == 'test'"", ""pytest-qt; extra == 'test'""]","# napari-micromanager
+233,napari-micromanager,0.1.3,2022-02-14,2023-10-17,napari-micromanager,"Federico Gasparoli, Talley Lambert","Federico Gasparoli <federico.gasparoli@gmail.com>, Talley Lambert <talley.lambert@gmail.com>",BSD 3-Clause,https://github.com/tlambert03/napari-micromanager,Micro-Manager GUI interface in napari.,>=3.9,"['fonticon-materialdesignicons6', 'napari>=0.4.13', 'pymmcore-plus>=0.9.3', 'pymmcore-widgets>=0.7.0rc1', 'superqt>=0.5.1', 'tifffile', 'useq-schema>=0.4.1', 'zarr', ""mda-simulator; extra == 'dev'"", ""mypy; extra == 'dev'"", ""pre-commit; extra == 'dev'"", ""ruff; extra == 'dev'"", ""mkdocs-material; extra == 'docs'"", ""mkdocstrings-python; extra == 'docs'"", ""pyqt5; extra == 'pyqt5'"", ""pyqt6; extra == 'pyqt6'"", ""pyside2; extra == 'pyside2'"", ""pyside6; extra == 'pyside6'"", ""pytest; extra == 'test'"", ""pytest-cov; extra == 'test'"", ""pytest-qt; extra == 'test'""]","# napari-micromanager
 
 [![License](https://img.shields.io/pypi/l/napari-micromanager.svg?color=green)](https://github.com/napari/napari-micromanager/raw/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-micromanager.svg?color=green)](https://pypi.org/project/napari-micromanager)
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-micromanager.svg?color=green)](https://python.org)
-[![Tests](https://github.com/pymmcore-plus/napari-micromanager/actions/workflows/test.yml/badge.svg)](https://github.com/pymmcore-plus/napari-micromanager/actions/workflows/test.yml)
+[![Tests](https://github.com/pymmcore-plus/napari-micromanager/actions/workflows/ci.yml/badge.svg)](https://github.com/pymmcore-plus/napari-micromanager/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/pymmcore-plus/napari-micromanager/branch/main/graph/badge.svg?token=tf6lYDWV1s)](https://codecov.io/gh/pymmcore-plus/napari-micromanager)
-
 
 GUI interface between napari and micromanager powered by [pymmcore-plus](https://pymmcore-plus.github.io/pymmcore-plus/) and [pymmcore-widgets](https://pymmcore-plus.github.io/pymmcore-widgets/)
 
-🚧 Experimental!  Work in progress!  Here be 🐲 🚧
-
 ----------------------------------
-<img width=""1797"" alt=""mm"" src=""https://user-images.githubusercontent.com/1609449/138457506-787b7bec-7f30-4d92-b5cf-6e218c87225a.png"">
-
+<img width=""1840"" alt=""napari-micromanager"" src=""https://github.com/pymmcore-plus/napari-micromanager/assets/1609449/e1f395cd-2d57-488e-89e2-b1923310fc2a"">
 
 ## Installation
 
@@ -23802,13 +23798,15 @@ You can install `napari-micromanager` via [pip]:
 
     pip install napari-micromanager
 
-You will also need a Qt backend such as PySide2/6, or PyQt5/6.  If you've previously installed napari
-into this environment with `pip install napari[all]`, then you will likely already have it. If not,
-you will also need to install a Qt backend of your choice:
+You will also need a Qt backend such as PySide2/6, or PyQt5/6.  **PyQt is
+preferred and receives more testing**. If you've previously installed napari
+into this environment with `pip install napari[all]`, then you will likely
+already have it. If not, you will also need to install a Qt backend of your
+choice:
 
     pip install pyqt5  # or any of {pyqt5, pyqt6, pyside2, pyside6}
 
-### Getting micromanager adapters:
+### Getting micromanager adapters
 
 The easiest way to get the micromanager adapters is to use:
 
@@ -23834,6 +23832,7 @@ export MICROMANAGER_PATH='/path/to/Micro-Manager-...'
 Contributions are very welcome.
 
 ### Launching napari with plugin
+
 You can launch napari and automatically load this plugin using the `launch-dev.py` script:
 
 ```bash
@@ -23855,21 +23854,10 @@ Distributed under the terms of the [BSD-3] license,
 
 If you encounter any problems, please [file an issue] along with a detailed description.
 
-[napari]: https://github.com/napari/napari
-[Cookiecutter]: https://github.com/audreyr/cookiecutter
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
 [BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
 [file an issue]: https://github.com/pymmcore-plus/napari-micromanager/issues
-[napari]: https://github.com/napari/napari
 [pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-","['Development Status :: 3 - Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'Intended Audience :: Science/Research', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: System :: Hardware', 'Topic :: System :: Hardware :: Hardware Drivers', 'Topic :: Utilities']","['Source, https://github.com/pymmcore-plus/napari-micromanager', 'Tracker, https://github.com/pymmcore-plus/napari-micromanager/issues']",,,napari-micromanager.MainWindow,,,,,https://pypi.org/project/napari-micromanager,https://github.com/tlambert03/napari-micromanager,
+","['Development Status :: 3 - Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'Intended Audience :: Science/Research', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Topic :: System :: Hardware', 'Topic :: System :: Hardware :: Hardware Drivers', 'Topic :: Utilities']","['Source, https://github.com/pymmcore-plus/napari-micromanager', 'Tracker, https://github.com/pymmcore-plus/napari-micromanager/issues']",,,napari-micromanager.MainWindow,,,,,https://pypi.org/project/napari-micromanager,https://github.com/tlambert03/napari-micromanager,
 234,napari-microscope,0.0.3,2022-02-23,2023-06-18,napari-microscope,David Miguel Susano Pinto,david.pinto@bioch.ox.ac.uk,GPL-3.0-or-later,https://pypi.org/project/napari-microscope/,Napari plugin for Microscope.,>=3.6,"['Pyro4', 'microscope', 'napari-plugin-engine']","Microscope control plugin for Napari via Python Microscope.
 
 Current development stage is whatever comes before alpha and ""proof of
@@ -30102,7 +30090,7 @@ Maintained by [Milad Adibi](mailto:milad.adibi@uzh.ch) from February 2023.
 
 [MIT](https://github.com/BodenmillerGroup/napari-roi/blob/main/LICENSE)
 ","['Framework :: napari', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'License :: OSI Approved :: MIT License']","['Bug Tracker, https://github.com/BodenmillerGroup/napari-roi/issues', 'Documentation, https://github.com/BodenmillerGroup/napari-roi#README.md', 'Source Code, https://github.com/BodenmillerGroup/napari-roi', 'User Support, https://github.com/BodenmillerGroup/napari-roi/issues']",,,napari-roi.ROIWidget,,,,,https://pypi.org/project/napari-roi,https://github.com/BodenmillerGroup/napari-roi,
-304,ROI Manager,0.0.2,,,napari-roi-manager,Hanjin Liu,Hanjin Liu <liuhanjin-sc@g.ecc.u-tokyo.ac.jp>,,,A ROI Manager Widget with an UI similar to ImageJ,>=3.9,"['numpy', 'qtpy', ""napari; extra == 'testing'"", ""pyqt5; extra == 'testing'"", ""pytest; extra == 'testing'"", ""pytest-cov; extra == 'testing'"", ""pytest-qt; extra == 'testing'"", ""tox; extra == 'testing'""]","# napari-roi-manager
+304,ROI Manager,0.0.3,,,napari-roi-manager,Hanjin Liu,Hanjin Liu <liuhanjin-sc@g.ecc.u-tokyo.ac.jp>,,,A ROI Manager Widget with an UI similar to ImageJ,>=3.9,"['numpy', 'qtpy', ""napari; extra == 'testing'"", ""pyqt5; extra == 'testing'"", ""pytest; extra == 'testing'"", ""pytest-cov; extra == 'testing'"", ""pytest-qt; extra == 'testing'"", ""tox; extra == 'testing'""]","# napari-roi-manager
 
 [![License BSD-3](https://img.shields.io/pypi/l/napari-roi-manager.svg?color=green)](https://github.com/hanjinliu/napari-roi-manager/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-roi-manager.svg?color=green)](https://pypi.org/project/napari-roi-manager)
@@ -30166,7 +30154,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [tox]: https://tox.readthedocs.io/en/latest/
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/
-","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/hanjinliu/napari-roi-manager/issues', 'Documentation, https://github.com/hanjinliu/napari-roi-manager#README.md', 'Homepage, https://github.com/hanjinliu/napari-roi-manager', 'Source Code, https://github.com/hanjinliu/napari-roi-manager', 'User Support, https://github.com/hanjinliu/napari-roi-manager/issues']",,,napari-roi-manager.make_qwidget,,,,,https://pypi.org/project/napari-roi-manager,,
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/hanjinliu/napari-roi-manager/issues', 'Documentation, https://github.com/hanjinliu/napari-roi-manager#README.md', 'Homepage, https://github.com/hanjinliu/napari-roi-manager', 'Source Code, https://github.com/hanjinliu/napari-roi-manager', 'User Support, https://github.com/hanjinliu/napari-roi-manager/issues']",,,napari-roi-manager.make_qwidget,,,,,https://pypi.org/project/napari-roi-manager,,
 305,Roi Registration,0.1.4,2022-06-16,2023-11-07,napari-roi-registration,Andrea Bassi and Giorgia Tortora,giorgia.tortora@polimi.it,BSD-3-Clause,https://github.com/GiorgiaTortora/napari-roi-registration,A plugin to perform registration of regions-of-interests in time-lapse data.,>=3.8,"['numpy', 'magicgui', 'qtpy', 'scikit-image', 'opencv-python', 'matplotlib', 'openpyxl', ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'"", ""scikit-image ; extra == 'testing'"", ""opencv-python-headless ; extra == 'testing'"", ""matplotlib ; extra == 'testing'"", ""openpyxl ; extra == 'testing'""]","# napari-roi-registration
 
 [![License](https://img.shields.io/pypi/l/napari-roi-registration.svg?color=green)](https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/LICENSE)
@@ -33601,7 +33589,7 @@ If you encounter any problems or would like some support, please [file an issue]
 
 
 ","['Development Status :: 3 - Alpha', 'Intended Audience :: Science/Research', 'Framework :: napari', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/sebgoti/napari-spacetx-explorer/issues', 'Documentation, https://github.com/sebgoti/napari-spacetx-explorer#README.md', 'Source Code, https://github.com/sebgoti/napari-spacetx-explorer', 'User Support, https://github.com/sebgoti/napari-spacetx-explorer/issues']",napari-spacetx-explorer.napari_get_reader,,napari-spacetx-explorer.napari_experimental_provide_function,,['*'],,,https://pypi.org/project/napari-spacetx-explorer,https://github.com/sebgoti/napari-spacetx-explorer,
-335,Spatial Correlation Plotter,0.0.2,,,napari-spatial-correlation-plotter,Jules Vanaret,jules.vanaret@univ-amu.fr,MIT,,A plugin to compute and display spatial correlation histograms in Napari,>=3.8,"['numpy', 'magicgui', 'matplotlib', 'scikit-image', 'qtpy', 'pyclesperanto-prototype', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'pyqt5; extra == ""testing""']","# :herb: napari-spatial-correlation-plotter
+335,Spatial Correlation Plotter,0.0.3,,,napari-spatial-correlation-plotter,Jules Vanaret,jules.vanaret@univ-amu.fr,MIT,,A plugin to compute and display spatial correlation histograms in Napari,>=3.8,"['numpy', 'magicgui', 'matplotlib', 'scikit-image', 'qtpy', 'pyclesperanto-prototype', 'tapenade', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'pyqt5; extra == ""testing""']","# :herb: napari-spatial-correlation-plotter
 
 [![License MIT](https://img.shields.io/pypi/l/napari-spatial-correlation-plotter.svg?color=green)](https://github.com/jules-vanaret/napari-spatial-correlation-plotter/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/napari-spatial-correlation-plotter.svg?color=green)](https://pypi.org/project/napari-spatial-correlation-plotter)
@@ -33614,9 +33602,9 @@ If you encounter any problems or would like some support, please [file an issue]
 
 A plugin to dynamically interact with the spatial correlation heatmap obtained by comparing two continuous fields of biophysical properties in 3D tissues.
 
-`napari-spatial-correlation-plotter` is a [napari] plugin that is part of the [Tapenade](https://github.com/GuignardLab/tapenade) project. Tapenade is a tool for the analysis of dense 3D tissues acquired with deep imaging microscopy. It is designed to be user-friendly and to provide a comprehensive analysis of the data.
-
 If you use this plugin for your research, please [cite us](https://github.com/GuignardLab/tapenade/blob/main/README.md#how-to-cite).
+
+`napari-spatial-correlation-plotter` is a [napari] plugin that is part of the [Tapenade](https://github.com/GuignardLab/tapenade) project. Tapenade is a tool for the analysis of dense 3D tissues acquired with deep imaging microscopy. It is designed to be user-friendly and to provide a comprehensive analysis of the data.
 
 ## Overview
 
@@ -33664,7 +33652,15 @@ Steps:
 11. You can click on the `Save the figure` button to save the current plot (many formats are available, including .png, .svg, .jpeg).
 12. You can interact with the plot by manually drawing a region of interest directly on the plot to automatically select and display the corresponding cells in 3D on an independant Napari Labels layer `clustered labels`. By using a left click, you can draw an arbitrary shape. By using a right click, you can draw a rectangle. If `Shift` is pressed while drawing, several groups of cells can appear on the `clustered labels` layer, each with a different color.
 13. To trigger the grid view like in the example image, you can click on the `Toggle grid mode` button. This will display all layers in a grid view. By right clicking the button, you can parametrize the grid view (e.g number of columns, number of rows, etc).
-14. You can switch between 2D and 3D view at all time by clicking on the `Toggle 2D/3D view` button (it resembles a square when in 2D mode, or a cube when in 3D mode). 
+14. You can switch between 2D and 3D view at all time by clicking on the `Toggle 2D/3D view` button (it resembles a square when in 2D mode, or a cube when in 3D mode).
+
+## Acknowledgements
+
+The ""napari-clusters-plotter"" plugin [1] heavily inspired this plugin, most notably the `SelectFromCollection`, `MplCanvas` and `FigureToolbar` classes. The `PlotterWidget` class has been modified for the specific use case of this plugin, but the core functionalites have been adapted directly.
+napari-clusters-plotter source code is available [here](https://github.com/BiAPoL/napari-clusters-plotter/tree/main).
+
+
+[1] Zigutyte, L., Savill, R., Müller, J., Zoccoler, M., Wagner, T., & Haase, R. (2023). napari-clusters-plotter. Zenodo. https://doi.org/10.5281/zenodo.5884657
 
 ## Contributing
 
