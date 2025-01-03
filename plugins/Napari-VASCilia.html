@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -295,7 +295,7 @@ pre > code:last-child {
 <p>Furthermore, we are committed to supporting research growth with a comprehensive training section for those looking to explore different staining techniques or develop new segmentation models through annotation and refinement.</p>
 <p>VASCilia is here to support researchers in their quest for deeper understanding and innovation in the study of cochlear structures.<br />
 <em><a href="https://youtu.be/MwMOxJQ_elo">click the image to see a highlights reel of the plugin</a></em>  </p>
-<p><a href="https://youtu.be/MwMOxJQ_elo"><img alt="Watch the video" src="images/VASCilia_pipeline.png" /></a></p>
+<p><a href="https://youtu.be/MwMOxJQ_elo"><img alt="Watch the video" src="images/VASCilia_pipeline2.png" /></a></p>
 <p><em><a href="https://youtu.be/mNPJ1g0vEW8">Click me to see a video demo of the entire workflow</a></em>  </p>
 <h2>How to install :</h2>
 <p>STEP1[Install WSL]:<br />
@@ -303,7 +303,7 @@ pre > code:last-child {
 wsl --install -d Ubuntu-20.04
 2. After the setup successfully completes, reboot your computer. Open Ubuntu by typing "Ubuntu" in the search bar. A pop-up window for Ubuntu will appear. To check if CUDA and the GPU are correctly installed and available, type nvidia-smi in the terminal  </p>
 <p>STEP2[Download the deep learning trained models]:
-1. Download the VASCilia_trained_models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&amp;dl=0<br />
+1. Download the VASCilia_trained_models from https://www.dropbox.com/scl/fo/jsvldda8yvma3omfijxxn/ALeDfYUbiOuj69Flbc728rs?rlkey=mtilfz33qiizpul7uyisud5st&amp;st=41kjlbw0&amp;dl=0 
 now you should have a folder called 'models'</p>
 <ul>
 <li>📁 <strong>models</strong> <code>[Trained models]</code><ul>
@@ -312,6 +312,8 @@ now you should have a folder called 'models'</p>
 <li>📁 <strong>region_prediction</strong> <code>[has weights for region prediction]</code></li>
 <li>📁 <strong>seg_model</strong>  <code>[has the weights for the 3D instance segmentation model]</code></li>
 <li>📁 <strong>Train_predict_stereocilia_exe</strong> <code>[executible needed by the plugin to segment and retrain the model using WSL]</code>  </li>
+<li>📁 <strong>ZFT_trim_model</strong> <code>[deep learning model weights for z focus tracker algorithm]</code>  </li>
+<li>📁 <strong>rotation_correction_model</strong> <code>[deep learning model weights for correcting the orientation of the stack]</code>  </li>
 </ul>
 </li>
 </ul>
@@ -320,7 +322,7 @@ download one sample from our datasets to try in this link https://www.dropbox.co
 create a folder, called raw_data folder and put the downloaded dataset inside the raw_data folder</p>
 <ul>
 <li>📁 <strong>raw_data</strong> <code>[raw data (stacks) is placed here]</code><ul>
-<li>📄 Litter 12 Mouse 1 MIDDLE - delBUNdelCAP_Airyscan Processing.czi</li>
+<li>📄 Litter 12 Mouse 4 MIDDLE - delBUNdelCAP_Airyscan Processing.czi</li>
 </ul>
 </li>
 </ul>
@@ -339,12 +341,14 @@ pip install -r requirements.txt
 pip install -e .
 napari</code></p>
 <h2>Option B: Installing via PyPI:</h2>
-<p><code>sh
-conda create -y -n napari-VASCilia -c conda-forge python=3.10    
-conda activate napari-VASCilia    
-pip install -r requirements.txt
-pip install napari-vascilia
-napari</code>
+<p>```sh
+conda create -y -n napari-VASCilia -c conda-forge python=3.10  <br />
+conda activate napari-VASCilia </p>
+<h1>Download the requirements.txt file from this repository and ensure you have it in your working directory.</h1>
+<p>pip install -r requirements.txt
+pip install Napari-VASCilia
+napari<br />
+```
 Post-installation:<br />
 1. Activate the plugin through Plugins -&gt; VASCilia UI (Napari-VASCilia).
 2. This will generate the config.json file at C:/Users/Username/.napari-vascilia/config.json. Update the paths in config.json as needed.
@@ -359,20 +363,26 @@ config.json will be generated upon running the plugin for the first time.</p>
 <p>Please update the /.../ portion according to your paths:</p>
 <p><code>sh
 {
-"rootfolder": "C:/Users/.../processed_data/",
-"wsl_executable": "C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2",
-"model": "C:/Users/.../models/seg_model/stereocilia_v7/",
-"model_output_path": "C:/Users/.../models/new_seg_model/stereocilia_v8/",
-"model_region_prediction": "C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth",
-"model_celltype_identification": "C:/Users/.../models/cell_type_identification_model/",
-"flag_to_resize": false,
-"flag_to_pad": false,
-"resize_dimension": 1200,
-"pad_dimension": 1500,
-"button_width": 60,
-"button_height": 22
+    "rootfolder": "C:/Users/.../processed_data/",
+    "wsl_executable": "C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2",
+    "model": "C:/Users/.../models/seg_model/stereocilia_v7/",
+    "model_output_path": "C:/Users/.../models/new_seg_model/stereocilia_v8/",
+    "model_region_prediction": "C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth",
+    "model_celltype_identification": "C:/Users/.../models/cell_type_identification_model/",
+    "ZFT_trim_model": "C:/Users/.../models/ZFT_trim_model/",
+    "rotation_correction_model": "C:/Users/.../models/rotation_correction_model/",
+    "green_channel": 0,
+    "red_channel": 1,
+    "blue_channel": -1,
+    "signal_intensity_channel": 0,
+    "flag_to_resize": false,
+    "flag_to_pad": false,
+    "resize_dimension": 1200,
+    "pad_dimension": 1500,
+    "button_width": 100,
+    "button_height": 35
 }</code></p>
-<p>Congratulations :) &#127881;, now you are ready to run: Run Napari_VASCilia_v1_0_0.py  </p>
+<p>Congratulations :) &#127881;, now you can enjoy working with the plugin. </p>
 <h2>Unique about VASCilia :</h2>
 <p>VASCilia saves all the intermediate results and the variables inside a pickle file while the user is using it in a very effiecint way. That allows a super fast uploading for the analysis if the user or their supervisor wants to keep working or review the analysis steps.<br />
 <em><a href="https://youtu.be/Sxm_fsjoWL0">Click me to learn how to upload a z-stack</a></em>  </p>
@@ -382,8 +392,8 @@ config.json will be generated upon running the plugin for the first time.</p>
 <ol>
 <li>'Open CZI Cochlea Files and Preprocess' button: read the CZI file.</li>
 <li>'Upload Processed CZI Stack' button: Incase you already have processed the stack, then just uplead your Analysis_state.pkl that usually has all the variables needed to upload your analysis</li>
-<li>'Trim Full Stack' button: this button allows you to choose only the slices of interest (will be automated in the near future)</li>
-<li>"Rotate' buttom: this button allows to rotate the stack to have proper analysis (will be automated in the near future)  </li>
+<li>'Trim Full Stack' button: this button allows you to choose only the slices of interest (has been automated in v_1_1_0)</li>
+<li>"Rotate' buttom: this button allows to rotate the stack to have proper analysis (has been automated in v_1_1_0)  </li>
 <li>Segment with 3DBundleSeg: it is a two steps algorithm (2D detection + multi-object assignment algorithm across all slices) to produce robust 3D detection. 3DBundleSeg is the first instance segmentation model for stereocilia bundles in the literature. It is trained on P5 and P21 3D stacks (thousands of 2D instances) and it produces highly acccurate boundary delineation even in the most challenging datasets. Here are some examples:  </li>
 </ol>
 <p align="center">
@@ -438,6 +448,26 @@ config.json will be generated upon running the plugin for the first time.</p>
 7. Train New Model for 3DBundleSeg 'button': this button will start the training.</p>
 <p>VASCilia also equipped with two more buttons for resetting (to facilitate transitions between analyzing several stacks) and also exit VASCilia.<br />
 We are still working on the documentation, so this gihub will be continiuosly updated.</p>
+<h2>Multi-Batch Processing Feature: Required File</h2>
+<p>The <strong>Multi-Batch Processing</strong> feature in this package requires an additional file: <code>track_me_SORT_v3_exe.exe</code>. This file is <strong>not included</strong> in the repository or the pip installation due to size constraints.</p>
+<h3>Download the File</h3>
+<p>You can download the file from the following link:<br />
+[Download track_me_SORT_v3_exe.exe]*[<a href="https://www.dropbox.com/scl/fo/sud3ziayvo7efcsbzgrd7/ACeJ6uMjNLcyk7ev0upJREE?rlkey=e6nzvpz8aoebzq4w3o5f339le&amp;st=1qtmf3mf&amp;dl=0">https://www.dropbox.com/your-file-link</a>]</p>
+<h3>If You Clone the Repository</h3>
+<ol>
+<li>Download the file from the link above.</li>
+<li>Place the file in the following directory within the cloned repository: src/napari_vascilia/core/</li>
+</ol>
+<h3>If You Installed the Package via pip</h3>
+<ol>
+<li>Download the file from the link above.</li>
+<li>Locate the installation directory for the package. You can find the installation path by running the following Python code: 
+<code>python
+import napari_vascilia
+print(napari_vascilia.__file__)</code></li>
+<li>Place the downloaded file in the following directory: <package_installation_path>/src/napari_vascilia/core/<br />
+Note: All other features of the package will function as expected without this file. This file is exclusively for batch processing of multiple files.</li>
+</ol>
 <h2>Testing Other Lab Data</h2>
 <p>Liberman Data <em><a href="https://youtu.be/PIG3q7G6Xr0">Click me to see a video demo of the entire workflow</a></em><br />
 Artur Indzhykulian Data <em><a href="https://youtu.be/WseYK4Zn-3o">Click me to see a video demo of the entire workflow</a></em>  </p>
@@ -478,7 +508,7 @@ revisions and updates to the manuscript.  </p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -613,7 +643,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>

@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.4.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -259,15 +259,23 @@ pre > code:last-child {
 <p><strong>Notes:</strong> 
 - It is recommended (but usually not required) to <a href="https://docs.python.org/3/library/venv.html">create a new environment</a> for Nellie to avoid conflicts with other packages.
 - May take several minutes to install.
-- Choose one of the following methods, and only one!</p>
+- Choose one of the following methods, and only one!
+- If you do not already have Python 3.9 or higher installed, download it via the <a href="[url](https://www.python.org/downloads/)">python website</a>.</p>
+<p>https://github.com/user-attachments/assets/50b1cd4b-6df7-4f19-8db3-4dcc03388513</p>
 <h3>Option 1. Via Napari plugin manager:</h3>
-<p>If not already installed, install Napari: https://napari.org/stable/tutorials/fundamentals/installation
-1. Open Napari
-2. Go to <code>Plugins &gt; Install/Uninstall Plugins...</code>
-3. Search for Nellie and click <code>Install</code></p>
+<p>If not already installed, install Napari: https://napari.org/stable/tutorials/fundamentals/installation</p>
+<p>https://github.com/user-attachments/assets/0d44abe5-f575-4bd4-962a-2c102faf737c</p>
+<ol>
+<li>Open Napari</li>
+<li>Go to <code>Plugins &gt; Install/Uninstall Plugins...</code></li>
+<li>Search for Nellie and click <code>Install</code></li>
+<li>Make sure Nellie is updated to the latest version.</li>
+<li>Restart Napari.</li>
+</ol>
 <h3>Option 2. Via PIP:</h3>
+<p>https://github.com/user-attachments/assets/b63df093-e3e1-49cb-925b-7efce36b9015</p>
 <p><code>bash
-pip install nellie</code></p>
+python3 -m pip install nellie</code></p>
 <h4>Option 2a for NVIDIA GPU acceleration, optional (Windows, Linux):</h4>
 <p>To use GPU acceleration via NVIDIA GPUs, you also need to install cupy:
 <code>bash
@@ -278,7 +286,6 @@ pip install cupy-cudaXXx</code>
 - Mac Metal GPU-acceleration coming... eventually.</p>
 <h2>Usage</h2>
 <p>The sample dataset shown below is in the repo if you want to play around without, and can be downloaded <a href="https://github.com/aelefebv/nellie/tree/main/sample_data">here</a>.</p>
-<p>https://github.com/aelefebv/nellie/assets/26515909/05199fed-ed8c-4237-b3ba-0a3f4cdcb337</p>
 <h3>General data preparation</h3>
 <ul>
 <li>It is strongly recommended to have your data in a parsable format, such as .ome.tif, .nd2, or other raw data files from microscopes.</li>
@@ -286,7 +293,12 @@ pip install cupy-cudaXXx</code>
 <li>If the metadata cannot be parsed, you will have to manually enter it.</li>
 <li>It is also recommended to crop your image as much as possible to reduce processing time and memory usage. But really, unless you have massive lightsheet data, it should be pretty fast (seconds to minutes on a typical modern desktop computer).</li>
 </ul>
-<p>https://github.com/aelefebv/nellie/assets/26515909/372d07a8-15a0-4926-8594-108dd4b97280</p>
+<h3>3D + Timeseries dataset</h3>
+<p>https://github.com/user-attachments/assets/531f76ee-f58e-4058-b5dc-4fdf09af3660</p>
+<h3>3D (no Timeseries) dataset</h3>
+<p>https://github.com/user-attachments/assets/30d55bfa-bade-4987-88f0-255bb36cb7e8</p>
+<h3>2D + Timeseries dataset</h3>
+<p>https://github.com/user-attachments/assets/d534c6e1-df31-4964-9c12-edff56228be3</p>
 <h3>Running Nellie's processing pipeline</h3>
 <ol>
 <li>Start Napari (open a Terminal and type napari)
@@ -300,17 +312,15 @@ pip install cupy-cudaXXx</code>
 </ul>
 </li>
 <li>*Note, if you are batch processing, the metadata must be the same for all images if any of them are in an incorrect format (this will be fixed eventually). If they are different, but all pass validation, then it will process fine.</li>
-<li>You can preview 2 time points of your image via the <code>Open preview</code> button once the metadata is filled in to ensure it looks correct.</li>
+<li>You can preview your image via the <code>Open preview</code> button once the metadata is filled in to ensure it looks correct.</li>
+<li>From this tab, you can also choose what time points and channel you want to analyze, if your file contains more than one slice in those dimensions.</li>
 <li>Click the <code>Process</code> tab.</li>
-<li>If you have multiple fluorescence channels, select the channel you want to process/analyze.</li>
-<li>If you only want to analyze up to a certain timepoint, you can set this in slider. By default it will run all timepoints.</li>
-<li>If you have odd noise on the edges of your image, check the <code>Remove image edges</code> checkbox.</li>
 <li>You can run the full pipeline with <code>Run Nellie</code>, or run individual steps below.<ul>
 <li>Steps can only be run once its previous step has been run.</li>
 <li>Likewise, visualizations in the <code>Visualization</code> tab can only be opened once its respective step has been run.</li>
 </ul>
 </li>
-<li>All intermediate files and output csvs will be saved to <code>[image_directory]/nellie_output/</code>.</li>
+<li>All intermediate files and output csvs will be saved to <code>[image_directory]/nellie_output/</code>, which can be accessed via the <code>Open output directory</code> button.</li>
 <li>A separate .csv is created for each level of the organellar hierarchy.</li>
 <li>Once features have been exported, Nellie will automatically detect this, and allow analysis via the <code>Analyze</code> tab.</li>
 <li>Analysis at this point is optional, but can be helpful for visualizing, and selectively exporting data.</li>
@@ -326,14 +336,12 @@ pip install cupy-cudaXXx</code>
 <li><code>Mocap Markers</code>: Visualize the mocap markers used for waypoints.</li>
 <li><code>Reassigned Labels</code>: Visualize the organelle and branch instance segmentation masks where voxels are reassigned based on the first timepoint.</li>
 <li>To visualize tracks, open and select one of the segmentation layers.</li>
-<li><code>Alt+Click</code> on a label to visualize the track of that selected organelle/branch across all timepoints.</li>
-<li>If the segmentation labels are selected, it will generate tracks for all voxels in the selected timepoint only.</li>
-<li>If the reassigned labels are selected, you can choose to generate tracks for all voxels across all timepoints.</li>
-<li>You can skip voxels to track so that the area is not too crowded by tracks.</li>
-<li>*Note: If you have a 3D image, toggle to 2D mode via the <code>Toggle 2D/3D view</code> at the bottom left before <code>Alt+Click</code>ing (eventually I'll get it to work while in 3D mode).</li>
+<li>To visualize all tracks of all organelles/branches, click the <code>Visualize all frame labels' tracks</code> button.</li>
+<li>To visualize all tracks of a specific organelle/branch:</li>
+<li>Click on the layer, and use the eyedropper tool at the top to select an organelle/branch to track.</li>
+<li>Click the <code>Visualize selected label's tracks</code>.</li>
 </ol>
 <h3>Using Nellie's analysis plugin</h3>
-<p>https://github.com/aelefebv/nellie/assets/26515909/7f4f09a4-3687-4635-988d-e1d16ad2a4af</p>
 <ol>
 <li>Follow the previous processing steps, you only need to do this once per file as long as you don't move or delete the files.</li>
 <li>Open the <code>Analyze</code> tab, select the hierarchy level you want to visualize from the dropdown.</li>
@@ -387,6 +395,26 @@ pip install cupy-cudaXXx</code>
 <p>https://github.com/aelefebv/nellie/assets/26515909/db76d388-a9cc-4650-b93d-69d357ace418</p>
 <h3>Peroxisomes:</h3>
 <p>https://github.com/aelefebv/nellie/assets/26515909/58bda3cb-6489-4620-8584-a3728cd6b2ec</p>
+<h2>Code contents:</h2>
+<p>Full documentation can be found within the code, and compiled by Sphinx in the file docs/_build/html/index.html</p>
+<h3>Nellie pipeline</h3>
+<p>All the Nellie pipeline code is found within the nellie folder
+- File and metadata loading, and file preparation is found at nellie/im_info/verifier.py
+- Preprocessing is found at nellie/segmentation/filtering.py
+- Segmentation of organelles is found at nellie/segmentation/labelling.py
+- Skeletonization and segmentation of branches is found at nellie/segmentation/networking.py
+- Mocap marker detection is found at nellie/segmentation/mocap_marking.py
+- Mocap marker tracking is found at nellie/tracking/hu_tracking.py
+- Voxel reassignment via flow interpolation is found at nellie/tracking/voxel_reassignment.py
+- Hierarchical feature extraction is found at nellie/feature_extraction/hierarchical.py</p>
+<h3>Nellie Napari plugin</h3>
+<p>All the Napari plugin code is found with the nellie_napari folder
+- The home tab is found at nellie_napari/nellie_home.py
+- The file selection tab is found at nellie_napari/nellie_fileselect.py
+- The processing tab is found at nellie_napari/nellie_processor.py
+- The visualization tab is found at nellie_napari/nellie_visualizer.py
+- The analysis tab is found at nellie_napari/nellie_analysis.py
+- The settings tab is found at nellie_napari/nellie_settings.py</p>
         
 
                                     </div>
@@ -402,7 +430,7 @@ pip install cupy-cudaXXx</code>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.4.1</li>
                                                 </ul>
                                             </div>
                                         </div>
