@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.6</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.9</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">natsort</li><li class="MetadataList_textItem__KKmMN">tapenade>=0.0.13</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">natsort</li><li class="MetadataList_textItem__KKmMN">tapenade>=0.0.14</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -293,19 +293,49 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 <li>A combo box to select the pre-processing function to apply from a list.</li>
 <li>A set of comboxes that allow you to select the layers to apply the function on. If a function does not require a specific layer, the combo box will be greyed out. <code>Image</code> layers correspond to integer or float data, <code>Labels</code> layers correspond to integer data and represent segmented object instances, <code>Mask</code> layers correspond to boolean data and usually represent the sample's large scale mask (inside/outside). All layers must have data of the same shape (same number of dimensions and same dimensions). Layers can be 3D or 3D+time, respectively with the ZYX or TZYX order.
 (2') If a layer does not appear in a combo box, but is present in the Layer List, you can click on the <code>Refresh</code> button to update the list of layers.</li>
-<li>A set of parameters that you can tune to adjust the function's behaviour. The parameters are specific to each function. In case of doubt, you can hover over the parameter name/widget to get a tooltip with a description.</li>
+<li>A set of parameters that you can tune to adjust the function's behaviour. The parameters are specific to each function. In case of doubt, you can click on the little <code>[?]</code> button next to the widget to get a tooltip with a description.</li>
 <li>A <code>Run function</code> button to apply the function with the current parameters to the previously selected layers.</li>
 </ol>
 <h3>Tab 2: The macro recording feature</h3>
-<p>In progress...</p>
+<h4>A. Recording a macro</h4>
+<p><img src="imgs/proc_macro_1.png" width=300></p>
+<p>To record a macro, click on the <code>Macro recording</code> tab and follow these steps:</p>
+<ol>
+<li>Click on <code>Choose directory</code> to select a folder where the macro file will be saved.</li>
+<li>Click on <code>Start recording macro</code> to start recording the functions you will apply. At this point, you can start applying sequences of functions to images/segementations/masks that you have already loaded in Napari or that you load in the middle of the recording. </li>
+</ol>
+<p><img src="imgs/proc_macro_2.png" width=300></p>
+<ol>
+<li>When you are finished, click <code>Stop recording and save macro</code>. It will be saved in the JSON (<code>.json</code>) format, and the name will follow the pattern <code>recorder_parameters_YYYY-MM-DD_HH-MM-SS.json</code>.</li>
+</ol>
+<h4>B. Running a macro</h4>
+<p>Macros allow you to run a sequence of functions in batch on folders of input TIFF images (either different frames of the same 3D+t image, or several 3D images). The input images should be in the same folder, and the output will be saved in a folder of your choice. The output of each function will be saved in a separate folder, and the name of the folder will be linked to the name of the function.</p>
+<p><img src="imgs/proc_macro_3.png" width=300></p>
+<p>To run a macro, click on the <code>Macro recording</code> tab and follow these steps:</p>
+<ol>
+<li>Click on <code>Select file</code> to choose the macro file you want to run.</li>
+<li>After specifying the path to the macro file, several path entries with names like <code>Path to folder ([...]) N</code> (e.g <code>Path to folder (['Image'] 1</code>) will appear. Click on the <code>Choose directory</code> button to select the folder where the input images (TIFF files) are located.</li>
+<li>Click on <code>Choose directory</code> under <code>Path to save outputs folders of tifs</code> to select the folder where the results of the pipeline will be saved. Each function call will generate a folder whose name will be linked to the name of the function.</li>
+<li>You can click the <code>Compress when saving</code> checkbox to save the output TIFF images in a compressed format using ZLIB compression. </li>
+<li>Choose the number of workers to use for parallel processing. The default value is 1, which means that the functions will be run sequentially on the images. If you have a multi-core CPU, you can increase this value to speed up the processing. Be careful that setting this value too high can lead to memory issues.</li>
+<li>Click on <code>Run macro</code> to start the processing. You will see as many folders as there are steps in your pipeline, containing the results on each frame.</li>
+</ol>
 <h3>Tab 3: Advanced parameters</h3>
 <p><img src="imgs/proc_2.png" width=300></p>
 <p>The advanced parameters tab is composed of the following elements:</p>
 <ol>
 <li>A checkbox <code>New layers overwrite previous ones</code>: whether the output of the pre-processing functions should be saved as new layers or overwrite the previous ones that were used as input. This can be useful to save memory when you don't need to compare the input and output of a function.</li>
-<li>A checkbox <code>Results are cropped using mask</code>: whether the output of functions are systematically cropped using the mask layer (if it is provided). This can be useful to save memory when you don't need to process the whole image.</li>
-<li>A slider <code># parallel jobs</code>: the number of parallel jobs to use when running a function on a 3D+time input (each frame is processed in parallel). This can be useful to speed up the processing.</li>
 </ol>
+<h2>Demo dataset</h2>
+<p>A demo dataset is available <a href="https://amubox.univ-amu.fr/s/MRdFy3KqQNjpyHa">here</a>.</p>
+<h3>Content</h3>
+<p>This test dataset is composed of a folder <code>folder_raw_data</code> which contains 5 separate frames (3D images), and a macro Json file <code>recorder_parameters.json</code>.  </p>
+<h3>How to use</h3>
+<ul>
+<li>Download the folder <code>folder_raw_data</code>. </li>
+<li>Load one of the image from the folder (either drag and drop, or <code>File&gt;Open file(s)</code>) and start creating your own pipeline.</li>
+<li>To try batch processing through the macro feature, click on the <code>Macro recording tab</code>, choose a path to save the macro Json file, click on <code>Start recording macro</code>, and perform a sequence of function runs of your choice. When you are finished, click <code>Stop recording and save macro</code>. Then specify the path to your macro file below (alternatively, a valid Json file is also made available), the folder where the rest of the frames are located, and the folder where the results of the pipeline will be saved. Click on run macro. You should see as many folders as there are steps in your pipeline, containing the results on each frame.</li>
+</ul>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -331,7 +361,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.6</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.9</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -438,7 +468,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">natsort</li><li class="MetadataList_textItem__KKmMN">tapenade>=0.0.13</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">natsort</li><li class="MetadataList_textItem__KKmMN">tapenade>=0.0.14</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>

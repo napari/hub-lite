@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.8</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.8.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -252,11 +252,11 @@ pre > code:last-child {
 1. Demonstrate the efficacy of our utilities. 
 2. Be used for microscopy annotation of supported cell lines </p>
 <p>Supported cell lines currently include:
-1. HeLa</p>
+1. HeLa
+2. U2OS</p>
 <p>In development cell lines currently include:
-1. U2OS
-2. HT1080
-3. Yeast</p>
+1. HT1080
+2. RPE1</p>
 <p>We've developed a napari application for the usage of this pre-trained network and propose a transfer learning schematic for the handling of new cell lines. </p>
 <h1>Installation</h1>
 <p>We highly recommend installing cell-AAP in a clean conda environment. To do so you must have <a href="https://docs.anaconda.com/free/miniconda/#quick-command-line-install">miniconda</a> or <a href="https://docs.anaconda.com/free/anaconda/">anaconda</a> installed.</p>
@@ -264,12 +264,12 @@ pre > code:last-child {
 <ol>
 <li>
 <p>Create and activate a clean environment </p>
-<pre><code>conda create -n cell-aap-env
+<pre><code>conda create -n cell-aap-env python=3.11.0
 conda activate cell-app-env
 </code></pre>
 </li>
 <li>
-<p>Within this enviroment install pip</p>
+<p>Within this environment install pip</p>
 <pre><code>conda install pip
 </code></pre>
 </li>
@@ -295,7 +295,7 @@ python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 <li>You should now see the Plugin, where you can select an image, display it, and run inference on it. </li>
 </ol>
 <h1>Configs Best Practices</h1>
-<p>If running inference on large volumes of data, i.e. timeseries data &gt;= 300 MB in size, we recommed to procceed in the following manner. </p>
+<p>If running inference on large volumes of data, i.e. timeseries data &gt;= 300 MB in size, we recommend to proceed in the following manner. </p>
 <ol>
 <li>Assemble a small, &lt; 100 MB, substack of your data using python or a program like <a href="https://imagej.net/ij/download.html">ImageJ</a></li>
 <li>Use this substack to find the optimal parameters for your data, (Number of Cells, Confidence)</li>
@@ -305,13 +305,11 @@ python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 <p>| Classifications $\Downarrow$ Detections $\Rightarrow$ | <strong>Too few</strong>                            | <strong>Too many</strong>                             |
 |----------------------------|----------------------------------------|------------------------------------------|
 | <strong>Dropping M-phase</strong>       | Confidence $\Downarrow$ <br> Number of Cells $\Uparrow$ | Confidence $\Downarrow$ <br> Number of cells $\Downarrow$ |
-| <strong>Missclasifying M-phase</strong> | Confidence $\Uparrow$ <br> Number of Cells $\Uparrow$   | Confidence $\Uparrow$ <br> Number of Cells $\Downarrow$   |</p>
-<h1>Intepreting Results</h1>
+| <strong>Misclasifying M-phase</strong> | Confidence $\Uparrow$ <br> Number of Cells $\Uparrow$   | Confidence $\Uparrow$ <br> Number of Cells $\Downarrow$   |</p>
+<h1>Interpreting Results</h1>
 <p>Once inference is complete the following colors indicate class prediction
 - Red: Non-mitotic
-- Blue: Mitotic
-- Purple: Interclass double prediction</p>
-<p>Note: Interclass double predictions are often early prophase cells that the network is not "confident" in, to mitigate such predictions increase the minimum confidence threshold. This will typically result in most double predictions regressing to the Non-mitotic class. </p>
+- Blue: Mitotic</p>
         
 
                                     </div>
@@ -327,7 +325,7 @@ python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.8</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.8.1</li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.8</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -279,16 +279,12 @@ pre > code:last-child {
         <p><a href="https://github.com/szablowskilab/cellpose-counter/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/cellpose-counter.svg?color=green" /></a>
 <a href="https://pypi.org/project/cellpose-counter"><img alt="PyPI" src="https://img.shields.io/pypi/v/cellpose-counter.svg?color=green" /></a>
 <a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/cellpose-counter.svg?color=green" /></a>
-<a href="https://github.com/szablowskilab/cellpose-counter/actions"><img alt="tests" src="https://github.com/szablowskilab/cellpose-counter/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/szablowskilab/cellpose-counter"><img alt="codecov" src="https://codecov.io/gh/szablowskilab/cellpose-counter/branch/main/graph/badge.svg" /></a>
 <a href="https://napari-hub.org/plugins/cellpose-counter"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cellpose-counter" /></a></p>
 <p>A Napari plugin for cell/nuclei counting from a region or interest using
 cellpose models.</p>
 <hr />
 <h2>Installation</h2>
-<p>Option 1: Install in Napari directly under the plugins tab and select
-cellpose-counter.</p>
-<p>Option 2: via <a href="https://pip.pypa.io/en/stable/">pip</a> (or pip alternatives like
+<p>Option 1: via <a href="https://pip.pypa.io/en/stable/">pip</a> (or pip alternatives like
 <a href="https://docs.astral.sh/uv/">uv</a>):</p>
 <p>Below is a minimally working example of setting up a new virtual environment and
 installing the counter module with uv on Unix based systems.</p>
@@ -297,6 +293,21 @@ uv venv # create virtual environment in .venv
 source .venv/bin/activate</p>
 <p>uv pip install "napari[all]" cellpose-counter
 ```</p>
+<p>Option 2: via Docker/Podman. The provide <a href="./Dockerfile">Dockerfile</a> can be used
+to install Napari and the counter plugin along with a preconfigured Xpra server
+using the napari-xpra image. Below is an example of building the image and
+running the application with GPU support.</p>
+<p><code>bash
+podman build -t cellpose-counter .
+podman run -it -d \
+    -p 9876:9876 \
+    -e XPRA_START="python3 -m napari -w cellpose-counter" \
+    --device nvidia.com/gpu=all</code></p>
+<p>Then, navigate to <code>http://localhost:9876</code> to view the application in a virtual
+machine.</p>
+<p>Note: There is a known issue installing the plugin directly from Napari. Please
+see <a href="https://github.com/szablowskilab/cellpose-counter/issues/12">this issue</a>
+for more updates.</p>
 <h2>GPU Acceleration</h2>
 <p>To enable GPU acceleration, you will need a CUDA capable GPU along with the
 <a href="https://developer.nvidia.com/cuda-toolkit">CUDA toolkit</a> and <a href="https://developer.nvidia.com/cudnn">cudNN library</a>.</p>
@@ -336,6 +347,9 @@ like Napari is not doing anything. Notifications are shown in the viewer to
 display import information and a small activity indicator can be seen in the
 bottom right hand corner. If this indicator is spinning, then work is being done
 even if it doesn't look like it.</li>
+<li>In case of a large number of uncounted nuclei, consider modifying the
+segmentation parameters, or use the <code>Continue Counting</code> option to re-run the
+segmentation on uncounted nuclei.</li>
 </ol>
 <h2>Updating</h2>
 <ol>
@@ -381,7 +395,7 @@ publisher={Nature Publishing Group}
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.8</li>
                                                 </ul>
                                             </div>
                                         </div>
