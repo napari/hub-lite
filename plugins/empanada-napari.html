@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2023-06-18</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">opencv-python ==4.9.0.80</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless ==4.9.0.80</li><li class="MetadataList_textItem__KKmMN">napari ==0.4.18</li><li class="MetadataList_textItem__KKmMN">numpy ==1.22</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine >=0.1.4</li><li class="MetadataList_textItem__KKmMN">scikit-image >=0.19</li><li class="MetadataList_textItem__KKmMN">empanada-dl >=0.1.7</li><li class="MetadataList_textItem__KKmMN">numba ==0.59.0</li><li class="MetadataList_textItem__KKmMN">imagecodecs</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">imagehash</li><li class="MetadataList_textItem__KKmMN">mlflow</li><li class="MetadataList_textItem__KKmMN">simpleitk</li><li class="MetadataList_textItem__KKmMN">tqdm</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">torch>=1.10</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.2</li><li class="MetadataList_textItem__KKmMN">zarr>=2.12</li><li class="MetadataList_textItem__KKmMN">albumentations>=1.2</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">cztile</li><li class="MetadataList_textItem__KKmMN">mlflow</li><li class="MetadataList_textItem__KKmMN">opencv-python==4.9.0.80</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless==4.9.0.80</li><li class="MetadataList_textItem__KKmMN">napari==0.4.18</li><li class="MetadataList_textItem__KKmMN">numpy==1.22</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine>=0.1.4</li><li class="MetadataList_textItem__KKmMN">scikit-image>=0.19</li><li class="MetadataList_textItem__KKmMN">numba==0.58.1</li><li class="MetadataList_textItem__KKmMN">imagecodecs</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">imagehash</li><li class="MetadataList_textItem__KKmMN">simpleitk</li><li class="MetadataList_textItem__KKmMN">tqdm</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -254,13 +254,21 @@ pre > code:last-child {
         </style>
         <blockquote>
 <p>[!IMPORTANT]
-<strong>New Version Announcement!</strong>
+<strong>New Version 1.2 Announcement!</strong>
+* New Models:
+  * NucleoNet: A base model for EM instance nucleus segmentation
+  * DropNet: A base model for EM Lipid Droplet instance segmentation
 * New modules 
+  * Archive Model - archives the model into a hidden archive folder 
+  * Create Tiles - Split big images winto small tiles (with Mask/ optional)
+  * Merge Tiles - Opposite of split tiles, create full image from tiles created by create tiles
   * Morph labels - applies morphological operations to labels
   * Count labels - counts and lists the label IDs within the dataset
   * Filter labels - removes small pixel/voxel area labels or labels touching the image boundaries
   * Export and import a model - export or import locally saved model files to use within empanada-napari
-* Updated modules 
+* Updated modules
+  * 2D Inference - now allows ROI inference and filling holes in segmentation label maps
+  * 3D Inference - allows erosion, dilation and fill holes in segmentation to help tackle big split merge errors
   * Export segmentations - now allows 3D segmentations to be exported as a single .tiff image
   * Pick and save finetune/training patches - now allows paired grayscale and label mask images to create training patches 
   * Split label - now allows users to specify new label IDs 
@@ -287,7 +295,7 @@ environment in order to avoid dependency conflicts. </p>
 <p>empanada-napari works with python=3.9 or lower</p>
 <p>It's recommended to have installed napari through <a href="https://docs.conda.io/en/latest/miniconda.html">conda</a>. Then to install this plugin:</p>
 <p><code>shell
-pip install empanada-napari==1.1.1</code></p>
+pip install empanada-napari==1.2</code></p>
 <p>Launch napari:</p>
 <p><code>shell
 napari</code></p>
@@ -299,7 +307,7 @@ be sure to activate it and uninstall the old empanada-napari.</p>
 pip uninstall empanada-napari</code></p>
 <p>Then install the newest version:</p>
 <p><code>shell
-pip install empanada-napari==1.1.1</code></p>
+pip install empanada-napari==1.2</code></p>
 <p><img alt="empanada" src="images/demo.gif" /></p>
 <h2>GPU Support</h2>
 <p><strong>Note: Mac doesn't support NVIDIA GPUS. This section only applies to Windows and Linux systems.</strong></p>
@@ -353,7 +361,7 @@ conda install pytorch cudatoolkit=11.3 -c pytorch</code></p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -363,7 +371,7 @@ conda install pytorch cudatoolkit=11.3 -c pytorch</code></p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2023-06-18</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -460,7 +468,7 @@ conda install pytorch cudatoolkit=11.3 -c pytorch</code></p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">opencv-python ==4.9.0.80</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless ==4.9.0.80</li><li class="MetadataList_textItem__KKmMN">napari ==0.4.18</li><li class="MetadataList_textItem__KKmMN">numpy ==1.22</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine >=0.1.4</li><li class="MetadataList_textItem__KKmMN">scikit-image >=0.19</li><li class="MetadataList_textItem__KKmMN">empanada-dl >=0.1.7</li><li class="MetadataList_textItem__KKmMN">numba ==0.59.0</li><li class="MetadataList_textItem__KKmMN">imagecodecs</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">imagehash</li><li class="MetadataList_textItem__KKmMN">mlflow</li><li class="MetadataList_textItem__KKmMN">simpleitk</li><li class="MetadataList_textItem__KKmMN">tqdm</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">torch>=1.10</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.2</li><li class="MetadataList_textItem__KKmMN">zarr>=2.12</li><li class="MetadataList_textItem__KKmMN">albumentations>=1.2</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">cztile</li><li class="MetadataList_textItem__KKmMN">mlflow</li><li class="MetadataList_textItem__KKmMN">opencv-python==4.9.0.80</li><li class="MetadataList_textItem__KKmMN">opencv-python-headless==4.9.0.80</li><li class="MetadataList_textItem__KKmMN">napari==0.4.18</li><li class="MetadataList_textItem__KKmMN">numpy==1.22</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine>=0.1.4</li><li class="MetadataList_textItem__KKmMN">scikit-image>=0.19</li><li class="MetadataList_textItem__KKmMN">numba==0.58.1</li><li class="MetadataList_textItem__KKmMN">imagecodecs</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">imagehash</li><li class="MetadataList_textItem__KKmMN">simpleitk</li><li class="MetadataList_textItem__KKmMN">tqdm</li></ul>
                                             </div>
                                         </div>
                                     </div>

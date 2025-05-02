@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2024-04-10</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">click</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">click</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -269,15 +269,15 @@ To do this, you need to:</p>
 conda activate fatemap
 </code></pre>
 <p>And then, you can install <code>in-silico-fate-mapping</code> via <a href="https://pypi.org/project/pip/">pip</a> and other additional useful packages:</p>
-<pre><code>pip install ultrack napari-ome-zarr napari[all] in-silicio-fate-mapping
+<pre><code>pip install napari-ome-zarr napari[all] in-silico-fate-mapping
 </code></pre>
 <p>To install the latest development version :</p>
 <pre><code>pip install git+https://github.com/royerlab/in-silico-fate-mapping.git
 </code></pre>
 <h2>IO file format</h2>
 <p>This plugin does not depend on a specific file format, the only requirement is using a <code>Track</code> layer from napari.</p>
-<p>Despite this, we ship a reader and writer interface. It supports <code>.csv</code> files with the following reader <code>TrackID, t, (z), y, x</code>, <code>z</code> is optional.
-Such that each tracklet has a unique <code>TrackID</code> and it's composed of a sequence o time and spatial coordinates.</p>
+<p>Despite this, we ship a reader and writer interface. It supports <code>.csv</code> files with the following reader <code>track_id, t, (z), y, x</code>, <code>z</code> is optional.
+Such that each tracklet has a unique <code>track_id</code> and it's composed of a sequence o time and spatial coordinates.</p>
 <p>This is extremely similar to how napari store tracks, more information can be found <a href="https://napari.org/stable/howtos/layers/tracks.html">here</a>.</p>
 <p>Divisions are not supported at the moment.</p>
 <h2>Usage Example</h2>
@@ -289,7 +289,7 @@ import pandas as pd
 from in_silico_fate_mapping.fate_mapping import FateMapping</p>
 <p>tracks = pd.read_csv("tracks.csv")</p>
 <p>fate_map = FateMapping(radius=5, n_samples=25, bind_to_existing=False, sigma=1)
-fate_map.data = tracks[["TrackID", "t", "z", "y", "x"]]</p>
+fate_map.data = tracks[["track_id", "t", "z", "y", "x"]]</p>
 <p>source = tracks[tracks["t"] == 0].sample(n=1)</p>
 <p>tracks = fate_map(source[["t", "z", "y", "x"]])</p>
 <p>napari.view_tracks(tracks)
@@ -307,7 +307,7 @@ tracks_path = "http://public.czbiohub.org/royerlab/zebrahub/imaging/single-objec
 viewer.window.add_dock_widget(FateMappingWidget(viewer))</p>
 <p>viewer.open(image_path, plugin="napari-ome-zarr")</p>
 <p>tracks = pd.read_csv(tracks_path)
-viewer.add_tracks(tracks[["TrackID", "t", "z", "y", "x"]])
+viewer.add_tracks(tracks[["track_id", "t", "z", "y", "x"]])
 viewer.add_points(name="Markers", ndim=4)</p>
 <p>napari.run()
 ```</p>
@@ -338,7 +338,7 @@ viewer.add_points(name="Markers", ndim=4)</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -348,7 +348,7 @@ viewer.add_points(name="Markers", ndim=4)</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2024-04-10</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -445,7 +445,7 @@ viewer.add_points(name="Markers", ndim=4)</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">click</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">click</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
