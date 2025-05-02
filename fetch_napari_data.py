@@ -155,8 +155,8 @@ Plugin_page_columns = ['display_name', 'version', 'created_at','modified_at', 'n
 df_plugins = df_plugins[Plugin_page_columns]
 
 # Convert and format 'created_at' and 'modified_at' columns
-df_plugins['created_at'] = pd.to_datetime(df_plugins['created_at']).dt.date
-df_plugins['modified_at'] = pd.to_datetime(df_plugins['modified_at']).dt.date
+df_plugins['created_at'] = pd.to_datetime(df_plugins['created_at'], format='mixed').dt.date
+df_plugins['modified_at'] = pd.to_datetime(df_plugins['modified_at'], format='mixed').dt.date
 
 # Apply the function to the 'home' column to classify the websites
 df_plugins['home_type'] = df_plugins['home'].apply(classify_website)
