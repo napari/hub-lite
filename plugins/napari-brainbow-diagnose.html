@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2023-06-18</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pooch</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pre-commit ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pooch</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pre-commit; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -258,38 +258,37 @@ pre > code:last-child {
 <a href="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/actions"><img alt="tests" src="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/workflows/tests/badge.svg" /></a>
 <a href="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-brainbow-diagnose"><img alt="codecov" src="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/branch/main/graph/badge.svg" /></a>
 <a href="https://napari-hub.org/plugins/napari-brainbow-diagnose"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-brainbow-diagnose" /></a></p>
-<p>Explore image in channel coordinate space.
-Brainbow dataset have unique features that need to be addressed by specialized tools. This plugin aims at visualize and diagnose brainbow dataset.
-In particular we want to interact with the distribution of the dataset in the channel space.</p>
+<p>Explore image in channel coordinate spaces.</p>
+<p><strong>Original motivation</strong>: Brainbow dataset have unique features that need to be addressed by specialized tools.
+This plugin allows you to visualize the distribution of the channel ratio interactively in the image space and channel spaces.</p>
+<p>You can also use this plugin along with the <a href="https://github.com/BiAPoL/napari-clusters-plotter?tab=readme-ov-file#installation"><code>napari-cluster-plotter</code> plugin</a> to interact with individual objects.</p>
 <p><img alt="demo_gif" src="https://raw.githubusercontent.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/main/docs/demo_napari-brainbow-diagnose.gif" /></p>
-<h2>Usage</h2>
-<p>You can also look at the <a href="docs/demo.ipynb">demo notebook</a>
-Find all menus under <code>Plugins &gt; napari-brainbow-diagnose &gt; Diagnose Brainbow Image</code></p>
-<h3>Choose your dataset</h3>
+<h2>Available Channel space transformation</h2>
+<p>The following channel spaces are available:</p>
+<p><img alt="image|width=10" src="https://github.com/user-attachments/assets/0dae9090-da16-4653-b466-a08289e061ea" /></p>
+<p>From Cartesian RGB:
+- (a) Maxwell triangle (ternary plot) <a href="https://en.wikipedia.org/wiki/Ternary_plot">illustration</a>
+- (c) Hue-Saturation wheel <a href="https://en.wikipedia.org/wiki/File:Hsl-hsv_models.svg">illustration (g)</a>
+- (e) Spherical coordinates (Theta, Phi and Radius) <a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">illustration</a>
+- (g,i) Hue-Saturation-Value planes <a href="https://en.wikipedia.org/wiki/File:Hsl-hsv_models.svg">illustration (b)(f)</a></p>
+<h2>Example Notebooks</h2>
+<p>You can use this plugin to visualize channel space of:
+- interactively every voxel in the image (see <a href="docs/demo.ipynb">demo notebook</a>)
+- interactively every object (aka center point) in the image (see <a href="docs/cluster_plotter_compatibility.ipynb">demo notebook</a>). To use this notebook you need to install <a href="https://github.com/BiAPoL/napari-clusters-plotter?tab=readme-ov-file#installation"><code>napari-cluster-plotter</code> plugin</a>.
+- Not interactive in matplotlib to export figures: (see <a href="docs/plot_color_space_matplotlib.ipynb">demo notebook</a>)</p>
+<h2>Example Datasets</h2>
 <p>If you want to use your dataset, you have to format it such as each channel is in one distinct <code>napari.Layers</code>
 You can open test dataset to try this plugin in <code>File &gt; Open Sample &gt; napari-brainbow-diagnose</code>.</p>
 <ul>
 <li>The RGB Cube is an array with shape (3x256x256x256) cube : Great to check how the plugin work when all color are represented</li>
-<li>Chrom Cortex Sample is an array with shape (3x256x256x256) #Hugo : Real life brainbow image (Cortex E18 Emx1Cre) !</li>
+<li>ChroMS Cortex Sample is an array with shape (3x256x256x256) #Hugo : Real life brainbow image (Cortex E18 Emx1Cre) !</li>
 </ul>
 <p>Once you have your layers you can use the dropdown and select the corresponding layer. It is advised to match the <code>red, green, blue</code> order so the ratio you see on the napari viewer corresponds to the Hue-Saturation Wheel of the plugin.</p>
-<h3>Get Channel Ratio Density of the image</h3>
-<p>When you click on <code>Compute brainbow image density</code> you will populate the Hue-Saturation density Wheel.
-This should allow you to quickly see which ratio is more present in your image. You can see the corresponding ratio according to the "HS Color wheel" on the right.
-For example here on this screenshot we can see that:</p>
-<ul>
-<li>there is a high number of non saturated red-only ratio. (2)</li>
-<li>there is not a high number of non saturated magenta ratio. (3)</li>
-</ul>
-<p><img alt="ratio" src="https://raw.githubusercontent.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/main/docs/ratio_view.png" /></p>
-<h3>Create a selection of ratio on the channel coordinate system and apply it on the original image</h3>
-<p><img alt="ratio" src="https://raw.githubusercontent.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/main/docs/wheel_to_image_selection.gif" /></p>
-<h3>Create a selection of pixel in the image and show where they are in the channel coordinate system</h3>
-<p><img alt="ratio" src="https://raw.githubusercontent.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/main/docs/image_to_wheel_selection.gif" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-brainbow-diagnose</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <pre><code>pip install napari-brainbow-diagnose
 </code></pre>
+<p>If you want to use <a href="https://github.com/BiAPoL/napari-clusters-plotter?tab=readme-ov-file#installation"><code>napari-cluster-plotter</code> plugin</a>  you also need to install it manually</p>
 <p>To install latest development version :</p>
 <pre><code>pip install git+https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose.git
 </code></pre>
@@ -325,7 +324,7 @@ https://napari.org/stable/plugins/index.html
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -335,7 +334,7 @@ https://napari.org/stable/plugins/index.html
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2023-06-18</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -432,7 +431,7 @@ https://napari.org/stable/plugins/index.html
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pooch</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tox ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pre-commit ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">napari ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pyqt5 ; extra == 'testing'</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pooch</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pre-commit; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>

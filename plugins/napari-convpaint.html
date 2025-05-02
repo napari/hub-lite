@@ -9,9 +9,9 @@
     <meta
         content="napari-convpaint, Guillaume Witz, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="A plugin for segmentation by pixel classification using convolutional feature extraction" name="description" />
-    <meta content="A plugin for segmentation by pixel classification using convolutional feature extraction" property="og:description" />
-    <meta content="A plugin for segmentation by pixel classification using convolutional feature extraction." name="twitter:description" />
+    <meta content="A plugin for segmentation by pixel classification using pre-trained neural networks for feature extraction" name="description" />
+    <meta content="A plugin for segmentation by pixel classification using pre-trained neural networks for feature extraction" property="og:description" />
+    <meta content="A plugin for segmentation by pixel classification using pre-trained neural networks for feature extraction." name="twitter:description" />
     <meta content="napari ConvPaint - napari Plugin - Guillaume Witz" property="og:title" />
     <meta content="napari ConvPaint - napari Plugin - Guillaume Witz" name="twitter:title" />
     <meta content="article" property="og:type" />
@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.5.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.7.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2024-10-16</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">einops</li><li class="MetadataList_textItem__KKmMN">joblib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">napari-annotation-project</li><li class="MetadataList_textItem__KKmMN">napari-guitils</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.13.0</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">cellpose; extra == "cellpose"</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">catboost</li><li class="MetadataList_textItem__KKmMN">einops</li><li class="MetadataList_textItem__KKmMN">joblib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">napari-annotation-project</li><li class="MetadataList_textItem__KKmMN">napari-guitils</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.13.0</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">cellpose; extra == "cellpose"</li><li class="MetadataList_textItem__KKmMN">ilastik-napari; extra == "ilastik"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "qt"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
         </div>
                                                                 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">A plugin for segmentation by pixel classification using convolutional feature extraction</h2>
+                                    <h2 class="text-lg">A plugin for segmentation by pixel classification using pre-trained neural networks for feature extraction</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -276,6 +276,15 @@ This napari plugin can be used to segment objects or structures in images based 
 <video src="https://github.com/user-attachments/assets/6a2be1fe-25cc-4af1-9f50-aab9bc4123d9"></video>
 
 <p>Check out the documentation or the paper for more usecases!</p>
+<h2>API</h2>
+<p>You can now use the API in a fashion very similar to the napari plugin. The ConvpaintModel class combines a feature extractor and a classifier model, and holds all the parameters defining the model. Initialize a ConvpaintModel object, train its classifier and use it to segment an image:</p>
+<p><code>Python
+cp_model = ConvpaintModel("dino") # alternatively use vgg, cellpose or gaussian
+cp_model.train(image, annotations)
+segmentation = cp_model.segment(image)</code></p>
+<p>There are many other options, such as predicting all class probabilities (see below) and we will update the documentation and notebook examples soon. In the meantime feel free to test it yourself.</p>
+<p><code>Python
+probas = cp_model.predict_probas(image)</code></p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
 "napari-convpaint" is free and open source software</p>
@@ -285,17 +294,53 @@ the coverage at least stays the same before you submit a pull request.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/guiwitz/napari-convpaint/issues">file an issue</a> along with a detailed description.</p>
 <h2>Authors</h2>
-<p>The idea behind this napari plugin was first developed by <a href="https://hinderling.github.io">Lucien Hinderling</a> in the group of <a href="https://www.pertzlab.net/">Olivier Pertz</a>, at the Institute of Cell Biology, University of Bern. The code has first been shared as open source resource in form of a <a href="https://github.com/hinderling/napari_pixel_classifier">Jupyter Notebook</a>. With the desire to make this resource accessible to a broader public in the scientific community, the Pertz lab obtained a CZI napari plugin development grant with the title <a href="https://chanzuckerberg.com/science/programs-resources/imaging/napari/democratizing-image-analysis-with-an-easy-to-train-classifier/">"Democratizing Image Analysis with an Easy-to-Train Classifier"</a> which supported the adaptation of the initial concept as a napari plugin called napari-convpaint. The plugin has been developed by <a href="https://guiwitz.github.io/blog/about/">Guillaume Witz</a>, Mykhailo Vladymyrov and Ana Stojiljkovic at the <a href="https://www.dsl.unibe.ch/">Data Science Lab</a>, University of Bern, in tight collaboration with the Pertz lab (Lucien Hinderling, <a href="https://github.com/quasar1357">Roman Schwob</a>, <a href="https://x.com/benigraedel">Benjamin Gräedel</a>, <a href="https://macdobry.net">Maciej Dobrzyński</a>).</p>
+<p>The idea behind this napari plugin was first developed by <a href="https://hinderling.github.io">Lucien Hinderling</a> in the group of <a href="https://www.pertzlab.net/">Olivier Pertz</a>, at the Institute of Cell Biology, University of Bern. Pertz lab obtained a CZI napari plugin development grant with the title <a href="https://chanzuckerberg.com/science/programs-resources/imaging/napari/democratizing-image-analysis-with-an-easy-to-train-classifier/">"Democratizing Image Analysis with an Easy-to-Train Classifier"</a> which supported the adaptation of the initial concept as a napari plugin called napari-convpaint. The plugin has been developed by <a href="https://guiwitz.github.io/blog/about/">Guillaume Witz<sup>1</sup></a>, <a href="https://github.com/quasar1357">Roman Schwob<sup>1,2</sup></a> and Lucien Hinderling<sup>2</sup> with much appreciated assistance of <a href="https://x.com/benigraedel">Benjamin Grädel<sup>2</sup></a>, <a href="https://macdobry.net">Maciej Dobrzyński<sup>2</sup></a>, Mykhailo Vladymyrov<sup>1</sup> and Ana Stojiljković<sup>1</sup>.</p>
+<p><sup>1</sup><a href="https://www.dsl.unibe.ch/">Data Science Lab</a>, University of Bern \
+<sup>2</sup><a href="https://www.pertzlab.net/">Pertz Lab</a>, Institute of Cell Biology, University of Bern </p>
 <h2>Cite Convpaint</h2>
-<p>If you find Convpaint useful in your research, please consider citing:
-<code>@article {Hinderling2024.09.12.610926,
-    author = {Hinderling, Lucien and Witz, Guillaume and Schwob, Roman and Stojiljkovic, Ana and Dobrzynski, Maciej and Vladymyrov, Mykhailo and Frei, Joel and Graedel, Benjamin and Frismantiene, Agne and Pertz, Olivier},
-    title = {Convpaint - Universal framework for interactive pixel classification using pretrained neural networks},
-    year = {2024},
+<p>If you find Convpaint useful in your research, please consider citing our work. Please also cite any Feature Extractor you have used in Convpaint, such as <a href="https://github.com/ilastik/ilastik-napari">ilastik</a>, <a href="https://cellpose.readthedocs.io/en/latest/">cellpose</a> or <a href="https://github.com/facebookresearch/dinov2">DINOv2</a>.</p>
+<p>Convpaint:
+<code>@article {Hinderling2024,
+    author = {Hinderling, Lucien and Witz, Guillaume and Schwob, Roman and Stojiljković, Ana and Dobrzyński, Maciej and Vladymyrov, Mykhailo and Frei, Joël and Grädel, Benjamin and Frismantiene, Agne and Pertz, Olivier},
+    title = {Convpaint - Interactive pixel classification using pretrained neural networks},
+    elocation-id = {2024.09.12.610926},
     doi = {10.1101/2024.09.12.610926},
-    URL = {https://www.biorxiv.org/content/early/2024/09/14/2024.09.12.610926},
-    journal = {bioRxiv}
-}</code></p>
+    journal = {bioRxiv},
+    publisher = {Cold Spring Harbor Laboratory},
+    year = {2024},
+}</code>
+Suggested citations for feature extractors:
+<code>@article {Berg2019,
+    author = {Berg, Stuart and Kutra, Dominik and Kroeger, Thorben and Straehle, Christoph N. and Kausler, Bernhard X. and Haubold, Carsten and Schiegg, Martin and Ales, Janez and Beier, Thorsten and Rudy, Markus and Eren, Kemal and Cervantes, Jaime I. and Xu, Buote and Beuttenmueller, Fynn and Wolny, Adrian and Zhang, Chong and Koethe, Ullrich and Hamprecht, Fred A. and Kreshuk, Anna},
+    title = {ilastik: interactive machine learning for (bio)image analysis.},
+    issn = {1548-7105},
+    url = {https://doi.org/10.1038/s41592-019-0582-9},
+    doi = {10.1038/s41592-019-0582-9},
+    journal = {Nature Methods},
+    publisher = {Springer Nature},
+    year = {2019},
+    journal = {Nature Methods},
+}</code>
+<code>@article {Stringer2021,
+    author = {Stringer, Carsen and Wang, Tim and Michaelos, Michalis and Pachitariu Marius},
+    title = {Cellpose: a generalist algorithm for cellular segmentation.},
+    elocation-id = {s41592-020-01018-x},
+    doi = {10.1038/s41592-020-01018-x},
+    journal = {Nature Methods},
+    publisher = {Springer Nature},
+    year = {2021},
+}</code>
+```
+@article {oquab2024dinov2learningrobustvisual,
+      title={DINOv2: Learning Robust Visual Features without Supervision}, 
+      author={Maxime Oquab and Timothée Darcet and Théo Moutakanni and Huy Vo and Marc Szafraniec and Vasil Khalidov and Pierre Fernandez and Daniel Haziza and Francisco Massa and Alaaeldin El-Nouby and Mahmoud Assran and Nicolas Ballas and Wojciech Galuba and Russell Howes and Po-Yao Huang and Shang-Wen Li and Ishan Misra and Michael Rabbat and Vasu Sharma and Gabriel Synnaeve and Hu Xu and Hervé Jegou and Julien Mairal and Patrick Labatut and Armand Joulin and Piotr Bojanowski},
+      year={2024},
+      eprint={2304.07193},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2304.07193}
+}</p>
+<p>```</p>
         
 
                                     </div>
@@ -311,7 +356,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.5.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.7.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -321,7 +366,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2024-10-16</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -418,7 +463,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">einops</li><li class="MetadataList_textItem__KKmMN">joblib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">napari-annotation-project</li><li class="MetadataList_textItem__KKmMN">napari-guitils</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.13.0</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">cellpose; extra == "cellpose"</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">catboost</li><li class="MetadataList_textItem__KKmMN">einops</li><li class="MetadataList_textItem__KKmMN">joblib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">napari-annotation-project</li><li class="MetadataList_textItem__KKmMN">napari-guitils</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.13.0</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">cellpose; extra == "cellpose"</li><li class="MetadataList_textItem__KKmMN">ilastik-napari; extra == "ilastik"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "qt"</li></ul>
                                             </div>
                                         </div>
                                     </div>
