@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">2024.2.29</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
+                                            <li class="MetadataList_textItem__KKmMN">2024-07-11</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li><li class="MetadataList_textItem__KKmMN">dipy</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -252,166 +252,80 @@ pre > code:last-child {
 <p><a href="https://stand-with-ukraine.pp.ua"><img alt="Stand With Ukraine" src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg" /></a></p>
 <p><a href="https://napari-hub.org/plugins/domb-napari"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/domb-napari" /></a>
 <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/domb-napari" />
-<img alt="PyPI - License" src="https://img.shields.io/pypi/l/domb-napari" /></p>
-<!-- ![Website](https://img.shields.io/website?up_message=domb.bio%2Fnapari&up_color=%2323038C93&url=https%3A%2F%2Fdomb.bio%2Fnapari%2F) -->
-
+<img alt="PyPI - License" src="https://img.shields.io/pypi/l/domb-napari" />
+<img alt="Website" src="https://img.shields.io/website?up_message=domb.bio%2Fnapari&amp;up_color=%2323038C93&amp;url=https%3A%2F%2Fdomb.bio%2Fnapari%2F" /></p>
 <p><strong>napari Toolkit of Department of Molecular Biophysics <br /> Bogomoletz Institute of Physiology of NAS of Ukraine, Kyiv,  Ukraine</strong></p>
-<p>This plugin offers widgets specifically designed to analyze the redistribution of fluorescence-labeled proteins in widefield epifluorescence time-lapse acquisitions. It is particularly useful for studying various phenomena, including:
-- Calcium-dependent translocation of neuronal calcium sensors.
-- Synaptic receptor traffic during long-term plasticity induction.
-- Membrane protein tracking.</p>
+<p>napari plugin for analyzing fluorescence-labeled proteins redistribution. Offers widgets designed for analyzing the redistribution of fluorescence-labeled proteins in widefield epifluorescence time-lapse acquisitions. Particularly useful for studying various phenomena such as calcium-dependent translocation of neuronal calcium sensors, synaptic receptor traffic during long-term plasticity induction, and membrane protein tracking.</p>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/translocation.gif" />
 <strong>Hippocalcin (neuronal calcium sensor) redistributes in dendritic branches upon NMDA application</strong></p>
-<hr />
-<h2>Detection of fluorescence redistributions</h2>
-<p>A set of widgets designed for preprocessing multispectral image stacks and detecting redistributions in fluorescence intensity. These widgets specifically analyze differential "red-green" image series to identify changes in fluorescence intensity.</p>
+<h1>Detection of fluorescence redistributions</h1>
+<p>A set of widgets designed for detecting fluorescence intensity redistribution through the analysis of differential image series (red-green detection).</p>
 <p>Inspired by <a href="https://pubmed.ncbi.nlm.nih.gov/20704590/">Dovgan et al., 2010</a> and <a href="https://www.sciencedirect.com/science/article/pii/S0969996119301974?via%3Dihub">Osypenko et al., 2019</a>.</p>
-<h3>Dual-view stack registration</h3>
-<p>Registration of four-channel image stacks, including two excitation wavelengths and two emission pathbands, acquired with a dual-view beam splitter. This setup detects different spectral pathbands using distinct sides of the CCD matrix.</p>
-<ul>
-<li><code>offset img</code> - input for a four-channel time-lapse image stack.</li>
-<li><code>reference img</code> - an optional four-channel reference image (e.g., fluorescence beads image), used for offset estimation if <code>use reference img</code> is selected.</li>
-<li><code>input crop</code> - number of pixels that will be deleted from each side of input stack frames to discard misalignment artifacts from the dual-view system.</li>
-<li><code>output crop</code> - number of pixels that will be deleted from each side of output stack frames to discard registration artifacts.</li>
-</ul>
-<h3>Multichannel stack preprocessing</h3>
-<ul>
-<li><code>stack order</code> -  represents the order of axes in the input data array: T (time), C (color), X, and Y (image dimensions). If the input image stack has four dimensions (time, channel, x-axis, y-axis), channels will be split into individual three-dimensional images (time, x-axis, y-axis), each labeled with the <code>_ch%index%</code> suffix.</li>
-<li><code>median filter</code> - provides frame-by-frame image smoothing with a kernel of size specified in <code>median kernel</code>.</li>
-<li><code>background subtraction</code> -  compensates for background fluorescence intensity. Background intensity is estimated frame by frame as the 0.5 percentile of frame intensity.</li>
-<li>If the <code>photobleaching correction</code> option is selected, the image will undergo correction using either an exponential (method <code>exp</code>) or bi-exponential (method <code>bi_exp</code>) fitting.</li>
-<li>Image stacks can be cropped according to start and stop indexes specified in <code>frames range</code> if <code>drop frames</code> is selected.</li>
-</ul>
-<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stack_preprocessing.png" /></p>
-<h3>Red-green series</h3>
-<p>Primary method for detecting fluorescence-labeled targets redistribution. This widget returns a series of differential images, each representing the intensity difference between the current frame and the previous one, output image labeled with the <code>_red-green</code> suffix.</p>
+<h2>Image preprocessing</h2>
+<p>Provides functions for preprocessing multi-channel fluorescence acquisitions:
+- If the input image has 4 dimensions (time, channel, x-axis, y-axis), channels will be split into individual 3 dimensions images (time, x-axis, y-axis) with the <code>_ch%index%</code> suffix.
+- If the <code>gaussian blur</code> option is selected, the image will be blurred with a Gaussian filter using sigma=<code>gaussian sigma</code>.
+- If the <code>photobleaching correction</code> option is selected, the image will undergo correction with exponential (method <code>exp</code>) or bi-exponential (method <code>bi_exp</code>) fitting.
+- If the <code>crop ch</code> option is selected, only a selected range of channel frames will be saved (corresponding to start and stop indexes from <code>crop range</code>).</p>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_00.png" /></p>
+<h2>Red-green series</h2>
+<p>Primary method for detecting fluorescent-labeled targets redistribution in time. Returns a series of differential images representing the intensity difference between the current frame and the previous one as new image with the <code>_red-green</code> suffix.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>left frames</code> - specifies the number of previous frames used for pixel-wise averaging.</li>
-<li><code>space frames</code> - determines the number of frames between the last left frame and the first right frame.</li>
-<li><code>right frames</code> - specifies the number of subsequent frames used for pixel-wise averaging.</li>
+<li><code>left frames</code> - number of previous frames for pixel-wise averaging.</li>
+<li><code>space frames</code> - number of frames between the last left and first right frames.</li>
+<li><code>right frames</code> - number of subsequent frames for pixel-wise averaging.</li>
 </ul>
-<p><code>normalize by int</code>  function normalizes the differential images relative to the absolute intensity of the input image stack, which helps to reduce background noise amplitude.</p>
-<p>If <code>save MIP</code> is selected, the maximal intensity projection (MIP) of the differential image stack will be saved with the <code>_red-green-MIP</code> suffix.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rg_series.png" /></p>
-<hr />
-<h2>Masking</h2>
-<h3>Dots patterns masking</h3>
-<p>Creates labels for bright dot elements on an image, such as pre- and postsynaptic fluorescence markers (e.g., Bassoon/Synaptobrevin for presynapses, PSD-95/Homer for postsynapses, etc.). It returns a labels layer with the <code>_dots-labels</code> suffix.</p>
-<p>The widget detects the location on the MIP (Maximum Intensity Projection) of the input time series image and applies simple round masks to each detected dot. Watershed segmentation is then used to prevent the merging of overlapping masks.</p>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_11.png" /></p>
+<h2>Up masking</h2>
+<p>Generates labels for insertion sites (regions with increasing intensity) based on <code>-red-green</code> images. Returns labels layer with <code>_up-labels</code> suffix.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>background level</code> - Background level for filtering out low-intensity elements. This is specified as a percentile of the MIP intensity.</li>
-<li><code>detection level</code> - Minimum intensity of dots, specified as a percentile of the MIP's maximum intensity.</li>
-<li><code>mask diameter</code> - Diameter in pixels for the round mask of each individual dot.</li>
-<li><code>minimal distance</code> - Minimum distance in pixels between the centers of individual round masks.</li>
+<li><code>detection img index</code> - index of the frame from <code>-red-green</code> image used for insertion sites detection.</li>
+<li><code>insertion threshold</code> - threshold value for insertion site detection, intensity on selected <code>_red-green</code> frame normalized in -1 - 0 range.</li>
+<li><code>opening footprint</code> - footprint size in pixels for mask filtering with morphology opening (disabled if 0).</li>
+<li><code>save mask</code> - if selected, a total up mask (containing all ROIs) will be created with the <code>_up-mask</code> suffix.</li>
 </ul>
-<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/dots_masking.png" />
-<strong>Hippocalcin (green) and PSD95 (magents) in dendritic branches</strong></p>
-<h3>Up masking</h3>
-<p>Generates labels for regions with high intensity based on raw or -red-green images. Returns a labels layer with the <code>_up-labels</code> suffix.</p>
-<p>The widget provides two detection modes:</p>
-<ul>
-<li>Global masking with a fixed threshold for the entire image.</li>
-<li>In-ROIs masking with a loop over individual ROIs in the input <code>ROIs mask</code> with separate detections.</li>
-</ul>
-<p>Parameters:</p>
-<ul>
-<li><code>det frame index</code> - index of the frame from the input image used for label detection.</li>
-<li><code>det th</code> - treshold value for detecting bright sites, where the intensity on the selected frame is normalized in the range of -1 to 0.</li>
-<li><code>in ROIs det</code> - option for activating in-ROIs masking.</li>
-<li><code>in ROIs det method</code> - method for in-ROIs masking; otsu provides simple Otsu thresholding, while the threshold method is identical to global detection on nomilized detection frame.</li>
-<li><code>in_ROIs_det_th_corr</code> - caling factor for the det th threshold value for in-ROIs masking.</li>
-<li><code>final opening fp</code> - footprint size in pixels for mask filtering using morphological opening (disabled if set to 0).</li>
-<li><code>final dilation fp</code> - footprint size in pixels for mask morphological dilation (disabled if set to 0).</li>
-<li><code>save total up mask</code> - if selected, a total up mask (containing all ROIs) will be created with the _up-mask suffix.</li>
-</ul>
-<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels.png" />
-<strong>Gplobal up labels</strong></p>
-<p>The In-ROIs masking option can be particularly useful for co-localization detection. By applying a broad reference mask to several target images, you can create more precise labels for ROIs in specified cell compartments. The following examples demonstrate the detection of mutual locations for static PSD-95 enriched sites (postsynaptic membranes) and HPCA translocation sites only in the vicinity of synapses, using <code>_dots-labels</code> for PSD95-mRFP images.</p>
-<p><em>Note: In the In-ROIs masking mode, labels of detected sites correspond to the matching labels from the input ROIs mask.</em></p>
-<p>In-ROIs masking (reference)|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_1.png" />
-:------------------:|:-------------------------:
-<strong>In-ROIs maskin (translocation)</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_2.png" />
-<strong>Masks overlay</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_overlay.png" /></p>
-<h3>Intensity masking</h3>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_22.png" /></p>
+<h2>Intensity masking</h2>
 <p>Extension of <strong>Up Masking</strong> widget. Detects regions with increasing (<code>masking mode</code> - <code>up</code>) or decreasing (<code>masking mode</code> - <code>down</code>) intensity in <code>-red-green</code> images. Returns a labels layer with either <code>_up-labels</code> or <code>_down-labels</code> suffix, depending on the mode.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/int_labels.png" /></p>
-<hr />
-<h2>FRET detection</h2>
-<p>Widgets for detection and analysis of Förster resonance energy transfer multispectral image stacks.</p>
-<p>Based on <a href="https://pubmed.ncbi.nlm.nih.gov/15189889/">Zal and Gascoigne, 2004</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/16815904/">Chen et al., 2006</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/37014867/">Kamino et al., 2023</a>.</p>
-<h3>E-FRET estimation</h3>
-<p>E-FRET estimation with 3-cube approach.</p>
-<p>This method utilizes default values for <code>a</code> and <code>d</code> coefficients and the <code>G</code>-factor, optimized for the pair EYFP and ECFP in our experimental setup:
-- Microscope Olympus IX71
-- Cube Chroma 69008
-- Dual-view system with Chroma 505DCXR beam splitter
-- Donor excitation wavelength 435 nm
-- Acceptor excitation wavelength 505 nm</p>
-<p>Parameters:</p>
-<ul>
-<li><code>DD img</code> - donor emission channel image acquired with the donor excitation wavelength.</li>
-<li><code>AD img</code> - acceptor emission channel image acquired with the donor excitation wavelength.</li>
-<li><code>AA img</code> - acceptor emission channel image acquired with the acceptor excitation wavelength.</li>
-<li><code>output type</code> - type of output image: sensitized emission (<code>Fc</code>), apparent FRET efficiency (<code>Eapp</code>), or FRET efficiency with photobleaching correction (<code>Ecorr</code>).</li>
-</ul>
-<p>If the <code>save normalized</code> option is selected, an additional image will be saved. This image is normalized to the absolute intensity of the <code>AA img</code>, which results in reduced background noise amplitude.</p>
-<p><em>Note: normalized images are useful for visual control and mask building only; they are not representative for quantitative analysis.</em></p>
-<p>Raw Eapp| <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_raw.png" />
-:-:|:-:
-<strong>Normalized Eapp</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_norm.png" /></p>
-<hr />
-<h2>Exo-/endo-cytosis monitoring with pH-sensitive tag</h2>
-<p>A set of widgets designed for the analysis of image series containing the pH-sensitive fluorescence protein Superecliptic pHluorin (SEP).</p>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_33.png" /></p>
+<h1>Traffic monitoring with pH-sensitive tag</h1>
+<p>A collection of widgets designed for the analysis of image series containing the pH-sensitive fluorescence protein Superecliptic pHluorin (SEP).</p>
 <p>Insipred by <a href="https://pubmed.ncbi.nlm.nih.gov/28474392/">Fujii et al., 2017</a> and <a href="https://www.nature.com/articles/s41596-020-0371-z">Sposini et al., 2020</a>.</p>
-<h3>SEP image preprocessing</h3>
+<h2>SEP image preprocessing</h2>
 <p>Processes image series obtained through repetitive pH exchange methods (such as U-tube or ppH approaches). <code>pH 1st frame</code> option indicates the 1st frame pH. By default frames with odd indexes, including index 0, are interpreted as images acquired at pH 7.0, representing total fluorescence intensity (saved with the suffix <code>_total</code>). Even frames are interpreted as images obtained at acidic pH (5.5-6.0), representing intracellular fluorescence only (saved with the suffix <code>_intra</code>).</p>
 <p>If <code>calc surface img</code> is selected, an additional total fluorescence image with subtracted intracellular intensity will be saved as the cell surface fluorescence fraction (suffix <code>_surface</code>). The input image should be a 3-dimensional single-channel time-lapse.</p>
 <p>The <code>calc projections</code> option allows obtaining individual pH series projections (pixel-wise series MIP - pixel-wise series average) for the detection of individual exo/endocytosis events.</p>
-<hr />
-<h2>Intensty profiles building and data frame saving</h2>
-<h3>ROIs profiles</h3>
-<p>This widget builds a plot with mean intensity profiles for each Region of Interest (ROI) in labels. It uses either absolute intensity (if <code>absolute intensity</code> is selected) or relative intensities (ΔF/F0).</p>
+<h1>Intensty profiles building and data frame saving</h1>
+<h2>Individual labels profiles</h2>
+<p>Builds a plot with mean intensity profiles for each ROI in <code>labels</code> using absolute intensity (if <code>absolute intensity</code> is selected) or relative intensities (ΔF/F0).</p>
+<p>The <code>time scale</code> sets the number of seconds between frames for x-axis scaling.</p>
+<p>The baseline intensity for ΔF/F0 profiles is estimated as the mean intensity of the initial profile points (<code>ΔF win</code>). You could filter ROIs by minimum and maximum ΔF/F0 amplitudes with the <code>ΔF aplitude lim</code> option.</p>
+<p><em>Note: amplitude filtering working with ΔF/F0 profiles only.</em></p>
+<p>If the <code>profiles crop</code> option is selected, only a selected range of intensity profiles indexes will be plotted (corresponding to start and stop indexes from <code>profiles range</code>).</p>
+<p>Additionally, you can save ROI intensity profiles as .csv using the <code>save data frame</code> option and specifying the <code>saving path</code>. The output data frames <code>%img_name%_lab_prof.csv</code> will contain the following columns:</p>
 <ul>
-<li><code>time scale</code> - sets the number of seconds between frames for x-axis scaling.</li>
-<li><code>ΔF win</code> - the baseline intensity for ΔF/F0 profiles is estimated as the mean intensity of the specified number of initial profile points.</li>
-<li><code>ΔF amplitude lim</code> - allows filtering of ROIs by minimum and maximum ΔF/F0 amplitudes. Note: Amplitude filtering works with ΔF/F0 profiles only.</li>
-<li><code>profiles crop</code> - if selected, only a specified range of intensity profile indexes will be plotted, corresponding to the start and stop indexes from <code>profiles range</code>.</li>
+<li><strong>id</strong> - unique image ID, the name of the input <code>napari.Image</code> object.</li>
+<li><strong>roi</strong> - ROI number, consecutively numbered starting from 1.</li>
+<li><strong>int</strong> - ROI mean intensity, raw or ΔF/F0 according to the <code>raw intensity</code> option.</li>
+<li><strong>index</strong> - frame index</li>
+<li><strong>time</strong> - frame time point according to the <code>time scale</code>.</li>
 </ul>
-<p>Additionally, you can save ROI intensity profiles as .csv files using the <code>save data frame</code> option and specifying the <code>saving path</code>. The output data frames named %img_name%_lab_prof.csv will include the following columns:</p>
+<p><em>Note: The data frame will contain information for all ROIs; amplitude filtering and crop options pertain to plotting only.</em></p>
+<p>Absolute intensity         | ΔF/F0
+:-------------------------:|:-------------------------:
+<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_44.png" />|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_55.png" /></p>
+<h2>Labels stat profiles</h2>
+<p>Builds a plot with the averaged intensity of all ROIs in <code>labels</code>. Can take two images (<code>img 0</code> and <code>img 1</code>) as input if <code>two profiles</code> are selected.</p>
+<p>The <code>time scale</code> and <code>ΔF win</code> are the same as in the <strong>Individual Labels Profiles</strong>.</p>
+<p>The <code>stat method</code> provides methods for estimation intensity and errors:</p>
 <ul>
-<li><code>id</code> - unique image ID, the name of the input <code>napari.Image</code> object.</li>
-<li><code>roi</code> - ROI number, consecutively numbered starting from 1.</li>
-<li><code>int</code> - ROI mean intensity, either raw or ΔF/F0, according to the selected intensity option.</li>
-<li><code>dist</code> - average distance in px to the ROI from the frame, (if <code>save ROIs distances in data frame</code> option is selected).</li>
-<li><code>index</code> - frame index.</li>
-<li><code>time</code> - frame time point, adjusted according to the <code>time scale</code>.</li>
+<li><code>se</code> - standard error of mean.</li>
+<li><code>iqr</code> - interquartile range.</li>
+<li><code>ci</code> - 95% confidence interval for t-distribution.</li>
 </ul>
-<p><em>Note: the data frame will contain information for all ROIs; amplitude filtering and crop options pertain to plotting only.</em></p>
-<p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_abs.png" />
-:-------------------------:|:-------------------------:
-<strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_df.png" /></p>
-<h3>Multiple images stat profiles</h3>
-<p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in <code>lab</code>. It can handle up to three images (<code>img 0</code>, <code>img 1</code>, and <code>img 2</code>) as inputs, depending on the selected <code>profiles num</code>.</p>
-<p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
-<p>The <code>stat method</code> allows for the estimation of intensity and associated errors through the following methods:
-- <code>se</code> - mean +/- standard error of the mean.
-- <code>iqr</code> - median +/- interquartile range.
-- <code>ci</code> - mean +/- 95% confidence interval based on the t-distribution.</p>
-<p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_abs.png" />
-:-------------------------:|:-------------------------:
-<strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_df.png" /></p>
-<h3>Multiple labels stat profiles</h3>
-<p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) for one target <code>img</code>. It can handle up to three labels (<code>lab 0</code>, <code>lab 1</code>, and <code>lab 2</code>), depending on the selected <code>profiles num</code>.</p>
-<p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
-<p>The <code>stat method</code> allows for the estimation of intensity and associated errors through the following methods:
-- <code>se</code> - mean +/- standard error of the mean.
-- <code>iqr</code> - median +/- interquartile range.
-- <code>ci</code> - mean +/- 95% confidence interval based on the t-distribution.</p>
-<p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_lab_abs.png" />
-:-------------------------:|:-------------------------:
-<strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_lab_df.png" /></p>
+<p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/pic_66.png" /></p>
         
 
                                     </div>
@@ -427,7 +341,7 @@ pre > code:last-child {
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2024.2.29</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -437,7 +351,7 @@ pre > code:last-child {
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-04-22</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2024-07-11</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -534,7 +448,7 @@ pre > code:last-child {
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li><li class="MetadataList_textItem__KKmMN">dipy</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li></ul>
                                             </div>
                                         </div>
                                     </div>

@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.4</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -251,54 +251,12 @@ pre > code:last-child {
         <p><img alt="" src="https://raw.githubusercontent.com/hnguyentt/mousechd-napari/master/assets/demo.gif" /></p>
 <p><em>Tool for heart segmentation and congenital heart defect detection in mice.</em></p>
 <h2>Installation</h2>
-<p>There are several ways to run the plugin: (1) from bundle, (2) Containers (Docker or Apptainer), (3) from code</p>
 <h3>From Bundle</h3>
 <p>(1) Install Napari by following this instruction https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-a-bundled-app</p>
 <p>(2) Install <code>mousechd-napari</code> plugin:
     * Run Napari
     * <code>Plugins</code> --&gt; <code>Install/Uninstall Plugins ...</code> --&gt; Search for <code>mousechd-napari</code> --&gt; Click on <code>install</code>.</p>
 <p>(3) Restart Napari to run the plugin</p>
-<h3>Containers</h3>
-<h4>Docker</h4>
-<h5>Pull docker</h5>
-<p><code>sudo docker pull hoanguyen93/mousechd-napari</code></p>
-<h5>Run MouseCHD Plugin</h5>
-<ul>
-<li>
-<p>Run plugin with local resources:</p>
-<p><code>sudo docker run --gpus all -v &lt;path/to/home/on/host&gt;:&lt;path/to/home/on/host&gt; -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari</code></p>
-<p><details>
-<summary>Example:</summary></p>
-<p><code>sudo docker run --gpus all -v /home/hnguyent:/home/hnguyent -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari</code></p>
-</details>
-<p>Open this link on your browser: <a href="http://localhost:9876/">http://localhost:9876/</a></p>
-</li>
-<li>
-<p>Run plugin with server resources:</p>
-<ul>
-<li>Follow <a href="./docs/server_setup.md">this instruction</a> to setup running on server.</li>
-<li>Copy ~/.ssh folder to a temporary location, for example in ~/Downloads: <code>cp -r ~/.ssh ~/Downloads/</code></li>
-<li>Change ownership for temporary ~/Downloads/.ssh folder: <code>chown -R root:root ~/Downloads/.ssh</code></li>
-<li>Run docker: <code>udo docker run --gpus all -v &lt;path/to/home/on/host&gt;:&lt;path/to/home/on/host&gt; -v /home/hnguyent/Downloads/.ssh:/root/.ssh:ro -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari</code></li>
-<li>Open this link on your browser: <a href="http://localhost:9876/">http://localhost:9876/</a></li>
-</ul>
-</li>
-</ul>
-<h5>Known issues</h5>
-<ul>
-<li>The plugin in docker container can't display 3D view, please choose 2D view to display the sample and images.</li>
-</ul>
-<h4>Apptainer (Singularity)</h4>
-<p>If you want to run with server resource, follow <a href="./docs/server_setup.md">this instruction</a> to setup running on server.</p>
-<ul>
-<li>Download Apptainer image <code>mousechd-napari.sif</code> from (Zenodo)[https://zenodo.org/records/14652180] or simply: <code>wget https://zenodo.org/records/14652180/files/mousechd-napari.sif</code></li>
-<li>Run the plugin: 
-<code>apptainer exec \
-    --nv \
-    --bind /tmp/.X11-unix:/tmp/.X11-unix \
-    --env DISPLAY=$DISPLAY \
-    &lt;path/to/mousechd-napari.sif&gt; napari</code></li>
-</ul>
 <h3>From code</h3>
 <p><code>bash
 conda create -n mousechd_napari python=3.9
@@ -323,7 +281,7 @@ napari</code></p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.9</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.8.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -248,18 +248,16 @@ pre > code:last-child {
     padding-bottom: 0;
 }
         </style>
-        <p><img alt="" src="https://github.com/anishjv/cell-AAP/blob/main/images/figure2.png?raw=true" />
-<img alt="" src="https://github.com/anishjv/cell-AAP/blob/main/images/rpe1_u2os.png?raw=true" /></p>
-<p>Utilities for the semi-automated generation of instance segmentation annotations to be used for neural network training. Utilities are built ontop of <a href="https://github.com/lmcinnes/umap">UMAP</a>, <a href="https://arxiv.org/abs/1911.02282">HDBSCAN</a> and a finetuned encoder version of FAIR's <a href="https://github.com/facebookresearch/segment-anything/tree/main?tab=readme-ov-file">Segment Anything Model</a> developed by Computational Cell Analytics for the project <a href="https://github.com/computational-cell-analytics/micro-sam/tree/master/micro_sam/sam_annotator">micro-sam</a>. In addition to providing utilies for annotation building, we train networks using FAIR's <a href="https://github.com/facebookresearch/detectron2">detectron2</a> to 
+        <p>Utilities for the semi-automated generation of instance segmentation annotations to be used for neural network training. Utilities are built ontop of <a href="https://github.com/lmcinnes/umap">UMAP</a>, <a href="https://arxiv.org/abs/1911.02282">HDBSCAN</a> and a finetuned encoder version of FAIR's <a href="https://github.com/facebookresearch/segment-anything/tree/main?tab=readme-ov-file">Segment Anything Model</a> developed by Computational Cell Analytics for the project <a href="https://github.com/computational-cell-analytics/micro-sam/tree/master/micro_sam/sam_annotator">micro-sam</a>. In addition to providing utilies for annotation building, we train a network, FAIR's <a href="https://github.com/facebookresearch/detectron2">detectron2</a> to 
 1. Demonstrate the efficacy of our utilities. 
 2. Be used for microscopy annotation of supported cell lines </p>
-<p>Cell-line specific models currently include:
+<p>Supported cell lines currently include:
 1. HeLa
 2. U2OS</p>
-<p>Models have demonstrated performance efficacy on:
-1. HT1080 (HeLa model)
-2. RPE1 (U2OS model)</p>
-<p>We've also developed a napari application for the usage of these pre-trained networks.</p>
+<p>In development cell lines currently include:
+1. HT1080
+2. RPE1</p>
+<p>We've developed a napari application for the usage of this pre-trained network and propose a transfer learning schematic for the handling of new cell lines. </p>
 <h1>Installation</h1>
 <p>We highly recommend installing cell-AAP in a clean conda environment. To do so you must have <a href="https://docs.anaconda.com/free/miniconda/#quick-command-line-install">miniconda</a> or <a href="https://docs.anaconda.com/free/anaconda/">anaconda</a> installed.</p>
 <p>If a conda distribution has been installed:</p>
@@ -300,20 +298,18 @@ python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 <p>If running inference on large volumes of data, i.e. timeseries data &gt;= 300 MB in size, we recommend to proceed in the following manner. </p>
 <ol>
 <li>Assemble a small, &lt; 100 MB, substack of your data using python or a program like <a href="https://imagej.net/ij/download.html">ImageJ</a></li>
-<li>Use this substack to find the optimal parameters for your data, (Number of Cells, Network confidence threshold)</li>
+<li>Use this substack to find the optimal parameters for your data, (Number of Cells, Confidence)</li>
 <li>Run Inference over the volume using the discovered optimal parameters</li>
 </ol>
+<p>Note: Finding the optimal set of parameters requires some trial and error, to assist we've created a table. </p>
+<p>| Classifications $\Downarrow$ Detections $\Rightarrow$ | <strong>Too few</strong>                            | <strong>Too many</strong>                             |
+|----------------------------|----------------------------------------|------------------------------------------|
+| <strong>Dropping M-phase</strong>       | Confidence $\Downarrow$ <br> Number of Cells $\Uparrow$ | Confidence $\Downarrow$ <br> Number of cells $\Downarrow$ |
+| <strong>Misclasifying M-phase</strong> | Confidence $\Uparrow$ <br> Number of Cells $\Uparrow$   | Confidence $\Uparrow$ <br> Number of Cells $\Downarrow$   |</p>
 <h1>Interpreting Results</h1>
 <p>Once inference is complete the following colors indicate class prediction
 - Red: Non-mitotic
 - Blue: Mitotic</p>
-<p>For analysis purposes, masks in the semantic and instance segmentations have the following value mapping:
-Semantic
-- 1: Non-mitotic
-- 100: Mitotic</p>
-<p>Instance
-- $2x$: Non-mitotic
-- $2x-1$: Mitotic</p>
         
 
                                     </div>
@@ -329,7 +325,7 @@ Semantic
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.9</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.8.1</li>
                                                 </ul>
                                             </div>
                                         </div>

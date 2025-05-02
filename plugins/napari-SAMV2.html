@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.6</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.5</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -116,7 +116,8 @@
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
                                             <li class="MetadataList_textItem__KKmMN"><a
                                                     class="MetadataList_textItem__KKmMN underline"
-                                                    href="../index.html?license=oss">Copyright (c) 2024, Krishnan Venkataraman
+                                                    href="../index.html?license=oss">
+Copyright (c) 2024, Krishnan Venkataraman
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -275,48 +276,48 @@ pre > code:last-child {
     padding-bottom: 0;
 }
         </style>
-        <p>Napari plugin to use segment anything version 2.1 models from Meta.</p>
-<p>Plugin made for segmenting 3d volumetric data or 3d time series data.</p>
+        <p>Napari plugin to use segment anything version 2 models from Meta.</p>
+<p>Plugin primarily made for segmenting 3d volumetric data or 3d time series data.</p>
 <hr />
 <h2>Installation</h2>
-<p>The plugin requires the following pre-requisite to be installed :</p>
-<ol>
-<li>Python and pytorch versions</li>
-</ol>
-<p>python&gt;=3.10,torch&gt;=2.5.1 and torchvision&gt;=0.20.1 required</p>
-<p>To install pytorch with your respective OS please visit - https://pytorch.org/get-started/locally/</p>
-<ol>
-<li>SAM v2 installation from meta</li>
-</ol>
-<p>Please refer https://github.com/facebookresearch/sam2</p>
-<ol>
-<li>Install napari</li>
-</ol>
-<p>python -m pip install "napari[all]"</p>
-<p>Following is a sample conda environment installation with the above pre-req </p>
+<p>Pre-requisite of samv2 installation needed: --- Our current plugin supports only sam v 2.0  not 2.1.   So, we need to pull the SAM repo around september 15 ,2024 (last update of SAM2.0)</p>
+<pre><code>git clone https://github.com/facebookresearch/segment-anything-2.git
+cd segment-anything-2
+git rev-list -n 1 --before="2024-09-15" HEAD
+git checkout &lt;commit_hash&gt;
+pip install -e .
+</code></pre>
+<p>You can install <code>napari-SAMV2</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
+<pre><code>pip install napari-SAMV2
+</code></pre>
+<hr />
+<p>The plugin and installation tested with python 3.10 in conda environment with pytorch-cuda=12.1</p>
+<p>conda environment with example :</p>
 <pre><code>conda create -n samv2_env python=3.10
 conda activate samv2_env
-pip3 install torch torchvision
-
-git clone https://github.com/facebookresearch/sam2.git &amp;&amp; cd sam2
-pip install -e .
-
+conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 python -m pip install "napari[all]"
 
+git clone https://github.com/facebookresearch/segment-anything-2.git
+cd segment-anything-2
+git rev-list -n 1 --before="2024-09-15" HEAD
+
+git checkout &lt;commit_hash&gt;
+pip install -e .
 pip install napari-SAMV2
 </code></pre>
+<hr />
 <h2>Usage</h2>
-<p>Middle mouse click - positive point or keyboard shortcut "a"</p>
-<p>Ctrl + Middle mouse click - negative point or keyboard shortcut "n"</p>
+<p>Middle mouse click - positive point</p>
+<p>Ctrl + Middle mouse click - negative point</p>
 <p>Time Series Segmentation :</p>
 <p><img alt="samv2_time_series_demo" src="https://github.com/user-attachments/assets/078ca2bb-3016-4257-ac7c-c3cde8f9d125" /></p>
 <p>Volume Segmentation :</p>
 <p><img alt="samv2_volume_segmentation" src="https://github.com/user-attachments/assets/af05fcc4-a60d-44e8-ae05-70764d96e828" /></p>
 <p>Reference :</p>
-<p>Example Data in the demo videos are from,</p>
-<p>Cell tracking challenge - https://celltrackingchallenge.net/ </p>
-<p>and</p>
-<p>FlyEM project - https://www.janelia.org/project-team/flyem/hemibrain</p>
+<p>Example Data from in demo videos from,
+Cell tracking challenge - https://celltrackingchallenge.net/ 
+FlyEM project - https://www.janelia.org/project-team/flyem/hemibrain</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
 "napari-SAMV2" is free and open source software</p>
@@ -337,7 +338,7 @@ pip install napari-SAMV2
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.6</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.5</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -369,7 +370,8 @@ pip install napari-SAMV2
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
                                                     <li class="MetadataList_textItem__KKmMN"><a
                                                             class="MetadataList_textItem__KKmMN underline"
-                                                            href="../index.html?license=oss">Copyright (c) 2024, Krishnan Venkataraman
+                                                            href="../index.html?license=oss">
+Copyright (c) 2024, Krishnan Venkataraman
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
