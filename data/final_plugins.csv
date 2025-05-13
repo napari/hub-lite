@@ -1,0 +1,2646 @@
+,display_name,version,created_at,modified_at,name,author,package_metadata_author_email,license,home,summary,package_metadata_requires_python,package_metadata_requires_dist,package_metadata_description,package_metadata_classifier,package_metadata_project_url,contributions_readers_0_command,contributions_writers_0_command,contributions_widgets_0_command,contributions_sample_data_0_command,contributions_readers_0_filename_patterns,contributions_writers_0_filename_extensions,contributions_writers_1_filename_extensions,home_pypi,home_github,home_other
+0,acquifer-napari,0.0.2,2023-08-03,2025-04-22,acquifer-napari,Laurent Thomas,,GPL-3.0-only,https://github.com/acquifer/acquifer-napari,"Loader plugin for napari, to load Acquifer Imaging Machine datasets in napari, using dask for efficient lazy data-loading.",>=3.7,"['acquifer', 'napari', 'numpy', 'sortedcontainers', 'dask-image', 'xarray']","# acquifer-napari
+
+The acquifer-napari plugin allows loading IM04 dataset directory, as multi-dimensional images in napari.  
+Sliders for well, channel, time and Z are automatically rendered when there are more than 1 coordinates along the dimension.  
+The plugin uses Dask-Image for efficient data-loading ""on request"" similar to the VirtualStack in ImageJ.  
+
+## Installation
+Via the napari plugin manager : acquifer-napari.
+Or with pip : `pip install acquifer-napari`.
+
+Use `pip install -e .` to install in developement mode, so any change in the source code is directly reflected.  
+Use `npe2 list` to check that the plugin is correctly installed and visible by napari.  
+For instance here, the package defines 1 command, which is a reader.  
+One could have more commands, which would be implement other types.   
+This should output something like following 
+┌──────────────────────────────┬─────────┬──────┬───────────────────────────────────────────────────────────┐
+│ Name                         │ Version │ Npe2 │ Contributions                                             │
+├──────────────────────────────┼─────────┼──────┼───────────────────────────────────────────────────────────┤
+│ acquifer-napari              │ 0.0.1   │ ✅   │ commands (1), readers (1)
+
+The plugin should be installed in an environment with napari installed.  
+Napari can be started with the `napari`command in a command prompt with a system wide python installation.  
+Once installed, napari can be opened in a IPython interactive session with
+
+```python
+>> import napari
+>> napari.Viewer()
+```
+
+## Configurations
+The file `napari.yaml` in `acquifer_napari_plugin` defines what functions of the python package are visible to napari.  
+The top level `name` field must be the same than the python package name defined in `setup.cfg`.
+It first define a set of commands, which have a custom `id`, and a `python_name`, which is the actual location of the function in the python package (or module).  
+Then the napari.yaml has optional subsections `readers`, `writers`, `widget`, to reference some of the commands previously defined, to notify napari that they implemente those standard functions.  
+For instance I first define a command myReader pointing to myPackage.myReader, and I reference that command using the id it in the section readers  
+See https://napari.org/stable/plugins/first_plugin.html#add-a-napari-yaml-manifest  
+
+
+## Issues
+If you encounter any problems, please [file an issue](https://github.com/Luxendo/acquifer-napari/issues) along with a detailed description.
+","['Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)']","['HomePage, https://acquifer.de', 'Twitter, https://twitter.com/myacquifer', 'Bug Tracker, https://github.com/Luxendo/acquifer-napari/issues', 'Documentation, https://github.com/Luxendo/acquifer-napari#README.md', 'Source Code, https://github.com/Luxendo/acquifer-napari']",acquifer-napari.get_reader,,,,['*'],,,https://pypi.org/project/acquifer-napari,https://github.com/acquifer/acquifer-napari,
+1,ads_napari,0.0.5,,,ads_napari,NeuroPoly Lab,,,,Axon/Myelin segmentation using AI,,,,,,,,,,,,,https://pypi.org/project/ads_napari,,
+2,affinder,0.4.0,2022-01-28,2025-04-22,affinder,Juan Nunez-Iglesias,juan.nunez-iglesias@monash.edu,BSD-3,https://github.com/jni/affinder,Quickly find the affine matrix mapping one image to another using manual correspondence points annotation,>=3.9,"['napari >=0.4.17', 'npe2 >=0.1.2', 'numpy', 'scikit-image >=0.19.2', 'magicgui >=0.3.7', 'toolz', ""furo ; extra == 'docs'"", ""myst-parser ; extra == 'docs'"", ""coverage ; extra == 'testing'"", ""pydantic <2 ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""scikit-image[data] ; extra == 'testing'"", ""napari[pyqt5] !=0.4.18 ; extra == 'testing'"", ""pygments !=2.16 ; extra == 'testing'"", ""zarr ; extra == 'testing'""]","# Description
+
+This GUI plugin allows you to quickly find the affine matrix mapping
+one image to another using manual correspondence points annotation.
+
+More simply, this plugin allows you to select corresponding points
+on an image, and a second image you wish to transform. It computes 
+the requisite transformation matrix using Affine Transform, Euclidean Transform, 
+or Similarity Transform, and performs this transformation on the
+moving image, aligning it to the reference image.
+
+https://user-images.githubusercontent.com/17995243/120086403-f1d0b300-c121-11eb-8000-a44a2ac54339.mp4
+
+
+# Who is This For?
+
+This is a simple plugin which can be used on any 2D images, provided
+they can be loaded as layers into napari. The images need not be the same
+file format and this plugin also works with labels layers.
+
+No prior understanding of the transformation methods is required, as
+they perform in the background based on the reference points selected.
+
+# How to Guide
+
+You will need a combination of two or more 2D image and/or labels layers 
+loaded into napari. Once you have installed affinder, you can find it in
+the dock widgets menu.
+
+![Affinder widget in the Plugins->Add Dock Widget menu](https://i.imgur.com/w7MCXQy.png)
+
+The first two dropdown boxes will be populated with the layers currently
+loaded into napari. Select a layer to use as reference, and another to
+transform.
+
+![Dropdowns allow you to select the reference and moving layers](https://i.imgur.com/Tdbm1sX.png)
+
+Next, you can select the transformation model to use (affine is selected by default
+and is the least rigid transformation of those available). See [below](#transformation-models) for a
+description of the different models.
+
+Finally, you can optionally select a path to a text file for saving out the
+resulting transformation matrix.
+
+When you click Start, affinder will add two points layers to napari. 
+The plugin will also bring your reference image in focus, and its associated points
+layer. You can then start adding reference points by clicking on your image.
+
+![Adding reference points to layer](https://i.imgur.com/WPzNtyy.png)
+
+Once three points are added, affinder will switch focus to the moving image,
+and you should then proceed to select the corresponding three points.
+
+![Adding corresponding points to newly focused layer](https://i.imgur.com/JVZCvmp.png)
+
+affinder will immediately transform the moving image to align the points you've
+selected when you add your third corresponding point to your moving image.
+
+![The moving image is transformed once three points are added](https://i.imgur.com/NTne9fj.png)
+
+From there, you can continue iteratively adding points until you 
+are happy with the alignment. Affinder will switch focus between
+reference and moving image with each point.
+
+Click Finish to exit affinder.
+
+## Transformation Models
+
+There are three transformation models available for use with affinder.
+They are listed here in order of increasing rigidity in the types of
+transforms they will allow. The eponymous Affine Transform is the 
+least rigid and is the default choice.
+
+- [**Affine Transform**](https://en.wikipedia.org/wiki/Affine_transformation): 
+the least rigid transformation, it preserves
+lines and parallelism, but not necessarily distance and angles. Translation,
+scaling, similarity, reflection, rotation and shearing are all valid
+affine transformations.
+
+- [**Similarity Transform**](https://en.wikipedia.org/wiki/Similarity_(geometry)): 
+this is a ""shape preserving"" transformation, producing objects which are 
+geometrically similar. Translation, rotation, reflection and uniform scaling are 
+valid similarity transforms. Shearing is not.
+
+- [**Euclidean Transform**](https://en.wikipedia.org/wiki/Rigid_transformation):
+Also known as a rigid transformation, this transform preserves the Euclidean
+distance between each pair of points on the image. This includes rotation,
+translation and reflection but not scaling or shearing.
+
+# Getting Help
+
+If you find a bug with affinder, or would like support with using it, please raise an
+issue on the [GitHub repository](https://github.com/jni/affinder).
+
+# How to Cite
+
+Many plugins may be used in the course of published (or publishable) research, as well as
+during conference talks and other public facing events. If you'd like to be cited in
+a particular format, or have a DOI you'd like used, you should provide that information here.
+","['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']",,,,affinder.start_affinder,,,,,https://pypi.org/project/affinder,https://github.com/jni/affinder,
+3,allencell-segmenter-ml,0.1.17,,,allencell-segmenter-ml,,,"Allen Institute Software License – This software license is the 2-clause BSD license plus clause a third clause that
+prohibits redistribution for commercial purposes without further permission.
+
+Copyright © 2024. Allen Institute.  All rights reserved.
+
+
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions
+and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+3. Redistributions for commercial purposes are not permitted without the Allen Institute’s written permission.
+For purposes of this license, commercial purposes is the incorporation of the Allen Institute's software into
+anything for which you will charge fees or other compensation.
+Contact terms@alleninstitute.org for commercial licensing opportunities.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ""AS IS"" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+",,A plugin to leverage ML segmentation in napari,"<3.11,>=3.9","['napari >=0.4.18', 'npe2 >=0.6.2', 'numpy', 'hydra-core ==1.3.2', 'bioio', 'tifffile >=2023.4.12', 'watchdog', 'cyto-dl ==0.1.8', 'scikit-image !=0.23.0', ""black >=24.2.0 ; extra == 'dev'"", ""coverage >=7.2.2 ; extra == 'dev'"", ""flake8 >=6.0.0 ; extra == 'dev'"", ""pytest <8.0.0,>=7.2.2 ; extra == 'dev'"", ""pytest-qt >=3.3.0 ; extra == 'dev'"", ""pytest-cov >=2.6.1 ; extra == 'dev'"", ""pyqt5 >=5.15.9 ; extra == 'dev'"", ""bumpver >=2023.1129 ; extra == 'dev'"", ""build >=1.0.3 ; extra == 'dev'"", ""twine >=5.0.0 ; extra == 'dev'"", ""responses ; extra == 'dev'"", ""pytest <8.0.0 ; extra == 'test_lint'"", ""pytest-cov ; extra == 'test_lint'"", ""pytest-qt ; extra == 'test_lint'"", ""qtpy ; extra == 'test_lint'"", ""pyqt5 ; extra == 'test_lint'"", ""black >=24.2.0 ; extra == 'test_lint'"", ""responses ; extra == 'test_lint'"", 'pytest-xvfb ; (sys_platform == ""linux"") and extra == \'test_lint\'']","# Allencell-segmenter-ml
+
+[![Test and lint](https://github.com/AllenCell/allencell-segmenter-ml/actions/workflows/test_lint.yaml/badge.svg?branch=main&event=push)](https://github.com/AllenCell/allencell-segmenter-ml/actions/workflows/test_lint.yaml)
+
+## This version is a release candidate currently undergoing testing and development.
+Our team is actively working on this plugin and will have an *official release* with additional features very soon. 
+ 
+Please keep an eye on this page for updates. 
+ 
+In the meantime, [please report any bugs here.](https://github.com/AllenCell/allencell-segmenter-ml/issues/new/choose)
+
+
+## What is Allen Cell Segmenter ML
+A deep learning-based segmentation Napari plugin to curate datasets, train your own model (UNET), and run inference on 2D and 3D cell data. 
+
+
+##  📰 News
+
+ - **[2024.09.24]** 🎉 Initial dev release of the plugin and Megaseg models!
+
+
+
+## 🛠️ Installation
+
+### System Requirements
+
+We currently support `Windows`, `MacOS`, and `Linux` operating systems. The minimum system requirements are:
+
+- 8GB of RAM
+- 8 CPU Cores
+- 1 NVIDIA GPU with 8GB of VRAM (optional)
+
+**NOTE:** If you plan to use the plugin _without_ a GPU, training will default to using your CPU and will be significantly slower. A GPU is highly recommended for training models. Depending on how large your images are---2D vs 3D, resolution, model size---running inference may also be slow without a GPU.
+
+### Pre-Installation
+
+##### STEP 1. Install Python
+
+Before installing the plugin, please make sure you have the following installed:
+
+- Python 3.10 or later
+
+__New to `Python`?__ We recommend installing `Python 3.10` through the official [`Python` website](https://www.python.org/downloads/). This will include the `pip` package manager, which is required to install the plugin.
+
+If you are unsure if you have Python installed or which version you may have, you can check by running the following command in your terminal or powershell:
+
+```bash
+# Check version of python
+python --version
+
+# If the above does not work, try this one
+python3 --version
+
+# Specifically check for Python 3.10
+python3.10 --version
+```
+
+
+
+##### STEP 2. Create a Virtual Environment
+
+Next we will create a new `Python` environment to install the plugin. This will help avoid conflicts with other packages you may have installed by creating an isolated environment for the plugin to live in. In general, it is good practice to choose a name for your environment that is related to either the project you are working on or the software you are installing. In this case, we use `venv-allen-segmenter-ml` where `venv` stands for __virtual environment__.
+
+Navigate to where you want to create a new environment (_Example._ `Documents`), run the following command in your terminal or powershell:
+
+```bash
+# Create a new environment
+python3.10 -m venv venv-allen-segmenter-ml
+
+# Activate the environment
+source venv-allen-segmenter-ml/bin/activate
+```
+#### Confirm Virtual Environment is Activated
+
+To confirm that the virtual environment has been successfully activated, you can follow these steps:
+
+
+1. Check that the prompt includes the name of your virtual environment, `venv-allen-segmenter-ml`. It should look something like this:
+
+    ```bash
+    (venv-allen-segmenter-ml) $
+
+    # Example on a Windows machine
+    (venv-allen-segmenter-ml) PS C:\Users\Administrator\Documents> 
+    ```
+
+2. Run the following command to verify `Python 3.10` is being used within the virtual environment:
+
+    ```bash
+    python --version
+    
+    # Python 3.10.11   <-- Example output
+    ```
+
+
+
+
+
+
+## Install the Plugin
+
+To install the latest version of the plugin:
+```bash
+pip install allencell-segmenter-ml
+```
+
+### 🚨 Post-Installation 🚨
+
+> :memo: __NOTE:__ This section is specifically for users with at least one NVIDIA GPU installed on their machine. Not sure if you have an NVIDIA GPU? You can check by running `nvidia-smi` as shown [below](#step-1-checking-cuda-version). If you __do not__ have an NVIDIA GPU system, you can skip this section.
+
+Required Package
+
+- `torch` ([PyTorch]) 2.0 or later
+
+After installing the plugin, you need to install a PyTorch version that is compatible with your system. PyTorch is a deep learning library that is used to train and run the models in the plugin. We understand that everyone manages CUDA drivers and PyTorch versions differently depending on their system and use cases, and we want to respect those decisions because CUDA drivers can be a pain. 
+
+##### STEP 1. Checking CUDA Version
+
+To check your CUDA version, you can run the following command in your terminal or powershell:
+
+```bash
+nvidia-smi
+```
+
+As an example, the output will look similar to this. My `CUDA Version` is `11.8`:
+
+```bash
+PS C:\Users\Administrator> nvidia-smi
+Fri Sep 13 03:22:15 2024
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 522.06       Driver Version: 522.06       CUDA Version: 11.8     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name            TCC/WDDM | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla T4           TCC   | 00000000:00:1E.0 Off |                    0 |
+| N/A   27C    P8     9W /  70W |      0MiB / 15360MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+```
+
+---
+
+##### STEP 2. PyTorch Installation
+
+__To Install PyTorch__, please visit the [__PyTorch website__](https://pytorch.org/get-started/locally/) and select the appropriate installation options for your system. An example is provided below.
+
+
+
+<img width=""828"" alt=""torch-install"" src=""https://github.com/user-attachments/assets/1d8789c0-1f2c-4b11-841b-666f540601e6"">
+
+> __PyTorch Installation__ for Windows, MacOS, and Linux
+
+##### Example
+
+For instance, if I am using
+
+- `Windows` workstation
+- `pip` package manager
+- `Python` (3.10)
+- `CUDA 11.8` 
+
+Then the command for me would be:
+
+```bash
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+
+If the installation is successful, let's test just to be sure that your GPU is detected by PyTorch. Run the following command in your terminal or powershell:
+
+```bash
+python -c ""import torch; print(torch.cuda.is_available())""
+```
+
+You should see `True` if your GPU is detected (see below). If you see `False`, then PyTorch is not detecting your GPU. You may need to reinstall PyTorch or check your CUDA drivers. Double check that your virtual environement is activated (`venv-allen-segmenter-ml`).
+
+```bash
+(venv-allen-segmenter-ml) PS C:\Users\Administrator\Documents> python -c ""import torch; print(torch.cuda.is_available())""
+True
+```
+
+
+:tada: You have successfully installed the plugin and PyTorch. You are now ready to use the plugin!
+
+---
+
+## Running the Plugin
+
+To run the plugin (and verify the installation), you can use the following command in your terminal or powershell:
+
+```bash
+napari
+```
+
+You should see the below window pop up. To start using the plugin, click on the `Plugins` tab and select `Allen Cell Segmenter ML`:
+
+<img width=""1084"" alt=""plugin"" src=""https://github.com/user-attachments/assets/7238c7a2-5741-4d1f-8a3d-b8c133e9bb27"">
+
+> __Allen Cell Segmenter ML__ Launching the Plugin.
+
+## Models
+
+| Model    | Model Name            | Available in Plugin | Model Size (MB)  | Supported Magnifications| 
+|----------|-----------------------|----------------------------------|----------------------------------------|:-------------------------:|
+| MegaSeg-S  | `megaseg_light`      | ✅        | 4.8MB      |       `100X`         |          
+| MegaSeg-M  | `megaseg_medium`     | Coming soon!       |  TBD     |       TBD       |           
+| MegaSeg-L  | `megaseg_large`      | ✅        | 191MB       |       `20X, 40X, 67X, 100X`        |  
+
+
+
+### Download and using the Megaseg Models
+
+To use the MegaSeg models in the plugin, you can download them from the dropdown menu shown below:
+
+![download-model](https://github.com/user-attachments/assets/03cc500e-ff74-40c3-bf9e-c40e58d3e47c)
+
+> __Download the MegaSeg Model__ for use in the Plugin
+
+A popup window will appear and you can select which model you would like to download. Once the download is complete, another popup will let you know the download was successful and where the model was downloaded.
+
+<img width=""1275"" alt=""select-megaseg"" src=""https://github.com/user-attachments/assets/0a26a31a-49eb-46cf-a550-47f1fa55c9c3"">
+
+ > __Select the MegaSeg model__ to Run Inference
+
+ To use the model for inference on your images, choose `Select an existing model`, select the megaseg model you downloaded, and click `Apply`. You can now use the model to segment your images!
+
+## License
+
+Distributed under the terms of the [Allen Institute Software License] license.
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[@napari]: https://github.com/napari
+[Allen Institute Software License]: https://github.com/AllenCell/allencell-segmenter-ml/blob/main/LICENSE
+[file an issue]: https://github.com/AllenCell/allencell-ml-segmenter/issues
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+[PyTorch]: https://pytorch.org/get-started/locally/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Science/Research', 'License :: Other/Proprietary License', 'License :: Free for non-commercial use', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Homepage, https://github.com/AllenCell/allencell-ml-segmenter', 'Bug Tracker, https://github.com/AllenCell/allencell-ml-segmenter/issues', 'Documentation, https://github.com/AllenCell/allencell-ml-segmenter#README.md', 'User Support, https://github.com/AllenCell/allencell-ml-segmenter/issues']",,,allencell-segmenter-ml.make_qwidget,,,,,https://pypi.org/project/allencell-segmenter-ml,,
+4,AlveolEye,0.1.5,,,AlveolEye,Joseph Hirsh,josephhirsh9@gmail.com,BSD,,Reads lung slides with AI-driven and classical methods,>=3.8,"['numpy', 'magicgui', 'qtpy', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'qtpy; extra == ""testing""']","<!--
+[![License MIT](https://img.shields.io/pypi/l/automated-lung-morphometry.svg?color=green)](https://github.com/Quooooooookka/automated-lung-morphometry/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/automated-lung-morphometry.svg?color=green)](https://pypi.org/project/automated-lung-morphometry)
+[![Python Version](https://img.shields.io/pypi/pyversions/automated-lung-morphometry.svg?color=green)](https://python.org)
+[![tests](https://github.com/Quooooooookka/automated-lung-morphometry/workflows/tests/badge.svg)](https://github.com/Quooooooookka/automated-lung-morphometry/actions)
+[![codecov](https://codecov.io/gh/Quooooooookka/automated-lung-morphometry/branch/main/graph/badge.svg)](https://codecov.io/gh/Quooooooookka/automated-lung-morphometry)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/automated-lung-morphometry)](https://napari-hub.org/plugins/automated-lung-morphometry)
+-->
+
+# AlveolEye: Automated lung morphometry made easy
+
+This repository contains the beta version of AlveolEye, which is created by the Sucre lab.
+This code is authored by Joseph Hirsh, Samuel Hirsh, Nick Negretti, and Shawyon Shirazi.
+
+This project is a Napari plugin that uses computer vision tools and classical image processing
+to calculate mean linear intercept (MLI) and airspace volume density (ASVD) from histological images.
+
+A primary goal of this tool is to be an aid to the researcher, and not be a complete automated annotation solution.
+
+## Installation
+
+The target of this process is to create a conda environment that has both napari, and all of the AlveolEye requirements.
+
+If you already have conda setup, you can skip step 1
+
+1. Install miniconda by downlading the appropriate version from [here](https://docs.anaconda.com/free/miniconda/)
+
+   a. Choose the version that matches your processor
+
+   b. Download the ""pkg"" version for easy install
+2. Open a terminal, or miniconda prompt, and clone this git repository by running:
+
+    ```git clone https://github.com/SucreLab/AlveolEye```
+3. Go to the AlveolEye directory
+
+    ```cd AlveolEye```
+4. Create the conda environment
+
+    ```conda env create -f ./environment.yml```
+5. Activate the new environment
+
+    ```conda activate AlveolEye```
+6. Install the plugin
+
+    ```pip install .```
+7. Launch napari, followed by locating the plugin in the plugin menu
+
+    ```napari```
+
+## Running post-installation
+
+1. Open a terminal, or miniconda prompt, activate the environment and run napari
+
+```
+conda activate AlveolEye
+napari
+```
+
+
+# AlveolEye Usage Tutorial
+
+## Annotated Diagram
+![annotated diagram](./docs/AlveolEye_annotated_diagram.png)
+
+## Processing: Identify and segment vessel and airway epithelium with an AI computer vision model.
+1. ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Select an image**: The remaining steps will concern this image.
+
+   a. Click the “Import Image” button.
+
+   b. Use operating system default file dialogue to select an image (*.jpg, *.png, or *.tiff).
+
+   c. Check the image in the “Image” layer (of the Napari Viewer) and the file name (displayed to the right of the “Import Image” button) to confirm that the image loaded correctly.
+2. ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Select a model**</span>: The selected model will run on the image and predict (segment) vessel and airway epithelium.
+
+   a. To use the default model, skip to step 3; otherwise, proceed to step 2b. Use the provided default model unless you have a specific reason not to.
+
+   b. Click the “Import Weights” button.
+
+   c. Use operating system file dialogue to select a model (*.pth).
+
+   d. Check the file name (displayed to the right of the “Import Weights” button) to confirm that the model loaded correctly.
+3. ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Select a confidence level**: Type a percentage and/or click the “-” and “+” buttons in the “Minimum confidence” input box to set the confidence level. Predictions with lower confidence then the set confidence level will not appear.
+4. ![#f03c15](https://placehold.co/15x15/33FF33/33FF33.png) **Run processing**: Click the “Run Processing” button to run the model and segment vessel and airway epithelium filtered by confidence level. Once completed, manually edit the prediction as necessary with the built-in napari tools to the left of the displayed image layer. See Napari documentation for more information about how to use these tools.
+
+---
+
+## Postprocessing: Identify alveolar tissue, and airwary and vessel lumens with “classical” (non-AI) methods; remove small particles and holes to prepare for assessments.
+1. ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Toggle manual thresholding**: To manually set a threshold value, toggle manual threshold; otherwise, a threshold value will be determined with Otsu's method.
+
+   a. To use manual thresholding, check the “Manual thresholding” box and proceed; to use automatic thresholding, leave the box unchecked and skip to step 2.
+
+   b. Type a percentage and/or click the “-” and “+” buttons in the “Manual thresholding” input box to set the threshold level.
+2. ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Remove small particles**: Type a percentage and/or click the “-” and “+” buttons in the “Remove small particles” input box to set the maximum size cutoff for particles to remove. Particles with fewer pixels than the set number will be removed.
+3. ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Remove small holes**: Type a percentage and/or click the “-” and “+” buttons in the “Remove small holes” input box to set the maximum size cutoff for holes to remove. Holes with fewer pixels than the set number will be removed.
+4. ![#f03c15](https://placehold.co/15x15/33FF33/33FF33.png) **Run postprocessing**: Click “Run Postprocessing” button to identify alveolar tissue, airwary lumens, and vessel lumens, and to remove small particles and holes. Once completed, manually edit the post-processing layer as necessary with the built-in napari tools to the left of the displayed image layer. See Napari documentation for more information about how to use these tools.
+
+---
+
+## Assessments: Calculate morphometry assessments—mean linear intercept (MLI) and airspace volume density (ASVD) on the fully classified image.
+1. ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Select ASVD**: To include ASVD calculations in results, check the “ASVD” checkbox; otherwise, leave the box unchecked. Leave the box unchecked to increase the speed of the assessments calculation or to exclude unnecessary data from the final export file.
+2. ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Select MLI**: To include MLI calculations in results, check the “MLI” checkbox; otherwise, leave the box unchecked. Leave the box unchecked to increase the speed of the assessments calculation or to exclude unnecessary data from the final export file.
+3. ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Set number of lines**: Type a number and/or click the “-” and “+” buttons in the “number of lines” input box to set the number of MLI lines.
+4. ![#f03c15](https://placehold.co/15x15/33FF33/33FF33.png) **Set minimum length**: Type a number and/or click the “-” and “+” buttons in the “minimum length” input box to set the minimum length required for a chord to be included in the mean calculation.
+5. ![#f03c15](https://placehold.co/15x15/3359FF/3359FF.png) **Set scale**: Type a number and/or click the “-” and “+” buttons in the “scale” input box to set the scale factor (i.e. a pixel to physical space multiplier).
+6. ![#f03c15](https://placehold.co/15x15/C433FF/C433FF.png) **Run Assessments**: Click the “Run Assessments” button to calculate the selected assessments. The ASVD and MLI calculation results will display to the right of the assessment checkboxes.
+
+---
+
+## Export Results: Collect assessment results for each image and export all the data into a file when done (*.csv or *.json).
+- **Interpreting Results**
+    - **MLI:** Mean Linear Intercept for the given image
+    - **Standard deviation:** The standard deviation of the lengths of the chord used to calculate MLI
+    - **Number of chords:** The number of chords used to calculate MLI
+    - **ASVD:** Airspace Volume Density calculation for the given image
+    - **Airspace pixels:** The total number of airspace pixels
+    - **Non airspace pixels:** The total number non-airspace pixels
+1. ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Add last result**: Click the “Add” button to add the assessment data to the final export file. Once the results are added, you can return to the ""Processing"" step and do another image.
+2. ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Remove last result**: Click the “Remove” button to remove the last results added to the export file.
+3. ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Clear export data**: Click the “Clear” button to clear the export data file.
+4. ![#f03c15](https://placehold.co/15x15/33FF33/33FF33.png) **Export Results**: Click the “Export Results” button to open a file dialogue for saving the assessments results. Note that the plugin supports two export result file types, *.csv and *.json that you can choose between.
+
+---
+
+## Manual Annotation Help: Information and tips to help you manually annotate your images
+### Annotated Diagram
+![annotated diagram](./docs/Napari_annotated_diagram.png)
+
+- **Labels**
+  - **Blocker**: 1
+  - **Airway Epithelium**: 2
+  - **Vessel Endothelium**: 3
+  - **Airway Lumen**: 4
+  - **Vessel Lumen**: 5
+  - **Parenchyma**: 6
+  - **Alveoli**: 7
+- **Annotation Tips**
+  - ![#FF3333](https://placehold.co/15x15/FF3333/FF3333.png) **Eyedropper Tool**: Quickly identify and switch to the correct label by using the eyedropper tool. Click on a part of the image to switch to the label of the pixel you clicked.
+  - ![#FF9933](https://placehold.co/15x15/FF9933/FF9933.png) **Select the Correct Layer**: Before making annotations, ensure you're working on the proper layer. Select the appropriate layer under ""layer list.""
+  - ![#FFFF33](https://placehold.co/15x15/FFFF33/FFFF33.png) **Optimize Your View**: Hide unnecessary layers to make annotation easier. Toggle a layer's visibility by clicking the eye icon next to its name.
+
+---
+
+## More
+- **Light/Dark Mode**: Change application appearance to a lighter or darker aesthetic according to personal preference.
+  - **On Windows/Linux**: Ctrl + Shift + T
+  - **On macOS**: Cmd + Shift + T
+  - **Switch theme through napari preferences**
+    - In the menu bar at the top of the screen, select ""napari.""
+    - In the dropdown, select ""Preferences.""
+    - In the menu on the left, click ""Appearance.""
+    - Under the theme dropdown, select ""dark,"" ""light,"" or ""system,"" according to personal preference.
+
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']",,AlveolEye.get_reader,AlveolEye.write_multiple,AlveolEye.make_qwidget,AlveolEye.make_sample_data,"['.jpeg', '.jpg', '.png', '.tif', '.tiff']",,['.npy'],https://pypi.org/project/AlveolEye,,
+5,anchor_droplet_chip,0.4.6,2023-12-04,2025-04-22,anchor_droplet_chip,Andrey Aristov,,BSD-3-Clause,https://pypi.org/project/anchor-droplet-chip,Segment organoids and measure intensities,,,,,,,,,,,,,https://pypi.org/project/anchor-droplet-chip,,
+6,annotrack,0.0.3,,,annotrack,Abigail S McGovern,abigail_mcgovern@hotmail.com,BSD-3-Clause,,napari plugin for annotating tracks to estimate error rates,>=3.7,"['dask', 'napari', 'numpy', 'zarr', 'pandas', ""sphinx ; extra == 'docs'"", ""nd2 ; extra == 'io'"", ""pytest ; extra == 'testing'""]","# annotrack
+Annotrack is a napari plugin for annotating errors in object trajectories. The plugin will help you take a sample of track segments along with a small section of corresponding image and segmentation. Annotrack allows you to annotate three types of errors: (1) ID swap errors (track jumps between objects), (2) false starts (track starts on a pre-existing object) and false terminations (track ends but object still exists). By looking at the combined rates of false starts and false terminations you can assess track discontinutation errors. 
+
+**Please note:** Images and segmentations must be in zarr format. Tracks should be in parquet format.  
+
+## Installation 
+
+There are three main ways to install annotrack:
+
+### Install Using pip
+*Please note that this is planned/under development*
+
+Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):
+
+```bash
+pip install annotrack
+```
+
+### Install
+*Please note that this is planned/under development*
+
+Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):
+
+```bash
+install napari
+napari
+```
+
+Once napari has opened (this may take a second the first time you open it), go to the pannel at the top of the screen and select the 'plugins' dropdown. Then select install/uninstall plugins. A new window will open showing available plugins. Either scroll down to or search 'annotrack' and click 'install'. 
+
+### Install from Source Code
+*please use this for now*
+
+Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):
+
+```bash
+git clone https://github.com/AbigailMcGovern/annotrack.git
+cd annotrack
+pip install .
+```
+
+## Opening Annotrack
+Once annotrack is properly installed you will be able to open annotrack by opening napari. You can open napari through the command line (terminal (MacOS or Ubuntu) or annaconda prompt (windows)) as follows:
+
+```bash
+napari
+```
+
+You can find the annotrack widgets by selecting the dropdown 'plugins' at the pannel at the top of the screen and hovering over 'annotrack'.  
+
+## Sample from CSV
+
+To sample your tracks you will need to supply the file paths for the images, segmentations, and tracks. You supply this in a csv that is structured as shown below:
+
+ ![csv_structure widget](https://github.com/AbigailMcGovern/annotrack/blob/main/media/csv_structure.png)
+
+In this csv, you may also specify how many samples are to be taken from each file. If this is not provided, annotrack will use the value you supply to the `sample_from_csv` widget. The csv must contain a column that specifies a category to which each sample belongs (e.g., species, experimental condition, drug, etc.).  If this isnt important for your samples, just add a dummy category (e.g., sample_type : [A, A, A, A]). 
+
+To access the widget and sample track segments, go to the top of the screen, go to **plugins > annotrack > sample_from_csv**. When the widget is displayed, select the csv file, select a directory into which to save results, and proivide a name for the summary data file (i.e., where your annotations will be written). 
+
+ ![sample_from_csv widget](https://github.com/AbigailMcGovern/annotrack/blob/main/media/sample_from_csv.png)
+
+### Widget parameters
+- **path to csv**: 
+        The path storing the info from which to generate the samples. 
+        The CSV should have the columns: image_path, labels_path, tracks_path, <category_col>, 
+        You can also add an optional n_samples column if you would like to 
+        specify how many samples to take from each individual file. Otherwise, 
+        the default ""n_samples"" you've supplied will be used.
+- **output dir**: 
+        Where will the output be saved?
+- **output name**: 
+        What will output summary files/directories be called?
+- **n samples**: 
+        How many samples to be obtained from each file. Will be overwritten
+        if there is a valid integer number in the n_samples colum of the csv.
+- **tzyx cols**: 
+        What are the names of the columns denoting time (in frames) and coordinate
+        positions (in pixels) in the file containing tracks? The order should be:
+        t, z, y, x. 
+- **id col**: 
+        What is the name of the column denoting the specific ID for each tracked
+        object?
+- **scale**: 
+        size of pixels (e.g., in um) for the z, y, and x coordinates (in that
+        order)
+- **frames**: 
+        Approximate maximum number of frames of track segment. 
+        Max frames = frames (if even) or frames - 1 (if odd)
+- **box size**: 
+        Approximate size of bounding box (in pixels). 
+- **min track len**: 
+        You can set a minimum track len to include in the search. 
+        This can help to eliminate less useful data. This should be at least 1 to only include tracked objects. Set higher only if you are specifically interested in longer lived tracks. 
+- **image channel**: 
+        This denotes the index of the channel from which to get 
+        image data (0: channel 1, 1: channel 2, 2: channel 3, 3: channel 4)
+
+### Annotate Now?
+
+In the case that we are annotating multiple conditions to compare, we want to show them in the one session in randomised order with the annotator blinded to where the sample has originated from. We want to be able to annotated unannotated data from the sample without having the burden of having to do this all at once. The annotations are therefore saved into the saved sample. A selected number of samples saved from the various tracking experiments can be annotated using the following code. If you re-execute this code, you will only be shown not yet annotated data, unless you request otherwise.
+
+Keys to navagate and annotate samples
+- '2' - move to next sample
+- '1' - move to previous sample
+- 'y' - annotate as correct (will move to the next sample automatically)
+- 'n' - annotate as containing an error (will move to the next sample automatically)
+- 'i' - annotate the frame following a ID swap error
+- 't' - annotate the fame following an incorrect termination
+- 'Shift-t' - annotate the frame containing a false start error
+- 's' - annotate an error ('i', 't', or 'Shift-t') as being associated with a segmentation error (merge or split of objects)
+
+When an error is associated the specific frame ('i', 't', 'Shift-t', or 's'), the frame number (within the original image) will be added to a list of errors for the sample within the sample's (.smpl) info data frame. E.g., you may have a list of ID swaps for your sampled track segment (`[108, 111, 112]`) and a corresponding list of segmentation error associations (`[108, 112]`). 
+
+## Annotate Existing Sample
+If you have already saved a sample and want to annotate it, you can load the sample data using the `annotate_existing_sample` widget. This might be useful if you want to have several annotators annotate the same sample. To access this widget, open napari
+
+ ![annotate_existing_sample widget](https://github.com/AbigailMcGovern/annotrack/blob/main/media/annotate_existing_sample.png)
+
+## Contributing and User Support
+
+**User support:** If you have an issue with annotrack please add an issue (go to the Issues tab at the top of the GitHub page). If your issue is a bug, please include as much information as possible to help debug the problem. Examples of information include: details about the image and segmentation data (dimensions), number of images, number of samples you are trying to take. If you are requesting an improvement, try to be as clear as possible about what you need. 
+
+**Contributing:** If you want to contribute to annotrack, please fork the repo and if you want to make changes make a pull request with as much detail about the change as possible. Please ensure any changes you want to make don't break the existing functions.
+","['Programming Language :: Python :: 3', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Intended Audience :: Science/Research', 'Topic :: Scientific/Engineering', 'Topic :: Scientific/Engineering :: Image Processing', 'Framework :: napari']","['Bug Tracker, https://github.com/abigailmcgovern/annotrack/issues', 'Documentation, https://github.com/abigailmcgovern/annotrack#README.md', 'Source Code, https://github.com/abigailmcgovern/annotrack', 'User Support, https://github.com/abigailmcgovern/annotrack/issues']",,,annotrack.sample_from_csv,,,,,https://pypi.org/project/annotrack,,
+7,Appletree,0.1.dev1,,,appletree,Herearii Metuarea,,"Copyright (c) 2025, Herearii Metuarea
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ""AS IS""
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+",,Apple tree segmentation for young apple tree,,,,,,,,,,,,,https://pypi.org/project/appletree,,
+8,napari ARCOS,0.1.5,2022-07-07,2025-04-22,arcos-gui,Benjamin Grädel,benjamin.graedel@unibe.ch,BSD-3-Clause,https://github.com/bgraedel/arcos-gui,A napari plugin to detect and visualize collective signaling events,>=3.9,"['arcos4py>=0.3.1', 'matplotlib>=3.3.4', 'napari>=0.4.14', 'numpy>=1.22.2; python_version >= ""3.10""', 'numpy<2,>=1.22.2; python_version < ""3.10""', 'pandas>=1.3.5', 'pyarrow>=11.0.0', 'scikit-image>=0.20.0; python_version < ""3.12""', 'scikit-image>=0.22.0; python_version >= ""3.12""', 'scipy>=1.7.3', 'napari-timestamper', 'mkdocs; extra == ""doc""', 'mkdocs-include-markdown-plugin; extra == ""doc""', 'mkdocs-material; extra == ""doc""', 'mkdocs-material-extensions; extra == ""doc""', 'pyqt5; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-mock; extra == ""testing""', 'pytest-qt; extra == ""testing""']","# arcos-gui
+
+[![License](https://img.shields.io/pypi/l/arcos-gui.svg?color=green)](https://github.com/pertzlab/pertzlab/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/arcos-gui.svg)](https://pypi.org/project/arcos-gui)
+[![conda-forge](https://img.shields.io/conda/vn/conda-forge/arcos-gui)](https://anaconda.org/conda-forge/arcos-gui)
+[![Python Version](https://img.shields.io/pypi/pyversions/arcos-gui.svg?color=green?)](https://python.org)
+[![tests](https://github.com/pertzlab/arcos-gui/workflows/tests/badge.svg)](https://github.com/pertzlab/arcos-gui/actions)
+[![codecov](https://codecov.io/gh/pertzlab/arcos-gui/branch/main/graph/badge.svg)](https://codecov.io/gh/pertzlab/arcos-gui)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/arcos-gui)](https://napari-hub.org/plugins/arcos-gui)
+
+A napari plugin to detect and visualize collective signaling events
+
+----------------------------------
+- Package specific Documentation: <https://pertzlab.github.io/arcos-gui>
+- ARCOS documentation: <https://arcos.gitbook.io>
+
+**A**utomated **R**ecognition of **C**ollective **S**ignalling (ARCOS) is an algorithm to identify collective spatial events in time series data.
+It is available as an [R (ARCOS)](https://github.com/pertzlab/ARCOS) and [python (arcos4py)](https://github.com/pertzlab/arcos4py) package.
+ARCOS can identify and visualize collective protein activation in 2- and 3D cell cultures over time.
+
+This plugin integrates ARCOS into napari. Users can import tracked time-series data in CSV format or load data from napari-layer properties (such as the ones generated with [napari-skimage-regionprops](https://www.napari-hub.org/plugins/napari-skimage-regionprops). The plugin
+provides GUI elements to process this data with ARCOS. Layers containing the detected collective events are subsequently added to the viewer.
+
+Following analysis, the user can export the output as a CSV file with the detected collective events or as a sequence of images to generate a movie.
+
+
+![](https://github.com/bgraedel/arcos-gui/assets/100028238/66fa2afa-6f24-4cce-b29e-4279066c6c25)
+
+[Watch full demo on youtube](https://www.youtube.com/watch?v=hG_z_BFcAiQ) (older plugin version)
+
+
+# Installation
+
+You can install `arcos-gui` via [pip]:
+
+    pip install arcos-gui
+
+Or via [conda-forge]:
+
+    conda install -c conda-forge arcos-gui
+
+## Usage
+
+The plugin can be started from the napari menu `Plugins > ARCOS GUI`.
+For detailed instructions on how to use the plugin, please refer to the [Usage section of the documentation](https://pertzlab.github.io/arcos-gui/Usage).
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+See the [Contributing Guide](https://pertzlab.github.io/arcos-gui/Contributing) for more information.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""arcos-gui"" is free and open-source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/pertzlab/arcos-gui/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/arcos-gui/
+[conda-forge]: https://anaconda.org/conda-forge/arcos-gui
+[PyPI]: https://pypi.org/
+
+## Credits
+We were able to develop this plugin in part due to funding from the [CZI napari Plugin Foundation Grant](https://chanzuckerberg.com/science/programs-resources/imaging/napari/detecting-and-quantifying-space-time-correlations-in-cell-signaling/).
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+## Citation
+
+If you use this plugin in your research, please cite the following [paper](https://doi.org/10.1083/jcb.202207048):
+
+    @article{10.1083/jcb.202207048,
+        author = {Gagliardi, Paolo Armando and Grädel, Benjamin and Jacques, Marc-Antoine and Hinderling, Lucien and Ender, Pascal and Cohen, Andrew R. and Kastberger, Gerald and Pertz, Olivier and Dobrzyński, Maciej},
+        title = ""{Automatic detection of spatio-temporal signaling patterns in cell collectives}"",
+        journal = {Journal of Cell Biology},
+        volume = {222},
+        number = {10},
+        pages = {e202207048},
+        year = {2023},
+        month = {07},
+        abstract = ""{Increasing experimental evidence points to the physiological importance of space–time correlations in signaling of cell collectives. From wound healing to epithelial homeostasis to morphogenesis, coordinated activation of biomolecules between cells allows the collectives to perform more complex tasks and to better tackle environmental challenges. To capture this information exchange and to advance new theories of emergent phenomena, we created ARCOS, a computational method to detect and quantify collective signaling. We demonstrate ARCOS on cell and organism collectives with space–time correlations on different scales in 2D and 3D. We made a new observation that oncogenic mutations in the MAPK/ERK and PIK3CA/Akt pathways of MCF10A epithelial cells hyperstimulate intercellular ERK activity waves that are largely dependent on matrix metalloproteinase intercellular signaling. ARCOS is open-source and available as R and Python packages. It also includes a plugin for the napari image viewer to interactively quantify collective phenomena without prior programming experience.}"",
+        issn = {0021-9525},
+        doi = {10.1083/jcb.202207048},
+        url = {https://doi.org/10.1083/jcb.202207048},
+        eprint = {https://rupress.org/jcb/article-pdf/222/10/e202207048/1915749/jcb/_202207048.pdf},
+    }
+","['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Topic :: Software Development :: Testing']","['Bug Tracker, https://github.com/bgraedel/arcos-gui/issues', 'Documentation, https://pertzlab.github.io/arcos-gui/', 'Source Code, https://github.com/bgraedel/arcos-gui', 'User Support, https://github.com/bgraedel/arcos-gui/issues']",,,arcos-gui.MainWindow,arcos-gui.data.arcos_sample_data_1,,,,https://pypi.org/project/arcos-gui,https://github.com/bgraedel/arcos-gui,
+9,arcosPx,0.1.1,,,arcosPx-napari,Benjamin Grädel,benjamin.graedel@unibe.ch,BSD-3-Clause,,A plugin to track spatio-temporal correlations in images,>=3.10,"['numpy', 'magicgui', 'qtpy', 'arcos4py>=0.3.0', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'pyqt5; extra == ""testing""']","# arcosPx-napari
+
+[![License BSD-3](https://img.shields.io/pypi/l/arcosPx-napari.svg?color=green)](https://github.com/pertzlab/arcosPx-napari/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/arcosPx-napari.svg?color=green)](https://pypi.org/project/arcosPx-napari)
+[![Python Version](https://img.shields.io/pypi/pyversions/arcosPx-napari.svg?color=green)](https://python.org)
+[![tests](https://github.com/pertzlab/arcosPx-napari/workflows/tests/badge.svg)](https://github.com/pertzlab/arcosPx-napari/actions)
+[![codecov](https://codecov.io/gh/pertzlab/arcosPx-napari/branch/main/graph/badge.svg)](https://codecov.io/gh/pertzlab/arcosPx-napari)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/arcosPx-napari)](https://napari-hub.org/plugins/arcosPx-napari)
+
+
+## Introduction
+
+This repository contains a dedicated ARCOS.px plugin for the [napari](https://napari.org/stable/) image viewer. It tracks spatio-temporal correlations in images as described in a publication of Grädel et al. _Tracking Coordinated Cellular Dynamics in Time-Lapse Microscopy with ARCOS.px_ ([link](https://doi.org/10.1101/2025.03.14.643386)).
+
+<p align=""center"">
+  <img alt=""ARCOS.px logo"" src=""misc/ARCOS-px-logo.png"" width=""45%"">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt=""CDL logo"" src=""misc/cellular-dynamics-lab-logo2.png"" width=""45%""> 
+</p>
+
+ARCOS.px is a computational method to identify and track clusters of correlated cell signaling in time-lapse microscopy images. 
+It is the latest addition to the [ARCOS ecosystem](https://arcos.gitbook.io/home) developed in the [Cellular Dynamics Lab](https://www.pertzlab.net) at the University of Bern.
+
+![ARCOS.px napari plugin screenshot](misc/napari-plugin.png)
+
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+## Example tracking
+
+Actin polymerization waves in REF52 fibroblasts treated with 50 ng/mL PDGF, 24h before imaging.
+
+![Polymerisation wave in REF52 cells](misc/tracked_waves_rgb_wLabels_F1-181.gif)
+
+
+## Installation
+
+You can install `arcosPx-napari` via [pip]:
+
+    pip install arcosPx-napari
+
+
+
+To install latest development version :
+
+    pip install git+https://github.com/pertzlab/arcosPx-napari.git
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""arcosPx-napari"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/pertzlab/arcosPx-napari/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/bgraedel/arcosPx-napari/issues', 'Documentation, https://github.com/bgraedel/arcosPx-napari#README.md', 'Source Code, https://github.com/bgraedel/arcosPx-napari', 'User Support, https://github.com/bgraedel/arcosPx-napari/issues']",,,arcosPx-napari.remove_background,,,,,https://pypi.org/project/arcosPx-napari,,
+10,napari avidaq,0.0.5,2022-08-19,2025-04-22,avidaq,Riley M Shea,RileyMShea@gmail.com,BSD-3-Clause,https://pypi.org/project/avidaq/,controls for napari and micromanger,>=3.8,"['magicgui', 'numpy', 'pycromanager', 'qtpy', ""twine ; extra == 'build'"", ""black ; extra == 'testing'"", ""ipykernel ; extra == 'testing'"", ""matplotlib ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'"", ""pyright ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""tox ; extra == 'testing'"", ""yappi ; extra == 'testing'""]","# avidaq
+
+[![PyPI](https://img.shields.io/pypi/v/avidaq.svg?color=green)](https://pypi.org/project/avidaq)
+[![Python Version](https://img.shields.io/pypi/pyversions/avidaq.svg?color=green)](https://python.org)
+[![tests](https://github.com/optimax/avidaq/workflows/tests/badge.svg)](https://github.com/optimax/avidaq/actions)
+[![codecov](https://codecov.io/gh/optimax/avidaq/branch/main/graph/badge.svg)](https://codecov.io/gh/optimax/avidaq)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/avidaq)](https://napari-hub.org/plugins/avidaq)
+
+controls for napari and micromanger
+
+---
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/plugins/index.html
+-->
+
+## Installation
+
+### Standard installation
+
+You can install `avidaq` via [pip]:
+
+```shell
+pip install napari[all] avidaq
+```
+
+### Install from plugin menu
+
+Alternatively you can install `avidaq` via the [napari] plugin menu:
+
+## ![napari-add-plugin](napari-add-plugin.png)
+
+## Running
+
+First start micromanager.  Make sure the server port checkbox is activated.
+
+Then to start napari with the avidaq plugin active run:
+`napari -w avidaq`
+
+![](screenshot.png)
+
+## Updating presets
+
+MDA presets are stored in a json file in the user's home directory.
+
+```shell
+
+`C:\\Users\YourName\.avidaq\mda_presets.json`
+```
+
+This file should exist after plugin installation with some defaults. You do not need to create the file yourself.
+
+Add or modify the values and reload napari to see the changes.
+
+All parameter entries are optional, if not provided the default value will be used.
+
+The parameter names and their descriptions can be found [here] (https://github.com/micro-manager/pycro-manager/blob/main/pycromanager/acq_util.py#L102-L115)
+
+The format is as follows:
+
+```json
+{
+    ""gui_display_name"": {
+        ""parameter_name"": value,
+        ""parameter_name"": value,
+        ...
+    },
+    ""gui_display_name"": {
+        ""parameter_name"": value,
+        ""parameter_name"": value,
+        ...
+    },
+    ...
+}
+```
+
+defaults:
+
+```json
+{
+  ""Basic"": {
+    ""num_time_points"": 5,
+    ""z_start"": 0,
+    ""z_end"": 6,
+    ""z_step"": 0.4
+  },
+  ""Simple"": {
+    ""num_time_points"": 2,
+    ""z_start"": 0,
+    ""z_end"": 2,
+    ""z_step"": 0.1
+  },
+  ""Detailed"": {
+    ""num_time_points"": 10,
+    ""z_start"": 0,
+    ""z_end"": 12,
+    ""z_step"": 0.2
+  }
+}
+```
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+## Development
+
+You should have python3.8 or higher installed.
+
+1. clone this repo
+2. create a virtual environment `python -m venv .venv && source .venv/bin/activate`
+3. run `pip install -e '.[testing,build]'`
+4. run `pre-commit install`
+
+### To run unit tests
+
+`pytest`
+
+### typical workflow
+
+1. edit code in `/src`
+2. run napari -w avidaq
+3. repeat
+
+### Releasing to pypi
+
+
+Project is automically built and deployed to pypi upon
+
+
+---
+
+[napari]: https://github.com/napari/napari
+[cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[mit]: http://opensource.org/licenses/MIT
+[bsd-3]: http://opensource.org/licenses/BSD-3-Clause
+[gnu gpl v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[gnu lgpl v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[apache software license 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[mozilla public license 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[pypi]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing', 'Typing :: Typed']",,avidaq.get_reader,avidaq.write_multiple,avidaq.make_qwidget,avidaq.make_sample_data,['*.npy'],,['.npy'],https://pypi.org/project/avidaq/,,
+11,AxonDeepSeg,5.0.4,,,AxonDeepSeg,"NeuroPoly Lab, Polytechnique Montreal","""NeuroPoly Lab, Polytechnique Montreal"" <axondeepseg@googlegroups.com>",MIT,,Axon/Myelin segmentation using AI,"<3.13,>=3.11","['numpy<2', 'scipy', 'scikit-image!=0.25.0,!=0.25.1', 'tabulate', 'pandas', 'matplotlib', 'mpld3', 'tqdm', 'requests', 'pillow!=9.0.0', 'imageio>=2.28.0', 'pytest', 'pytest-cov', 'prettytable', 'jupyter', 'openpyxl', 'qtconsole<5.4.2', 'napari[all]', 'acvl_utils!=0.2.1', 'nnunetv2==2.2.1', 'loguru', 'torch<2.4.0', 'pydicom<3', 'pytest-qt', 'magicgui', 'qtpy']","
+<picture>
+  <source media=""(prefers-color-scheme: dark)"" srcset=""https://github.com/axondeepseg/doc-figures/blob/main/logo/logo_ads-dark-alpha.png?raw=true"" width=""385"">
+  <img alt=""ADS logo (simplified image of segmented axons/myelin in blue and red beside the text 'AxonDeepSeg')"" src=https://github.com/axondeepseg/doc-figures/blob/main/logo/logo_ads-alpha.png?raw=true"" width=""385"">
+</picture>
+
+
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/neuropoly/axondeepseg/master?filepath=notebooks%2Fgetting_started.ipynb)
+[![Build Status](https://github.com/axondeepseg/axondeepseg/actions/workflows/run_tests.yaml/badge.svg)](https://github.com/axondeepseg/axondeepseg/actions/workflows/run_tests.yaml)
+[![Documentation Status](https://readthedocs.org/projects/axondeepseg/badge/?version=stable)](http://axondeepseg.readthedocs.io/en/latest/?badge=latest)
+[![Coverage Status](https://coveralls.io/repos/github/axondeepseg/axondeepseg/badge.svg?branch=master)](https://coveralls.io/github/axondeepseg/axondeepseg?branch=master)
+[![Twitter Follow](https://img.shields.io/twitter/follow/axondeepseg.svg?style=social&label=Follow)](https://twitter.com/axondeepseg)
+
+Segment axon and myelin from microscopy data using deep learning. Written in Python. Using the TensorFlow framework.
+Based on a convolutional neural network architecture. Pixels are classified as either axon, myelin or background.
+
+For more information, see the [documentation website](http://axondeepseg.readthedocs.io/).
+
+![alt tag](https://github.com/axondeepseg/doc-figures/blob/main/animations/napari.gif?raw=true)
+
+
+
+## Help
+
+Whether you are a newcomer or an experienced user, we will do our best to help and reply to you as soon as possible. Of course, please be considerate and respectful of all people participating in our community interactions.
+
+* If you encounter difficulties during installation and/or while using AxonDeepSeg, or have general questions about the project, you can start a new discussion on the [AxonDeepSeg GitHub Discussions forum](https://github.com/neuropoly/axondeepseg/discussions). We also encourage you, once you've familiarized yourself with the software, to continue participating in the forum by helping answer future questions from fellow users!
+* If you encounter bugs during installation and/or use of AxonDeepSeg, you can open a new issue ticket on the [AxonDeepSeg GitHub issues webpage](https://github.com/neuropoly/axondeepseg/issues).
+
+
+
+
+### Napari plugin
+
+A tutorial demonstrating the basic features of our plugin for Napari is hosted on YouTube, and can be viewed by clicking [this link](https://www.youtube.com/watch?v=zibDbpko6ko).
+
+## References
+
+**AxonDeepSeg**
+
+* [Lubrano et al. *Deep Active Leaning for Myelin Segmentation on Histology Data.* Montreal Artificial Intelligence and Neuroscience 2019](https://arxiv.org/abs/1907.05143) - \[[**source code**](https://github.com/neuropoly/deep-active-learning)\]
+* [Zaimi et al. *AxonDeepSeg: automatic axon and myelin segmentation from microscopy data using convolutional neural networks.* Scientific Reports 2018](https://www.nature.com/articles/s41598-018-22181-4)
+* [Collin et al. *Multi-Domain Data Aggregation for Axon and Myelin Segmentation in Histology Images*. preprint](https://arxiv.org/abs/2409.11552v1) - \[[**source code**](https://github.com/axondeepseg/model_seg_generalist)]
+
+**Applications**
+
+* [Tabarin et al. *Deep learning segmentation (AxonDeepSeg) to generate axonal-property map from ex vivo human optic chiasm using light microscopy.* ISMRM 2019](https://www.ismrm.org/19/program_files/DP23.htm) - \[[**source code**](https://github.com/thibaulttabarin/UnAxSeg)\]
+* [Lousada et al. *Characterization of cortico-striatal myelination in the context of pathological Repetitive Behaviors.*  International Basal Ganglia Society (IBAGS) 2019](http://www.ibags2019.com/key4register/images/client/863/files/Abstractbook1405.pdf)
+* [Duval et al. *Axons morphometry in the human spinal cord.* NeuroImage 2019](https://www.sciencedirect.com/science/article/pii/S1053811918320044)
+* [Yu et al. *Model-informed machine learning for multi-component T2 relaxometry.* Medical Image Analysis 2021](https://www.sciencedirect.com/science/article/pii/S1361841520303042) - \[[**source code**](https://github.com/thomas-yu-epfl/Model_Informed_Machine_Learning)\]
+
+**Reviews**
+
+* [Riordon et al. *Deep learning with microfluidics for biotechnology.* Trends in Biotechnology 2019](https://www.sciencedirect.com/science/article/pii/S0167779918302452)
+
+## Citation
+
+If you use this work in your research, please cite it as follows:
+
+Zaimi, A., Wabartha, M., Herman, V., Antonsanti, P.-L., Perone, C. S., & Cohen-Adad, J. (2018). AxonDeepSeg: automatic axon and myelin segmentation from microscopy data using convolutional neural networks. Scientific Reports, 8(1), 3816. Link to paper: https://doi.org/10.1038/s41598-018-22181-4.
+
+Copyright (c) 2018 NeuroPoly (Polytechnique Montreal)
+
+## Licence
+
+The MIT License (MIT)
+
+Copyright (c) 2018 NeuroPoly, École Polytechnique, Université de Montréal
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## Contributors
+
+Pierre-Louis Antonsanti, Stoyan Asenov, Mathieu Boudreau, Oumayma Bounou, Marie-Hélène Bourget, Julien Cohen-Adad, Victor Herman, Melanie Lubrano, Antoine Moevus, Christian Perone, Vasudev Sharma, Thibault Tabarin, Maxime Wabartha, Aldo Zaimi.
+","['Development Status :: 5 - Production/Stable', 'Intended Audience :: Science/Research', 'License :: OSI Approved :: MIT License', 'Framework :: napari', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Topic :: Scientific/Engineering :: Image Processing']","['Homepage, https://github.com/neuropoly/axondeepseg', 'Bug Tracker, https://github.com/axondeepseg/axondeepseg/issues', 'Documentation, https://github.com/axondeepseg/axondeepseg#README.md', 'Source Code, https://github.com/axondeepseg/axondeepseg', 'User Support, https://github.com/axondeepseg/axondeepseg/issues']",,,AxonDeepSeg.ads_napari.make_qwidget,,,,,https://pypi.org/project/AxonDeepSeg,,
+12,bbii-decon,0.0.1,2022-02-11,2025-04-22,bbii-decon,"Graham Dellaire, Robert Haase",dellaire@Dal.Ca,BSD-3-Clause,https://github.com/gdellaire/bbii-decon,Projected Barzilai-Borwein Image Deconvolution with Infeasible Iterates (BBii-Decon),>=3.7,"['napari-plugin-engine (>=0.1.4)', 'numpy', 'pypher']","# BBii-Decon
+
+[![License](https://img.shields.io/pypi/l/bbii-decon.svg?color=green)](https://github.com/gdellaire/bbii-decon/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/bbii-decon.svg?color=green)](https://pypi.org/project/bbii-decon)
+[![Python Version](https://img.shields.io/pypi/pyversions/bbii-decon.svg?color=green)](https://python.org)
+[![tests](https://github.com/gdellaire/bbii-decon/workflows/tests/badge.svg)](https://github.com/gdellaire/bbii-decon/actions)
+[![codecov](https://codecov.io/gh/gdellaire/bbii-decon/branch/main/graph/badge.svg)](https://codecov.io/gh/gdellaire/bbii-decon)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/bbii-decon)](https://napari-hub.org/plugins/bbii-decon)
+
+Projected Barzilai-Borwein Image Deconvolution with Infeasible Iterates (BBii-Decon)
+
+
+The projected Barzilai-Borwein method of image deconvolution utilizing infeasible iterates (BBii-Decon), utilizes Barzilai-Borwein (BB) or projected BB (PBB) method and enforces a nonnegativity constraint, but allows for infeasible iterates between projections. This algorithm (BBii) results in faster convergence than the basic PBB method, while achieving better quality images, with reduced background than the unconstrained BB method (1). 
+
+The code represented is based on the original BBii algorithm written in MatLab by Kathleen Fraser and Dirk Arnold, which was ported to python 3.8 by Graham Dellaire, Dirk Arnold and Kathleen Fraser for non-commercial use.
+
+The first implementation shown here is for 2D deconvolution using a known 2D PSF of 256 X 256 pixels, and images of at least 256 pixels in one dimension. One file implements just the deconvolution of a blurred image, while the second file contains a modification of the BBii-Decon algorithm that has a built in heuristic for measuring image reconstruction error relative to a ground truth image. For general 2D deconvolution, either a theoretical 2D PSF (if you know the optical properties of your system) or the central in focus image of a fluorescent bead taken with the same imaging setup (lens, magnification, camera) can produce a suitable PSF.
+
+### GPU-acceleration
+
+For most 2D deconvolution, optimal results are obtained with 10 iterations of the algorithm. However, if processing takes too long, acceleration using graphics processing units (GPUs) may make sense, especially for processing larger images with >10 iterations or 3D images. (Note: At this time BBii-Decon is optimized for 2D deconvolution, with a 3D implementation planned in future). 
+
+This plugin supports accelerated processing using the [cupy](https://cupy.dev) library. To make use of it, please follow 
+[the instructions](https://docs.cupy.dev/en/stable/install.html#installing-cupy-from-conda-forge) to install cupy. 
+Installation may look like this:
+```
+conda create --name cupy_p38 python=3.8
+conda activate cupy_p38
+conda install -c conda-forge cupy cudatoolkit=10.2
+```
+
+If cupy installation worked out, you will find another checkbox in the user interface. By activating it, processing 
+should become faster by factor 5-10, depending on processed image data and use GPU hardware.
+
+![img.png](https://github.com/gdellaire/BBii-Decon/raw/main/demo/use_GPU_checkbox.png)
+
+## Usage - napari
+
+You can use the BBii deconvolution from within napari by clicking the menu `Plugins > bbii-decon > bbii deconvolution`. 
+In the dialog, select the PSF, the image to process (a) and click on `Run`. After a moment, the deconvolved image (b) 
+will show up.
+
+![img.png](https://github.com/gdellaire/BBii-Decon/raw/main/demo/screenshot_napari.png)
+
+## Usage from python
+
+You can also call the function from python. There is a full working example in [this notebook](demo/BBii_Decon_2D_2021.ipynb).
+
+```
+from bbii_decon import bbii
+
+bbii(PSF, image, number_of_iterations = 15, tau = 1.0e-08, rho = 0.98)
+```
+
+
+## Citation
+1) [Kathleen Fraser, Dirk V. Arnold, and Graham Dellaire (2014). Projected Barzilai-Borwein
+method with infeasible iterates for nonnegative least-squares image deblurring. In Proceedings
+of the Eleventh Conference on Computer and Robot Vision (CRV 2014), Montreal, Canada, pp.
+189--194.](https://ieeexplore.ieee.org/abstract/document/6816842)
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/plugins/stable/index.html
+-->
+
+## Installation
+
+You can install `bbii-decon` via [pip]:
+
+    pip install bbii-decon
+
+
+## Installation for developers
+
+Clone the github repository:
+
+```
+conda install git
+
+git clone https://github.com/gdellaire/BBii-Decon.git
+
+cd BBii-Decon
+
+pip install -e .
+```
+
+## Deployment to pypi
+
+For deploying the plugin to the python package index (pypi), one needs a [pypi user account](https://pypi.org/account/register/) 
+first. For deploying the plugin to pypi, one needs to install some tools:
+
+```
+python -m pip install --user --upgrade setuptools wheel
+python -m pip install --user --upgrade twine
+```
+
+The following command allows us to package the souce code as a python wheel. Make sure that the 'dist' and 'build' folders are deleted before doing this:
+
+```
+python setup.py sdist bdist_wheel
+```
+
+This command ships the just generated to pypi:
+
+```
+python -m twine upload --repository pypi dist/*
+```
+
+[Read more about distributing your python package via pypi](https://realpython.com/pypi-publish-python-package/#publishing-to-pypi).
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""bbii-decon"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/gdellaire/bbii-decon/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+
+
+","['Development Status :: 2 - Pre-Alpha', 'Intended Audience :: Developers', 'Framework :: napari', 'Topic :: Software Development :: Testing', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License']","['Bug Tracker, https://github.com/gdellaire/bbii-decon/issues', 'Documentation, https://github.com/gdellaire/bbii-decon#README.md', 'Source Code, https://github.com/gdellaire/bbii-decon', 'User Support, https://github.com/gdellaire/bbii-decon/issues']",,,bbii-decon.napari_experimental_provide_function,,,,,https://pypi.org/project/bbii-decon,https://github.com/gdellaire/bbii-decon,
+13,beetlesafari,0.4.0,2022-06-13,2025-04-22,beetlesafari,Robert Haase,robert.haase@tu-dresden.de,,https://github.com/haesleinhuepf/beetlesafari,"A napari plugin for loading and working with light sheet imaging data of developing embryos acquired using ClearControl, e.g. _Tribolium castaneum_.",>=3.7,"['numpy', 'pyopencl', 'toolz', 'scikit-image', 'requests', 'pyclesperanto-prototype', 'napari', 'magicgui', 'dask', 'cachetools', 'napari-tools-menu']","A library for working with light sheet imaging data of developing embryos acquired using [ClearControl](https://github.com/ClearControl) at the [Center for Systems Biology Dresden](https://www.csbdresden.de/), e.g. _Tribolium castaneum_.
+
+# Installation
+```
+conda install -c conda-forge pyopencl
+pip install beetlesafari
+```
+","['Programming Language :: Python :: 3', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Framework :: napari', 'Intended Audience :: Science/Research', 'Development Status :: 3 - Alpha']",,,,,,,,,https://pypi.org/project/beetlesafari,https://github.com/haesleinhuepf/beetlesafari,
+14,Canvas Widget from BiAPoL,0.3.1,,,biaplotter,Marcelo Leomil Zoccoler,marzoccoler@gmail.com,BSD-3-Clause,,A base napari plotter widget for interactive plotting,>=3.9,"['numpy', 'magicgui', 'qtpy', 'napari-matplotlib', 'nap-plot-tools>=0.1.0', 'numpy>=1.22.0', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'pyqt5; extra == ""testing""']","# biaplotter
+
+[![License BSD-3](https://img.shields.io/pypi/l/biaplotter.svg?color=green)](https://github.com/BiAPoL/biaplotter/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/biaplotter.svg?color=green)](https://pypi.org/project/biaplotter)
+[![Python Version](https://img.shields.io/pypi/pyversions/biaplotter.svg?color=green)](https://python.org)
+[![tests](https://github.com/BiAPoL/biaplotter/workflows/tests/badge.svg)](https://github.com/BiAPoL/biaplotter/actions)
+[![codecov](https://codecov.io/gh/BiAPoL/biaplotter/branch/main/graph/badge.svg)](https://codecov.io/gh/BiAPoL/biaplotter)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/biaplotter)](https://napari-hub.org/plugins/biaplotter)
+
+A base napari plotter widget for interactive plotting
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+## Documentation
+
+The full documentation with API and examples can be found [here](https://biapol.github.io/biaplotter/).
+
+## Installation
+
+* Make sure you have Python in your computer, e.g. download [miniforge](https://github.com/conda-forge/miniforge?tab=readme-ov-file#download).
+
+* Create a new environment, for example, like this:
+
+```
+mamba create --name biaplotter-env python=3.9
+```
+
+If you never used mamba/conda environments before, take a look at [this blog post](https://biapol.github.io/blog/mara_lampert/getting_started_with_mambaforge_and_python/readme.html).
+
+* **Activate** the new environment with `mamba`:
+
+```
+mamba activate biaplotter-env
+```
+
+* Install [napari](https://napari.org/stable/), e.g. via `mamba`:
+
+```
+mamba install -c conda-forge napari pyqt
+```
+
+Afterwards, install `biaplotter` via `pip`:
+
+```
+pip install biaplotter
+```
+
+To install latest development version :
+
+```
+pip install git+https://github.com/BiAPoL/biaplotter.git
+```
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""biaplotter"" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/BiAPoL/biaplotter/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: 3.13', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/BiAPoL/biaplotter/issues', 'Documentation, https://github.com/BiAPoL/biaplotter#README.md', 'Source Code, https://github.com/BiAPoL/biaplotter', 'User Support, https://github.com/BiAPoL/biaplotter/issues']",,,biaplotter.make_qwidget,,,,,https://pypi.org/project/biaplotter,,
+15,blik,0.9.1,2022-07-11,2025-04-22,blik,Lorenzo Gaifas,Lorenzo Gaifas <brisvag@gmail.com>,GPLv3,https://github.com/gutsche-lab/blik,Python tool for visualising and interacting with cryo-ET and subtomogram averaging data.,>=3.10,"['cryohub>=0.6.4', 'cryotypes>=0.2.0', 'dask', 'einops', 'magicgui>=0.4.0', 'morphosamplers[segment]>=0.0.10', 'numpy', 'packaging', 'pandas', 'pydantic<2', 'scipy', ""napari-label-interpolator>=0.1.1; extra == 'all'"", ""napari-properties-plotter; extra == 'all'"", ""napari-properties-viewer; extra == 'all'"", ""napari[all]>=0.5.0; extra == 'all'"", ""black; extra == 'dev'"", ""ipython; extra == 'dev'"", ""mypy; extra == 'dev'"", ""napari[all]>=0.5.0; extra == 'dev'"", ""pdbpp; extra == 'dev'"", ""pre-commit; extra == 'dev'"", ""pytest-cov; extra == 'dev'"", ""pytest-qt; extra == 'dev'"", ""pytest>=6.0; extra == 'dev'"", ""rich; extra == 'dev'"", ""ruff; extra == 'dev'"", ""napari[all]>=0.5.0; extra == 'test'"", ""pytest-cov; extra == 'test'"", ""pytest-qt; extra == 'test'"", ""pytest>=6.0; extra == 'test'""]","![logo](https://github.com/brisvag/blik/raw/main/docs/images/logo.png)
+
+# blik
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10090438.svg)](https://zenodo.org/doi/10.5281/zenodo.10090438)
+[![Paper DOI](https://zenodo.org/badge/DOI/10.1371/journal.pbio.3002447.svg)](https://doi.org/10.1371/journal.pbio.3002447)
+[![License](https://img.shields.io/pypi/l/blik.svg?color=green)](https://github.com/brisvag/blik/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/blik.svg?color=green)](https://pypi.org/project/blik)
+[![Python Version](https://img.shields.io/pypi/pyversions/blik.svg?color=green)](https://python.org)
+[![CI](https://github.com/brisvag/blik/actions/workflows/ci.yml/badge.svg)](https://github.com/brisvag/blik/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/brisvag/blik/branch/main/graph/badge.svg)](https://codecov.io/gh/brisvag/blik)
+
+
+![blik showcase](https://user-images.githubusercontent.com/23482191/161224963-ad746a06-c2e5-46fe-a13b-f356bc4ad72b.png)
+
+**`blik`** is a tool for visualising and interacting with cryo-ET and subtomogram averaging data. It leverages the fast, multi-dimensional [napari viewer](https://napari.org) and the scientific python stack.
+
+**DISCLAIMER**: this package is in development phase. Expect bugs and crashes. Please, report them on the issue tracker and ask if anything is unclear!
+
+## Installation
+
+You can either install `blik` through the [napari plugin system](https://napari.org/plugins/index.html), through pip, or get both napari and blik directly with:
+
+```bash
+pip install ""blik[all]""
+```
+
+The `[all]` qualifier also installs `pyqt5` as the napari GUI backend, and a few additional napari plugins that you might find useful in your workflow:
+- [napari-properties-plotter](https://github.com/brisvag/napari-properties-plotter)
+- [napari-properties-viewer](https://github.com/kevinyamauchi/napari-properties-viewer)
+- [napari-label-interpolator](https://github.com/brisvag/napari-label-interpolator)
+
+### Nightly build
+
+If you'd like the most up to date `blik` possible, you can install directly from the `main` branch on github. This also uses napari `main`, so expect some instability!
+
+```
+pip install ""git+https://github.com/brisvag/blik.git@main#egg=blik[all]""
+pip install ""git+https://github.com/napari/napari.git@main#egg=napari[all]""
+```
+
+## Basic Usage
+
+From the command line:
+```bash
+napari -w blik -- /path/to.star /path/to/mrc/files/*
+```
+
+The `-w blik` is important for proper initialization of all the layers. Always open the main widget open to ensure nothing goes wrong!
+
+*`blik` is just `napari`*. Particles and images are exposed as simple napari layers, which can be analysed and manipulated with simple python, and most importantly other [napari plugins](https://napari-hub.org/).
+
+## Widgets
+
+The main widget has a few functions:
+
+- `experiment`: quickly switch to a different experiment id (typically, everything related to an individual tomogram such as volume, particles and segmentations)
+- `new`: generate a new `segmentation`, a new manually-picked set of `particles`, or a new `surface`, `sphere`, or `filament picking` for segmentation, particle generation or volume resampling.
+- `add to exp`: add a layer to the currently selected `experiment` (just a shorthand for `layer.metadata['experiment_id'] = current_exp_id`)
+- `slice_thickness`: changes the slicing thickness in all dimensions in napari. Images will be averaged over that thickness, and all particles in the slice will be displayed.
+
+There are also widgets for picking surfaces, spheres and filaments:
+
+- `surface`: process a previously picked `surface picking` layer to generate a surface mesh and distribute particles on it for subtomogram averaging, or resample a tomogram along the surface.
+- `sphere`: process a previously picked `sphere picking` layer to generate a sphere mesh and distribute particles on it for subtomogram averaging.
+- `filament`: process a previously picked `filament picking` layer to generate a filament and distribute particles on it for subtomogram averaging, or resample a tomogram along the filament.
+
+# References
+
+If you use `blik`, please cite the repo on zenodo and the paper on Plos Biology: [https://doi.org/10.1371/journal.pbio.3002447](https://doi.org/10.1371/journal.pbio.3002447).
+","['Development Status :: 3 - Alpha', 'Framework :: napari', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)', 'Natural Language :: English', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering :: Visualization', 'Typing :: Typed']","['homepage, https://github.com/brisvag/blik', 'repository, https://github.com/brisvag/blik']",blik.read_files,blik.write_image,blik.main_widget,blik.sample_hiv_dataset,"['*.mrc', '*.mrcs', '*.st', '*.map', '*.hdf', '*.em', '*.star', '*.tbl', '*.box', '*.cbox', '*.picks', '*.surf', '*.rec']","['.mrc', '.mrcs', '.st', '.rec']","['.mrc', '.mrcs', '.st']",https://pypi.org/project/blik,https://github.com/gutsche-lab/blik,
+16,brainglobe-napari-io,0.3.5,2022-02-13,2025-05-02,brainglobe-napari-io,Adam Tyson,Adam Tyson <hello@brainglobe.info>,BSD-3-Clause,https://brainglobe.info,Read and write files from the BrainGlobe computational neuroanatomy suite into napari,>=3.11,"['brainglobe-atlasapi>=2.0.1', 'brainglobe-space>=1.0.0', 'brainglobe-utils>=0.4.2', 'napari<0.6.0', 'tifffile>=2020.8.13', 'numpy', 'pandas', 'pytest; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'coverage; extra == ""dev""', 'tox; extra == ""dev""', 'black; extra == ""dev""', 'mypy; extra == ""dev""', 'pre-commit; extra == ""dev""', 'ruff; extra == ""dev""', 'setuptools_scm; extra == ""dev""']","# napari-brainglobe-io
+
+[![License](https://img.shields.io/pypi/l/brainglobe-napari-io.svg?color=green)](https://github.com/brainglobe/brainglobe-napari-io/blob/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/brainglobe-napari-io.svg?color=green)](https://pypi.org/project/brainglobe-napari-io)
+[![Python Version](https://img.shields.io/pypi/pyversions/brainglobe-napari-io.svg?color=green)](https://python.org)
+[![tests](https://github.com/brainglobe/brainglobe-napari-io/workflows/tests/badge.svg)](https://github.com/brainglobe/brainglobe-napari-io/actions)
+[![codecov](https://codecov.io/gh/brainglobe/brainglobe-napari-io/branch/main/graph/badge.svg)](https://codecov.io/gh/brainglobe/brainglobe-napari-io)
+
+Visualise cellfinder and brainreg results with napari
+
+
+----------------------------------
+
+
+## Installation
+This package is likely already installed
+(e.g. with cellfinder, brainreg or another napari plugin), but if you want to
+install it again, either use the napari plugin install GUI or you can
+install `brainglobe-napari-io` via [pip]:
+
+    pip install brainglobe-napari-io
+
+## Usage
+* Open napari (however you normally do it, but typically just type `napari` into your terminal, or click on your desktop icon)
+
+### brainreg
+#### Sample space
+Drag your [brainreg](https://github.com/brainglobe/brainreg) output directory (the one with the log file) onto the napari window.
+
+Various images should then open, including:
+* `Registered image` - the image used for registration, downsampled to atlas resolution
+* `atlas_name` - e.g. `allen_mouse_25um` the atlas labels, warped to your sample brain
+* `Boundaries` - the boundaries of the atlas regions
+
+If you downsampled additional channels, these will also be loaded.
+
+Most of these images will not be visible by default. Click the little eye icon to toggle visibility.
+
+_N.B. If you use a high resolution atlas (such as `allen_mouse_10um`), then the files can take a little while to load._
+
+![sample_space](https://raw.githubusercontent.com/brainglobe/brainglobe-napari-io/master/resources/sample_space.gif)
+
+
+#### Atlas space
+`napari-brainreg` also comes with an additional plugin, for visualising your data
+in atlas space.
+
+This is typically only used in other software, but you can enable it yourself:
+* Open napari
+* Navigate to `Plugins` -> `Plugin Call Order`
+* In the `Plugin Sorter` window, select `napari_get_reader` from the `select hook...` dropdown box
+* Drag `brainreg_read_dir_atlas_space` (the atlas space viewer plugin) above `brainreg_read_dir` (the normal plugin) to ensure that the atlas space plugin is used preferentially.
+
+
+### cellfinder
+#### Load cellfinder XML file
+* Load your raw data (drag and drop the data directories into napari, one at a time)
+* Drag and drop your cellfinder XML file (e.g. `cell_classification.xml`) into napari.
+
+#### Load cellfinder directory
+* Load your raw data (drag and drop the data directories into napari, one at a time)
+* Drag and drop your cellfinder output directory into napari.
+
+The plugin will then load your detected cells (in yellow) and the rejected cell
+candidates (in blue). If you carried out registration, then these results will be
+overlaid (similarly to the loading brainreg data, but transformed to the
+coordinate space of your raw data).
+
+![load_data](https://raw.githubusercontent.com/brainglobe/brainglobe-napari-io/master/resources/load_data.gif)
+**Loading raw data**
+
+![load_data](https://raw.githubusercontent.com/brainglobe/brainglobe-napari-io/master/resources/load_results.gif)
+**Loading cellfinder results**
+
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
+","['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Science/Research', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: 3.13', 'Topic :: Scientific/Engineering :: Image Recognition']","['Homepage, https://brainglobe.info', 'Source Code, https://github.com/brainglobe/brainglobe-napari-io', 'Bug Tracker, https://github.com/brainglobe/brainglobe-napari-io/issues', 'Documentation, https://docs.brainglobe.info', 'User Support, https://forum.image.sc/tag/brainglobe', 'Twitter, https://twitter.com/brain_globe']",brainglobe-napari-io.brainreg_read_dir,brainglobe-napari-io.cellfinder_write_multiple_xml,,,['*.tiff'],['.xml'],,https://pypi.org/project/brainglobe-napari-io,,https://brainglobe.info
+17,BrainGlobe Registration,0.0.3,,,brainglobe-registration,Brainglobe Developers,Brainglobe Developers <hello@brainglobe.info>,BSD-3-Clause,,A napari plugin for registration to a  BrainGlobe atlas.,>=3.11,"['napari<0.6.0,>=0.4.18', 'brainglobe-atlasapi', 'brainglobe-utils>=0.4.3', 'dask', 'dask-image', 'itk-elastix', 'lxml_html_clean', 'numpy', 'pandas', 'pytransform3d', 'qtpy', 'scikit-image', 'scipy', 'qt-niu', 'pytest; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-mock; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'coverage; extra == ""dev""', 'tox; extra == ""dev""', 'black; extra == ""dev""', 'mypy; extra == ""dev""', 'pre-commit; extra == ""dev""', 'ruff; extra == ""dev""', 'setuptools_scm; extra == ""dev""', 'pyqt5; extra == ""dev""']","# brainglobe-registration
+
+[![License BSD-3](https://img.shields.io/pypi/l/brainglobe-registration.svg?color=green)](https://github.com/brainglobe/brainglobe-registration/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/brainglobe-registration.svg?color=green)](https://pypi.org/project/brainglobe-registration)
+[![Python Version](https://img.shields.io/pypi/pyversions/brainglobe-registration.svg?color=green)](https://python.org)
+[![tests](https://github.com/brainglobe/brainglobe-registration/workflows/tests/badge.svg)](https://github.com/brainglobe/brainglobe-registration/actions)
+[![codecov](https://codecov.io/gh/brainglobe/brainglobe-registration/branch/main/graph/badge.svg)](https://codecov.io/gh/brainglobe/brainglobe-registration)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/brainglobe-registration)](https://napari-hub.org/plugins/brainglobe-registration)
+
+Registration to a BrainGlobe atlas using Elastix
+
+----------------------------------
+
+> [!WARNING]
+> This tool is in very early development. The interface may change and some features are not yet available.
+
+A [napari] plugin for registering images to a BrainGlobe atlas.
+
+![brainglobe-registration](./imgs/brainglobe_registration_main.png)
+
+## Usage
+
+1. Open `napari`.
+2. [Install the plugin](#Installation).
+3. Open the widget by selecting `Plugins > BrainGlobe Registration` in the napari menu bar near the
+top left of the window.
+![brainglobe-registration-plugin](./imgs/brainglobe_registration_plugin_window.png)
+The `BrainGlobe Registration` plugin will appear on the right hand side of the napari window.
+4. Open the image you want to register in napari (a sample 2D image can be found by selecting `File > Open Sample > Sample Brain Slice`).
+5. Select the atlas you want to register to from the dropdown menu.
+![brainglobe-registration-atlas-selection](./imgs/brainglobe_registration_atlas_selection.png)
+The atlas will appear in the napari viewer. Select the approximate `Z` slice of the atlas that you want to register to,
+using the slider at the bottom of the napari viewer.
+![brainglobe-registration-atlas-selection](./imgs/brainglobe_registration_atlas_selection_2.png)
+6. Adjust the sample image to roughly match the atlas image.
+You can do this by adjusting X and Y translation as well as rotating around the centre of the image.
+You can overlay the two images by toggling `Grid` mode in the napari viewer (Ctrl+G).
+You can then adjust the color map and opacity of the atlas image to make manual alignment easier.
+![brainglobe-registration-overlay](./imgs/brainglobe_registration_overlay.png)
+The sample image can be reset to its original position and orientation by clicking `Reset Image` in the `BrainGlobe Registration` plugin window.
+7. Select the transformations you want to use from the dropdown menu. Set the transformation type to empty to remove a step.
+Select from one of the three provided default parameter sets (elastix, ARA, or IBL). Customise the parameters further in the
+`Parameters` tab.
+8. Click `Run` to register the image. The registered image will appear in the napari viewer.
+![brainglobe-registration-registered](./imgs/brainglobe_registration_registered.png)
+![brainglobe-registration-registered](./imgs/brainglobe_registration_registered_stacked.png)
+
+## Installation
+
+We strongly recommend to use a virtual environment manager (like `conda` or `venv`). The installation instructions below
+will not specify the Qt backend for napari, and you will therefore need to install that separately. Please see the
+[`napari` installation instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) for further advice on this.
+
+You can install `brainglobe-registration` via [pip]:
+
+    pip install brainglobe-registration
+
+or [via napari](https://napari.org/stable/plugins/start_using_plugins/finding_and_installing_plugins.html).
+
+To install the latest development version :
+
+    pip install git+https://github.com/brainglobe/brainglobe-registration.git
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""brainglobe-registration"" is free and open source software
+
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
+
+## Citation
+If you find this package useful, and use it in your research, please cite the following:
+> Igor Tatarnikov, Alessandro Felder, Kimberly Meechan, & Adam Tyson. (2025). brainglobe/brainglobe-registration. Zenodo. https://doi.org/10.5281/zenodo.14750325
+
+## Acknowledgements
+
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/cookiecutter-napari-plugin#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+
+[file an issue]: https://github.com/brainglobe/brainglobe-registration/issues
+
+[napari]: https://github.com/napari/napari
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Science/Research', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: 3.13', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License', 'Topic :: Scientific/Engineering :: Image Processing']","['Homepage, https://brainglobe.info', 'Bug Tracker, https://github.com/brainglobe/brainglobe-registration/issues', 'Documentation, https://github.com/brainglobe/brainglobe-registration#README.md', 'Source Code, https://github.com/brainglobe/brainglobe-registration', 'User Support, https://forum.image.sc/tag/brainglobe']",,,brainglobe-registration.make_registration_widget,brainglobe-registration.load_sample_2d,,,,https://pypi.org/project/brainglobe-registration,,
+18,brainglobe-segmentation,1.3.2,2023-11-18,2025-05-02,brainglobe-segmentation,"Adam Tyson, Horst Obenhaus","""Adam Tyson, Horst Obenhaus"" <code@adamltyson.com>",BSD-3-Clause,https://pypi.org/project/brainglobe-segmentation,Segmentation of anatomical structures in a common coordinate space,>=3.11,"['brainglobe-atlasapi>=2.0.1', 'brainglobe-napari-io>=0.3.0', 'brainglobe-utils>=0.5.0', 'napari<0.6.0,>=0.4.5', 'numpy', 'pandas[hdf5]', 'qtpy', 'scikit-image', 'scipy', 'tifffile', 'qt-niu', 'black; extra == ""dev""', 'gitpython; extra == ""dev""', 'pre-commit; extra == ""dev""', 'pytest; extra == ""dev""', 'coverage; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'napari-time-slicer; extra == ""dev""']","[![Python Version](https://img.shields.io/pypi/pyversions/brainglobe-segmentation.svg)](https://pypi.org/project/brainglobe-segmentation)
+[![PyPI](https://img.shields.io/pypi/v/brainglobe-segmentation.svg)](https://pypi.org/project/brainglobe-segmentation)
+[![Wheel](https://img.shields.io/pypi/wheel/brainglobe-segmentation.svg)](https://pypi.org/project/brainglobe-segmentation)
+[![Development Status](https://img.shields.io/pypi/status/brainglobe-segmentation.svg)](https://github.com/brainglobe/brainglobe-segmentation)
+[![Tests](https://img.shields.io/github/actions/workflow/status/brainglobe/brainglobe-segmentation/test_and_deploy.yml?branch=main)](https://github.com/brainglobe/brainglobe-segmentation/actions)
+[![codecov](https://codecov.io/gh/brainglobe/brainglobe-segmentation/graph/badge.svg?token=WP9KTPZE5R)](https://codecov.io/gh/brainglobe/brainglobe-segmentation)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+[![Twitter](https://img.shields.io/twitter/follow/brain_globe?style=social)](https://twitter.com/brain_globe)
+
+# brainglobe-segmentation
+
+Segmentation of anatomical structures in a common coordinate space
+
+## Installation
+**PyPI**
+```
+pip install brainglobe-segmentation
+```
+
+**conda**
+```
+conda install -c conda-forge brainglobe-segmentation
+```
+
+N.B. Your data will need to be registered to an anatomical atlas first.
+
+## Usage
+See [user guide](https://brainglobe.info/documentation/brainglobe-segmentation/index.html).
+
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
+
+## Citing brainglobe-segmentation
+
+If you find brainglobe-segmentation useful, and use it in your research, please let us know and also cite the paper:
+
+> Tyson, A. L., V&eacute;lez-Fort, M.,  Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T.,  Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 [doi.org/10.1038/s41598-021-04676-9](https://doi.org/10.1038/s41598-021-04676-9)
+","['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Developers', 'Intended Audience :: Science/Research', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: 3.13']","['Homepage, https://brainglobe.info/', 'Source Code, https://github.com/brainglobe/brainglobe-segmentation', 'Bug Tracker, https://github.com/brainglobe/brainglobe-segmentation/issues', 'Documentation, https://brainglobe.info/documentation/brainglobe-segmentation/index.html', 'User Support, https://forum.image.sc/tag/brainglobe']",,,brainglobe-segmentation.SegmentationWidget,,,,,https://pypi.org/project/brainglobe-segmentation,,
+19,BrainGlobe Stitch,0.0.1,,,brainglobe-stitch,Brainglobe Developers,Brainglobe Developers <hello@brainglobe.info>,BSD-3-Clause,,A tool to stich large tiled datasets generated by the mesoSPIM.,>=3.10,"['napari>=0.4.18', 'brainglobe-utils>=0.3.4', 'h5py', 'napari-ome-zarr', 'ome-zarr', 'zarr', 'numpy', 'qtpy', 'tifffile', 'pytest; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-mock; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'pyqt5; extra == ""dev""', 'coverage; extra == ""dev""', 'tox; extra == ""dev""', 'pooch; extra == ""dev""', 'black; extra == ""dev""', 'mypy; extra == ""dev""', 'pre-commit; extra == ""dev""', 'ruff; extra == ""dev""', 'setuptools-scm; extra == ""dev""']","# brainglobe-stitch
+
+Stitching tiled 3D light-sheet data in napari
+
+<p align=""center"">
+  <img height=""460"" src=""https://github.com/user-attachments/assets/91f61f24-6fcf-4aa1-8a8f-de8c5e3db4a2"" alt=""Stitching a mouse brain acquired at a resolution of 4.06 &micro;m/px, 4.06 &micro;m/px, 5 &micro;m/px using 4 tiles"">
+</p>
+
+----------------------------------
+
+A [napari] plugin for stitching tiled 3D acquisitions from a [mesoSPIM] light-sheet microscope.
+The plugin utilises [BigStitcher] to align the tiles and napari to visualise the stitched data.
+
+## Installation
+
+We strongly recommend to use a virtual environment manager (like `conda`). The installation instructions below
+will not specify the Qt backend for napari, and you will therefore need to install that separately. Please see the
+[`napari` installation instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) for further advice on this.
+
+To install latest development version:
+
+    pip install git+https://github.com/brainglobe/brainglobe-stitch.git
+
+This plugin requires Fiji to be installed on your system. You can download Fiji [here](https://imagej.net/Fiji/Downloads).
+
+The BigStitcher plugin must be installed in Fiji. Please follow the instructions [here](https://imagej.net/plugins/bigstitcher/#download).
+
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
+
+## Citation
+If you find this package useful, please make sure to cite the original BigStitcher publication:
+> Hörl, D., Rojas Rusak, F., Preusser, F. *et al.* BigStitcher: reconstructing high-resolution image datasets of cleared and expanded samples. Nat Methods 16, 870–874 (2019). https://doi.org/10.1038/s41592-019-0501-0
+
+
+## License
+Distributed under the terms of the [BSD-3] license,
+""brainglobe-stitch"" is free and open source software
+
+## Acknowledgements
+This [napari] plugin was generated with [Cookiecutter] using napari's [cookiecutter-napari-plugin] template and the [Neuroinformatics Unit's template](https://github.com/neuroinformatics-unit/python-cookiecutter).
+
+[napari]: https://napari.org
+[mesoSPIM]: https://www.mesospim.org/
+[BigStitcher]: https://imagej.net/BigStitcher
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License', 'Topic :: Scientific/Engineering :: Image Processing']","['Homepage, https://brainglobe.info', 'Bug Tracker, https://github.com/brainglobe/brainglobe-stitch/issues', 'Documentation, https://github.com/brainglobe/brainglobe-stitch#README.md', 'Source Code, https://github.com/brainglobe/brainglobe-stitch', 'User Support, https://forum.image.sc/tag/brainglobe']",,,brainglobe-stitch.make_stitching_widget,,,,,https://pypi.org/project/brainglobe-stitch,,
+20,BrainGlobe,0.7.0,2023-07-07,2025-04-22,brainglobe-utils,Adam Tyson,Adam Tyson <code@adamltyson.com>,MIT,https://github.com/brainglobe/BrainGlobe-utils,Shared general purpose tools for the BrainGlobe project,>=3.11,"['brainglobe-atlasapi>=2.0.1', 'brainglobe-space', 'configobj', 'natsort', 'nibabel>=2.1.0', 'numba', 'numpy', 'dask', 'pandas', 'psutil', 'pyarrow', 'PyYAML', 'scikit-image', 'scipy', 'slurmio', 'tifffile', 'tqdm', 'qt-niu', 'qtpy; extra == ""qt""', 'superqt; extra == ""qt""', 'brainglobe-utils[qt]; extra == ""napari""', 'napari[all]; extra == ""napari""', 'black; extra == ""dev""', 'coverage; extra == ""dev""', 'mypy; extra == ""dev""', 'pre-commit; extra == ""dev""', 'pyqt5; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'pytest-mock; extra == ""dev""', 'pytest; extra == ""dev""', 'ruff; extra == ""dev""', 'scikit-image; extra == ""dev""', 'setuptools_scm; extra == ""dev""', 'tox; extra == ""dev""', 'pooch; extra == ""dev""', 'brainglobe-utils[napari]; extra == ""dev""']","# brainglobe-utils
+
+Shared general purpose tools for the BrainGlobe project, including [citation generation](#citations-for-brainglobe-tools).
+
+## Installation
+
+```bash
+pip install brainglobe-utils
+```
+
+To also include the dependencies required for Qt widgets, use:
+
+```bash
+pip install brainglobe-utils[qt]
+```
+
+For development, clone this repository and install the dependencies with:
+
+```bash
+pip install -e .[dev]
+```
+
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
+
+## Citations for BrainGlobe tools
+
+`brainglobe-utils` comes with the `cite-brainglobe` command line tool, to write citations for BrainGlobe tools for you so you don't need to worry about fetching the data yourself.
+You can read about [how to use the tool](https://brainglobe.info/documentation/brainglobe-utils/citation-module.html) on the documentation website.
+","['Development Status :: 3 - Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'Intended Audience :: Science/Research', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: 3.13']","['homepage, https://brainglobe.info', 'bug_tracker, https://github.com/brainglobe/brainglobe-utils/issues', 'source_code, https://github.com/brainglobe/brainglobe-utils', 'user_support, https://github.com/brainglobe/brainglobe-utils/issues']",,,brainglobe-utils.brainmapper,,,,,https://pypi.org/project/brainglobe-utils,https://github.com/brainglobe/BrainGlobe-utils,
+21,brainreg,1.0.12,2023-03-01,2025-05-02,brainreg,"Adam Tyson, Charly Rousseau, Stephen Lenzi","""Adam Tyson, Charly Rousseau, Stephen Lenzi"" <code@adamltyson.com>",BSD 3-Clause,https://docs.brainglobe.info/brainreg/introduction,Automated multi-atlas whole-brain microscopy registration,>=3.11,"['brainglobe-atlasapi>=2.0.1', 'brainglobe-space>=1.0.0', 'brainglobe-utils>=0.5.0', 'fancylog', 'numpy', 'scikit-image>=0.24.0', 'brainglobe-napari-io>=0.3.2; extra == ""napari""', 'brainglobe-segmentation>=1.0.0; extra == ""napari""', 'magicgui; extra == ""napari""', 'napari-plugin-engine>=0.1.4; extra == ""napari""', 'napari[pyqt5]<0.6.0; extra == ""napari""', 'pooch>1; extra == ""napari""', 'qtpy; extra == ""napari""', 'black; extra == ""dev""', 'check-manifest; extra == ""dev""', 'gitpython; extra == ""dev""', 'napari[pyqt5]<0.6.0; extra == ""dev""', 'pre-commit; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'pytest-mock; extra == ""dev""', 'pytest; extra == ""dev""', 'setuptools_scm; extra == ""dev""', 'tox; extra == ""dev""']","[![Python Version](https://img.shields.io/pypi/pyversions/brainreg.svg)](https://pypi.org/project/brainreg)
+[![PyPI](https://img.shields.io/pypi/v/brainreg.svg)](https://pypi.org/project/brainreg)
+[![Wheel](https://img.shields.io/pypi/wheel/brainreg.svg)](https://pypi.org/project/brainreg)
+[![Development Status](https://img.shields.io/pypi/status/brainreg.svg)](https://github.com/brainglobe/brainreg)
+[![Tests](https://img.shields.io/github/actions/workflow/status/brainglobe/brainreg/test_and_deploy.yml?branch=main)](https://github.com/brainglobe/brainreg/actions)
+[![codecov](https://codecov.io/gh/brainglobe/brainreg/branch/main/graph/badge.svg?token=FbPgwBIGnd)](https://codecov.io/gh/brainglobe/brainreg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+
+# brainreg
+
+brainreg is an update to [amap](https://github.com/SainsburyWellcomeCentre/amap_python) (which is itself a port
+of the [original Java software](https://www.nature.com/articles/ncomms11879)) to include multiple registration backends, and to support the many atlases provided by [brainglobe-atlasapi](https://github.com/brainglobe/brainglobe-atlasapi).
+It also comes with an optional [napari plugin](https://github.com/brainglobe/brainreg-napari) if you'd rather use brainreg with through graphical interface.
+
+Documentation for both the command-line tool and graphical interface can be found [here](https://brainglobe.info/documentation/brainreg/index.html).
+
+For segmentation of bulk structures in 3D space (e.g. injection sites, Neuropixels probes), please see [brainglobe-segmentation](https://github.com/brainglobe/brainglobe-segmentation).
+
+## Details
+
+The aim of brainreg is to register the template brain (e.g. from the [Allen Reference Atlas](https://mouse.brain-map.org/static/atlas)) to the sample image.
+Once this is complete, any other image in the template space can be aligned with the sample (such as region annotations, for segmentation of the sample image).
+The template to sample transformation can also be inverted, allowing sample images to be aligned in a common coordinate space.
+
+To do this, the template and sample images are filtered, and then registered in a three step process (reorientation, affine registration, and freeform registration).
+The resulting transform from template to standard space is then applied to the atlas.
+
+Full details of the process are in the [original aMAP paper](https://www.nature.com/articles/ncomms11879).
+
+![An illustrated overview of the registration process](https://user-images.githubusercontent.com/13147259/143553945-a046e918-7614-4211-814c-fc840bb0159d.png)
+
+## Installation
+
+To install both the command line tool and the napari plugin, run
+
+```bash
+pip install brainreg[napari]
+```
+
+in your desired Python environment.
+To only install the command line tool with no GUI (e.g. to run brainreg on an HPC cluster), just run:
+
+```bash
+pip install brainreg
+```
+
+### Installing on macOS
+
+If you are using macOS, please run
+
+```bash
+conda install -c conda-forge niftyreg
+```
+
+in your environment before installing, to ensure all dependencies are installed.
+
+## Command line usage
+
+### Basic usage
+
+```bash
+brainreg /path/to/raw/data /path/to/output/directory -v 5 2 2 --orientation psl
+```
+
+Full command-line arguments are available with `brainreg -h`, but please
+[get in touch](mailto:code@adamltyson.com?subject=brainreg) if you have any questions.
+
+### Mandatory arguments
+
+- Path to the directory of the images. This can also be a text file pointing to the files.
+- Output directory for all intermediate and final results.
+- You must also specify the voxel sizes with the `-v` flag, see [specifying voxel size](https://brainglobe.info/documentation/general/image-definition.html#voxel-sizes) for details.
+
+### Atlas
+
+By default, brainreg will use the 25um version of the [Allen Mouse Brain Atlas](https://mouse.brain-map.org/).
+To use another atlas (e.g. for another species, or another resolution), you must use the `--atlas` flag, followed by the string describing the atlas, e.g.:
+
+```bash
+--atlas allen_mouse_50um
+```
+
+To find out which atlases are available, once brainreg is installed, please run `brainglobe list`.
+The name of the resulting atlases is the string to pass with the `--atlas` flag.
+
+### Input data orientation
+
+If your data does not match the BrainGlobe default orientation (the origin voxel is the most anterior, superior, left-most voxel), then you must specify the orientation by using the `--orientation` flag.
+What follows must be a string in the [brainglobe-space](https://github.com/brainglobe/brainglobe-space) ""initials"" form, to describe the origin voxel.
+
+If the origin of your data (first, top left voxel) is the most anterior, superior, left part of the brain, then the orientation string would be ""asl"" (anterior, superior, left), and you would use:
+
+```bash
+--orientation asl
+```
+
+### Registration options
+
+To change how the actual registration performs, see [registration parameters](https://brainglobe.info/documentation/brainreg/user-guide/parameters.html)
+
+### Additional options
+
+- `-a` or `--additional` Paths to N additional channels to downsample to the same coordinate space.
+- `--sort-input-file` If set to true, the input text file will be sorted using natural sorting. This means that the file paths will be sorted as would be expected by a human and not purely alphabetically.
+- `--brain_geometry` Can be one of `full` (default) for full brain registration, `hemisphere_l` for left hemisphere data-set and `hemisphere_r` for right hemisphere data-set.
+
+### Misc options
+
+- `--n-free-cpus` The number of CPU cores on the machine to leave unused by the program to spare resources.
+- `--debug` Debug mode. Will increase verbosity of logging and save all intermediate files for diagnosis of software issues.
+- `--save-original-orientation` Option to save the registered atlas with the same orientation as the input data.
+
+## Visualising results
+
+If you have installed the optional [napari](https://github.com/napari/napari) plugin, you can use napari to view your data.
+The plugin automatically fetches the [brainglobe-napari-io](https://github.com/brainglobe/brainglobe-napari-io) which provides this functionality.
+If you have installed only the command-line tool you can still manually install [brainglobe-napari-io](https://github.com/brainglobe/brainglobe-napari-io) and follow the steps below.
+
+### Sample space
+
+Open napari and drag your brainreg output directory (the one with the log file) onto the napari window.
+
+Various images should then open, including:
+
+- `Registered image` - the image used for registration, downsampled to atlas resolution
+- `atlas_name` - e.g. `allen_mouse_25um` the atlas labels, warped to your sample brain
+- `Boundaries` - the boundaries of the atlas regions
+
+If you downsampled additional channels, these will also be loaded.
+Most of these images will not be visible by default - click the little eye icon to toggle visibility.
+
+**Note:** If you use a high resolution atlas (such as `allen_mouse_10um`), then the files can take a little while to load.
+
+![GIF illustration of loading brainreg output into napari for visualisation](https://raw.githubusercontent.com/brainglobe/napari-brainreg/master/resources/sample_space.gif)
+
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
+
+## Citing brainreg
+
+If you find brainreg useful, and use it in your research, please let us know and also cite the paper:
+
+> Tyson, A. L., V&eacute;lez-Fort, M.,  Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T.,  Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 [doi.org/10.1038/s41598-021-04676-9](https://doi.org/10.1038/s41598-021-04676-9)
+
+Please also cite aMAP (the original pipeline from which this software is based):
+
+>Niedworok, C.J., Brown, A.P.Y., Jorge Cardoso, M., Osten, P., Ourselin, S., Modat, M. and Margrie, T.W., (2016). AMAP is a validated pipeline for registration and segmentation of high-resolution mouse brain data. Nature Communications. 7, 1–9. <https://doi.org/10.1038/ncomms11879>
+
+Lastly, if you can, please cite the BrainGlobe Atlas API that provided the atlas:
+
+>Claudi, F., Petrucco, L., Tyson, A. L., Branco, T., Margrie, T. W. and Portugues, R. (2020). BrainGlobe Atlas API: a common interface for neuroanatomical atlases. Journal of Open Source Software, 5(54), 2668, <https://doi.org/10.21105/joss.02668>
+
+Finally, **don't forget to cite the developers of the atlas that you used (e.g. the Allen Brain Atlas)!**
+","['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'Intended Audience :: Science/Research', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: 3.13', 'Framework :: napari']","['Homepage, https://brainglobe.info', 'Bug Tracker, https://github.com/brainglobe/brainreg/issues', 'Documentation, https://docs.brainglobe.info/brainreg', 'Source Code, https://github.com/brainglobe/brainreg', 'User support, https://forum.image.sc/tag/brainglobe', 'Twitter, https://twitter.com/brain_globe']",,,brainreg.Register,brainreg.SampleData,,,,https://pypi.org/project/brainreg,,https://docs.brainglobe.info/brainreg/introduction
+22,brainrender,0.1.1,2023-11-18,2025-05-02,brainrender-napari,Alessandro Felder,Alessandro Felder <a.felder@ucl.ac.uk>,BSD-3-Clause,https://pypi.org/project/brainrender-napari,A napari plugin to render BrainGlobe atlases and associated data as layers.,>=3.11.0,"['brainglobe-atlasapi>=2.2.0', 'brainglobe-utils>=0.4.3', 'meshio', 'napari<0.6.0,>=0.4.18', 'numpy', 'qtpy', 'pytest; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-mock; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'coverage; extra == ""dev""', 'tox; extra == ""dev""', 'black; extra == ""dev""', 'mypy; extra == ""dev""', 'pre-commit; extra == ""dev""', 'ruff; extra == ""dev""', 'setuptools_scm; extra == ""dev""', 'pyqt5; extra == ""dev""']","# brainrender-napari
+
+[![License BSD-3](https://img.shields.io/pypi/l/brainrender-napari.svg?color=green)](https://github.com/brainglobe/brainrender-napari/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/brainrender-napari.svg?color=green)](https://pypi.org/project/brainrender-napari)
+[![Python Version](https://img.shields.io/pypi/pyversions/brainrender-napari.svg?color=green)](https://python.org)
+[![tests](https://github.com/brainglobe/brainrender-napari/workflows/tests/badge.svg)](https://github.com/brainglobe/brainrender-napari/actions)
+[![codecov](https://codecov.io/gh/brainglobe/brainrender-napari/branch/main/graph/badge.svg)](https://codecov.io/gh/brainglobe/brainrender-napari)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/brainrender-napari)](https://napari-hub.org/plugins/brainrender-napari)
+
+Visualisation and management of BrainGlobe atlases in napari.
+
+----------------------------------
+
+A napari plugin to visualise and manage BrainGlobe atlases. `brainrender-napari` aims to port the functionality of [`brainrender`](https://github.com/brainglobe/brainrender) to [`napari`](https://napari.org/stable/).
+![add-region-brainrender-napari](https://github.com/brainglobe/brainrender-napari/assets/10500965/24fd3752-0ba7-4f47-aabf-5de22ff0f69b)
+
+## Usage
+
+Check out the [""Visualising an atlas in napari""](https://brainglobe.info/tutorials/visualise-atlas-napari.html) tutorial in the BrainGlobe documentation.
+
+## Installation
+
+We strongly recommend to use a virtual environment manager (like `conda` or `venv`). The installation instructions below will not specify the Qt backend for napari, and you will therefore need to install that separately. Please see [the `napari` installation instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) for further advice on this.
+
+You can install `brainrender-napari` via [pip]:
+
+    pip install brainrender-napari
+
+
+
+To install latest development version :
+
+    pip install git+https://github.com/brainglobe/brainrender-napari.git
+
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""brainrender-napari"" is free and open source software
+
+
+## Acknowledgements
+
+This [@napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template and the [Neuroinformatics Unit's template](https://github.com/neuroinformatics-unit/python-cookiecutter).
+
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[file an issue]: https://github.com/brainglobe/brainrender-napari/issues
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: 3.13', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License', 'Topic :: Scientific/Engineering :: Image Processing']","['Homepage, https://github.com/brainglobe/brainrender-napari', 'Bug Tracker, https://github.com/brainglobe/brainrender-napari/issues', 'Documentation, https://brainglobe.github.io/brainrender-napari', 'Source Code, https://github.com/brainglobe/brainrender-napari', 'User Support, https://github.com/brainglobe/brainrender-napari/issues']",,,brainrender-napari.make_brainrender_viewer_widget,,,,,https://pypi.org/project/brainrender-napari,,
+23,Brainways,0.1.16,,,brainways,Ben Kantor,benkantor@mail.tau.ac.il,GPL-3.0,,Brainways,>=3.9,"['aicsimageio[base-imageio]==4.14.0', 'aicspylibczi', 'brainglobe-atlasapi', 'click', 'dacite', 'datasets', 'fsspec', 'huggingface-hub', 'importlib-resources', 'itk-elastix', 'kornia', 'napari[all]>=0.5.0', 'natsort', 'networkx', 'numpy<2.0.0', 'opencv-contrib-python-headless', 'opencv-python-headless', 'openpyxl', 'pandas', 'paquo', 'qtpy', 'scikit-image', 'scikit-learn', 'scikit-posthocs', 'stardist', 'statsmodels', 'tensorflow', 'toml', 'torch', 'torchvision', 'lightning', 'tqdm', 'scyjava', 'jpype1==1.5.0', 'albumentations==2.0.5', 'jsonargparse<5.0.0,>=4.0.0', 'timm<2.0.0,>=1.0.0', 'pre-commit; extra == ""dev""', 'scipy-stubs; extra == ""dev""', 'py; extra == ""testing""', 'pyqt5; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-mock; extra == ""testing""', 'pytest-qt<4.1.0; extra == ""testing""', 'tox; extra == ""testing""']","# Brainways
+
+[![DOI](https://img.shields.io/badge/DOI-10.1101/2023.05.25.542252-green.svg)](https://doi.org/10.1101/2023.05.25.542252)
+[![License GNU GPL v3.0](https://img.shields.io/pypi/l/brainways.svg?color=green)](https://github.com/bkntr/brainways/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/brainways.svg?color=green)](https://pypi.org/project/brainways)
+[![Python Version](https://img.shields.io/pypi/pyversions/brainways.svg?color=green)](https://python.org)
+[![tests](https://github.com/bkntr/brainways/workflows/tests/badge.svg)](https://github.com/bkntr/brainways/actions)
+[![codecov](https://codecov.io/gh/bkntr/brainways/branch/main/graph/badge.svg)](https://codecov.io/gh/bkntr/brainways)
+[![Documentation Status](https://readthedocs.org/projects/brainways/badge/?version=latest)](https://brainways.readthedocs.io/en/latest/?badge=latest)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/brainways)](https://napari-hub.org/plugins/brainways)
+
+## Overview
+
+Brainways is an AI-powered tool designed for the automated analysis of brain-wide activity networks from fluorescence imaging in coronal slices. It streamlines the process of registration, cell quantification, and statistical comparison between experimental groups, all accessible through a user-friendly interface without requiring programming expertise. For advanced users, Brainways also offers a flexible Python backend for customization.
+
+![Brainways User Interface Demo](assets/brainways-ui.gif)
+
+## Key Features
+
+Brainways simplifies complex analysis workflows into manageable steps:
+
+1.  **Rigid Registration:** Aligns coronal slices to a 3D reference atlas.
+2.  **Non-rigid Registration:** Refines alignment to account for individual variations and tissue distortions.
+3.  **Cell Detection:** Automatically identifies cells using the [StarDist](https://github.com/stardist/stardist) algorithm.
+4.  **Quantification:** Counts cells within defined brain regions.
+5.  **Statistical Analysis:**
+    *   Performs ANOVA contrast analysis between experimental conditions.
+    *   Conducts Partial Least Squares (PLS) analysis.
+    *   Generates network graphs visualizing brain-wide activity patterns.
+
+## Getting Started
+
+!!! note ""Windows GPU Support Pre-installation""
+    If you plan to use Brainways with GPU acceleration on Windows, you must install GPU-compatible versions of PyTorch and TensorBoard *before* installing Brainways. Follow the instructions on the [PyTorch](https://pytorch.org/get-started/locally/) and [TensorBoard](https://www.tensorflow.org/install/pip) websites. Once these dependencies are met, proceed with the Brainways installation below.
+
+Install and launch the Brainways user interface using pip:
+
+```bash
+pip install brainways
+brainways ui
+```
+
+For a detailed walkthrough, please refer to our [Getting Started Guide](02_getting_started.md).
+
+!!! tip ""Achieving Reliable Results""
+    To ensure the best possible outcomes with Brainways, we highly recommend reviewing our [Best Practices Guide](04_best_practices.md).
+
+## Architecture
+
+Brainways is built as a monorepo containing two primary components:
+
+*   `brainways`: The core library housing all backend functionalities, including registration algorithms, quantification logic, and statistical tools. It can be used programmatically via Python for custom workflows. The automatic registration model inference code resides within the `brainways.model` subpackage.
+*   `brainways.ui`: A [napari](https://napari.org/stable/) plugin providing the graphical user interface for interactive analysis.
+
+## Development Status
+
+Brainways is under active development by Ben Kantor at the Bartal Lab, Tel Aviv University, Israel. Check out our [releases page](https://github.com/bkntr/brainways/releases) for the latest updates.
+
+## Citation
+
+If Brainways contributes to your research, please cite our publication: [Kantor and Bartal (2025)](https://doi.org/10.1038/s41386-025-02105-3).
+
+```bibtex
+@article{kantor2025mapping,
+    title={Mapping brain-wide activity networks: brainways as a tool for neurobiological discovery},
+    author={Kantor, Ben and Ruzal, Keren and Ben-Ami Bartal, Inbal},
+    journal={Neuropsychopharmacology},
+    pages={1--11},
+    year={2025},
+    publisher={Springer International Publishing Cham}
+}
+```
+
+## License
+
+Brainways is distributed under the terms of the [GNU GPL v3.0] license. It is free and open-source software.
+
+## Issues and Support
+
+Encountering problems? Please [file an issue] on our GitHub repository with a detailed description of the problem.
+
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[file an issue]: https://github.com/bkntr/brainways/issues
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: Implementation :: CPython', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/bkntr/brainways/issues', 'Documentation, https://github.com/bkntr/brainways#README.md', 'Source Code, https://github.com/bkntr/brainways', 'User Support, https://github.com/bkntr/brainways/issues']",brainways.read_bwp,,brainways.make_qwidget,brainways.load_sample_project,['*.bwp'],,,https://pypi.org/project/brainways,,
+24,btrack,0.6.5,2022-04-01,2025-04-22,btrack,Alan R. Lowe,"""Alan R. Lowe"" <a.lowe@ucl.ac.uk>",MIT,https://github.com/quantumjot/BayesianTracker,A framework for Bayesian multi-object tracking,>=3.9,"['cvxopt >=1.3.1', 'h5py >=2.10.0', 'numpy >=1.17.3', 'pandas >=2.0.3', 'pooch >=1.0.0', 'pydantic <2', 'scikit-image >=0.16.2', 'scipy >=1.3.1', 'tqdm >=4.65.0', ""black ; extra == 'dev'"", ""pre-commit ; extra == 'dev'"", ""ruff ; extra == 'dev'"", ""numpydoc ; extra == 'docs'"", ""pytz ; extra == 'docs'"", ""sphinx ; extra == 'docs'"", ""sphinx-automodapi ; extra == 'docs'"", ""sphinx-panels ; extra == 'docs'"", ""sphinx-rtd-theme ; extra == 'docs'"", ""magicgui >=0.5.0 ; extra == 'napari'"", ""napari-plugin-engine >=0.1.4 ; extra == 'napari'"", ""napari >=0.4.16 ; extra == 'napari'"", ""qtpy ; extra == 'napari'""]","[![PyPI](https://img.shields.io/pypi/v/btrack)](https://pypi.org/project/btrack)
+[![Downloads](https://static.pepy.tech/badge/btrack/month)](https://pepy.tech/project/btrack)
+[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Tests](https://github.com/quantumjot/btrack/actions/workflows/test.yml/badge.svg)](https://github.com/quantumjot/btrack/actions/workflows/test.yml)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Documentation](https://readthedocs.org/projects/btrack/badge/?version=latest)](https://btrack.readthedocs.io/en/latest/?badge=latest)
+[![codecov](https://codecov.io/gh/quantumjot/btrack/branch/main/graph/badge.svg?token=QCFC9AWK0R)](https://codecov.io/gh/quantumjot/btrack)
+
+![logo](https://btrack.readthedocs.io/en/latest/_images/btrack_logo.png)
+
+# Bayesian Tracker (btrack) 🔬💻
+
+`btrack` is a Python library for multi object tracking, used to reconstruct trajectories in crowded fields.
+Here, we use a probabilistic network of information to perform the trajectory linking.
+This method uses spatial information as well as appearance information for track linking.
+
+The tracking algorithm assembles reliable sections of track that do not contain splitting events (tracklets).
+Each new tracklet initiates a probabilistic model, and utilises this to predict future states (and error in states) of each of the objects in the field of view.
+We assign new observations to the growing tracklets (linking) by evaluating the posterior probability of each potential linkage from a Bayesian belief matrix for all possible linkages.
+
+The tracklets are then assembled into tracks by using multiple hypothesis testing and integer programming to identify a globally optimal solution.
+The likelihood of each hypothesis is calculated for some or all of the tracklets based on heuristics.
+The global solution identifies a sequence of high-likelihood hypotheses that accounts for all observations.
+
+We developed `btrack` for cell tracking in time-lapse microscopy data.
+
+## Installation
+
+`btrack` has been tested with ![Python](https://img.shields.io/pypi/pyversions/btrack)
+on `x86_64` `macos>=11`, `ubuntu>=20.04` and `windows>=10.0.17763`.
+Note that `btrack<=0.5.0` was built against earlier version of
+[Eigen](https://eigen.tuxfamily.org) which used `C++=11`, as of `btrack==0.5.1`
+it is now built against `C++=17`.
+
+### Installing the latest stable version
+
+```sh
+pip install btrack
+```
+
+## Usage examples
+
+Visit [btrack documentation](https://btrack.readthedocs.io) to learn how to use it and see other examples.
+
+### Cell tracking in time-lapse imaging data
+
+ We provide integration with Napari, including a plugin for graph visualization, [arboretum](https://btrack.readthedocs.io/en/latest/user_guide/napari.html).
+
+
+[![CellTracking](http://lowe.cs.ucl.ac.uk/images/youtube.png)](https://youtu.be/EjqluvrJGCg)  
+*Video of tracking, showing automatic lineage determination*
+
+
+<img src=""https://user-images.githubusercontent.com/8217795/225356392-6eb4b68c-eda5-4b96-af50-76930fa45e9d.png"" width=""700"" />
+
+
+---
+
+## Development
+
+The tracker and hypothesis engine are mostly written in C++ with a Python wrapper.
+If you would like to contribute to btrack, you will need to install the latest version from GitHub. Follow the [instructions on our developer guide](https://btrack.readthedocs.io/en/latest/dev_guide).
+
+
+---
+### Citation
+
+More details of how this type of tracking approach can be applied to tracking cells in time-lapse microscopy data can be found in the following publications:
+
+**Automated deep lineage tree analysis using a Bayesian single cell tracking approach**  
+Ulicna K, Vallardi G, Charras G and Lowe AR.  
+*Front in Comp Sci* (2021)  
+[![doi:10.3389/fcomp.2021.734559](https://img.shields.io/badge/doi-10.3389%2Ffcomp.2021.734559-blue)](https://doi.org/10.3389/fcomp.2021.734559)
+
+
+**Local cellular neighbourhood controls proliferation in cell competition**  
+Bove A, Gradeci D, Fujita Y, Banerjee S, Charras G and Lowe AR.  
+*Mol. Biol. Cell* (2017)  
+[![doi:10.1091/mbc.E17-06-0368](https://img.shields.io/badge/doi-10.1091%2Fmbc.E17--06--0368-blue)](https://doi.org/10.1091/mbc.E17-06-0368)
+
+```
+@ARTICLE {10.3389/fcomp.2021.734559,
+   AUTHOR = {Ulicna, Kristina and Vallardi, Giulia and Charras, Guillaume and Lowe, Alan R.},
+   TITLE = {Automated Deep Lineage Tree Analysis Using a Bayesian Single Cell Tracking Approach},
+   JOURNAL = {Frontiers in Computer Science},
+   VOLUME = {3},
+   PAGES = {92},
+   YEAR = {2021},
+   URL = {https://www.frontiersin.org/article/10.3389/fcomp.2021.734559},
+   DOI = {10.3389/fcomp.2021.734559},
+   ISSN = {2624-9898}
+}
+```
+
+```
+@ARTICLE {Bove07112017,
+  author = {Bove, Anna and Gradeci, Daniel and Fujita, Yasuyuki and Banerjee,
+    Shiladitya and Charras, Guillaume and Lowe, Alan R.},
+  title = {Local cellular neighborhood controls proliferation in cell competition},
+  volume = {28},
+  number = {23},
+  pages = {3215-3228},
+  year = {2017},
+  doi = {10.1091/mbc.E17-06-0368},
+  URL = {http://www.molbiolcell.org/content/28/23/3215.abstract},
+  eprint = {http://www.molbiolcell.org/content/28/23/3215.full.pdf+html},
+  journal = {Molecular Biology of the Cell}
+}
+```
+","['Framework :: napari', 'Intended Audience :: Science/Research', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: C++', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Topic :: Scientific/Engineering :: Bio-Informatics', 'Topic :: Scientific/Engineering :: Image Recognition', 'Topic :: Scientific/Engineering :: Visualization']","['bugtracker, https://github.com/quantumjot/btrack/issues', 'documentation, https://btrack.readthedocs.io', 'homepage, https://github.com/quantumjot/btrack', 'usersupport, https://github.com/quantumjot/btrack/discussions']",btrack.read_btrack,btrack.write_hdf,btrack.track,,"['*.h5', '*.hdf', '*.hdf5']","['.h5', '.hdf', '.hdf5']",,https://pypi.org/project/btrack,https://github.com/quantumjot/BayesianTracker,
+25,cell-AAP,0.0.9,,,cell-AAP,Anish Virdi,,,,,"<3.13,>=3.11","['napari[all]>=0.4.19', 'numpy==1.26.4', 'opencv-python>=4.9.0', 'tifffile>=2024.2.12', 'torch>=2.3.1', 'torchvision>=0.18.1', 'scikit-image>=0.22.0', 'qtpy>=2.4.1', 'pillow>=10.3.0', 'scipy>=1.3.0', 'timm>=1.0.7', 'pandas>=2.2.2', 'superqt>=0.6.3', 'btrack>=0.6.5', 'seaborn>=0.13.2', 'openpyxl>=3.1.4', 'joblib>=1.0', 'scikit-learn>=0.22', 'cython<3,>=0.27']","# Cellular Annotation & Perception Pipeline
+
+![](https://github.com/anishjv/cell-AAP/blob/main/images/figure2.png?raw=true)
+![](https://github.com/anishjv/cell-AAP/blob/main/images/rpe1_u2os.png?raw=true)
+
+
+
+
+Utilities for the semi-automated generation of instance segmentation annotations to be used for neural network training. Utilities are built ontop of [UMAP](https://github.com/lmcinnes/umap), [HDBSCAN](https://arxiv.org/abs/1911.02282) and a finetuned encoder version of FAIR's [Segment Anything Model](https://github.com/facebookresearch/segment-anything/tree/main?tab=readme-ov-file) developed by Computational Cell Analytics for the project [micro-sam](https://github.com/computational-cell-analytics/micro-sam/tree/master/micro_sam/sam_annotator). In addition to providing utilies for annotation building, we train networks using FAIR's [detectron2](https://github.com/facebookresearch/detectron2) to 
+1. Demonstrate the efficacy of our utilities. 
+2. Be used for microscopy annotation of supported cell lines 
+
+Cell-line specific models currently include:
+1. HeLa
+2. U2OS
+
+Models have demonstrated performance efficacy on:
+1. HT1080 (HeLa model)
+2. RPE1 (U2OS model)
+
+We've also developed a napari application for the usage of these pre-trained networks.
+
+
+# Installation 
+We highly recommend installing cell-AAP in a clean conda environment. To do so you must have [miniconda](https://docs.anaconda.com/free/miniconda/#quick-command-line-install) or [anaconda](https://docs.anaconda.com/free/anaconda/) installed.
+
+If a conda distribution has been installed:
+
+1. Create and activate a clean environment 
+
+        conda create -n cell-aap-env python=3.11.0
+        conda activate cell-app-env
+
+2. Within this environment install pip
+
+        conda install pip
+
+3. Then install cell-AAP from PyPi
+
+        pip install cell-AAP --upgrade
+
+4. Finally detectron2 must be built from source, atop cell-AAP
+    
+        #For MacOS
+        CC=clang CXX=clang++ ARCHFLAGS=""-arch arm64"" python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+
+        #For other operating systems 
+        python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+
+
+
+# Napari Plugin Usage
+
+1. To open napari simply type ""napari"" into the command line, ensure that you are working the correct environment
+2. To instantiate the plugin navigate to the ""Plugins"" menu and select ""cell-AAP""
+3. You should now see the Plugin, where you can select an image, display it, and run inference on it. 
+
+
+# Configs Best Practices
+
+If running inference on large volumes of data, i.e. timeseries data >= 300 MB in size, we recommend to proceed in the following manner. 
+
+1. Assemble a small, < 100 MB, substack of your data using python or a program like [ImageJ](https://imagej.net/ij/download.html)
+2. Use this substack to find the optimal parameters for your data, (Number of Cells, Network confidence threshold)
+3. Run Inference over the volume using the discovered optimal parameters
+
+
+# Interpreting Results 
+
+Once inference is complete the following colors indicate class prediction
+- Red: Non-mitotic
+- Blue: Mitotic
+
+For analysis purposes, masks in the semantic and instance segmentations have the following value mapping:
+Semantic
+- 1: Non-mitotic
+- 100: Mitotic
+
+Instance
+- $2x$: Non-mitotic
+- $2x-1$: Mitotic
+
+
+
+
+
+
+
+
+","['Framework :: napari', 'Programming Language :: Python :: 3']",,,,cell-AAP.run,,,,,https://pypi.org/project/cell-AAP,,
+26,cellcanvas,0.0.1,,,cellcanvas,Kyle Harrington,czii@kyleharrington.com,MIT,,A tool for painting in cellular architecture,>=3.8,"['numpy <2.0.0', 'magicgui >=0.8.1', 'mrcfile', 'qtpy >=2.4.1', 'scikit-image >=0.22.0', 'toolz >=0.12.0', 'scikit-learn >=1.3.2', 'pyclesperanto-prototype', 'pymeshfix', 'psygnal >=0.9.5', 'superqt >=0.6.1', 'surforama', 'starfile', 'zarr >=2.16.1', 'xgboost >=2', 'matplotlib >=3.8.2', ""tox ; extra == 'dev'"", ""pytest ; extra == 'dev'"", ""pytest-cov ; extra == 'dev'"", ""pytest-qt ; extra == 'dev'"", ""napari ; extra == 'dev'"", ""pyqt5 ; extra == 'dev'"", ""pre-commit ; extra == 'dev'"", ""tox ; extra == 'testing'"", ""pytest ; extra == 'testing'"", ""pytest-cov ; extra == 'testing'"", ""pytest-qt ; extra == 'testing'"", ""napari ; extra == 'testing'"", ""pyqt5 ; extra == 'testing'""]","# cellcanvas
+A tool to support painting in cellular architecture
+
+![cellcanvas_screenshot](cover.png)
+","['Development Status :: 2 - Pre-Alpha', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Programming Language :: Python :: 3.10', 'Topic :: Scientific/Engineering :: Image Processing']","['Bug Tracker, https://github.com/cellcanvas/cellcanvas/issues', 'Documentation, https://github.com/cellcanvas/cellcanvas#README.md', 'Source Code, https://github.com/cellcanvas/cellcanvas', 'User Support, https://github.com/cellcanvas/cellcanvas/issues']",,,cellcanvas.make_qwidget,,,,,https://pypi.org/project/cellcanvas,,
+27,cellfinder,1.6.0,2025-02-06,2025-04-22,cellfinder,"Adam Tyson, Christian Niedworok, Charly Rousseau","""Adam Tyson, Christian Niedworok, Charly Rousseau"" <code@adamltyson.com>",BSD-3-Clause,https://pypi.org/project/cellfinder,Automated 3D cell detection in large microscopy images,>=3.11,"['brainglobe-utils>=0.5.0', 'brainglobe-napari-io>=0.3.4', 'dask[array]', 'fancylog>=0.0.7', 'natsort', 'numba', 'numpy', 'scikit-image', 'scikit-learn', 'keras>=3.7.0', 'torch!=2.4,>=2.1.0', 'tifffile', 'tqdm', 'qt-niu', 'black; extra == ""dev""', 'pre-commit; extra == ""dev""', 'pyinstrument; extra == ""dev""', 'pytest-cov; extra == ""dev""', 'pytest-mock; extra == ""dev""', 'pytest-qt; extra == ""dev""', 'pytest-timeout; extra == ""dev""', 'pytest; extra == ""dev""', 'tox; extra == ""dev""', 'pooch>=1; extra == ""dev""', 'brainglobe-napari-io; extra == ""napari""', 'magicgui; extra == ""napari""', 'napari-ndtiffs; extra == ""napari""', 'napari-plugin-engine>=0.1.4; extra == ""napari""', 'napari[pyqt5]; extra == ""napari""', 'pooch>=1; extra == ""napari""', 'qtpy; extra == ""napari""']","[![Python Version](https://img.shields.io/pypi/pyversions/cellfinder.svg)](https://pypi.org/project/cellfinder)
+[![PyPI](https://img.shields.io/pypi/v/cellfinder.svg)](https://pypi.org/project/cellfinder)
+[![Downloads](https://pepy.tech/badge/cellfinder)](https://pepy.tech/project/cellfinder)
+[![Wheel](https://img.shields.io/pypi/wheel/cellfinder.svg)](https://pypi.org/project/cellfinder)
+[![Development Status](https://img.shields.io/pypi/status/cellfinder.svg)](https://github.com/brainglobe/cellfinder)
+[![Tests](https://img.shields.io/github/actions/workflow/status/brainglobe/cellfinder/test_and_deploy.yml?branch=main)](https://github.com/brainglobe/cellfinder/actions)
+[![codecov](https://codecov.io/gh/brainglobe/cellfinder/branch/main/graph/badge.svg?token=nx1lhNI7ox)](https://codecov.io/gh/brainglobe/cellfinder)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Contributions](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](https://brainglobe.info/community/developers/index.html)
+[![Twitter](https://img.shields.io/twitter/follow/brain_globe?style=social)](https://twitter.com/brain_globe)
+
+# cellfinder
+
+cellfinder is software for automated 3D cell detection in very large 3D images (e.g., serial two-photon or lightsheet volumes of whole mouse brains).
+There are three different ways to interact and use it, each with different user interfaces and objectives in mind.
+For more details, head over to [the documentation website](https://brainglobe.info/documentation/cellfinder/index.html).
+
+At a glance:
+
+- There is a command-line interface called [brainmapper](https://brainglobe.info/documentation/brainglobe-workflows/brainmapper/index.html) that integrates [with `brainreg`](https://github.com/brainglobe/brainreg) for automated cell detection and classification. You can install it through [`brainglobe-workflows`](https://brainglobe.info/documentation/brainglobe-workflows/index.html).
+- There is a [napari plugin](https://brainglobe.info/documentation/cellfinder/user-guide/napari-plugin/index.html) for interacting graphically with the cellfinder tool.
+- There is a [Python API](https://brainglobe.info/documentation/cellfinder/user-guide/cellfinder-core.html) to allow users to integrate BrainGlobe tools into their custom workflows.
+
+## Installation
+
+You can find [the installation instructions](https://brainglobe.info/documentation/cellfinder/installation.html#installation) on the BrainGlobe website, which will go into more detail about the installation process if you want to minimise your installation to suit your needs.
+However, we recommend that users install `cellfinder` either through installing BrainGlobe version 1, or (if you also want the command-line interface) installing `brainglobe-workflows`.
+
+```bash
+# If you want to install all BrainGlobe tools, including cellfinder, in a consistent manner with one command:
+pip install brainglobe>=1.0.0
+# If you want to install the brainmapper CLI tool as well:
+pip install brainglobe-workflows>=1.0.0
+```
+
+If you only want the `cellfinder` package by itself, you can `pip install` it alone:
+
+```bash
+pip install cellfinder>=1.0.0
+```
+
+Be sure to specify a version greater than version `v1.0.0` - prior to this version the `cellfinder` package had a very different structure that is incompatible with BrainGlobe version 1 and the other tools in the BrainGlobe suite.
+See [our blog posts](https://brainglobe.info/blog/) for more information on the release of BrainGlobe version 1.
+
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
+
+## Citation
+If you find this package useful, and use it in your research, please cite the following paper:
+> Tyson, A. L., Rousseau, C. V., Niedworok, C. J., Keshavarzi, S., Tsitoura, C., Cossell, L., Strom, M. and Margrie, T. W. (2021) “A deep learning algorithm for 3D cell detection in whole mouse brain image datasets’ PLOS Computational Biology, 17(5), e1009074
+[https://doi.org/10.1371/journal.pcbi.1009074](https://doi.org/10.1371/journal.pcbi.1009074)
+
+**If you use this, or any other tools in the brainglobe suite, please
+ [let us know](https://brainglobe.info/contact.html), and
+ we'd be happy to promote your paper/talk etc.**
+","['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Developers', 'Intended Audience :: Science/Research', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Programming Language :: Python :: 3.13', 'Topic :: Scientific/Engineering :: Image Recognition']","['Homepage, https://brainglobe.info/documentation/cellfinder/index.html', 'Source Code, https://github.com/brainglobe/cellfinder', 'Bug Tracker, https://github.com/brainglobe/cellfinder/issues', 'Documentation, https://brainglobe.info/documentation/cellfinder/index.html', 'User Support, https://forum.image.sc/tag/brainglobe']",,,cellfinder.napari.detect_widget,cellfinder.napari.SampleData,,,,https://pypi.org/project/cellfinder,,
+28,CellPose Counter,0.1.8,,,cellpose-counter,Nicolas Buitrago,nsb5@rice.edu,"
+Copyright (c) 2024, Szablowski Lab
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ""AS IS""
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+",,Cell/nuclei counter using cellpose models,>=3.10,"['numpy', 'magicgui', 'qtpy', 'scikit-image', 'napari[all]>=0.5.4', 'cellpose>=3.1.0', 'accelerate>=1.1.1', 'napari-czifile2>=0.2.7', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'pyqt5; extra == ""testing""']","# cellpose-counter
+
+[![License BSD-3](https://img.shields.io/pypi/l/cellpose-counter.svg?color=green)](https://github.com/szablowskilab/cellpose-counter/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/cellpose-counter.svg?color=green)](https://pypi.org/project/cellpose-counter)
+[![Python Version](https://img.shields.io/pypi/pyversions/cellpose-counter.svg?color=green)](https://python.org)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cellpose-counter)](https://napari-hub.org/plugins/cellpose-counter)
+
+A Napari plugin for cell/nuclei counting from a region or interest using
+cellpose models.
+
+----------------------------------
+
+## Installation
+
+Option 1: via [pip](https://pip.pypa.io/en/stable/) (or pip alternatives like
+[uv](https://docs.astral.sh/uv/)):
+
+Below is a minimally working example of setting up a new virtual environment and
+installing the counter module with uv on Unix based systems.
+
+```bash
+uv venv # create virtual environment in .venv
+source .venv/bin/activate
+
+uv pip install ""napari[all]"" cellpose-counter
+```
+
+Option 2: via Docker/Podman. The provide [Dockerfile](./Dockerfile) can be used
+to install Napari and the counter plugin along with a preconfigured Xpra server
+using the napari-xpra image. Below is an example of building the image and
+running the application with GPU support.
+
+```bash
+podman build -t cellpose-counter .
+podman run -it -d \
+    -p 9876:9876 \
+    -e XPRA_START=""python3 -m napari -w cellpose-counter"" \
+    --device nvidia.com/gpu=all
+```
+
+Then, navigate to `http://localhost:9876` to view the application in a virtual
+machine.
+
+Note: There is a known issue installing the plugin directly from Napari. Please
+see [this issue](https://github.com/szablowskilab/cellpose-counter/issues/12)
+for more updates.
+
+## GPU Acceleration
+
+To enable GPU acceleration, you will need a CUDA capable GPU along with the
+[CUDA toolkit](https://developer.nvidia.com/cuda-toolkit) and [cudNN library](https://developer.nvidia.com/cudnn).
+
+For instructions on installing cuda toolkit and cudNN, see:
+
+1. [cuda toolkit installation for Linux](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#fedora)
+1. [cudNN installation for Linux](https://docs.nvidia.com/deeplearning/cudnn/latest/installation/linux.html)
+
+Once these are installed, update the pytorch package by first uninstalling torch
+(if already instsalled).
+
+```bash
+uv pip uninstall torch
+```
+
+Then install a torch version that is compatible with your CUDA version. For example,
+
+```bash
+uv pip install torch --index-url https://download.pytorch.org/whl/cu118
+```
+
+After installation, you can verify in an interactive python console with:
+
+```python3
+import torch
+torch.cuda.is_available()
+```
+
+## Usage
+
+To open Napari with the cellpose counter loaded, run `napari -w cellpose-counter`.
+
+A dock widget will be open on the right side of the Napari interface. There
+you can view options for restoring images (using the cellpose denoise module),
+and counting cells/nuclei in a region of interest (ROI).
+
+A few important notes:
+
+1. Images in TIFF or CZI file formats may be used.
+1. Images must be grayscale or single channel. RGB images may be loaded, but
+should be split. You can do this by right clicking on the image and select
+`split rgb` or `split stack`.
+1. ROIs can be drawn using the shape layer tools. Only a single ROI can be drawn
+per shape layer (otherwise only the first draw ROI will be used).
+1. ROIs should be square or rectangular. You can draw ROIs as polygons or other
+shapes, but a bounding box will be made from these shapes anyway.
+1. For long running processes such as image restoration or counting, it may seem
+like Napari is not doing anything. Notifications are shown in the viewer to
+display import information and a small activity indicator can be seen in the
+bottom right hand corner. If this indicator is spinning, then work is being done
+even if it doesn't look like it.
+1. In case of a large number of uncounted nuclei, consider modifying the
+segmentation parameters, or use the `Continue Counting` option to re-run the
+segmentation on uncounted nuclei.
+
+## Updating
+
+1. via Napari plugin manager. Select cellpose-counter plugin and update button.
+
+1. via pip (or uv, ..., etc.)
+
+```bash
+uv pip install cellpose-counter --upgrade
+```
+
+## Contributing
+
+All contributions are welcome. Please submit an issue for feedback or bugs.
+
+## Citations
+
+This plugin is built on top of the Cellpose segmentation and denoising models.
+If you use this plugin, please cite the following paper:
+
+```bitex
+@article{stringer2021cellpose,
+title={Cellpose: a generalist algorithm for cellular segmentation},
+author={Stringer, Carsen and Wang, Tim and Michaelos, Michalis and Pachitariu, Marius},
+journal={Nature Methods},
+volume={18},
+number={1},
+pages={100--106},
+year={2021},
+publisher={Nature Publishing Group}
+}
+```
+
+## License
+
+[BSD-3](./LICENSE)
+","['Development Status :: 4 - Beta', 'Framework :: napari', 'Intended Audience :: Developers', 'License :: OSI Approved :: BSD License', 'Operating System :: OS Independent', 'Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3 :: Only', 'Programming Language :: Python :: 3.10', 'Programming Language :: Python :: 3.11', 'Programming Language :: Python :: 3.12', 'Topic :: Scientific/Engineering :: Image Processing']",,,,cellpose-counter.make_counter_widget,,,,,https://pypi.org/project/cellpose-counter,,
+29,cellpose-napari,0.2.0,2022-02-14,2025-04-22,cellpose-napari,Carsen Stringer,stringerc@janelia.hhmi.org,BSD-3,https://github.com/Mouseland/cellpose-napari,a generalist algorithm for anatomical segmentation,>=3.7,"['napari', 'napari-plugin-engine>=0.1.4', 'cellpose>0.6.3', 'imagecodecs', 'sphinx>=3.0; extra == ""docs""', 'sphinxcontrib-apidoc; extra == ""docs""', 'sphinx-rtd-theme; extra == ""docs""', 'sphinx-prompt; extra == ""docs""', 'sphinx-autodoc-typehints; extra == ""docs""', 'tox; extra == ""testing""', 'pytest; extra == ""testing""', 'pytest-cov; extra == ""testing""', 'pytest-qt; extra == ""testing""', 'napari; extra == ""testing""', 'pyqt5; extra == ""testing""']","# cellpose-napari <img src=""docs/_static/favicon.ico"" width=""50"" title=""cellpose"" alt=""cellpose"" align=""right"" vspace = ""50"">
+
+[![Documentation Status](https://readthedocs.org/projects/cellpose-napari/badge/?version=latest)](https://cellpose-napari.readthedocs.io/en/latest/?badge=latest)
+[![tests](https://github.com/mouseland/cellpose-napari/workflows/tests/badge.svg)](https://github.com/mouseland/cellpose-napari/actions)
+[![codecov](https://codecov.io/gh/Mouseland/cellpose-napari/branch/main/graph/badge.svg)](https://codecov.io/gh/MouseLand/cellpose-napari)
+[![PyPI version](https://badge.fury.io/py/cellpose-napari.svg)](https://badge.fury.io/py/cellpose-napari)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/cellpose-napari)](https://pypistats.org/packages/cellpose-napari)
+[![Python version](https://img.shields.io/pypi/pyversions/cellpose-napari)](https://pypistats.org/packages/cellpose-napari)
+[![License](https://img.shields.io/pypi/l/cellpose-napari.svg?color=green)](https://github.com/mouseland/cellpose-napari/raw/master/LICENSE)
+[![Contributors](https://img.shields.io/github/contributors-anon/MouseLand/cellpose-napari)](https://github.com/MouseLand/cellpose-napari/graphs/contributors)
+[![website](https://img.shields.io/website?url=https%3A%2F%2Fwww.cellpose.org)](https://www.cellpose.org)
+[![GitHub stars](https://img.shields.io/github/stars/MouseLand/cellpose-napari?style=social)](https://github.com/MouseLand/cellpose-napari/)
+[![GitHub forks](https://img.shields.io/github/forks/MouseLand/cellpose-napari?style=social)](https://github.com/MouseLand/cellpose-napari/)
+
+a napari plugin for anatomical segmentation of general cellular images
+
+----------------------------------
+
+This [napari] plugin was generated with [Cookiecutter] using with [@napari]'s [cookiecutter-napari-plugin] template.
+
+The plugin code was written by Carsen Stringer, and the cellpose code was written by Carsen Stringer and Marius Pachitariu. To learn about Cellpose, read the [**paper**](https://t.co/kBMXmPp3Yn?amp=1) or watch this [**talk**](https://t.co/JChCsTD0SK?amp=1). 
+
+For support with the plugin, please open an [issue](https://github.com/MouseLand/cellpose-napari/issues). For support with cellpose, please open an [issue](https://github.com/MouseLand/cellpose/issues) on the cellpose repo. 
+
+
+If you use this plugin please cite the [paper](https://www.nature.com/articles/s41592-020-01018-x):
+::
+    
+      @article{stringer2021cellpose,
+      title={Cellpose: a generalist algorithm for cellular segmentation},
+      author={Stringer, Carsen and Wang, Tim and Michaelos, Michalis and Pachitariu, Marius},
+      journal={Nature Methods},
+      volume={18},
+      number={1},
+      pages={100--106},
+      year={2021},
+      publisher={Nature Publishing Group}
+      }
+
+
+![cellpose-napari_plugin](https://cellpose-napari.readthedocs.io/en/latest/_images/napari_main_demo_fast_small.gif?raw=true ""cellpose-napari"")
+
+## Installation
+
+Install an [Anaconda](https://www.anaconda.com/download/) distribution of Python -- Choose **Python 3** and your operating system. Note you might need to use an anaconda prompt if you did not add anaconda to the path.
+
+Install `napari` with pip: `pip install napari[all]`. Then install `cellpose-napari` via [pip]:
+
+    pip install cellpose-napari
+    
+ Or install the plugin inside napari in the plugin window.
+
+If install fails in your base environment, create a new environment:
+1. Download the [`environment.yml`](https://github.com/MouseLand/cellpose-napari/blob/master/environment.yml?raw=true) file from the repository. You can do this by cloning the repository, or copy-pasting the text from the file into a text document on your local computer.
+2. Open an anaconda prompt / command prompt with `conda` for **python 3** in the path
+3. Change directories to where the `environment.yml` is and run `conda env create -f environment.yml`
+4. To activate this new environment, run `conda activate cellpose_napari`
+5. You should see `(cellpose_napari)` on the left side of the terminal line. 
+
+If you have **issues** with cellpose installation, see the [cellpose docs](https://cellpose.readthedocs.io/en/latest/installation.html) for more details, and then if the suggestions fail, open an issue.
+
+### Upgrading software
+
+You can upgrade the plugin with
+~~~
+pip install cellpose-napari --upgrade
+~~~
+
+and you can upgrade cellpose with
+~~~
+pip install cellpose --upgrade
+~~~
+
+### GPU version (CUDA) on Windows or Linux
+
+If you plan on running many images, you may want to install a GPU version of *torch* (if it isn't already installed).
+
+Before installing the GPU version, remove the CPU version:
+~~~
+pip uninstall torch
+~~~
+
+Follow the instructions [here](https://pytorch.org/get-started/locally/) to determine what version to install. The Anaconda install is recommended along with CUDA version 10.2. For instance this command will install the 10.2 version on Linux and Windows (note the `torchvision` and `torchaudio` commands are removed because cellpose doesn't require them):
+
+~~~
+conda install pytorch cudatoolkit=10.2 -c pytorch
+~~~~
+
+When upgrading GPU Cellpose in the future, you will want to ignore dependencies (to ensure that the pip version of torch does not install):
+~~~
+pip install --no-deps cellpose --upgrade
+~~~
+
+### Installation of github version
+
+Follow steps from above to install the dependencies. In the github repository, run `pip install -e .` and the github version will be installed. If you want to go back to the pip version of cellpose-napari, then say `pip install cellpose-napari`.
+
+
+## Running the software
+
+
+Open napari with the cellpose-napari dock widget open
+```
+napari -w cellpose-napari
+```
+
+There is sample data in the File menu, or get started with your own images!
+
+### Detailed usage [documentation](https://cellpose-napari.readthedocs.io/).
+
+## Contributing
+
+Contributions are very welcome. Tests are run with pytest.
+
+## License
+
+Distributed under the terms of the [BSD-3] license,
+""cellpose-napari"" is free and open source software.
+
+## Dependencies
+cellpose-napari relies on the following excellent packages (which are automatically installed with conda/pip if missing):
+- [napari](https://napari.org)
+- [magicgui](https://napari.org/magicgui/)
+
+cellpose relies on the following excellent packages (which are automatically installed with conda/pip if missing):
+- [torch](https://pytorch.org/)
+- [numpy](http://www.numpy.org/) (>=1.16.0)
+- [numba](http://numba.pydata.org/numba-doc/latest/user/5minguide.html)
+- [scipy](https://www.scipy.org/)
+- [natsort](https://natsort.readthedocs.io/en/master/)
+- [tifffile](https://pypi.org/project/tifffile/)
+- [opencv](https://opencv.org/)
+
+
+[napari]: https://github.com/napari/napari
+[Cookiecutter]: https://github.com/audreyr/cookiecutter
+[@napari]: https://github.com/napari
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
+","['Programming Language :: Python', 'Programming Language :: Python :: 3', 'Programming Language :: Python :: 3.7', 'Programming Language :: Python :: 3.8', 'Programming Language :: Python :: 3.9', 'Operating System :: OS Independent', 'License :: OSI Approved :: BSD License', 'Framework :: napari']",,,,cellpose-napari.widget_wrapper,cellpose-napari.data.rgb_3D,,,,https://pypi.org/project/cellpose-napari,https://github.com/Mouseland/cellpose-napari,
