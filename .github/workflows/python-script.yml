@@ -26,19 +26,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Fetch the napari plugin data
-      run: python fetch_napari_data.py
-
-    - name: Create static html files
-      run: python create_static_html_files.py
-
-    - name: Configure Git
+    - name: Fetch data and build HTML
       run: |
-        git config --global user.name 'GitHub Actions'
-        git config --global user.email 'actions@github.com'
+        make all
 
-    - name: Commit and Push changes
-      run: |
-        git add .
-        git commit -m "Update data files" -a || echo "No changes to commit"
-        git push
+    # - name: Configure Git
+    #   run: |
+    #     git config --global user.name 'GitHub Actions'
+    #     git config --global user.email 'actions@github.com'
+
+    - name: Deploy build to gh pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: _build

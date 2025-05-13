@@ -1,3 +1,4 @@
+import sys
 import requests
 import json
 import os
@@ -9,7 +10,7 @@ import markdown
 from markdown.extensions.toc import TocExtension
 
 
-def create_small_html(df_plugins):
+def create_small_html(df_plugins, build_dir):
     html_content = '<html>\n<body>\n'
     for index, row in df_plugins.iterrows():
 
@@ -59,7 +60,7 @@ def create_small_html(df_plugins):
 
     html_content += '</body>\n</html>'
 
-    with open('plugins_list.html', 'w') as file:
+    with open(f'{build_dir}/plugins_list.html', 'w') as file:
         file.write(html_content)
 
 
@@ -131,6 +132,7 @@ def generate_requirements_html(row):
             requirements_html += '</ul>'
 
     return requirements_html
+
 def parse_version_specifier(specifier, default_min_version='3.6'):
 
     # Parse version specifiers to get the min and max version
@@ -305,80 +307,81 @@ pre > code:last-child {{
     # Save the HTML file for each plugin
     os.makedirs(plugin_dir, exist_ok= True)
     file_name = f"{row['name']}.html"
-    with open(plugin_dir + file_name, 'w') as file:
+    with open(f'{plugin_dir}/{file_name}', 'w') as file:
         file.write(filled_template)
 
 
 
-#########################################
-## main starts
-#########################################
+if __name__ == "__main__":
+    build_dir = sys.argv[1] if len(sys.argv) > 1 else '.'
+    data_dir = f"{build_dir}/data"
+    static_dir = f"{build_dir}/static"
+    plugin_dir = f"{build_dir}/plugins"
+    template_dir = f"{build_dir}/templates"
         
-# Load your DataFrame
-df_plugins = pd.read_csv('./data/final_plugins.csv')
+    # Load your DataFrame
+    df_plugins = pd.read_csv(f'{data_dir}/final_plugins.csv')
 
-# Sort the DataFrame by 'modified_at' in descending order
-df_plugins = df_plugins.sort_values(by='modified_at', ascending=False)
+    # Sort the DataFrame by 'modified_at' in descending order
+    df_plugins = df_plugins.sort_values(by='modified_at', ascending=False)
 
-# Reset index to ensure it starts from 0 and is continuous after sorting
-df_plugins.reset_index(drop=True, inplace=True)
-df_plugins['plugin_id'] = df_plugins.index
-df_plugins['html_filename'] = df_plugins['name'].apply(lambda x: f"{x.replace(' ', '_').lower()}.html")
+    # Reset index to ensure it starts from 0 and is continuous after sorting
+    df_plugins.reset_index(drop=True, inplace=True)
+    df_plugins['plugin_id'] = df_plugins.index
+    df_plugins['html_filename'] = df_plugins['name'].apply(lambda x: f"{x.replace(' ', '_').lower()}.html")
 
-# Generate plugins_manifest.json
-plugins_manifest = df_plugins[['plugin_id', 'html_filename']].to_dict(orient='records')
-manifest_path = './plugins_manifest.json'
-with open(manifest_path, 'w') as f:
-    json.dump(plugins_manifest, f, indent=4)
+    # Generate plugins_manifest.json
+    plugins_manifest = df_plugins[['plugin_id', 'html_filename']].to_dict(orient='records')
+    manifest_path = f'{build_dir}/plugins_manifest.json'
+    with open(manifest_path, 'w') as f:
+        json.dump(plugins_manifest, f, indent=4)
 
-create_small_html(df_plugins)
+    create_small_html(df_plugins, build_dir)
 
-# Read the target HTML file
-with open('./templates/static_index_template.html', 'r') as file:
-    target_html = file.read()
+    # Read the target HTML file
+    with open(f'{template_dir}/static_index_template.html', 'r') as file:
+        target_html = file.read()
 
-# Total number of plugins available
-number_to_insert = len(df_plugins)  
+    # Total number of plugins available
+    number_to_insert = len(df_plugins)  
 
-# Find the insertion point in the target HTML template
-insertion_point_number = target_html.find('<!-- insert number here -->')
+    # Find the insertion point in the target HTML template
+    insertion_point_number = target_html.find('<!-- insert number here -->')
 
-if insertion_point_number != -1:
-    target_html = target_html[:insertion_point_number] + str(number_to_insert) + target_html[insertion_point_number:]
-else:
-    print("Number insertion point not found in the target HTML file.")
+    if insertion_point_number != -1:
+        target_html = target_html[:insertion_point_number] + str(number_to_insert) + target_html[insertion_point_number:]
+    else:
+        print("Number insertion point not found in the target HTML file.")
 
-# Read the list of available plugins 
-with open('plugins_list.html', 'r') as file:
-    element_html = file.read()
+    # Read the list of available plugins 
+    with open(f'{build_dir}/plugins_list.html', 'r') as file:
+        element_html = file.read()
 
-# Find the insertion point in the target HTML template
-insertion_point = target_html.find('<!-- insert plugins_list.html -->')
+    # # Find the insertion point in the target HTML template
+    # insertion_point = target_html.find('<!-- insert plugins_list.html -->')
 
-# Check if the insertion point is found
-if insertion_point != -1:
-    # Insert the element.html content
-    modified_html = target_html[:insertion_point] + element_html + target_html[insertion_point:]
-    # Save the modified HTML as static_index.html
-    with open('./templates/static_index.html', 'w') as file:
-        file.write(modified_html)
-else:
-    print("Insertion point not found in the target HTML file.")
-
-
-# Read the individual plugin HTML template
-with open('./templates/each_plugin_template.html', 'r') as file:
-    template = file.read()
-
-plugin_dir = './plugins/'
-
-# Apply the function to each row in the DataFrame
-df_plugins.apply(lambda row: generate_plugin_html(row, template, plugin_dir), axis=1)
+    # # Check if the insertion point is found
+    # if insertion_point != -1:
+    #     # Insert the element.html content
+    #     modified_html = target_html[:insertion_point] + element_html + target_html[insertion_point:]
+    #     # Save the modified HTML as static_index.html
+    #     with open('./templates/static_index.html', 'w') as file:
+    #         file.write(modified_html)
+    # else:
+    #     print("Insertion point not found in the target HTML file.")
 
 
-""" # Read the individual plugin HTML template for flask
-with open('./templates/flask_each_plugin_template.html', 'r') as file:
-    search_template = file.read()
-flask_plugin_dir = './static/plugins/'
-# Apply the function to each row in the DataFrame
-df_plugins.apply(lambda row: generate_plugin_html(row, search_template, flask_plugin_dir), axis=1) """
+    # Read the individual plugin HTML template
+    with open(f'{template_dir}/each_plugin_template.html', 'r') as file:
+        template = file.read()
+
+    # Apply the function to each row in the DataFrame
+    df_plugins.apply(lambda row: generate_plugin_html(row, template, plugin_dir), axis=1)
+
+
+    """ # Read the individual plugin HTML template for flask
+    with open('./templates/flask_each_plugin_template.html', 'r') as file:
+        search_template = file.read()
+    flask_plugin_dir = './static/plugins/'
+    # Apply the function to each row in the DataFrame
+    df_plugins.apply(lambda row: generate_plugin_html(row, search_template, flask_plugin_dir), axis=1) """
