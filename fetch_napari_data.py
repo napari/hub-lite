@@ -57,7 +57,7 @@ def build_plugins_dataframe():
 
     all_plugin_data = []
 
-    for plugin in plugin_summary[:30]:
+    for plugin in plugin_summary:
         plugin_data = plugin.copy()  
         plugin_name = plugin.get('name')
 
@@ -121,7 +121,7 @@ if __name__ == "__main__":
     #df_plugins.dropna(axis=1, how='all', inplace=True)
 
     # Drop columns where less than 20 non-NaN counts
-    # df_plugins.dropna(axis=1, thresh=20, inplace=True)
+    df_plugins.dropna(axis=1, thresh=20, inplace=True)
 
     # Create a dictionary of column names and their non-NaN counts
     column_counts = {column: df_plugins[column].count() for column in df_plugins.columns}
