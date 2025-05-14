@@ -1,3 +1,4 @@
+import sys
 import requests
 import json
 import os
@@ -110,83 +111,82 @@ def classify_website(home_url):
     return 'other'
 
 
-#########################################
-## main starts
-#########################################
+if __name__ == "__main__":
+    build_dir = sys.argv[1] if len(sys.argv) > 1 else '.'
+    data_dir = f'{build_dir}/data'
+
+    df_plugins = build_plugins_dataframe()
+
+    # Drop columns where all elements are NaN
+    #df_plugins.dropna(axis=1, how='all', inplace=True)
+
+    # Drop columns where less than 20 non-NaN counts
+    df_plugins.dropna(axis=1, thresh=20, inplace=True)
+
+    # Create a dictionary of column names and their non-NaN counts
+    column_counts = {column: df_plugins[column].count() for column in df_plugins.columns}
+
+    # Sort the dictionary by counts and print
+    for column, count in sorted(column_counts.items(), key=lambda item: item[1],  reverse=True):
+        print(column, count)
+
+    # Save the cleaned DataFrame to a CSV file
+    df_plugins.to_csv(f'{data_dir}/cleaned_napari_plugins.csv')
+
+    Plugin_page_columns = ['display_name', 'version', 'created_at','modified_at', 'name',
+                        'author',  #'package_metadata_author', 
+                        'package_metadata_author_email',
+                        'license', #'package_metadata_license', 
+                        'home', #'home_page', 'package_metadata_home_page', 
+                        'summary', # 'package_metadata_summary'
+                        'package_metadata_requires_python', 
+                        'package_metadata_requires_dist',
+                            'package_metadata_description',
+                            'package_metadata_classifier',
+                            'package_metadata_project_url',
+                            'contributions_readers_0_command', 
+                            'contributions_writers_0_command', 
+                            'contributions_widgets_0_command',
+                            'contributions_sample_data_0_command',
+                            'contributions_readers_0_filename_patterns', 
+                            'contributions_writers_0_filename_extensions',
+                            'contributions_writers_1_filename_extensions']
+
+    df_plugins = df_plugins[Plugin_page_columns]
+
+    # Convert and format 'created_at' and 'modified_at' columns
+    df_plugins['created_at'] = pd.to_datetime(df_plugins['created_at'], format='mixed').dt.date
+    df_plugins['modified_at'] = pd.to_datetime(df_plugins['modified_at'], format='mixed').dt.date
+
+    # Apply the function to the 'home' column to classify the websites
+    df_plugins['home_type'] = df_plugins['home'].apply(classify_website)
+
+    # Create the new columns based on classification
+    df_plugins['home_pypi'] = df_plugins['home'].where(df_plugins['home_type'] == 'pypi', '')
+    df_plugins['home_github'] = df_plugins['home'].where(df_plugins['home_type'] == 'github', '')
+    df_plugins['home_other'] = df_plugins['home'].where(df_plugins['home_type'] == 'other', '')
+
+    # Delete 'home_type' column as it is no longer needed
+    df_plugins.drop('home_type', axis=1, inplace=True)
 
 
-df_plugins = build_plugins_dataframe()
+    for index, row in df_plugins.iterrows():
+        # Check if 'author' is NaN or contains quotation marks
+        if pd.isna(row['author']) or '"' in str(row['author']):
+            # Update 'author' using the extracted name from 'package_metadata_author_email'
+            df_plugins.at[index, 'author'] = extract_author_name(row['package_metadata_author_email'])
 
-# Drop columns where all elements are NaN
-#df_plugins.dropna(axis=1, how='all', inplace=True)
+        if pd.isna(row['license']):
+            pass 
+        else:
+            # Check for specific license strings to shorten the license information
+            if "BSD 3-Clause" in str(row['license']):
+                df_plugins.at[index, 'license'] = "BSD 3-Clause"
+            elif "MIT License" in str(row['license']):
+                df_plugins.at[index, 'license'] = "MIT"
 
-# Drop columns where less than 20 non-NaN counts
-df_plugins.dropna(axis=1, thresh=20, inplace=True)
+        # Fill home_pypi 
+        if not row['home_pypi']:
+            df_plugins.at[index, 'home_pypi'] = f"https://pypi.org/project/{row['name']}"
 
-# Create a dictionary of column names and their non-NaN counts
-column_counts = {column: df_plugins[column].count() for column in df_plugins.columns}
-
-# Sort the dictionary by counts and print
-for column, count in sorted(column_counts.items(), key=lambda item: item[1],  reverse=True):
-    print(column, count)
-
-# Save the cleaned DataFrame to a CSV file
-df_plugins.to_csv('./data/cleaned_napari_plugins.csv')
-
-Plugin_page_columns = ['display_name', 'version', 'created_at','modified_at', 'name',
-                       'author',  #'package_metadata_author', 
-                       'package_metadata_author_email',
-                       'license', #'package_metadata_license', 
-                       'home', #'home_page', 'package_metadata_home_page', 
-                       'summary', # 'package_metadata_summary'
-                       'package_metadata_requires_python', 
-                       'package_metadata_requires_dist',
-                        'package_metadata_description',
-                        'package_metadata_classifier',
-                        'package_metadata_project_url',
-                        'contributions_readers_0_command', 
-                        'contributions_writers_0_command', 
-                        'contributions_widgets_0_command',
-                        'contributions_sample_data_0_command',
-                        'contributions_readers_0_filename_patterns', 
-                        'contributions_writers_0_filename_extensions',
-                        'contributions_writers_1_filename_extensions']
-
-df_plugins = df_plugins[Plugin_page_columns]
-
-# Convert and format 'created_at' and 'modified_at' columns
-df_plugins['created_at'] = pd.to_datetime(df_plugins['created_at'], format='mixed').dt.date
-df_plugins['modified_at'] = pd.to_datetime(df_plugins['modified_at'], format='mixed').dt.date
-
-# Apply the function to the 'home' column to classify the websites
-df_plugins['home_type'] = df_plugins['home'].apply(classify_website)
-
-# Create the new columns based on classification
-df_plugins['home_pypi'] = df_plugins['home'].where(df_plugins['home_type'] == 'pypi', '')
-df_plugins['home_github'] = df_plugins['home'].where(df_plugins['home_type'] == 'github', '')
-df_plugins['home_other'] = df_plugins['home'].where(df_plugins['home_type'] == 'other', '')
-
-# Delete 'home_type' column as it is no longer needed
-df_plugins.drop('home_type', axis=1, inplace=True)
-
-
-for index, row in df_plugins.iterrows():
-    # Check if 'author' is NaN or contains quotation marks
-    if pd.isna(row['author']) or '"' in str(row['author']):
-        # Update 'author' using the extracted name from 'package_metadata_author_email'
-        df_plugins.at[index, 'author'] = extract_author_name(row['package_metadata_author_email'])
-
-    if pd.isna(row['license']):
-        pass 
-    else:
-        # Check for specific license strings to shorten the license information
-        if "BSD 3-Clause" in str(row['license']):
-            df_plugins.at[index, 'license'] = "BSD 3-Clause"
-        elif "MIT License" in str(row['license']):
-            df_plugins.at[index, 'license'] = "MIT"
-
-    # Fill home_pypi 
-    if not row['home_pypi']:
-        df_plugins.at[index, 'home_pypi'] = f"https://pypi.org/project/{row['name']}"
-
-df_plugins.to_csv('./data/final_plugins.csv')
+    df_plugins.to_csv(f'{data_dir}/final_plugins.csv')
