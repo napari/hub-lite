@@ -1,9 +1,15 @@
-import sys
-import requests
+"""Fetch napari plugin data from the NPE2 API and process it into a DataFrame.
+
+This script fetches plugin data, flattens nested structures, and saves the cleaned data to CSV files.
+"""
 import json
 import os
-import pandas as pd
 import re
+import sys
+
+import requests
+import pandas as pd
+
 
 def fetch_conda(plugin_name):
     """ Fetches Conda info and creates an HTML file for it """
