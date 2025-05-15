@@ -8,7 +8,7 @@ import sys
 import requests
 import pandas as pd
 
-#--- Helper Functions ---
+# --- Helper Functions ---
 def extract_author_name(email) -> str:
     """
     Extracts and cleans author names from an email field.
@@ -84,7 +84,7 @@ def flatten_and_merge(original, additional, parent_key='') -> None:
         else:
             original.setdefault(new_key, value)
 
-#--- API Fetch Functions ---
+# --- API Fetch Functions ---
 def fetch_conda(plugin_name: str):
     """ Fetches Conda info and creates an HTML file for it """
     conda_url = f'https://npe2api.vercel.app/api/conda/{plugin_name}'
@@ -114,7 +114,7 @@ def fetch_manifest(plugin_name: str):
         print(f"Failed to fetch MANIFEST info for {plugin_name}")
         return None
 
-#--- Main Data Processing Function ---
+# --- Main Data Processing Function ---
 def build_plugins_dataframe() -> pd.DataFrame:
     """
     Fetches napari plugin data from the NPE2 API, enriches it with Conda and manifest information,
