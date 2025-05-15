@@ -2,8 +2,6 @@
 
 This script fetches plugin data, flattens nested structures, and saves the cleaned data to CSV files.
 """
-import json
-import os
 import re
 import sys
 
@@ -41,7 +39,27 @@ def fetch_manifest(plugin_name):
         return None
 
 def flatten_and_merge(original, additional, parent_key=''):
-    """ Flattens an additional nested dictionary and merges it into the original dictionary """
+    """
+    Recursively flattens a nested dictionary or list of dictionaries and merges the result into the original dictionary.
+
+    This function traverses the `additional` dictionary, flattening any nested dictionaries or lists of dictionaries,
+    and adds their key-value pairs to the `original` dictionary. Keys from nested structures are concatenated with
+    their parent keys using underscores to create unique, flat keys.
+
+    Parameters
+    ----------
+    original : dict
+        The dictionary to merge flattened key-value pairs into.
+    additional : dict
+        The dictionary (possibly nested) to flatten and merge.
+    parent_key : str, optional
+        The base key to use for nested keys (default is '').
+
+    Returns
+    -------
+    None
+        The function modifies the `original` dictionary in place.
+    """
     for key, value in additional.items():
         new_key = f"{parent_key}_{key}" if parent_key else key
         if isinstance(value, dict):
@@ -55,6 +73,21 @@ def flatten_and_merge(original, additional, parent_key=''):
 
 
 def build_plugins_dataframe():
+    """
+    Fetches napari plugin data from the NPE2 API, enriches it with Conda and manifest information,
+    flattens nested structures, and returns a cleaned pandas DataFrame.
+
+    The function performs the following steps:
+    - Retrieves a summary list of plugins from the NPE2 API.
+    - For each plugin, fetches additional Conda and manifest data.
+    - Flattens and merges nested dictionary structures into a single-level dictionary.
+    - Aggregates all plugin data into a pandas DataFrame.
+
+    Returns
+    -------
+    pd.DataFrame
+        A DataFrame containing the enriched and flattened plugin data. Returns an empty DataFrame if no data is fetched.
+    """
     summary_url = 'https://npe2api.vercel.app/api/summary'
     plugin_summary = fetch_plugin(summary_url)
 
@@ -83,9 +116,14 @@ def build_plugins_dataframe():
     df = pd.DataFrame(all_plugin_data)
     return df
 
-# Define the function to extract the author's name from the email field
 def extract_author_name(email):
+    """
+    Extracts and cleans author names from an email field.
 
+    This function processes a string containing one or more authors, each possibly formatted as
+    'Name <email>' or just an email address. It removes any surrounding quotation marks and extracts
+    only the author names, returning a comma-separated string of clean names.
+    """
     if not isinstance(email, str):
         return ''
 
@@ -107,8 +145,12 @@ def extract_author_name(email):
     # Return the list of clean author names
     return ', '.join(clean_authors)
 
-# Function to classify the 'home' column
 def classify_website(home_url):
+    """
+    Classify package source code home URL in a dataframe to a string identifying the package repository name.
+     
+    Currently, this categorizes a URL to be 'pypi', 'github', or 'other'.
+    """
     if pd.notnull(home_url):
         if 'pypi.org' in home_url:
             return 'pypi'
