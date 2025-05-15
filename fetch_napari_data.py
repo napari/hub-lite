@@ -8,35 +8,48 @@ import sys
 import requests
 import pandas as pd
 
+#--- Helper Functions ---
+def extract_author_name(email):
+    """
+    Extracts and cleans author names from an email field.
 
-def fetch_conda(plugin_name):
-    """ Fetches Conda info and creates an HTML file for it """
-    conda_url = f'https://npe2api.vercel.app/api/conda/{plugin_name}'
-    response = requests.get(conda_url)
-    if response.status_code != 200:
-        print(f"Failed to fetch Conda info for {plugin_name}")
-        return None
+    This function processes a string containing one or more authors, each possibly formatted as
+    'Name <email>' or just an email address. It removes any surrounding quotation marks and extracts
+    only the author names, returning a comma-separated string of clean names.
+    """
+    if not isinstance(email, str):
+        return ''
 
-    return response.json()
+    # Split the string by comma to process multiple authors
+    authors = email.split(',')
+    clean_authors = []
 
-def fetch_plugin(url):
-    """ Fetches plugin summary from the given URL """
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f"Failed to fetch {url}")
-        return None
-    
-def fetch_manifest(plugin_name):
-    """ Fetches the manifest data for a given plugin """
-    url = f'https://npe2api.vercel.app/api/manifest/{plugin_name}'
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f"Failed to fetch MANIFEST info for {plugin_name}")
-        return None
+    for author in authors:
+        # Use regex to find name patterns before the email
+        match = re.match(r'(.*)<.*?>', author)
+
+        if match:
+            # Remove surrounding quotation marks using strip
+            clean_author = match.group(1).replace('"', '').strip()
+            clean_authors.append(clean_author)
+        else:
+            clean_authors.append(author.replace('"', '').strip())
+
+    # Return the list of clean author names
+    return ', '.join(clean_authors)
+
+def classify_website(home_url):
+    """
+    Classify package source code home URL in a dataframe to a string identifying the package repository name.
+     
+    Currently, this categorizes a URL to be 'pypi', 'github', or 'other'.
+    """
+    if pd.notnull(home_url):
+        if 'pypi.org' in home_url:
+            return 'pypi'
+        elif 'github.com' in home_url:
+            return 'github'
+    return 'other'
 
 def flatten_and_merge(original, additional, parent_key=''):
     """
@@ -71,6 +84,37 @@ def flatten_and_merge(original, additional, parent_key=''):
         else:
             original.setdefault(new_key, value)
 
+#--- API Fetch Functions ---
+def fetch_conda(plugin_name):
+    """ Fetches Conda info and creates an HTML file for it """
+    conda_url = f'https://npe2api.vercel.app/api/conda/{plugin_name}'
+    response = requests.get(conda_url)
+    if response.status_code != 200:
+        print(f"Failed to fetch Conda info for {plugin_name}")
+        return None
+
+    return response.json()
+
+def fetch_plugin(url):
+    """ Fetches plugin summary from the given URL """
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Failed to fetch {url}")
+        return None
+    
+def fetch_manifest(plugin_name):
+    """ Fetches the manifest data for a given plugin """
+    url = f'https://npe2api.vercel.app/api/manifest/{plugin_name}'
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Failed to fetch MANIFEST info for {plugin_name}")
+        return None
+
+#--- Main Data Processing Function ---
 def build_plugins_dataframe():
     """
     Fetches napari plugin data from the NPE2 API, enriches it with Conda and manifest information,
@@ -114,48 +158,6 @@ def build_plugins_dataframe():
 
     df = pd.DataFrame(all_plugin_data)
     return df
-
-def extract_author_name(email):
-    """
-    Extracts and cleans author names from an email field.
-
-    This function processes a string containing one or more authors, each possibly formatted as
-    'Name <email>' or just an email address. It removes any surrounding quotation marks and extracts
-    only the author names, returning a comma-separated string of clean names.
-    """
-    if not isinstance(email, str):
-        return ''
-
-    # Split the string by comma to process multiple authors
-    authors = email.split(',')
-    clean_authors = []
-
-    for author in authors:
-        # Use regex to find name patterns before the email
-        match = re.match(r'(.*)<.*?>', author)
-
-        if match:
-            # Remove surrounding quotation marks using strip
-            clean_author = match.group(1).replace('"', '').strip()
-            clean_authors.append(clean_author)
-        else:
-            clean_authors.append(author.replace('"', '').strip())
-
-    # Return the list of clean author names
-    return ', '.join(clean_authors)
-
-def classify_website(home_url):
-    """
-    Classify package source code home URL in a dataframe to a string identifying the package repository name.
-     
-    Currently, this categorizes a URL to be 'pypi', 'github', or 'other'.
-    """
-    if pd.notnull(home_url):
-        if 'pypi.org' in home_url:
-            return 'pypi'
-        elif 'github.com' in home_url:
-            return 'github'
-    return 'other'
 
 
 if __name__ == "__main__":
