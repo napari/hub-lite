@@ -71,7 +71,6 @@ def flatten_and_merge(original, additional, parent_key=''):
         else:
             original.setdefault(new_key, value)
 
-
 def build_plugins_dataframe():
     """
     Fetches napari plugin data from the NPE2 API, enriches it with Conda and manifest information,
@@ -160,13 +159,12 @@ def classify_website(home_url):
 
 
 if __name__ == "__main__":
+    # Create target build directory and a data directory
     build_dir = sys.argv[1] if len(sys.argv) > 1 else '.'
     data_dir = f'{build_dir}/data'
 
+    # Create and populate a DataFrame with plugin data
     df_plugins = build_plugins_dataframe()
-
-    # Drop columns where all elements are NaN
-    #df_plugins.dropna(axis=1, how='all', inplace=True)
 
     # Drop columns where less than 20 non-NaN counts
     df_plugins.dropna(axis=1, thresh=20, inplace=True)
@@ -181,24 +179,30 @@ if __name__ == "__main__":
     # Save the cleaned DataFrame to a CSV file
     df_plugins.to_csv(f'{data_dir}/cleaned_napari_plugins.csv')
 
-    Plugin_page_columns = ['display_name', 'version', 'created_at','modified_at', 'name',
-                        'author',  #'package_metadata_author', 
-                        'package_metadata_author_email',
-                        'license', #'package_metadata_license', 
-                        'home', #'home_page', 'package_metadata_home_page', 
-                        'summary', # 'package_metadata_summary'
-                        'package_metadata_requires_python', 
-                        'package_metadata_requires_dist',
-                            'package_metadata_description',
-                            'package_metadata_classifier',
-                            'package_metadata_project_url',
-                            'contributions_readers_0_command', 
-                            'contributions_writers_0_command', 
-                            'contributions_widgets_0_command',
-                            'contributions_sample_data_0_command',
-                            'contributions_readers_0_filename_patterns', 
-                            'contributions_writers_0_filename_extensions',
-                            'contributions_writers_1_filename_extensions']
+    Plugin_page_columns = [
+        'display_name',
+        'version',
+        'created_at',
+        'modified_at',
+        'name',
+        'author',  #'package_metadata_author', 
+        'package_metadata_author_email',
+        'license', #'package_metadata_license', 
+        'home', #'home_page', 'package_metadata_home_page', 
+        'summary', # 'package_metadata_summary'
+        'package_metadata_requires_python', 
+        'package_metadata_requires_dist',
+        'package_metadata_description',
+        'package_metadata_classifier',
+        'package_metadata_project_url',
+        'contributions_readers_0_command', 
+        'contributions_writers_0_command', 
+        'contributions_widgets_0_command',
+        'contributions_sample_data_0_command',
+        'contributions_readers_0_filename_patterns', 
+        'contributions_writers_0_filename_extensions',
+        'contributions_writers_1_filename_extensions'
+    ]
 
     df_plugins = df_plugins[Plugin_page_columns]
 
@@ -216,7 +220,6 @@ if __name__ == "__main__":
 
     # Delete 'home_type' column as it is no longer needed
     df_plugins.drop('home_type', axis=1, inplace=True)
-
 
     for index, row in df_plugins.iterrows():
         # Check if 'author' is NaN or contains quotation marks
