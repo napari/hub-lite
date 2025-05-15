@@ -180,7 +180,7 @@ if __name__ == "__main__":
     df_plugins.to_csv(f'{data_dir}/cleaned_napari_plugins.csv')
 
     # Define columns needed for the plugin html page
-    Plugin_page_columns = [
+    plugin_page_columns = [
         'display_name',
         'version',
         'created_at',
@@ -206,7 +206,7 @@ if __name__ == "__main__":
         'contributions_writers_1_filename_extensions'
     ]
     # Modify in place the DataFrame to keep only the columns needed for the plugin html page
-    df_plugins = df_plugins[Plugin_page_columns]
+    df_plugins = df_plugins[plugin_page_columns]
 
     # Convert and format 'created_at' and 'modified_at' columns
     df_plugins['created_at'] = pd.to_datetime(df_plugins['created_at'], format='mixed').dt.date
