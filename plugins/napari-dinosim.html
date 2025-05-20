@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.8</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -255,43 +255,16 @@ pre > code:last-child {
 <a href="https://github.com/AAitorG/napari-dinoSim/actions"><img alt="tests" src="https://github.com/AAitorG/napari-dinoSim/workflows/tests/badge.svg" /></a>
 <a href="https://codecov.io/gh/AAitorG/napari-dinoSim"><img alt="codecov" src="https://codecov.io/gh/AAitorG/napari-dinoSim/branch/main/graph/badge.svg" /></a>
 <a href="https://napari-hub.org/plugins/napari-dinosim"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-dinosim" /></a></p>
-<p><img alt="DINOSim-simple" src="assets/DINOSim-simplest.png" /></p>
-<h2>Description</h2>
-<p>This repository provides <strong>DINOSim</strong>, a method that leverages the DINOv2 foundation model for zero-shot object detection and segmentation in bioimage analysis. DINOSim uses pretrained DINOv2 embeddings to compare patch similarities, allowing it to detect and segment unseen objects in complex datasets with minimal annotations.</p>
-<p>The <strong>DINOSim Napari plugin</strong> offers a user-friendly interface that simplifies bioimage analysis workflows, making it an adaptable solution for object detection across scientific research fields with limited labeled data.</p>
-<p><strong>Note</strong>: The current version of the plugin generates segmentation masks based on object similarity.</p>
-<h2>Usage</h2>
-<!--
-Add usage instructions with screenshots/gifs
--->
-<p>To use the plugin, you only need to load an image and click in the object you want to segment, automatically a mask will be generated. Multiple prompts for the same object are allowed.</p>
-<h2>Documentation</h2>
-<p>There are few parameters that you can modify to improve the segmentation results:</p>
-<ul>
-<li><strong>Model size</strong>: This parameter controls the size of the DINOv2 model used. Larger models are more accurate but also require more memory and processing power. Once you have selected the model size, you need to click in <strong>Load New Model</strong> button to apply the changes. The button will indicate the model that is being used. By default, the pluggin will use the smallest model.</li>
-<li><strong>Threshold</strong>: This parameter controls the minimum similarity score between the query patch and the reference patches. Adjusting this value allows you to control the sensitivity of the segmentation. Higher values make the segmentation more strict, while lower values make it more permissive.</li>
-<li><strong>Patch size</strong>: This parameter controls the size of the patches used for segmentation. Adjusting this value allows you to control the granularity of the segmentation. Smaller values make the segmentation more detailed, while larger values make it more coarse.</li>
-</ul>
-<p>Using GPU acceleration is recommended for faster processing. If its available, the plugin will use it automatically. To check if your GPU is being used, you can check the <strong>GPU status</strong> tab in the napari viewer.</p>
-<p>If multiple images are loaded, you need to specify which one is the prompted, using the <strong>Image layer</strong>. Once you have the prompted image, you can find all object in all other images by using <strong>Process All Images</strong> button.</p>
-<p>If you want to reset the threshold and process the reference image again, you can use the <strong>Reset</strong> button. This might be useful if you changed the <strong>Image layer</strong> and the model has not been applied automatically.</p>
-<p>By default, the plugin will add a annotation layer, but if you remove it or add more than one, only the last one will be used. Until you do not prompt in the anotation layer with one loaded image, the pluggin will not give any output.</p>
-<h2>Example</h2>
-<p>One <a href="./src/dinoSim_example.ipynb">notebook</a> example is provided in the repository to show how to use DINOSim directly through python, without napari.</p>
+<p><img alt="DINOSim-simple" src="docs/DINOSim-simplest.png" /></p>
+<p>A <a href="https://github.com/napari/napari">napari</a> plugin for zero-shot image segmentation using DINO vision transformers.</p>
 <hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-
+<h2>Overview</h2>
+<p><code>napari-dinoSim</code> allows users to perform zero-shot image segmentation by selecting reference points on an image. The plugin then computes similarity maps based on features extracted by DINOv2 and generates segmentation masks.</p>
+<p>For detailed information on the widget's functionality, UI elements, and usage instructions, please refer to the <a href="./docs/plugin_documentation.md">Plugin Documentation</a>. A simple <a href="./src/dinoSim_example.ipynb">example notebook</a> demonstrating how to use DINOSim via code is also available.</p>
 <h2>Installation</h2>
-<p>You can install <code>napari-dinoSim</code> either via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-dinosim
-</code></pre>
+<p>You can install <code>napari-dinoSim</code> via <a href="https://pypi.org/project/pip/">pip</a>. For GPU support (recommended), ensure you have a compatible PyTorch version installed with CUDA or MPS support.</p>
+<p><code>sh
+pip install napari-dinosim</code></p>
 <p>or from source via <a href="https://docs.conda.io/en/latest/miniconda.html">conda</a>:</p>
 <p>```bash</p>
 <h1>Clone the repository</h1>
@@ -301,6 +274,11 @@ cd napari-dinoSim</p>
 <p>conda env create -f environment.yml
 conda activate napari-dinosim
 ```</p>
+<h2>Open the Plugin</h2>
+<p>To launch napari, run the following command in your terminal:</p>
+<p><code>sh
+napari</code></p>
+<p>Within the napari interface, locate the <code>DINOSim segmentation</code> plugin in the Plugins section of the top bar.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -308,7 +286,7 @@ the coverage at least stays the same before you submit a pull request.</p>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
 "napari-dinoSim" is free and open source software</p>
 <h2>Citation</h2>
-<p>If you use DINOSim in your research, please use the following BibTex:</p>
+<p>Please note that DINOSim is based on a <a href="https://doi.org/10.1101/2025.03.09.642092">publication</a>. If you use it successfully for your research, please be so kind to cite our work:</p>
 <p><code>bibtex
 @article {Gonzalez-Marfil2025dinosim,
     title = {DINOSim: Zero-Shot Object Detection and Semantic Segmentation on Electron Microscopy Images},
@@ -336,7 +314,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.8</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>
