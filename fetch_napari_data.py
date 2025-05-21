@@ -8,6 +8,8 @@ import sys
 import requests
 import pandas as pd
 
+from concurrent.futures import ThreadPoolExecutor
+
 # --- Helper Functions ---
 def extract_author_name(email) -> str:
     """
@@ -139,8 +141,8 @@ def build_plugins_dataframe() -> pd.DataFrame:
 
     all_plugin_data = []
 
-    for plugin in plugin_summary:
-        plugin_data = plugin.copy()  
+    def process_plugin(plugin):
+        plugin_data = plugin.copy()
         plugin_name = plugin.get('name')
 
         # Fetch and flatten Conda info and Manifest
@@ -154,7 +156,9 @@ def build_plugins_dataframe() -> pd.DataFrame:
             flatten_and_merge(plugin_data, manifest_info)
 
         all_plugin_data.append(plugin_data)
-        #print(pd.DataFrame(all_plugin_data))
+
+    with ThreadPoolExecutor() as executor:
+        executor.map(process_plugin, plugin_summary)
 
     df = pd.DataFrame(all_plugin_data)
     return df
