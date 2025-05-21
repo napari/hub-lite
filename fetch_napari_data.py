@@ -172,10 +172,10 @@ if __name__ == "__main__":
     # Clean raw DataFrame by removing columns that are mostly empty, keep columns that have at least 20 non-missing values
     df_plugins.dropna(axis=1, thresh=20, inplace=True)
 
-    # Create a dictionary of column names and their count of values and print sorted dictionary
+    # Create a dictionary of column names and their count of values
     column_counts = {column: df_plugins[column].count() for column in df_plugins.columns}
-    for column, count in sorted(column_counts.items(), key=lambda item: item[1],  reverse=True):
-        print(column, count)
+    # Create a sorted dictionary
+    sorted_column_counts = sorted(column_counts.items(), key=lambda item: item[1],  reverse=True)
 
     # Save the cleaned DataFrame to a CSV file
     df_plugins.to_csv(f'{data_dir}/cleaned_napari_plugins.csv')
