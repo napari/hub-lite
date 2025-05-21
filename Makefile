@@ -8,8 +8,8 @@ all: prep fetch-data create-html
 
 define check-venv
 	@echo "Checking if virtual environment is activated..." && \
-	if [ -z "$$VIRTUAL_ENV" ]; then \
-		echo "Please activate the virtual environment first."; \
+	if [ -z "$$VIRTUAL_ENV" ] && [ -z "$$CONDA_DEFAULT_ENV"]; then \
+		echo "Please activate a virtual environment first (venv or conda)."; \
 		exit 1; \
 	else \
 		echo "Virtual environment is activated...hopefully it's the right one!"; \
