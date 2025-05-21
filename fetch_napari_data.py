@@ -161,7 +161,8 @@ def build_plugins_dataframe() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    # Create target build directory and a data directory
+    # Get path to target build directory and data directory from command line arguments
+    # or set default
     build_dir = sys.argv[1] if len(sys.argv) > 1 else '.'
     data_dir = f'{build_dir}/data'
 
