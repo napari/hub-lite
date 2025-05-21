@@ -4,6 +4,7 @@ import json
 import os
 import pandas as pd
 import re
+from concurrent.futures import ThreadPoolExecutor
 
 def fetch_conda(plugin_name):
     """ Fetches Conda info and creates an HTML file for it """
@@ -57,8 +58,8 @@ def build_plugins_dataframe():
 
     all_plugin_data = []
 
-    for plugin in plugin_summary:
-        plugin_data = plugin.copy()  
+    def process_plugin(plugin):
+        plugin_data = plugin.copy()
         plugin_name = plugin.get('name')
 
         # Fetch and flatten Conda info and Manifest
@@ -72,7 +73,9 @@ def build_plugins_dataframe():
             flatten_and_merge(plugin_data, manifest_info)
 
         all_plugin_data.append(plugin_data)
-        #print(pd.DataFrame(all_plugin_data))
+
+    with ThreadPoolExecutor() as executor:
+        executor.map(process_plugin, plugin_summary)
 
     df = pd.DataFrame(all_plugin_data)
     return df
