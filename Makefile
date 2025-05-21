@@ -1,15 +1,31 @@
 BUILDDIR := ./_build
+FETCH_DATA_COMPLETE := $(BUILDDIR)/data/.complete
+CREATE_HTML_COMPLETE := $(BUILDDIR)/plugins/.complete
 
-.PHONY: all prep fetch-data create-html
+.PHONY: all clean prep fetch-data create-html serve-local
 
 all: prep fetch-data create-html
 
-prep:
-	@echo "Preparing build directory..."
+define check-venv
+	@echo "Checking if virtual environment is activated..." && \
+	if [ -z "$$VIRTUAL_ENV" ]; then \
+		echo "Please activate the virtual environment first."; \
+		exit 1; \
+	else \
+		echo "Virtual environment is activated...hopefully it's the right one!"; \
+	fi
+endef
+
+clean:
+	@echo "Cleaning up build directory..."
 	rm -rf $(BUILDDIR)
+	@echo "Build directory cleaned."
+
+prep: $(BUILDDIR)
+
+$(BUILDDIR):
+	@echo "Preparing build directory..."
 	mkdir -p $(BUILDDIR)
-	mkdir -p $(BUILDDIR)/data
-	mkdir -p $(BUILDDIR)/plugins
 	mkdir -p $(BUILDDIR)/static
 	cp -r ./templates $(BUILDDIR)/templates
 	cp -r ./static/images $(BUILDDIR)/static/images
@@ -17,12 +33,26 @@ prep:
 	cp ./entire_text_search.js $(BUILDDIR)/entire_text_search.js
 	cp ./index.html $(BUILDDIR)/index.html
 
-fetch-data:
+fetch-data: $(FETCH_DATA_COMPLETE)
+
+$(FETCH_DATA_COMPLETE): $(BUILDDIR)
+	$(call check-venv)
 	@echo "Fetching data..."
+	mkdir -p $(BUILDDIR)/data
 	python ./fetch_napari_data.py $(BUILDDIR)
+	@touch $(FETCH_DATA_COMPLETE)
 	@echo "Data fetched and stored in $(BUILDDIR)/data"
 
-create-html:
+create-html: $(CREATE_HTML_COMPLETE)
+
+$(CREATE_HTML_COMPLETE): $(FETCH_DATA_COMPLETE)
+	$(call check-venv)
 	@echo "Creating HTML files..."
+	mkdir -p $(BUILDDIR)/plugins
 	python ./create_static_html_files.py $(BUILDDIR)
+	@touch $(CREATE_HTML_COMPLETE)
 	@echo "HTML files created in $(BUILDDIR)/plugins"
+
+serve-local: $(CREATE_HTML_COMPLETE)
+	@echo "Starting server..."
+	python3 -m http.server --directory $(BUILDDIR)
