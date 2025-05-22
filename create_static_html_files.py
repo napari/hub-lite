@@ -7,8 +7,6 @@ import re
 
 from string import Template
 import markdown
-from markdown.extensions.toc import TocExtension
-from markdown.extensions.codehilite import CodeHiliteExtension
 
 
 def create_small_html(df_plugins, build_dir):
@@ -251,6 +249,7 @@ def generate_plugin_html(row, template, plugin_dir):
             extensions=[
                 "fenced_code",
                 "codehilite",
+                "tables",
             ],
         )
 
