@@ -255,9 +255,8 @@ def generate_home_html(home_pypi, home_github, home_other):
 
     return html_content
 
+
 def generate_plugin_html(row, template, plugin_dir):
-
-
     # Convert Markdown in 'package_metadata_description' to HTML
     if not pd.isna(row['package_metadata_description']):
         # Remove the first Markdown header
@@ -269,11 +268,6 @@ def generate_plugin_html(row, template, plugin_dir):
             no_first_header = '\n'.join(lines)
 
         html_description = md.render(no_first_header)
-
-        file_name = f"{row['name']}.md"
-        with open(f'{plugin_dir}/{file_name}', 'w') as file:
-            file.write(no_first_header)
-
     else:
         html_description = 'Not available'
 
