@@ -8,11 +8,15 @@ all: prep fetch-data create-html
 
 define check-venv
 	@echo "Checking if virtual environment is activated..." && \
-	if [ -z "$$VIRTUAL_ENV" ] && [ -z "$$CONDA_DEFAULT_ENV"]; then \
-		echo "Please activate a virtual environment first (venv or conda)."; \
-		exit 1; \
+	if [ "$$CI" != "true" ] && [ "$$GITHUB_ACTIONS" != "true" ]; then \
+		if [ -z "$$VIRTUAL_ENV" ] && [ -z "$$CONDA_DEFAULT_ENV" ]; then \
+			echo "Please activate a virtual environment first (venv or conda)."; \
+			exit 1; \
+		else \
+			echo "Virtual environment is activated...hopefully it's the right one!"; \
+		fi \
 	else \
-		echo "Virtual environment is activated...hopefully it's the right one!"; \
+		echo "Running in GitHub Actions — skipping virtual environment check."; \
 	fi
 endef
 
