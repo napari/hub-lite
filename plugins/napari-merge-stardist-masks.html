@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,83 +206,54 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/gatoniel/napari-merge-stardist-masks/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-merge-stardist-masks.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-merge-stardist-masks"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-merge-stardist-masks.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-merge-stardist-masks.svg?color=green" /></a>
-<a href="https://github.com/gatoniel/napari-merge-stardist-masks/actions"><img alt="tests" src="https://github.com/gatoniel/napari-merge-stardist-masks/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/gatoniel/napari-merge-stardist-masks"><img alt="codecov" src="https://codecov.io/gh/gatoniel/napari-merge-stardist-masks/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-merge-stardist-masks"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-merge-stardist-masks" /></a></p>
+                                        <p><a href="https://github.com/gatoniel/napari-merge-stardist-masks/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-merge-stardist-masks.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-merge-stardist-masks"><img src="https://img.shields.io/pypi/v/napari-merge-stardist-masks.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-merge-stardist-masks.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/gatoniel/napari-merge-stardist-masks/actions"><img src="https://github.com/gatoniel/napari-merge-stardist-masks/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/gatoniel/napari-merge-stardist-masks"><img src="https://codecov.io/gh/gatoniel/napari-merge-stardist-masks/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-merge-stardist-masks"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-merge-stardist-masks" alt="napari hub" /></a></p>
 <p>This is the <a href="https://github.com/napari/napari">napari</a> plugin for <a href="https://github.com/gatoniel/merge-stardist-masks">StarDist OPP</a>. Checkout our <a href="https://doi.org/10.1111/mmi.15064">paper</a> for more information.</p>
 <hr />
 <h2>Usage</h2>
 <p>Read the <a href="https://merge-stardist-masks.readthedocs.io/en/latest/napari-plugin.html">tutorial</a> and download pre-trained models from our <a href="https://doi.org/10.5281/zenodo.7704410">Zenodo repository</a>.</p>
 <p>In PowerShell, when you do not have sufficient GPU support, run napari without CUDA support, i.e.,:</p>
-<pre class="codehilite"><code>$env:CUDA_VISIBLE_DEVICES=-1; napari
+<pre><code><div class="highlight"><pre><span></span><span class="o">$</span><span class="nt">env</span><span class="p">:</span><span class="nd">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="nt">-1</span><span class="o">;</span><span class="w"> </span><span class="nt">napari</span>
+</pre></div>
 </code></pre>
-
 <h2>Installation</h2>
 <p>You can install <code>napari-merge-stardist-masks</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-merge-stardist-masks
+<pre><code>pip install napari-merge-stardist-masks
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/gatoniel/napari-merge-stardist-masks.git
+<pre><code>pip install git+https://github.com/gatoniel/napari-merge-stardist-masks.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-merge-stardist-masks" is free and open source software</p>
+&quot;napari-merge-stardist-masks&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/gatoniel/napari-merge-stardist-masks/issues">file an issue</a> along with a detailed description.</p>
 <h2>How to cite</h2>
-<pre class="codehilite"><code class="language-bibtex">@article{https://doi.org/10.1111/mmi.15064,
-author = {Jelli, Eric and Ohmura, Takuya and Netter, Niklas and Abt, Martin and Jiménez-Siebert, Eva and Neuhaus, Konstantin and Rode, Daniel K. H. and Nadell, Carey D. and Drescher, Knut},
-title = {Single-cell segmentation in bacterial biofilms with an optimized deep learning method enables tracking of cell lineages and measurements of growth rates},
-journal = {Molecular Microbiology},
-volume = {n/a},
-number = {n/a},
-pages = {},
-keywords = {3D segmentation, biofilm, deep learning, image analysis, image cytometry, Vibrio cholerae},
-doi = {https://doi.org/10.1111/mmi.15064},
-url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/mmi.15064},
-eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1111/mmi.15064},
-abstract = {Abstract Bacteria often grow into matrix-encased three-dimensional (3D) biofilm communities, which can be imaged at cellular resolution using confocal microscopy. From these 3D images, measurements of single-cell properties with high spatiotemporal resolution are required to investigate cellular heterogeneity and dynamical processes inside biofilms. However, the required measurements rely on the automated segmentation of bacterial cells in 3D images, which is a technical challenge. To improve the accuracy of single-cell segmentation in 3D biofilms, we first evaluated recent classical and deep learning segmentation algorithms. We then extended StarDist, a state-of-the-art deep learning algorithm, by optimizing the post-processing for bacteria, which resulted in the most accurate segmentation results for biofilms among all investigated algorithms. To generate the large 3D training dataset required for deep learning, we developed an iterative process of automated segmentation followed by semi-manual correction, resulting in &gt;18,000 annotated Vibrio cholerae cells in 3D images. We demonstrate that this large training dataset and the neural network with optimized post-processing yield accurate segmentation results for biofilms of different species and on biofilm images from different microscopes. Finally, we used the accurate single-cell segmentation results to track cell lineages in biofilms and to perform spatiotemporal measurements of single-cell growth rates during biofilm development.}
-}
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">https://doi.org/10.1111/mmi.15064</span><span class="p">,</span>
+<span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Jelli, Eric and Ohmura, Takuya and Netter, Niklas and Abt, Martin and Jiménez-Siebert, Eva and Neuhaus, Konstantin and Rode, Daniel K. H. and Nadell, Carey D. and Drescher, Knut}</span><span class="p">,</span>
+<span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Single-cell segmentation in bacterial biofilms with an optimized deep learning method enables tracking of cell lineages and measurements of growth rates}</span><span class="p">,</span>
+<span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Molecular Microbiology}</span><span class="p">,</span>
+<span class="na">volume</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{n/a}</span><span class="p">,</span>
+<span class="na">number</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{n/a}</span><span class="p">,</span>
+<span class="na">pages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{}</span><span class="p">,</span>
+<span class="na">keywords</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{3D segmentation, biofilm, deep learning, image analysis, image cytometry, Vibrio cholerae}</span><span class="p">,</span>
+<span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://doi.org/10.1111/mmi.15064}</span><span class="p">,</span>
+<span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://onlinelibrary.wiley.com/doi/abs/10.1111/mmi.15064}</span><span class="p">,</span>
+<span class="na">eprint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://onlinelibrary.wiley.com/doi/pdf/10.1111/mmi.15064}</span><span class="p">,</span>
+<span class="na">abstract</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Abstract Bacteria often grow into matrix-encased three-dimensional (3D) biofilm communities, which can be imaged at cellular resolution using confocal microscopy. From these 3D images, measurements of single-cell properties with high spatiotemporal resolution are required to investigate cellular heterogeneity and dynamical processes inside biofilms. However, the required measurements rely on the automated segmentation of bacterial cells in 3D images, which is a technical challenge. To improve the accuracy of single-cell segmentation in 3D biofilms, we first evaluated recent classical and deep learning segmentation algorithms. We then extended StarDist, a state-of-the-art deep learning algorithm, by optimizing the post-processing for bacteria, which resulted in the most accurate segmentation results for biofilms among all investigated algorithms. To generate the large 3D training dataset required for deep learning, we developed an iterative process of automated segmentation followed by semi-manual correction, resulting in &gt;18,000 annotated Vibrio cholerae cells in 3D images. We demonstrate that this large training dataset and the neural network with optimized post-processing yield accurate segmentation results for biofilms of different species and on biofilm images from different microscopes. Finally, we used the accurate single-cell segmentation results to track cell lineages in biofilms and to perform spatiotemporal measurements of single-cell growth rates during biofilm development.}</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
 <h2>Credits</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

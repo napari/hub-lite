@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/uw-loci/napari-live-flim/raw/main/LICENSE"><img alt="License GNU GPL v3.0" src="https://img.shields.io/pypi/l/napari-live-flim.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-live-flim"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-live-flim.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-live-flim.svg?color=green" /></a>
-<a href="https://github.com/uw-loci/napari-live-flim/actions"><img alt="tests" src="https://github.com/uw-loci/napari-live-flim/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/uw-loci/napari-live-flim"><img alt="codecov" src="https://codecov.io/gh/uw-loci/napari-live-flim/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-live-flim"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-live-flim" /></a></p>
+                                        <p><a href="https://github.com/uw-loci/napari-live-flim/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-live-flim.svg?color=green" alt="License GNU GPL v3.0" /></a>
+<a href="https://pypi.org/project/napari-live-flim"><img src="https://img.shields.io/pypi/v/napari-live-flim.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-live-flim.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/uw-loci/napari-live-flim/actions"><img src="https://github.com/uw-loci/napari-live-flim/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/uw-loci/napari-live-flim"><img src="https://codecov.io/gh/uw-loci/napari-live-flim/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-live-flim"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-live-flim" alt="napari hub" /></a></p>
 <p>A plugin for real-time FLIM analysis</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -245,30 +222,29 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Required dependencies</h2>
 <ul>
-<li><a href="https://github.com/openscan-lsm/OpenScan">OpenScan</a> TCSPC module and all dependencies.<ul>
+<li><a href="https://github.com/openscan-lsm/OpenScan">OpenScan</a> TCSPC module and all dependencies.
+<ul>
 <li>Verify FLIM electronics are compatible with OpenScan</li>
 </ul>
 </li>
 <li>Python and the <a href="https://github.com/napari/napari">napari</a> package and all dependencies</li>
 </ul>
 <p>You can install <code>napari</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari[all]
+<pre><code>pip install napari[all]
 </code></pre>
-
 <h2>Installation</h2>
 <p>You can install <code>napari-live-flim</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-live-flim
+<pre><code>pip install napari-live-flim
 </code></pre>
-
 <h2>Usage</h2>
 <ol>
 <li>In MicroManager, set a port number in the device property setting named <code>OpenScanFLIM-BH-TCSPC-SendFLIMHistogramsToUDPPort</code></li>
 <li>In Napari, select <strong>Plugins &gt; FLIM Viewer (napari-live-flim)</strong> to run the plugin. Enter the same port number to connect to OpenScan.</li>
 <li>Begin acquisition within MicroManager.</li>
-<li>Interact with the FLIM data in real-time within napari.<ul>
+<li>Interact with the FLIM data in real-time within napari.
+<ul>
 <li>Modify the FLIM Parameters and Display Filters settings as desired.</li>
 <li>Add selections to the Lifetime Image or Phasor Plot by clicking the relevant New Selection buttons.</li>
 <li>Manipulate the selections with the mouse cursor and modify the selection layer with the layer controls.</li>
@@ -283,10 +259,10 @@ https://napari.org/plugins/index.html
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,
-"napari-live-flim" is free and open source software</p>
+&quot;napari-live-flim&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/uw-loci/napari-live-flim/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

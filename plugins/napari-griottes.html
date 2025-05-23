@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,53 +210,24 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/BaroudLab/napari-griottes/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-griottes.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-griottes"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-griottes.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-griottes.svg?color=green" /></a>
-<a href="https://github.com/BaroudLab/napari-griottes/actions"><img alt="tests" src="https://github.com/BaroudLab/napari-griottes/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/BaroudLab/napari-griottes"><img alt="codecov" src="https://codecov.io/gh/BaroudLab/napari-griottes/branch/main/graph/badge.svg" /></a></p>
-<p><a href="https://napari-hub.org/plugins/napari-griottes"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-griottes" /></a></p>
+                                        <p><a href="https://github.com/BaroudLab/napari-griottes/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-griottes.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-griottes"><img src="https://img.shields.io/pypi/v/napari-griottes.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-griottes.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/BaroudLab/napari-griottes/actions"><img src="https://github.com/BaroudLab/napari-griottes/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/BaroudLab/napari-griottes"><img src="https://codecov.io/gh/BaroudLab/napari-griottes/branch/main/graph/badge.svg" alt="codecov" /></a></p>
+<p><a href="https://napari-hub.org/plugins/napari-griottes"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-griottes" alt="napari hub" /></a></p>
 <p>Use <a href="https://github.com/BaroudLab/Griottes">🍒  <code>Griottes</code> 🍒</a> in napari!</p>
 <hr />
-<p>https://user-images.githubusercontent.com/11408456/224119160-c381091d-8275-449e-9cf4-679ab474acd2.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/11408456/224119160-c381091d-8275-449e-9cf4-679ab474acd2.mp4">https://user-images.githubusercontent.com/11408456/224119160-c381091d-8275-449e-9cf4-679ab474acd2.mp4</a></p>
 <h2>Installation</h2>
 <p>Install from napari</p>
-<p><img alt="image" src="https://user-images.githubusercontent.com/11408456/224108834-f484ba37-50f4-415e-bdfb-509c6c5b88c4.png" /></p>
+<p><img src="https://user-images.githubusercontent.com/11408456/224108834-f484ba37-50f4-415e-bdfb-509c6c5b88c4.png" alt="image" /></p>
 <p>You can install <code>napari-griottes</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-griottes
+<pre><code>pip install napari-griottes
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/BaroudLab/napari-griottes.git
+<pre><code>pip install git+https://github.com/BaroudLab/napari-griottes.git
 </code></pre>
-
 <h2>Usage</h2>
 <h3>Starting with labels:</h3>
 <ol>
@@ -264,8 +239,8 @@ pre > code:last-child {
 <li>Adjust the distance</li>
 <li>Adjust thickness</li>
 </ol>
-<p><img alt="Screenshot from three labels geometric contact mp4" src="https://user-images.githubusercontent.com/11408456/167371516-05db2ba5-cdfc-47c4-a488-8f46afd0ae5b.png" /></p>
-<p>https://user-images.githubusercontent.com/11408456/167825581-47c39884-34cf-4b5c-ad84-a4572217559d.mp4</p>
+<p><img src="https://user-images.githubusercontent.com/11408456/167371516-05db2ba5-cdfc-47c4-a488-8f46afd0ae5b.png" alt="Screenshot from three labels geometric contact mp4" /></p>
+<p><a href="https://user-images.githubusercontent.com/11408456/167825581-47c39884-34cf-4b5c-ad84-a4572217559d.mp4">https://user-images.githubusercontent.com/11408456/167825581-47c39884-34cf-4b5c-ad84-a4572217559d.mp4</a></p>
 <h3>Starting with Segmented cells</h3>
 <ol>
 <li>Open sample data: File / Open Sample / napari-griottes / Zebrafish 2D with labels</li>
@@ -274,25 +249,27 @@ pre > code:last-child {
 <li>Run the plugin twice to get the connections</li>
 <li>Proceed with graph creation</li>
 </ol>
-<p><img alt="Screenshot from cells graphs mp4" src="https://user-images.githubusercontent.com/11408456/167372895-3c9036b9-af50-4575-bcf3-1805eb261bd7.png" /></p>
-<p>https://user-images.githubusercontent.com/11408456/168237170-b43afd5a-26a4-4cdc-bc42-d3f46f138536.mp4</p>
+<p><img src="https://user-images.githubusercontent.com/11408456/167372895-3c9036b9-af50-4575-bcf3-1805eb261bd7.png" alt="Screenshot from cells graphs mp4" /></p>
+<p><a href="https://user-images.githubusercontent.com/11408456/168237170-b43afd5a-26a4-4cdc-bc42-d3f46f138536.mp4">https://user-images.githubusercontent.com/11408456/168237170-b43afd5a-26a4-4cdc-bc42-d3f46f138536.mp4</a></p>
 <h3>Saving and recovering the graph</h3>
-<p>Any graph you see in napari can be saved in .json format.
-1. Select he layers with connections
-2. Click File/Save Selected Layer
-3. Choose Griottes in drop-down menu
-4. Save</p>
+<p>Any graph you see in napari can be saved in .json format.</p>
+<ol>
+<li>Select he layers with connections</li>
+<li>Click File/Save Selected Layer</li>
+<li>Choose Griottes in drop-down menu</li>
+<li>Save</li>
+</ol>
 <p>In order to recover a previously saved graph in napari, you can simply drag-n-drop your file into napari, or use file open fialog.</p>
-<p>https://user-images.githubusercontent.com/11408456/167845853-e7071199-3f58-4d11-8d7b-c1358a150e6b.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/11408456/167845853-e7071199-3f58-4d11-8d7b-c1358a150e6b.mp4">https://user-images.githubusercontent.com/11408456/167845853-e7071199-3f58-4d11-8d7b-c1358a150e6b.mp4</a></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-griottes" is free and open source software</p>
+&quot;napari-griottes&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/BaroudLab/napari-griottes/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

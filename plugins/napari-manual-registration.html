@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,41 +206,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jules-vanaret/napari-manual-registration/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-manual-registration.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-manual-registration"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-manual-registration.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-manual-registration.svg?color=green" /></a>
-<a href="https://github.com/jules-vanaret/napari-manual-registration/actions"><img alt="tests" src="https://github.com/jules-vanaret/napari-manual-registration/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jules-vanaret/napari-manual-registration"><img alt="codecov" src="https://codecov.io/gh/jules-vanaret/napari-manual-registration/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-manual-registration"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-manual-registration" /></a></p>
-<p><img src="https://github.com/GuignardLab/tapenade/blob/main/imgs/tapenade3.png" width="100"></p>
-<p>A plugin to obtain parameters for affine transform used to register two views of the same object, e.g as obtained with dual-view microscopes. </p>
+                                        <p><a href="https://github.com/jules-vanaret/napari-manual-registration/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-manual-registration.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-manual-registration"><img src="https://img.shields.io/pypi/v/napari-manual-registration.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-manual-registration.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jules-vanaret/napari-manual-registration/actions"><img src="https://github.com/jules-vanaret/napari-manual-registration/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jules-vanaret/napari-manual-registration"><img src="https://codecov.io/gh/jules-vanaret/napari-manual-registration/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-manual-registration"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-manual-registration" alt="napari hub" /></a></p>
+<img src="https://github.com/GuignardLab/tapenade/blob/main/imgs/tapenade3.png" width="100">
+<p>A plugin to obtain parameters for affine transform used to register two views of the same object, e.g as obtained with dual-view microscopes.</p>
 <p><code>napari-manual-registration</code> is a <a href="https://github.com/napari/napari">napari</a> plugin that is part of the <a href="https://github.com/GuignardLab/tapenade">Tapenade</a> project. Tapenade is a tool for the analysis of dense 3D tissues acquired with deep imaging microscopy. It is designed to be user-friendly and to provide a comprehensive analysis of the data.</p>
 <p>If you use this plugin for your research, please <a href="https://github.com/GuignardLab/tapenade/blob/main/README.md#how-to-cite">cite us</a>.</p>
 <h2>Overview</h2>
@@ -255,8 +232,8 @@ pre > code:last-child {
 </tbody>
 </table>
 <p>While working with large and dense 3D and 3D+time gastruloid datasets, we found that being able to visualise and interact with the data dynamically greatly helped processing it.
-During the pre-processing stage, dynamical exploration and interaction led to faster tuning of the parameters by allowing direct visual feedback, and gave key biophysical insight during the analysis stage. </p>
-<p>When using our automatic registration tool to spatially register two views of the same organoid, we were sometimes faced with the issue that the tool would not converge to the true registration transformation. This happens when the initial position and orientation of the floating view are too far from their target values. We thus designed a Napari plugin to quickly find a transformation that can be used to initialize our registration tool close to the optimal transformation. From two images loaded in Napari representing two views of the same organoid, the plugin allows the user to </p>
+During the pre-processing stage, dynamical exploration and interaction led to faster tuning of the parameters by allowing direct visual feedback, and gave key biophysical insight during the analysis stage.</p>
+<p>When using our automatic registration tool to spatially register two views of the same organoid, we were sometimes faced with the issue that the tool would not converge to the true registration transformation. This happens when the initial position and orientation of the floating view are too far from their target values. We thus designed a Napari plugin to quickly find a transformation that can be used to initialize our registration tool close to the optimal transformation. From two images loaded in Napari representing two views of the same organoid, the plugin allows the user to</p>
 <ol>
 <li>
 <p><strong>annotate matching salient landmarks</strong> (e.g bright dead cells or lumen-like structures) in both the reference and floating views, from which an optimal rigid transformation can be found automatically using principal component analysis.</p>
@@ -265,18 +242,16 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 <p><strong>manually define a rigid transformation</strong> by continually varying 3D rotations and translations while observing the results until a satisfying fit is found</p>
 </li>
 </ol>
-<p><img src="imgs/Fig_Napari_registration.png"></p>
+<img src="imgs/Fig_Napari_registration.png">
 <h2>Installation</h2>
 <p>The plugin obviously requires <a href="https://github.com/napari/napari">napari</a> to run. If you don't have it yet, follow the instructions <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">here</a>.</p>
 <p>The simplest way to install <code>napari-manual-registration</code> is via the <a href="https://github.com/napari/napari">napari</a> plugin manager. Open Napari, go to <code>Plugins &gt; Install/Uninstall Packages...</code> and search for <code>napari-manual-registration</code>. Click on the install button and you are ready to go!</p>
 <p>You can also install <code>napari-manual-registration</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-manual-registration
+<pre><code>pip install napari-manual-registration
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/jules-vanaret/napari-manual-registration.git
+<pre><code>pip install git+https://github.com/jules-vanaret/napari-manual-registration.git
 </code></pre>
-
 <h2>Usage</h2>
 <p>The plugin provides two methods to register two views of the same object. The first method consists in manually drawing landmarks in both views, from which the optimal transformation is found automatically using principal component analysis. The second one consists in selecting manually each transformation parameter (rotation and translation) while observing the result in real-time, either in 2D or 3D (the user can switch between 2D and 3D at any time).</p>
 <blockquote>
@@ -284,44 +259,48 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 Be aware that the visualization does not accomodate for voxel anisotropy, so we recommend using isotropic data, or to resize you anisotropic data to an isotropic voxel size (e.g by using <a href="https://github.com/GuignardLab/napari-tapenade-processing">napari-tapenade-processing</a>).</p>
 </blockquote>
 <h3>A. Registration by annotating salient landmarks</h3>
-<p><img src="imgs/reg_2_3.png"></p>
-<p>Steps:
-1. First, load your images in Napari. You can drag and drop them from your file explorer to the Napari viewer, or open them using the <code>File &gt; Open files...</code> menu.
-2. Click on the <code>Plugins &gt; Manual Registration</code> menu to open the plugin.
-3. Select the reference layer from the combo box. The reference layer is chosen to be the one that does not move.
-4. Select the floating layer from the combo box. The floating layer is the one that will be transformed.
-5. Click the <code>Create landmarks layers</code> button to create two new Labels layers that will be used to annotate the landmarks in the reference and floating views.
-6. We recommend pressing the <code>Format layers for landmarks matching</code> button so that your layers are automatically formatted for you to begin the registration process. Napari offers a wide range of customisation options for the layers appearances, so feel free to play with them if our formatting does not fit your preferences. ;)
-7. We first recommend hiding the reference layer and the reference landmarks layer by clicking on the eye icon next to the layer name in the layer list. This will allow you to focus on the floating layer and the floating landmarks layer.
-8. Click on the <code>landmarks_floating</code> layer in the layer list to select it. 
-9. Click on the <code>Activate the paint brush</code> button in the layer properties widget. This will allow you to draw landmarks in the floating view.
-10. Navigate through the z-slices of your images using the slider at the bottom of the plugin window.
-11. When you have found a salient landmark in the floating view, start drawing a "blob" around it by clicking and dragging your mouse. You can adjust the size of the brush using the <code>Brush size</code> slider in the layer properties widget. The shape of the "blob" you draw does not matter, as the plugin currently only uses the center of mass of the "blob" to locate the landmark.
-12. Once you have drawn a landmark, click on the <code>+</code> button in the layer properties widget to increase the label value. This will allow you to draw another landmark. Change label value after each landmark you draw. Repeat steps 10 to 12 until you have annotated all the salient landmarks in the floating view.
-13. Once you have annotated all the salient landmarks in the floating view, hide the floating layers, and show the reference layers and the reference landmarks layer by clicking on the eye icon next to the layer name in the layer list.
-14. Click on the <code>landmarks_reference</code> layer in the layer list to select it.
-15. Navigate to the z-slice of the reference view that corresponds to the z-slice of the floating view where you drew the first landmark.
-16. Draw a "blob" around the corresponding landmark in the reference view by clicking and dragging your mouse.
-17. Increment your label value by clicking on the <code>+</code> button in the layer properties widget each time you draw a new widget. Repeat steps 15 to 17 until you have annotated all the salient landmarks in the reference view.
-18. Once you have annotated all the salient landmarks in the reference view, click on the <code>Run landmark registration</code> button. The plugin will automatically find the optimal transformation that aligns the floating landmarks to the reference landmarks using principal component analysis. 
-19. If you are satisfied with the registration, choose a directory to save the transformation parameters by clicking on the <code>Choose directory</code> button. The transformation parameters will be saved in a <code>.json</code> file in this directory. Finally, click on the <code>Save to JSON</code> button to save the transformation parameters.</p>
+<img src="imgs/reg_2_3.png">
+<p>Steps:</p>
+<ol>
+<li>First, load your images in Napari. You can drag and drop them from your file explorer to the Napari viewer, or open them using the <code>File &gt; Open files...</code> menu.</li>
+<li>Click on the <code>Plugins &gt; Manual Registration</code> menu to open the plugin.</li>
+<li>Select the reference layer from the combo box. The reference layer is chosen to be the one that does not move.</li>
+<li>Select the floating layer from the combo box. The floating layer is the one that will be transformed.</li>
+<li>Click the <code>Create landmarks layers</code> button to create two new Labels layers that will be used to annotate the landmarks in the reference and floating views.</li>
+<li>We recommend pressing the <code>Format layers for landmarks matching</code> button so that your layers are automatically formatted for you to begin the registration process. Napari offers a wide range of customisation options for the layers appearances, so feel free to play with them if our formatting does not fit your preferences. ;)</li>
+<li>We first recommend hiding the reference layer and the reference landmarks layer by clicking on the eye icon next to the layer name in the layer list. This will allow you to focus on the floating layer and the floating landmarks layer.</li>
+<li>Click on the <code>landmarks_floating</code> layer in the layer list to select it.</li>
+<li>Click on the <code>Activate the paint brush</code> button in the layer properties widget. This will allow you to draw landmarks in the floating view.</li>
+<li>Navigate through the z-slices of your images using the slider at the bottom of the plugin window.</li>
+<li>When you have found a salient landmark in the floating view, start drawing a &quot;blob&quot; around it by clicking and dragging your mouse. You can adjust the size of the brush using the <code>Brush size</code> slider in the layer properties widget. The shape of the &quot;blob&quot; you draw does not matter, as the plugin currently only uses the center of mass of the &quot;blob&quot; to locate the landmark.</li>
+<li>Once you have drawn a landmark, click on the <code>+</code> button in the layer properties widget to increase the label value. This will allow you to draw another landmark. Change label value after each landmark you draw. Repeat steps 10 to 12 until you have annotated all the salient landmarks in the floating view.</li>
+<li>Once you have annotated all the salient landmarks in the floating view, hide the floating layers, and show the reference layers and the reference landmarks layer by clicking on the eye icon next to the layer name in the layer list.</li>
+<li>Click on the <code>landmarks_reference</code> layer in the layer list to select it.</li>
+<li>Navigate to the z-slice of the reference view that corresponds to the z-slice of the floating view where you drew the first landmark.</li>
+<li>Draw a &quot;blob&quot; around the corresponding landmark in the reference view by clicking and dragging your mouse.</li>
+<li>Increment your label value by clicking on the <code>+</code> button in the layer properties widget each time you draw a new widget. Repeat steps 15 to 17 until you have annotated all the salient landmarks in the reference view.</li>
+<li>Once you have annotated all the salient landmarks in the reference view, click on the <code>Run landmark registration</code> button. The plugin will automatically find the optimal transformation that aligns the floating landmarks to the reference landmarks using principal component analysis.</li>
+<li>If you are satisfied with the registration, choose a directory to save the transformation parameters by clicking on the <code>Choose directory</code> button. The transformation parameters will be saved in a <code>.json</code> file in this directory. Finally, click on the <code>Save to JSON</code> button to save the transformation parameters.</li>
+</ol>
 <h3>B. Registration by selecting explicit transformation parameters</h3>
 <h4>Registration with 3D view</h4>
-<p>We describe below the steps to register two views of the same object in a purely 3D manner. Note that the plugin also allows to switch between 2D and 3D at any time, and 2D view is described in the next section. </p>
-<p><img src="imgs/reg_0.png"></p>
-<p>Steps:
-1. First, load your images in Napari. You can drag and drop them from your file explorer to the Napari viewer, or open them using the <code>File &gt; Open files...</code> menu.
-2. Click on the <code>Plugins &gt; Manual Registration</code> menu to open the plugin.
-3. Select the reference layer from the combo box. The reference layer is chosen to be the one that does not move.
-4. Select the floating layer from the combo box. The floating layer is the one that will be transformed.
-5. We recommend pressing the <code>Format layers for explicit registration</code> button so that your layers are automatically formatted for you to begin the registration process. Napari offers a wide range of customisation options for the layers appearances, so feel free to play with them if our formatting does not fit your preferences. ;)
-6. You can now start the registration process by moving the <code>Translations</code> and <code>Rotations</code> sliders. The floating layer will be transformed in real-time according to the selected parameters. 
-7. To optimize the visibility of your images, you can change the contrast limits and opacity of a layer by clicking on the layer name in the layer list and adjusting the sliders in the layer properties widget.
-8. If you wish to hide a layer, you can click on the eye icon next to the layer name in the layer list.
-9. Once you are satisfied with the registration, choose a directory to save the transformation parameters by clicking on the <code>Choose directory</code> button. The transformation parameters will be saved in a <code>.json</code> file in this directory.
-10. Finally, click on the <code>Save to JSON</code> button to save the transformation parameters.</p>
+<p>We describe below the steps to register two views of the same object in a purely 3D manner. Note that the plugin also allows to switch between 2D and 3D at any time, and 2D view is described in the next section.</p>
+<img src="imgs/reg_0.png">
+<p>Steps:</p>
+<ol>
+<li>First, load your images in Napari. You can drag and drop them from your file explorer to the Napari viewer, or open them using the <code>File &gt; Open files...</code> menu.</li>
+<li>Click on the <code>Plugins &gt; Manual Registration</code> menu to open the plugin.</li>
+<li>Select the reference layer from the combo box. The reference layer is chosen to be the one that does not move.</li>
+<li>Select the floating layer from the combo box. The floating layer is the one that will be transformed.</li>
+<li>We recommend pressing the <code>Format layers for explicit registration</code> button so that your layers are automatically formatted for you to begin the registration process. Napari offers a wide range of customisation options for the layers appearances, so feel free to play with them if our formatting does not fit your preferences. ;)</li>
+<li>You can now start the registration process by moving the <code>Translations</code> and <code>Rotations</code> sliders. The floating layer will be transformed in real-time according to the selected parameters.</li>
+<li>To optimize the visibility of your images, you can change the contrast limits and opacity of a layer by clicking on the layer name in the layer list and adjusting the sliders in the layer properties widget.</li>
+<li>If you wish to hide a layer, you can click on the eye icon next to the layer name in the layer list.</li>
+<li>Once you are satisfied with the registration, choose a directory to save the transformation parameters by clicking on the <code>Choose directory</code> button. The transformation parameters will be saved in a <code>.json</code> file in this directory.</li>
+<li>Finally, click on the <code>Save to JSON</code> button to save the transformation parameters.</li>
+</ol>
 <h4>Registration with 2D view</h4>
-<p><img src="imgs/reg_1.png"></p>
+<img src="imgs/reg_1.png">
 <p>Steps (the steps 1 to 5 are the same as for the 3D registration):
 6. If you want to switch to the 2D view, click on the <code>Toggle 2D/3D view</code> button (it resembles a square when in 2D mode, or a cube when in 3D mode).
 7. Again, feel free to play with the contrast limits and opacity of the layers to optimize the visibility of your images. First click on the layer name in the layer list, then adjust the sliders in the layer properties widget.
@@ -335,21 +314,21 @@ Be aware that the visualization does not accomodate for voxel anisotropy, so we 
 <p>This test dataset is composed of two 3D images <code>bottom_small.tif</code> and <code>top_small.tif</code> that correspond to two halves of the same sample.</p>
 <h3>How to use</h3>
 <ul>
-<li>Load the images from the folder (either drag and drop, or "File&gt;Open file(s)").</li>
-<li>Specify one of the images as the "Reference layer" (which is fixed), and the other one as the "Layer to move" (usually called "floating").</li>
-<li>Choose between the "Explicit transforms" or "Landmarks matching" modes, and follow instructions on the plugin repository for further use.   </li>
+<li>Load the images from the folder (either drag and drop, or &quot;File&gt;Open file(s)&quot;).</li>
+<li>Specify one of the images as the &quot;Reference layer&quot; (which is fixed), and the other one as the &quot;Layer to move&quot; (usually called &quot;floating&quot;).</li>
+<li>Choose between the &quot;Explicit transforms&quot; or &quot;Landmarks matching&quot; modes, and follow instructions on the plugin repository for further use.</li>
 </ul>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-manual-registration" is free and open source software</p>
+&quot;napari-manual-registration&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problem using this plugin, please <a href="https://github.com/jules-vanaret/napari-manual-registration/issues">file an issue</a> on the GitHub repository.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

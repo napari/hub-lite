@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,41 +210,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/spreka/napari-annotatorj/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-annotatorj.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-annotatorj"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-annotatorj.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-annotatorj.svg?color=green" /></a>
-<a href="https://github.com/spreka/napari-annotatorj/actions"><img alt="tests" src="https://github.com/spreka/napari-annotatorj/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/spreka/napari-annotatorj"><img alt="codecov" src="https://codecov.io/gh/spreka/napari-annotatorj/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-annotatorj"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-annotatorj" /></a></p>
+                                        <p><a href="https://github.com/spreka/napari-annotatorj/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-annotatorj.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-annotatorj"><img src="https://img.shields.io/pypi/v/napari-annotatorj.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-annotatorj.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/spreka/napari-annotatorj/actions"><img src="https://github.com/spreka/napari-annotatorj/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/spreka/napari-annotatorj"><img src="https://codecov.io/gh/spreka/napari-annotatorj/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-annotatorj"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-annotatorj" alt="napari hub" /></a></p>
 <p>The napari adaptation of the ImageJ/Fiji plugin <a href="https://github.com/spreka/annotatorj">AnnotatorJ</a> for easy image annotation.</p>
-<p><img alt="image" src="https://drive.google.com/uc?export=view&amp;id=1fVfvanffTdrXvLE0m1Yo6FV5TAjh6sb2" /></p>
+<p><img src="https://drive.google.com/uc?export=view&amp;id=1fVfvanffTdrXvLE0m1Yo6FV5TAjh6sb2" alt="image" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -250,51 +227,43 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>Installation is possible with <a href="#pip">pip</a>, <a href="#bundled-napari-app">napari</a> or <a href="#script">scripts</a>.</p>
 <h3>Pip</h3>
 <p>You can install <code>napari-annotatorj</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari[all]
+<pre><code>pip install napari[all]
 pip install napari-annotatorj
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/spreka/napari-annotatorj.git
+<pre><code>pip install git+https://github.com/spreka/napari-annotatorj.git
 </code></pre>
-
 <p>On Linux distributions, the following error may arise upon napari startup after the installation of the plugin: <code>Could not load the Qt platform plugin “xcb” in “” even though it was found</code>. In this case, the manual install of <code>libxcb-xinerama0</code> for Qt is required:</p>
-<pre class="codehilite"><code>sudo apt install libxcb-xinerama0
+<pre><code>sudo apt install libxcb-xinerama0
 </code></pre>
-
 <h3>Bundled napari app</h3>
 <p>The bundled application version of <a href="https://github.com/napari/napari/releases">napari</a> allows the pip install of plugins in the .zip distribution. After installation of this release, napari-annotatorj can be installed from the <code>Plugins --&gt; Install/Uninstall plugins...</code> menu by searching for its name and clicking on the <code>Install</code> button next to it.</p>
 <h3>Script</h3>
 <p>Single-file install is supported on <a href="#windows"><strong>Windows</strong></a> and <a href="#linux">Linux</a> (currently). It will create a virtual environment named <code>napariAnnotatorjEnv</code> in the parent folder of the cloned repository, install the package via pip and start napari. It requires a valid Python install.</p>
 <h4>Windows</h4>
 <p>To start it, run in the Command prompt</p>
-<pre class="codehilite"><code>git clone https://github.com/spreka/napari-annotatorj.git
+<pre><code>git clone https://github.com/spreka/napari-annotatorj.git
 cd napari-annotatorj
 install.bat
 </code></pre>
-
 <p>Or download <a href="https://github.com/spreka/napari-annotatorj/blob/main/install.bat">install.bat</a> and run it from the Command prompt.</p>
 <p>After install, you can use <a href="https://github.com/spreka/napari-annotatorj/blob/main/startup_napari.bat">startup_napari.bat</a> to activate your installed virtual environment and run napari. Run it from the Command prompt with:</p>
-<pre class="codehilite"><code>startup_napari.bat
+<pre><code>startup_napari.bat
 </code></pre>
-
 <h4>Linux</h4>
 <p>To start it, run in the Terminal</p>
-<pre class="codehilite"><code>git clone https://github.com/spreka/napari-annotatorj.git
+<pre><code>git clone https://github.com/spreka/napari-annotatorj.git
 cd napari-annotatorj
 install.sh
 </code></pre>
-
 <p>Or download <a href="https://github.com/spreka/napari-annotatorj/blob/main/install.sh">install.sh</a> and run it from the Terminal.</p>
 <p>After install, you can use <a href="https://github.com/spreka/napari-annotatorj/blob/main/startup_napari.sh">startup_napari.sh</a> to activate your installed virtual environment and run napari. Run it from the Terminal with:</p>
-<pre class="codehilite"><code>startup_napari.sh
+<pre><code>startup_napari.sh
 </code></pre>
-
 <hr />
 <h2>Intro</h2>
 <p>napari-annotatorj has several convenient functions to speed up the annotation process, make it easier and more fun. These <em>modes</em> can be activated by their corresponding checkboxes on the left side of the main AnnotatorJ widget.</p>
@@ -304,19 +273,25 @@ install.sh
 <li><a href="#class-mode">Class mode</a></li>
 <li><a href="#overlay">Overlay</a></li>
 </ul>
-<p>Freehand drawing is enabled in the plugin. The "Add polygon" tool is selected by default upon startup. To draw a freehand object (shape) simply hold the mouse and drag it around the object. The contour is visualized when the mouse button is released.</p>
+<p>Freehand drawing is enabled in the plugin. The &quot;Add polygon&quot; tool is selected by default upon startup. To draw a freehand object (shape) simply hold the mouse and drag it around the object. The contour is visualized when the mouse button is released.</p>
 <p>See the <a href="#how-to-annotate">guide</a> below for a quick start or a <a href="#demo">demo</a>. See <a href="#shortcuts">shortcuts</a> for easy operation.</p>
 <hr />
 <h2>How to annotate</h2>
 <ol>
-<li>Open --&gt; opens an image</li>
-<li>(Optionally) <ul>
+<li>
+<p>Open --&gt; opens an image</p>
+</li>
+<li>
+<p>(Optionally)</p>
+<ul>
 <li>... --&gt; Select annotation type --&gt; Ok --&gt; a default tool is selected from the toolbar that fits the selected annotation type</li>
 <li>The default annotation type is instance</li>
 <li>Selected annotation type is saved to a config file</li>
 </ul>
 </li>
-<li>Start annotating objects<ul>
+<li>
+<p>Start annotating objects</p>
+<ul>
 <li><a href="#instance-annotation">instance</a>: draw contours around objects</li>
 <li><a href="#semantic-annotation">semantic</a>: paint the objects' area</li>
 <li><a href="#bounding-box-annotation">bounding box</a>: draw rectangles around the objects</li>
@@ -332,7 +307,8 @@ install.sh
 <li>Overlay --&gt; display a different annotation as overlay (semi-transparent) on the currently opened image</li>
 <li>Colours --&gt; select annotation and overlay colours</li>
 <li>... (coming soon) --&gt; set options for semantic segmentation and <em>Contour assist</em> mode</li>
-<li>checkboxes --&gt; Various options<ul>
+<li>checkboxes --&gt; Various options
+<ul>
 <li>(default) Add automatically --&gt; adds the most recent annotation to the ROI list automatically when releasing the left mouse button</li>
 <li>Smooth (coming soon) --&gt; smooths the contour (in instance annotation type only)</li>
 <li>Show contours --&gt; displays all the contours in the ROI list</li>
@@ -349,9 +325,9 @@ install.sh
 <hr />
 <h2>Instance annotation</h2>
 <p>Allows freehand drawing of object contours (shapes) with the mouse as in ImageJ.</p>
-<p>Shape contour points are tracked automatically when the left mouse button is held and dragged to draw a shape. The shape is closed when the mouse button is released, automatically, and added to the default shapes layer (named "ROI"). In direct selection mode (from the layer controls panel), you can see the saved contour points. The slower you drag the mouse, the more contour points saved, i.e. the more refined your contour will be.</p>
+<p>Shape contour points are tracked automatically when the left mouse button is held and dragged to draw a shape. The shape is closed when the mouse button is released, automatically, and added to the default shapes layer (named &quot;ROI&quot;). In direct selection mode (from the layer controls panel), you can see the saved contour points. The slower you drag the mouse, the more contour points saved, i.e. the more refined your contour will be.</p>
 <p>Click to watch demo video below.</p>
-<p><a href="https://drive.google.com/uc?export=view&amp;id=1wELreE9MdCZq4Kf4oCWdxIw4e5o05XzK" title="Click to watch instance annotation demo"><img alt="instance-annot-demo" src="https://drive.google.com/uc?export=view&amp;id=1sBg19d_hqGH-UI8irkrwame7ZjrldwHr" /></a></p>
+<p><a href="https://drive.google.com/uc?export=view&amp;id=1wELreE9MdCZq4Kf4oCWdxIw4e5o05XzK" title="Click to watch instance annotation demo"><img src="https://drive.google.com/uc?export=view&amp;id=1sBg19d_hqGH-UI8irkrwame7ZjrldwHr" alt="instance-annot-demo" /></a></p>
 <hr />
 <h2>Semantic annotation</h2>
 <p>Allows painting with the brush tool (labels).</p>
@@ -366,195 +342,210 @@ install.sh
 <ol>
 <li>initialize a contour with mouse drag around an object</li>
 <li>the suggested contour is displayed automatically</li>
-<li>modify the contour:<ul>
-<li>edit with mouse drag or </li>
-<li>erase holding "Alt" or</li>
-<li>invert with pressing "u"</li>
-</ul>
-</li>
-<li>
-<p>finalize it</p>
+<li>modify the contour:
 <ul>
-<li>accept with pressing "q" or</li>
-<li>reject with pressing "Ctrl" + "Del"</li>
+<li>edit with mouse drag or</li>
+<li>erase holding &quot;Alt&quot; or</li>
+<li>invert with pressing &quot;u&quot;</li>
 </ul>
 </li>
-<li>
-<p>if the suggested contour is a merge of multiple objects, you can erase the dividing line around the object you wish to keep, and keep erasing (or splitting with the eraser) until the object you wish to keep is the largest, then press "q" to accept it</p>
+<li>finalize it
+<ul>
+<li>accept with pressing &quot;q&quot; or</li>
+<li>reject with pressing &quot;Ctrl&quot; + &quot;Del&quot;</li>
+</ul>
 </li>
-<li>this mode requires a Keras model to be present in the <a href="#configure-model-folder">model folder</a></li>
 </ol>
+<ul>
+<li>if the suggested contour is a merge of multiple objects, you can erase the dividing line around the object you wish to keep, and keep erasing (or splitting with the eraser) until the object you wish to keep is the largest, then press &quot;q&quot; to accept it</li>
+<li>this mode requires a Keras model to be present in the <a href="#configure-model-folder">model folder</a></li>
+</ul>
 <p>Click to watch demo video below</p>
-<p><a href="https://drive.google.com/uc?export=view&amp;id=1VTd6RScjNfAwi3vMk-bU87U4ucPmOO_M" title="Click to watch contour assist demo"><img alt="contour-assist-demo" src="https://drive.google.com/uc?export=view&amp;id=1Mw2fCPdm5WHBVRgNnp8fGNmqxI84F_9I" /></a></p>
+<p><a href="https://drive.google.com/uc?export=view&amp;id=1VTd6RScjNfAwi3vMk-bU87U4ucPmOO_M" title="Click to watch contour assist demo"><img src="https://drive.google.com/uc?export=view&amp;id=1Mw2fCPdm5WHBVRgNnp8fGNmqxI84F_9I" alt="contour-assist-demo" /></a></p>
 <hr />
 <h2>Edit mode</h2>
 <p>Allows to modify created objects with a brush tool.</p>
 <ol>
 <li>select an object (shape) to modify by clicking on it</li>
 <li>an editing layer (labels layer) is created for painting automatically</li>
-<li>modify the contour:<ul>
-<li>edit with mouse drag or </li>
-<li>erase holding "Alt"</li>
-</ul>
-</li>
-<li>
-<p>finalize it</p>
+<li>modify the contour:
 <ul>
-<li>accept with pressing "q" or</li>
-<li>delete with pressing "Ctrl" + "Del" or</li>
-<li>revert changes with pressing "Esc" (to the state before editing)</li>
+<li>edit with mouse drag or</li>
+<li>erase holding &quot;Alt&quot;</li>
 </ul>
 </li>
-<li>
-<p>if the edited contour is a merge of multiple objects, you can erase the dividing line around the object you wish to keep, and keep erasing (or splitting with the eraser) until the object you wish to keep is the largest, then press "q" to accept it</p>
+<li>finalize it
+<ul>
+<li>accept with pressing &quot;q&quot; or</li>
+<li>delete with pressing &quot;Ctrl&quot; + &quot;Del&quot; or</li>
+<li>revert changes with pressing &quot;Esc&quot; (to the state before editing)</li>
+</ul>
 </li>
 </ol>
+<ul>
+<li>if the edited contour is a merge of multiple objects, you can erase the dividing line around the object you wish to keep, and keep erasing (or splitting with the eraser) until the object you wish to keep is the largest, then press &quot;q&quot; to accept it</li>
+</ul>
 <p>Click to watch demo video below</p>
-<p><a href="https://drive.google.com/uc?export=view&amp;id=10MQm53hblLKQlfBNrfUsi1vxvIdTbzCZ" title="Click to watch edit mode demo"><img alt="edit-mode-demo" src="https://drive.google.com/uc?export=view&amp;id=1M-XdEWPXMsIOtO0ncyUtvGACS0SRX-3K" /></a></p>
+<p><a href="https://drive.google.com/uc?export=view&amp;id=10MQm53hblLKQlfBNrfUsi1vxvIdTbzCZ" title="Click to watch edit mode demo"><img src="https://drive.google.com/uc?export=view&amp;id=1M-XdEWPXMsIOtO0ncyUtvGACS0SRX-3K" alt="edit-mode-demo" /></a></p>
 <hr />
 <h2>Class mode</h2>
 <p>Allows to assign class labels to objects by clicking on shapes.</p>
 <ol>
 <li>select a class from the class list to assign</li>
 <li>click on an object (shape) to assign the selected class label to it</li>
-<li>
-<p>the contour colour of the clicked object will be updated to the selected class colour, plus the class label is updated in the text properties of object (turn on "display text" on the layer control panel to see the text properties as <code>objectID:(classLabel)</code> e.g. 1:(0) for the first object)</p>
-</li>
-<li>
-<p>optionally, you can set a default class for all currently unlabelled objects on the ROI (shapes) layer by selecting a class from the drop-down menu on the right to the text label "Default class"</p>
-</li>
+<li>the contour colour of the clicked object will be updated to the selected class colour, plus the class label is updated in the text properties of object (turn on &quot;display text&quot; on the layer control panel to see the text properties as <code>objectID:(classLabel)</code> e.g. 1:(0) for the first object)</li>
+</ol>
+<ul>
+<li>optionally, you can set a default class for all currently unlabelled objects on the ROI (shapes) layer by selecting a class from the drop-down menu on the right to the text label &quot;Default class&quot;</li>
 <li>class colours can be changed with the drop-down menu right to the class list; upon selection, all objects whose class label is the currently selected class will have their contour colour updated to the selected colour</li>
 <li>clicking on an object that has already been assigned a class label will unclassify it: assign the label <em>0</em> to it</li>
-</ol>
+</ul>
 <p>Click to watch demo video below</p>
-<p><a href="https://drive.google.com/uc?export=view&amp;id=1uOmznUvfHEFvviWTtOnUHty8rkKyWR7Q" title="Click to watch class mode demo"><img alt="class-mode-demo" src="https://drive.google.com/uc?export=view&amp;id=1EV1cn_mySO11S_ZDFv6Dl1laAk30jGJk" /></a></p>
+<p><a href="https://drive.google.com/uc?export=view&amp;id=1uOmznUvfHEFvviWTtOnUHty8rkKyWR7Q" title="Click to watch class mode demo"><img src="https://drive.google.com/uc?export=view&amp;id=1EV1cn_mySO11S_ZDFv6Dl1laAk30jGJk" alt="class-mode-demo" /></a></p>
 <hr />
 <h2>Export</h2>
 <p>See also: <a href="#quick-export">Quick export</a></p>
 <p>The exporter plugin AnnotatorJExport can be invoked from the Plugins menu under the plugin name <code>napari-annotatorj</code>. It is used for batch export of annotations to various formats directly suitable to train different types of deep learning models. See a <a href="https://raw.githubusercontent.com/spreka/annotatorj/master/demos/annotation_and_export_types.png">demonstrative figure</a> in the <a href="https://github.com/spreka/annotatorj">AnnotatorJ repository</a> and further description in its <a href="https://github.com/spreka/annotatorj#export">README</a> or <a href="https://github.com/spreka/annotatorj/blob/master/AnnotatorJ_documentation.pdf">documentation</a>.</p>
 <ol>
-<li>browse original image folder with either the<ul>
-<li>"Browse original..." button or</li>
+<li>browse original image folder with either the
+<ul>
+<li>&quot;Browse original...&quot; button or</li>
 <li>text input field next to it</li>
 </ul>
 </li>
-<li>browse annotation folder with either the<ul>
-<li>"Browse annot..." button or</li>
+<li>browse annotation folder with either the
+<ul>
+<li>&quot;Browse annot...&quot; button or</li>
 <li>text input field next to it</li>
 </ul>
 </li>
-<li>select the export options you wish to export the annotations to (see tooltips on hover for help)<ul>
+<li>select the export options you wish to export the annotations to (see tooltips on hover for help)
+<ul>
 <li>at least one export option must be selected to start export</li>
-<li>(optional) right click on the checkbox "Coordinates" to switch between the default COCO format and YOLO format; see <a href="#coordinate-formats">explanation</a></li>
+<li>(optional) right click on the checkbox &quot;Coordinates&quot; to switch between the default COCO format and YOLO format; see <a href="#coordinate-formats">explanation</a></li>
 </ul>
 </li>
-<li>click on "Export masks" to start the export<ul>
+<li>click on &quot;Export masks&quot; to start the export
+<ul>
 <li>this will open a progress bar in the napari window and close it upon finish</li>
 </ul>
 </li>
 </ol>
 <p>The folder structure required by the exporter is as follows:</p>
-<pre class="codehilite"><code>image_folder
-    |--- image1.png
-    |--- another_image.png
-    |--- something.png
-    |--- ...
+<pre><code><div class="highlight"><pre><span></span>image_folder
+	|--- image1.png
+	|--- another_image.png
+	|--- something.png
+	|--- ...
 
 annotation_folder
-    |--- image1_ROIs.zip
-    |--- another_image_ROIs.zip
-    |--- something_ROIs.zip
-    |--- ...
+	|--- image1_ROIs.zip
+	|--- another_image_ROIs.zip
+	|--- something_ROIs.zip
+	|--- ...
+</pre></div>
 </code></pre>
-
 <p>Multiple export options can be selected at once, any selected will create a subfolder in the folder where the annotations are saved.</p>
 <p>Click to watch demo video below</p>
-<p><a href="https://drive.google.com/uc?export=view&amp;id=1uJz-x_ypEOjc7SYPUTqrEt0ieyNLFy6u" title="Click to watch exporter demo"><img alt="exporter-demo" src="https://drive.google.com/uc?export=view&amp;id=1QoaJrI9pKziUzYwiZNdWlfRD7PcvJB9U" /></a></p>
+<p><a href="https://drive.google.com/uc?export=view&amp;id=1uJz-x_ypEOjc7SYPUTqrEt0ieyNLFy6u" title="Click to watch exporter demo"><img src="https://drive.google.com/uc?export=view&amp;id=1QoaJrI9pKziUzYwiZNdWlfRD7PcvJB9U" alt="exporter-demo" /></a></p>
 <hr />
 <h2>Quick export</h2>
-<p>Click on the "[^]" button to quickly save annotations and export to mask image. It saves the current annotations (shapes) to an ImageJ-compatible roi.zip file and a generated a 16-bit multi-labelled mask image to the subfolder "masks" under the current original image's folder.</p>
+<p>Click on the &quot;[^]&quot; button to quickly save annotations and export to mask image. It saves the current annotations (shapes) to an ImageJ-compatible roi.zip file and a generated a 16-bit multi-labelled mask image to the subfolder &quot;masks&quot; under the current original image's folder.</p>
 <hr />
 <h2>Coordinate formats</h2>
 <p>In the AnnotatorJExport plugin 2 coordinates formats can be selecting by right clicking on the Coordinates checkbox: COCO or YOLO. The default is COCO.</p>
-<p><em>COCO format</em>:
-- <code>[x, y, width, height]</code> based on the top-left corner of the bounding box around the object
-- coordinates are not normalized
-- annotations are saved with header to 
-    - .csv file
-    - tab delimeted</p>
-<p><em>YOLO format</em>:
-- <code>[class, x, y, width, height]</code> based on the center point of the bounding box around the object
-- coordinates are normalized to the image size as floating point values between 0 and 1
-- annotations are saved with header to
-    - .txt file
-    - whitespace delimeted
-    - class is saved as the 1st column</p>
+<p><em>COCO format</em>:</p>
+<ul>
+<li><code>[x, y, width, height]</code> based on the top-left corner of the bounding box around the object</li>
+<li>coordinates are not normalized</li>
+<li>annotations are saved with header to
+<ul>
+<li>.csv file</li>
+<li>tab delimeted</li>
+</ul>
+</li>
+</ul>
+<p><em>YOLO format</em>:</p>
+<ul>
+<li><code>[class, x, y, width, height]</code> based on the center point of the bounding box around the object</li>
+<li>coordinates are normalized to the image size as floating point values between 0 and 1</li>
+<li>annotations are saved with header to
+<ul>
+<li>.txt file</li>
+<li>whitespace delimeted</li>
+<li>class is saved as the 1st column</li>
+</ul>
+</li>
+</ul>
 <hr />
 <h2>Overlay</h2>
 <p>A separate annotation file can be loaded as overlay for convenience, e.g. to compare annotations.</p>
 <ol>
-<li>
-<p>load another annotation file with the "Overlay" button</p>
-</li>
-<li>
-<p>(optional) switch its visibility with the "Show overlay" checkbox</p>
-</li>
-<li>(optional) change the contour colour of the overlay shapes with the <a href="#change-colours">"Colours" button</a></li>
+<li>load another annotation file with the &quot;Overlay&quot; button</li>
 </ol>
+<ul>
+<li>(optional) switch its visibility with the &quot;Show overlay&quot; checkbox</li>
+<li>(optional) change the contour colour of the overlay shapes with the <a href="#change-colours">&quot;Colours&quot; button</a></li>
+</ul>
 <hr />
 <h2>Change colours</h2>
-<p>Clicking on the "Colours" button opens the Colours widget where you can set the annotation and overlay colours.</p>
+<p>Clicking on the &quot;Colours&quot; button opens the Colours widget where you can set the annotation and overlay colours.</p>
 <ol>
-<li>select a colour from the drop-down list either next to the text label "overlay" or "annotation"</li>
-<li>
-<p>click the "Ok" button to apply changes</p>
-</li>
-<li>
-<p>contour colour of shapes on the annotation shapes layer (named "ROI") that already have a class label assigned to them will <strong>not</strong> be updated to the new annotation colour, only those not having a class label (the class label can be displayed with the "display text" checkbox on the layer controls panel as <code>objectID:(classLabel)</code> e.g. 1:(0) for the first object)</p>
-</li>
-<li>contour colour of shapes on the overlay shapes layer (named "overlay") will all have the overlay colour set, regardless of any existing class information saved to the annotation file loaded as overlay</li>
+<li>select a colour from the drop-down list either next to the text label &quot;overlay&quot; or &quot;annotation&quot;</li>
+<li>click the &quot;Ok&quot; button to apply changes</li>
 </ol>
+<ul>
+<li>contour colour of shapes on the annotation shapes layer (named &quot;ROI&quot;) that already have a class label assigned to them will <strong>not</strong> be updated to the new annotation colour, only those not having a class label (the class label can be displayed with the &quot;display text&quot; checkbox on the layer controls panel as <code>objectID:(classLabel)</code> e.g. 1:(0) for the first object)</li>
+<li>contour colour of shapes on the overlay shapes layer (named &quot;overlay&quot;) will all have the overlay colour set, regardless of any existing class information saved to the annotation file loaded as overlay</li>
+</ul>
 <hr />
 <h2>Configure model folder</h2>
-<p>The Contour assist mode imports a pre-trained Keras model from a folder named <em>models</em> under exactly the path <em>napari_annotatorj</em>. This is automatically created on the first startup in your user folder:
-- <code>C:\Users\Username\.napari_annotatorj</code> on Windows
-- <code>\home\username\.napari_annotatorj</code> on Linux</p>
+<p>The Contour assist mode imports a pre-trained Keras model from a folder named <em>models</em> under exactly the path <em>napari_annotatorj</em>. This is automatically created on the first startup in your user folder:</p>
+<ul>
+<li><code>C:\Users\Username\.napari_annotatorj</code> on Windows</li>
+<li><code>\home\username\.napari_annotatorj</code> on Linux</li>
+</ul>
 <p>A pre-trained model for nucleus segmentation is automatically downloaded from the GitHub repository of the <a href="https://github.com/spreka/annotatorj/releases/tag/v0.0.2-model">ImageJ version of AnnotatorJ</a>. The model will be saved to <code>[your user folder]\.napari_annotatorj\models\model_real.h5</code>. This location is printed to the console (command prompt or powershell on Windows, terminal on Linux).</p>
 <p>(deprecated) When bulding from source the model folder is located at <em>path\to\napari-annotatorj\src\napari_annotatorj\models</em> whereas installing from pypi it is located at <em>path\to\virtualenv\Lib\site-packages\napari_annotatorj\models</em>.</p>
-<p>The model must be in either of these file formats:
-- config .json file + weights file: <em>model_real.json</em> and <em>model_real_weights.h5</em>
-- combined weights file: <em>model_real.hdf5</em></p>
+<p>The model must be in either of these file formats:</p>
+<ul>
+<li>config .json file + weights file: <em>model_real.json</em> and <em>model_real_weights.h5</em></li>
+<li>combined weights file: <em>model_real.hdf5</em></li>
+</ul>
 <p>You can also train a new model on your own data in e.g. Python and save it with this code block:</p>
-<pre class="codehilite"><code class="language-python">    # save model as json
-    model_json=model.to_json()
-    with open(‘model_real.json’, ‘w’) as f:
-        f.write(model_json)
-
-    # save weights too
-    model.save_weights(‘model_real_weights.h5’)
+<pre><code class="language-python"><div class="highlight"><pre><span></span>	<span class="c1"># save model as json</span>
+	<span class="n">model_json</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="err">‘</span><span class="n">model_real</span><span class="o">.</span><span class="n">json</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="n">w</span><span class="err">’</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+		<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">model_json</span><span class="p">)</span>
+	
+	<span class="c1"># save weights too</span>
+	<span class="n">model</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="err">‘</span><span class="n">model_real_weights</span><span class="o">.</span><span class="n">h5</span><span class="err">’</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>You can also train in the <a href="#Training">train widget</a>.</p>
 <p>This configuration will change in the next release to allow model browse and custom model name in an <a href="#options">options widget</a>.</p>
 <hr />
 <h2>Training</h2>
 <p>To start training a new model or refine an existing one click the <strong>Train</strong> button on the right of the napari-annotatorj widget. This will open the training widget where you can set input paths and training options. During training a progress bar will show the epochs passed and plot the loss on a graph. See a <a href="#how-to-train">guide</a> below.</p>
 <p>The trained model will be saved to the <code>model</code> folder under the located training data folder which is named <code>training</code> by default when preparing data. Each new training will be saved to a new training folder with increased numbering e.g. <code>training_1</code>, <code>training_2</code> etc.</p>
-<p>When an existing training data folder is browsed with the "Browse train ..." button, the <code>model</code> folder will be created under it without an additiona <code>training</code> folder.</p>
+<p>When an existing training data folder is browsed with the &quot;Browse train ...&quot; button, the <code>model</code> folder will be created under it without an additiona <code>training</code> folder.</p>
 <p>After training is finished, a message is shown to indicate the newly trained model can be tested by drawing bounding boxes (rectangles) to initiate <a href="#contour-assist-mode">contour assist</a> prediction. The presented region on the editing layer (Label layer) can be modified with the paint brush tool (automatically selected) as in <a href="#contour-assist-mode">contour assist</a>.</p>
-<p>The trained model can be further refined by selecting the "Retrain latest" checkbox from the <a href="#training-parameters">training parameters</a> (⚙ button on the right).</p>
+<p>The trained model can be further refined by selecting the &quot;Retrain latest&quot; checkbox from the <a href="#training-parameters">training parameters</a> (⚙ button on the right).</p>
 <p>To use this new model for annotation in <a href="#contour-assist-mode">contour assist mode</a>, you mush set the model path in the <a href="#options">Options widget</a> or in the configuration file (see how to <a href="#configure-model-folder">here</a>), then restart napari.</p>
 <h3>How to train</h3>
 <ol>
-<li>On current annotation<ol>
-<li>"Use current annotation" checkbox --&gt; use this image and its current annotation for training</li>
+<li>On current annotation
+<ol>
+<li>&quot;Use current annotation&quot; checkbox --&gt; use this image and its current annotation for training</li>
 <li>Prep data --&gt; prepare data to <a href="#training-data-format">suitable format</a></li>
 <li>(optional) ⚙ --&gt; <a href="#training-parameters">set parameters</a></li>
 <li>Start --&gt; start training</li>
 </ol>
 </li>
-<li>Additional data<ol>
-<li>Select images and annotations to use for training<ul>
+<li>Additional data
+<ol>
+<li>Select images and annotations to use for training
+<ul>
 <li>Browse original ... --&gt; locate folder of original images</li>
 <li>Browse annot ... --&gt; locate folder of annotations</li>
 <li>Prep data --&gt; prepare data to <a href="#training-data-format">suitable format</a></li>
@@ -568,85 +559,311 @@ annotation_folder
 </ol>
 <h3>Training data format</h3>
 <p>The data format expected by the training widget is as follows.</p>
-<pre class="codehilite"><code>images
-    |--- image1.png
-    |--- another_image.png
-    |--- something.png
-    |--- ...
+<pre><code><div class="highlight"><pre><span></span>images
+	|--- image1.png
+	|--- another_image.png
+	|--- something.png
+	|--- ...
 
 unet_masks
-    |--- image1.tiff
-    |--- another_image.tiff
-    |--- something.tiff
-    |--- ...
+	|--- image1.tiff
+	|--- another_image.tiff
+	|--- something.tiff
+	|--- ...
+</pre></div>
 </code></pre>
-
-<p>Masks are 8-bit binary (black and white) .tiff images that can be exported from the <a href="#export">Exporter widget</a> selecting the Semantic (binary) export option. When the "Prep data" button is clicked in the Training widget, these folders are automatically created from the located annotation files and original images.</p>
+<p>Masks are 8-bit binary (black and white) .tiff images that can be exported from the <a href="#export">Exporter widget</a> selecting the Semantic (binary) export option. When the &quot;Prep data&quot; button is clicked in the Training widget, these folders are automatically created from the located annotation files and original images.</p>
 <h3>Training parameters</h3>
-<p>The following configurable parameters can be set after clicking on the ⚙ icon:
-| Parameter | Description | Default value |
-| --------- | ----------- | ------------- |
-| Epochs | number of epochs to train | 5 |
-| Steps | number of steps in each epoch | 1 |
-| Batch size | number of samples in an iteration| 1 |
-| Image size | size of training images | 256 |
-| Start from scratch | train a new model from scratch| <code>False</code> |
-| Retrain latest | re-fine latest training | <code>False</code> |
-| Write pred | write test image prediction to file| <code>False</code> |
-| Test image | path to test image | <code>None</code>|</p>
+<p>The following configurable parameters can be set after clicking on the ⚙ icon:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Epochs</td>
+<td>number of epochs to train</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Steps</td>
+<td>number of steps in each epoch</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td>number of samples in an iteration</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Image size</td>
+<td>size of training images</td>
+<td>256</td>
+</tr>
+<tr>
+<td>Start from scratch</td>
+<td>train a new model from scratch</td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td>Retrain latest</td>
+<td>re-fine latest training</td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td>Write pred</td>
+<td>write test image prediction to file</td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td>Test image</td>
+<td>path to test image</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
 <p>Note: by default CPU will be used for training. This can be changed to GPU in the <a href="#options">Options widget</a> if your computer has a capable CUDA-device.</p>
 <hr />
 <h2>Options</h2>
-<p>Settings found in the configuration file can be set in the Options widget opened with the "..." button on the right of the main plugin. For changes to take effect you must save your changes with the "Ok" button at the bottom of the Options widget.</p>
-<p>The following options can be configured:
-|Group|Option|Description|Default|Valid values|
-|-----|------|-----------|-------|------------|
-|General|Annotation type | see <a href="#instance-annotation">instance</a>, <a href="#bounding-box-annotation">bbox</a>, <a href="#semantic-annotation">semantic</a> | instance |instance, bbox, semantic |
-| |Remember annotation type|use the same annotation type on next startup|<code>True</code>|<code>True</code>, <code>False</code>|
-| |Colours|select annotation and overlay colours; see <a href="#change-colours">here</a>|white|white, red, green, blue, cyan, magenta, yellow, orange, black|
-| |Classes|names of folders to save annotations when not classified<em>|normal|(any string)</em><em>|
-|Semantic segmentation|Brush size|size of the brush|50|<code>int</code>|
-|</em>Advanced settings<em>|
-|Contour assist|Max distance|number of pixels to extend the initial contour with|17|<code>int</code>|
-||Threshold|intensity threshold after prediction|||
-||- gray||0.1|<code>float</code> in [0,1]|
-||- R (red)||0.2|<code>float</code> in [0,1]|
-||- G (green)||0.4|<code>float</code> in [0,1]|
-||- B (blue)||0.2|<code>float</code> in [0,1]|
-||Brush size|correction brush size|5|<code>int</code>|
-||Method|contour assist prediction method|U-Net|U-Net, Classic</em><strong>|
-||Model|U-Net model to use for Contour assist prediction|||
-||folder|path to the model folder|<code>user/.napari_annotatorj/models</code>|existing <code>models</code> folder path|
-||.json file|name of the model .json file </strong>without<strong> extension|model_real|any string</strong>|
-||weights file|name of the model weights file|model_real_weights.h5|any string<strong>|
-||full file|name of the combined config+weights file|model_real.hdf5|any string</strong>|
-||Device|computation device to perform prediction|cpu|cpu,<code>int</code><strong><em>*|
-|Mask/text import|
-||Auto mask load|load annotation files automatically when a new image is opened|<code>False</code>|<code>True</code>, <code>False</code>|
-||Enable mask load|load instance annotation mask image|<code>False</code>|<code>True</code>, <code>False</code>|
-||Enable text load|load object detection bounding box coordinate text file|<code>False</code>|<code>True</code>, <code>False</code>|
-||Method|load as editable or overlay|load|load, overlay|
-|Others|
-||Save outlines|save image with annotations outlined|<code>False</code>|<code>True</code>, <code>False</code>|
-||Show help on startup|show the help window upon every startup|<code>False</code>|<code>True</code>, <code>False</code>|
-||Save annot times|save annotation times to text file</em></strong>**|<code>False</code>|<code>True</code>, <code>False</code>|</p>
+<p>Settings found in the configuration file can be set in the Options widget opened with the &quot;...&quot; button on the right of the main plugin. For changes to take effect you must save your changes with the &quot;Ok&quot; button at the bottom of the Options widget.</p>
+<p>The following options can be configured:</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Option</th>
+<th>Description</th>
+<th>Default</th>
+<th>Valid values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>Annotation type</td>
+<td>see <a href="#instance-annotation">instance</a>, <a href="#bounding-box-annotation">bbox</a>, <a href="#semantic-annotation">semantic</a></td>
+<td>instance</td>
+<td>instance, bbox, semantic</td>
+</tr>
+<tr>
+<td></td>
+<td>Remember annotation type</td>
+<td>use the same annotation type on next startup</td>
+<td><code>True</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Colours</td>
+<td>select annotation and overlay colours; see <a href="#change-colours">here</a></td>
+<td>white</td>
+<td>white, red, green, blue, cyan, magenta, yellow, orange, black</td>
+</tr>
+<tr>
+<td></td>
+<td>Classes</td>
+<td>names of folders to save annotations when not classified*</td>
+<td>normal</td>
+<td>(any string)**</td>
+</tr>
+<tr>
+<td>Semantic segmentation</td>
+<td>Brush size</td>
+<td>size of the brush</td>
+<td>50</td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td><em>Advanced settings</em></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Contour assist</td>
+<td>Max distance</td>
+<td>number of pixels to extend the initial contour with</td>
+<td>17</td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Threshold</td>
+<td>intensity threshold after prediction</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>- gray</td>
+<td></td>
+<td>0.1</td>
+<td><code>float</code> in [0,1]</td>
+</tr>
+<tr>
+<td></td>
+<td>- R (red)</td>
+<td></td>
+<td>0.2</td>
+<td><code>float</code> in [0,1]</td>
+</tr>
+<tr>
+<td></td>
+<td>- G (green)</td>
+<td></td>
+<td>0.4</td>
+<td><code>float</code> in [0,1]</td>
+</tr>
+<tr>
+<td></td>
+<td>- B (blue)</td>
+<td></td>
+<td>0.2</td>
+<td><code>float</code> in [0,1]</td>
+</tr>
+<tr>
+<td></td>
+<td>Brush size</td>
+<td>correction brush size</td>
+<td>5</td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Method</td>
+<td>contour assist prediction method</td>
+<td>U-Net</td>
+<td>U-Net, Classic***</td>
+</tr>
+<tr>
+<td></td>
+<td>Model</td>
+<td>U-Net model to use for Contour assist prediction</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>folder</td>
+<td>path to the model folder</td>
+<td><code>user/.napari_annotatorj/models</code></td>
+<td>existing <code>models</code> folder path</td>
+</tr>
+<tr>
+<td></td>
+<td>.json file</td>
+<td>name of the model .json file <strong>without</strong> extension</td>
+<td>model_real</td>
+<td>any string**</td>
+</tr>
+<tr>
+<td></td>
+<td>weights file</td>
+<td>name of the model weights file</td>
+<td>model_real_weights.h5</td>
+<td>any string**</td>
+</tr>
+<tr>
+<td></td>
+<td>full file</td>
+<td>name of the combined config+weights file</td>
+<td>model_real.hdf5</td>
+<td>any string**</td>
+</tr>
+<tr>
+<td></td>
+<td>Device</td>
+<td>computation device to perform prediction</td>
+<td>cpu</td>
+<td>cpu,<code>int</code>****</td>
+</tr>
+<tr>
+<td>Mask/text import</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Auto mask load</td>
+<td>load annotation files automatically when a new image is opened</td>
+<td><code>False</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Enable mask load</td>
+<td>load instance annotation mask image</td>
+<td><code>False</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Enable text load</td>
+<td>load object detection bounding box coordinate text file</td>
+<td><code>False</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Method</td>
+<td>load as editable or overlay</td>
+<td>load</td>
+<td>load, overlay</td>
+</tr>
+<tr>
+<td>Others</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Save outlines</td>
+<td>save image with annotations outlined</td>
+<td><code>False</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Show help on startup</td>
+<td>show the help window upon every startup</td>
+<td><code>False</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Save annot times</td>
+<td>save annotation times to text file*****</td>
+<td><code>False</code></td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+</tbody>
+</table>
 <p>*: right click the last element (other...) to add a new item to the list. When annotations are assigned class labels in <a href="#class-mode">class mode</a>, they will be saved to the folder <code>masks</code> by default.</p>
 <p>**: do not use whitespace (' ') if possible</p>
 <p>***: region growing classical algorithm</p>
 <p>****: valid id of a GPU device e.g. <code>0</code> or <code>3</code>; if your computer has only one GPU the id is <code>0</code></p>
-<p><strong>*</strong>: currently disabled, used for development</p>
+<p>*****: currently disabled, used for development</p>
 <hr />
 <h2>Demo</h2>
 <p>Run a demo of napari-annotatorj with sample data: a small 3-channel RGB image as original image and an ImageJ roi.zip file as annotations loaded.</p>
-<pre class="codehilite"><code class="language-shell">    # from the napari-annotatorj folder
-    python src/napari_annotatorj/load_imagej_roi.py
+<pre><code class="language-shell"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># from the napari-annotatorj folder</span>
+<span class="w">	</span>python<span class="w"> </span>src/napari_annotatorj/load_imagej_roi.py
+</pre></div>
 </code></pre>
-
 <p>Alternatively, you can startup the napari-annotatorj plugin by running</p>
-<pre class="codehilite"><code class="language-shell">    # from the napari-annotatorj folder
-    python src/napari_annotatorj/startup_annotatorj.py
+<pre><code class="language-shell"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># from the napari-annotatorj folder</span>
+<span class="w">	</span>python<span class="w"> </span>src/napari_annotatorj/startup_annotatorj.py
+</pre></div>
 </code></pre>
-
 <hr />
 <h2>Shortcuts</h2>
 <table>
@@ -697,9 +914,11 @@ unet_masks
 </table>
 <hr />
 <h2>Setting device for deep learning model prediction</h2>
-<p>The <a href="#contour-assist-mode">Contour assist</a> mode uses a pre-trained U-Net model for suggesting contours based on a lazily initialized contour drawn by the user. The default configuration loads and runs the model on the CPU so all users can run it. It is possible to switch to GPU if you have:
-- a CUDA-capable GPU in your computer
-- nVidia's CUDA toolkit + cuDNN installed</p>
+<p>The <a href="#contour-assist-mode">Contour assist</a> mode uses a pre-trained U-Net model for suggesting contours based on a lazily initialized contour drawn by the user. The default configuration loads and runs the model on the CPU so all users can run it. It is possible to switch to GPU if you have:</p>
+<ul>
+<li>a CUDA-capable GPU in your computer</li>
+<li>nVidia's CUDA toolkit + cuDNN installed</li>
+</ul>
 <p>See installation guide on <a href="https://developer.nvidia.com/cuda-downloads">nVidia's website</a> according to your system.</p>
 <p>To switch to GPU utilization, edit <a href="https://github.com/spreka/napari-annotatorj/blob/main/src/napari_annotatorj/_dock_widget.py#L112">_dock_widget.py</a> and set to the device you would like to use. Valid values are <code>'cpu','0','1','2',...</code>. The default value is <code>cpu</code>. The default GPU device is <code>0</code> if your system has any CUDA-capable GPU. If the device you set cannot be found or utilized by the code, it will fall back to <code>cpu</code>. An informative message is printed to the console upon plugin startup.</p>
 <hr />
@@ -708,10 +927,10 @@ unet_masks
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-annotatorj" is free and open source software</p>
+&quot;napari-annotatorj&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/spreka/napari-annotatorj/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

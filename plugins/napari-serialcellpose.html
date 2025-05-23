@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,82 +206,49 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/guiwitz/napari-serialcellpose/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-serialcellpose.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-serialcellpose"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-serialcellpose.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-serialcellpose.svg?color=green" /></a>
-<a href="https://github.com/guiwitz/napari-serialcellpose/actions"><img alt="tests" src="https://github.com/guiwitz/napari-serialcellpose/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/guiwitz/napari-serialcellpose"><img alt="codecov" src="https://codecov.io/gh/guiwitz/napari-serialcellpose/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-serialcellpose"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-serialcellpose" /></a></p>
-<p>This napari plugin allows you to segment single images or series of images using built-in or custom Cellpose models as well as to analyze the properties of these segmented regions ("region properties"). Properties can be visualized for a single image or a complete experiment in the form of histograms that can also be filtered (e.g. based on area size, mean intensity etc.) Thanks to the <a href="https://github.com/haesleinhuepf/napari-skimage-regionprops">napari-skimage-regionprops</a> plugin, properties of segmented objects can be interactively explored at a single object level.</p>
+                                        <p><a href="https://github.com/guiwitz/napari-serialcellpose/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-serialcellpose.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-serialcellpose"><img src="https://img.shields.io/pypi/v/napari-serialcellpose.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-serialcellpose.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/guiwitz/napari-serialcellpose/actions"><img src="https://github.com/guiwitz/napari-serialcellpose/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/guiwitz/napari-serialcellpose"><img src="https://codecov.io/gh/guiwitz/napari-serialcellpose/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-serialcellpose"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-serialcellpose" alt="napari hub" /></a></p>
+<p>This napari plugin allows you to segment single images or series of images using built-in or custom Cellpose models as well as to analyze the properties of these segmented regions (&quot;region properties&quot;). Properties can be visualized for a single image or a complete experiment in the form of histograms that can also be filtered (e.g. based on area size, mean intensity etc.) Thanks to the <a href="https://github.com/haesleinhuepf/napari-skimage-regionprops">napari-skimage-regionprops</a> plugin, properties of segmented objects can be interactively explored at a single object level.</p>
 <h2>Main goal</h2>
 <p>The main goal of this plugin is to simplify the classical image processing pipeline of image segmentation followed by region analysis via Cellpose. It allows to quickly get a quantification of a set of images without the need for any scripting.</p>
 <h2>Installation</h2>
 <p>In order to use this plugin, whe highly recommend to create a specific environment and to install the required software in it. You can create a conda environment using:</p>
-<pre class="codehilite"><code>conda create -n serialcellpose python=3.8.5 napari -c conda-forge
+<pre><code>conda create -n serialcellpose python=3.8.5 napari -c conda-forge
 </code></pre>
-
 <p>Then activate it and install the plugin:</p>
-<pre class="codehilite"><code>conda activate serialcellpose
+<pre><code>conda activate serialcellpose
 pip install napari-serialcellpose
 </code></pre>
-
 <h3>Potential issue with PyTorch</h3>
 <p>Cellpose and therefore the plugin and napari can crash without warning in some cases with <code>torch==1.12.0</code>. This can be fixed by reverting to an earlier version using:</p>
-<pre class="codehilite"><code>pip install torch==1.11.0
+<pre><code>pip install torch==1.11.0
 </code></pre>
-
 <h3>GPU</h3>
 <p>In order to use a GPU:</p>
 <ol>
 <li>
 <p>Uninstall the PyTorch version that gets installed by default with Cellpose:</p>
-<pre class="codehilite"><code>pip uninstall torch
+<pre><code> pip uninstall torch
 </code></pre>
-
 </li>
 <li>
 <p>Make sure your have up-to-date drivers for your NVIDIA card installed.</p>
 </li>
 <li>
 <p>Re-install a GPU version of PyTorch via conda using a command that you can find <a href="https://pytorch.org/get-started/locally/">here</a> (this takes care of the cuda toolkit, cudnn etc. so <strong>no need to install manually anything more than the driver</strong>). The command will look like this:</p>
-<pre class="codehilite"><code>conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
+<pre><code> conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
 </code></pre>
-
 </li>
 </ol>
 <h3>Plugin Updates</h3>
 <p>To update the plugin, you only need to activate the existing environment and install the new version:</p>
-<pre class="codehilite"><code>conda activate serialcellpose
+<pre><code>conda activate serialcellpose
 pip install napari-serialcellpose -U
 </code></pre>
-
 <h2>Usage: segmentation</h2>
 <p>The main interface is shown below. The sequence of events should be the following:</p>
 <ol>
@@ -288,38 +259,38 @@ pip install napari-serialcellpose -U
 <li>Run the analysis on the currently selected image or on all files in the folder.</li>
 </ol>
 <h3>Options</h3>
-<ol>
+<ol start="6">
 <li>Select if you want to use a GPU or not.</li>
-<li>If you are using multi-channel images, you can specify which channel to segment and optionally which to use as "nuclei" channel to help cell segmentation.</li>
+<li>If you are using multi-channel images, you can specify which channel to segment and optionally which to use as &quot;nuclei&quot; channel to help cell segmentation.</li>
 <li>In case you are using one of the built-in models, you can set the estimated diameter of your objects.</li>
-<li>In the Options tab you will find a few more options for segmentation, including the two thresholds <code>flow_threshold</code> and <code>cellprob_threshold</code>. You can also decide to discard objects touching the border. Using the <code>Select options yml file</code> you can select a <code>.yml</code> file which contains a list of additional options to pass to the <code>eval</code> method of the Cellpose model. <strong>Note that options specified in the yml file will override options set in the GUI</strong>. The file <a href="https://raw.githubusercontent.com/guiwitz/napari-serialcellpose/main/src/napari_serialcellpose/_tests/my_options.yml">my_options.yml</a> is an example of such a file where for example the <code>diameter</code> (also available in the GUI) and <code>resample</code> (not available in the GUI) options are set. </li>
+<li>In the Options tab you will find a few more options for segmentation, including the two thresholds <code>flow_threshold</code> and <code>cellprob_threshold</code>. You can also decide to discard objects touching the border. Using the <code>Select options yml file</code> you can select a <code>.yml</code> file which contains a list of additional options to pass to the <code>eval</code> method of the Cellpose model. <strong>Note that options specified in the yml file will override options set in the GUI</strong>. The file <a href="https://raw.githubusercontent.com/guiwitz/napari-serialcellpose/main/src/napari_serialcellpose/_tests/my_options.yml">my_options.yml</a> is an example of such a file where for example the <code>diameter</code> (also available in the GUI) and <code>resample</code> (not available in the GUI) options are set.</li>
 </ol>
-<p><img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui1.png" alt="image" width="500">
-<img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui1b.png" alt="image" width="500"></p>
+<img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui1.png" alt="image" width="500">
+<img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui1b.png" alt="image" width="500">
 <h3>Properties</h3>
-<ol>
+<ol start="10">
 <li>After segmentation, properties of the objects can automatically be computed. You can select which properties should be computed in the Options tab. As defined in <code>napari-skimage-regionprops</code> properties are grouped by types. If you want to measure intensity properties such as mean intensity, you have to specify which channel (<code>Analysis channel</code>) you want to perform the measurement on.</li>
 </ol>
 <h3>Output</h3>
 <p>The results of the analysis are saved in the folder chosen in #2. The segmentation mask is saved with the same name as the original image with the suffix <code>_mask.tif</code>. A table with properties is saved in the subfolder <code>tables</code> also with the same name as the image with the suffix <code>props.csv</code>. If you run the plugin on multiple files in a folder, a <code>summary.csv</code> file is also generated which compiles all the data.</p>
 <h2>Usage: post-processing</h2>
 <p>After the analysis is done, when you select an image, the corresponding segmentation mask is shown on top of the image as shown below. This also works for saved segmentations: in that case you just select a folder with data and the corresponding output folder.</p>
-<p><img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui2.png" alt="image" width="500"></p>
+<img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui2.png" alt="image" width="500">
 <h3>Properties</h3>
 <p>If you head to the <strong>Properties</strong> tab, you will find there two histograms showing the distribution of two properties that you can choose from a list at the top of the window. Below the plot you find the table containing information for each cell (each line is a cell).</p>
 <p>As shown below, if you select the box <code>show selected</code>, you can select items in the properties table and it will highlight the corresponding cell in the viewer. If you select the pipet tool, you can also select a cell and see the corresponding line in the table highlighted.</p>
-<p><img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui3.png" alt="image" width="500"></p>
+<img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui3.png" alt="image" width="500">
 <h3>Summary</h3>
-<p>Finally if you select the <strong>Summary</strong> tab, and click on <code>Load summary</code>, it will load all data of the current output folder and create histograms of two properties that can be selected. An additional property can be used for filtering the data. Using the sliders, one can set a minimum and maximum threshold on the "filtering property", which will create a sub-selection of the data.</p>
-<p><img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui4.png" alt="image" width="500"></p>
+<p>Finally if you select the <strong>Summary</strong> tab, and click on <code>Load summary</code>, it will load all data of the current output folder and create histograms of two properties that can be selected. An additional property can be used for filtering the data. Using the sliders, one can set a minimum and maximum threshold on the &quot;filtering property&quot;, which will create a sub-selection of the data.</p>
+<img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui4.png" alt="image" width="500">
 <h2>Data</h2>
 <p>Sample data were acquired by Fabian Blank at the DBMR, University of Bern.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-serialcellpose" is free and open source software</p>
+&quot;napari-serialcellpose&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/guiwitz/napari-serialcellpose/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

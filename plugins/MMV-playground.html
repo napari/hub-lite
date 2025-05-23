@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,39 +233,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/MMV-Lab/MMV-playground/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/MMV-playground.svg?color=green" /></a>
-<a href="https://pypi.org/project/MMV-playground"><img alt="PyPI" src="https://img.shields.io/pypi/v/MMV-playground.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/MMV-playground.svg?color=green" /></a>
-<a href="https://github.com/MMV-Lab/MMV-playground/actions"><img alt="tests" src="https://github.com/MMV-Lab/MMV-playground/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/MMV-Lab/MMV-playground"><img alt="codecov" src="https://codecov.io/gh/MMV-Lab/MMV-playground/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/MMV-playground"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/MMV-playground" /></a></p>
+                                        <p><a href="https://github.com/MMV-Lab/MMV-playground/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/MMV-playground.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/MMV-playground"><img src="https://img.shields.io/pypi/v/MMV-playground.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/MMV-playground.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/MMV-Lab/MMV-playground/actions"><img src="https://github.com/MMV-Lab/MMV-playground/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/MMV-Lab/MMV-playground"><img src="https://codecov.io/gh/MMV-Lab/MMV-playground/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/MMV-playground"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/MMV-playground" alt="napari hub" /></a></p>
 <p>This plugin is aimed at researchers in biology and medicine who want to segment and analyze 2D microscopy images. It offers intuitive tools for common pre-processing and analysis tasks.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -272,70 +249,81 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>MMV-playground</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install MMV-playground
+<pre><code>pip install MMV-playground
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/MMV-Lab/MMV-playground.git
+<pre><code>pip install git+https://github.com/MMV-Lab/MMV-playground.git
 </code></pre>
-
 <h2>Documentation</h2>
 <p>This plugin for the graphics software Napari is designed to analyze two-dimensional microscopy images. Images should be provided in grayscale format, as colored images are not supported. The plugin includes seven core functions for image analysis:</p>
 <ol>
-<li>Intensity normalization  </li>
-<li>Smoothing  </li>
-<li>Background correction  </li>
-<li>Spot-shape filter  </li>
-<li>Filament-shape filter  </li>
-<li>Thresholding  </li>
-<li>Topology-preserving thinning  </li>
+<li>Intensity normalization</li>
+<li>Smoothing</li>
+<li>Background correction</li>
+<li>Spot-shape filter</li>
+<li>Filament-shape filter</li>
+<li>Thresholding</li>
+<li>Topology-preserving thinning</li>
 </ol>
 <p>We provide an <a href="https://github.com/MMV-Lab/MMV-playground/blob/main/docs/introduction.md">introduction</a> to explain the different functions of this plugin.</p>
 <h3><strong>How to Start and Use the Plugin</strong></h3>
-<p>To start the plugin, open Napari, go to the "Plugins" menu, and select "MMV-playground (MMV-playground)." The MMV-playground interface will appear on the right-hand side of the Napari window, displaying seven buttons, each corresponding to one of the available functions. Clicking a button opens a dialog box where you can select an image, adjust the parameters for the chosen function, and execute it by pressing the "Run" button. Clicking the function button again collapses the dialog box.</p>
+<p>To start the plugin, open Napari, go to the &quot;Plugins&quot; menu, and select &quot;MMV-playground (MMV-playground).&quot; The MMV-playground interface will appear on the right-hand side of the Napari window, displaying seven buttons, each corresponding to one of the available functions. Clicking a button opens a dialog box where you can select an image, adjust the parameters for the chosen function, and execute it by pressing the &quot;Run&quot; button. Clicking the function button again collapses the dialog box.</p>
 <h3>Screenshot</h3>
 <p>Here is a preview of the MMV-playground plugin in action:</p>
-<p><img alt="MMV-playground Plugin Screenshot" src="https://raw.githubusercontent.com/MMV-Lab/MMV-playground/main/docs/images/plugin_screenshot.png" /></p>
+<p><img src="https://raw.githubusercontent.com/MMV-Lab/MMV-playground/main/docs/images/plugin_screenshot.png" alt="MMV-playground Plugin Screenshot" /></p>
 <hr />
 <h3><strong>Intensity Normalization</strong></h3>
-<p>This function adjusts the image intensity to enhance contrast and improve uniformity. Two percentage values are required:<br />
-- <em>Lower percentage (0–5%)</em>: Defines the darkest portion of the image to ignore as background noise, which is set to a fixed value.<br />
-- <em>Upper percentage (95–100%)</em>: Specifies the brightest portion of the image to be capped, preventing overexposure.  </p>
+<p>This function adjusts the image intensity to enhance contrast and improve uniformity. Two percentage values are required:</p>
+<ul>
+<li><em>Lower percentage (0–5%)</em>: Defines the darkest portion of the image to ignore as background noise, which is set to a fixed value.</li>
+<li><em>Upper percentage (95–100%)</em>: Specifies the brightest portion of the image to be capped, preventing overexposure.</li>
+</ul>
 <p>The plugin calculates the respective percentiles based on these values. Intensities below the lower percentile are clipped, and those above the upper percentile are also capped. Finally, all pixel intensities are rescaled to the range [0, 1].</p>
 <hr />
 <h3><strong>Smoothing</strong></h3>
-<p>This function reduces noise to enhance image clarity. Two methods are available:<br />
-- <em>Gaussian smoothing</em><br />
-- <em>Edge-preserving smoothing</em>: Retains edges (e.g., cell boundaries) while reducing noise.  </p>
+<p>This function reduces noise to enhance image clarity. Two methods are available:</p>
+<ul>
+<li><em>Gaussian smoothing</em></li>
+<li><em>Edge-preserving smoothing</em>: Retains edges (e.g., cell boundaries) while reducing noise.</li>
+</ul>
 <hr />
 <h3><strong>Background Correction</strong></h3>
-<p>This function removes uneven illumination or background artifacts using a filter. The key parameter is:<br />
-- <em>Kernel size (1–100)</em>: Determines the spatial scale of the background correction. Smaller kernel sizes remove local noise, while larger sizes correct for broader illumination variations.  </p>
+<p>This function removes uneven illumination or background artifacts using a filter. The key parameter is:</p>
+<ul>
+<li><em>Kernel size (1–100)</em>: Determines the spatial scale of the background correction. Smaller kernel sizes remove local noise, while larger sizes correct for broader illumination variations.</li>
+</ul>
 <p>The <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.white_tophat.html">scipy.ndimage.white_tophat</a> function is used to perform the correction, making this method effective for images with dark backgrounds.</p>
 <hr />
 <h3><strong>Spot-Shape Filter</strong></h3>
-<p>This filter detects circular structures, such as cell nuclei or fluorescent spots. It is based on the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_laplace.html">scipy.ndimage.gaussian_laplace</a> function and requires:<br />
-- <em>Sigma (σ)</em>: Controls the size of the spots to detect. Smaller sigma values target smaller spots, while larger values focus on larger structures.</p>
+<p>This filter detects circular structures, such as cell nuclei or fluorescent spots. It is based on the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_laplace.html">scipy.ndimage.gaussian_laplace</a> function and requires:</p>
+<ul>
+<li><em>Sigma (σ)</em>: Controls the size of the spots to detect. Smaller sigma values target smaller spots, while larger values focus on larger structures.</li>
+</ul>
 <hr />
 <h3><strong>Filament-Shape Filter</strong></h3>
-<p>This filter highlights elongated structures like cytoskeletal fibers or blood vessels. Using the <a href="https://allencell.github.io/aics-segmentation/aicssegmentation.core.html">aicssegmentation.core.vessel.vesselness2D</a> function, the key parameter is:<br />
-- <em>Sigma (σ)</em>: Specifies the width of the detected filaments. Lower values detect thinner structures, while higher values identify thicker ones.</p>
+<p>This filter highlights elongated structures like cytoskeletal fibers or blood vessels. Using the <a href="https://allencell.github.io/aics-segmentation/aicssegmentation.core.html">aicssegmentation.core.vessel.vesselness2D</a> function, the key parameter is:</p>
+<ul>
+<li><em>Sigma (σ)</em>: Specifies the width of the detected filaments. Lower values detect thinner structures, while higher values identify thicker ones.</li>
+</ul>
 <hr />
 <h3><strong>Thresholding</strong></h3>
-<p>This function segments the image into binary regions by separating the signal from the background. Users can choose one of four thresholding methods:<br />
-- <em>Otsu</em>: Best for images with clear separation between background and signal intensities.<br />
-- <em>Li</em>: Suitable for uniformly illuminated images.<br />
-- <em>Triangle</em>: Effective for asymmetrical intensity distributions.<br />
-- <em>Sauvola</em>: Ideal for images with uneven illumination.  </p>
+<p>This function segments the image into binary regions by separating the signal from the background. Users can choose one of four thresholding methods:</p>
+<ul>
+<li><em>Otsu</em>: Best for images with clear separation between background and signal intensities.</li>
+<li><em>Li</em>: Suitable for uniformly illuminated images.</li>
+<li><em>Triangle</em>: Effective for asymmetrical intensity distributions.</li>
+<li><em>Sauvola</em>: Ideal for images with uneven illumination.</li>
+</ul>
 <p>The result is a binary image where pixels above the threshold are set to 1 (signal), and all others are set to 0 (background).</p>
 <hr />
 <h3><strong>Topology-Preserving Thinning</strong></h3>
-<p>This function extracts the skeleton of structures while maintaining their connectivity. Two parameters are required:<br />
-- <em>Minimum thickness (0.5–5)</em>: Defines the smallest allowable thickness of structures before thinning.<br />
-- <em>Thin (1–5)</em>: Controls the degree of thinning, reducing structure width while preserving topology (e.g., network connections).  </p>
+<p>This function extracts the skeleton of structures while maintaining their connectivity. Two parameters are required:</p>
+<ul>
+<li><em>Minimum thickness (0.5–5)</em>: Defines the smallest allowable thickness of structures before thinning.</li>
+<li><em>Thin (1–5)</em>: Controls the degree of thinning, reducing structure width while preserving topology (e.g., network connections).</li>
+</ul>
 <p>This is particularly useful for analyzing vascular or cellular networks.</p>
 <hr />
 <h3><strong>What Is Missing?</strong></h3>
@@ -345,10 +333,10 @@ https://napari.org/stable/plugins/index.html
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"MMV-playground" is free and open source software</p>
+&quot;MMV-playground&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/MMV-Lab/MMV-playground/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

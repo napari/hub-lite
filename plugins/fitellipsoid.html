@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -876,44 +880,17 @@ Public License instead of this License.  But first, please read
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/pierre-weiss/fitellipsoid/raw/main/LICENSE"><img alt="License GNU GPL v3.0" src="https://img.shields.io/pypi/l/fitellipsoid.svg?color=green" /></a>
-<a href="https://pypi.org/project/fitellipsoid"><img alt="PyPI" src="https://img.shields.io/pypi/v/fitellipsoid.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/fitellipsoid.svg?color=green" /></a></p>
+                                        <p><a href="https://github.com/pierre-weiss/fitellipsoid/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/fitellipsoid.svg?color=green" alt="License GNU GPL v3.0" /></a>
+<a href="https://pypi.org/project/fitellipsoid"><img src="https://img.shields.io/pypi/v/fitellipsoid.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/fitellipsoid.svg?color=green" alt="Python Version" /></a></p>
 <!-- [![tests](https://github.com/pierre-weiss/fitellipsoid/workflows/tests/badge.svg)](https://github.com/pierre-weiss/fitellipsoid/actions)-->
-<p><a href="https://codecov.io/gh/pierre-weiss/fitellipsoid"><img alt="codecov" src="https://codecov.io/gh/pierre-weiss/fitellipsoid/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/fitellipsoid"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/fitellipsoid" /></a>
-<a href="https://napari.org/stable/plugins/index.html"><img alt="npe2" src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" /></a></p>
+<p><a href="https://codecov.io/gh/pierre-weiss/fitellipsoid"><img src="https://codecov.io/gh/pierre-weiss/fitellipsoid/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/fitellipsoid"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/fitellipsoid" alt="napari hub" /></a>
+<a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a></p>
 <p>A plugin to find the best ellipsoid to fit a set of points clicked by the user.
-With just a few clicks (10 is the absolute minimum) around the cells/nuclei boundaries, the plugin fits an ellipsoid and returns its parameters. 
+With just a few clicks (10 is the absolute minimum) around the cells/nuclei boundaries, the plugin fits an ellipsoid and returns its parameters.
 This can be used to analyze tissue geometry, mecanical stress, provide training databases for segmentation algorithms,...</p>
-<p><img alt="FitEllipsoid widget example" src="https://raw.githubusercontent.com/pierre-weiss/fitellipsoid_napari/main/images/screenshot.jpg" /></p>
+<p><img src="https://raw.githubusercontent.com/pierre-weiss/fitellipsoid_napari/main/images/screenshot.jpg" alt="FitEllipsoid widget example" /></p>
 <hr />
 <!--
 Don't miss the full getting started guide to set up your new package:
@@ -922,16 +899,14 @@ https://github.com/napari/napari-plugin-template#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>fitellipsoid</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>conda create -n fitellipsoid-env python=3.11
+<pre><code>conda create -n fitellipsoid-env python=3.11
 conda activate fitellispoid-env
 pip install -U 'napari[all]'
 pip install fitellipsoid
 napari
 </code></pre>
-
 <h2>🧪 Usage Instructions</h2>
 <ol>
 <li>
@@ -942,24 +917,24 @@ napari
 </li>
 <li>
 <p><strong>Select the point layer</strong> created by the plugin and begin clicking along the boundary of your object:</p>
-</li>
-<li>🖱️ <strong>Left-click</strong> to add a point  </li>
-<li>
-<p>🖱️ <strong>Right-click</strong> to remove the last added point  </p>
-</li>
-<li>
-<p><strong>Once you've added at least 10 points</strong>, click on the <strong>"Fit Ellipsoid"</strong> button.</p>
+<ul>
+<li>🖱️ <strong>Left-click</strong> to add a point</li>
+<li>🖱️ <strong>Right-click</strong> to remove the last added point</li>
+</ul>
 </li>
 <li>
-<p>A <strong>blue ellipsoid</strong> will be fitted and displayed.  </p>
+<p><strong>Once you've added at least 10 points</strong>, click on the <strong>&quot;Fit Ellipsoid&quot;</strong> button.</p>
 </li>
-<li>✅ If the shape fits well, you're done with that object.  </li>
 <li>
-<p>❌ If it doesn't, return to the corresponding point layer and add or adjust points.</p>
+<p>A <strong>blue ellipsoid</strong> will be fitted and displayed.</p>
+<ul>
+<li>✅ If the shape fits well, you're done with that object.</li>
+<li>❌ If it doesn't, return to the corresponding point layer and add or adjust points.</li>
+</ul>
 </li>
 <li>
 <p><strong>Repeat</strong> the process for all objects you'd like to segment.<br />
-   The plugin automatically adds a new point layer after each fit.</p>
+The plugin automatically adds a new point layer after each fit.</p>
 </li>
 <li>
 <p>When you're finished, <strong>save the results</strong> as a <code>.csv</code> file and optionally export a segmentation mask.</p>
@@ -975,10 +950,10 @@ napari
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,
-"fitellipsoid" is free and open source software</p>
+&quot;fitellipsoid&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

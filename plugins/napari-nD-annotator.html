@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,48 +210,25 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/bauerdavid/napari-nD-annotator/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-nD-annotator.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-nD-annotator"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-nD-annotator.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-nD-annotator.svg?color=green" /></a>
-<a href="https://github.com/bauerdavid/napari-nD-annotator/actions"><img alt="tests" src="https://github.com/bauerdavid/napari-nD-annotator/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/bauerdavid/napari-nD-annotator"><img alt="codecov" src="https://codecov.io/gh/bauerdavid/napari-nD-annotator/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-nD-annotator"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-nD-annotator" /></a></p>
+                                        <p><a href="https://github.com/bauerdavid/napari-nD-annotator/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-nD-annotator.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-nD-annotator"><img src="https://img.shields.io/pypi/v/napari-nD-annotator.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-nD-annotator.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/bauerdavid/napari-nD-annotator/actions"><img src="https://github.com/bauerdavid/napari-nD-annotator/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/bauerdavid/napari-nD-annotator"><img src="https://codecov.io/gh/bauerdavid/napari-nD-annotator/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-nD-annotator"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-nD-annotator" alt="napari hub" /></a></p>
 <p><strong>A toolbox for annotating objects one by one in nD.</strong></p>
 <p>This plugin contains some tools to make 2D/3D (and technically any dimensional) annotation easier.
-Main features:
- * auto-filling labels
- * label slice interpolation (geometric mean, RPSV representation)
- * minimal contour segmentation</p>
-<p>If the <code><a href="https://github.com/bauerdavid/napari-bbox">napari-bbox</a></code> plugin is also installed (see <a href="#installation">Installation</a>), you can also
- * list objects annotated with bounding boxes 
- * visualize selected objects from different projections</p>
+Main features:</p>
+<ul>
+<li>auto-filling labels</li>
+<li>label slice interpolation (geometric mean, RPSV representation)</li>
+<li>minimal contour segmentation</li>
+</ul>
+<p>If the <code><a href="https://github.com/bauerdavid/napari-bbox">napari-bbox</a></code> plugin is also installed (see <a href="#installation">Installation</a>), you can also</p>
+<ul>
+<li>list objects annotated with bounding boxes</li>
+<li>visualize selected objects from different projections</li>
+</ul>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -257,12 +238,10 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-nD-annotator</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-nD-annotator
+<pre><code>pip install napari-nD-annotator
 </code></pre>
-
 <p>The plugin is also available in <a href="https://napari-hub.org/">napari-hub</a>, to install it directly from napari, please refer to
 <a href="https://napari.org/plugins/find_and_install_plugin.html">plugin installation instructions</a> at the official <a href="https://github.com/napari/napari">napari</a> website.</p>
 <h3>Optional packages</h3>
@@ -271,35 +250,34 @@ https://napari.org/plugins/index.html
 <p>The bounding box and object list functionality requires the <code><a href="https://github.com/bauerdavid/napari-bbox">napari-bbox</a></code> Python package.
 If you want to use these features, install <code><a href="https://github.com/bauerdavid/napari-bbox">napari-bbox</a></code> separately either using <a href="https://pypi.org/project/pip/">pip</a> or directly from napari.
 You can also install it together with this plugin:</p>
-<pre class="codehilite"><code>pip install napari-nD-annotator[bbox]
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">nD</span><span class="o">-</span><span class="n">annotator</span><span class="o">[</span><span class="n">bbox</span><span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <h4>Minimal surface</h4>
 <p>To use the minimal surface method, you will need the <code><a href="https://pypi.org/project/minimal-surface">minimal-surface</a></code> Python package as well. Please install it using <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <p>Separately:</p>
-<pre class="codehilite"><code>pip install minimal-surface
+<pre><code><div class="highlight"><pre><span></span>pip install minimal-surface
+</pre></div>
 </code></pre>
-
 <p>Or bundled with the plugin:</p>
-<pre class="codehilite"><code>pip install napari-nD-annotator[ms]
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">nD</span><span class="o">-</span><span class="n">annotator</span><span class="o">[</span><span class="n">ms</span><span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <blockquote>
 <p>[!WARNING]
 The <code><a href="https://pypi.org/project/minimal-surface">minimal-surface</a></code> package is only available for Windows at the time. We are actively working on bringing it to Linux and Mac systems as well.</p>
 </blockquote>
 <h1></h1>
 <p>If you would like to install all optional packages, use</p>
-<pre class="codehilite"><code>pip install napari-nD-annotator[all]
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">nD</span><span class="o">-</span><span class="n">annotator</span><span class="o">[</span><span class="n">all</span><span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <h3></h3>
 <p>If any problems occur during installation or while using the plugin, please <a href="https://github.com/bauerdavid/napari-nD-annotator/issues/new/choose">file an issue</a>.</p>
 <h2>Usage</h2>
 <p>You can start napari with the plugin's widgets already opened as:</p>
-<pre class="codehilite"><code>napari -w napari-nD-annotator &quot;Object List&quot; &quot;Annotation Toolbox&quot;
+<pre><code>napari -w napari-nD-annotator &quot;Object List&quot; &quot;Annotation Toolbox&quot;
 </code></pre>
-
 <h3>Bounding boxes</h3>
 <p>The main idea is to create bounding boxes around objects we want to annotate, crop them, and annotate them one by one. This has mainly two advantages when visualizing in 3D:</p>
 <ol>
@@ -316,43 +294,54 @@ The <code><a href="https://pypi.org/project/minimal-surface">minimal-surface</a>
 <li>Repeat from 3.</li>
 </ol>
 <h3>Slice interpolation</h3>
-<p>The <code>Interpolation</code> tab contains tools for estimating missing annotation slices from existing ones. There are multiple options:
- * Geometric: the interpolation will be determined by calculating the average of the corresponding contour points.
- * RPSV: A more sophisticated average contour calculation, see the preprint <a href="https://arxiv.org/pdf/1901.02823.pdf">here</a>.
- * Distance-based: a signed distance transform is applied to the annotations. The missing slices will be filled in using their 
-weighted sum.</p>
+<p>The <code>Interpolation</code> tab contains tools for estimating missing annotation slices from existing ones. There are multiple options:</p>
+<ul>
+<li>Geometric: the interpolation will be determined by calculating the average of the corresponding contour points.</li>
+<li>RPSV: A more sophisticated average contour calculation, see the preprint <a href="https://arxiv.org/pdf/1901.02823.pdf">here</a>.</li>
+<li>Distance-based: a signed distance transform is applied to the annotations. The missing slices will be filled in using their
+weighted sum.</li>
+</ul>
 <blockquote>
-<p><strong>Note</strong>: Geometric and RPSV interpolation works only when there's a single connected mask on each slice. If you want to 
+<p><strong>Note</strong>: Geometric and RPSV interpolation works only when there's a single connected mask on each slice. If you want to
 interpolate disjoint objects (<em>e.g.</em> dividing cells), use distance based interpolation instead.</p>
+</blockquote>
+<blockquote>
 <p><strong>Note</strong>: Distance-based interpolation might give bad results if some masks are too far away from each other on the same slice
 and there's a big offset compared to the other slice used in the interpolation. If you get unsatisfactory results, try
 annotating more slices (skip less frames).</p>
 </blockquote>
-<p>https://user-images.githubusercontent.com/36735863/188876826-1771acee-93ba-4905-982e-bfb459329659.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/36735863/188876826-1771acee-93ba-4905-982e-bfb459329659.mp4">https://user-images.githubusercontent.com/36735863/188876826-1771acee-93ba-4905-982e-bfb459329659.mp4</a></p>
 <h3>Minimal contour</h3>
 <p>This plugin can estimate a minimal contour, which is calculated from a point set on the edges of the object, which are provided by the user. This contour will follow some kind of image feature (pixels with high gradient or high/low intensity).
-Features:
- * With a single click a new point can be added to the set. This will also extend the contour with the curve shown in red
- * A double click will close the curve by adding both the red and gray curves to the minimal contour
- * When holding <code>Shift</code>, the gray and red highlight will be swapped, so the other curve can be added to the contour
- * With the <code>Ctrl</code> button down a straight line can be added instead of the minimal path
- * If the anchor points were misplaced, the last point can be removed by right-clicking, or the whole point set can be cleared by pressing <code>Esc</code>
- * The <code>Param</code> value at the widget will decide, how strongly should the contour follow edges on the image. Higher value means higher sensitivity to image data, while a lower value will be closer to straight lines.
- * Different features can be used, like image gradient or pixel intensities, and also user-defined features (using Python)
-   * the image is accessed as the <code>image</code> variable, and the features should be stored in the <code>features</code> variable in the small code editor widget</p>
+Features:</p>
+<ul>
+<li>With a single click a new point can be added to the set. This will also extend the contour with the curve shown in red</li>
+<li>A double click will close the curve by adding both the red and gray curves to the minimal contour</li>
+<li>When holding <code>Shift</code>, the gray and red highlight will be swapped, so the other curve can be added to the contour</li>
+<li>With the <code>Ctrl</code> button down a straight line can be added instead of the minimal path</li>
+<li>If the anchor points were misplaced, the last point can be removed by right-clicking, or the whole point set can be cleared by pressing <code>Esc</code></li>
+<li>The <code>Param</code> value at the widget will decide, how strongly should the contour follow edges on the image. Higher value means higher sensitivity to image data, while a lower value will be closer to straight lines.</li>
+<li>Different features can be used, like image gradient or pixel intensities, and also user-defined features (using Python)
+<ul>
+<li>the image is accessed as the <code>image</code> variable, and the features should be stored in the <code>features</code> variable in the small code editor widget</li>
+</ul>
+</li>
+</ul>
 <p>This functionality can be used by selecting the <code>Minimal Contour</code> tab in the <code>Annotation Toolbox</code> widget, which will create a new layer called <code>Anchors</code>.</p>
 <blockquote>
 <p><strong>Warning</strong>: Do not remove the <code>Anchors</code> layer!</p>
+</blockquote>
+<blockquote>
 <p><strong>Warning</strong>: Some utility layers appear in the layer list when using the plugin. These are marked with a lock (:lock:) symbol.
 <strong>Do not remove them or modify their data, as this will most probably break the plugin!</strong> However, you can change their appearance,
 <em>e.g.</em> their color settings.</p>
 </blockquote>
 <h4>Intensity-based:</h4>
-<p>https://user-images.githubusercontent.com/36735863/191023482-0dfafb5c-003a-47f6-a21b-8582a4e3930f.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/36735863/191023482-0dfafb5c-003a-47f6-a21b-8582a4e3930f.mp4">https://user-images.githubusercontent.com/36735863/191023482-0dfafb5c-003a-47f6-a21b-8582a4e3930f.mp4</a></p>
 <h4>Gradient-based:</h4>
-<p>https://user-images.githubusercontent.com/36735863/191024941-f20f63a0-8281-47d2-be22-d1ec34fe1f5d.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/36735863/191024941-f20f63a0-8281-47d2-be22-d1ec34fe1f5d.mp4">https://user-images.githubusercontent.com/36735863/191024941-f20f63a0-8281-47d2-be22-d1ec34fe1f5d.mp4</a></p>
 <h4>Custom feature:</h4>
-<p>https://user-images.githubusercontent.com/36735863/191025028-3f807bd2-1f2e-40d2-800b-48af820a7dbe.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/36735863/191025028-3f807bd2-1f2e-40d2-800b-48af820a7dbe.mp4">https://user-images.githubusercontent.com/36735863/191025028-3f807bd2-1f2e-40d2-800b-48af820a7dbe.mp4</a></p>
 <h3>Shortcuts</h3>
 <table>
 <thead>
@@ -413,14 +402,16 @@ Features:
 <blockquote>
 <p>*Built-in functionality of <a href="https://github.com/napari/napari">napari</a></p>
 <p>**<code>i</code>: 0-9</p>
+</blockquote>
+<blockquote>
 <p><strong>Note</strong>: you can check the list of available shortcuts by clicking the <code>?</code> button in the bottom right corner of the main widget.</p>
 </blockquote>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-nD-annotator" is free and open source software</p>
+&quot;napari-nD-annotator&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/bauerdavid/napari-nD-annotator/issues/new/choose">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

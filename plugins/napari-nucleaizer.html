@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,46 +206,18 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/etasnadi/napari-nucleaizer/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-nucleaizer.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-nucleaizer"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-nucleaizer.svg?color=green" /></a>
-<a href="https://github.com/etasnadi/napari_nucleaizer/actions/workflows/test_and_deploy.yml"><img alt="Python package" src="https://github.com/etasnadi/napari_nucleaizer/actions/workflows/test_and_deploy.yml/badge.svg" /></a>
-<a href="https://codecov.io/gh/etasnadi/napari_nucleaizer"><img alt="codecov" src="https://codecov.io/gh/etasnadi/napari_nucleaizer/branch/master/graph/badge.svg?token=5XC36PA6OQ" /></a>
-<a href="https://napari-nucleaizer-docs.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/napari-nucleaizer-docs/badge/?version=latest" /></a></p>
+                                        <p><a href="https://github.com/etasnadi/napari-nucleaizer/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-nucleaizer.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-nucleaizer"><img src="https://img.shields.io/pypi/v/napari-nucleaizer.svg?color=green" alt="PyPI" /></a>
+<a href="https://github.com/etasnadi/napari_nucleaizer/actions/workflows/test_and_deploy.yml"><img src="https://github.com/etasnadi/napari_nucleaizer/actions/workflows/test_and_deploy.yml/badge.svg" alt="Python package" /></a>
+<a href="https://codecov.io/gh/etasnadi/napari_nucleaizer"><img src="https://codecov.io/gh/etasnadi/napari_nucleaizer/branch/master/graph/badge.svg?token=5XC36PA6OQ" alt="codecov" /></a>
+<a href="https://napari-nucleaizer-docs.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/napari-nucleaizer-docs/badge/?version=latest" alt="Documentation Status" /></a></p>
 <!--
 [![Python Version](https://img.shields.io/pypi/pyversions/napari-nucleaizer.svg?color=green)](https://python.org)
 [![tests](https://github.com/etasnadi/napari_nucleaizer/workflows/tests/badge.svg)](https://github.com/etasnadi/napari-nucleaizer/actions)
 [![codecov](https://codecov.io/gh/etasnadi/napari-nucleaizer/branch/master/graph/badge.svg)](https://codecov.io/gh/etasnadi/napari-nucleaizer)
 -->
-
 <p>GUI for the nucleaAIzer method in Napari.</p>
-<p><img alt="Plugin interface in napari." src="https://github.com/etasnadi/napari_nucleaizer/blob/main/napari_screenshot.png?raw=true" /></p>
+<p><img src="https://github.com/etasnadi/napari_nucleaizer/blob/main/napari_screenshot.png?raw=true" alt="Plugin interface in napari." /></p>
 <h2>Overview</h2>
 <p>This is a napari plugin to execute the nucleaizer nuclei segmentation algorithm.</p>
 <h3>Main functionalities</h3>
@@ -249,23 +225,26 @@ pre > code:last-child {
 <ol>
 <li>Load your image into Napar, then outline the nuclei.</li>
 <li>Specify an image folder containing lots of images and an output folder, and automatically segment all of the images in the input folder.</li>
-<li>If you are not satisfied with the results, you can train your own model:<ol>
+<li>If you are not satisfied with the results, you can train your own model:
+<ol>
 <li>You can use our pretrained models and fine tune them on your data.</li>
 <li>You can skip the nucleaizer pipeline and train only on your data.</li>
 </ol>
 </li>
 </ol>
 <h3>Supported image types</h3>
-<p>We have several pretrained models for the following image modelities:
-* fluorescent microscopy images
-* IHC stained images
-* brightfield microscopy images,</p>
-<p>among others. For the detailed descriptions of our models, see: https://zenodo.org/record/6800341.</p>
+<p>We have several pretrained models for the following image modelities:</p>
+<ul>
+<li>fluorescent microscopy images</li>
+<li>IHC stained images</li>
+<li>brightfield microscopy images,</li>
+</ul>
+<p>among others. For the detailed descriptions of our models, see: <a href="https://zenodo.org/record/6800341">https://zenodo.org/record/6800341</a>.</p>
 <h3>How it works?</h3>
-<p>For the description of the algorithm, see our paper: "Hollandi et al.: nucleAIzer: A Parameter-free Deep Learning Framework for Nucleus Segmentation Using Image Style Transfer, Cell Systems, 2020. https://doi.org/10.1016/j.cels.2020.04.003"</p>
-<p>The original code (https://github.com/spreka/biomagdsb) is partially transformed into a python package (nucleaizer_backend) to actually perform the operations. See the project page of the backend at: https://github.com/etasnadi/nucleaizer_backend.</p>
-<p>If you wish to use the web interface, check: http://nucleaizer.org.</p>
-<p><img alt="All functionalities." src="https://github.com/etasnadi/napari_nucleaizer/blob/main/nucleaizer_screenshot.png?raw=true" /></p>
+<p>For the description of the algorithm, see our paper: &quot;Hollandi et al.: nucleAIzer: A Parameter-free Deep Learning Framework for Nucleus Segmentation Using Image Style Transfer, Cell Systems, 2020. <a href="https://doi.org/10.1016/j.cels.2020.04.003">https://doi.org/10.1016/j.cels.2020.04.003</a>&quot;</p>
+<p>The original code (<a href="https://github.com/spreka/biomagdsb">https://github.com/spreka/biomagdsb</a>) is partially transformed into a python package (nucleaizer_backend) to actually perform the operations. See the project page of the backend at: <a href="https://github.com/etasnadi/nucleaizer_backend">https://github.com/etasnadi/nucleaizer_backend</a>.</p>
+<p>If you wish to use the web interface, check: <a href="http://nucleaizer.org">http://nucleaizer.org</a>.</p>
+<p><img src="https://github.com/etasnadi/napari_nucleaizer/blob/main/nucleaizer_screenshot.png?raw=true" alt="All functionalities." /></p>
 <!--
 Don't miss the full getting started guide to set up your new package:
 https://github.com/napari/cookiecutter-napari-plugin#getting-started
@@ -273,14 +252,13 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Install</h2>
 <ol>
 <li>
 <p>Create an environment (recommended).</p>
 </li>
 <li>
-<p>Install napari: <code>pip install "napari[pyqt5]"</code>. Other methods: https://napari.org/tutorials/fundamentals/installation.html</p>
+<p>Install napari: <code>pip install &quot;napari[pyqt5]&quot;</code>. Other methods: <a href="https://napari.org/tutorials/fundamentals/installation.html">https://napari.org/tutorials/fundamentals/installation.html</a></p>
 </li>
 <li>
 <p>Install the plugin into napari:</p>
@@ -292,21 +270,21 @@ https://napari.org/docs/plugins/index.html
 <p>Developer mode: clone this project and use <code>pythhon3 -m pip install -e &lt;path&gt;</code> to install the project locally <strong>into the same evnrionment as napari</strong>. It has the advantage that you will have the latest version.</p>
 </li>
 </ul>
+</li>
+</ol>
 <h2>Run</h2>
-</li>
-<li>
-<p>Start Napari by calling <code>napari</code> from the command line.</p>
-</li>
+<ol>
+<li>Start Napari by calling <code>napari</code> from the command line.</li>
 <li>Then, activate the plugin in the <code>Plugins</code> menu. If you successfully installed the plugin, you have to see something like this:</li>
 </ol>
-<p><img alt="Plugin interface in napari." src="https://github.com/etasnadi/napari_nucleaizer/blob/main/napari_plugin_launch.png?raw=true" /></p>
+<p><img src="https://github.com/etasnadi/napari_nucleaizer/blob/main/napari_plugin_launch.png?raw=true" alt="Plugin interface in napari." /></p>
 <h2>Further help</h2>
 <p>See the <a href="https://napari-nucleaizer-docs.readthedocs.io/en/latest/index.html">documentation</a> (work in progress).</p>
 <h2>Issues</h2>
 <p>Use the github issue tracker if you experinece unexpected behaviour.</p>
 <h2>Contact</h2>
 <p>You can contact me in <a href="mailto:tasnadi.ervin@MY-INSTITUTE">e-mail</a> where MY-INSTITUTE is <code>brc.hu</code>.</p>
-        
+
 
                                     </div>
                                 </div>

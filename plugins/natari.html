@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,71 +210,43 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/natari/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/natari.svg?color=green" /></a>
-<a href="https://pypi.org/project/natari"><img alt="PyPI" src="https://img.shields.io/pypi/v/natari.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/natari.svg?color=green" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/natari/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/natari.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/natari"><img src="https://img.shields.io/pypi/v/natari.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/natari.svg?color=green" alt="Python Version" /></a></p>
 <p>Napari gaming</p>
 <h2>Sliding puzzle</h2>
-<p>Restore the image by reordering the superpixels using the <code>W</code>, <code>A</code>, <code>S</code>, <code>D</code> keys! </p>
-<p><img alt="" src="https://github.com/haesleinhuepf/natari/raw/master/images/sliding_puzzle.gif" /></p>
+<p>Restore the image by reordering the superpixels using the <code>W</code>, <code>A</code>, <code>S</code>, <code>D</code> keys!</p>
+<p><img src="https://github.com/haesleinhuepf/natari/raw/master/images/sliding_puzzle.gif" alt="" /></p>
 <h2>Cell counting arcade</h2>
 <p>Commander! Cells are intruding our dish! Control your tiny space ship using <code>1</code> and <code>2</code> keys to move it left/right.
 Use the <code>9</code> key to shoot a anti-cell bullet.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/natari/raw/master/images/cell_counting_arcade.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/natari/raw/master/images/cell_counting_arcade.gif" alt="" /></p>
 <p>The image originates from <a href="https://bbbc.broadinstitute.org/BBBC022">BBBC022v1</a> (Gustafsdottir et al., PLOS ONE, 2013), available from the Broad Bioimage Benchmark Collection (Ljosa et al., Nature Methods, 2012).</p>
 <h2>Snake</h2>
-<p>Two mitochondria navigating in a cell searching for stress granules. 
+<p>Two mitochondria navigating in a cell searching for stress granules.
 The two players can control their mito using the <code>W</code>, <code>A</code>, <code>S</code>, <code>D</code> and <code>I</code>, <code>J</code>, <code>K</code>, <code>L</code>  keys, respectively.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/natari/raw/master/images/snake.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/natari/raw/master/images/snake.gif" alt="" /></p>
 <h2>Ping pong</h2>
 <p>Don't drop the organoid! Use your racket and hit it back to your colleague!
 The two players can use <code>W</code>, <code>S</code> and <code>I</code>, <code>K</code> to control their racket, respectively.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/natari/raw/master/images/ping_pong.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/natari/raw/master/images/ping_pong.gif" alt="" /></p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p>You can install <code>natari</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install natari
+<pre><code>pip install natari
 </code></pre>
-
 <h2>Known issues</h2>
 <ul>
 <li>To make the keyboard buttons work, you sometimes have to click within the image after starting the game.</li>
 </ul>
 <h2>Contributing</h2>
-<p>Contributions are very welcome. </p>
+<p>Contributions are very welcome.</p>
 <h2>License</h2>
-<p>"natari" is free and open source software. The code is in the public domain.</p>
+<p>&quot;natari&quot; is free and open source software. The code is in the public domain.</p>
 <p><a href="https://unlicense.org">See also: unlicense.org</a></p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/haesleinhuepf/natari/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,75 +210,55 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/lazigu/napari-clusters-plotter/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-clusters-plotter.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-clusters-plotter"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-clusters-plotter.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-clusters-plotter.svg?color=green" /></a>
-<a href="https://anaconda.org/conda-forge/napari-clusters-plotter"><img alt="Anaconda-Server Badge" src="https://anaconda.org/conda-forge/napari-clusters-plotter/badges/version.svg" /></a>
-<a href="https://github.com/BiAPoL/napari-clusters-plotter/actions/workflows/test_and_deploy.yml"><img alt="tests" src="https://github.com/BiAPoL/napari-clusters-plotter/actions/workflows/test_and_deploy.yml/badge.svg" /></a>
-<a href="https://codecov.io/gh/BiAPoL/napari-clusters-plotter"><img alt="codecov" src="https://codecov.io/gh/BiAPoL/napari-clusters-plotter/branch/main/graph/badge.svg?token=R6W2KO1NJ8" /></a>
-<a href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a>
-<a href="https://anaconda.org/conda-forge/napari-clusters-plotter"><img alt="Anaconda-Server Badge" src="https://anaconda.org/conda-forge/napari-clusters-plotter/badges/downloads.svg" /></a>
-<a href="https://www.napari-hub.org/plugins/napari-clusters-plotter"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-clusters-plotter" /></a>
-<a href="https://doi.org/10.5281/zenodo.7011471"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.7011471.svg" /></a></p>
+                                        <p><a href="https://github.com/lazigu/napari-clusters-plotter/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-clusters-plotter.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-clusters-plotter"><img src="https://img.shields.io/pypi/v/napari-clusters-plotter.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-clusters-plotter.svg?color=green" alt="Python Version" /></a>
+<a href="https://anaconda.org/conda-forge/napari-clusters-plotter"><img src="https://anaconda.org/conda-forge/napari-clusters-plotter/badges/version.svg" alt="Anaconda-Server Badge" /></a>
+<a href="https://github.com/BiAPoL/napari-clusters-plotter/actions/workflows/test_and_deploy.yml"><img src="https://github.com/BiAPoL/napari-clusters-plotter/actions/workflows/test_and_deploy.yml/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/BiAPoL/napari-clusters-plotter"><img src="https://codecov.io/gh/BiAPoL/napari-clusters-plotter/branch/main/graph/badge.svg?token=R6W2KO1NJ8" alt="codecov" /></a>
+<a href="https://github.com/pre-commit/pre-commit"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" alt="pre-commit" /></a>
+<a href="https://anaconda.org/conda-forge/napari-clusters-plotter"><img src="https://anaconda.org/conda-forge/napari-clusters-plotter/badges/downloads.svg" alt="Anaconda-Server Badge" /></a>
+<a href="https://www.napari-hub.org/plugins/napari-clusters-plotter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-clusters-plotter" alt="napari hub" /></a>
+<a href="https://doi.org/10.5281/zenodo.7011471"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7011471.svg" alt="DOI" /></a></p>
 <p>A napari-plugin for clustering objects according to their properties.</p>
-<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/screencast2_timelapse.gif" width="700"/></p>
+<img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/screencast2_timelapse.gif" width="700"/>
 <hr />
 <p><strong>Note: support for other layers besides the <code>Labels</code> layer as described below is currently only available in the development version. This note will be removed as soon as there is a new release.</strong></p>
-<p>Jump to:
-- <a href="#usage">Usage</a>
-  - <a href="#starting-point">Starting point</a>
-  - <a href="#measurements">Measurements</a>
-  - <a href="#time-lapse-measurements">Time-Lapse Measurements</a>
-  - <a href="#plotting">Plotting</a>
-  - <a href="#time-lapse-plotting">Time-Lapse Plotting</a>
-  - <a href="#dimensionality-reduction-umap-t-sne-or-pca">Dimensionality reduction: UMAP, t-SNE or PCA</a>
-  - <a href="#clustering">Clustering</a>
-  - <a href="#plotting-clustering-results">Plotting clustering results</a>
-- <a href="#installation">Installation</a>
-- <a href="#troubleshooting-installation">Troubleshooting installation</a>
-- <a href="#contributing">Contributing</a>
-- <a href="#license">License</a>
-- <a href="#acknowledgements">Acknowledgements</a></p>
+<p>Jump to:</p>
+<ul>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#starting-point">Starting point</a></li>
+<li><a href="#measurements">Measurements</a></li>
+<li><a href="#time-lapse-measurements">Time-Lapse Measurements</a></li>
+<li><a href="#plotting">Plotting</a></li>
+<li><a href="#time-lapse-plotting">Time-Lapse Plotting</a></li>
+<li><a href="#dimensionality-reduction-umap-t-sne-or-pca">Dimensionality reduction: UMAP, t-SNE or PCA</a></li>
+<li><a href="#clustering">Clustering</a></li>
+<li><a href="#plotting-clustering-results">Plotting clustering results</a></li>
+</ul>
+</li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#troubleshooting-installation">Troubleshooting installation</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul>
 <h2>Usage</h2>
 <h3>Starting point</h3>
-<p>For clustering objects according to their properties, the starting point is a <a href="example_data/blobs.tif">grey-value image</a> and another layer containing derived measurements in the <code>.features</code> property. Here are the supported layer types along with <em>examples of what they may represent</em>:
-1. <code>Labels</code> layer containing a label image representing a <strong>segmentation</strong> of objects.
-2. <code>Points</code> layer containing points representing centroid <strong>coordinates</strong> of objects.
-3. <code>Surface</code> layer containing a surface representing a <strong>segmentation</strong> of an object.
-4. <code>Labels</code> layer containing a time-lapse label image representing <strong>tracking</strong> results, where each label number/color correspond to a unique track ID.</p>
+<p>For clustering objects according to their properties, the starting point is a <a href="example_data/blobs.tif">grey-value image</a> and another layer containing derived measurements in the <code>.features</code> property. Here are the supported layer types along with <em>examples of what they may represent</em>:</p>
+<ol>
+<li><code>Labels</code> layer containing a label image representing a <strong>segmentation</strong> of objects.</li>
+<li><code>Points</code> layer containing points representing centroid <strong>coordinates</strong> of objects.</li>
+<li><code>Surface</code> layer containing a surface representing a <strong>segmentation</strong> of an object.</li>
+<li><code>Labels</code> layer containing a time-lapse label image representing <strong>tracking</strong> results, where each label number/color correspond to a unique track ID.</li>
+</ol>
 <p>Check the <a href="./example_data/">examples data folder</a> to learn how to load these data with code.</p>
 <h3>1. Labels layer with Segmentation Results</h3>
 <p>The label image should not contain objects with the label <code>0</code> as these objects cannot be separated from the background, which is <code>0</code> as well in many images and would lead into erroneous behaviour when performing the clustering.
 For segmenting objects, you can for example use the <a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes#voronoi-otsu-labelling">Voronoi-Otsu-labelling approach</a>
 in the napari plugin <a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">napari-segment-blobs-and-things-with-membranes</a>.</p>
-<p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/starting_point.png" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/starting_point.png" alt="" /></p>
 <p>In case you have 2D time-lapse data you need to convert it into a suitable shape using the menu <code>Tools &gt; Utilities &gt; Convert 3D stack to 2D time-lapse (time-slicer)</code> (<a href="https://www.napari-hub.org/plugins/napari-time-slicer">documentation</a>).</p>
 <h3>Measurements</h3>
 <p>The first step is deriving measurements from the labeled image and the corresponding pixels in the grey-value image.
@@ -289,92 +273,96 @@ Make sure to avoid the label <code>0</code> as this is reserved for the backgrou
 <p>Once measurements were saved in the labels layer which was analysed, you can then plot these measurements using the menu <code>Tools &gt; Visualization &gt; Plot measurements (ncp)</code>.</p>
 <p>In this widget, you can select the labels layer which was analysed and the measurements which should be plotted
 on the X- and Y-axis. Click on <code>Plot</code> to draw the data points in the plot area.</p>
-<p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/plot_plain.png" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/plot_plain.png" alt="" /></p>
 <p>Under advanced options, you can also select the plot type histogram which will visualize a 2D histogram. 2D histogram visualization is recommended if you have a very high number of data points.</p>
-<p><img alt="img.png" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/histogram_2d.png" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/histogram_2d.png" alt="img.png" /></p>
 <p>If you choose the same measurement for the X and the Y axis, a histogram will be shown.</p>
-<p><img alt="img.png" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/histogram_1d.png" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/histogram_1d.png" alt="img.png" /></p>
 <p>Under advanced options you will also find the checkbox determining whether not-selected data points should be hidden (shown in grey) or automatically
 clustered as another cluster.</p>
 <h3>Manual clustering</h3>
 <p>You can manually select a region in the plot. To use lasso (freehand) tool use left mouse click, and to use a
 rectangle - right click. The resulting manual clustering will also be visualized in the original image. To optimize
 visualization in the image, turn off the visibility of the analysed labels layer.</p>
-<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/screencast.gif" width="700"/></p>
+<img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/screencast.gif" width="700"/>
 <p>Hold down the SHIFT key while annotating regions in the plot to manually select multiple clusters.</p>
-<p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/multi-select-manual-clustering.gif" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/multi-select-manual-clustering.gif" alt="" /></p>
 <h3>Saving manual clustering</h3>
 <p>Manual clustering results can be saved by going to <code>Tools &gt; Measurement &gt; Show table (nsr)</code>, and clicking on <code>Save as csv</code>.
-The saved table will contain a "MANUAL_CLUSTER_ID" column. This column is overwritten every time different clusters are manually selected.</p>
+The saved table will contain a &quot;MANUAL_CLUSTER_ID&quot; column. This column is overwritten every time different clusters are manually selected.</p>
 <h3>Time-Lapse analysis</h3>
 <p>When you plot your time-lapse datasets you will notice that the plots look slightly different.
 Datapoints of the current time frame are highlighted in bright color and you can see the datapoints move through the plot while you navigate through time:</p>
-<p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/plotting_time-lapse_data_as_movie.gif" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/plotting_time-lapse_data_as_movie.gif" alt="" /></p>
 <p>You can also manually select groups using the lasso tool and plot a measurement per frame and see how the group behaves in time.
 Furthermore, you could also select a group in time and see where the datapoints lie in a different feature space:</p>
-<p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/timelapse_manual_clustering_tips.gif" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/timelapse_manual_clustering_tips.gif" alt="" /></p>
 <p>If you have custom measurements from <strong>tracking data</strong> where each column specifies measurements for a track instead of a label at a specific time point, the <code>frame</code> column must not be added. Check <a href="">below</a> how tracking data and features should look like.</p>
 <h3>2. Points Layer with Coordinates</h3>
 <p>The <code>Points</code> layer typically contains coordinates of objects of interest (for example, object centroids).</p>
 <p>To get these coordinates, you can apply spot detection algorithms (check references <a href="https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_peak_local_max.html">here with scikit-image</a>, <a href="https://haesleinhuepf.github.io/BioImageAnalysisNotebooks/23_blob_detection/local_maxima_detection.html">here with pyclesperanto</a> and <a href="https://github.com/weigertlab/napari-spotiflow?tab=readme-ov-file#napari-spotiflow">here for the spotflow plugin</a>) or, if you have segmentation results, use objects centroids as coordinates. This last approach can be done via <code>Tools &gt; Points &gt; Create points from labels centroids (nppas)</code> from the <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#napari-process-points-and-surfaces-nppas">napari-process-points-and-surfaces plugin</a>:</p>
-<p><img alt="" src="./images/points.png" /></p>
+<p><img src="./images/points.png" alt="" /></p>
 <p>You can load object features to these points by assigning them to the <code>.feature</code> attribute of the <code>Points</code> layer, like this in Python:</p>
 <p><code>points_layer.features = features_table</code></p>
 <p>The number of rows in the table should match the number of points.</p>
 <p>You can cluster these features using the same algorithms explained furhter down, or manually, and get points colored accordingly, like shown below:</p>
-<p><img alt="" src="./images/points_manual.png" /></p>
+<p><img src="./images/points_manual.png" alt="" /></p>
 <p>Check also <a href="./example_data/points_data/loading_points_data_example.ipynb">this notebook</a> to learn how to load these data from code.</p>
 <h3>3. Surface Layer with Segmentation Results</h3>
 <p>The <code>Surface</code> layer could contain a surface representing a segmentation result.</p>
 <p>To generate this surface from a labeled image containing the segmentation results, a classical algorithm is the <a href="https://en.wikipedia.org/wiki/Marching_cubes">Marching Cubes</a>. It is available in <a href="https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.marching_cubes">scikit-image</a>, and you can also apply it via <code>Tools &gt; Surfaces &gt; Create surface from any label (marching cubes, scikit-image, nppas)</code> from the <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#napari-process-points-and-surfaces-nppas">napari-process-points-and-surfaces plugin</a>. Choose which label id number you want to turn into a surface and click on <code>Run</code>:</p>
-<p><img alt="" src="./images/surface.png" /></p>
+<p><img src="./images/surface.png" alt="" /></p>
 <p>You will notice that the surface layer will be created.</p>
-<p><img alt="" src="./images/surface2.png" /></p>
+<p><img src="./images/surface2.png" alt="" /></p>
 <p>You can derive quantitative measurements from the vertices of a surface via <code>Tools &gt; Measurement tables &gt; Surface quality table (vedo, nppas)</code> from <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces?tab=readme-ov-file#surface-measurements-and-annotations">napari-process-points-and-surfaces plugin</a>:</p>
-<p><img alt="" src="./images/surface3.png" /></p>
+<p><img src="./images/surface3.png" alt="" /></p>
 <p>Surface vertex measurements can be plotted and classified the same way with the plotter (<code>Tools &gt; Visualization &gt; Plot measurements (ncp)</code>):</p>
-<p><img alt="" src="./images/surface4.png" /></p>
+<p><img src="./images/surface4.png" alt="" /></p>
 <p>Check <a href="./example_data/surface_data/loading_surface_data_example.ipynb">this notebook</a> to learn how to load these data from code.</p>
 <h3>4. Labels Layer with Tracking Results</h3>
 <p>The <strong><code>Labels</code></strong> layer can be also used to display tracking results.</p>
 <p><a href="https://github.com/BiAPoL/napari-clusters-plotter-example-notebooks/tree/main/notebooks/mastodon">These notebooks</a> show you examples of how to load and format tracking features from <a href="https://imagej.net/plugins/mastodon">Mastodon</a> in a way compatible with napari-clusters-plotter.</p>
 <p>For example, if you have a time-lapse labeled image where each label number represents a unique track ID, you can load tracking features to this <code>Labels</code> layer and use the plotter to cluster them. In the 'gif' below, the <code>Tracks</code> layer is NOT used for clustering, it is just shown along as a convenience. There is currently no support for the <code>Tracks</code> layer.</p>
-<p><img alt="" src="./images/tracking_labels.gif" /></p>
+<p><img src="./images/tracking_labels.gif" alt="" /></p>
 <p>Check <a href="./example_data/tracking_data/loading_tracking_data_example.ipynb">this notebook</a> to learn how to load these data from code.</p>
 <h3>Dimensionality reduction</h3>
-<p>For getting more insights into your data, you can reduce the dimensionality of the measurements, using these algorithms:
-* <a href="https://umap-learn.readthedocs.io/en/latest/">Uniform Manifold Approximation Projection (UMAP)</a>
-* <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">t-distributed stochastic neighbor embedding (t-SNE)</a>
-* <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">Principal Component Analysis (PCA)</a>
-* <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.Isomap.html">Non-linear dimensionality reduction through Isometric Mapping (Isomap)</a>
-* <a href="https://scikit-learn.org/stable/modules/manifold.html#multidimensional-scaling">Multi-dimensional Scaling (MDS)</a></p>
+<p>For getting more insights into your data, you can reduce the dimensionality of the measurements, using these algorithms:</p>
+<ul>
+<li><a href="https://umap-learn.readthedocs.io/en/latest/">Uniform Manifold Approximation Projection (UMAP)</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">t-distributed stochastic neighbor embedding (t-SNE)</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">Principal Component Analysis (PCA)</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.Isomap.html">Non-linear dimensionality reduction through Isometric Mapping (Isomap)</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/manifold.html#multidimensional-scaling">Multi-dimensional Scaling (MDS)</a></li>
+</ul>
 <p>To apply them to your data use the menu <code>Tools &gt; Measurement post-processing &gt; Dimensionality reduction (ncp)</code>.
 Select the label image that was analysed and in the list below, select all measurements that should be dimensionality reduced.
 By default, all measurements are selected in the box.
 You can read more about parameters of both algorithms by hovering over question marks or by clicking on them.
 When you are done with the selection, click on <code>Run</code> and after a moment, the table of measurements will re-appear with two additional columns representing the reduced dimensions of the dataset.
 These columns are automatically saved in the labels layer and can be further processed by other plugins.</p>
-<p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/umap.png" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/umap.png" alt="" /></p>
 <p>Afterwards, you can again save and/or close the table.</p>
 <h3>Clustering</h3>
-<p>If manual clustering, as shown above, is not an option, you can automatically cluster your data, using these implemented algorithms:
-* <a href="https://towardsdatascience.com/k-means-clustering-algorithm-applications-evaluation-methods-and-drawbacks-aa03e644b48a">k-means clustering (KMEANS)</a>
-* <a href="https://hdbscan.readthedocs.io/en/latest/how_hdbscan_works.html">Hierarchical Density-Based Spatial Clustering of Applications with Noise (HDBSCAN)</a>
-* <a href="https://scikit-learn.org/stable/modules/mixture.html">Gaussian Mixture Model (GMM)</a>
-* <a href="https://scikit-learn.org/stable/auto_examples/cluster/plot_mean_shift.html#sphx-glr-auto-examples-cluster-plot-mean-shift-py">Mean Shift (MS)</a>
-* <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html">Agglomerative clustering (AC)</a></p>
+<p>If manual clustering, as shown above, is not an option, you can automatically cluster your data, using these implemented algorithms:</p>
+<ul>
+<li><a href="https://towardsdatascience.com/k-means-clustering-algorithm-applications-evaluation-methods-and-drawbacks-aa03e644b48a">k-means clustering (KMEANS)</a></li>
+<li><a href="https://hdbscan.readthedocs.io/en/latest/how_hdbscan_works.html">Hierarchical Density-Based Spatial Clustering of Applications with Noise (HDBSCAN)</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/mixture.html">Gaussian Mixture Model (GMM)</a></li>
+<li><a href="https://scikit-learn.org/stable/auto_examples/cluster/plot_mean_shift.html#sphx-glr-auto-examples-cluster-plot-mean-shift-py">Mean Shift (MS)</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html">Agglomerative clustering (AC)</a></li>
+</ul>
 <p>Therefore, click the menu <code>Tools &gt; Measurement post-processing &gt; Clustering (ncp)</code>,
 select the analysed labels layer.
 Select the measurements for clustering, e.g. select <em>only</em> the <code>UMAP</code> measurements.
 Select the clustering method <code>KMeans</code> and click on <code>Run</code>.
 The table of measurements will reappear with an additional column <code>ALGORITHM_NAME_CLUSTERING_ID</code> containing the cluster
 ID of each datapoint.</p>
-<p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/clustering.png" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/clustering.png" alt="" /></p>
 <p>Afterwards, you can save and/or close the table.</p>
 <h3>Plotting clustering results</h3>
 <p>Return to the Plotter widget using the menu <code>Tools &gt; Visualization &gt; Plot measurement (ncp)</code>.
 Select <code>UMAP_0</code> and <code>UMAP_1</code> as X- and Y-axis and the <code>ALGORITHM_NAME_CLUSTERING_ID</code> as <code>Clustering</code>, and click on <code>Plot</code>.</p>
-<p><img alt="" src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/hdbscan_clusters_plot.png" /></p>
+<p><img src="https://github.com/BiAPoL/napari-clusters-plotter/raw/main/images/hdbscan_clusters_plot.png" alt="" /></p>
 <h2>Installation</h2>
 <h3>Devbio-napari installation</h3>
 <p>The easiest way to install this plugin is to install the <a href="https://github.com/haesleinhuepf/devbio-napari">devbio-napari</a> plugin collection. The napari-clusters-plotter is part of it.</p>
@@ -382,61 +370,61 @@ Select <code>UMAP_0</code> and <code>UMAP_1</code> as X- and Y-axis and the <cod
 <ul>
 <li>
 <p>Get a python environment, e.g. via <a href="https://docs.conda.io/en/latest/miniconda.html">mini-conda</a>.
-  If you never used mamba/conda environments before, please follow the instructions
-  <a href="https://biapol.github.io/blog/mara_lampert/getting_started_with_mambaforge_and_python/readme.html">in this blog post</a> first.</p>
+If you never used mamba/conda environments before, please follow the instructions
+<a href="https://biapol.github.io/blog/mara_lampert/getting_started_with_mambaforge_and_python/readme.html">in this blog post</a> first.</p>
 </li>
 <li>
 <p>Create a new environment, for example, like this:</p>
 </li>
 </ul>
-<pre class="codehilite"><code>mamba create --name ncp-env python=3.9
+<pre><code><div class="highlight"><pre><span></span>mamba create --name ncp-env python=3.9
+</pre></div>
 </code></pre>
-
 <ul>
 <li>Activate the new environment via conda:</li>
 </ul>
-<pre class="codehilite"><code>mamba activate ncp-env
+<pre><code><div class="highlight"><pre><span></span>mamba activate ncp-env
+</pre></div>
 </code></pre>
-
 <ul>
 <li>Install <a href="https://github.com/napari/napari">napari</a>, e.g. via <a href="https://docs.conda.io/projects/conda/en/latest/">conda</a>:</li>
 </ul>
-<pre class="codehilite"><code>mamba install -c conda-forge napari
+<pre><code><div class="highlight"><pre><span></span>mamba install -c conda-forge napari
+</pre></div>
 </code></pre>
-
 <p>Afterwards, you can install <code>napari-clusters-plotter</code>, e.g. via <a href="https://docs.conda.io/projects/conda/en/latest/">conda</a>:</p>
-<pre class="codehilite"><code>mamba install -c conda-forge napari-clusters-plotter
+<pre><code><div class="highlight"><pre><span></span>mamba install -c conda-forge napari-clusters-plotter
+</pre></div>
 </code></pre>
-
 <h2>Troubleshooting installation</h2>
 <ul>
 <li><code>Error: Could not build wheels for hdbscan which use PEP 517 and cannot be installed directly</code></li>
 </ul>
 <p>This can happen if you used pip for the installation. To solve this error, install hdbscan via conda before installing the plugin:</p>
-<pre class="codehilite"><code>mamba install -c conda-forge hdbscan
+<pre><code><div class="highlight"><pre><span></span>mamba install -c conda-forge hdbscan
+</pre></div>
 </code></pre>
-
 <ul>
 <li><code>ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject</code></li>
 </ul>
 <p>Similar to the above-described error, this error can occur when importing hdbscan through pip or in the wrong order. This can be fixed by installing packages separately through conda and in the following order:</p>
-<pre class="codehilite"><code class="language-bash">mamba install -c conda-forge napari hdbscan
-pip install napari-clusters-plotter
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>napari<span class="w"> </span>hdbscan
+pip<span class="w"> </span>install<span class="w"> </span>napari-clusters-plotter
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://docs.pytest.org/en/7.0.x/">pytest</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-clusters-plotter" is free and open source software</p>
+&quot;napari-clusters-plotter&quot; is free and open source software</p>
 <h2>Acknowledgements</h2>
-<p>This project was supported by the Deutsche Forschungsgemeinschaft under Germany’s Excellence Strategy – EXC2068 - Cluster of Excellence "Physics of Life" of TU Dresden.
+<p>This project was supported by the Deutsche Forschungsgemeinschaft under Germany’s Excellence Strategy – EXC2068 - Cluster of Excellence &quot;Physics of Life&quot; of TU Dresden.
 This project has been made possible in part by grant number <a href="https://chanzuckerberg.com/science/programs-resources/imaging/napari/improving-image-processing/">2021-240341 (Napari plugin accelerator grant)</a> from the Chan Zuckerberg Initiative DAF, an advised fund of the Silicon Valley Community Foundation.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/BiAPoL/napari-clusters-plotter/issues">file an issue</a> along
 with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

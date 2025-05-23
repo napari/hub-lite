@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,44 +210,19 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/andreabassi78/napari-sim-processor/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-sim-processor.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-sim-processor"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-sim-processor.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-sim-processor.svg?color=green" /></a>
-<a href="https://github.com/andreabassi78/napari-sim-processor/actions"><img alt="tests" src="https://github.com/andreabassi78/napari-sim-processor/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/andreabassi78/napari-sim-processor"><img alt="codecov" src="https://codecov.io/gh/andreabassi78/napari-sim-processor/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-sim-processor"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sim-processor" /></a></p>
+                                        <p><a href="https://github.com/andreabassi78/napari-sim-processor/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-sim-processor.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-sim-processor"><img src="https://img.shields.io/pypi/v/napari-sim-processor.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-sim-processor.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/andreabassi78/napari-sim-processor/actions"><img src="https://github.com/andreabassi78/napari-sim-processor/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/andreabassi78/napari-sim-processor"><img src="https://codecov.io/gh/andreabassi78/napari-sim-processor/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-sim-processor"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sim-processor" alt="napari hub" /></a></p>
 <p>A Napari plugin for the reconstruction of Structured Illumination Microscopy (SIM) with GPU acceleration (pytorch/cupy if installed).
-Currently supports:  <br />
-   - conventional SIM data with a generic number of angles and phases (typically, 3 angles and 3 phases are used for resolution improvement in 2D, but any combination can be processed by the widget)
-   - hexagonal SIM data with 7 phases, as used in <a href="https://doi.org/10.1364/OE.466225">this</a> publication.
-   - 3D SIM, for resolution enhancement in three dimensions. This is available in the <a href="https://github.com/andreabassi78/napari-sim-processor/tree/3dSIM">3dSIM</a> branch  </p>
+Currently supports:</p>
+<ul>
+<li>conventional SIM data with a generic number of angles and phases (typically, 3 angles and 3 phases are used for resolution improvement in 2D, but any combination can be processed by the widget)</li>
+<li>hexagonal SIM data with 7 phases, as used in <a href="https://doi.org/10.1364/OE.466225">this</a> publication.</li>
+<li>3D SIM, for resolution enhancement in three dimensions. This is available in the <a href="https://github.com/andreabassi78/napari-sim-processor/tree/3dSIM">3dSIM</a> branch</li>
+</ul>
 <p>The SIM processing widget accepts image stacks organized in 5D (<code>angle</code>,<code>phase</code>,<code>z</code>,<code>y</code>,<code>x</code>).</p>
 <p>The reshape widget can be used to easily reshape the data if they are not organized as 5D (angle,phase,z,y,x).</p>
 <p>For 3D stacks (raw images) with multiple z-frames, a batch reconstruction method is available, as described <a href="https://doi.org/10.1098/rsta.2020.0162">here</a>.</p>
@@ -257,64 +236,91 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-sim-processor</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-sim-processor
+<pre><code>pip install napari-sim-processor
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/andreabassi78/napari-sim-processor.git
+<pre><code>pip install git+https://github.com/andreabassi78/napari-sim-processor.git
 </code></pre>
-
 <h2>Usage</h2>
-<p>1) Open napari. </p>
-<p>2) Launch the reshape and sim-processor widgets.</p>
-<p>3) Open your raw image stack (using the napari built-in or your own file opener).</p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture1.png" /></p>
-<p>4) If your image is ordered as a 5D stack (angle, phase, z-frame, y, x) go to point 6. </p>
-<p>5) In the reshape widget, select the actual number of acquired angles, phases, and frames (red arrow) and press <code>Reshape Stack</code>.
- Note that the label axis of the viewer will be updated (green arrow).</p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture1b.png" /></p>
-<p>6) In the sim-reconstruction widget press the Select image layer button. Note that the number of phases and angles will be updated (blue arrow). </p>
-<p>7) Choose the correct parameters of the SIM acquisition (<code>NA</code>, <code>pixelsize</code>, <code>M</code>, etc.) and processing parameters (<code>alpha</code>, <code>beta</code>, w, <code>eta</code>, <code>group</code>):
-   - <code>w</code>: parameter of the Weiner filter.
-   - <code>eta</code>: constant used for calibration. It should be slightly smaller than the carrier frequency (in pupil radius units).
-   - <code>group</code>: for stacks with multiple z-frames, it is the number of frames that are used together for the calibration process.</p>
+<ol>
+<li>
+<p>Open napari.</p>
+</li>
+<li>
+<p>Launch the reshape and sim-processor widgets.</p>
+</li>
+<li>
+<p>Open your raw image stack (using the napari built-in or your own file opener).</p>
+</li>
+</ol>
+<p><img src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture1.png" alt="raw" /></p>
+<ol start="4">
+<li>
+<p>If your image is ordered as a 5D stack (angle, phase, z-frame, y, x) go to point 6.</p>
+</li>
+<li>
+<p>In the reshape widget, select the actual number of acquired angles, phases, and frames (red arrow) and press <code>Reshape Stack</code>.
+Note that the label axis of the viewer will be updated (green arrow).</p>
+</li>
+</ol>
+<p><img src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture1b.png" alt="raw" /></p>
+<ol start="6">
+<li>
+<p>In the sim-reconstruction widget press the Select image layer button. Note that the number of phases and angles will be updated (blue arrow).</p>
+</li>
+<li>
+<p>Choose the correct parameters of the SIM acquisition (<code>NA</code>, <code>pixelsize</code>, <code>M</code>, etc.) and processing parameters (<code>alpha</code>, <code>beta</code>, w, <code>eta</code>, <code>group</code>):</p>
+<ul>
+<li><code>w</code>: parameter of the Weiner filter.</li>
+<li><code>eta</code>: constant used for calibration. It should be slightly smaller than the carrier frequency (in pupil radius units).</li>
+<li><code>group</code>: for stacks with multiple z-frames, it is the number of frames that are used together for the calibration process.</li>
+</ul>
+</li>
+</ol>
 <p>For details on the other parameters see <a href="https://doi.org/10.1098/rsta.2020.0162">here</a>.</p>
-<p>8) Calibrate the SIM processor, pressing the <code>Calibrate</code> button. This will find the carrier frequencies (red circles if the <code>Show Carrier</code> checkbox is selected), the modulation amplitude and the phase, using cross correlation analysis.</p>
-<p>9) Click on the checkboxes to show the power spectrum of the raw image (<code>Show power spectrum</code>) or the cross-correlation (<code>Show Xcorr</code>), to see if the found carrier frequency is correct.</p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture2b.png" />
+<ol start="8">
+<li>
+<p>Calibrate the SIM processor, pressing the <code>Calibrate</code> button. This will find the carrier frequencies (red circles if the <code>Show Carrier</code> checkbox is selected), the modulation amplitude and the phase, using cross correlation analysis.</p>
+</li>
+<li>
+<p>Click on the checkboxes to show the power spectrum of the raw image (<code>Show power spectrum</code>) or the cross-correlation (<code>Show Xcorr</code>), to see if the found carrier frequency is correct.</p>
+</li>
+</ol>
+<p><img src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture2b.png" alt="raw" />
 <strong>Napari viewer showing the power spectrum of the raw stack. The pupil circle is in blue. A circle corresponding to <code>eta</code> is shown in green.</strong></p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture2.png" />
+<p><img src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture2.png" alt="raw" />
 <strong>Napari viewer showing the cross-correlation of the raw stack. The red circles indicate the found carrier frequencies</strong></p>
-<p>10) Run the reconstruction of a single plane (<code>SIM reconstruction</code>) or of a stack (<code>Stack reconstruction</code>). After execution, a new image_layer will be added to the napari viewer. Click on the <code>Batch reconstruction</code> checkbox in order to process an entire stack in one shot. Click on the pytorch checkbox for gpu acceleration.</p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture3b.png" />
+<ol start="10">
+<li>Run the reconstruction of a single plane (<code>SIM reconstruction</code>) or of a stack (<code>Stack reconstruction</code>). After execution, a new image_layer will be added to the napari viewer. Click on the <code>Batch reconstruction</code> checkbox in order to process an entire stack in one shot. Click on the pytorch checkbox for gpu acceleration.</li>
+</ol>
+<p><img src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture3b.png" alt="raw" />
 <strong>Napari viewer with widgets showing a pseudo-widefield reconstruction</strong></p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture3.png" />
+<p><img src="https://github.com/andreabassi78/napari-sim-processor/raw/main/images/Picture3.png" alt="raw" />
 <strong>Napari viewer with widgets showing a SIM reconstruction</strong></p>
 <h2>GPU processing</h2>
-<p>The underlying processing classes will use numpy (and FFTW if available) for 
-its calculations. For GPU accelerated processing you need to have either the 
-PyTorch (tested with torch v1.11.0+cu113) or the CuPy (tested with cupy-cuda113 
-v10.4.0) package installed.  Make sure to match the package cuda version to the CUDA library 
-installed on your system otherwise PyTorch will default to CPU and CuPy will not work at all.  </p>
-<p>Both packages give significant speedup on even relatively modest CUDA GPUs compared 
-to Numpy, and PyTorch running on the CPU only can show improvements relative to numpy 
-and FFTW. Selection of which processing package to use is via a ComboBox in the 
-napari_sim_processor widget.  Only available packages are shown. </p>
-<p>Other than requiring a CUDA GPU it is advisable to have significant GPU memory 
-available, particularly when processing large datasets.  Batch processing is the 
+<p>The underlying processing classes will use numpy (and FFTW if available) for
+its calculations. For GPU accelerated processing you need to have either the
+PyTorch (tested with torch v1.11.0+cu113) or the CuPy (tested with cupy-cuda113
+v10.4.0) package installed.  Make sure to match the package cuda version to the CUDA library
+installed on your system otherwise PyTorch will default to CPU and CuPy will not work at all.</p>
+<p>Both packages give significant speedup on even relatively modest CUDA GPUs compared
+to Numpy, and PyTorch running on the CPU only can show improvements relative to numpy
+and FFTW. Selection of which processing package to use is via a ComboBox in the
+napari_sim_processor widget.  Only available packages are shown.</p>
+<p>Other than requiring a CUDA GPU it is advisable to have significant GPU memory
+available, particularly when processing large datasets.  Batch processing is the
 most memory hungry of the methods, but can process 280x512x512 datasets on a 4GB GPU.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-sim-processor" is free and open source software</p>
+&quot;napari-sim-processor&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/andreabassi78/napari-sim-processor/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

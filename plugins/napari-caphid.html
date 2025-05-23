@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hereariim/napari-caphid/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-caphid.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-caphid"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-caphid.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-caphid.svg?color=green" /></a>
-<a href="https://github.com/hereariim/napari-caphid/actions"><img alt="tests" src="https://github.com/hereariim/napari-caphid/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hereariim/napari-caphid"><img alt="codecov" src="https://codecov.io/gh/hereariim/napari-caphid/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-caphid"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-caphid" /></a></p>
+                                        <p><a href="https://github.com/hereariim/napari-caphid/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-caphid.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-caphid"><img src="https://img.shields.io/pypi/v/napari-caphid.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-caphid.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hereariim/napari-caphid/actions"><img src="https://github.com/hereariim/napari-caphid/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hereariim/napari-caphid"><img src="https://codecov.io/gh/hereariim/napari-caphid/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-caphid"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-caphid" alt="napari hub" /></a></p>
 <p>Annotation of aphid and update table</p>
 <hr />
 <p>Napari-caphid was developed for updating table of quantitative data from images. Napari-caphid was developed by Imhorphen Team (french team of University of Angers and INRAe Angers) for ECLECTIC Team (french team of University of Paris-Saclay and CNRS).</p>
@@ -245,20 +222,17 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-caphid</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-caphid
+<pre><code>pip install napari-caphid
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hereariim/napari-caphid.git
+<pre><code>pip install git+https://github.com/hereariim/napari-caphid.git
 </code></pre>
-
 <h2>Getting started</h2>
 <h3>Foreword</h3>
 <p>Before using the plugin, the directory must be structured as follows:</p>
-<pre class="codehilite"><code>└── Directory
+<pre><code><div class="highlight"><pre><span></span>└── Directory
     ├── France
     │   ├── image
     │   │   ├── img_1.tif
@@ -291,20 +265,28 @@ https://napari.org/stable/plugins/index.html
     │   │   └── ...
     │   └── ...
     └── Aphid.csv
+</pre></div>
 </code></pre>
-
-<p>Some explanation about structure. The directory contained three folders (France, Spain, Belgium) and one file (Aphid.csv).
-- Each folders (France, Spain, Belgium) contains a set of images and masks and two folders (image, mask). The folder image contains images from the set of images. The folder mask contains masks from the set of masks.
-- The file Aphid.csv is a table with quantitative data of aphids from inital process of aphid image processing.</p>
-<p>Important:
-- The structure of directory is very important because it will be useful to get image name.</p>
+<p>Some explanation about structure. The directory contained three folders (France, Spain, Belgium) and one file (Aphid.csv).</p>
+<ul>
+<li>Each folders (France, Spain, Belgium) contains a set of images and masks and two folders (image, mask). The folder image contains images from the set of images. The folder mask contains masks from the set of masks.</li>
+<li>The file Aphid.csv is a table with quantitative data of aphids from inital process of aphid image processing.</li>
+</ul>
+<p>Important:</p>
+<ul>
+<li>The structure of directory is very important because it will be useful to get image name.</li>
+</ul>
 <h3>Getting started</h3>
-<p>The widget get three input:
-- Mask : Mask stack
-- Pick a table : Path/to/Directory/Aphid.csv
-- Country : The country where images were taken</p>
-<p>The widget gives one output:
-- A new table .csv which is the Aphid.csv updated.</p>
+<p>The widget get three input:</p>
+<ul>
+<li>Mask : Mask stack</li>
+<li>Pick a table : Path/to/Directory/Aphid.csv</li>
+<li>Country : The country where images were taken</li>
+</ul>
+<p>The widget gives one output:</p>
+<ul>
+<li>A new table .csv which is the Aphid.csv updated.</li>
+</ul>
 <h3>What's it for ?</h3>
 <p>This widget gives quantitative data from Mask stack. These quantitative data will be contained into dataframe. Quantitative data linked to current masks contained in the Aphid.csv file will be deleted. Then, the new quantitative data contained in the dataframe will be integrated into the Aphid.csv file. In this way, the Aphid.csv file is updated.</p>
 <h2>Contributing</h2>
@@ -312,10 +294,10 @@ https://napari.org/stable/plugins/index.html
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-caphid" is free and open source software</p>
+&quot;napari-caphid&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hereariim/napari-caphid/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

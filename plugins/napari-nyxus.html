@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,108 +206,81 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>Nyxus Napari is a Napari plugin for running feature calculations on image-segmentation image pairs, using the
-Nyxus application to compute features. Nyxus is a feature-rich, highly optimized, Python/C++ application capable 
-of analyzing images of arbitrary size and assembling complex regions of interest (ROIs) split across multiple image tiles and files. </p>
-<p>For more information on Nyxus, see https://github.com/PolusAI/nyxus.</p>
+                                        <p>Nyxus Napari is a Napari plugin for running feature calculations on image-segmentation image pairs, using the
+Nyxus application to compute features. Nyxus is a feature-rich, highly optimized, Python/C++ application capable
+of analyzing images of arbitrary size and assembling complex regions of interest (ROIs) split across multiple image tiles and files.</p>
+<p>For more information on Nyxus, see <a href="https://github.com/PolusAI/nyxus">https://github.com/PolusAI/nyxus</a>.</p>
 <h1>Installation</h1>
-<p>To install Napari, it is recommended to first create a separate Conda environment. </p>
-<pre class="codehilite"><code>conda create -y -n napari-env -c conda-forge python=3.9
+<p>To install Napari, it is recommended to first create a separate Conda environment.</p>
+<pre><code><div class="highlight"><pre><span></span>conda create -y -n napari-env -c conda-forge python=3.9
 conda activate napari-env
+</pre></div>
 </code></pre>
-
 <p>After creating the Conda environment,
 install Napari using pip</p>
-<pre class="codehilite"><code>python -m pip install &quot;napari[all]&quot;
-python -m pip install &quot;napari[all]&quot; --upgrade
+<pre><code><div class="highlight"><pre><span></span><span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="ss">&quot;napari[all]&quot;</span>
+<span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="ss">&quot;napari[all]&quot;</span><span class="w"> </span><span class="c1">--upgrade</span>
+</pre></div>
 </code></pre>
-
 <p>or using conda</p>
-<pre class="codehilite"><code>conda install -c conda-forge napari
+<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge napari
 conda update napari
+</pre></div>
 </code></pre>
-
 <p>Next, Nyxus must be installed. Note that the version of Nyxus must be greater than or equal to <code>0.50</code> to run the Napari plugin.</p>
 <p><code>pip install nyxus</code></p>
-<p>or build from source using the instructions at https://github.com/PolusAI/nyxus#building-from-source using the conda build for the
+<p>or build from source using the instructions at <a href="https://github.com/PolusAI/nyxus#building-from-source">https://github.com/PolusAI/nyxus#building-from-source</a> using the conda build for the
 python API.</p>
-<p>After installing Napari and Nyxus, the Nyxus Napari plugin can be installed by cloning this repo and then building the plugin from the source. 
+<p>After installing Napari and Nyxus, the Nyxus Napari plugin can be installed by cloning this repo and then building the plugin from the source.
 An example of this process is provided below.</p>
-<pre class="codehilite"><code>git clone https://github.com/PolusAI/napari-nyxus.git
+<pre><code><div class="highlight"><pre><span></span>git clone https://github.com/PolusAI/napari-nyxus.git
 cd napari_nyxus
 pip install -e .
+</pre></div>
 </code></pre>
-
-<p>Napari can then be ran by running </p>
-<p>```
-napari
-````</p>
+<p>Napari can then be ran by running</p>
+<pre><code><div class="highlight"><pre><span></span>napari
+</pre></div>
+</code></pre>
 <h1>Use</h1>
-<p>After installing the plugin, start Napari by running the command <code>napari</code> from the command line. Once the Napari 
+<p>After installing the plugin, start Napari by running the command <code>napari</code> from the command line. Once the Napari
 GUI is loaded, the Nyxus plugin can be loaded from the <code>Plugins</code> menu in the toolbar by going to Plugins -&gt; nyxus-napari.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/plugin_menu.png" /></p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/plugin_menu.png" alt="" /></p>
 <p>A widget will appear in the Napari viewer to run Nyxus.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/nyxus_loaded.png" /></p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/nyxus_loaded.png" alt="" /></p>
 <p>As shown by the example above, Nyxus will take in Intensity and Segmentation images. These parameters can either be a stack
 of images or a single image pair. To load an image pair, use File -&gt; Open File(s)... and select the images to load.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/open_image.png" /></p>
-<p>Note that this method can also be used to open a stack of image, by using File -&gt; Open Folder... instead of images. </p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/open_image.png" alt="" /></p>
+<p>Note that this method can also be used to open a stack of image, by using File -&gt; Open Folder... instead of images.</p>
 <p>If the segmentation is loaded as an Image type in the napari viewer, it must first be converted to the Labels type. The image can converted as shown below.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/convert_to_labels.png" /></p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/convert_to_labels.png" alt="" /></p>
 <p>The loaded files can then be selected with the Intensity and Segmentation drop down menus. Other parameters can also be changed,
-such as which features to calculate. For more information on the available features, see https://nyxus.readthedocs.io/en/latest/featurelist.html.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/setup_calculation.png" /></p>
+such as which features to calculate. For more information on the available features, see <a href="https://nyxus.readthedocs.io/en/latest/featurelist.html">https://nyxus.readthedocs.io/en/latest/featurelist.html</a>.</p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/setup_calculation.png" alt="" /></p>
 <p>After running Nyxus, the feature calculations will also appear in the Napari viewer.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/feature_results.png" /></p>
-<p>The Nyxus Napari plugin provides functionality to interact with the table containing the feature calculations. First, click on the segmentation image and then select <code>show selected</code> in the layer controls. </p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/feature_results.png" alt="" /></p>
+<p>The Nyxus Napari plugin provides functionality to interact with the table containing the feature calculations. First, click on the segmentation image and then select <code>show selected</code> in the layer controls.</p>
 <p>Then, if a value is clicked in the <code>label</code> column of the table, the respective ROI will be highlighted in the segmentation image in the viewer.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/click_label.png" /></p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/click_label.png" alt="" /></p>
 <p>To select the ROI and have it added to a separate Labels image, the label in the table can be double clicked. Each double clicked label will be added to the same Labels image as show below. To unselect, the ROI, double click its respective label again.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/double_click_label.png" /></p>
-<p>This feature can also be used in the opposite way, i.e. if an ROI is clicked in the segmentation image, the respective row in the 
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/double_click_label.png" alt="" /></p>
+<p>This feature can also be used in the opposite way, i.e. if an ROI is clicked in the segmentation image, the respective row in the
 feature table will be highlighted.</p>
 <p>If one of the column headers are double clicked, a colormap will be generated in the Napari viewer showing the values of the features in the clicked
 column. For example, if <code>Intensity</code> features are calculated, the <code>INTEGRATED_INTENSITY</code> column can be clicked and the colormap will appear.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/feature_colormap.png" /></p>
-<p>Once the colormap is loaded, a slider will appear in the window with the minimum value being the minimum value of the feature colormap and the 
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/feature_colormap.png" alt="" /></p>
+<p>Once the colormap is loaded, a slider will appear in the window with the minimum value being the minimum value of the feature colormap and the
 maximum value of the slider is the maximum value of the colormap. By adjusting the ranges in the slider, a new label image will appear in the viewer
 that contains the ROIs who's features values fall within the slider values.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/slider_feature.png" /></p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/slider_feature.png" alt="" /></p>
 <p>The new labels resulting from the range slider selector can then be used to run Nyxus on by using the labels image as the <code>Segmentation</code> parameter.</p>
-<p><img alt="" src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/run_on_colormap_labels.png" /></p>
+<p><img src="https://github.com/PolusAI/napari-nyxus/raw/main/docs/source/img/run_on_colormap_labels.png" alt="" /></p>
 <h1>Limitations</h1>
-<p>While Nyxus Napari provides batched processing for large sets of images where each individual image will fit into RAM, 
-it does not provide functionality to handle large single images that do not fit into RAM or that are larger than the 
-limitations of Napari. For large images, it is recommended to install the Python or CLI version of Nyxus. 
-For more information, see https://github.com/PolusAI/nyxus. </p>
-        
+<p>While Nyxus Napari provides batched processing for large sets of images where each individual image will fit into RAM,
+it does not provide functionality to handle large single images that do not fit into RAM or that are larger than the
+limitations of Napari. For large images, it is recommended to install the Python or CLI version of Nyxus.
+For more information, see <a href="https://github.com/PolusAI/nyxus">https://github.com/PolusAI/nyxus</a>.</p>
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,174 +210,170 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-simpleitk-image-processing.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-simpleitk-image-processing"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-simpleitk-image-processing.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-simpleitk-image-processing.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-simpleitk-image-processing"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-simpleitk-image-processing/branch/main/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-simpleitk-image-processing.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-simpleitk-image-processing"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-simpleitk-image-processing" /></a>
-<a href="https://zenodo.org/badge/latestdoi/432729955"><img alt="DOI" src="https://zenodo.org/badge/432729955.svg" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-simpleitk-image-processing.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-simpleitk-image-processing"><img src="https://img.shields.io/pypi/v/napari-simpleitk-image-processing.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-simpleitk-image-processing.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/actions"><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-simpleitk-image-processing"><img src="https://codecov.io/gh/haesleinhuepf/napari-simpleitk-image-processing/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-simpleitk-image-processing.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-simpleitk-image-processing"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-simpleitk-image-processing" alt="napari hub" /></a>
+<a href="https://zenodo.org/badge/latestdoi/432729955"><img src="https://zenodo.org/badge/432729955.svg" alt="DOI" /></a></p>
 <p>Process images using <a href="https://simpleitk.org/">SimpleITK</a> in <a href="https://github.com/napari/napari">napari</a></p>
 <h2>Usage</h2>
-<p>Filters, segmentation algorithms and measurements provided by this napari plugin can be found in the <code>Tools</code> menu. 
+<p>Filters, segmentation algorithms and measurements provided by this napari plugin can be found in the <code>Tools</code> menu.
 You can recognize them with their suffix <code>(n-SimpleITK)</code> in brackets.
-Furthermore, it can be used from the <a href="https://www.napari-hub.org/plugins/napari-assistant">napari-assistant</a> graphical user interface. 
+Furthermore, it can be used from the <a href="https://www.napari-hub.org/plugins/napari-assistant">napari-assistant</a> graphical user interface.
 Therefore, just click the menu <code>Tools &gt; Utilities &gt; Assistant (na)</code> or run <code>naparia</code> from the command line.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/screenshot_with_assistant.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/screenshot_with_assistant.png" alt="img.png" /></p>
 <p>All filters implemented in this napari plugin are also demonstrated in <a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/blob/main/docs/demo.ipynb">this notebook</a>.</p>
 <h3>Gaussian blur</h3>
 <p>Applies a <a href="https://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a>
 to an image. This might be useful for denoising, e.g. before applying the Threshold-Otsu method.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/gaussian_blur.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/gaussian_blur.png" alt="img.png" /></p>
 <h3>Median filter</h3>
-<p>Applies a <a href="https://en.wikipedia.org/wiki/Median_filter">median filter</a> to an image. 
-Compared to the Gaussian blur this method preserves edges in the image better. 
+<p>Applies a <a href="https://en.wikipedia.org/wiki/Median_filter">median filter</a> to an image.
+Compared to the Gaussian blur this method preserves edges in the image better.
 It also performs slower.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/median_filter.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/median_filter.png" alt="img.png" /></p>
 <h3>Bilateral filter</h3>
 <p>The <a href="https://en.wikipedia.org/wiki/Bilateral_filter">bilateral filter</a> allows denoising an image
 while preserving edges.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/bilateral.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/bilateral.png" alt="img.png" /></p>
 <h3>Threshold Otsu</h3>
 <p>Binarizes an image using <a href="https://ieeexplore.ieee.org/document/4310076">Otsu's method</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/threshold_otsu.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/threshold_otsu.png" alt="img.png" /></p>
 <h3>Connected Component Labeling</h3>
 <p>Takes a binary image and labels all objects with individual numbers to produce a label image.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/connected_component_labeling.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/connected_component_labeling.png" alt="img.png" /></p>
 <h3>Measurements</h3>
 <p>This function allows determining intensity and shape statistics from labeled images. I can be found in the <code>Tools &gt; Measurement tables</code> menu.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/measurements.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/measurements.png" alt="img.png" /></p>
 <h3>Signed Maurer distance map</h3>
-<p>A distance map (more precise: <a href="https://itk.org/ITKExamples/src/Filtering/DistanceMap/MaurerDistanceMapOfBinary/Documentation.html">Signed Maurer Distance Map</a>) can be useful for visualizing distances within binary images between black/white borders. 
+<p>A distance map (more precise: <a href="https://itk.org/ITKExamples/src/Filtering/DistanceMap/MaurerDistanceMapOfBinary/Documentation.html">Signed Maurer Distance Map</a>) can be useful for visualizing distances within binary images between black/white borders.
 Positive values in this image correspond to a white (value=1) pixel's distance to the next black pixel.
 Black pixel's (value=0) distance to the next white pixel are represented in this map with negative values.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/signed_maured_distance_map.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/signed_maured_distance_map.png" alt="img.png" /></p>
 <h3>Binary fill holes</h3>
 <p>Fills holes in a binary image.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/binary_fill_holes.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/binary_fill_holes.png" alt="img.png" /></p>
 <h3>Touching objects labeling</h3>
 <p>Starting from a binary image, touching objects can be splits into multiple regions, similar to the <a href="https://imagej.net/plugins/classic-watershed">Watershed segmentation in ImageJ</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/Touching_object_labeling.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/Touching_object_labeling.png" alt="img.png" /></p>
 <h3>Morphological Watershed</h3>
 <p>The <a href="http://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/Python_html/32_Watersheds_Segmentation.html">morhological watershed</a>
 allows to segment images showing membranes. Before segmentation, a filter such as the Gaussian blur or a median filter
-should be used to eliminate noise. It also makes sense to increase the thickness of membranes using a maximum filter. 
+should be used to eliminate noise. It also makes sense to increase the thickness of membranes using a maximum filter.
 See <a href="https://github.com/clEsperanto/pyclesperanto_prototype/blob/master/demo/segmentation/segmentation_2d_membranes.ipynb">this notebook</a> for details.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/morphological_watershed.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/morphological_watershed.png" alt="img.png" /></p>
 <h3>Watershed-Otsu-Labeling</h3>
-<p>This algorithm uses <a href="https://ieeexplore.ieee.org/document/4310076">Otsu's thresholding method</a> in combination with 
-<a href="https://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a> and the 
-<a href="https://en.wikipedia.org/wiki/Watershed_(image_processing)">Watershed-algorithm</a> 
-approach to label bright objects such as nuclei in an intensity image. The alogrithm has two sigma parameters and a 
-level parameter which allow you to fine-tune where objects should be cut (<code>spot_sigma</code>) and how smooth outlines 
-should be (<code>outline_sigma</code>). The <code>watershed_level</code> parameter determines how deep an intensity valley between two maxima 
-has to be to differentiate the two maxima. 
+<p>This algorithm uses <a href="https://ieeexplore.ieee.org/document/4310076">Otsu's thresholding method</a> in combination with
+<a href="https://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a> and the
+<a href="https://en.wikipedia.org/wiki/Watershed_(image_processing)">Watershed-algorithm</a>
+approach to label bright objects such as nuclei in an intensity image. The alogrithm has two sigma parameters and a
+level parameter which allow you to fine-tune where objects should be cut (<code>spot_sigma</code>) and how smooth outlines
+should be (<code>outline_sigma</code>). The <code>watershed_level</code> parameter determines how deep an intensity valley between two maxima
+has to be to differentiate the two maxima.
 This implementation is similar to <a href="https://github.com/clEsperanto/pyclesperanto_prototype/blob/master/demo/segmentation/voronoi_otsu_labeling.ipynb">Voronoi-Otsu-Labeling in clesperanto</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/watershed_otsu_labeling.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/watershed_otsu_labeling.png" alt="img.png" /></p>
 <h3>Richardson-Lucy Deconvolution</h3>
 <p><a href="https://en.wikipedia.org/wiki/Richardson%E2%80%93Lucy_deconvolution">Richardson-Lucy deconvolution</a>
-allows to restore image quality if the point-spread-function of the optical system used 
+allows to restore image quality if the point-spread-function of the optical system used
 for acquisition is known or can be approximated.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/Richardson-Lucy-Deconvolution.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/docs/Richardson-Lucy-Deconvolution.png" alt="img.png" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-simpleitk-image-processing</code> via using <code>conda</code> and <code>pip</code>.
 If you have never used <code>conda</code> before, please go through <a href="https://biapol.github.io/blog/johannes_mueller/anaconda_getting_started/">this tutorial</a> first.</p>
-<pre class="codehilite"><code>conda install -c conda-forge napari
+<pre><code>conda install -c conda-forge napari
 pip install napari-simpleitk-image-processing
 </code></pre>
-
 <h2>Features</h2>
-<p>The user can select categories of features for feature extraction in the user interface. These categories contain the following measurements:
-* size:
-    * equivalent_ellipsoid_diameter
-    * equivalent_spherical_perimeter
-    * equivalent_spherical_radius
-    * number_of_pixels
-    * number_of_pixels_on_border
-* intensity:
-   * maximum 
-   * mean 
-   * median
-   * minimum 
-   * sigma
-   * sum
-   * variance
-* perimeter:
-   * perimeter
-   * perimeter_on_border
-   * perimeter_on_border_ratio
-* shape:
-   * elongation
-   * feret_diameter
-   * flatness
-   * roundness
-* position:
-   * centroid 
-   * bbox
-* moments:
-   * principal_axes
-   * principal_moments</p>
+<p>The user can select categories of features for feature extraction in the user interface. These categories contain the following measurements:</p>
+<ul>
+<li>size:
+<ul>
+<li>equivalent_ellipsoid_diameter</li>
+<li>equivalent_spherical_perimeter</li>
+<li>equivalent_spherical_radius</li>
+<li>number_of_pixels</li>
+<li>number_of_pixels_on_border</li>
+</ul>
+</li>
+<li>intensity:
+<ul>
+<li>maximum</li>
+<li>mean</li>
+<li>median</li>
+<li>minimum</li>
+<li>sigma</li>
+<li>sum</li>
+<li>variance</li>
+</ul>
+</li>
+<li>perimeter:
+<ul>
+<li>perimeter</li>
+<li>perimeter_on_border</li>
+<li>perimeter_on_border_ratio</li>
+</ul>
+</li>
+<li>shape:
+<ul>
+<li>elongation</li>
+<li>feret_diameter</li>
+<li>flatness</li>
+<li>roundness</li>
+</ul>
+</li>
+<li>position:
+<ul>
+<li>centroid</li>
+<li>bbox</li>
+</ul>
+</li>
+<li>moments:
+<ul>
+<li>principal_axes</li>
+<li>principal_moments</li>
+</ul>
+</li>
+</ul>
 <h2>See also</h2>
-<p>There are other napari plugins with similar functionality for processing images and extracting features:
-* <a href="https://www.napari-hub.org/plugins/morphometrics">morphometrics</a>
-* <a href="https://www.napari-hub.org/plugins/PartSeg">PartSeg</a>
-* <a href="https://www.napari-hub.org/plugins/napari-skimage-regionprops">napari-skimage-regionprops</a>
-* <a href="https://www.napari-hub.org/plugins/napari-cupy-image-processing">napari-cupy-image-processing</a>
-* <a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">napari-pyclesperanto-assistant</a>
-* <a href="https://napari-hub.org/plugins/napari-allencell-segmenter">napari-allencell-segmenter</a>
-* <a href="https://www.napari-hub.org/plugins/RedLionfish">RedLionfish</a>
-* <a href="https://www.napari-hub.org/plugins/bbii-decon">bbii-decon</a><br />
-* <a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">napari-segment-blobs-and-things-with-membranes</a></p>
-<p>Furthermore, there are plugins for postprocessing extracted measurements
-* <a href="https://www.napari-hub.org/plugins/napari-feature-classifier">napari-feature-classifier</a>
-* <a href="https://www.napari-hub.org/plugins/napari-clusters-plotter">napari-clusters-plotter</a></p>
+<p>There are other napari plugins with similar functionality for processing images and extracting features:</p>
+<ul>
+<li><a href="https://www.napari-hub.org/plugins/morphometrics">morphometrics</a></li>
+<li><a href="https://www.napari-hub.org/plugins/PartSeg">PartSeg</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-skimage-regionprops">napari-skimage-regionprops</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-cupy-image-processing">napari-cupy-image-processing</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">napari-pyclesperanto-assistant</a></li>
+<li><a href="https://napari-hub.org/plugins/napari-allencell-segmenter">napari-allencell-segmenter</a></li>
+<li><a href="https://www.napari-hub.org/plugins/RedLionfish">RedLionfish</a></li>
+<li><a href="https://www.napari-hub.org/plugins/bbii-decon">bbii-decon</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">napari-segment-blobs-and-things-with-membranes</a></li>
+</ul>
+<p>Furthermore, there are plugins for postprocessing extracted measurements</p>
+<ul>
+<li><a href="https://www.napari-hub.org/plugins/napari-feature-classifier">napari-feature-classifier</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-clusters-plotter">napari-clusters-plotter</a></li>
+</ul>
 <h2>Contributing</h2>
-<p>Contributions are very welcome. There are many useful algorithms available in 
+<p>Contributions are very welcome. There are many useful algorithms available in
 <a href="https://simpleitk.org/">SimpleITK</a>. If you want another one available here in this napari
 plugin, don't hesitate to send a <a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/pulls">pull-request</a>.
 This repository just holds wrappers for SimpleITK-functions, see <a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/raw/main/src/napari_simpleitk_image_processing/_simpleitk_image_processing.py#L51">this file</a> for how those wrappers
 can be written.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-simpleitk-image-processing" is free and open source software</p>
+&quot;napari-simpleitk-image-processing&quot; is free and open source software</p>
 <h2>Citation</h2>
-<p>For implementing this napari plugin, the 
-<a href="https://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/">SimpleITK python notebooks</a> were very helpful. 
+<p>For implementing this napari plugin, the
+<a href="https://insightsoftwareconsortium.github.io/SimpleITK-Notebooks/">SimpleITK python notebooks</a> were very helpful.
 Thus, if you find the plugin useful, consider citing the SimpleITK notebooks:</p>
-<p>Z. Yaniv, B. C. Lowekamp, H. J. Johnson, R. Beare, 
-"SimpleITK Image-Analysis Notebooks: a Collaborative Environment for Education and Reproducible Research", \
+<p>Z. Yaniv, B. C. Lowekamp, H. J. Johnson, R. Beare,
+&quot;SimpleITK Image-Analysis Notebooks: a Collaborative Environment for Education and Reproducible Research&quot;, <br />
 J Digit Imaging., 31(3): 290-303, 2018, <a href="https://doi.org/10.1007/s10278-017-0037-8">https://doi.org/10.1007/s10278-017-0037-8</a>.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

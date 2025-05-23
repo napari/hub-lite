@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,94 +210,67 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-script-editor/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-script-editor.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-script-editor"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-script-editor.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-script-editor.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-script-editor/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-script-editor/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-script-editor"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-script-editor/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-script-editor"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-script-editor" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-script-editor/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-script-editor.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-script-editor"><img src="https://img.shields.io/pypi/v/napari-script-editor.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-script-editor.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-script-editor/actions"><img src="https://github.com/haesleinhuepf/napari-script-editor/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-script-editor"><img src="https://codecov.io/gh/haesleinhuepf/napari-script-editor/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-script-editor"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-script-editor" alt="napari hub" /></a></p>
 <p>A python script editor for napari based on <a href="https://github.com/haesleinhuepf/pyqode.core">haesleinhuepf's fork of PyQode</a>.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/screenshot2.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/screenshot2.png" alt="" /></p>
 <h2>Usage</h2>
-<p>Start the script editor from the menu <code>Tools &gt; Scripts &gt; Script Editor</code>. Use the auto-completion while typing, 
+<p>Start the script editor from the menu <code>Tools &gt; Scripts &gt; Script Editor</code>. Use the auto-completion while typing,
 check out the <a href="https://napari.org/tutorials/">napari tutorials</a> and the
-<a href="https://github.com/haesleinhuepf/napari-script-editor/tree/main/example_scripts">example scripts</a>. 
+<a href="https://github.com/haesleinhuepf/napari-script-editor/tree/main/example_scripts">example scripts</a>.
 Use the <code>Run</code> button to execute a script.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/type_and_run_screencast.gif" /></p>
-<p>If you save the script to the folder ".napari-scripts" in your home directory, you will find the script in the 
+<p><img src="https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/type_and_run_screencast.gif" alt="" /></p>
+<p>If you save the script to the folder &quot;.napari-scripts&quot; in your home directory, you will find the script in the
 <code>Tools &gt; Scripts</code> menu in napari. You can then also start it from there.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/run_from_menu_screencast.gif" /></p>
-<p>Note: If you have scripts, that might be useful to others, please send them as 
-<a href="https://github.com/haesleinhuepf/napari-script-editor/pulls">pull-request</a> to the examples in 
+<p><img src="https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/run_from_menu_screencast.gif" alt="" /></p>
+<p>Note: If you have scripts, that might be useful to others, please send them as
+<a href="https://github.com/haesleinhuepf/napari-script-editor/pulls">pull-request</a> to the examples in
 repository or share them in any other way that suits you.</p>
 <h3>chatGPT support</h3>
-<p>In case <a href="https://openai.com/blog/openai-api">openAI API</a> is installed, you find another button in the script editor to <code>Ask chatGPT</code>. 
+<p>In case <a href="https://openai.com/blog/openai-api">openAI API</a> is installed, you find another button in the script editor to <code>Ask chatGPT</code>.
 Enter a prompt in the script editor and click the button. The script editor will send the prompt to
 chatGPT and replace it with the answer. For example try entering:</p>
-<pre class="codehilite"><code class="language-python">Write Python code for segmenting an image using these steps:
-    * Apply a Gaussian blur
-    * Threshold the image using Otsu's method
-    * Apply connected component labeling
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">Write</span> <span class="n">Python</span> <span class="n">code</span> <span class="k">for</span> <span class="n">segmenting</span> <span class="n">an</span> <span class="n">image</span> <span class="n">using</span> <span class="n">these</span> <span class="n">steps</span><span class="p">:</span>
+    <span class="o">*</span> <span class="n">Apply</span> <span class="n">a</span> <span class="n">Gaussian</span> <span class="n">blur</span>
+    <span class="o">*</span> <span class="n">Threshold</span> <span class="n">the</span> <span class="n">image</span> <span class="n">using</span> <span class="n">Otsu</span><span class="s1">&#39;s method</span>
+    <span class="o">*</span> <span class="n">Apply</span> <span class="n">connected</span> <span class="n">component</span> <span class="n">labeling</span>
+</pre></div>
 </code></pre>
-
 <p>and it will replace it with code accordingly. If it doesn't work in the first attempt, try again. ChatGPT's answers are not always the same.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/ask_chatgpt.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/ask_chatgpt.gif" alt="" /></p>
 <h2>Installation</h2>
 <ul>
-<li>Get a python environment, e.g. via <a href="https://docs.conda.io/en/latest/miniconda.html">mini-conda</a>. 
-  If you never used python/conda environments before, please follow the instructions 
-  <a href="https://mpicbg-scicomp.github.io/ipf_howtoguides/guides/Python_Conda_Environments">here</a> first.</li>
-<li>Install <a href="https://github.com/napari/napari">napari</a> using conda. </li>
+<li>Get a python environment, e.g. via <a href="https://docs.conda.io/en/latest/miniconda.html">mini-conda</a>.
+If you never used python/conda environments before, please follow the instructions
+<a href="https://mpicbg-scicomp.github.io/ipf_howtoguides/guides/Python_Conda_Environments">here</a> first.</li>
+<li>Install <a href="https://github.com/napari/napari">napari</a> using conda.</li>
 </ul>
-<pre class="codehilite"><code>conda install -c conda-forge napari
+<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge napari
+</pre></div>
 </code></pre>
-
 <p>Afterwards, install <code>napari-script-editor</code> using pip:</p>
-<pre class="codehilite"><code>pip install napari-script-editor
+<pre><code><div class="highlight"><pre><span></span>pip install napari-script-editor
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-script-editor" is free and open source software</p>
+&quot;napari-script-editor&quot; is free and open source software</p>
 <h2>Known issues</h2>
 <ul>
 <li>Sometimes, the script editor thinks, the file has been changed on disk and asks to reload it.</li>
 </ul>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/haesleinhuepf/napari-script-editor/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,43 +210,16 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-plot-profile.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-plot-profile"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-plot-profile.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-plot-profile.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-plot-profile/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-plot-profile/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-plot-profile"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-plot-profile/branch/master/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-plot-profile.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-plot-profile"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-plot-profile" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-plot-profile.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-plot-profile"><img src="https://img.shields.io/pypi/v/napari-plot-profile.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-plot-profile.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-plot-profile/actions"><img src="https://github.com/haesleinhuepf/napari-plot-profile/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-plot-profile"><img src="https://codecov.io/gh/haesleinhuepf/napari-plot-profile/branch/master/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-plot-profile.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-plot-profile"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-plot-profile" alt="napari hub" /></a></p>
 <h2>Plot a Line Profile</h2>
 <p>Plot intensities along a line in <a href="https://github.com/napari/napari">napari</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/napari-plot-profile-screencast.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/napari-plot-profile-screencast.gif" alt="img.png" /></p>
 <ul>
 <li>
 <p>Open some images in <a href="https://github.com/napari/napari">napari</a>.</p>
@@ -251,36 +228,35 @@ pre > code:last-child {
 <p>Add a shapes layer.</p>
 </li>
 </ul>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/add_shapes_layer_screenshot.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/add_shapes_layer_screenshot.png" alt="img.png" /></p>
 <ul>
 <li>Activate the line drawing tool or the path tool and draw a line.</li>
 </ul>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/draw_line_tool_screenshot.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/draw_line_tool_screenshot.png" alt="img.png" /></p>
 <ul>
 <li>After drawing a line, click on the menu Plugins &gt; Measurements (Plot Profile)</li>
-<li>If you modify the line, you may want to click the "Refresh" button to redraw the profile.</li>
+<li>If you modify the line, you may want to click the &quot;Refresh&quot; button to redraw the profile.</li>
 </ul>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/redraw_screenshot.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/redraw_screenshot.png" alt="img.png" /></p>
 <p>To see how these steps can be done programmatically from python, check out the <a href="https://github.com/haesleinhuepf/napari-plot-profile/blob/main/docs/demo.ipynb">demo notebook</a></p>
 <h2>Create a Topographical View</h2>
 <p>Create a 3D view of a 2D image by warping pixel intensities to heights. It can be displayed as a 3D image layer, a points cloud layer or a surface layer.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/topographical_view_screencast.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-plot-profile/raw/main/docs/topographical_view_screencast.gif" alt="" /></p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <hr />
 <h2>Installation</h2>
 <p>You can install <code>napari-plot-profile</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-plot-profile
+<pre><code>pip install napari-plot-profile
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-plot-profile" is free and open source software</p>
+&quot;napari-plot-profile&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please create a thread on <a href="https://image.sc">image.sc</a> along with a detailed description and tag <a href="https://twitter.com/haesleinhuepf">@haesleinhuepf</a>.</p>
-        
+
 
                                     </div>
                                 </div>

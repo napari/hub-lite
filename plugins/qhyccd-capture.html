@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,34 +206,7 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <h2>Project Introduction</h2>
+                                        <h2>Project Introduction</h2>
 <p><code>qhyccd-capture</code> is a basic operation library for handling QHYCCD series cameras. This library provides functionalities to interact with QHYCCD cameras, including camera connection, parameter setting, image capture, and display. This project is a [napari] plugin, aimed at simplifying the use of the camera through a graphical user interface.</p>
 <h2>Features</h2>
 <ul>
@@ -244,26 +221,23 @@ pre > code:last-child {
 <li><strong>CFW Control</strong>: Supports CFW control and displays CFW status.</li>
 <li><strong>Star Point Resolution</strong>: Supports star point resolution and displays the results.</li>
 </ul>
-<p><img alt="qhyccd-capture 插件界面显示" src="https://raw.githubusercontent.com/LiuQiang-AI/qhyccd-capture/main/src/qhyccd_capture/images/image.png" /></p>
+<p><img src="https://raw.githubusercontent.com/LiuQiang-AI/qhyccd-capture/main/src/qhyccd_capture/images/image.png" alt="qhyccd-capture 插件界面显示" /></p>
 <h2>Installation</h2>
 <p>You can install via pip:</p>
-<pre class="codehilite"><code>pip install qhyccd-capture
+<pre><code>pip install qhyccd-capture
 </code></pre>
-
 <p>To install the latest development version:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/nightliar-L/qhyccd-capture.git
+<pre><code>pip install git+https://github.com/nightliar-L/qhyccd-capture.git
 </code></pre>
-
 <h2>Dependency Installation</h2>
-<h4>Astrometry.net</h4>
-<p>Currently, astrometry.net only supports the Ubuntu system.</p>
-<pre class="codehilite"><code>sudo apt-get install astrometry.net
+<h4><a href="http://Astrometry.net">Astrometry.net</a></h4>
+<p>Currently, <a href="http://astrometry.net">astrometry.net</a> only supports the Ubuntu system.</p>
+<pre><code>sudo apt-get install astrometry.net
 sudo apt-get install astrometry-data-tycho2
 sudo vim ~/.bashrc
 # Add the following content
 export PATH=$PATH:/usr/local/astrometry/bin
 </code></pre>
-
 <h2>Version Changes</h2>
 <ul>
 <li>2024-10-23 Version 0.0.1 Initial version</li>
@@ -275,8 +249,8 @@ export PATH=$PATH:/usr/local/astrometry/bin
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the [BSD-3] license,
-"qhyccd-capture" is free and open source software</p>
-        
+&quot;qhyccd-capture&quot; is free and open source software</p>
+
 
                                     </div>
                                 </div>

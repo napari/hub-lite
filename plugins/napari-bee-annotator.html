@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,52 +206,23 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img style="float: right;" src="https://imaging.epfl.ch/resources/logo-for-gitlab.svg"></p>
+                                        <img style="float: right;" src="https://imaging.epfl.ch/resources/logo-for-gitlab.svg">
 <h1>napari-bee-annotator</h1>
 <p>Developed by the <a href="https://imaging.epfl.ch/">EPFL Center for Imaging</a> for the <a href="https://www.epfl.ch/labs/mobots/">Mobile Robotic Systems Group</a> in Dec 2023.
 This napari plugin provides an easy way for the researches to annotate honey bees leaving/entering the hive. The annotations will serve as ground truth for the validation of various automated animal tracking approaches.</p>
-<p><a href="https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-bee-annotator.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-bee-annotator"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-bee-annotator.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-bee-annotator.svg?color=green" /></a>
-<a href="https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator/actions"><img alt="tests" src="https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/EPFL-Center-for-Imaging/napari-bee-annotator"><img alt="codecov" src="https://codecov.io/gh/EPFL-Center-for-Imaging/napari-bee-annotator/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-bee-annotator"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-bee-annotator" /></a></p>
+<p><a href="https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-bee-annotator.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-bee-annotator"><img src="https://img.shields.io/pypi/v/napari-bee-annotator.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-bee-annotator.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator/actions"><img src="https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/EPFL-Center-for-Imaging/napari-bee-annotator"><img src="https://codecov.io/gh/EPFL-Center-for-Imaging/napari-bee-annotator/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-bee-annotator"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-bee-annotator" alt="napari hub" /></a></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-bee-annotator</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-bee-annotator
+<pre><code>pip install napari-bee-annotator
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator.git
+<pre><code>pip install git+https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator.git
 </code></pre>
-
 <h2>Getting started</h2>
 <ol>
 <li>
@@ -268,10 +243,10 @@ This napari plugin provides an easy way for the researches to annotate honey bee
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-bee-annotator" is free and open source software</p>
+&quot;napari-bee-annotator&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/EPFL-Center-for-Imaging/napari-bee-annotator/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,42 +210,15 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/rezaakb/napari-seedseg/tree/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-seedseg.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-seedseg"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-seedseg.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-seedseg.svg?color=green" /></a>
-<a href="https://github.com/rezaakb/napari-seedseg/actions"><img alt="tests" src="https://github.com/rezaakb/napari-seedseg/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/rezaakb/napari-seedseg"><img alt="codecov" src="https://codecov.io/gh/rezaakb/napari-seedseg/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-seedseg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-seedseg" /></a></p>
-<p>A simple plugin for 2D medical image segmentation. In this project, we are trying to use Flood method for segmentation. 
+                                        <p><a href="https://github.com/rezaakb/napari-seedseg/tree/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-seedseg.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-seedseg"><img src="https://img.shields.io/pypi/v/napari-seedseg.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-seedseg.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/rezaakb/napari-seedseg/actions"><img src="https://github.com/rezaakb/napari-seedseg/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/rezaakb/napari-seedseg"><img src="https://codecov.io/gh/rezaakb/napari-seedseg/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-seedseg"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-seedseg" alt="napari hub" /></a></p>
+<p>A simple plugin for 2D medical image segmentation. In this project, we are trying to use Flood method for segmentation.
 Flood segmentation, also known as flood fill or region growing, is an image segmentation technique that starts from a seed point and expands to neighboring pixels with similar properties (e.g., intensity, color). In our project, you only can segment one label at the time. Below is a description of the repository's structure and the purpose of each file:</p>
-<pre class="codehilite"><code>.
+<pre><code>.
 ├── setup.cfg              # package metadata
 ├── pyproject.toml         # use setuptools
 ├── src/napari_seedseg     
@@ -252,7 +229,6 @@ Flood segmentation, also known as flood fill or region growing, is an image segm
 │   └── _method.py         # Methods contributions
 └── ...
 </code></pre>
-
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -262,34 +238,30 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-seedseg</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-seedseg
+<pre><code>pip install napari-seedseg
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/rezaakb/napari-seedseg.git
+<pre><code>pip install git+https://github.com/rezaakb/napari-seedseg.git
 </code></pre>
-
 <h2>Packages</h2>
 <p>In this project we have used these packages:</p>
-<pre class="codehilite"><code>numpy
+<pre><code>numpy
 magicgui
 qtpy
 opencv-python-headless
 scikit-image&gt;=0.19.3
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-seedseg" is free and open source software</p>
+&quot;napari-seedseg&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/rezaakb/napari-seedseg/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

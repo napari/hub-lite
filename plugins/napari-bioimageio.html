@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,42 +210,15 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>napari plugin for managing AI models in the <a href="https://bioimage.io">BioImage Model Zoo</a>.</p>
+                                        <p>napari plugin for managing AI models in the <a href="https://bioimage.io">BioImage Model Zoo</a>.</p>
 <blockquote>
 <p><strong>WARNING</strong>: This is an alpha release. The API may change in future versions, and please feel free to create issues to report bugs or provide feedbacks.</p>
 </blockquote>
-<p><img alt="" src="assets/screenshot-model-manager-1.png" /></p>
+<p><img src="assets/screenshot-model-manager-1.png" alt="" /></p>
 <h2>Installation</h2>
-<pre class="codehilite"><code>pip install napari-bioimageio
+<pre><code><div class="highlight"><pre><span></span>pip install napari-bioimageio
+</pre></div>
 </code></pre>
-
 <p>(If you don't have napari installed, run <code>pip install napari[pyqt5]</code>)</p>
 <h2>Usage</h2>
 <p>This library is meant for helping developers to ease the handling of models in napari.</p>
@@ -252,40 +229,43 @@ pre > code:last-child {
 <p>Display a dialog for selecting models from the BioImage Model Zoo, the user can either select an existing model or download from the BioImage Model Zoo.</p>
 <p>The selecte model information (a dictionary) will be returned if the user selected a model, otherwise it returns <code>None</code>.</p>
 <p>Once the user selected the model, you can access the name, and also the file path to the model resource description file (via the <code>rdf_source</code> key). With the <code>bioimageio.core</code> library (installed via <code>pip install bioimageio.core</code> or <code>conda install -c conda-forge bioimageio.core</code>), you can run inference directly, the following examples shows how to implement it:</p>
-<pre class="codehilite"><code class="language-python"># Popup a model selection dialog for choosing the model
-model_info = show_model_selector(filter=nuclear_segmentation_model_filter)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="c1"># Popup a model selection dialog for choosing the model</span>
+<span class="n">model_info</span> <span class="o">=</span> <span class="n">show_model_selector</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">nuclear_segmentation_model_filter</span><span class="p">)</span>
 
-if model_info:
-  self.nucseg_model_source = model_info[&quot;rdf_source&quot;]
-  # Load model 
-  model_description = bioimageio.core.load_resource_description(model_info[&quot;rdf_source&quot;])
-  input_image = imageio.imread(&quot;./my-image.tif&quot;)
+<span class="k">if</span> <span class="n">model_info</span><span class="p">:</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">nucseg_model_source</span> <span class="o">=</span> <span class="n">model_info</span><span class="p">[</span><span class="s2">&quot;rdf_source&quot;</span><span class="p">]</span>
+  <span class="c1"># Load model </span>
+  <span class="n">model_description</span> <span class="o">=</span> <span class="n">bioimageio</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">load_resource_description</span><span class="p">(</span><span class="n">model_info</span><span class="p">[</span><span class="s2">&quot;rdf_source&quot;</span><span class="p">])</span>
+  <span class="n">input_image</span> <span class="o">=</span> <span class="n">imageio</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;./my-image.tif&quot;</span><span class="p">)</span>
 
-  with bioimageio.core.create_prediction_pipeline(
-      bioimageio_model=model_description
-  ) as pipeline:
-    output_image = bioimageio.core.prediction.predict_with_padding(
-        pipeline, input_image, padding=padding
-    )
+  <span class="k">with</span> <span class="n">bioimageio</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">create_prediction_pipeline</span><span class="p">(</span>
+      <span class="n">bioimageio_model</span><span class="o">=</span><span class="n">model_description</span>
+  <span class="p">)</span> <span class="k">as</span> <span class="n">pipeline</span><span class="p">:</span>
+    <span class="n">output_image</span> <span class="o">=</span> <span class="n">bioimageio</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">predict_with_padding</span><span class="p">(</span>
+        <span class="n">pipeline</span><span class="p">,</span> <span class="n">input_image</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span>
+    <span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>Note: To run the models, you need to setup the conda environment properly according to the <a href="https://github.com/bioimage-io/core-bioimage-io-python#installation">installation guide of bioimageio.core</a>.</p>
 <p>For more examples, see <a href="https://github.com/bioimage-io/core-bioimage-io-python/blob/main/example/bioimageio-core-usage.ipynb">this example notebook</a> for <code>bioimageio.core</code>.</p>
-<p>You can also access the weight files directly by searching the model folder (e.g. extract the model folder path via <code>os.path.dirname(model_description["rdf_source"])</code>), this will be useful if you prefer to use your own model inference logic.</p>
+<p>You can also access the weight files directly by searching the model folder (e.g. extract the model folder path via <code>os.path.dirname(model_description[&quot;rdf_source&quot;])</code>), this will be useful if you prefer to use your own model inference logic.</p>
 <h3><code>show_model_uploader()</code></h3>
 <p>Display a dialog to instruct the user to upload a model package to the BioImage Model Zoo.
 Currently, it only shows a message, in the future, we will try to support direct uploading with user's credentials obtained from Zenodo (a public data repository used by the BioImage Model Zoo to store models).</p>
 <p>To create a BioImageIO-compatible model package, you can use the <code>build_model</code> function as demonstrated in <a href="(https://github.com/bioimage-io/core-bioimage-io-python/blob/main/example/bioimageio-core-usage.ipynb)">this notebook</a>.</p>
 <h2>Development</h2>
 <ul>
-<li>Install and set up development environment.</li>
-</ul>
-<p><code>sh
-  pip install -r requirements_dev.txt</code></p>
+<li>
+<p>Install and set up development environment.</p>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_dev.txt
+</pre></div>
+</code></pre>
 <p>This will install all requirements.
 It will also install this package in development mode, so that code changes are applied immediately without reinstall necessary.</p>
+</li>
+<li>
+<p>Here's a list of development tools we use.</p>
 <ul>
-<li>Here's a list of development tools we use.</li>
 <li><a href="https://pypi.org/project/black/">black</a></li>
 <li><a href="https://pypi.org/project/flake8/">flake8</a></li>
 <li><a href="https://pypi.org/project/mypy/">mypy</a></li>
@@ -293,35 +273,46 @@ It will also install this package in development mode, so that code changes are 
 <li><a href="https://pypi.org/project/pylint/">pylint</a></li>
 <li><a href="https://pypi.org/project/pytest/">pytest</a></li>
 <li><a href="https://pypi.org/project/tox/">tox</a></li>
-<li>It's recommended to use the corresponding code formatter and linters also in your code editor to get instant feedback. A popular editor that can do this is <a href="https://code.visualstudio.com/"><code>vscode</code></a>.</li>
-<li>Run all tests, check formatting and linting.</li>
 </ul>
-<p><code>sh
-  tox</code></p>
-<ul>
-<li>Run a single tox environment.</li>
+</li>
+<li>
+<p>It's recommended to use the corresponding code formatter and linters also in your code editor to get instant feedback. A popular editor that can do this is <a href="https://code.visualstudio.com/"><code>vscode</code></a>.</p>
+</li>
+<li>
+<p>Run all tests, check formatting and linting.</p>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>tox
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p>Run a single tox environment.</p>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>lint
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p>Reinstall all tox environments.</p>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-r
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p>Run pytest and all tests.</p>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pytest
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p>Run pytest and calculate coverage for the package.</p>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--cov-report<span class="w"> </span>term-missing<span class="w"> </span>--cov<span class="o">=</span>napari-bioimageio
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p>Continuous integration is by default supported via <a href="https://help.github.com/en/actions">GitHub actions</a>. GitHub actions is free for public repositories and comes with 2000 free Ubuntu build minutes per month for private repositories.</p>
+</li>
 </ul>
-<p><code>sh
-  tox -e lint</code></p>
-<ul>
-<li>Reinstall all tox environments.</li>
-</ul>
-<p><code>sh
-  tox -r</code></p>
-<ul>
-<li>Run pytest and all tests.</li>
-</ul>
-<p><code>sh
-  pytest</code></p>
-<ul>
-<li>Run pytest and calculate coverage for the package.</li>
-</ul>
-<p><code>sh
-  pytest --cov-report term-missing --cov=napari-bioimageio</code></p>
-<ul>
-<li>Continuous integration is by default supported via <a href="https://help.github.com/en/actions">GitHub actions</a>. GitHub actions is free for public repositories and comes with 2000 free Ubuntu build minutes per month for private repositories.</li>
-</ul>
-        
+
 
                                     </div>
                                 </div>

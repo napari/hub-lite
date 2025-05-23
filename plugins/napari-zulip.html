@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,41 +210,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/kephale/napari-zulip/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-zulip.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-zulip"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-zulip.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-zulip.svg?color=green" /></a>
-<a href="https://github.com/kephale/napari-zulip/actions"><img alt="tests" src="https://github.com/kephale/napari-zulip/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/kephale/napari-zulip"><img alt="codecov" src="https://codecov.io/gh/kephale/napari-zulip/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-zulip"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-zulip" /></a></p>
+                                        <p><a href="https://github.com/kephale/napari-zulip/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-zulip.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-zulip"><img src="https://img.shields.io/pypi/v/napari-zulip.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-zulip.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/kephale/napari-zulip/actions"><img src="https://github.com/kephale/napari-zulip/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/kephale/napari-zulip"><img src="https://codecov.io/gh/kephale/napari-zulip/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-zulip"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-zulip" alt="napari hub" /></a></p>
 <p>A simple plugin for interacting with Zulip from napari.</p>
-<p><img alt="An example screenshot of napari-zulip in action. It shows the plugin napari-boids and a filtered noise image, as well as a docked version of the napari-zulip plugin" src="./resources/demo_screenshot.png" />  </p>
+<p><img src="./resources/demo_screenshot.png" alt="An example screenshot of napari-zulip in action. It shows the plugin napari-boids and a filtered noise image, as well as a docked version of the napari-zulip plugin" /></p>
 <!--
 Don't miss the full getting started guide to set up your new package:
 https://github.com/napari/cookiecutter-napari-plugin#getting-started
@@ -248,37 +225,36 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-zulip</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-zulip
+<pre><code>pip install napari-zulip
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/kephale/napari-zulip.git
+<pre><code>pip install git+https://github.com/kephale/napari-zulip.git
 </code></pre>
-
 <h3>Setting it up</h3>
 <p>The plugin is going to look for a file in <code>&lt;home directory&gt;/.zulip.d/napari.zulipchat.com.zuliprc</code>.</p>
 <p><strong>If you want to use this on a different zulip then adjust the <code>napari.zulipchat.com</code> to whatever the correct domain should be.</strong></p>
 <h4>How to generate a <code>.zuliprc</code> file</h4>
-<p>In the Zulip app:
-- Select <code>Menu</code>
-- Select <code>Personal settings</code>
-- Select <code>Account &amp; privacy</code>
-- Click on <code>Show/change your API key</code>
-- Enter your password
-- Click <code>Download .zuliprc</code> 
-- Save the file as <code>&lt;home directory&gt;/.zulip.d/napari.zulipchat.com.zuliprc</code> (or change the domain name if using a different Zulip server)</p>
+<p>In the Zulip app:</p>
+<ul>
+<li>Select <code>Menu</code></li>
+<li>Select <code>Personal settings</code></li>
+<li>Select <code>Account &amp; privacy</code></li>
+<li>Click on <code>Show/change your API key</code></li>
+<li>Enter your password</li>
+<li>Click <code>Download .zuliprc</code></li>
+<li>Save the file as <code>&lt;home directory&gt;/.zulip.d/napari.zulipchat.com.zuliprc</code> (or change the domain name if using a different Zulip server)</li>
+</ul>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-zulip" is free and open source software</p>
+&quot;napari-zulip&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/kephale/napari-zulip/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

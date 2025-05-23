@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,34 +210,7 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://napari.org/">Napari</a> plugin for interactive pixel classification.
+                                        <p><a href="https://napari.org/">Napari</a> plugin for interactive pixel classification.
 Designed to be similar to the pixel classification workflow in <a href="https://www.ilastik.org/">classic ilastik</a>.</p>
 <h2>Installation</h2>
 <p>This plugin requires you to use a <em>conda</em> environment. The environment manager conda comes in a few different forms.
@@ -241,15 +218,15 @@ If you haven't used conda before, you can find more information in the <a href="
 You can use whichever variant you prefer, as the resulting environment should be the same, but we recommend the <a href="https://github.com/conda-forge/miniforge#mambaforge"><em>mambaforge</em></a> variant as it is usually the fastest.
 When using mambaforge, the <code>mamba</code> command usually replaces the <code>conda</code> command one would otherwise use.</p>
 <p>Once you have installed mambaforge, set up a conda environment with napari and the <em>fastfilters</em> package, and then use pip to install <em>ilastik-napari</em>:</p>
-<pre class="codehilite"><code class="language-shell">mamba create -y -c ilastik-forge -c conda-forge -n my-napari-env napari fastfilters
-mamba activate my-napari-env
-pip install ilastik-napari
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-c<span class="w"> </span>ilastik-forge<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-n<span class="w"> </span>my-napari-env<span class="w"> </span>napari<span class="w"> </span>fastfilters
+mamba<span class="w"> </span>activate<span class="w"> </span>my-napari-env
+pip<span class="w"> </span>install<span class="w"> </span>ilastik-napari
+</pre></div>
 </code></pre>
-
 <p>Finally, run napari:</p>
-<pre class="codehilite"><code class="language-shell">napari
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
 <p>That's it! You should be able to find the ilastik-napari plugin in the Plugins menu.</p>
 <p>If you prefer to <strong>install napari using pip</strong> instead of conda:
 Make sure to install <code>napari[all]</code>.
@@ -257,61 +234,64 @@ Unless you want to <a href="https://napari.org/stable/plugins/best_practices.htm
 <h2>Usage</h2>
 <p>As a prerequisite, make sure you understand the <a href="https://napari.org/tutorials/fundamentals/quick_start.html">napari basics</a>.</p>
 <ol>
-<li>Open your image, or use a sample in <em>File - Open Sample</em>.</li>
+<li>
+<p>Open your image, or use a sample in <em>File - Open Sample</em>.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/image-sample.png" alt="Use a sample image" title="Use a sample image" /></p>
+</li>
+<li>
+<p>Activate the plugin in the <em>Plugins</em> menu.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/activation.png" alt="Activate the plugin" title="Activate the plugin" /></p>
+</li>
+<li>
+<p>In <em>layer list</em>, create a new <em>Labels</em> layer.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/labels-layer.png" alt="Labels layer" title="Labels layer" /></p>
+</li>
+<li>
+<p>In <em>layers control</em>, switch to the <em>paint</em> action.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/paint-action.png" alt="Paint action" title="Paint action" /></p>
+</li>
+<li>
+<p>Draw your background labels.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/draw-background.png" alt="Paint the background" title="Paint the background" /></p>
+</li>
+<li>
+<p>Switch to a new label.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/new-label.png" alt="Switch label" title="Switch label" /></p>
+</li>
+<li>
+<p>Draw your foreground labels.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/draw-cells.png" alt="Paint cells" title="Paint cells" /></p>
+</li>
+<li>
+<p>Select output types you need, and click <em>Run</em>.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/interface.png" alt="Plugin interface" title="Plugin interface" /></p>
+</li>
+<li>
+<p>The plugin will create one layer for each output type, which you save as normal napari layers.</p>
+<p><img src="https://ilastik.org/assets/ilastik-napari/example.png" alt="Example output" title="Example output" /></p>
+</li>
 </ol>
-<p><img alt="Use a sample image" src="https://ilastik.org/assets/ilastik-napari/image-sample.png" title="Use a sample image" /></p>
-<ol>
-<li>Activate the plugin in the <em>Plugins</em> menu.</li>
-</ol>
-<p><img alt="Activate the plugin" src="https://ilastik.org/assets/ilastik-napari/activation.png" title="Activate the plugin" /></p>
-<ol>
-<li>In <em>layer list</em>, create a new <em>Labels</em> layer.</li>
-</ol>
-<p><img alt="Labels layer" src="https://ilastik.org/assets/ilastik-napari/labels-layer.png" title="Labels layer" /></p>
-<ol>
-<li>In <em>layers control</em>, switch to the <em>paint</em> action.</li>
-</ol>
-<p><img alt="Paint action" src="https://ilastik.org/assets/ilastik-napari/paint-action.png" title="Paint action" /></p>
-<ol>
-<li>Draw your background labels.</li>
-</ol>
-<p><img alt="Paint the background" src="https://ilastik.org/assets/ilastik-napari/draw-background.png" title="Paint the background" /></p>
-<ol>
-<li>Switch to a new label.</li>
-</ol>
-<p><img alt="Switch label" src="https://ilastik.org/assets/ilastik-napari/new-label.png" title="Switch label" /></p>
-<ol>
-<li>Draw your foreground labels.</li>
-</ol>
-<p><img alt="Paint cells" src="https://ilastik.org/assets/ilastik-napari/draw-cells.png" title="Paint cells" /></p>
-<ol>
-<li>Select output types you need, and click <em>Run</em>.</li>
-</ol>
-<p><img alt="Plugin interface" src="https://ilastik.org/assets/ilastik-napari/interface.png" title="Plugin interface" /></p>
-<ol>
-<li>The plugin will create one layer for each output type, which you save as normal napari layers.</li>
-</ol>
-<p><img alt="Example output" src="https://ilastik.org/assets/ilastik-napari/example.png" title="Example output" /></p>
 <h2>Development</h2>
 <p>Create a development environment:</p>
-<pre class="codehilite"><code>mamba create -y -n ilastik-napari-dev -c ilastik-forge fastfilters setuptools-scm conda-build anaconda-client
-conda activate napari-ilastik-dev
-pip install -e .
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">ilastik</span><span class="o">-</span><span class="n">napari</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">ilastik</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">fastfilters</span><span class="w"> </span><span class="n">setuptools</span><span class="o">-</span><span class="n">scm</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">build</span><span class="w"> </span><span class="n">anaconda</span><span class="o">-</span><span class="n">client</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">ilastik</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="o">.</span>
+</pre></div>
 </code></pre>
-
 <p>Build conda package:</p>
-<pre class="codehilite"><code>conda activate napari-ilastik-dev
-mamba build -c ilastik-forge conda-recipe
-anaconda upload /path/to/the/new/package.tar.bz2
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">ilastik</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">mamba</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">ilastik</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">recipe</span>
+<span class="n">anaconda</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">the</span><span class="o">/</span><span class="n">new</span><span class="o">/</span><span class="n">package</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">bz2</span>
+</pre></div>
+</code></pre>
+<p>Build wheel and sdist packages:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">ilastik</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="n">twine</span>
+<span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">build</span>
+<span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">twine</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="o">--</span><span class="n">repository</span><span class="w"> </span><span class="n">testpypi</span><span class="w"> </span><span class="n">dist</span><span class="o">/*</span>
+</pre></div>
 </code></pre>
 
-<p>Build wheel and sdist packages:</p>
-<pre class="codehilite"><code>conda activate napari-ilastik-dev
-pip install build twine
-python -m build
-python -m twine upload --repository testpypi dist/*
-</code></pre>
-        
 
                                     </div>
                                 </div>

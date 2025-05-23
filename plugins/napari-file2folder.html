@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,54 +206,29 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/GuignardLab/napari-file2folder/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-file2folder.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-file2folder"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-file2folder.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-file2folder.svg?color=green" /></a>
-<a href="https://github.com/jules-vanaret/napari-file2folder/actions"><img alt="tests" src="https://github.com/jules-vanaret/napari-file2folder/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jules-vanaret/napari-file2folder"><img alt="codecov" src="https://codecov.io/gh/jules-vanaret/napari-file2folder/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-file2folder"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-file2folder" /></a></p>
-<p><img src="https://github.com/GuignardLab/tapenade/blob/main/imgs/tapenade3.png" width="100"></p>
+                                        <p><a href="https://github.com/GuignardLab/napari-file2folder/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-file2folder.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-file2folder"><img src="https://img.shields.io/pypi/v/napari-file2folder.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-file2folder.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jules-vanaret/napari-file2folder/actions"><img src="https://github.com/jules-vanaret/napari-file2folder/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jules-vanaret/napari-file2folder"><img src="https://codecov.io/gh/jules-vanaret/napari-file2folder/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-file2folder"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-file2folder" alt="napari hub" /></a></p>
+<img src="https://github.com/GuignardLab/tapenade/blob/main/imgs/tapenade3.png" width="100">
 <p>A plugin to inspect bioimages (e.g. .tif, .czi, .nd2, .lsm...) and save them as individual .tif files in a folder.</p>
 <p><code>napari-file2folder</code> is a <a href="https://github.com/napari/napari">napari</a> plugin that is part of the <a href="https://github.com/GuignardLab/tapenade">Tapenade</a> project. Tapenade is a tool for the analysis of dense 3D tissues acquired with deep imaging microscopy. It is designed to be user-friendly and to provide a comprehensive analysis of the data.</p>
 <p>If you use this plugin for your research, please <a href="https://github.com/GuignardLab/tapenade/blob/main/README.md#how-to-cite">cite us</a>.</p>
 <h2>Overview</h2>
-<p><img src="imgs/napari-file2folder-demo.gif"/></p>
+<img src="imgs/napari-file2folder-demo.gif"/>
 <p>This plugin allows you to inspect (possibly large) bioimages by displaying their shape (number of elements in each dimension), and allowing you to save each element along a chosen dimension as a separate .tif file in a folder. This is useful when you have a large movie or stack of images and you want to save each frame or slice as a separate file. Optionally, the plugin allows the user to visualize the middle element of a given dimension to help the user decide which dimension to save as separate files.</p>
-<p>The plugin currently supports the following file formats:
-- .tif
-- .ome.tiff
-- .zarr
-- .ome.zarr
-- .nd2
-- .lsm
-- .czi</p>
+<p>The plugin currently supports the following file formats:</p>
+<ul>
+<li>.tif</li>
+<li>.ome.tiff</li>
+<li>.zarr</li>
+<li>.ome.zarr</li>
+<li>.nd2</li>
+<li>.lsm</li>
+<li>.czi</li>
+</ul>
 <p>This plugin leverages <a href="https://github.com/cgohlke/tifffile">tifffile</a>, <a href="https://github.com/bioio-devs/bioio">bioio</a>, and <a href="https://github.com/zarr-developers/zarr-python">zarr</a> to circumvent loading the entire images in memory, which allows inspection of very large images.</p>
 <blockquote>
 <p>[!CAUTION]
@@ -259,15 +238,14 @@ When inspecting the middle element of a dimension, or when saving one element of
 <p>The plugin obviously requires <a href="https://github.com/napari/napari">napari</a> to run. If you don't have it yet, follow the instructions <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">here</a>.</p>
 <p>The simplest way to install <code>napari-file2folder</code> is via the <a href="https://github.com/napari/napari">napari</a> plugin manager. Open Napari, go to <code>Plugins &gt; Install/Uninstall Packages...</code> and search for <code>napari-file2folder</code>. Click on the install button and you are ready to go!</p>
 <p>You can install <code>napari-file2folder</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-file2folder
+<pre><code>pip install napari-file2folder
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-file2folder" is free and open source software</p>
+&quot;napari-file2folder&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
 <hr />
@@ -279,7 +257,7 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-        
+
 
                                     </div>
                                 </div>

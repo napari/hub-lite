@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/WyssCenter/Large-Image-Viewer/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/Large-Image-Viewer.svg?color=green" /></a>
-<a href="https://pypi.org/project/Large-Image-Viewer"><img alt="PyPI" src="https://img.shields.io/pypi/v/Large-Image-Viewer.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/Large-Image-Viewer.svg?color=green" /></a>
-<a href="https://github.com/WyssCenter/Large-Image-Viewer/actions"><img alt="tests" src="https://github.com/WyssCenter/Large-Image-Viewer/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/WyssCenter/Large-Image-Viewer"><img alt="codecov" src="https://codecov.io/gh/WyssCenter/Large-Image-Viewer/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/Large-Image-Viewer"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/Large-Image-Viewer" /></a></p>
+                                        <p><a href="https://github.com/WyssCenter/Large-Image-Viewer/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/Large-Image-Viewer.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/Large-Image-Viewer"><img src="https://img.shields.io/pypi/v/Large-Image-Viewer.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/Large-Image-Viewer.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/WyssCenter/Large-Image-Viewer/actions"><img src="https://github.com/WyssCenter/Large-Image-Viewer/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/WyssCenter/Large-Image-Viewer"><img src="https://codecov.io/gh/WyssCenter/Large-Image-Viewer/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/Large-Image-Viewer"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/Large-Image-Viewer" alt="napari hub" /></a></p>
 <p>A simple plugin to view large images</p>
 <hr />
 <!--
@@ -244,22 +221,19 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>Large-Image-Viewer</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install Large-Image-Viewer
+<pre><code>pip install Large-Image-Viewer
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/WyssCenter/Large-Image-Viewer.git
+<pre><code>pip install git+https://github.com/WyssCenter/Large-Image-Viewer.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"Large-Image-Viewer" is free and open source software</p>
+&quot;Large-Image-Viewer&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/WyssCenter/Large-Image-Viewer/issues">file an issue</a> along with a detailed description.</p>
 <h1>Napari Large Image Viewer Plugin</h1>
@@ -281,21 +255,24 @@ the coverage at least stays the same before you submit a pull request.</p>
 </ul>
 <h2>Installation</h2>
 <ol>
-<li><strong>Prerequisites</strong>: Make sure you have <a href="https://napari.org/">napari</a> installed on your system. If not, you can install it using:</li>
-</ol>
-<p><code>bash
-   pip install napari</code></p>
-<ol>
-<li><strong>Install the Plugin</strong>: You can install the plugin directly from GitHub using pip:</li>
-</ol>
-<p><code>bash
-   pip install git+https://github.com/WyssCenter/Large-Image-Viewer.git</code></p>
-<ol>
-<li><strong>Launch napari</strong>: Launch napari from your terminal:</li>
-</ol>
-<p><code>bash
-   napari</code></p>
-<ol>
+<li>
+<p><strong>Prerequisites</strong>: Make sure you have <a href="https://napari.org/">napari</a> installed on your system. If not, you can install it using:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p><strong>Install the Plugin</strong>: You can install the plugin directly from GitHub using pip:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/WyssCenter/Large-Image-Viewer.git
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p><strong>Launch napari</strong>: Launch napari from your terminal:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari
+</pre></div>
+</code></pre>
+</li>
 <li>
 <p><strong>Activate the Plugin</strong>: Once napari is launched, go to the <code>Plugins</code> menu and select <code>Large Image Viewer</code> to activate the plugin.</p>
 </li>
@@ -323,8 +300,8 @@ the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>This plugin is licensed under the <a href="LICENSE">MIT License</a>.</p>
 <h2>Contact</h2>
-<p>For any inquiries or questions, you can reach out to the author at nima.mojtahedi@wysscenter.ch</p>
-        
+<p>For any inquiries or questions, you can reach out to the author at <a href="mailto:nima.mojtahedi@wysscenter.ch">nima.mojtahedi@wysscenter.ch</a></p>
+
 
                                     </div>
                                 </div>

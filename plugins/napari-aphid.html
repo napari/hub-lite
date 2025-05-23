@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hereariim/napari-aphid/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-aphid.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-aphid"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-aphid.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-aphid.svg?color=green" /></a>
-<a href="https://github.com/hereariim/napari-aphid/actions"><img alt="tests" src="https://github.com/hereariim/napari-aphid/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hereariim/napari-aphid"><img alt="codecov" src="https://codecov.io/gh/hereariim/napari-aphid/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-aphid"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-aphid" /></a></p>
+                                        <p><a href="https://github.com/hereariim/napari-aphid/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-aphid.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-aphid"><img src="https://img.shields.io/pypi/v/napari-aphid.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-aphid.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hereariim/napari-aphid/actions"><img src="https://github.com/hereariim/napari-aphid/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hereariim/napari-aphid"><img src="https://codecov.io/gh/hereariim/napari-aphid/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-aphid"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-aphid" alt="napari hub" /></a></p>
 <p>A plugin to classify aphids by stage of development.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -248,19 +225,16 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-aphid</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-aphid
+<pre><code>pip install napari-aphid
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hereariim/napari-aphid.git
+<pre><code>pip install git+https://github.com/hereariim/napari-aphid.git
 </code></pre>
-
 <h2>Description</h2>
-<p>This plugin is a tool to count the number of aphids from two models developed on ilastik. Implemented in napari, this tool allows the correction of pixels and labels that are not well 
-predicted. </p>
+<p>This plugin is a tool to count the number of aphids from two models developed on ilastik. Implemented in napari, this tool allows the correction of pixels and labels that are not well
+predicted.</p>
 <p>In this plugin we find our two main parts of the aphid counting model presented in two widgets. A third widget allows to save the updates applied on the segmentation mask.</p>
 <p>This plugin is an use cas, dedicated to private use of french laboratory.</p>
 <h2>Plugin input</h2>
@@ -271,7 +245,7 @@ predicted. </p>
 <li>Ilastik pixel classification model in .ilp format</li>
 </ul>
 <p>In particular, compressed file must be organized as follows:</p>
-<pre class="codehilite"><code>.
+<pre><code><div class="highlight"><pre><span></span>.
 └── Country.zip
     └── Country
         ├── Area1
@@ -308,20 +282,20 @@ predicted. </p>
             ...
             ├── Arean.im_n.tif
             └── Arean.im_n.h5
+</pre></div>
 </code></pre>
-
 <p>In each folder Area1, Area2, ..., Arean, we notice that <strong>each tif image is accompanied by its h5 version</strong>. The images in h5 format were generated by the Export h5 widget of the Ilastik plugin in the ImageJ software.</p>
 <h3>Classification</h3>
 <p>The user must give the Ilastik object classification model in .ilp format.</p>
 <h2>Widget: Image segmentation</h2>
 <p>This widget is a tool to segment a set of images. It takes as input a compressed file of images and an ilastik segmentation model. A Run button is used to start the image segmentation process. In the background, the console presents the progress status. This widget returns a menu which is a list of processed images. This list allows an RGB image and its segmentation mask to be displayed in the napari window.</p>
-<p><img alt="segmentation_cpe" src="https://user-images.githubusercontent.com/93375163/212323051-bc84d597-a9ff-46ca-b897-cb18a0e77b4c.png" /></p>
+<p><img src="https://user-images.githubusercontent.com/93375163/212323051-bc84d597-a9ff-46ca-b897-cb18a0e77b4c.png" alt="segmentation_cpe" /></p>
 <p><strong>User conduct :</strong> In this widget, the user corrects the image with the annotation tools (brush and eraser only). With the brush, he/she has to add the same colour presented in the image. To obtain this colour, the user can take the color with the color picker tool. With the eraser, he/she erase colour not well predicted. Tous les annotations appliquées dans l'image doit être sauvegarder avec le bouton <em>Save</em> du widget <strong>Save modification</strong></p>
 <h2>Widget: Save modification</h2>
 <p>This is the backup of the segmentation mask. It saves updates applied to the mask.</p>
 <h2>Widget: Object classification</h2>
 <p>This widget is a tool to classify segmented images. It takes as input an ilastik object classification model. A Run button is used to start the classification process. In the background, the console shows the progress of the image processing. This widget returns a menu that lists the processed images. This list provides two elements. The first is the display of the selected image in the window. The second is the display of a table that shows the predicted classes for each object.</p>
-<p><img alt="classification_cpe" src="https://user-images.githubusercontent.com/93375163/212323369-32423622-4f41-4dcb-800b-39ff66be67f9.png" /></p>
+<p><img src="https://user-images.githubusercontent.com/93375163/212323369-32423622-4f41-4dcb-800b-39ff66be67f9.png" alt="classification_cpe" /></p>
 <p><strong>User conduct :</strong> In this widget, the user corrects labels not well predicted in the table at the bottom right. He must not forget to save his correction with the Save button.
 When the user has finished with all his images, he uses the Export button to import a quantitative table. This table contains for each image, the name of the aphid type and its size in pixels.</p>
 <h2>Contributing</h2>
@@ -329,10 +303,10 @@ When the user has finished with all his images, he uses the Export button to imp
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-aphid" is free and open source software</p>
+&quot;napari-aphid&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hereariim/napari-aphid/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

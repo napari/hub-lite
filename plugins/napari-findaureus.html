@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,72 +206,46 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>"Findaureus" is now available to use in napari.</p>
+                                        <p>&quot;Findaureus&quot; is now available to use in napari.</p>
 <p align="center">
 <img src="https://raw.githubusercontent.com/shibarjun/napari-findaureus/main/docs/napari-findaureus.png" />
 </p>
-
 <p>Findaureus is a tool designed to identify bacteria in infected bone tissue images obtained via Confocal Laser Scanning Microscopy (CLSM). This tool can be accessed independently <a href="https://github.com/shibarjun/Findaureus">here</a>. Findaureus has been integrated as a plugin for napari. In addition to its bacteria-locating algorithm, the napari viewer provides improved visualization features, in 2D and 3D perspectives.</p>
 <hr />
 <h2>Installation</h2>
 <h3>Windows/Linux</h3>
-<p>If you don’t have conda installed, you can get miniconda or Anaconda from their websites.
-1. Open your command line tool and run these commands to create and activate a conda environment:</p>
-<pre class="codehilite"><code>conda create -n napari-findaureus python=3.9
-conda activate napari-findaureus
-</code></pre>
-
+<p>If you don’t have conda installed, you can get miniconda or Anaconda from their websites.</p>
 <ol>
+<li>Open your command line tool and run these commands to create and activate a conda environment:</li>
+</ol>
+<pre><code><div class="highlight"><pre><span></span>conda create -n napari-findaureus python=3.9
+conda activate napari-findaureus
+</pre></div>
+</code></pre>
+<ol start="2">
 <li>Install napari and napari-findaureus with this command:</li>
 </ol>
-<pre class="codehilite"><code>pip install &quot;napari[all]&quot; napari-findaureus
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="ss">&quot;napari[all]&quot;</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">findaureus</span>
+</pre></div>
 </code></pre>
-
 <h3>macOS</h3>
 <ol>
 <li>Create an environment with napari and pyqt5</li>
 </ol>
-<pre class="codehilite"><code>conda create -n napari-findaureus -c conda-forge python=3.9 pyqt imagecodecs napari
+<pre><code><div class="highlight"><pre><span></span>conda create -n napari-findaureus -c conda-forge python=3.9 pyqt imagecodecs napari
+</pre></div>
 </code></pre>
-
-<ol>
+<ol start="2">
 <li>Install the napari-findaureus plugin</li>
 </ol>
-<pre class="codehilite"><code>pip install napari-findaureus
+<pre><code><div class="highlight"><pre><span></span>pip install napari-findaureus
+</pre></div>
 </code></pre>
-
 <h2>Start napari-findaureus</h2>
 <p>Launch napari from the terminal while the napari-findaureus environment is running.</p>
-<pre class="codehilite"><code>napari
+<pre><code><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
 <p>To launch the napari plugin, go to “Plugins” and select “napari-findaureus”.</p>
 <h2>Quick demo</h2>
 <p>To use the <code>napari-findaureus</code> plugin, please follow the steps below:</p>
@@ -275,7 +253,7 @@ conda activate napari-findaureus
 <li>First, download some relevant fluorescence-labeled images of infected mouse bone tissues from <a href="https://zenodo.org/doi/10.5281/zenodo.8411791">Zenodo</a>.</li>
 <li>Next, load the image file through the <code>napari-findaureus</code> plugin.</li>
 <li>Navigate to the “Plugins” menu and select the <code>napari-findaureus</code> option to activate the widget.</li>
-<li>In the viewer, identify the bacteria channel from the "layer list," which is specified in the image file name, and select it.</li>
+<li>In the viewer, identify the bacteria channel from the &quot;layer list,&quot; which is specified in the image file name, and select it.</li>
 <li>Once the bacteria channel is selected, click on the <code>Find bacteria!</code> button.</li>
 <li>The widget will display the image-related data and bacteria count. If you need additional help, click on the <code>Instruction</code> button in the widget.</li>
 <li>Before you proceed to another image, reset the viewer by clicking on the <code>Reset</code> button provided in the widget.</li>
@@ -283,7 +261,6 @@ conda activate napari-findaureus
 <p align="center">
 <img src="https://raw.githubusercontent.com/shibarjun/napari-findaureus/main/docs/napari-findaureus.gif" />
 </p>
-
 <p>Enjoy exploring the fascinating world of bacteria in mouse bone tissues!</p>
 <hr />
 <h2>Contributing</h2>
@@ -298,7 +275,7 @@ When using our dataset or referring to our work, we kindly ask that you acknowle
 <h3><a href="https://zenodo.org/doi/10.5281/zenodo.8411791">Dataset</a></h3>
 <h2>Acknowledgements</h2>
 <p>This project is a part of the European Union's Horizon 2020 research and innovation program under grant agreement No 861122 (ITN IMAGE-IN). We acknowledge support from the Jena Biophotonics and Imaging Laboratory (JBIL), from the European Union via EFRE funds within the Thüringer Innovationszentrum für Medizintechnik-Lösungen (ThIMEDOP, FKZ IZN 2018 0002), the BMBF via the funding program Photonics Research Germany (LPI, FKZ: 13N15713) and via the CSCC (FKZ 01EO1502) and the Institute of Anatomical and Molecular Pathology, University Coimbra, Portugal.</p>
-        
+
 
                                     </div>
                                 </div>

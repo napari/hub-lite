@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,41 +233,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hanjinliu/napari-himena/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-himena.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-himena"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-himena.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-himena.svg?color=green" /></a>
-<a href="https://github.com/hanjinliu/napari-himena/actions"><img alt="tests" src="https://github.com/hanjinliu/napari-himena/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hanjinliu/napari-himena"><img alt="codecov" src="https://codecov.io/gh/hanjinliu/napari-himena/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-himena"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-himena" /></a>
-<a href="https://napari.org/stable/plugins/index.html"><img alt="npe2" src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" /></a>
-<a href="https://github.com/copier-org/copier"><img alt="Copier" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" /></a></p>
+                                        <p><a href="https://github.com/hanjinliu/napari-himena/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-himena.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-himena"><img src="https://img.shields.io/pypi/v/napari-himena.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-himena.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hanjinliu/napari-himena/actions"><img src="https://github.com/hanjinliu/napari-himena/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hanjinliu/napari-himena"><img src="https://codecov.io/gh/hanjinliu/napari-himena/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-himena"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-himena" alt="napari hub" /></a>
+<a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a>
+<a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
 <p>Pipeline between <a href="https://github.com/napari/napari"><code>napari</code></a> and <a href="https://github.com/hanjinliu/himena"><code>himena</code></a>.</p>
 <p><code>napari</code> is a great tool for visualization, annotation and analysis of multi-dimensional
 images. On the other hand, <code>himena</code> has a powerful plugin system that allows users to
@@ -273,49 +250,47 @@ back and forth, extending the functionality of the both packages.</p>
 <h2>Examples</h2>
 <h4>1. Sending image layers to <code>himena</code> for ImageJ-like multi-measurement and Excel-like plotting.</h4>
 <p>Measuring time-course change in the image intensity with <a href="https://github.com/hanjinliu/himena-image"><code>himena-image</code></a> plugin, and plot the result using the built-in plot functions using <code>matplotlib</code>.</p>
-<p><img alt="" src="https://github.com/hanjinliu/napari-himena/blob/main/assets/image-plot.gif" /></p>
+<p><img src="https://github.com/hanjinliu/napari-himena/blob/main/assets/image-plot.gif" alt="" /></p>
 <h4>2. Sending points and their features to <code>himena</code> for seaborn plotting.</h4>
 <p>Feature dataframe can be directly sent to <code>himena</code> for <code>seaborn</code> plotting using <a href="https://github.com/hanjinliu/himena-seaborn"><code>himena-seaborn</code></a> plugin.</p>
-<p><img alt="" src="https://github.com/hanjinliu/napari-himena/blob/main/assets/feature-sns.gif" /></p>
+<p><img src="https://github.com/hanjinliu/napari-himena/blob/main/assets/feature-sns.gif" alt="" /></p>
 <h2>Usage</h2>
 <h4>Starting from <code>napari</code></h4>
-<p>Open the <code>napari-himena</code> dock widget from the "Plugin" menu, connect to one of the
-<code>himena</code> profile (only "default" is available by default), and that's it!</p>
-<p><img alt="" src="https://github.com/hanjinliu/napari-himena/blob/main/assets/from-napari.png" /></p>
+<p>Open the <code>napari-himena</code> dock widget from the &quot;Plugin&quot; menu, connect to one of the
+<code>himena</code> profile (only &quot;default&quot; is available by default), and that's it!</p>
+<p><img src="https://github.com/hanjinliu/napari-himena/blob/main/assets/from-napari.png" alt="" /></p>
 <h4>Starting from <code>himena</code></h4>
 <p>To use this plugin from <code>himena</code>, you need to first register this plugin to the <code>himena</code>
 profile</p>
-<pre class="codehilite"><code class="language-shell"># install to the default profile
-himena --install napari-himena
+<pre><code class="language-shell"><div class="highlight"><pre><span></span><span class="c1"># install to the default profile</span>
+himena<span class="w"> </span>--install<span class="w"> </span>napari-himena
 
-# or install to a specific profile
-himena &lt;my-profile&gt; --install napari-himena
+<span class="c1"># or install to a specific profile</span>
+himena<span class="w"> </span>&lt;my-profile&gt;<span class="w"> </span>--install<span class="w"> </span>napari-himena
+</pre></div>
 </code></pre>
-
 <p>Then all the commands will be available in <code>himena</code> and a napari viewer will be launched
 when it is needed. You don't need to do this if you always launch <code>himena</code> from <code>napari</code>
 plugin; it automatically register this package in the beginning.</p>
-<p><img alt="" src="https://github.com/hanjinliu/napari-himena/blob/main/assets/from-himena.png" /></p>
+<p><img src="https://github.com/hanjinliu/napari-himena/blob/main/assets/from-himena.png" alt="" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-himena</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-himena
+<pre><code>pip install napari-himena
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hanjinliu/napari-himena.git
+<pre><code>pip install git+https://github.com/hanjinliu/napari-himena.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-himena" is free and open source software</p>
+&quot;napari-himena&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hanjinliu/napari-himena/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

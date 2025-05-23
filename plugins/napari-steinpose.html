@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,125 +206,94 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/guiwitz/napari-steinpose/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-steinpose.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-steinpose"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-steinpose.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-steinpose.svg?color=green" /></a>
-<a href="https://github.com/guiwitz/napari-steinpose/actions"><img alt="tests" src="https://github.com/guiwitz/napari-steinpose/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/guiwitz/napari-steinpose"><img alt="codecov" src="https://codecov.io/gh/guiwitz/napari-steinpose/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-steinpose"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-steinpose" /></a></p>
+                                        <p><a href="https://github.com/guiwitz/napari-steinpose/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-steinpose.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-steinpose"><img src="https://img.shields.io/pypi/v/napari-steinpose.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-steinpose.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/guiwitz/napari-steinpose/actions"><img src="https://github.com/guiwitz/napari-steinpose/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/guiwitz/napari-steinpose"><img src="https://codecov.io/gh/guiwitz/napari-steinpose/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-steinpose"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-steinpose" alt="napari hub" /></a></p>
 <p>This napari plugin allows to segment and extract information from Imaging Mass Cytometry data by combining the <a href="http://www.cellpose.org/">cellpose</a> and <a href="https://bodenmillergroup.github.io/steinbock/v0.14.2/">steinbock</a> tools.</p>
 <h2>Installation</h2>
 <p>In order to use this plugin, whe highly recommend to create a specific environment and to install the required software in it. You can create a conda environment using:</p>
-<pre class="codehilite"><code>conda create -n steinpose python=3.8.5 napari -c conda-forge
+<pre><code>conda create -n steinpose python=3.8.5 napari -c conda-forge
 </code></pre>
-
 <p>Then activate it and install the plugin:</p>
-<pre class="codehilite"><code>conda activate steinpose
+<pre><code>conda activate steinpose
 pip install napari-steinpose
 </code></pre>
-
 <h3>Potential issue with PyTorch</h3>
 <p>Cellpose and therefore the plugin and napari can crash without warning in some cases with <code>torch==1.12.0</code>. This can be fixed by reverting to an earlier version using:</p>
-<pre class="codehilite"><code>pip install torch==1.11.0
+<pre><code>pip install torch==1.11.0
 </code></pre>
-
 <h3>GPU</h3>
 <p>In order to use a GPU:</p>
 <ol>
 <li>
 <p>Uninstall the PyTorch version that gets installed by default with Cellpose:</p>
-<pre class="codehilite"><code>pip uninstall torch
+<pre><code> pip uninstall torch
 </code></pre>
-
 </li>
 <li>
 <p>Make sure your have up-to-date drivers for your NVIDIA card installed.</p>
 </li>
 <li>
 <p>Re-install a GPU version of PyTorch via conda using a command that you can find <a href="https://pytorch.org/get-started/locally/">here</a> (this takes care of the cuda toolkit, cudnn etc. so <strong>no need to install manually anything more than the driver</strong>). The command will look like this:</p>
-<pre class="codehilite"><code>conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
+<pre><code> conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
 </code></pre>
-
 </li>
 </ol>
 <h3>Plugin Updates</h3>
 <p>To update the plugin, you only need to activate the existing environment and install the new version:</p>
-<pre class="codehilite"><code>conda activate steinpose
+<pre><code>conda activate steinpose
 pip install git+https://github.com/guiwitz/napari-steinpose.git -U
 </code></pre>
-
 <h2>Usage</h2>
 <p>Here is a short summary on how to proceed to use the plugin. For more detailed information, please visit <a href="https://guiwitz.github.io/napari-steinpose">this page</a>.</p>
 <h3>Load data</h3>
-<p>Using the "Select data folder" button, select a folder containing your .mcd files. The contents of the folder will appear in the List of images box. When you select one of the files it is loaded in the viewer. Using the ROI spinpox, you can change the roi (or acquisition) to be visualized.</p>
+<p>Using the &quot;Select data folder&quot; button, select a folder containing your .mcd files. The contents of the folder will appear in the List of images box. When you select one of the files it is loaded in the viewer. Using the ROI spinpox, you can change the roi (or acquisition) to be visualized.</p>
 <h3>Segmentation</h3>
 <ol>
 <li>
-<p>In the channels tab, choose the combination of channels to use to define images to segment. You can choose what type of projection (mean, min etc.) is used to combine channels. You can either select channels defining both cells and nuclei or just a single channel. <strong>Note that if you want to just segment nuclei, you need to select them as "cell channel".</strong></p>
+<p>In the channels tab, choose the combination of channels to use to define images to segment. You can choose what type of projection (mean, min etc.) is used to combine channels. You can either select channels defining both cells and nuclei or just a single channel. <strong>Note that if you want to just segment nuclei, you need to select them as &quot;cell channel&quot;.</strong></p>
 </li>
 <li>
-<p>To save the output, select a folder using the "Select output folder" button.</p>
+<p>To save the output, select a folder using the &quot;Select output folder&quot; button.</p>
 </li>
 <li>
 <p>In the segmentation tab, pick a cellpose model to use. If you use one of the built-in models, you can specify the average diameter of objects to detect.</p>
 </li>
 <li>
 <p>In the Options tab, you can set a few more options:</p>
-</li>
+<ul>
 <li>cellpose options: you can adjust the flow threshold and cell probabilities. If cells are missing try to use higher values of flow threshold (close to 1) and lower values for the cell probabilities (around -6)</li>
-<li>
-<p>segmentation options: you can decide to remove segmentation touching the image border, and you can also decide to expand the segmented objects by a fixed number of pixels. If a segmentation is displayed in the viewer, adjusting this parameter will live-adjust the mask.</p>
+<li>segmentation options: you can decide to remove segmentation touching the image border, and you can also decide to expand the segmented objects by a fixed number of pixels. If a segmentation is displayed in the viewer, adjusting this parameter will live-adjust the mask.</li>
+</ul>
 </li>
 <li>
-<p>You can first test the segmentation using the "Run on current image" button. Once segmentation is done, the corresponding mask is displayed. You can then run the segmentation over all ROIs of <strong>all .mcd files</strong> present in the folder by using the "Run on folder" button.</p>
+<p>You can first test the segmentation using the &quot;Run on current image&quot; button. Once segmentation is done, the corresponding mask is displayed. You can then run the segmentation over all ROIs of <strong>all .mcd files</strong> present in the folder by using the &quot;Run on folder&quot; button.</p>
 </li>
 </ol>
 <h3>Post-processing</h3>
-<p>In the Segmentation tab, if you tick the box "Run steinbock post-processing", information will directly be extracted from images and masks at the end of segmentation. Processing is done via steinbock and generates files compatible with further downstream processing.</p>
-<p>In the Export tab, you can select what type of information to export: object intensities, geometric properties and object neighbourhood. Note that if you have performed a segmentation without post-processing, you can still run post-processing using the "Run steinbock postproc" button.</p>
+<p>In the Segmentation tab, if you tick the box &quot;Run steinbock post-processing&quot;, information will directly be extracted from images and masks at the end of segmentation. Processing is done via steinbock and generates files compatible with further downstream processing.</p>
+<p>In the Export tab, you can select what type of information to export: object intensities, geometric properties and object neighbourhood. Note that if you have performed a segmentation without post-processing, you can still run post-processing using the &quot;Run steinbock postproc&quot; button.</p>
 <h3>Saving settings</h3>
-<p>To avoid having to re-type the same settings repeatedly, you can export a give configuration using the "Export config" button in the Options tab. This generates a human readable .yml file with:
-- segmentation options
-- channels selected for projections</p>
-<p>The file is saved in the output folder. You can just copy the file in a new empty output folder to use it for an other analysis run. Once you select that folder containing a configuration file, you can import it with the "Import config" button. <strong>Note that you need to have an image opened so that channels can be selected properly.</strong></p>
+<p>To avoid having to re-type the same settings repeatedly, you can export a give configuration using the &quot;Export config&quot; button in the Options tab. This generates a human readable .yml file with:</p>
+<ul>
+<li>segmentation options</li>
+<li>channels selected for projections</li>
+</ul>
+<p>The file is saved in the output folder. You can just copy the file in a new empty output folder to use it for an other analysis run. Once you select that folder containing a configuration file, you can import it with the &quot;Import config&quot; button. <strong>Note that you need to have an image opened so that channels can be selected properly.</strong></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-steinpose" is free and open source software</p>
+&quot;napari-steinpose&quot; is free and open source software</p>
 <h2>Authors</h2>
 <p>The author of this plugin is Guillaume Witz, Data Science Lab and Microscopy Imaging Center, University of Bern. This plugin is the result of a collaboration with the Imaging Mass Cytometry and Mass Cytometry Platform, University of Bern.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/guiwitz/napari-steinpose/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

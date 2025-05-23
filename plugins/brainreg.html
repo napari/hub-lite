@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -213,40 +217,13 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/brainreg"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/brainreg.svg" /></a>
-<a href="https://pypi.org/project/brainreg"><img alt="PyPI" src="https://img.shields.io/pypi/v/brainreg.svg" /></a>
-<a href="https://pypi.org/project/brainreg"><img alt="Wheel" src="https://img.shields.io/pypi/wheel/brainreg.svg" /></a>
-<a href="https://github.com/brainglobe/brainreg"><img alt="Development Status" src="https://img.shields.io/pypi/status/brainreg.svg" /></a>
-<a href="https://github.com/brainglobe/brainreg/actions"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/brainglobe/brainreg/test_and_deploy.yml?branch=main" /></a>
-<a href="https://codecov.io/gh/brainglobe/brainreg"><img alt="codecov" src="https://codecov.io/gh/brainglobe/brainreg/branch/main/graph/badge.svg?token=FbPgwBIGnd" /></a>
-<a href="https://github.com/python/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a></p>
+                                        <p><a href="https://pypi.org/project/brainreg"><img src="https://img.shields.io/pypi/pyversions/brainreg.svg" alt="Python Version" /></a>
+<a href="https://pypi.org/project/brainreg"><img src="https://img.shields.io/pypi/v/brainreg.svg" alt="PyPI" /></a>
+<a href="https://pypi.org/project/brainreg"><img src="https://img.shields.io/pypi/wheel/brainreg.svg" alt="Wheel" /></a>
+<a href="https://github.com/brainglobe/brainreg"><img src="https://img.shields.io/pypi/status/brainreg.svg" alt="Development Status" /></a>
+<a href="https://github.com/brainglobe/brainreg/actions"><img src="https://img.shields.io/github/actions/workflow/status/brainglobe/brainreg/test_and_deploy.yml?branch=main" alt="Tests" /></a>
+<a href="https://codecov.io/gh/brainglobe/brainreg"><img src="https://codecov.io/gh/brainglobe/brainreg/branch/main/graph/badge.svg?token=FbPgwBIGnd" alt="codecov" /></a>
+<a href="https://github.com/python/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black" /></a></p>
 <h1>brainreg</h1>
 <p>brainreg is an update to <a href="https://github.com/SainsburyWellcomeCentre/amap_python">amap</a> (which is itself a port
 of the <a href="https://www.nature.com/articles/ncomms11879">original Java software</a>) to include multiple registration backends, and to support the many atlases provided by <a href="https://github.com/brainglobe/brainglobe-atlasapi">brainglobe-atlasapi</a>.
@@ -260,28 +237,28 @@ The template to sample transformation can also be inverted, allowing sample imag
 <p>To do this, the template and sample images are filtered, and then registered in a three step process (reorientation, affine registration, and freeform registration).
 The resulting transform from template to standard space is then applied to the atlas.</p>
 <p>Full details of the process are in the <a href="https://www.nature.com/articles/ncomms11879">original aMAP paper</a>.</p>
-<p><img alt="An illustrated overview of the registration process" src="https://user-images.githubusercontent.com/13147259/143553945-a046e918-7614-4211-814c-fc840bb0159d.png" /></p>
+<p><img src="https://user-images.githubusercontent.com/13147259/143553945-a046e918-7614-4211-814c-fc840bb0159d.png" alt="An illustrated overview of the registration process" /></p>
 <h2>Installation</h2>
 <p>To install both the command line tool and the napari plugin, run</p>
-<pre class="codehilite"><code class="language-bash">pip install brainreg[napari]
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>brainreg<span class="o">[</span>napari<span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <p>in your desired Python environment.
 To only install the command line tool with no GUI (e.g. to run brainreg on an HPC cluster), just run:</p>
-<pre class="codehilite"><code class="language-bash">pip install brainreg
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>brainreg
+</pre></div>
 </code></pre>
-
 <h3>Installing on macOS</h3>
 <p>If you are using macOS, please run</p>
-<pre class="codehilite"><code class="language-bash">conda install -c conda-forge niftyreg
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>niftyreg
+</pre></div>
 </code></pre>
-
 <p>in your environment before installing, to ensure all dependencies are installed.</p>
 <h2>Command line usage</h2>
 <h3>Basic usage</h3>
-<pre class="codehilite"><code class="language-bash">brainreg /path/to/raw/data /path/to/output/directory -v 5 2 2 --orientation psl
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>brainreg<span class="w"> </span>/path/to/raw/data<span class="w"> </span>/path/to/output/directory<span class="w"> </span>-v<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--orientation<span class="w"> </span>psl
+</pre></div>
 </code></pre>
-
 <p>Full command-line arguments are available with <code>brainreg -h</code>, but please
 <a href="mailto:code@adamltyson.com?subject=brainreg">get in touch</a> if you have any questions.</p>
 <h3>Mandatory arguments</h3>
@@ -293,18 +270,18 @@ To only install the command line tool with no GUI (e.g. to run brainreg on an HP
 <h3>Atlas</h3>
 <p>By default, brainreg will use the 25um version of the <a href="https://mouse.brain-map.org/">Allen Mouse Brain Atlas</a>.
 To use another atlas (e.g. for another species, or another resolution), you must use the <code>--atlas</code> flag, followed by the string describing the atlas, e.g.:</p>
-<pre class="codehilite"><code class="language-bash">--atlas allen_mouse_50um
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>--atlas<span class="w"> </span>allen_mouse_50um
+</pre></div>
 </code></pre>
-
 <p>To find out which atlases are available, once brainreg is installed, please run <code>brainglobe list</code>.
 The name of the resulting atlases is the string to pass with the <code>--atlas</code> flag.</p>
 <h3>Input data orientation</h3>
 <p>If your data does not match the BrainGlobe default orientation (the origin voxel is the most anterior, superior, left-most voxel), then you must specify the orientation by using the <code>--orientation</code> flag.
-What follows must be a string in the <a href="https://github.com/brainglobe/brainglobe-space">brainglobe-space</a> "initials" form, to describe the origin voxel.</p>
-<p>If the origin of your data (first, top left voxel) is the most anterior, superior, left part of the brain, then the orientation string would be "asl" (anterior, superior, left), and you would use:</p>
-<pre class="codehilite"><code class="language-bash">--orientation asl
+What follows must be a string in the <a href="https://github.com/brainglobe/brainglobe-space">brainglobe-space</a> &quot;initials&quot; form, to describe the origin voxel.</p>
+<p>If the origin of your data (first, top left voxel) is the most anterior, superior, left part of the brain, then the orientation string would be &quot;asl&quot; (anterior, superior, left), and you would use:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>--orientation<span class="w"> </span>asl
+</pre></div>
 </code></pre>
-
 <h3>Registration options</h3>
 <p>To change how the actual registration performs, see <a href="https://brainglobe.info/documentation/brainreg/user-guide/parameters.html">registration parameters</a></p>
 <h3>Additional options</h3>
@@ -334,13 +311,13 @@ If you have installed only the command-line tool you can still manually install 
 <p>If you downsampled additional channels, these will also be loaded.
 Most of these images will not be visible by default - click the little eye icon to toggle visibility.</p>
 <p><strong>Note:</strong> If you use a high resolution atlas (such as <code>allen_mouse_10um</code>), then the files can take a little while to load.</p>
-<p><img alt="GIF illustration of loading brainreg output into napari for visualisation" src="https://raw.githubusercontent.com/brainglobe/napari-brainreg/master/resources/sample_space.gif" /></p>
+<p><img src="https://raw.githubusercontent.com/brainglobe/napari-brainreg/master/resources/sample_space.gif" alt="GIF illustration of loading brainreg output into napari for visualisation" /></p>
 <h2>Seeking help or contributing</h2>
 <p>We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the <a href="https://brainglobe.info/contact.html">contact page of our website</a>.</p>
 <h2>Citing brainreg</h2>
 <p>If you find brainreg useful, and use it in your research, please let us know and also cite the paper:</p>
 <blockquote>
-<p>Tyson, A. L., V&eacute;lez-Fort, M.,  Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T.,  Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 <a href="https://doi.org/10.1038/s41598-021-04676-9">doi.org/10.1038/s41598-021-04676-9</a></p>
+<p>Tyson, A. L., Vélez-Fort, M.,  Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T.,  Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 <a href="https://doi.org/10.1038/s41598-021-04676-9">doi.org/10.1038/s41598-021-04676-9</a></p>
 </blockquote>
 <p>Please also cite aMAP (the original pipeline from which this software is based):</p>
 <blockquote>
@@ -351,7 +328,7 @@ Most of these images will not be visible by default - click the little eye icon 
 <p>Claudi, F., Petrucco, L., Tyson, A. L., Branco, T., Margrie, T. W. and Portugues, R. (2020). BrainGlobe Atlas API: a common interface for neuroanatomical atlases. Journal of Open Source Software, 5(54), 2668, <a href="https://doi.org/10.21105/joss.02668">https://doi.org/10.21105/joss.02668</a></p>
 </blockquote>
 <p>Finally, <strong>don't forget to cite the developers of the atlas that you used (e.g. the Allen Brain Atlas)!</strong></p>
-        
+
 
                                     </div>
                                 </div>

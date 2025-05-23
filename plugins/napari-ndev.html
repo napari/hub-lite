@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,43 +210,16 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/TimMonko/napari-ndev/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-ndev.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-ndev"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-ndev.svg?color=green" /></a>
-<a href="https://pypistats.org/packages/napari-ndev"><img alt="Python package index download statistics" src="https://img.shields.io/pypi/dm/napari-ndev.svg" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-ndev.svg?color=green" /></a>
-<a href="https://github.com/TimMonko/napari-ndev/actions"><img alt="tests" src="https://github.com/TimMonko/napari-ndev/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/TimMonko/napari-ndev"><img alt="codecov" src="https://codecov.io/gh/TimMonko/napari-ndev/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-ndev"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-ndev" /></a>
-<img alt="Static Badge" src="https://img.shields.io/badge/plugin-npe2-brightgreen?style=flat-square&amp;label=plugin" />
-<a href="https://doi.org/10.5281/zenodo.14787853"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.14787853.svg" /></a></p>
-<p><img src="./resources/nDev-logo-large.png" alt="logo" width="400" style="display: block; margin: auto;"></p>
+                                        <p><a href="https://github.com/TimMonko/napari-ndev/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-ndev.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-ndev"><img src="https://img.shields.io/pypi/v/napari-ndev.svg?color=green" alt="PyPI" /></a>
+<a href="https://pypistats.org/packages/napari-ndev"><img src="https://img.shields.io/pypi/dm/napari-ndev.svg" alt="Python package index download statistics" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-ndev.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/TimMonko/napari-ndev/actions"><img src="https://github.com/TimMonko/napari-ndev/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/TimMonko/napari-ndev"><img src="https://codecov.io/gh/TimMonko/napari-ndev/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-ndev"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-ndev" alt="napari hub" /></a>
+<img src="https://img.shields.io/badge/plugin-npe2-brightgreen?style=flat-square&amp;label=plugin" alt="Static Badge" />
+<a href="https://doi.org/10.5281/zenodo.14787853"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.14787853.svg" alt="DOI" /></a></p>
+<img src="./resources/nDev-logo-large.png" alt="logo" width="400" style="display: block; margin: auto;">
 <p>A collection of widgets intended to serve any person seeking to process microscopy images from start to finish, <em>with no coding necessary</em>. <code>napari-ndev</code> was designed to address the <strong>gap between the napari viewer and batch python scripting</strong>.</p>
 <ul>
 <li>Accepts <strong>diverse image formats</strong>, dimensionality, file size, and maintains key metadata.</li>
@@ -256,27 +233,27 @@ pre > code:last-child {
 <h3>Try out the <a href="https://timmonko.github.io/napari-ndev/tutorial/00_setup/">Virtual I2K 2024 Workshop</a> for an interactive tutorial</h3>
 <h2>Installation</h2>
 <p><strong>napari-ndev</strong> is a pure Python package, and can be installed with <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-ndev
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-ndev
+</pre></div>
 </code></pre>
-
 <p>If napari is currently not installed in your environment, you will also need to include a QtPy backend:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-ndev[qtpy-backend]
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-ndev<span class="o">[</span>qtpy-backend<span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <p>The easiest way to get started with <strong>napari-ndev</strong> is to install all the optional dependencies (see note below) with:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-ndev[all]
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-ndev<span class="o">[</span>all<span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <hr />
 <h3>Optional Libraries</h3>
 <p><strong>napari-ndev</strong> is most useful when interacting with some other napari plugins (e.g. napari-assistant) and can read additional filetypes. A few extra BSD3 compatible napari-plugins may be installed with <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-ndev[extras]
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-ndev<span class="o">[</span>extras<span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <p><strong>napari-ndev</strong> can optionally use GPL-3 licensed libraries to enhance its functionality, but are not required. If you choose to install and use these optional dependencies, you must comply with the GPL-3 license terms. The main functional improvement is from some <code>bioio</code> libraries to support extra image formats, including <code>czi</code> and <code>lif</code> files. These libraries can be installed with <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-ndev[gpl-extras]
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-ndev<span class="o">[</span>gpl-extras<span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <p>In addition, you may need to install specific <a href="https://github.com/bioio-devs/bioio"><code>bioio</code> readers</a> to support your specific image, such as <code>bioio-czi</code> and <code>bioio-lif</code> (included in <code>[gpl-extras]</code>) or <code>bioio-bioformats</code>.</p>
 <h3>Development Libraries</h3>
 <p>For development use the <code>[dev]</code> optional libraries to verify your changes, which includes the <code>[docs]</code> and <code>[testing]</code> optional groups. However, the Github-CI will test pull requests with <code>[testing]</code> only.</p>
@@ -288,11 +265,11 @@ pre > code:last-child {
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-ndev" is free and open source software.</p>
+&quot;napari-ndev&quot; is free and open source software.</p>
 <p>Some optional libraries can be installed to add functionality to <code>napari-ndev</code>, including some that may be more restrictive than this package's BSD-3-Clause.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/SanderSMFISH/napari-buds/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-buds.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-buds"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-buds.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-buds.svg?color=green" /></a>
-<a href="https://github.com/SanderSMFISH/napari-buds/actions"><img alt="tests" src="https://github.com/SanderSMFISH/napari-buds/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/SanderSMFISH/napari-buds"><img alt="codecov" src="https://codecov.io/gh/SanderSMFISH/napari-buds/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-buds"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-buds" /></a></p>
+                                        <p><a href="https://github.com/SanderSMFISH/napari-buds/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-buds.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-buds"><img src="https://img.shields.io/pypi/v/napari-buds.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-buds.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/SanderSMFISH/napari-buds/actions"><img src="https://github.com/SanderSMFISH/napari-buds/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/SanderSMFISH/napari-buds"><img src="https://codecov.io/gh/SanderSMFISH/napari-buds/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-buds"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-buds" alt="napari hub" /></a></p>
 <p>Random-forest automated bud annotation</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -249,89 +226,86 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
-<p>make sure you already have installed napari. </p>
+<p>make sure you already have installed napari.</p>
 <p>Next, You can install <code>napari-buds</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-buds
+<pre><code>pip install napari-buds
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/SanderSMFISH/napari-buds.git
+<pre><code>pip install git+https://github.com/SanderSMFISH/napari-buds.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>Documentation</h2>
-<p>Napari-Buds is a random forest based mother-bud annotation plugin for Napari devevoped by the TutucciLab (https://www.tutuccilab.com/) of the systems biology group at the Vrije Universiteit van Amsterdam. Mother-bud annotation requires single or multichannel 2D images of budding yeast and a fluorescent marker that localizes to the bud. In the example dataset provided smFISH DNA-probes were used as localized bud marker.The GUI layout for random forest based classification was inspired by ImageJ 'plugin Weka Segmentation' [1]. <strong>Before installation make sure you have a working version of napari installed (pip install "napari[all]").</strong> Napari-Buds is a random forest based mother-bud annotation plugin for Napari developed by the TutucciLab (https://www.tutuccilab.com/) of the systems biology group at the Vrije Universiteit van Amsterdam. Mother-bud annotation requires single or multichannel 2D images of budding yeast and a fluorescent marker that localizes to the bud. In the example dataset provided smFISH DNA-probes were used as localized bud marker.The GUI layout for random forest based classification was inspired by ImageJ 'plugin Weka Segmentation' [1]. </p>
+<p>Napari-Buds is a random forest based mother-bud annotation plugin for Napari devevoped by the TutucciLab (<a href="https://www.tutuccilab.com/">https://www.tutuccilab.com/</a>) of the systems biology group at the Vrije Universiteit van Amsterdam. Mother-bud annotation requires single or multichannel 2D images of budding yeast and a fluorescent marker that localizes to the bud. In the example dataset provided smFISH DNA-probes were used as localized bud marker.The GUI layout for random forest based classification was inspired by ImageJ 'plugin Weka Segmentation' [1]. <strong>Before installation make sure you have a working version of napari installed (pip install &quot;napari[all]&quot;).</strong> Napari-Buds is a random forest based mother-bud annotation plugin for Napari developed by the TutucciLab (<a href="https://www.tutuccilab.com/">https://www.tutuccilab.com/</a>) of the systems biology group at the Vrije Universiteit van Amsterdam. Mother-bud annotation requires single or multichannel 2D images of budding yeast and a fluorescent marker that localizes to the bud. In the example dataset provided smFISH DNA-probes were used as localized bud marker.The GUI layout for random forest based classification was inspired by ImageJ 'plugin Weka Segmentation' [1].</p>
 <p>Please follow the workflow described underneath to perform mother-bud annotation:</p>
 <ol>
 <li>
 <p>Open images in napari and create empty label layer.
 For multichannel images each channel should be provided seperately to napari.
-An example (jupyter) notebook (Open Test Images Napari.ipynb) for loading test data in napari is provided in the notebooks folder. 
-Example dataset can be downloaded from https://zenodo.org/record/7004556#.YwM1_HZBztU. </p>
+An example (jupyter) notebook (Open Test Images Napari.ipynb) for loading test data in napari is provided in the notebooks folder.
+Example dataset can be downloaded from <a href="https://zenodo.org/record/7004556#.YwM1_HZBztU">https://zenodo.org/record/7004556#.YwM1_HZBztU</a>.</p>
 </li>
 <li>
-<p>If multichannel images are unaligned the  translate widget under Plugins&gt;napari-buds&gt;Translate can be used. 
-Select which layer should be translated to align to the layers in widget menu. Then use the aswd keys to translate (move) the selected layer. 
-To register changes and update coordinates of the translated image in napari press t. </p>
+<p>If multichannel images are unaligned the  translate widget under Plugins&gt;napari-buds&gt;Translate can be used.
+Select which layer should be translated to align to the layers in widget menu. Then use the aswd keys to translate (move) the selected layer.
+To register changes and update coordinates of the translated image in napari press t.</p>
 </li>
 </ol>
 <h3>Random forest classification</h3>
-<ol>
+<ol start="3">
 <li>
 <p>To open the mother-bud annotation plugin go to Plugins&gt;napari-buds&gt;bud annotation.</p>
 </li>
 <li>
-<p>To train a random forest classifier, in the created label layer draw examples of cells, buds and background (see tutorial gif below). 
-In the Define Label segment of the widget you define which label value (class #label_value) corresponds to cells, buds and background. 
+<p>To train a random forest classifier, in the created label layer draw examples of cells, buds and background (see tutorial gif below).
+In the Define Label segment of the widget you define which label value (class #label_value) corresponds to cells, buds and background.
 Currently, cells and backgrounds and buds <strong>have to be defined in the Define Label segment</strong>  if you want to be able to segment the classification as well.
-In the segment <strong>Layers to extract Features from</strong> we can select which layers will be used in training the random forest classifier. 
-Next press <strong>Train classifier</strong>. After training is completed a result layer is added to layer list. 
+In the segment <strong>Layers to extract Features from</strong> we can select which layers will be used in training the random forest classifier.
+Next press <strong>Train classifier</strong>. After training is completed a result layer is added to layer list.
 Inspect the results carefully to asses classifier performance. The trained classifier can be saved using the <strong>save classifier</strong> button.
 Previously trained classifier can be loaded by pressing <strong>Load classifier</strong>. Loaded classifier can applied to new images by pressing <strong>Classify</strong>, resulting again in a results layer.
 It is possible to change the random forest parameters with <strong>the Set random forest parameters</strong> button and changing the values in the pop up menu.
-Press <strong>Run</strong> to register changed settings. For an example of the parameters used see: 
-https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html and 
-https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_trainable_segmentation.html. </p>
+Press <strong>Run</strong> to register changed settings. For an example of the parameters used see:
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html</a> and
+<a href="https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_trainable_segmentation.html">https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_trainable_segmentation.html</a>.</p>
 </li>
 <li>
 <p>Next, we want to perfom watershed segmentation using the result layer. However, for watershed segmentation seeds (also called markers) are required
-(for an explanation of watershed segmenation see: https://en.wikipedia.org/wiki/Watershed_(image_processing)). 
-To define the seeds we can either simply threshold on one of the supplied image layers or we can use distance tranform (https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_watershed.html#sphx-glr-auto   examples-segmentation-plot-watershed-py).The resulting seeds layer can be adjusted manually by editing in napari.
+(for an explanation of watershed segmenation see: <a href="https://en.wikipedia.org/wiki/Watershed_(image_processing)">https://en.wikipedia.org/wiki/Watershed_(image_processing)</a>).
+To define the seeds we can either simply threshold on one of the supplied image layers or we can use distance tranform (<a href="https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_watershed.html#sphx-glr-auto">https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_watershed.html#sphx-glr-auto</a>   examples-segmentation-plot-watershed-py).The resulting seeds layer can be adjusted manually by editing in napari.
 A good seeds layers correspond to each cell having a single seed (buds are not single cells). To perform watershed segmentation press the <strong>Segment</strong> button.</p>
 </li>
 <li>
-<p>Carefully inspect the resulting cell mask and bud layer. Correct the mistakes in both layers. 
+<p>Carefully inspect the resulting cell mask and bud layer. Correct the mistakes in both layers.
 Bud label values should correspond to the label value of the cell mask of mother cell. To verify mother bud relations were drawn correctly
 press <strong>Draw Mother-Bud relations</strong>. If Mother-Bud relations are correct, you can save both label layers. Mother and buds simply share the same label number.
-Thus, either the mother or bud layer can be manually corrected for mistakes. Corrections can be checked by clicking <strong>Draw Mother-Bud relations</strong> again. 
+Thus, either the mother or bud layer can be manually corrected for mistakes. Corrections can be checked by clicking <strong>Draw Mother-Bud relations</strong> again.
 mother and buds layer can be saved manually in napari. When using Jupyter notebook mother and bud layers can be saved as shown in Open Test Images Napari.ipynb.</p>
 </li>
 <li>
-<p>An example notebook for dataextraction of the created cell and bud masks can be found in the example notebooks folder (Extract_Mother_Buds_relations_from_Masks_and_intergrate_FQ_spot_data.ipynb).This notebooks relates RNA spots (smFISH data found on zenodo) to the mother or bud compartment. </p>
+<p>An example notebook for dataextraction of the created cell and bud masks can be found in the example notebooks folder (Extract_Mother_Buds_relations_from_Masks_and_intergrate_FQ_spot_data.ipynb).This notebooks relates RNA spots (smFISH data found on zenodo) to the mother or bud compartment.</p>
 </li>
 </ol>
 <p>See video for clarification:</p>
-<p><img alt="Watch the video" src="https://github.com/SanderSMFISH/napari-buds/blob/main/videos/Napari_bud_gif.gif" /></p>
+<p><img src="https://github.com/SanderSMFISH/napari-buds/blob/main/videos/Napari_bud_gif.gif" alt="Watch the video" /></p>
 <h2>Similar Napari plugins</h2>
 <p>1-napari-accelerated-pixel-and-object-classification (APOC) by Robert Haase.</p>
 <p>2-napari-feature-classifier.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-buds" is free and open source software</p>
+&quot;napari-buds&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/SanderSMFISH/napari-buds/issues">file an issue</a> along with a detailed description.</p>
 <h3>Known Issues</h3>
 <p>If window geometry of the window is unable to be set, this might lead to issues in the display of the widget. For example, part of the widget might fall of the screen.
-In these cases, it might help to adjust in your display setting the display scaling to a lower setting. </p>
+In these cases, it might help to adjust in your display setting the display scaling to a lower setting.</p>
 <h2>References</h2>
 <ol>
 <li>Arganda-Carreras, I., Kaynig, V., Rueden, C., Eliceiri, K. W., Schindelin, J., Cardona, A., &amp; Sebastian Seung, H. (2017). Trainable Weka Segmentation: a machine learning tool for microscopy pixel classification. Bioinformatics, 33(15), 2424–2426. doi:10.1093/bioinformatics/btx180</li>
 </ol>
-        
+
 
                                     </div>
                                 </div>

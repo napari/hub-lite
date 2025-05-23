@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,45 +210,18 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-roi-registration.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-roi-registration"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-roi-registration.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-roi-registration.svg?color=green" /></a>
-<a href="https://github.com/GiorgiaTortora/napari-roi-registration/actions"><img alt="tests" src="https://github.com/GiorgiaTortora/napari-roi-registration/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/GiorgiaTortora/napari-roi-registration"><img alt="codecov" src="https://codecov.io/gh/GiorgiaTortora/napari-roi-registration/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-roi-registration"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-roi-registration" /></a></p>
+                                        <p><a href="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-roi-registration.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-roi-registration"><img src="https://img.shields.io/pypi/v/napari-roi-registration.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-roi-registration.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/GiorgiaTortora/napari-roi-registration/actions"><img src="https://github.com/GiorgiaTortora/napari-roi-registration/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/GiorgiaTortora/napari-roi-registration"><img src="https://codecov.io/gh/GiorgiaTortora/napari-roi-registration/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-roi-registration"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-roi-registration" alt="napari hub" /></a></p>
 <p>A Napari plugin for the registration of regions of interests (ROI) in a time lapse acquistion and processing of the intensity of the registered data.</p>
-<p>The ROI are defined using a Labels layer. Registration of multiple ROIs is supported.  </p>
+<p>The ROI are defined using a Labels layer. Registration of multiple ROIs is supported.</p>
 <p>The <code>Registration</code> widget uses the user-defined labels, constructs a rectangular ROI around each of them and registers the ROIs in each time frame.</p>
 <p>The <code>Processing</code> widget measures the ROI displacements and extracts the average intensity of the ROI, calculated on the area of the labels.</p>
 <p>The <code>Subtract background</code> widget subtracts a background on each frame, calculated as the mean intensity on a Labels layer.
-Tipically useful when ambient light affects the measurement.  </p>
+Tipically useful when ambient light affects the measurement.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -254,40 +231,37 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
-<p><img alt="raw" src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/roi_registration.gif" /></p>
+<p><img src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/roi_registration.gif" alt="raw" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-roi-registration</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-roi-registration
+<pre><code>pip install napari-roi-registration
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/GiorgiaTortora/napari-roi-registration.git
+<pre><code>pip install git+https://github.com/GiorgiaTortora/napari-roi-registration.git
 </code></pre>
-
 <h2>Usage</h2>
 <p>A detailed guide which shows how to use the widgets of the napari-roi-registration plugin and how to properly choose the parameters can be found <a href="https://github.com/GiorgiaTortora/napari-roi-registration/blob/main/docs/index.md">here</a>. A demo video is available at this <a href="https://www.youtube.com/watch?v=oXyAqZdFrSE">link</a>. <a href="https://polimi365-my.sharepoint.com/:f:/g/personal/10853110_polimi_it/ErHvu3QXhktGq-NLqFdZXMYBWXaRNIZWlQhWg5EdOgbmWg?e=HeExQl">Sample datasets</a> are available.</p>
 <h3>Registration Widget</h3>
 <ol>
 <li>Create a new Labels layer and draw one or more labels where you want to select a ROI (Region Of Interest). Each color in the same Labels layer represents a different label which will correspond to a different ROI.</li>
 </ol>
-<p><img alt="raw" src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/Picture1.png" /></p>
-<ol>
+<p><img src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/Picture1.png" alt="raw" /></p>
+<ol start="2">
 <li>Push the <code>Register ROIs</code> button: registration of the entire stack will be performed. When the registration is finished two new layers will appear in the viewer. One layer contains the centroids of the drawn labels while the other contains the bounding boxes enclosing the ROIs.
 The registration starts from the currently selected frame. If <code>register entire stack</code> is selected, the registration will create a new layer for each label, with the registered ROI stacks.</li>
 </ol>
-<p><img alt="raw" src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/Picture2.png" /></p>
+<p><img src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/Picture2.png" alt="raw" /></p>
 <h3>Processing Widget</h3>
 <p>Pushing the <code>Process registered ROIs</code> button, the registered ROIs will be analyzed. The intensity of the registered ROIs (measured on the area of the selected label) and the displacement of the ROIs will be calculated.
 If <code>plot results</code> is selected the plot of displacement vs time index and mean intensity vs time index will appear in the Console.
-Choosing the <code>save results</code> option, an excel file containing ROIs positions, displacements and intensities, will be saved. </p>
-<p><img alt="raw" src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/Picture3.png" /></p>
+Choosing the <code>save results</code> option, an excel file containing ROIs positions, displacements and intensities, will be saved.</p>
+<p><img src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/Picture3.png" alt="raw" /></p>
 <h3>Background Widget</h3>
 <ol>
-<li>Create a new Labels layer and draw a label on the area where you want to calculate the background. </li>
+<li>Create a new Labels layer and draw a label on the area where you want to calculate the background.</li>
 </ol>
-<p><img alt="raw" src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/Picture4.png" /></p>
-<ol>
+<p><img src="https://github.com/GiorgiaTortora/napari-roi-registration/raw/main/images/Picture4.png" alt="raw" /></p>
+<ol start="2">
 <li>Push the <code>Subtract background</code> button. A new image layer will appear in the viewer. This layer contains the image to which the background was subtracted.</li>
 </ol>
 <h2>Contributing</h2>
@@ -295,10 +269,10 @@ Choosing the <code>save results</code> option, an excel file containing ROIs pos
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-roi-registration" is free and open source software</p>
+&quot;napari-roi-registration&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/GiorgiaTortora/napari-roi-registration/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

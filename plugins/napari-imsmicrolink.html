@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,61 +210,37 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="microlink-logo-update" src="https://user-images.githubusercontent.com/17855764/146078168-dd557089-ff10-46d6-b24d-268f5d21a9ee.png" /></p>
-<p><a href="https://github.com/nhpatterson/napari-imsmicrolink/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-imsmicrolink.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-imsmicrolink"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-imsmicrolink.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-imsmicrolink.svg?color=green" /></a>
-<a href="https://github.com/nhpatterson/napari-imsmicrolink/actions"><img alt="tests" src="https://github.com/nhpatterson/napari-imsmicrolink/workflows/tests/badge.svg" /></a></p>
+                                        <p><img src="https://user-images.githubusercontent.com/17855764/146078168-dd557089-ff10-46d6-b24d-268f5d21a9ee.png" alt="microlink-logo-update" /></p>
+<p><a href="https://github.com/nhpatterson/napari-imsmicrolink/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-imsmicrolink.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-imsmicrolink"><img src="https://img.shields.io/pypi/v/napari-imsmicrolink.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-imsmicrolink.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/nhpatterson/napari-imsmicrolink/actions"><img src="https://github.com/nhpatterson/napari-imsmicrolink/workflows/tests/badge.svg" alt="tests" /></a></p>
 <p><a href="https://github.com/napari/napari">napari</a> plugin to perform MALDI IMS - microscopy registration using laser ablation marks as described in <a href="https://pubs.acs.org/doi/abs/10.1021/acs.analchem.8b02884">Anal. Chem. 2018, 90, 21, 12395–12403</a>. This plugin is a work-in-progress but is mostly functional.</p>
 <p><strong>N.B.</strong> This tool is <strong>NOT</strong> a general purpose registration framework to find transforms between IMS (MALDI or otherwise)
-and microscopy. It is built to align MALDI IMS pixels to their corresponding laser ablation marks as captured by microscopy AFTER the IMS experiment. 
-This approach has the advantage of providing direct evidence of registration performance as IMS pixels are aligned 
-to their <em>explicit spatial origin</em> in microscopy space, improving overall accuracy and confidence of microscopy-driven IMS 
+and microscopy. It is built to align MALDI IMS pixels to their corresponding laser ablation marks as captured by microscopy AFTER the IMS experiment.
+This approach has the advantage of providing direct evidence of registration performance as IMS pixels are aligned
+to their <em>explicit spatial origin</em> in microscopy space, improving overall accuracy and confidence of microscopy-driven IMS
 data analysis.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-imsmicrolink</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-imsmicrolink
+<pre><code>pip install napari-imsmicrolink
 </code></pre>
-
 <h3>Typical experiment workflow</h3>
 <ol>
-<li>Acquire pre-IMS microscopy (autofluorescence, brightfield) - <em>optional</em></li>
-<li>Perform normal IMS sample preparation.</li>
+<li>
+<p>Acquire pre-IMS microscopy (autofluorescence, brightfield) - <em>optional</em></p>
+</li>
+<li>
+<p>Perform normal IMS sample preparation.</p>
+</li>
 <li>
 <p>Acquire post-IMS microscopy (autofluorescence, brightfield) with matrix still on sample
 that reveals laser ablation marks.</p>
 </li>
 <li>
 <p>Gather IMS data that contains XY integer coordinates for the IMS experiment
-   (.imzML, Bruker spotlist (.txt, .csv), Bruker peaks.sqlite (<em>FTICR</em>),
-   Bruker .tsf (TIMS qTOF only))</p>
+(.imzML, Bruker spotlist (.txt, .csv), Bruker peaks.sqlite (<em>FTICR</em>),
+Bruker .tsf (TIMS qTOF only))</p>
 </li>
 <li>
 <p>Run <code>napari-imsmicrolink</code> with data 3 and 4</p>
@@ -279,16 +259,15 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-imsmicrolink" is free and open source software</p>
+&quot;napari-imsmicrolink&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/nhpatterson/napari-imsmicrolink/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

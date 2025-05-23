@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,78 +206,51 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-ome-zarr-navigator.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-ome-zarr-navigator"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-ome-zarr-navigator.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-ome-zarr-navigator.svg?color=green" /></a>
-<a href="https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator/actions"><img alt="tests" src="https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/fractal-analytics-platform/napari-ome-zarr-navigator"><img alt="codecov" src="https://codecov.io/gh/fractal-analytics-platform/napari-ome-zarr-navigator/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-ome-zarr-navigator"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-ome-zarr-navigator" /></a></p>
+                                        <p><a href="https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-ome-zarr-navigator.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-ome-zarr-navigator"><img src="https://img.shields.io/pypi/v/napari-ome-zarr-navigator.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-ome-zarr-navigator.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator/actions"><img src="https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/fractal-analytics-platform/napari-ome-zarr-navigator"><img src="https://codecov.io/gh/fractal-analytics-platform/napari-ome-zarr-navigator/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-ome-zarr-navigator"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-ome-zarr-navigator" alt="napari hub" /></a></p>
 <p>A plugin to browse OME-Zarr plates by conditions and load images, labels and features from ROIs</p>
 <h2>Usage</h2>
 <p>The ImageBrowser recognizes OME-Zarr plates that were loaded via <a href="https://github.com/ome/napari-ome-zarr">napari-ome-zarr</a> and allows the selection of wells in the multiwell plate.</p>
-<p><img width="1624" alt="navigator_1" src="https://github.com/user-attachments/assets/86c0c0d5-df4c-4579-8719-c36efe67485c"></p>
-<p>The ImageBrowser allows to zoom to a given well ("Go to well") &amp; puts a white bounding box around the selected well.</p>
-<p><img width="1624" alt="navigator_2" src="https://github.com/user-attachments/assets/13ead72a-de0e-4b03-8051-b9759af4a131"></p>
+<img width="1624" alt="navigator_1" src="https://github.com/user-attachments/assets/86c0c0d5-df4c-4579-8719-c36efe67485c">
+<p>The ImageBrowser allows to zoom to a given well (&quot;Go to well&quot;) &amp; puts a white bounding box around the selected well.</p>
+<img width="1624" alt="navigator_2" src="https://github.com/user-attachments/assets/13ead72a-de0e-4b03-8051-b9759af4a131">
 <p>Using prototype <code>condition tables</code> (to be defined better, see sample data provided by the plugin orthe example in the test data below), the ImageBrowser allows for selecting subsets of the well list based on conditions defined in the <code>condition table</code>. The <a href="https://github.com/leukemia-kispi/operetta-compose">operetta-compose Fractal task package</a> provides a task to create such condition tables.</p>
-<p><img width="1624" alt="navigator_3" src="https://github.com/user-attachments/assets/f8cb9311-49ef-43fd-9358-4193ffb58877"></p>
+<img width="1624" alt="navigator_3" src="https://github.com/user-attachments/assets/f8cb9311-49ef-43fd-9358-4193ffb58877">
 <p>The ROI loader (formerly <a href="https://github.com/jluethi/napari-ome-zarr-roi-loader">available separately as a napari plugin</a>) can be used standalone or integrated with the ImageBrowser. If a well is selected from the ImageBrowser, all the images in that well can be loaded via the ROI loader.
-This supports:
-- Loading images from different multiplexing acquisitions
-- Loading any ROI based on <a href="https://fractal-analytics-platform.github.io/fractal-tasks-core/tables/#roi-tables">Fractal ROI tables</a>
-- Loading label images
-- Loading feature measurements (based on <a href="https://fractal-analytics-platform.github.io/fractal-tasks-core/tables/#feature-tables">Fractal feature tables</a> in the AnnData format)</p>
+This supports:</p>
+<ul>
+<li>Loading images from different multiplexing acquisitions</li>
+<li>Loading any ROI based on <a href="https://fractal-analytics-platform.github.io/fractal-tasks-core/tables/#roi-tables">Fractal ROI tables</a></li>
+<li>Loading label images</li>
+<li>Loading feature measurements (based on <a href="https://fractal-analytics-platform.github.io/fractal-tasks-core/tables/#feature-tables">Fractal feature tables</a> in the AnnData format)</li>
+</ul>
 <p>This approach of loading label images and feature data has been optimized for and tested with the <a href="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier">napari feature classifier</a>.</p>
-<p><img width="1624" alt="navigator_4" src="https://github.com/user-attachments/assets/0548c8f1-23c3-4c55-9388-c818bb94bbc3"></p>
+<img width="1624" alt="navigator_4" src="https://github.com/user-attachments/assets/0548c8f1-23c3-4c55-9388-c818bb94bbc3">
 <p>This plugin is meant to work well for OME-Zarr files generated by <a href="https://fractal-analytics-platform.github.io/">Fractal</a>.</p>
 <hr />
 <h2>Test data</h2>
-<p>Test data is available at https://zenodo.org/records/11262587</p>
+<p>Test data is available at <a href="https://zenodo.org/records/11262587">https://zenodo.org/records/11262587</a></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-ome-zarr-navigator</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-ome-zarr-navigator
+<pre><code>pip install napari-ome-zarr-navigator
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator.git
+<pre><code>pip install git+https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-ome-zarr-navigator" is free and open source software</p>
+&quot;napari-ome-zarr-navigator&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/fractal-analytics-platform/napari-ome-zarr-navigator/issues">file an issue</a> along with a detailed description.</p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

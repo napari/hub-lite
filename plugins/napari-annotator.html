@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -234,39 +238,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/loicsauteur/napari-annotator/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-annotator.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-annotator"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-annotator.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-annotator.svg?color=green" /></a>
-<a href="https://github.com/loicsauteur/napari-annotator/actions"><img alt="tests" src="https://github.com/loicsauteur/napari-annotator/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/loicsauteur/napari-annotator"><img alt="codecov" src="https://codecov.io/gh/loicsauteur/napari-annotator/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-annotator"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-annotator" /></a></p>
+                                        <p><a href="https://github.com/loicsauteur/napari-annotator/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-annotator.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-annotator"><img src="https://img.shields.io/pypi/v/napari-annotator.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-annotator.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/loicsauteur/napari-annotator/actions"><img src="https://github.com/loicsauteur/napari-annotator/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/loicsauteur/napari-annotator"><img src="https://codecov.io/gh/loicsauteur/napari-annotator/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-annotator"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-annotator" alt="napari hub" /></a></p>
 <p>A lightweight plugin extending label layer control.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
@@ -279,13 +256,15 @@ https://napari.org/stable/plugins/index.html
 -->
 <h2>Description</h2>
 <p>This lightweight plugin helps you navigate your labels layer. It is intended to ease your manual annotation work.
-<img alt="Overview image" src="resources/image1.png" />
-- Select a label from the list.
-- Toggle the visibility of individual label entries.
-- Move to the centroid of a label at the current zoom.
-- Change the color of individual labels.
-- Erase all drawn pixels of a given label.
-- Restore an erased label.</p>
+<img src="resources/image1.png" alt="Overview image" /></p>
+<ul>
+<li>Select a label from the list.</li>
+<li>Toggle the visibility of individual label entries.</li>
+<li>Move to the centroid of a label at the current zoom.</li>
+<li>Change the color of individual labels.</li>
+<li>Erase all drawn pixels of a given label.</li>
+<li>Restore an erased label.</li>
+</ul>
 <p>Version &gt;=0.1.0 works for napari version &gt;= 0.5.5</p>
 <p>Version &lt;0.1.0 should work for napari version &lt; 0.4.19</p>
 <h2>Usage</h2>
@@ -295,35 +274,36 @@ https://napari.org/stable/plugins/index.html
 But you can always change the color of individual labels, using the color picker.</p>
 <h2>Known limitations</h2>
 <ol>
-<li>Locating / moving to the center of a label only works on 2D/3D label layers, i.e.:</li>
+<li>Locating / moving to the center of a label only works on 2D/3D label layers, i.e.:
+<ol>
 <li>single- / multi-channel 2D label layers.</li>
 <li>single-channel 3D label layers (the third dimension being either Z or T).</li>
+</ol>
+</li>
 <li>(Theoretical) maximum of 20'000 labels supported.</li>
 </ol>
 <!-- increasing the number is possible, but will introduce bigger lag, as each color/visibility change re-creates the colormap.-->
-<ol>
+<ol start="3">
 <li>Restoring an erased labels is lost after switching between layers.</li>
 </ol>
 <h2>Installation</h2>
 <p>You can install <code>napari-annotator</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-annotator
+<pre><code>pip install napari-annotator
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/loicsauteur/napari-annotator.git
+<pre><code>pip install git+https://github.com/loicsauteur/napari-annotator.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-annotator" is free and open source software.</p>
+&quot;napari-annotator&quot; is free and open source software.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/loicsauteur/napari-annotator/issues">file an issue</a> along with a detailed description.
 Or open a thread on <a href="https://forum.image.sc">forum.image.sc</a> with a detailed description
 and a <a href="https://github.com/loicsauteur">@loicsauteur</a> tag.</p>
-        
+
 
                                     </div>
                                 </div>

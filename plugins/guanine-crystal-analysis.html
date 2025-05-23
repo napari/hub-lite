@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/biopo/guanine-crystal-analysis/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/guanine-crystal-analysis.svg?color=green" /></a>
-<a href="https://pypi.org/project/guanine-crystal-analysis"><img alt="PyPI" src="https://img.shields.io/pypi/v/guanine-crystal-analysis.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/guanine-crystal-analysis.svg?color=green" /></a>
-<a href="https://github.com/biopo/guanine-crystal-analysis/actions"><img alt="tests" src="https://github.com/biopo/guanine-crystal-analysis/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/biopo/guanine-crystal-analysis"><img alt="codecov" src="https://codecov.io/gh/biopo/guanine-crystal-analysis/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/guanine-crystal-analysis"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/guanine-crystal-analysis" /></a></p>
+                                        <p><a href="https://github.com/biopo/guanine-crystal-analysis/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/guanine-crystal-analysis.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/guanine-crystal-analysis"><img src="https://img.shields.io/pypi/v/guanine-crystal-analysis.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/guanine-crystal-analysis.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/biopo/guanine-crystal-analysis/actions"><img src="https://github.com/biopo/guanine-crystal-analysis/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/biopo/guanine-crystal-analysis"><img src="https://codecov.io/gh/biopo/guanine-crystal-analysis/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/guanine-crystal-analysis"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/guanine-crystal-analysis" alt="napari hub" /></a></p>
 <p>A plugin for guanine crystal segmentation and classification in the zebrafish eye. More precisely, it provides a workflow that measures on guanine crystal labels and sorts out overlaying partially segmented crystals during classification.</p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -248,31 +225,34 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Usage</h2>
-<p>This plugin is suited for users who
-- want to derive size-, shape and intensity-based parameters from individual guanine crystals
-- struggle with partially segmented or overlapping crystals
-- want to investigate further the size and shape of these guanine crystals</p>
-<p>This plugin is not suited for users who 
-- are interested in further investigations of intensity of guanine crystals</p>
+<p>This plugin is suited for users who</p>
+<ul>
+<li>want to derive size-, shape and intensity-based parameters from individual guanine crystals</li>
+<li>struggle with partially segmented or overlapping crystals</li>
+<li>want to investigate further the size and shape of these guanine crystals</li>
+</ul>
+<p>This plugin is not suited for users who</p>
+<ul>
+<li>are interested in further investigations of intensity of guanine crystals</li>
+</ul>
 <p>You can find the plugin in napari under <code>Plugins</code> → <code>guanine-crystal-analysis</code></p>
 <h3>Image Input</h3>
 <p>This plugin can be used on individual 2D slices of z-stacks as the workflow was developed on such input.
 Therefore, the quality of the result might differ on differing input, like crops or maximum projections.</p>
 <h3>1. Normalization</h3>
-<p>You can normalize the image selecting <code>Normalization</code> where you only need to specify your input image and click on the <code>Run</code> button. </p>
-<p><img alt="" src="img/plugin/normalization.png" /></p>
+<p>You can normalize the image selecting <code>Normalization</code> where you only need to specify your input image and click on the <code>Run</code> button.</p>
+<p><img src="img/plugin/normalization.png" alt="" /></p>
 <p>Normalizing the image helps to adjust the intensity values and needs to be applied here because the object segmenter is only trained on normalized images.</p>
 <h3>2. Segmentation</h3>
 <p>When selecting <code>Segmentation</code>, you need to select the normalized image and a minimum pixel count of label images and click on the <code>Run</code> button again.
-<img alt="" src="img/plugin/segmentation.png" />
-This avoids having too small and unhelpful labels and is set by default to 50 pixels. 
+<img src="img/plugin/segmentation.png" alt="" />
+This avoids having too small and unhelpful labels and is set by default to 50 pixels.
 For the training of the model, an <a href="https://github.com/haesleinhuepf/apoc">APOC</a> pixel classifier was used.</p>
 <h3>3. Analyze Image</h3>
 <p>Under <code>Analyze Image</code>, you can extract features from your image and label image by selecting them and clicking on the <code>Run</code> button.<br />
-<img alt="" src="img/plugin/analyzeimage.png" />
-The extracted features are a combination of the two libraries <a href="https://github.com/haesleinhuepf/napari-skimage-regionprops">napari-skimage-regionprops</a> and <a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing">napari-simpleitk-image-processing</a>. They can be devided into size-, shape-, and intensity-based parameters: </p>
+<img src="img/plugin/analyzeimage.png" alt="" />
+The extracted features are a combination of the two libraries <a href="https://github.com/haesleinhuepf/napari-skimage-regionprops">napari-skimage-regionprops</a> and <a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing">napari-simpleitk-image-processing</a>. They can be devided into size-, shape-, and intensity-based parameters:</p>
 <table>
 <thead>
 <tr>
@@ -283,9 +263,9 @@ The extracted features are a combination of the two libraries <a href="https://g
 </thead>
 <tbody>
 <tr>
-<td><img alt="" src="img/plugin/size.png" /></td>
-<td><img alt="" src="img/plugin/shape.png" /></td>
-<td><img alt="" src="img/plugin/intensity.png" /></td>
+<td><img src="img/plugin/size.png" alt="" /></td>
+<td><img src="img/plugin/shape.png" alt="" /></td>
+<td><img src="img/plugin/intensity.png" alt="" /></td>
 </tr>
 <tr>
 <td>area</td>
@@ -343,38 +323,36 @@ The extracted features are a combination of the two libraries <a href="https://g
 Some of the guanine crystals are not correctly segmented because of overlay or interference patterns. This problem is addressed with the help of a classification step demonstrated next</p>
 <h3>4. Classify Objects</h3>
 <p>You can divide the crystal labels into predicted (blue) and discarded (brown) crystal labels using <code>Classify Objects</code>. There you can choose classifiers trained on intensity-, shape- and/or size-based parameters with the help of the checkboxes.
-<img alt="" src="img/plugin/classifyobjects.png" />
+<img src="img/plugin/classifyobjects.png" alt="" />
 For the training of the model, an <a href="https://github.com/haesleinhuepf/apoc">APOC</a> object classifier was used.
 It is recommended to later on not measure the parameters that the classifier was trained on, but other ones.</p>
 <h3>5. Bad Label Exclusion</h3>
-<p>Now, you can get rid of the discarded (brown) labels for further analysis using <code>Bad Label Exclusion</code>. Select the two label images of segmentation and classification result and press the <code>Run</code> button again. 
-<img alt="" src="img/plugin/badlabelexclusion.png" />
+<p>Now, you can get rid of the discarded (brown) labels for further analysis using <code>Bad Label Exclusion</code>. Select the two label images of segmentation and classification result and press the <code>Run</code> button again.
+<img src="img/plugin/badlabelexclusion.png" alt="" />
 The result is a label image with only the predicted (blue) labels which are relabeled sequentially. If you want to derive measurements on these predicted labels, you can just use  <code>Analyze Image</code> again.</p>
-<h3>"Analyze Deluxe"</h3>
+<h3>&quot;Analyze Deluxe&quot;</h3>
 <p>You can also do all the explained steps in one click using the <code>Analyze Deluxe</code> function.
-<img alt="" src="img/plugin/analyzedeluxe.png" /></p>
+<img src="img/plugin/analyzedeluxe.png" alt="" /></p>
 <h2>Installation</h2>
 <p>You can install <code>guanine-crystal-analysis</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install guanine-crystal-analysis
+<pre><code>pip install guanine-crystal-analysis
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/biopo/guanine-crystal-analysis.git
+<pre><code>pip install git+https://github.com/biopo/guanine-crystal-analysis.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>Acknowledgements</h2>
-<p>This project was done in collaboration with the <a href="https://www.ritamateus.com/">Rita Mateus Laboratory</a>. The images shown in the documentation and in the demo jupyter notebooks were acquired there. 
-This project was supported by the Deutsche Forschungsgemeinschaft under Germany’s Excellence Strategy – EXC2068 - Cluster of Excellence "Physics of Life" of TU Dresden. 
+<p>This project was done in collaboration with the <a href="https://www.ritamateus.com/">Rita Mateus Laboratory</a>. The images shown in the documentation and in the demo jupyter notebooks were acquired there.
+This project was supported by the Deutsche Forschungsgemeinschaft under Germany’s Excellence Strategy – EXC2068 - Cluster of Excellence &quot;Physics of Life&quot; of TU Dresden.
 This project has been made possible in part by grant number <a href="https://chanzuckerberg.com/science/programs-resources/imaging/napari/improving-image-processing/">2021-240341 (Napari plugin accelerator grant)</a> from the Chan Zuckerberg Initiative DAF, an advised fund of the Silicon Valley Community Foundation.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"guanine-crystal-analysis" is free and open source software</p>
+&quot;guanine-crystal-analysis&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/biopo/guanine-crystal-analysis/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

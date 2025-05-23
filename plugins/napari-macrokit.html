@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,168 +210,139 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hanjinliu/napari-macrokit/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-macrokit.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-macrokit"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-macrokit.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-macrokit.svg?color=green" /></a>
-<a href="https://github.com/hanjinliu/napari-macrokit/actions"><img alt="tests" src="https://github.com/hanjinliu/napari-macrokit/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hanjinliu/napari-macrokit"><img alt="codecov" src="https://codecov.io/gh/hanjinliu/napari-macrokit/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-macrokit"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-macrokit" /></a></p>
+                                        <p><a href="https://github.com/hanjinliu/napari-macrokit/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-macrokit.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-macrokit"><img src="https://img.shields.io/pypi/v/napari-macrokit.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-macrokit.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hanjinliu/napari-macrokit/actions"><img src="https://github.com/hanjinliu/napari-macrokit/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hanjinliu/napari-macrokit"><img src="https://codecov.io/gh/hanjinliu/napari-macrokit/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-macrokit"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-macrokit" alt="napari hub" /></a></p>
 <p>Executable script generation for napari plugins.</p>
-<p><img alt="" src="https://github.com/hanjinliu/napari-macrokit/blob/main/images/example.gif" />
-&uarr; <a href="https://github.com/hanjinliu/napari-macrokit/blob/main/examples/regionprops.py">Example</a> showing the real-time recording of GUI operation.</p>
+<p><img src="https://github.com/hanjinliu/napari-macrokit/blob/main/images/example.gif" alt="" />
+↑ <a href="https://github.com/hanjinliu/napari-macrokit/blob/main/examples/regionprops.py">Example</a> showing the real-time recording of GUI operation.</p>
 <p>This napari plugin aims at making image analysis reproducible with arbitrary input/output types.</p>
 <h2>Usage</h2>
 <p>Create a macro object, decorate functions with <code>record</code> method and run!</p>
-<pre class="codehilite"><code class="language-python">from napari_macrokit import get_macro
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_macrokit</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_macro</span>
 
-macro = get_macro(&quot;my-plugin-specifier&quot;)  # get macro object
+<span class="n">macro</span> <span class="o">=</span> <span class="n">get_macro</span><span class="p">(</span><span class="s2">&quot;my-plugin-specifier&quot;</span><span class="p">)</span>  <span class="c1"># get macro object</span>
 
-# define a function
-@macro.record
-def add(a: float, b: float) -&gt; float:
-    return a + b
+<span class="c1"># define a function</span>
+<span class="nd">@macro</span><span class="o">.</span><span class="n">record</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-# run
-result = add(3.2, 5.4)
-add(result, 1.0)
+<span class="c1"># run</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mf">3.2</span><span class="p">,</span> <span class="mf">5.4</span><span class="p">)</span>
+<span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-macro
+<span class="n">macro</span>
 
-# Out:
-# &gt;&gt;&gt; float0 = add(3.2, 5.4)
-# &gt;&gt;&gt; float1 = add(float0, 1.0)
+<span class="c1"># Out:</span>
+<span class="c1"># &gt;&gt;&gt; float0 = add(3.2, 5.4)</span>
+<span class="c1"># &gt;&gt;&gt; float1 = add(float0, 1.0)</span>
+</pre></div>
 </code></pre>
-
 <h2>Record GUI Operations</h2>
 <p>You can use recordable functions in your widgets to keep tracks of GUI operations.
 More simply, you can double-decorate functions with <code>record</code> and <code>magicgui</code>.</p>
-<pre class="codehilite"><code class="language-python">import numpy as np
-from magicgui import magicgui
-import napari
-from napari.types import ImageData
-from napari_macrokit import get_macro
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="kn">import</span> <span class="n">magicgui</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageData</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_macrokit</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_macro</span>
 
-macro = get_macro(&quot;my-plugin-specifier&quot;)  # get macro object
+<span class="n">macro</span> <span class="o">=</span> <span class="n">get_macro</span><span class="p">(</span><span class="s2">&quot;my-plugin-specifier&quot;</span><span class="p">)</span>  <span class="c1"># get macro object</span>
 
-# define recordable magicgui
-@magicgui
-@macro.record
-def add(image: ImageData, b: float) -&gt; ImageData:
-    return image + b
+<span class="c1"># define recordable magicgui</span>
+<span class="nd">@magicgui</span>
+<span class="nd">@macro</span><span class="o">.</span><span class="n">record</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">ImageData</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageData</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">image</span> <span class="o">+</span> <span class="n">b</span>
 
-viewer = napari.Viewer()  # launch a viewer
-viewer.add_image(np.random.random((100, 100)))  # image data
-viewer.window.add_dock_widget(add)  # add magicgui to the viewer
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>  <span class="c1"># launch a viewer</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span>  <span class="c1"># image data</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>  <span class="c1"># add magicgui to the viewer</span>
+</pre></div>
 </code></pre>
-
 <p>Running add twice in GUI and you'll find macro updated like below.</p>
-<pre class="codehilite"><code class="language-python">macro
-# Out
-# &gt;&gt;&gt; image0 = add(viewer.layers['Image'].data, 0.06)
-# &gt;&gt;&gt; image1 = add(image0, 0.12)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">macro</span>
+<span class="c1"># Out</span>
+<span class="c1"># &gt;&gt;&gt; image0 = add(viewer.layers[&#39;Image&#39;].data, 0.06)</span>
+<span class="c1"># &gt;&gt;&gt; image1 = add(image0, 0.12)</span>
+</pre></div>
 </code></pre>
-
 <h2>Combining Plugins</h2>
 <p>Suppose you have two modules that use <code>napari-macrokit</code>.</p>
-<pre class="codehilite"><code class="language-python"># napari_module_0.py
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="c1"># napari_module_0.py</span>
 
-from napari.types import ImageData
-from scipy import ndimage as ndi
-from napari_macrokit import get_macro
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageData</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_macrokit</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_macro</span>
 
-macro = get_macro(&quot;napari-module-0&quot;)
+<span class="n">macro</span> <span class="o">=</span> <span class="n">get_macro</span><span class="p">(</span><span class="s2">&quot;napari-module-0&quot;</span><span class="p">)</span>
 
-@macro.record
-def gaussian_filter(image: ImageData, sigma: float) -&gt; ImageData:
-    return ndi.gaussian_filter(image, sigma=sigma)
+<span class="nd">@macro</span><span class="o">.</span><span class="n">record</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gaussian_filter</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">ImageData</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageData</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ndi</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
 
-@macro.record
-def threshold(image: ImageData, value: float) -&gt; ImageData:
-    return image &gt; value
+<span class="nd">@macro</span><span class="o">.</span><span class="n">record</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">ImageData</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageData</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">image</span> <span class="o">&gt;</span> <span class="n">value</span>
+</pre></div>
 </code></pre>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="c1"># napari_module_1.py</span>
 
-<pre class="codehilite"><code class="language-python"># napari_module_1.py
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageData</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_macrokit</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_macro</span>
+<span class="n">macro</span> <span class="o">=</span> <span class="n">get_macro</span><span class="p">(</span><span class="s2">&quot;napari-module-1&quot;</span><span class="p">)</span>
 
-from napari.types import ImageData
-import numpy as np
-from napari_macrokit import get_macro
-macro = get_macro(&quot;napari-module-1&quot;)
-
-@macro.record
-def estimate_background(image: ImageData) -&gt; float:
-    return np.percentile(image, 10.0)
+<span class="nd">@macro</span><span class="o">.</span><span class="n">record</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">estimate_background</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">ImageData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>You can use functions from both modules to build an analysis workflow by collecting existing macro objects with <code>collect_macro</code> function. All the recordable actions in the modules will also be recorded to the returned macro object.</p>
-<pre class="codehilite"><code class="language-python">import numpy as np
-from napari_macrokit import collect_macro
-from napari_module_0 import gaussian_filter, threshold
-from napari_module_1 import estimate_background
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_macrokit</span><span class="w"> </span><span class="kn">import</span> <span class="n">collect_macro</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_module_0</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_filter</span><span class="p">,</span> <span class="n">threshold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_module_1</span><span class="w"> </span><span class="kn">import</span> <span class="n">estimate_background</span>
 
-# global_macro will record all the macro available at this point
-global_macro = collect_macro()
+<span class="c1"># global_macro will record all the macro available at this point</span>
+<span class="n">global_macro</span> <span class="o">=</span> <span class="n">collect_macro</span><span class="p">()</span>
 
-# start image analysis!
-image = np.random.random((100, 100))
+<span class="c1"># start image analysis!</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
 
-out = gaussian_filter(image, 2.0)
-thresh = estimate_background(out)
-binary = threshold(out, thresh)
+<span class="n">out</span> <span class="o">=</span> <span class="n">gaussian_filter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+<span class="n">thresh</span> <span class="o">=</span> <span class="n">estimate_background</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">binary</span> <span class="o">=</span> <span class="n">threshold</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">thresh</span><span class="p">)</span>
 
-macro
-# Out
-# &gt;&gt;&gt; image0 = gaussian_filter(arr0, 2.0)
-# &gt;&gt;&gt; float0 = estimate_background(image0)
-# &gt;&gt;&gt; image1 = threshold(image1, float0)
+<span class="n">macro</span>
+<span class="c1"># Out</span>
+<span class="c1"># &gt;&gt;&gt; image0 = gaussian_filter(arr0, 2.0)</span>
+<span class="c1"># &gt;&gt;&gt; float0 = estimate_background(image0)</span>
+<span class="c1"># &gt;&gt;&gt; image1 = threshold(image1, float0)</span>
+</pre></div>
 </code></pre>
-
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-macrokit</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-macrokit
+<pre><code>pip install napari-macrokit
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hanjinliu/napari-macrokit.git
+<pre><code>pip install git+https://github.com/hanjinliu/napari-macrokit.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-macrokit" is free and open source software</p>
+&quot;napari-macrokit&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hanjinliu/napari-macrokit/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

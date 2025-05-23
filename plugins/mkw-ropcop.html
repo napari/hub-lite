@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,56 +206,32 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>Napari plugin for ROP data copying and segmentation assistance.</p>
-<p>Provides tools for:
-- Copying scan data based on a study parquet file.
-- Loading local scan data into Napari.
-- Basic segmentation tools (add layer, brush size, paint/erase).
-- ROI-based Otsu thresholding.
-- Full-view edge detection labeling.</p>
+                                        <p>Napari plugin for ROP data copying and segmentation assistance.</p>
+<p>Provides tools for:</p>
+<ul>
+<li>Copying scan data based on a study parquet file.</li>
+<li>Loading local scan data into Napari.</li>
+<li>Basic segmentation tools (add layer, brush size, paint/erase).</li>
+<li>ROI-based Otsu thresholding.</li>
+<li>Full-view edge detection labeling.</li>
+</ul>
 <h2>Installation</h2>
 <p>For development, install in editable mode:</p>
-<pre class="codehilite"><code class="language-bash">cd Mani_Tools_plugins/mKw-RopCop
-pip install -e .
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Mani_Tools_plugins/mKw-RopCop
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <p>Or install using the provided script:</p>
-<pre class="codehilite"><code class="language-bash">python Mani_Tools_plugins/mKw-RopCop/install_dev.py
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>Mani_Tools_plugins/mKw-RopCop/install_dev.py
+</pre></div>
+</code></pre>
+<h2>Usage</h2>
+<p>Launch Napari. The &quot;mKw RopCop&quot; widget should appear in the Plugins menu.</p>
+<p>Alternatively, launch with the helper script:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>Mani_Tools_plugins/mKw-RopCop/launch_ropcop.py
+</pre></div>
 </code></pre>
 
-<h2>Usage</h2>
-<p>Launch Napari. The "mKw RopCop" widget should appear in the Plugins menu.</p>
-<p>Alternatively, launch with the helper script:</p>
-<p>```bash
-python Mani_Tools_plugins/mKw-RopCop/launch_ropcop.py</p>
-        
 
                                     </div>
                                 </div>

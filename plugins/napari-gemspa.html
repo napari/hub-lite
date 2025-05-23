@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,136 +210,129 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>This plugin provides for analysis tools for data from single particle tracking experiments.  It provides an interface for particle localization and tracking using <a href="http://soft-matter.github.io/trackpy/dev/index.html">trackpy</a>.  It also allows for import of tracking data from Mosaic and Trackmate.  These files must be tab/comma delimited text files.  It provides an option to exclude particles/tracks masked with a labels layer.</p>
+                                        <p>This plugin provides for analysis tools for data from single particle tracking experiments.  It provides an interface for particle localization and tracking using <a href="http://soft-matter.github.io/trackpy/dev/index.html">trackpy</a>.  It also allows for import of tracking data from Mosaic and Trackmate.  These files must be tab/comma delimited text files.  It provides an option to exclude particles/tracks masked with a labels layer.</p>
 <p>There are 5 tabs available in the plugin, following the workflow of data analysis:</p>
-<p>1) <strong>New/Open</strong>: open nd2/tiff time-lapse movie files and/or import a tracks layer (from Mosaic, Trackmate or napari-gemspa saved tracks layer)
-2) <strong>Locate</strong>: locate particles with trackpy
-3) <strong>Link</strong>: link particles with trackpy
-4) <strong>Filter Links</strong>: filter links with trackpy
-5) <strong>Analyze</strong>: Perform analysis on tracks from a tracks layer (can be from imported file from step 1 or layer created in step 3)</p>
+<ol>
+<li><strong>New/Open</strong>: open nd2/tiff time-lapse movie files and/or import a tracks layer (from Mosaic, Trackmate or napari-gemspa saved tracks layer)</li>
+<li><strong>Locate</strong>: locate particles with trackpy</li>
+<li><strong>Link</strong>: link particles with trackpy</li>
+<li><strong>Filter Links</strong>: filter links with trackpy</li>
+<li><strong>Analyze</strong>: Perform analysis on tracks from a tracks layer (can be from imported file from step 1 or layer created in step 3)</li>
+</ol>
 <p><strong>Detailed description of features:</strong></p>
-<p>1) <strong>New/Open</strong></p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/1_1.png" /></p>
+<ol>
+<li><strong>New/Open</strong></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/1_1.png" alt="My Image" /></p>
 <p><strong>Add layer</strong> button will create a blank 2D (no time dimension) layer that is the same height/width as the currently selected image layer.  Alternatively, a labeled mask can be opened from a file.  The labels layer can be used to provide a mask for excluding areas of the image from analysis.</p>
 <p>Track files from other software or previously saved by GEMspa can also be imported in this pane.  Only tab/comma (.csv/.txt/.tsv) delimited text files are allowed.</p>
 <p><strong>GEMspa</strong> expects these columns in the header: ['track_id', 'frame', 'z', 'y', 'x']</p>
 <p><strong>Mosaic</strong> expects these columns in the header: ['Trajectory', 'Frame', 'z', 'y', 'x']</p>
-<p><strong>Trackmate</strong> expects these columns in the header: ['TRACK_ID', 'FRAME', 'POSITION_Z', 'POSITION_Y', 'POSITION_X'],
-* 3 rows will be skipped for Trackmate files (assumes data begins at the 4th row after the header)</p>
+<p><strong>Trackmate</strong> expects these columns in the header: ['TRACK_ID', 'FRAME', 'POSITION_Z', 'POSITION_Y', 'POSITION_X'],</p>
+<ul>
+<li>3 rows will be skipped for Trackmate files (assumes data begins at the 4th row after the header)</li>
+</ul>
 <p><strong>Trackpy</strong> expects these columns in the header: ['particle', 'frame', 'z', 'y', 'x']</p>
 <p><em>(All columns are case and order insensitive)</em></p>
-<p>2) <strong>Locate</strong>
-<img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/2_1.png" /></p>
-<p>In this tab, adjust the parameters and perform particle localization with <a href="http://soft-matter.github.io/trackpy/dev/generated/trackpy.locate.html#trackpy.locate">trackpy.locate</a>.  To first test out parameters on a single frame, check the "Process only current frame" checkbox.  Please refer to the trackpy documentation for more details on parameters.</p>
+<ol start="2">
+<li><strong>Locate</strong>
+<img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/2_1.png" alt="My Image" /></li>
+</ol>
+<p>In this tab, adjust the parameters and perform particle localization with <a href="http://soft-matter.github.io/trackpy/dev/generated/trackpy.locate.html#trackpy.locate">trackpy.locate</a>.  To first test out parameters on a single frame, check the &quot;Process only current frame&quot; checkbox.  Please refer to the trackpy documentation for more details on parameters.</p>
 <p>After localization is performed, a new points layer will be created and particles will be shown circled in red.  In the example, we have used a labels layer to exclude particles outside an ROI (this is optional):</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/2_2.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/2_2.png" alt="My Image" /></p>
 <p>In addition, the mass histogram and subpixel bias histograms will be shown for help with adjusting the mass and diameter parameters:</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/2_3.png" /></p>
-<p>3) <strong>Link</strong></p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/3_1.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/2_3.png" alt="My Image" /></p>
+<ol start="3">
+<li><strong>Link</strong></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/3_1.png" alt="My Image" /></p>
 <p>In this tab, adjust parameters and perform linking with <a href="http://soft-matter.github.io/trackpy/dev/generated/trackpy.link.html">trackpy.link</a>.  Once linking is performed a new tracks layer will be added.  Please refer to the trackpy documentation for more details on parameters.</p>
 <p>In addition, scatter plots of mass vs. size and mass vs. eccentricity, as well as the track lengths histogram are shown for help with filtering tracks. (next step)</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/3_2.png" /></p>
-<p>4) <strong>Filter</strong></p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/4_1.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/3_2.png" alt="My Image" /></p>
+<ol start="4">
+<li><strong>Filter</strong></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/4_1.png" alt="My Image" /></p>
 <p>In this tab, adjust parameters and filter links from trackpy output.  After filtering, a new layer will be added to napari with the filtered tracks and the same plots as shown in step 4 will be displayed.</p>
-<p>5) <strong>Analyze</strong></p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_1.png" /></p>
-<p>In this tab, adjust parameters and perform analysis.  You may process all tracks or enter a track id and deselect the "Process all tracks" check box.  Enter the appropriate parameters for converting pixels to microns and the time lag (in seconds) between frames of the movie.  </p>
+<ol start="5">
+<li><strong>Analyze</strong></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_1.png" alt="My Image" /></p>
+<p>In this tab, adjust parameters and perform analysis.  You may process all tracks or enter a track id and deselect the &quot;Process all tracks&quot; check box.  Enter the appropriate parameters for converting pixels to microns and the time lag (in seconds) between frames of the movie.</p>
 <p>GEMspa will calculate the effective diffusion coefficient (D) for each track based on the mean squared displacement values (MSD) for each time-lag using this equation:</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_2.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_2.png" alt="My Image" /></p>
 <p>This is the diffusion coefficient with the assumption of Brownian motion.  GEMspa will also calculate the generalized diffusion coefficient and anomalous exponent using this equation:</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_3.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_3.png" alt="My Image" /></p>
 <p>The fitting is performed on a log-log scale where the slope corresponds to the anomalous exponent (alpha):</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_4.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_4.png" alt="My Image" /></p>
 <p><strong>Definition of terms:</strong></p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_5.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_5.png" alt="My Image" /></p>
 <p>This review: <a href="https://pubmed.ncbi.nlm.nih.gov/26511974/">Manzo et al</a>  is useful for learning more about these and other analysis methods.</p>
 <p><strong>Min track len for fit</strong>: all tracks less than this length will be excluded from calculations of effective diffusion coefficient and anomalous exponent.</p>
 <p><strong>Max time lag for fit</strong>: GEMspa will fit the MSD up to the max time-lag entered here.  (in frames)</p>
 <p><strong>Fit with error term</strong>: check this box to allow a y-intercept when fitting for effective diffusion coefficient:</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_6.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_6.png" alt="My Image" /></p>
 <p>Check these papers by <a href="https://www.sciencedirect.com/science/article/pii/S0006349502739714">Martin, et al</a> and <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3055791/">Xavier Michalet</a> for some information on fitting MSD with localization error.</p>
 <p><strong>Rainbow tracks</strong></p>
-<p>GEMspa can output a plot where the tracks are colored by any of the listed quantities.  Check each box that you would like to see.  </p>
+<p>GEMspa can output a plot where the tracks are colored by any of the listed quantities.  Check each box that you would like to see.</p>
 <p>For the effective diffusion coefficient and anomalous exponent, set the Min/Max cutoffs for the track color map.  Any tracks at or below the minimum will be colored with the minimum color (blue).  Any tracks at or above the maximum will be colored with the maximum color (red).</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_10.png" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_10.png" alt="My Image" /></p>
 <p><strong>Plots</strong></p>
-<p>GEMspa will also output summary plots including:
-* Ensemble average MSD shown on linear and log-scale with results from fitting the MSD vs time-lag data from the ensemble average MSD.
-* Track length histogram, Radius of gyration (for full track lengths) histogram, Scatter plot of track length vs. radius of gyration</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_7.png" /></p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_8.png" /></p>
+<p>GEMspa will also output summary plots including:</p>
+<ul>
+<li>Ensemble average MSD shown on linear and log-scale with results from fitting the MSD vs time-lag data from the ensemble average MSD.</li>
+<li>Track length histogram, Radius of gyration (for full track lengths) histogram, Scatter plot of track length vs. radius of gyration</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_7.png" alt="My Image" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_8.png" alt="My Image" /></p>
 <p><strong>Tracks data table</strong></p>
-<p>GEMspa will output a table of data in a new pop-up window with data for each track.  This table will only show one line for each track (not one line for every particle position) and it will output the following data:
-* track_id
-* frame_start
-* frame_end
-* radius_gyration: radius of gyration for the full track length (See <a href="https://doi.org/10.1039/c0cp01805h">Elliot et al</a>)
-* track_length
-* D: effective diffusion coefficient
-* E: y-intercept for the fit of MSD for D
-* r_sq (lin): R-squared value for goodness-of-fit for the fit of MSD vs time-lag
-* K: generalized diffusion coefficient
-* a: anomalous exponent (alpha)
-* r_sq (log): R-squared value for goodness-of-fit for the fit of log-log MSD vs. time-lag</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_9.png" /></p>
+<p>GEMspa will output a table of data in a new pop-up window with data for each track.  This table will only show one line for each track (not one line for every particle position) and it will output the following data:</p>
+<ul>
+<li>track_id</li>
+<li>frame_start</li>
+<li>frame_end</li>
+<li>radius_gyration: radius of gyration for the full track length (See <a href="https://doi.org/10.1039/c0cp01805h">Elliot et al</a>)</li>
+<li>track_length</li>
+<li>D: effective diffusion coefficient</li>
+<li>E: y-intercept for the fit of MSD for D</li>
+<li>r_sq (lin): R-squared value for goodness-of-fit for the fit of MSD vs time-lag</li>
+<li>K: generalized diffusion coefficient</li>
+<li>a: anomalous exponent (alpha)</li>
+<li>r_sq (log): R-squared value for goodness-of-fit for the fit of log-log MSD vs. time-lag</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_9.png" alt="My Image" /></p>
 <p><strong>New tracks layer</strong></p>
-<p>GEMspa will add a new tracks layer and save all data for each track in the properties of the tracks layer.  Save the tracks layer to obtain a tab/comma-delimited text file with all analysis results.  The data included for each track is:
-* track_id
-* frame
-* y: y position in pixels
-* x: x position in pixels
-* frame_start
-* frame_end
-* y (microns): y position in microns
-* x (microns): x position in microns
-* tau: time-lag in seconds
-* MSD: mean squared displacement 
-* t: time in seconds from start of track
-* step_size
-* radius_gyration: radius of gyration at each time point of track (See <a href="https://doi.org/10.1039/c0cp01805h">Elliot et al</a>)
-* track_length
-* D: effective diffusion coefficient
-* E: y-intercept for the fit of MSD for D
-* r_sq (lin): R-squared value for goodness-of-fit for the fit of MSD vs time-lag
-* K: generalized diffusion coefficient
-* a: anomalous exponent (alpha)
-* r_sq (log): R-squared value for goodness-of-fit for the fit of log-log MSD vs. time-lag</p>
+<p>GEMspa will add a new tracks layer and save all data for each track in the properties of the tracks layer.  Save the tracks layer to obtain a tab/comma-delimited text file with all analysis results.  The data included for each track is:</p>
+<ul>
+<li>track_id</li>
+<li>frame</li>
+<li>y: y position in pixels</li>
+<li>x: x position in pixels</li>
+<li>frame_start</li>
+<li>frame_end</li>
+<li>y (microns): y position in microns</li>
+<li>x (microns): x position in microns</li>
+<li>tau: time-lag in seconds</li>
+<li>MSD: mean squared displacement</li>
+<li>t: time in seconds from start of track</li>
+<li>step_size</li>
+<li>radius_gyration: radius of gyration at each time point of track (See <a href="https://doi.org/10.1039/c0cp01805h">Elliot et al</a>)</li>
+<li>track_length</li>
+<li>D: effective diffusion coefficient</li>
+<li>E: y-intercept for the fit of MSD for D</li>
+<li>r_sq (lin): R-squared value for goodness-of-fit for the fit of MSD vs time-lag</li>
+<li>K: generalized diffusion coefficient</li>
+<li>a: anomalous exponent (alpha)</li>
+<li>r_sq (log): R-squared value for goodness-of-fit for the fit of log-log MSD vs. time-lag</li>
+</ul>
 <p>To extract this data, save the layer as a tab or comma delimited text file (txt/tsv/csv).  GEMspa will save all track information.</p>
 <p><strong>Analysis for a single track</strong></p>
-<p>GEMspa also provides the option to select a single track and output analysis results.  Detailed information is shown for the selected track, including a plot of the radius of gyration at each time point and a plot of the track itself.  </p>
+<p>GEMspa also provides the option to select a single track and output analysis results.  Detailed information is shown for the selected track, including a plot of the radius of gyration at each time point and a plot of the track itself.</p>
 <p>Here is an example:</p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_11.png" /></p>
-<p><img alt="My Image" src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_12.png" /></p>
-        
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_11.png" alt="My Image" /></p>
+<p><img src="https://raw.githubusercontent.com/liamholtlab/napari-gemspa/main/screen_shots/5_12.png" alt="My Image" /></p>
+
 
                                     </div>
                                 </div>

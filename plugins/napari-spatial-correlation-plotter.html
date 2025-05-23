@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,96 +206,69 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-spatial-correlation-plotter.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-spatial-correlation-plotter"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-spatial-correlation-plotter.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-spatial-correlation-plotter.svg?color=green" /></a>
-<a href="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/actions"><img alt="tests" src="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jules-vanaret/napari-spatial-correlation-plotter"><img alt="codecov" src="https://codecov.io/gh/jules-vanaret/napari-spatial-correlation-plotter/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-spatial-correlation-plotter"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-spatial-correlation-plotter" /></a></p>
-<p><img src="https://github.com/GuignardLab/tapenade/blob/Packaging/imgs/tapenade3.png" width="100"></p>
+                                        <p><a href="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-spatial-correlation-plotter.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-spatial-correlation-plotter"><img src="https://img.shields.io/pypi/v/napari-spatial-correlation-plotter.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-spatial-correlation-plotter.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/actions"><img src="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jules-vanaret/napari-spatial-correlation-plotter"><img src="https://codecov.io/gh/jules-vanaret/napari-spatial-correlation-plotter/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-spatial-correlation-plotter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-spatial-correlation-plotter" alt="napari hub" /></a></p>
+<img src="https://github.com/GuignardLab/tapenade/blob/Packaging/imgs/tapenade3.png" width="100">
 <p>A plugin to dynamically interact with the spatial correlation heatmap obtained by comparing two continuous fields of biophysical properties in 3D tissues.</p>
 <p>If you use this plugin for your research, please <a href="https://github.com/GuignardLab/tapenade/blob/main/README.md#how-to-cite">cite us</a>.</p>
 <p><code>napari-spatial-correlation-plotter</code> is a <a href="https://github.com/napari/napari">napari</a> plugin that is part of the <a href="https://github.com/GuignardLab/tapenade">Tapenade</a> project. Tapenade is a tool for the analysis of dense 3D tissues acquired with deep imaging microscopy. It is designed to be user-friendly and to provide a comprehensive analysis of the data.</p>
 <h2>Overview</h2>
 <p>While working with large and dense 3D and 3D+time gastruloid datasets, we found that being able to visualise and interact with the data dynamically greatly helped processing it.
 During the pre-processing stage, dynamical exploration and interaction led to faster tuning of the parameters by allowing direct visual feedback, and gave key biophysical insight during the analysis stage.</p>
-<p>This plugins allows the user to analyse the spatial correlations of two 3D fields loaded in Napari (e.g two fluorescent markers). The user can dynamically vary the analysis length scale, which corresponds to the standard deviation of the Gaussian kernel used for smoothing the 3D fields. 
+<p>This plugins allows the user to analyse the spatial correlations of two 3D fields loaded in Napari (e.g two fluorescent markers). The user can dynamically vary the analysis length scale, which corresponds to the standard deviation of the Gaussian kernel used for smoothing the 3D fields.
 If a layer of segmented nuclei instances is additionally specified, the histogram is constructed by binning values at the nuclei level (each point corresponds to an individual nucleus). Otherwise, individual voxel values are used.
 The user can dynamically interact with the correlation heatmap by manually selecting a region in the plot. The corresponding cells (or voxels) that contributed to the region's statistics will be displayed in 3D on an independant Napari layer for the user to interact with and gain biological insight.</p>
-<p><img src="imgs/Fig_Napari_correlation.png"></p>
+<img src="imgs/Fig_Napari_correlation.png">
 <h2>Installation</h2>
 <p>The plugin obviously requires <a href="https://github.com/napari/napari">napari</a> to run. If you don't have it yet, follow the instructions <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">here</a>.</p>
 <p>The simplest way to install <code>napari-spatial-correlation-plotter</code> is via the <a href="https://github.com/napari/napari">napari</a> plugin manager. Open Napari, go to <code>Plugins &gt; Install/Uninstall Packages...</code> and search for <code>napari-spatial-correlation-plotter</code>. Click on the install button and you are ready to go!</p>
 <p>You can also install <code>napari-spatial-correlation-plotter</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-spatial-correlation-plotter
+<pre><code>pip install napari-spatial-correlation-plotter
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/jules-vanaret/napari-spatial-correlation-plotter.git
+<pre><code>pip install git+https://github.com/jules-vanaret/napari-spatial-correlation-plotter.git
 </code></pre>
-
 <h2>Usage</h2>
-<p><img src="imgs/corr_0.png"></p>
-<p>Steps:
-1. First, load your images (and optionally mask and labels) in Napari. You can drag and drop them from your file explorer to the Napari viewer, or open them using the <code>File &gt; Open files...</code> menu.
-2. Click on the <code>Plugins &gt; Spatial Correlation Plotter</code> menu to open the plugin.
-3. Select the first layer you want to study from the combo box <code>Quantity X</code>.
-4. Select the second layer you want to study from the combo box <code>Quantity Y</code>. In this example, labels have loaded in step 1. Labels layers can be chosen as <code>Quantity X</code> or <code>Quantity Y</code> so that the quantity to study is the object instance density (in this example, the labels come from nuclei segmentation, so this leads to studying the nuclei density, or equivalently the cell density) or instance volume fraction.
-5. Optionally, a mask layer (with boolean values, 0 for outside, 1 for inside) can be selected to restrict the analysis to a specific region of the image.
-6. Optionally, a labels layer can be selected so that the histogram is constructed by binning values obtained by averaging the two fields in the segegmented instances (in this case, the quantitites will be averaged inside nuclei).
-7. Use the <code>Blur sigma</code> slider to vary the length scale of the analysis. This corresponds to the standard deviation of the Gaussian kernel used for masked gaussian smoothing the 3D fields. If set to 0, no smoothing is applied, which can be useful to study the raw data or if the quantities are already coming from smoothed data.
-8. Click on the <code>Compute correlation heatmap</code> button to compute and plot the correlation heatmap.
-9. If the image does not properly fit in the window (e.g if the borders are cut), you can use the <code>Configure subplots &gt; Tight layout</code> button to adjust the plot size.
-10. You can adjust the histogram binning by changing the <code>Heatmap bins</code> sliders. If the histogram range is too large (e.g due to outliers), you can adjust the <code>Percentiles</code> sliders to focus on the most relevant part of the histogram. You can also check options to (i) <code>Show individual cells</code> to display the individual points that compose the histogram as an additional scatter, (ii) <code>Show linear fit</code> to display the linear fit of the histogram, (iii) <code>Display quadrants</code> to display vertical and horizontal lines that divide the histogram in 4 quadrants. The lines are placed at the median of the histogram values in X and Y. For instance, once checked, these options lead to the following plot:</p>
-<p><img src="imgs/corr_1.png" width=280></p>
+<img src="imgs/corr_0.png">
+<p>Steps:</p>
 <ol>
+<li>First, load your images (and optionally mask and labels) in Napari. You can drag and drop them from your file explorer to the Napari viewer, or open them using the <code>File &gt; Open files...</code> menu.</li>
+<li>Click on the <code>Plugins &gt; Spatial Correlation Plotter</code> menu to open the plugin.</li>
+<li>Select the first layer you want to study from the combo box <code>Quantity X</code>.</li>
+<li>Select the second layer you want to study from the combo box <code>Quantity Y</code>. In this example, labels have loaded in step 1. Labels layers can be chosen as <code>Quantity X</code> or <code>Quantity Y</code> so that the quantity to study is the object instance density (in this example, the labels come from nuclei segmentation, so this leads to studying the nuclei density, or equivalently the cell density) or instance volume fraction.</li>
+<li>Optionally, a mask layer (with boolean values, 0 for outside, 1 for inside) can be selected to restrict the analysis to a specific region of the image.</li>
+<li>Optionally, a labels layer can be selected so that the histogram is constructed by binning values obtained by averaging the two fields in the segegmented instances (in this case, the quantitites will be averaged inside nuclei).</li>
+<li>Use the <code>Blur sigma</code> slider to vary the length scale of the analysis. This corresponds to the standard deviation of the Gaussian kernel used for masked gaussian smoothing the 3D fields. If set to 0, no smoothing is applied, which can be useful to study the raw data or if the quantities are already coming from smoothed data.</li>
+<li>Click on the <code>Compute correlation heatmap</code> button to compute and plot the correlation heatmap.</li>
+<li>If the image does not properly fit in the window (e.g if the borders are cut), you can use the <code>Configure subplots &gt; Tight layout</code> button to adjust the plot size.</li>
+<li>You can adjust the histogram binning by changing the <code>Heatmap bins</code> sliders. If the histogram range is too large (e.g due to outliers), you can adjust the <code>Percentiles</code> sliders to focus on the most relevant part of the histogram. You can also check options to (i) <code>Show individual cells</code> to display the individual points that compose the histogram as an additional scatter, (ii) <code>Show linear fit</code> to display the linear fit of the histogram, (iii) <code>Display quadrants</code> to display vertical and horizontal lines that divide the histogram in 4 quadrants. The lines are placed at the median of the histogram values in X and Y. For instance, once checked, these options lead to the following plot:</li>
+</ol>
+<img src="imgs/corr_1.png" width=280>
+<ol start="11">
 <li>You can click on the <code>Save the figure</code> button to save the current plot (many formats are available, including .png, .svg, .jpeg).</li>
 <li>You can interact with the plot by manually drawing a region of interest directly on the plot to automatically select and display the corresponding cells in 3D on an independant Napari Labels layer <code>clustered labels</code>. By using a left click, you can draw an arbitrary shape. By using a right click, you can draw a rectangle. If <code>Shift</code> is pressed while drawing, several groups of cells can appear on the <code>clustered labels</code> layer, each with a different color.</li>
 <li>To trigger the grid view like in the example image, you can click on the <code>Toggle grid mode</code> button. This will display all layers in a grid view. By right clicking the button, you can parametrize the grid view (e.g number of columns, number of rows, etc).</li>
 <li>You can switch between 2D and 3D view at all time by clicking on the <code>Toggle 2D/3D view</code> button (it resembles a square when in 2D mode, or a cube when in 3D mode).</li>
 </ol>
 <h2>Acknowledgements</h2>
-<p>The "napari-clusters-plotter" plugin [1] heavily inspired this plugin, most notably the <code>SelectFromCollection</code>, <code>MplCanvas</code> and <code>FigureToolbar</code> classes. The <code>PlotterWidget</code> class has been modified for the specific use case of this plugin, but the core functionalites have been adapted directly.
+<p>The &quot;napari-clusters-plotter&quot; plugin [1] heavily inspired this plugin, most notably the <code>SelectFromCollection</code>, <code>MplCanvas</code> and <code>FigureToolbar</code> classes. The <code>PlotterWidget</code> class has been modified for the specific use case of this plugin, but the core functionalites have been adapted directly.
 napari-clusters-plotter source code is available <a href="https://github.com/BiAPoL/napari-clusters-plotter/tree/main">here</a>.</p>
-<p>[1] Zigutyte, L., Savill, R., Müller, J., Zoccoler, M., Wagner, T., &amp; Haase, R. (2023). napari-clusters-plotter. Zenodo. https://doi.org/10.5281/zenodo.5884657</p>
+<p>[1] Zigutyte, L., Savill, R., Müller, J., Zoccoler, M., Wagner, T., &amp; Haase, R. (2023). napari-clusters-plotter. Zenodo. <a href="https://doi.org/10.5281/zenodo.5884657">https://doi.org/10.5281/zenodo.5884657</a></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-spatial-correlation-plotter" is free and open source software</p>
+&quot;napari-spatial-correlation-plotter&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/issues">file an issue</a> along with a detailed description.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,45 +210,18 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/LIDS-UNICAMP/grabber/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/grabber.svg?color=green" /></a>
-<a href="https://pypi.org/project/grabber"><img alt="PyPI" src="https://img.shields.io/pypi/v/grabber.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/grabber.svg?color=green" /></a>
-<a href="https://github.com/LIDS-UNICAMP/grabber/actions"><img alt="tests" src="https://github.com/LIDS-UNICAMP/grabber/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/LIDS-UNICAMP/grabber"><img alt="codecov" src="https://codecov.io/gh/LIDS-UNICAMP/grabber/branch/master/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/LIDS-UNICAMP/grabber/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/grabber.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/grabber"><img src="https://img.shields.io/pypi/v/grabber.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/grabber.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/LIDS-UNICAMP/grabber/actions"><img src="https://github.com/LIDS-UNICAMP/grabber/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/LIDS-UNICAMP/grabber"><img src="https://codecov.io/gh/LIDS-UNICAMP/grabber/branch/master/graph/badge.svg" alt="codecov" /></a></p>
 <p>A tool for contour-based segmentation correction (2D only).</p>
 <p>This repository provides a demo code of the paper:</p>
 <blockquote>
 <p><strong>Grabber: A Tool to Improve Convergence in Interactive Image Segmentation</strong>
 <a href="https://jookuma.github.io/">Jordão Bragantini</a>, Bruno Moura, <a href="http://lids.ic.unicamp.br/">Alexandre X. Falcão</a>, <a href="https://scholar.google.com/citations?user=qmH9VEEAAAAJ&amp;hl=en&amp;oi=ao">Fábio A. M. Cappabianco</a></p>
 </blockquote>
-<p>https://user-images.githubusercontent.com/21022743/145699960-57da06a5-668f-4e81-82b5-7f3d3ddf8ee3.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/21022743/145699960-57da06a5-668f-4e81-82b5-7f3d3ddf8ee3.mp4">https://user-images.githubusercontent.com/21022743/145699960-57da06a5-668f-4e81-82b5-7f3d3ddf8ee3.mp4</a></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -254,12 +231,10 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>grabber-ift</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install grabber-ift
+<pre><code>pip install grabber-ift
 </code></pre>
-
 <h2>Known Limitations</h2>
 <p>This implementation doesn't support the items below, feel free to open a PR to add them.</p>
 <ul>
@@ -267,23 +242,23 @@ https://napari.org/docs/plugins/index.html
 </ul>
 <h2>Citation</h2>
 <p>If this work was useful for your research, please cite our paper:</p>
-<pre class="codehilite"><code>@article{bragantini2020grabber,
-  title={Grabber: A Tool to Improve Convergence in Interactive Image Segmentation,
-  author={Bragantini, Jord{\~a}o and Bruno Moura, Falc{\~a}o, Alexandre Xavier and Cappabianco, F{\'a}bio AM,
-  journal={Pattern Recognition Letters},
-  year={2020}
-}
+<pre><code><div class="highlight"><pre><span></span><span class="nv">@article</span><span class="err">{</span><span class="n">bragantini2020grabber</span><span class="p">,</span>
+<span class="w">  </span><span class="n">title</span><span class="o">=</span><span class="err">{</span><span class="nl">Grabber</span><span class="p">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">Tool</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Improve</span><span class="w"> </span><span class="n">Convergence</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">Interactive</span><span class="w"> </span><span class="nc">Image</span><span class="w"> </span><span class="n">Segmentation</span><span class="p">,</span>
+<span class="w">  </span><span class="n">author</span><span class="o">=</span><span class="err">{</span><span class="n">Bragantini</span><span class="p">,</span><span class="w"> </span><span class="n">Jord</span><span class="err">{\</span><span class="o">~</span><span class="n">a</span><span class="err">}</span><span class="n">o</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Bruno</span><span class="w"> </span><span class="n">Moura</span><span class="p">,</span><span class="w"> </span><span class="n">Falc</span><span class="err">{\</span><span class="o">~</span><span class="n">a</span><span class="err">}</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">Alexandre</span><span class="w"> </span><span class="n">Xavier</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Cappabianco</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="err">{\&#39;</span><span class="n">a</span><span class="err">}</span><span class="n">bio</span><span class="w"> </span><span class="n">AM</span><span class="p">,</span>
+<span class="w">  </span><span class="n">journal</span><span class="o">=</span><span class="err">{</span><span class="n">Pattern</span><span class="w"> </span><span class="n">Recognition</span><span class="w"> </span><span class="n">Letters</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="nf">year</span><span class="o">=</span><span class="err">{</span><span class="mi">2020</span><span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"grabber" is free and open source software</p>
+&quot;grabber&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

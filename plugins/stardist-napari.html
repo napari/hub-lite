@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,40 +210,13 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/stardist-napari"><img alt="PyPI version" src="https://img.shields.io/pypi/v/stardist-napari.svg" /></a>
-<a href="https://anaconda.org/conda-forge/stardist-napari"><img alt="Anaconda-Server Badge" src="https://anaconda.org/conda-forge/stardist-napari/badges/version.svg" /></a>
-<a href="https://napari-hub.org/plugins/stardist-napari"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/stardist-napari" /></a>
-<a href="https://forum.image.sc/tags/stardist"><img alt="Image.sc forum" src="https://img.shields.io/badge/dynamic/json.svg?label=forum&amp;url=https%3A%2F%2Fforum.image.sc%2Ftags%2Fstardist.json&amp;query=%24.topic_list.tags.0.topic_count&amp;colorB=brightgreen&amp;suffix=%20topics&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAABPklEQVR42m3SyyqFURTA8Y2BER0TDyExZ+aSPIKUlPIITFzKeQWXwhBlQrmFgUzMMFLKZeguBu5y+//17dP3nc5vuPdee6299gohUYYaDGOyyACq4JmQVoFujOMR77hNfOAGM+hBOQqB9TjHD36xhAa04RCuuXeKOvwHVWIKL9jCK2bRiV284QgL8MwEjAneeo9VNOEaBhzALGtoRy02cIcWhE34jj5YxgW+E5Z4iTPkMYpPLCNY3hdOYEfNbKYdmNngZ1jyEzw7h7AIb3fRTQ95OAZ6yQpGYHMMtOTgouktYwxuXsHgWLLl+4x++Kx1FJrjLTagA77bTPvYgw1rRqY56e+w7GNYsqX6JfPwi7aR+Y5SA+BXtKIRfkfJAYgj14tpOF6+I46c4/cAM3UhM3JxyKsxiOIhH0IO6SH/A1Kb1WBeUjbkAAAAAElFTkSuQmCC" /></a></p>
+                                        <p><a href="https://pypi.org/project/stardist-napari"><img src="https://img.shields.io/pypi/v/stardist-napari.svg" alt="PyPI version" /></a>
+<a href="https://anaconda.org/conda-forge/stardist-napari"><img src="https://anaconda.org/conda-forge/stardist-napari/badges/version.svg" alt="Anaconda-Server Badge" /></a>
+<a href="https://napari-hub.org/plugins/stardist-napari"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/stardist-napari" alt="napari hub" /></a>
+<a href="https://forum.image.sc/tags/stardist"><img src="https://img.shields.io/badge/dynamic/json.svg?label=forum&amp;url=https%3A%2F%2Fforum.image.sc%2Ftags%2Fstardist.json&amp;query=%24.topic_list.tags.0.topic_count&amp;colorB=brightgreen&amp;suffix=%20topics&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAABPklEQVR42m3SyyqFURTA8Y2BER0TDyExZ+aSPIKUlPIITFzKeQWXwhBlQrmFgUzMMFLKZeguBu5y+//17dP3nc5vuPdee6299gohUYYaDGOyyACq4JmQVoFujOMR77hNfOAGM+hBOQqB9TjHD36xhAa04RCuuXeKOvwHVWIKL9jCK2bRiV284QgL8MwEjAneeo9VNOEaBhzALGtoRy02cIcWhE34jj5YxgW+E5Z4iTPkMYpPLCNY3hdOYEfNbKYdmNngZ1jyEzw7h7AIb3fRTQ95OAZ6yQpGYHMMtOTgouktYwxuXsHgWLLl+4x++Kx1FJrjLTagA77bTPvYgw1rRqY56e+w7GNYsqX6JfPwi7aR+Y5SA+BXtKIRfkfJAYgj14tpOF6+I46c4/cAM3UhM3JxyKsxiOIhH0IO6SH/A1Kb1WBeUjbkAAAAAElFTkSuQmCC" alt="Image.sc forum" /></a></p>
 <p>This project provides the <a href="https://napari.org/">napari</a> plugin for <a href="https://github.com/stardist/stardist">StarDist</a>, a deep learning based 2D and 3D object detection method with star-convex shapes. StarDist has originally been developed (see <a href="https://github.com/stardist/stardist#stardist---object-detection-with-star-convex-shapes">papers</a>) for the segmentation of densely packed cell nuclei in challenging images with low signal-to-noise ratios. The plugin allows to apply pretrained and custom trained models from within napari.</p>
 <p>If you use this plugin for your research, please <a href="https://github.com/stardist/stardist#how-to-cite">cite us</a>.</p>
-<p><img alt="Screenshot" src="https://github.com/stardist/stardist-napari/raw/main/images/stardist_napari_screenshot_small.png" /></p>
+<p><img src="https://github.com/stardist/stardist-napari/raw/main/images/stardist_napari_screenshot_small.png" alt="Screenshot" /></p>
 <h2>Installation</h2>
 <p>Install the plugin with <code>pip install stardist-napari</code> or from within napari via <code>Plugins &gt; Install/Uninstall Plugins…</code>. If you want GPU-accelerated prediction, please read the more detailed <a href="https://github.com/stardist/stardist#installation">installation instructions</a> for StarDist.</p>
 <ul>
@@ -252,7 +229,7 @@ pre > code:last-child {
 <p><strong>Run</strong>: Start the prediction with the selected inputs and create the <a href="#outputs">outputs</a> when done.</p>
 <p>All plugin activity is shown in the napari <em>activity dock</em>, which can be shown/hidden by clicking on the word <code>activity</code> next to the little arrow at the bottom right of the napari window.</p>
 <h3>Inputs</h3>
-<p>The plugin does perform input validation, i.e. it will disable the <code>Run</code> button if it detects a problem with the selected inputs. Problematic input fields are highlighted with a "lightcoral" background color <img alt="" src="https://via.placeholder.com/15/f08080/f08080.png" />, and their <a href="https://en.wikipedia.org/wiki/Tooltip"><em>tooltips</em></a> typically explain what the problem is. Some error messages are shown at the bottom in napari's status bar, such as for incompatibilities between multiple input fields. Input fields with warnings (also explained via tooltips) are highlighted with an orange background color <img alt="" src="https://via.placeholder.com/15/ffa500/ffa500.png" />.</p>
+<p>The plugin does perform input validation, i.e. it will disable the <code>Run</code> button if it detects a problem with the selected inputs. Problematic input fields are highlighted with a &quot;lightcoral&quot; background color <img src="https://via.placeholder.com/15/f08080/f08080.png" alt="" />, and their <a href="https://en.wikipedia.org/wiki/Tooltip"><em>tooltips</em></a> typically explain what the problem is. Some error messages are shown at the bottom in napari's status bar, such as for incompatibilities between multiple input fields. Input fields with warnings (also explained via tooltips) are highlighted with an orange background color <img src="https://via.placeholder.com/15/ffa500/ffa500.png" alt="" />.</p>
 <p><strong>Input Image</strong>: Select a napari layer of type <code>Image</code> as the input.<br />
 <em>Tooltip:</em> Shows the shape of the image.</p>
 <p><strong>Image Axes</strong>: String that describes the semantic image axes and their order, e.g. <code>YX</code> for a 2D image. This parameter is automatically chosen (i.e. guessed) when a new input image is selected and should work in most cases. Permissible axis values are: <code>X</code> (width/columns), <code>Y</code> (height/rows), <code>Z</code> (depth/planes), <code>C</code> (channels), <code>T</code> (frames/time).<br />
@@ -298,7 +275,7 @@ pre > code:last-child {
 <h2>Other resources</h2>
 <p>A demonstration of an earlier version of the plugin is shown in <a href="https://www.youtube.com/watch?v=Km1_TnUQ4FM&amp;list=PLilvrWT8aLuZCaOkjucLjvDu2YRtCS-JT&amp;index=5">this video</a>.</p>
 <p>Many of the parameters are identical to those of our <a href="https://github.com/stardist/stardist-imagej">StarDist ImageJ/Fiji plugin</a>, which are documented <a href="https://imagej.net/plugins/stardist#usage">here</a>.</p>
-        
+
 
                                     </div>
                                 </div>

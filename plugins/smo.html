@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,37 +210,10 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="PyPi" src="https://img.shields.io/pypi/pyversions/smo.svg" />
-<a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/github/license/maurosilber/smo" /></a>
-<a href="https://pypi.python.org/pypi/smo"><img alt="PyPi" src="https://img.shields.io/pypi/v/smo.svg" /></a>
-<a href="https://anaconda.org/conda-forge/smo"><img alt="Conda" src="https://img.shields.io/conda/pn/conda-forge/smo" /></a></p>
+                                        <p><img src="https://img.shields.io/pypi/pyversions/smo.svg" alt="PyPi" />
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/maurosilber/smo" alt="License" /></a>
+<a href="https://pypi.python.org/pypi/smo"><img src="https://img.shields.io/pypi/v/smo.svg" alt="PyPi" /></a>
+<a href="https://anaconda.org/conda-forge/smo"><img src="https://img.shields.io/conda/pn/conda-forge/smo" alt="Conda" /></a></p>
 <h1>SMO</h1>
 <p>SMO is a Python package that implements the Silver Mountain Operator (SMO), which allows to recover an unbiased estimation of the background intensity distribution in a robust way.</p>
 <p>We provide an easy to use Python package and plugins for some of the major image processing softwares: <a href="https://napari.org">napari</a>, <a href="https://cellprofiler.org">CellProfiler</a>, and <a href="https://imagej.net">ImageJ</a> / <a href="https://fiji.sc">FIJI</a>. See Plugins section below.</p>
@@ -245,29 +222,29 @@ pre > code:last-child {
 <p>If you use this software, please cite that pre-print.</p>
 <h2>Usage</h2>
 <p>To obtain a background-corrected image, it is as straightforward as:</p>
-<pre class="codehilite"><code class="language-python">import skimage.data
-from smo import SMO
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">skimage.data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">smo</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMO</span>
 
-image = skimage.data.human_mitosis()
-smo = SMO(sigma=0, size=7, shape=(1024, 1024))
-background_corrected_image = smo.bg_corrected(image)
+<span class="n">image</span> <span class="o">=</span> <span class="n">skimage</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">human_mitosis</span><span class="p">()</span>
+<span class="n">smo</span> <span class="o">=</span> <span class="n">SMO</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span>
+<span class="n">background_corrected_image</span> <span class="o">=</span> <span class="n">smo</span><span class="o">.</span><span class="n">bg_corrected</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>where we used a sample image from <code>scikit-image</code>.
 By default,
 the background correction subtracts the median value of the background distribution.
 Note that the background regions will end up with negative values,
 but with a median value of 0.</p>
-<p>A notebook explaining in more detail the meaning of the parameters and other possible uses for SMO is available here: <a href="https://github.com/maurosilber/SMO/blob/main/smo/examples/usage.ipynb">smo/examples/usage.ipynb</a> <a href="https://colab.research.google.com/github/maurosilber/SMO/blob/main/smo/examples/usage.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a>.</p>
+<p>A notebook explaining in more detail the meaning of the parameters and other possible uses for SMO is available here: <a href="https://github.com/maurosilber/SMO/blob/main/smo/examples/usage.ipynb">smo/examples/usage.ipynb</a> <a href="https://colab.research.google.com/github/maurosilber/SMO/blob/main/smo/examples/usage.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a>.</p>
 <h2>Installation</h2>
 <p>It can be installed with <code>pip</code> from PyPI:</p>
-<pre class="codehilite"><code>pip install smo
+<pre><code><div class="highlight"><pre><span></span>pip install smo
+</pre></div>
 </code></pre>
-
 <p>or with <code>conda</code> from the conda-forge channel:</p>
-<pre class="codehilite"><code>conda install -c conda-forge smo
+<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge smo
+</pre></div>
 </code></pre>
-
 <h2>Plugins</h2>
 <h3>Napari</h3>
 <p>A <a href="https://napari.org">napari</a> plugin is available.</p>
@@ -283,11 +260,11 @@ but with a median value of 0.</p>
 <p>It will appear in the <code>Plugins</code> menu.</p>
 <h3>CellProfiler</h3>
 <p>A <a href="https://cellprofiler.org">CellProfiler</a> plugin in available in the <a href="smo/plugins/cellprofiler">smo/plugins/cellprofiler</a> folder.</p>
-<p><img alt="" src="images/CellProfiler_SMO.png" /></p>
+<p><img src="images/CellProfiler_SMO.png" alt="" /></p>
 <p>To install, save <a href="https://raw.githubusercontent.com/maurosilber/SMO/main/smo/plugins/cellprofiler/smo.py">this file</a> into your CellProfiler plugins folder. You can find (or change) the location of your plugins directory in <code>File &gt; Preferences &gt; CellProfiler plugins directory</code>.</p>
 <h3>ImageJ / FIJI</h3>
 <p>An <a href="https://imagej.net">ImageJ</a> / <a href="https://fiji.sc">FIJI</a> plugin is available in the <a href="smo/plugins/imagej">smo/plugins/imagej</a> folder.</p>
-<p><img alt="" src="images/ImageJ_SMO.png" /></p>
+<p><img src="images/ImageJ_SMO.png" alt="" /></p>
 <p>To install, download <a href="https://raw.githubusercontent.com/maurosilber/SMO/main/smo/plugins/imagej/smo.py">this file</a> and:</p>
 <ul>
 <li>
@@ -298,19 +275,20 @@ but with a median value of 0.</p>
 </li>
 </ul>
 <p>To use the plugin, type <code>smo</code> on the bottom right search box:</p>
-<p><img alt="" src="images/ImageJ_MainWindow.png" /></p>
+<p><img src="images/ImageJ_MainWindow.png" alt="" /></p>
 <p>select <code>smo</code> in the <code>Quick Search</code> window and click on the <code>Run</code> button.</p>
-<p><img alt="" src="images/ImageJ_QuickSearch.png" /></p>
+<p><img src="images/ImageJ_QuickSearch.png" alt="" /></p>
 <p>Note: the ImageJ plugin does not check that saturated pixels are properly excluded.</p>
 <h2>Development</h2>
 <p>Code style is enforced via pre-commit hooks. To set up a development environment, clone the repository, optionally create a virtual environment, install the [dev] extras and the pre-commit hooks:</p>
-<pre class="codehilite"><code>git clone https://github.com/maurosilber/SMO
-cd SMO
-conda create -n smo python pip numpy scipy
-pip install -e .[dev]
-pre-commit install
+<pre><code><div class="highlight"><pre><span></span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">maurosilber</span><span class="o">/</span><span class="n">SMO</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">SMO</span>
+<span class="n">conda</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">smo</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">numpy</span><span class="w"> </span><span class="n">scipy</span>
+<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="p">.</span><span class="o">[</span><span class="n">dev</span><span class="o">]</span>
+<span class="n">pre</span><span class="o">-</span><span class="k">commit</span><span class="w"> </span><span class="n">install</span>
+</pre></div>
 </code></pre>
-        
+
 
                                     </div>
                                 </div>

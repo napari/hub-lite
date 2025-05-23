@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,42 +210,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <!--[![Downloads](https://pepy.tech/badge/napari-arboretum)](https://pepy.tech/project/napari-arboretum)-->
-
-<p><a href="https://github.com/lowe-lab-ucl/arboretum/blob/main/LICENSE.md"><img alt="License" src="https://img.shields.io/pypi/l/napari-arboretum.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-arboretum"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-arboretum.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-arboretum.svg?color=green" /></a>
-<a href="https://github.com/lowe-lab-ucl/arboretum/actions"><img alt="tests" src="https://github.com/lowe-lab-ucl/arboretum/workflows/tests/badge.svg" /></a>
-<a href="https://app.codecov.io/gh/lowe-lab-ucl/arboretum/tree/main"><img alt="codecov" src="https://codecov.io/gh/lowe-lab-ucl/arboretum/branch/main/graph/badge.svg?token=2M2HhM60op" /></a></p>
+                                         <!--[![Downloads](https://pepy.tech/badge/napari-arboretum)](https://pepy.tech/project/napari-arboretum)-->
+<p><a href="https://github.com/lowe-lab-ucl/arboretum/blob/main/LICENSE.md"><img src="https://img.shields.io/pypi/l/napari-arboretum.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-arboretum"><img src="https://img.shields.io/pypi/v/napari-arboretum.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-arboretum.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/lowe-lab-ucl/arboretum/actions"><img src="https://github.com/lowe-lab-ucl/arboretum/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://app.codecov.io/gh/lowe-lab-ucl/arboretum/tree/main"><img src="https://codecov.io/gh/lowe-lab-ucl/arboretum/branch/main/graph/badge.svg?token=2M2HhM60op" alt="codecov" /></a></p>
 <h1>Arboretum</h1>
-<p>https://github.com/lowe-lab-ucl/arboretum/assets/8217795/d98c22c4-73bb-493a-9f8f-c224d615209d</p>
+<p><a href="https://github.com/lowe-lab-ucl/arboretum/assets/8217795/d98c22c4-73bb-493a-9f8f-c224d615209d">https://github.com/lowe-lab-ucl/arboretum/assets/8217795/d98c22c4-73bb-493a-9f8f-c224d615209d</a></p>
 <p><em>Automated cell tracking and lineage tree reconstruction</em>.</p>
 <h3>Overview</h3>
 <p>A dockable widget for <a href="https://github.com/napari/napari">Napari</a> for visualizing cell lineage trees.</p>
@@ -255,18 +231,18 @@ pre > code:last-child {
 <p>Once installed, Arboretum will be visible in the <code>Plugins &gt; Add Dock Widget &gt; napari-arboretum</code> menu in napari. To visualize a lineage tree, (double) click on one of the tracks in a napari <code>Tracks</code> layer.</p>
 <h3>Examples</h3>
 <p>You can use the example script to display some sample tracking data in napari and load the arboretum tree viewer:</p>
-<pre class="codehilite"><code class="language-sh">python ./examples/show_sample_data.py
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>python<span class="w"> </span>./examples/show_sample_data.py
+</pre></div>
 </code></pre>
-
 <p>Alternatively, you can use <em>btrack</em> to generate tracks from your image data. See the example notebook here:
-https://github.com/quantumjot/btrack/blob/main/examples</p>
+<a href="https://github.com/quantumjot/btrack/blob/main/examples">https://github.com/quantumjot/btrack/blob/main/examples</a></p>
 <hr />
 <h3>History</h3>
 <p>This project has changed considerably. The <code>Tracks</code> layer, originally developed for this plugin, is now an official layer type in napari. Read the napari documentation here:
-https://napari.org/stable/api/napari.layers.Tracks.html</p>
+<a href="https://napari.org/stable/api/napari.layers.Tracks.html">https://napari.org/stable/api/napari.layers.Tracks.html</a></p>
 <p>To view the legacy version of this plugin, visit the legacy branch:
-https://github.com/quantumjot/arboretum/tree/v1-legacy</p>
-        
+<a href="https://github.com/quantumjot/arboretum/tree/v1-legacy">https://github.com/quantumjot/arboretum/tree/v1-legacy</a></p>
+
 
                                     </div>
                                 </div>

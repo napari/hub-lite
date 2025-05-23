@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,37 +206,10 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://gitlab.pasteur.fr/gletort/napari-3dtimereg/-/blob/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-3dtimereg.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-3dtimereg"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-3dtimereg.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-3dtimereg.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/napari-3dtimereg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-3dtimereg" /></a></p>
+                                        <p><a href="https://gitlab.pasteur.fr/gletort/napari-3dtimereg/-/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-3dtimereg.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-3dtimereg"><img src="https://img.shields.io/pypi/v/napari-3dtimereg.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-3dtimereg.svg?color=green" alt="Python Version" /></a>
+<a href="https://napari-hub.org/plugins/napari-3dtimereg"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-3dtimereg" alt="napari hub" /></a></p>
 <p>Temporal registration of 2D/3D movies on one channel based on <a href="https://pypi.org/project/itk-elastix/">itk-elastix</a>, and transpose alignement to the other channels.</p>
 <p>Adaptated from <a href="https://gitlab.pasteur.fr/gletort/multireg">multireg</a> for temporal movies.
 For a tutorial on using <code>elastix</code> for registration, see <a href="https://m-albert.github.io/elastix_tutorial/intro.html">this tutorial</a>.</p>
@@ -255,24 +232,26 @@ For a tutorial on using <code>elastix</code> for registration, see <a href="http
 <h3>Calculate temporal alignement</h3>
 <p>The registration is calculated iteratively from one frame to another. Thus the first frame is not moved and all the other frames are aligned to it.
 You can tune several parameters in this plugin:</p>
-<p><img alt="parameters screenshot" src="./imgs/parameters.png" title="Registration parameters" /></p>
-<p>The other parameters are parameters to use <a href="https://elastix.lumc.nl/">itk-elastix</a> to calculate the registration.
-* <code>show log</code>: to see the log of Elastix calculation
-* <code>do rigid</code>: performs a rigid (affine) transformation step, that allowed to correct for translations/rotations.
-* <code>do bspline</code>: performs a b-spline based transformation step, that allowed for local deformations in the image.
-* <code>show advanced parameters</code>: to control the parameters used in the rigid and/or bspline transformations. These parameters control the size of the local registrations calculated, the resolutions at which the transformations are calculated, and can thus greatly impact the results.
-* <code>final order</code>: is the final order of the B-Splines used for the registration. 
-* <code>resolution</code>: is the number of consecutives resolutions at which the registration will be made. First the registration is made at the lowest level of resolution, correcting global deformations/motions, then at each step, the registration is done on higher resolution, allowing to correct for more local deformations.
-* <code>final spacing</code>: is the physical spacing of the smallest resolution.
-* <code>iterations</code>: are the maximum number of iterations allowed to minimize the distance between the two images for each resolution and type of registration.</p>
+<p><img src="./imgs/parameters.png" alt="parameters screenshot" title="Registration parameters" /></p>
+<p>The other parameters are parameters to use <a href="https://elastix.lumc.nl/">itk-elastix</a> to calculate the registration.</p>
+<ul>
+<li><code>show log</code>: to see the log of Elastix calculation</li>
+<li><code>do rigid</code>: performs a rigid (affine) transformation step, that allowed to correct for translations/rotations.</li>
+<li><code>do bspline</code>: performs a b-spline based transformation step, that allowed for local deformations in the image.</li>
+<li><code>show advanced parameters</code>: to control the parameters used in the rigid and/or bspline transformations. These parameters control the size of the local registrations calculated, the resolutions at which the transformations are calculated, and can thus greatly impact the results.</li>
+<li><code>final order</code>: is the final order of the B-Splines used for the registration.</li>
+<li><code>resolution</code>: is the number of consecutives resolutions at which the registration will be made. First the registration is made at the lowest level of resolution, correcting global deformations/motions, then at each step, the registration is done on higher resolution, allowing to correct for more local deformations.</li>
+<li><code>final spacing</code>: is the physical spacing of the smallest resolution.</li>
+<li><code>iterations</code>: are the maximum number of iterations allowed to minimize the distance between the two images for each resolution and type of registration.</li>
+</ul>
 <p>If both rigid and bspline transformations, the program first applies the rigid transformation to allow for a global registration of the images. Then it will performs the second step of b-spline transformation that can includes local deformations.</p>
 <p>For each frame, after calculating the registration on the reference chanel, the plugin will apply the calculated transformation to all the other color chanels of the initial movie. All results are saved as separated images in the <code>aligned</code> folder during the computation.</p>
 <h3>Create the final aligned movie</h3>
 <p>When all frames have been processed, each color chanel and each frame have been saved in the <code>aligned</code> folder as separated images. This is usefull to calculate the registration on large movies without having to keep all the intermediates and calculated images in memory. You can directly use these separated images, or reconstruct a single composite movie of the result.</p>
-<p>If you click on <code>Concatenate aligned images</code> on the plugin interface, the plugin will create a single composite movie from the aligned images, save it and delete the separated images in the <code>aligned</code> folder. </p>
+<p>If you click on <code>Concatenate aligned images</code> on the plugin interface, the plugin will create a single composite movie from the aligned images, save it and delete the separated images in the <code>aligned</code> folder.</p>
 <h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license, "napari-3dtimereg" is free and open source software</p>
-        
+<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license, &quot;napari-3dtimereg&quot; is free and open source software</p>
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,78 +210,53 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/the-segmentation-game.svg?color=green" /></a>
-<a href="https://pypi.org/project/the-segmentation-game"><img alt="PyPI" src="https://img.shields.io/pypi/v/the-segmentation-game.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/the-segmentation-game.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/the-segmentation-game/actions"><img alt="tests" src="https://github.com/haesleinhuepf/the-segmentation-game/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/the-segmentation-game"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/the-segmentation-game/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/the-segmentation-game"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/the-segmentation-game" /></a>
-<a href="https://doi.org/10.5281/zenodo.6588373"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.6588373.svg" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/the-segmentation-game.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/the-segmentation-game"><img src="https://img.shields.io/pypi/v/the-segmentation-game.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/the-segmentation-game.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/the-segmentation-game/actions"><img src="https://github.com/haesleinhuepf/the-segmentation-game/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/the-segmentation-game"><img src="https://codecov.io/gh/haesleinhuepf/the-segmentation-game/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/the-segmentation-game"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/the-segmentation-game" alt="napari hub" /></a>
+<a href="https://doi.org/10.5281/zenodo.6588373"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.6588373.svg" alt="DOI" /></a></p>
 <p>Gamified image segmentation quality estimation</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/images/screencast.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/images/screencast.gif" alt="img.png" /></p>
 <hr />
 <h2>Usage</h2>
 <p>The Segmentation Game allows to quantitatively compare segmentation results to a given ground truth annotation.
-This allows fine-tuning parameters of image processing workflows to get optimal segmentation quality. 
+This allows fine-tuning parameters of image processing workflows to get optimal segmentation quality.
 It also allows comparing different segmentation algorithms and identify which algorithm performs best objectively.</p>
 <p>The game can be found in napari's <code>Tools &gt; Games &gt; The Segmentation Game</code> menu.</p>
 <h3>Ground Truth Annotation</h3>
 <p>Before you can start playing the game, some annotated cells/nuclei are necessary to later compute segmentation quality from.
-Depending on the used metric, it might be sufficient to annotate a hand full of objects. 
-Use napari's annotation tools as shown below. 
+Depending on the used metric, it might be sufficient to annotate a hand full of objects.
+Use napari's annotation tools as shown below.
 Use the <code>+</code> and <code>-</code> keys on your keyboard to increase and decrease the label number that is currently drawn.
 Note: Avoid label gaps. The labels must be continuously subsequent. If there are pixels annotated with value 2, there must be pixels annotated with value 1.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/images/annotation.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/images/annotation.gif" alt="" /></p>
 <h3>Parameter tuning</h3>
 <p>If you work with one of <a href="https://www.napari-hub.org/?search=segmentation&amp;sort=relevance&amp;page=1">napari's segmentation plugins</a> that produce labels layers,
 you can tune their parameters and see how this influences segmentation quality.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/images/parameter_tuning.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/images/parameter_tuning.gif" alt="" /></p>
 <h3>Segmentation algorithm comparison</h3>
 <p>If you aim at comparing different segmentation algorithms, you can collect their results in label layers in the napari viewer.
 You can then select the segmentation result from the corresponding pulldown and save quantitative comparison results in the Highscore table.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/images/algorithm_comparison.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/the-segmentation-game/raw/main/images/algorithm_comparison.gif" alt="" /></p>
 <h2>Metrics</h2>
-<p>Currently, these metrics are implemented:
-* Jaccard Index (sparse): The <a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard Index</a> is a measure of overlap. 
-  It lies between 0 (no overlap) and 1 (perfect overlap). 
-  For each annotated ground truth label, the maximum overlap of any segmented label is determined. 
-  The mean overlap of all annotated labels serves as metric result.
-* Jaccard Index (binary): The annotated ground truth labels and the segmentation result are first binarized considering all annotated pixels as positive and all other labels as negative.
-  Afterwards, the overlap between the two binary images is computed. This allows comparing binary segmentation algorithms, such as thresholding techniques.
-* Jaccard Index (binary, sparse): The annotated ground truth image can contain values 1 (negative, false) and 2 (positive, true) and
-  the segmentation result image will be binarized (0: False, otherwise: True). This allows comparing object/no-object annotations with label images.</p>
+<p>Currently, these metrics are implemented:</p>
+<ul>
+<li>Jaccard Index (sparse): The <a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard Index</a> is a measure of overlap.
+It lies between 0 (no overlap) and 1 (perfect overlap).
+For each annotated ground truth label, the maximum overlap of any segmented label is determined.
+The mean overlap of all annotated labels serves as metric result.</li>
+<li>Jaccard Index (binary): The annotated ground truth labels and the segmentation result are first binarized considering all annotated pixels as positive and all other labels as negative.
+Afterwards, the overlap between the two binary images is computed. This allows comparing binary segmentation algorithms, such as thresholding techniques.</li>
+<li>Jaccard Index (binary, sparse): The annotated ground truth image can contain values 1 (negative, false) and 2 (positive, true) and
+the segmentation result image will be binarized (0: False, otherwise: True). This allows comparing object/no-object annotations with label images.</li>
+</ul>
 <p>Receiver operating characteristic (<a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">ROC</a>)</p>
 <p>Consider a two-class thresholding problem (binary pixel-wise classification object/background), in which the outcomes are labeled either as positive (p) or negative (n). There are four possible outcomes from a binary classifier. If the outcome from a prediction is p and the actual value is also p, then it is called a true positive (TP); however if the actual value is n then it is said to be a false positive (FP). Conversely, a true negative (TN) has occurred when both the prediction outcome and the actual value are n, and false negative (FN) is when the prediction outcome is n while the actual value is p. We can organize result in table called confusion matrix, based on positive/neagtive results in row and true and false result in columns. From the confucsion matrix we can get many metrics with various usefulness. The curently implemented used for classification evaluation are:</p>
 <ul>
-<li>Sensitivity, recall, hit rate, or true positive rate (TPR): (TP)/ (TP + FP), Sensitivity and specificity mathematically describe the accuracy of a test which reports the presence or absence of a condition. Individuals for which the condition is satisfied are considered "positive" and those for which it is not are considered "negative".</li>
-<li>Specificity, selectivity or true negative rate (TNR): (TN)/ (TN + FN), Sensitivity and specificity mathematically describe the accuracy of a test which reports the presence or absence of a condition. Individuals for which the condition is satisfied are considered "positive" and those for which it is not are considered "negative".</li>
+<li>Sensitivity, recall, hit rate, or true positive rate (TPR): (TP)/ (TP + FP), Sensitivity and specificity mathematically describe the accuracy of a test which reports the presence or absence of a condition. Individuals for which the condition is satisfied are considered &quot;positive&quot; and those for which it is not are considered &quot;negative&quot;.</li>
+<li>Specificity, selectivity or true negative rate (TNR): (TN)/ (TN + FN), Sensitivity and specificity mathematically describe the accuracy of a test which reports the presence or absence of a condition. Individuals for which the condition is satisfied are considered &quot;positive&quot; and those for which it is not are considered &quot;negative&quot;.</li>
 <li>Precision or positive predictive value (PPV): (TP)/ (TP + FP), in computing and information science is the process of obtaining information system resources that are relevant to an information need from a collection of those resources. It is quantification for the TP events.</li>
 <li>Accuracy: (TP + TN)/ (TP + FP + TN + FN), Accuracy measures observational error. Accuracy is how close or far off a given set of measurements are to their true value. However, it usually fails in imbalanced sets.</li>
 <li>Balanced Accuracy: (TP/(TP+FN) + TN/(TN+FP))/2, Balanced Accuracy is trying to even out problems of accuracy in imbalanced sets.</li>
@@ -286,12 +265,14 @@ You can then select the segmentation result from the corresponding pulldown and 
 </ul>
 <p>The ROC measures or confusion matrix is invaluable in cases when when our binary classifier is not ideal (which is often) and we are aiming to not get a general good result but specified low error. In that case we usually need to decide for some trade off, for example we need all (as many as possible) classified true positive objects, but we do not mind getting (usually as few as possible) false positive objects.</p>
 <p><strong>What we want to achieve</strong></p>
-<p><img alt="Precision-versus-accuracy, source: 10.13140/RG.2.1.1668.7603" src="https://github.com/martinschatz-cz/the-segmentation-game/blob/main/images/Precision-versus-accuracy.png" /></p>
+<p><img src="https://github.com/martinschatz-cz/the-segmentation-game/blob/main/images/Precision-versus-accuracy.png" alt="Precision-versus-accuracy, source: 10.13140/RG.2.1.1668.7603" /></p>
 <p>When we are doing semantic segmentation, we are aiming to classify each pixel (ideally correctly) to each of our classes. But that can be hugr ammount of information, and our object might have significantly much less pixels then number of pixels belonging to background and/or other classes. Before choosing right metrics, we need to set up goal for our classification results. Idealy, we would like to have high accuracy and precission for ach class (as is on pictur above), but we might be happy getting high accuracy with good precision. Realisticaly we might need to be more specific, as to choose how big error we are prepared to accept, or decide if it is acceptable to have FN findings but no FP.</p>
 <p>Picking up a metric for highly unbalanced classification as in semantic segmentation is challenging. Most of the classic metrics wil fail (but they are stil usable object-wise). And we usually stick up with Jaccard Index/Threat score, F1 Score or anything that will tell us result for TP rate (as we expect we will have less pixels for objects then background and/or other classes).</p>
 <h2>Literature recommendation</h2>
-<p>How to choose the right metric for comparing segmentation results is explained in this paper:
-* <a href="https://arxiv.org/abs/2206.01653">Metrics reloaded: Pitfalls and recommendations for image analysis validation. Maier-Hein L. and Reinke A. et al.</a></p>
+<p>How to choose the right metric for comparing segmentation results is explained in this paper:</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2206.01653">Metrics reloaded: Pitfalls and recommendations for image analysis validation. Maier-Hein L. and Reinke A. et al.</a></li>
+</ul>
 <h2>Related plugins</h2>
 <p>If you aim at automatically optimizing segmentation quality, there are also napari plugins available with this capability:</p>
 <ul>
@@ -300,18 +281,17 @@ You can then select the segmentation result from the corresponding pulldown and 
 </ul>
 <h2>Installation</h2>
 <p>You can install <code>the-segmentation-game</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install the-segmentation-game
+<pre><code>pip install the-segmentation-game
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions - especially new image segmentation quality metrics - are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"the-segmentation-game" is free and open source software</p>
+&quot;the-segmentation-game&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please open a thread on <a href="https://image.sc">image.sc</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -71,7 +75,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -202,37 +206,10 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
-<a href="https://pypi.org/project/samcell-napari/"><img alt="PyPI" src="https://img.shields.io/pypi/v/samcell-napari" /></a></p>
+                                        <p><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+<a href="https://pypi.org/project/samcell-napari/"><img src="https://img.shields.io/pypi/v/samcell-napari" alt="PyPI" /></a></p>
 <p>A napari plugin for cell segmentation using the Segment Anything Model (SAM) foundation model.</p>
-<p><img alt="SAMCell Segmentation Example" src="https://github.com/saahilsanganeriya/samcell-napari/raw/main/docs/images/samcell-napari.jpg" /></p>
+<p><img src="https://github.com/saahilsanganeriya/samcell-napari/raw/main/docs/images/samcell-napari.jpg" alt="SAMCell Segmentation Example" /></p>
 <h2>Description</h2>
 <p>SAMCell-napari provides an intuitive interface for segmenting cells in microscopy images using deep learning. It leverages the power of the Segment Anything Model (SAM) adapted specifically for biological cell segmentation, providing accurate results with minimal tuning.</p>
 <h3>Key Features:</h3>
@@ -258,43 +235,46 @@ pre > code:last-child {
 </ul>
 <h2>Installation</h2>
 <p>You can install <code>samcell-napari</code> via [pip]:</p>
-<pre class="codehilite"><code class="language-bash">pip install samcell-napari
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>samcell-napari
+</pre></div>
 </code></pre>
-
 <p>To install latest development version:</p>
-<pre class="codehilite"><code class="language-bash">pip install git+https://github.com/saahilsanganeriya/samcell-napari.git
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/saahilsanganeriya/samcell-napari.git
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <ol>
 <li>
-<p>Start napari
-   <code>bash
-   napari</code></p>
+<p>Start napari</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari
+</pre></div>
+</code></pre>
 </li>
 <li>
 <p>Load your image in napari</p>
 </li>
 <li>
-<p>Open the SAMCell plugin:
-   <code>Plugins &gt; samcell-napari &gt; SAMCell Segmentation</code></p>
+<p>Open the SAMCell plugin:</p>
+<pre><code><div class="highlight"><pre><span></span>Plugins &gt; samcell-napari &gt; SAMCell Segmentation
+</pre></div>
+</code></pre>
 </li>
 <li>
 <p>Provide the path to your SAMCell model file (supports <code>.pt</code>, <code>.bin</code>, or <code>.safetensors</code> formats)</p>
-</li>
-<li>
-<p>You can download pre-trained models from the <a href="https://github.com/saahilsanganeriya/SAMCell/releases/tag/v1">official SAMCell release page</a></p>
+<ul>
+<li>You can download pre-trained models from the <a href="https://github.com/saahilsanganeriya/SAMCell/releases/tag/v1">official SAMCell release page</a></li>
+</ul>
 </li>
 <li>
 <p>Adjust parameters if needed:</p>
-</li>
+<ul>
 <li>Cell peak threshold: Higher values detect fewer cells (default: 0.47)</li>
 <li>Cell fill threshold: Lower values create larger cells (default: 0.09)</li>
-<li>
-<p>Crop size: Size of image crops for processing (default: 256)</p>
+<li>Crop size: Size of image crops for processing (default: 256)</li>
+</ul>
 </li>
 <li>
-<p>Click "Run Segmentation"</p>
+<p>Click &quot;Run Segmentation&quot;</p>
 </li>
 <li>
 <p>View the segmentation results in napari as a Labels layer</p>
@@ -309,18 +289,24 @@ pre > code:last-child {
 <li>CUDA-capable GPU recommended for faster processing</li>
 </ul>
 <h2>Model Compatibility</h2>
-<p>The plugin is compatible with SAMCell model files in multiple formats:
-- PyTorch model files (<code>.pt</code>)
-- Binary model files (<code>.bin</code>) - including the standard <code>pytorch_model.bin</code>
-- SafeTensors files (<code>.safetensors</code>) - a safer alternative to PyTorch's pickle-based format</p>
-<p>The plugin supports models based on:
-- SAM-ViT-Base architecture - Primary model type
-- SAM-ViT-Large architecture - Fallback if a model doesn't load with base architecture</p>
+<p>The plugin is compatible with SAMCell model files in multiple formats:</p>
+<ul>
+<li>PyTorch model files (<code>.pt</code>)</li>
+<li>Binary model files (<code>.bin</code>) - including the standard <code>pytorch_model.bin</code></li>
+<li>SafeTensors files (<code>.safetensors</code>) - a safer alternative to PyTorch's pickle-based format</li>
+</ul>
+<p>The plugin supports models based on:</p>
+<ul>
+<li>SAM-ViT-Base architecture - Primary model type</li>
+<li>SAM-ViT-Large architecture - Fallback if a model doesn't load with base architecture</li>
+</ul>
 <p>Pre-trained models can be downloaded from the <a href="https://github.com/saahilsanganeriya/SAMCell/releases/tag/v1">official SAMCell release page</a>.</p>
-<p>Recommended models include:
-- SAMCell1.0-Cellpose-cyto: Trained on the Cellpose cytoplasm dataset
-- SAMCell1.0-livecell: Trained on the LiveCELL dataset</p>
-<p>These models are part of the release assets for the paper "SAMCell: Generalized Label-Free Biological Cell Segmentation with Segment Anything".</p>
+<p>Recommended models include:</p>
+<ul>
+<li>SAMCell1.0-Cellpose-cyto: Trained on the Cellpose cytoplasm dataset</li>
+<li>SAMCell1.0-livecell: Trained on the LiveCELL dataset</li>
+</ul>
+<p>These models are part of the release assets for the paper &quot;SAMCell: Generalized Label-Free Biological Cell Segmentation with Segment Anything&quot;.</p>
 <h2>How It Works</h2>
 <p>SAMCell operates using an enhanced sliding window approach to process large images:</p>
 <ol>
@@ -333,16 +319,20 @@ pre > code:last-child {
 </ol>
 <h2>Technical Details</h2>
 <h3>Model Type Detection</h3>
-<p>The plugin intelligently determines the appropriate SAM model architecture:
-1. First tries to load the model with SAM-ViT-Base architecture
-2. If that fails, automatically falls back to SAM-ViT-Large
-3. This ensures maximum compatibility with various pre-trained models</p>
+<p>The plugin intelligently determines the appropriate SAM model architecture:</p>
+<ol>
+<li>First tries to load the model with SAM-ViT-Base architecture</li>
+<li>If that fails, automatically falls back to SAM-ViT-Large</li>
+<li>This ensures maximum compatibility with various pre-trained models</li>
+</ol>
 <h3>Sliding Window Algorithm</h3>
-<p>The plugin uses an advanced sliding window algorithm that:
-- Handles images of any size, including those smaller than the crop size
-- Creates appropriate overlaps between crops to ensure no cells are missed
-- Uses a cosine-based blending mask to create smooth transitions between crops
-- Fills any potential gaps using nearest neighbor interpolation</p>
+<p>The plugin uses an advanced sliding window algorithm that:</p>
+<ul>
+<li>Handles images of any size, including those smaller than the crop size</li>
+<li>Creates appropriate overlaps between crops to ensure no cells are missed</li>
+<li>Uses a cosine-based blending mask to create smooth transitions between crops</li>
+<li>Fills any potential gaps using nearest neighbor interpolation</li>
+</ul>
 <h3>Multiple Threshold Testing</h3>
 <p>For researchers who want to optimize segmentation parameters, the plugin includes a batch processing capability to test multiple threshold combinations at once (available via the API).</p>
 <h2>Contributing</h2>
@@ -351,14 +341,15 @@ pre > code:last-child {
 <p>Distributed under the MIT License. See <code>LICENSE</code> for more information.</p>
 <h2>Citation</h2>
 <p>If you use this plugin in your research, please cite:</p>
-<pre class="codehilite"><code>@article{samcell2023,
-  title={SAMCell: Generalized Label-Free Biological Cell Segmentation with Segment Anything},
-  author={...},
-  journal={...},
-  year={2023}
-}
+<pre><code><div class="highlight"><pre><span></span><span class="nv">@article</span><span class="err">{</span><span class="n">samcell2023</span><span class="p">,</span>
+<span class="w">  </span><span class="n">title</span><span class="o">=</span><span class="err">{</span><span class="nl">SAMCell</span><span class="p">:</span><span class="w"> </span><span class="n">Generalized</span><span class="w"> </span><span class="n">Label</span><span class="o">-</span><span class="k">Free</span><span class="w"> </span><span class="n">Biological</span><span class="w"> </span><span class="n">Cell</span><span class="w"> </span><span class="n">Segmentation</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">Segment</span><span class="w"> </span><span class="n">Anything</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">author</span><span class="o">=</span><span class="err">{</span><span class="p">...</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">journal</span><span class="o">=</span><span class="err">{</span><span class="p">...</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="nf">year</span><span class="o">=</span><span class="err">{</span><span class="mi">2023</span><span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
 </code></pre>
-        
+
 
                                     </div>
                                 </div>
@@ -373,7 +364,7 @@ pre > code:last-child {
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>

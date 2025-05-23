@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,92 +206,66 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://codecov.io/gh/midi-app-controller/midi-app-controller"><img alt="codecov" src="https://codecov.io/gh/midi-app-controller/midi-app-controller/graph/badge.svg?token=YALMD0PQ80" /></a>
-<a href="https://midi-app-controller.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/midi-app-controller/badge/?version=latest" /></a>
-<a href="https://badge.fury.io/py/midi-app-controller"><img alt="PyPI version" src="https://badge.fury.io/py/midi-app-controller.svg" /></a></p>
+                                        <p><a href="https://codecov.io/gh/midi-app-controller/midi-app-controller"><img src="https://codecov.io/gh/midi-app-controller/midi-app-controller/graph/badge.svg?token=YALMD0PQ80" alt="codecov" /></a>
+<a href="https://midi-app-controller.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/midi-app-controller/badge/?version=latest" alt="Documentation Status" /></a>
+<a href="https://badge.fury.io/py/midi-app-controller"><img src="https://badge.fury.io/py/midi-app-controller.svg" alt="PyPI version" /></a></p>
 <p>midi-app-controller is an app, that allows user to control all applications using 'pyapp-kit/app-model' with a USB MIDI controller.</p>
 <h2>Documentation</h2>
-<p>Documentation at https://midi-app-controller.readthedocs.io/en/latest/.</p>
+<p>Documentation at <a href="https://midi-app-controller.readthedocs.io/en/latest/">https://midi-app-controller.readthedocs.io/en/latest/</a>.</p>
 <h2>Usage (napari)</h2>
 <p>MIDI App Controller is a package designed to integrate MIDI controllers with Python Qt apps using app-model. As of now, it is used most commonly with <a href="https://napari.org">napari</a>, a viewer for multi-dimensional images. We will show how to use MIDI App Controller with napari but getting started with other applications should look very similar.</p>
 <h3>Installation</h3>
 <p>To install MIDI App Controller in your environment (where Python and napari are already installed), use this command:</p>
-<pre class="codehilite"><code>pip install midi-app-controller
+<pre><code><div class="highlight"><pre><span></span>pip install midi-app-controller
+</pre></div>
 </code></pre>
-
 <p>napari will automatically detect the package and install the plugin next time it starts.</p>
 <p>To install the newest development version, clone the GitHub repo and <a href="#installing">install it as a local package</a>.</p>
 <h3>Setup</h3>
 <p>Launch the plugin from the <em>Plugins</em> menu.</p>
-<p><img alt="" src="docs/img/plugins-menu.png" /></p>
+<p><img src="docs/img/plugins-menu.png" alt="" /></p>
 <p>A panel will open to the side.</p>
-<p><img alt="" src="docs/img/midi-status.png" /></p>
+<p><img src="docs/img/midi-status.png" alt="" /></p>
 <h4>Controller</h4>
 <p>If your MIDI controller is supported out of the box, you can simply select the appropriate model. If not, you will need to tell MIDI App Controller how to interact with this model of controller by creating a <a href="controllers.md">controller schema</a>.</p>
 <p>Once you have selected the controller schema, you can select binds schema.</p>
 <h4>MIDI ports</h4>
 <p>If they haven't been selected automatically, select MIDI input and output ports that correspond to your physical controller.</p>
 <h3>Start handling</h3>
-<p>After a controller and bindings are selected, you can click "Start handling". This will start a thread that listens to all input from the controller and invokes appropriate commands. You can close the panel with the settings, the thread will work in the background until you click "Stop handling".</p>
+<p>After a controller and bindings are selected, you can click &quot;Start handling&quot;. This will start a thread that listens to all input from the controller and invokes appropriate commands. You can close the panel with the settings, the thread will work in the background until you click &quot;Stop handling&quot;.</p>
 <h3>Edit binds</h3>
-<p>Click "Edit binds" to open dialog where you can configure bindings by choosing which physical buttons and knobs on your controller correspond to which commands in the application. Think of it like configuring keyboard shortcuts.</p>
-<p><img alt="" src="docs/img/edit-binds.png" /></p>
-<p>All configurations are simple YAML files which you can copy, share, or edit manually. You can click "Reveal in explorer" to see the exact location of the currently chosen config file. You shouldn't edit built-in presets stored in the package directory; when you edit a built-in preset in the graphical user interface, a copy will automatically be created.</p>
-<p>After you save changes, if you have already started handling, you need to click "Restart handling" to start a new server with the changes applied.</p>
+<p>Click &quot;Edit binds&quot; to open dialog where you can configure bindings by choosing which physical buttons and knobs on your controller correspond to which commands in the application. Think of it like configuring keyboard shortcuts.</p>
+<p><img src="docs/img/edit-binds.png" alt="" /></p>
+<p>All configurations are simple YAML files which you can copy, share, or edit manually. You can click &quot;Reveal in explorer&quot; to see the exact location of the currently chosen config file. You shouldn't edit built-in presets stored in the package directory; when you edit a built-in preset in the graphical user interface, a copy will automatically be created.</p>
+<p>After you save changes, if you have already started handling, you need to click &quot;Restart handling&quot; to start a new server with the changes applied.</p>
 <h2>Usage without GUI</h2>
 <p>The library can be also controlled using the singleton of <a href="api_reference.md"><code>StateManager</code></a> class:</p>
-<pre class="codehilite"><code class="language-python">from midi_app_controller.state.state_manager import get_state_manager
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">midi_app_controller.state.state_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_state_manager</span>
 
-state = get_state_manager()
-# Now the library can be controlled using `state`.
+<span class="n">state</span> <span class="o">=</span> <span class="n">get_state_manager</span><span class="p">()</span>
+<span class="c1"># Now the library can be controlled using `state`.</span>
+</pre></div>
 </code></pre>
-
 <h2>Development</h2>
 <h3>Installing</h3>
-<pre class="codehilite"><code class="language-sh">python3 -m pip install -e .
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <h3>Testing</h3>
-<pre class="codehilite"><code class="language-sh">python3 -m pip install -e .[testing]
-python3 -m pytest --cov .
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>testing<span class="o">]</span>
+python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <h3>Testing docs</h3>
-<pre class="codehilite"><code class="language-sh">mkdocs serve -a localhost:8080
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>mkdocs<span class="w"> </span>serve<span class="w"> </span>-a<span class="w"> </span>localhost:8080
+</pre></div>
+</code></pre>
+<h3>Using pre-commit</h3>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>dev<span class="o">]</span>
+pre-commit<span class="w"> </span>install
+</pre></div>
 </code></pre>
 
-<h3>Using pre-commit</h3>
-<pre class="codehilite"><code class="language-sh">python3 -m pip install -e .[dev]
-pre-commit install
-</code></pre>
-        
 
                                     </div>
                                 </div>

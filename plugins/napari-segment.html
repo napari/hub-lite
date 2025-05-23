@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,46 +210,19 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/aaristov/napari-segment/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-segment.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-segment"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-segment.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-segment.svg?color=green" /></a>
-<a href="https://github.com/aaristov/napari-segment/actions"><img alt="tests" src="https://github.com/aaristov/napari-segment/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/aaristov/napari-segment"><img alt="codecov" src="https://codecov.io/gh/aaristov/napari-segment/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-segment"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-segment" /></a></p>
+                                        <p><a href="https://github.com/aaristov/napari-segment/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-segment.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-segment"><img src="https://img.shields.io/pypi/v/napari-segment.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-segment.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/aaristov/napari-segment/actions"><img src="https://github.com/aaristov/napari-segment/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/aaristov/napari-segment"><img src="https://codecov.io/gh/aaristov/napari-segment/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-segment"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-segment" alt="napari hub" /></a></p>
 <h2>Interactively segment organoids/spheroids/aggregates in brightfield/fluorescence from nd2 multipositional stack.</h2>
-<p><img alt="image" src="https://user-images.githubusercontent.com/11408456/201948817-255717a6-5f5c-45a2-ae01-2e0cbb1e29e8.png" /></p>
+<p><img src="https://user-images.githubusercontent.com/11408456/201948817-255717a6-5f5c-45a2-ae01-2e0cbb1e29e8.png" alt="image" /></p>
 <h2>Installation</h2>
 <p><code>pip install napari-segment</code></p>
 <p>or</p>
 <p>From napari plugin</p>
-<p><img alt="image" src="https://user-images.githubusercontent.com/11408456/201949692-33f94eaf-ac43-44dd-8c21-e9f9a460c5b2.png" /></p>
+<p><img src="https://user-images.githubusercontent.com/11408456/201949692-33f94eaf-ac43-44dd-8c21-e9f9a460c5b2.png" alt="image" /></p>
 <h2>Usage for segmentation</h2>
 <ol>
 <li>Drag your nd2 file into napari (otherwise try the Sample data from File / Open Sample / napari-segment)</li>
@@ -253,46 +230,46 @@ pre > code:last-child {
 <li>Select the brightfield channel</li>
 <li>The data is lazily loaded from nd2 dataset and dynamically segmented in the viewer.</li>
 <li>Binning 1-8 allows to skip small features and focus on bigger objects, also makes processing faster.
-<img alt="image" src="https://user-images.githubusercontent.com/11408456/201701163-70c4af51-8a3a-42a0-adb9-32f0114eb49d.png" /></li>
-<li>
-<p>Various preprocessing modes allow segmentation of different objects:
-<img alt="image" src="https://user-images.githubusercontent.com/11408456/201701809-f16a23ea-d14a-4b38-8b8c-08a113416509.png" /></p>
-</li>
-<li>
-<p>Invert: will use the dark shadow around aggregate - best for very old aggregates , out of focus (File / Open Sample / napari-segment / Old aggregate)</p>
-</li>
+<img src="https://user-images.githubusercontent.com/11408456/201701163-70c4af51-8a3a-42a0-adb9-32f0114eb49d.png" alt="image" /></li>
+<li>Various preprocessing modes allow segmentation of different objects:
+<img src="https://user-images.githubusercontent.com/11408456/201701809-f16a23ea-d14a-4b38-8b8c-08a113416509.png" alt="image" /></li>
 </ol>
-<p><img alt="image" src="https://user-images.githubusercontent.com/11408456/201701950-efd86fae-d85b-471c-bb44-a0e328e26adc.png" /></p>
 <ul>
-<li>Gradient: best for very sharp edges, early aggregates, single cells (File / Open Sample / napari-segment / Early aggregate) </li>
+<li>Invert: will use the dark shadow around aggregate - best for very old aggregates , out of focus (File / Open Sample / napari-segment / Old aggregate)</li>
 </ul>
-<p><img alt="image" src="https://user-images.githubusercontent.com/11408456/201705697-5d0d0643-44b6-4cb9-9208-4a29dd899d8c.png" /></p>
+<p><img src="https://user-images.githubusercontent.com/11408456/201701950-efd86fae-d85b-471c-bb44-a0e328e26adc.png" alt="image" /></p>
+<ul>
+<li>Gradient: best for very sharp edges, early aggregates, single cells (File / Open Sample / napari-segment / Early aggregate)</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/11408456/201705697-5d0d0643-44b6-4cb9-9208-4a29dd899d8c.png" alt="image" /></p>
 <ul>
 <li>Gauss diff: Fluorescence images
-  The result of preprocessing will be shown in the "Preprocessing" layer.</li>
-<li>Smooth, Theshold and Erode parameters allow you to adjust the preliminary segmentation -&gt; they all will appear in the "Detections" layer as outlines </li>
+The result of preprocessing will be shown in the &quot;Preprocessing&quot; layer.</li>
 </ul>
-<p><img alt="image" src="https://user-images.githubusercontent.com/11408456/201703675-cff6bac1-bb2a-4d45-963f-6e6d00309c77.png" /></p>
-<ol>
-<li>Min/max diameter and eccentricity allow you to filter out unwanted regions -&gt; the good regions will appear in the "selected labels" layer as filled areas.</li>
+<ol start="7">
+<li>Smooth, Theshold and Erode parameters allow you to adjust the preliminary segmentation -&gt; they all will appear in the &quot;Detections&quot; layer as outlines</li>
 </ol>
-<p><img alt="image" src="https://user-images.githubusercontent.com/11408456/201703754-2c83a8d6-70c2-444a-8e30-54a39c901cd0.png" />
-<img alt="image" src="https://user-images.githubusercontent.com/11408456/201707025-9121f0dc-3939-48f0-ae75-884891be8d66.png" /></p>
-<ol>
+<p><img src="https://user-images.githubusercontent.com/11408456/201703675-cff6bac1-bb2a-4d45-963f-6e6d00309c77.png" alt="image" /></p>
+<ol start="8">
+<li>Min/max diameter and eccentricity allow you to filter out unwanted regions -&gt; the good regions will appear in the &quot;selected labels&quot; layer as filled areas.</li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/11408456/201703754-2c83a8d6-70c2-444a-8e30-54a39c901cd0.png" alt="image" />
+<img src="https://user-images.githubusercontent.com/11408456/201707025-9121f0dc-3939-48f0-ae75-884891be8d66.png" alt="image" /></p>
+<ol start="9">
 <li>
-<p>Once satisfied, click "Save the params!" - it will automatically create file.nd2.params.yml file, so you can recall how the segmentation was done. Next time you open the same dataset, the parameters will be loaded automatically from this file. </p>
+<p>Once satisfied, click &quot;Save the params!&quot; - it will automatically create file.nd2.params.yml file, so you can recall how the segmentation was done. Next time you open the same dataset, the parameters will be loaded automatically from this file.</p>
 </li>
 <li>
-<p>Next section is for quantifying the sizes. Pixel size will be retrieved automatically from metadata. If not: update it manually and click Update plots to see the correct sizes. Click on any suspected value to see the corresponding frame and try to adjust the above parameters. </p>
+<p>Next section is for quantifying the sizes. Pixel size will be retrieved automatically from metadata. If not: update it manually and click Update plots to see the correct sizes. Click on any suspected value to see the corresponding frame and try to adjust the above parameters.</p>
 </li>
 </ol>
-<p><img alt="image" src="https://user-images.githubusercontent.com/11408456/201704881-b2303b9a-50c6-49c7-80ff-a6099cc2a151.png" /></p>
-<ol>
+<p><img src="https://user-images.githubusercontent.com/11408456/201704881-b2303b9a-50c6-49c7-80ff-a6099cc2a151.png" alt="image" /></p>
+<ol start="11">
 <li>
-<p>If impossible to get good results with automatic pipeline, click Clone for manual correction: this will create an editable "Manual" layer which you can edin with built-in tools in napari. Click "Update plots" to see the updated values. </p>
+<p>If impossible to get good results with automatic pipeline, click Clone for manual correction: this will create an editable &quot;Manual&quot; layer which you can edin with built-in tools in napari. Click &quot;Update plots&quot; to see the updated values.</p>
 </li>
 <li>
-<p>"Save csv!" will generate a csv file with regionprops. </p>
+<p>&quot;Save csv!&quot; will generate a csv file with regionprops.</p>
 </li>
 </ol>
 <h2>Contributing</h2>
@@ -300,10 +277,10 @@ pre > code:last-child {
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-segment" is free and open source software</p>
+&quot;napari-segment&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/aaristov/napari-segment/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

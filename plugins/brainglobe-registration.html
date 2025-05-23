@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/brainglobe/brainglobe-registration/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/brainglobe-registration.svg?color=green" /></a>
-<a href="https://pypi.org/project/brainglobe-registration"><img alt="PyPI" src="https://img.shields.io/pypi/v/brainglobe-registration.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/brainglobe-registration.svg?color=green" /></a>
-<a href="https://github.com/brainglobe/brainglobe-registration/actions"><img alt="tests" src="https://github.com/brainglobe/brainglobe-registration/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/brainglobe/brainglobe-registration"><img alt="codecov" src="https://codecov.io/gh/brainglobe/brainglobe-registration/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/brainglobe-registration"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/brainglobe-registration" /></a></p>
+                                        <p><a href="https://github.com/brainglobe/brainglobe-registration/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/brainglobe-registration.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/brainglobe-registration"><img src="https://img.shields.io/pypi/v/brainglobe-registration.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/brainglobe-registration.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/brainglobe/brainglobe-registration/actions"><img src="https://github.com/brainglobe/brainglobe-registration/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/brainglobe/brainglobe-registration"><img src="https://codecov.io/gh/brainglobe/brainglobe-registration/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/brainglobe-registration"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/brainglobe-registration" alt="napari hub" /></a></p>
 <p>Registration to a BrainGlobe atlas using Elastix</p>
 <hr />
 <blockquote>
@@ -242,56 +219,54 @@ pre > code:last-child {
 This tool is in very early development. The interface may change and some features are not yet available.</p>
 </blockquote>
 <p>A <a href="https://github.com/napari/napari">napari</a> plugin for registering images to a BrainGlobe atlas.</p>
-<p><img alt="brainglobe-registration" src="./imgs/brainglobe_registration_main.png" /></p>
+<p><img src="./imgs/brainglobe_registration_main.png" alt="brainglobe-registration" /></p>
 <h2>Usage</h2>
 <ol>
 <li>Open <code>napari</code>.</li>
 <li><a href="#Installation">Install the plugin</a>.</li>
 <li>Open the widget by selecting <code>Plugins &gt; BrainGlobe Registration</code> in the napari menu bar near the
 top left of the window.
-<img alt="brainglobe-registration-plugin" src="./imgs/brainglobe_registration_plugin_window.png" />
+<img src="./imgs/brainglobe_registration_plugin_window.png" alt="brainglobe-registration-plugin" />
 The <code>BrainGlobe Registration</code> plugin will appear on the right hand side of the napari window.</li>
 <li>Open the image you want to register in napari (a sample 2D image can be found by selecting <code>File &gt; Open Sample &gt; Sample Brain Slice</code>).</li>
 <li>Select the atlas you want to register to from the dropdown menu.
-<img alt="brainglobe-registration-atlas-selection" src="./imgs/brainglobe_registration_atlas_selection.png" />
+<img src="./imgs/brainglobe_registration_atlas_selection.png" alt="brainglobe-registration-atlas-selection" />
 The atlas will appear in the napari viewer. Select the approximate <code>Z</code> slice of the atlas that you want to register to,
 using the slider at the bottom of the napari viewer.
-<img alt="brainglobe-registration-atlas-selection" src="./imgs/brainglobe_registration_atlas_selection_2.png" /></li>
+<img src="./imgs/brainglobe_registration_atlas_selection_2.png" alt="brainglobe-registration-atlas-selection" /></li>
 <li>Adjust the sample image to roughly match the atlas image.
 You can do this by adjusting X and Y translation as well as rotating around the centre of the image.
 You can overlay the two images by toggling <code>Grid</code> mode in the napari viewer (Ctrl+G).
 You can then adjust the color map and opacity of the atlas image to make manual alignment easier.
-<img alt="brainglobe-registration-overlay" src="./imgs/brainglobe_registration_overlay.png" />
+<img src="./imgs/brainglobe_registration_overlay.png" alt="brainglobe-registration-overlay" />
 The sample image can be reset to its original position and orientation by clicking <code>Reset Image</code> in the <code>BrainGlobe Registration</code> plugin window.</li>
 <li>Select the transformations you want to use from the dropdown menu. Set the transformation type to empty to remove a step.
 Select from one of the three provided default parameter sets (elastix, ARA, or IBL). Customise the parameters further in the
 <code>Parameters</code> tab.</li>
 <li>Click <code>Run</code> to register the image. The registered image will appear in the napari viewer.
-<img alt="brainglobe-registration-registered" src="./imgs/brainglobe_registration_registered.png" />
-<img alt="brainglobe-registration-registered" src="./imgs/brainglobe_registration_registered_stacked.png" /></li>
+<img src="./imgs/brainglobe_registration_registered.png" alt="brainglobe-registration-registered" />
+<img src="./imgs/brainglobe_registration_registered_stacked.png" alt="brainglobe-registration-registered" /></li>
 </ol>
 <h2>Installation</h2>
 <p>We strongly recommend to use a virtual environment manager (like <code>conda</code> or <code>venv</code>). The installation instructions below
 will not specify the Qt backend for napari, and you will therefore need to install that separately. Please see the
 <a href="https://napari.org/stable/tutorials/fundamentals/installation.html"><code>napari</code> installation instructions</a> for further advice on this.</p>
 <p>You can install <code>brainglobe-registration</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install brainglobe-registration
+<pre><code>pip install brainglobe-registration
 </code></pre>
-
 <p>or <a href="https://napari.org/stable/plugins/start_using_plugins/finding_and_installing_plugins.html">via napari</a>.</p>
 <p>To install the latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/brainglobe/brainglobe-registration.git
+<pre><code>pip install git+https://github.com/brainglobe/brainglobe-registration.git
 </code></pre>
-
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"brainglobe-registration" is free and open source software</p>
+&quot;brainglobe-registration&quot; is free and open source software</p>
 <h2>Seeking help or contributing</h2>
 <p>We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the <a href="https://brainglobe.info/contact.html">contact page of our website</a>.</p>
 <h2>Citation</h2>
 <p>If you find this package useful, and use it in your research, please cite the following:</p>
 <blockquote>
-<p>Igor Tatarnikov, Alessandro Felder, Kimberly Meechan, &amp; Adam Tyson. (2025). brainglobe/brainglobe-registration. Zenodo. https://doi.org/10.5281/zenodo.14750325</p>
+<p>Igor Tatarnikov, Alessandro Felder, Kimberly Meechan, &amp; Adam Tyson. (2025). brainglobe/brainglobe-registration. Zenodo. <a href="https://doi.org/10.5281/zenodo.14750325">https://doi.org/10.5281/zenodo.14750325</a></p>
 </blockquote>
 <h2>Acknowledgements</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -302,7 +277,7 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-        
+
 
                                     </div>
                                 </div>

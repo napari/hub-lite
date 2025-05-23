@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,43 +206,16 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://napari-hub.org/plugins/napari-stitcher"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-stitcher" /></a>
-<a href="https://github.com/multiview-stitcher/napari-stitcher/raw/main/LICENSE"><img alt="License {{cookiecutter.license}}" src="https://img.shields.io/pypi/l/napari-stitcher.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-stitcher"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-stitcher.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-stitcher.svg?color=green" /></a>
-<a href="https://github.com/multiview-stitcher/napari-stitcher/actions"><img alt="tests" src="https://github.com/multiview-stitcher/napari-stitcher/actions/workflows/test_and_deploy.yml/badge.svg" /></a>
-<a href="https://codecov.io/gh/multiview-stitcher/napari-stitcher"><img alt="codecov" src="https://codecov.io/gh/multiview-stitcher/napari-stitcher/branch/main/graph/badge.svg" /></a>
-<a href="https://zenodo.org/doi/10.5281/zenodo.14176362"><img alt="DOI" src="https://zenodo.org/badge/697999800.svg" /></a></p>
+                                        <p><a href="https://napari-hub.org/plugins/napari-stitcher"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-stitcher" alt="napari hub" /></a>
+<a href="https://github.com/multiview-stitcher/napari-stitcher/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-stitcher.svg?color=green" alt="License {{cookiecutter.license}}" /></a>
+<a href="https://pypi.org/project/napari-stitcher"><img src="https://img.shields.io/pypi/v/napari-stitcher.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-stitcher.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/multiview-stitcher/napari-stitcher/actions"><img src="https://github.com/multiview-stitcher/napari-stitcher/actions/workflows/test_and_deploy.yml/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/multiview-stitcher/napari-stitcher"><img src="https://codecov.io/gh/multiview-stitcher/napari-stitcher/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://zenodo.org/doi/10.5281/zenodo.14176362"><img src="https://zenodo.org/badge/697999800.svg" alt="DOI" /></a></p>
 <h1>napari-stitcher</h1>
 <p>A napari plugin for stitching large multi-positioning datasets in 2/3D+t using <a href="https://github.com/multiview-stitcher/multiview-stitcher"><code>multiview-stitcher</code></a>.</p>
-<p><img alt="" src="docs/images/napari-stitcher-loaded-mosaic-annotated.png" />
+<p><img src="docs/images/napari-stitcher-loaded-mosaic-annotated.png" alt="" />
 <small>Image data by Arthur Michaut @ Jérôme Gros Lab @ Institut Pasteur.</small></p>
 <h4>Quick guide:</h4>
 <ol>
@@ -250,23 +227,23 @@ pre > code:last-child {
 <li>The registration result is shown in the viewer and the fused channels are added as new layers.</li>
 </ol>
 <h2>Demo</h2>
-<p>https://github.com/user-attachments/assets/8773e49f-af18-4ff3-ab2f-2a5f1b1cadf2</p>
+<p><a href="https://github.com/user-attachments/assets/8773e49f-af18-4ff3-ab2f-2a5f1b1cadf2">https://github.com/user-attachments/assets/8773e49f-af18-4ff3-ab2f-2a5f1b1cadf2</a></p>
 <p><small>This demo uses the awesome <a href="https://github.com/napari-threedee/napari-threedee"><code>napari-threedee</code></a> for prepositioning the tiles. Image data: <a href="https://imagej.net/plugins/bigstitcher/">BigStitcher</a>.</small></p>
 <h2>Documentation</h2>
 <p>Head over to the <a href="https://multiview-stitcher.github.io/napari-stitcher/main/">user guide</a> for more details.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-stitcher</code> via <code>pip</code>:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-stitcher
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-stitcher
+</pre></div>
 </code></pre>
-
 <p>For more installation options, see the <a href="https://multiview-stitcher.github.io/napari-stitcher/main/installation/">installation docs</a>.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <code>tox</code>.</p>
 <h2>License</h2>
-<p>Distributed under the terms of the [BSD-3] license, "napari-stitcher" is free and open source software</p>
+<p>Distributed under the terms of the [BSD-3] license, &quot;napari-stitcher&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/multiview-stitcher/napari-stitcher/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

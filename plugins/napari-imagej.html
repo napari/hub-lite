@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,47 +210,23 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <h3>A <a href="https://github.com/napari/napari">napari</a> plugin for access to <a href="https://imagej.net/software/imagej2">ImageJ2</a></h3>
-<p><a href="https://github.com/imagej/napari-imagej/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-imagej.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-imagej"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-imagej.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-imagej.svg?color=green" /></a>
-<a href="https://github.com/imagej/napari-imagej/actions"><img alt="tests" src="https://github.com/imagej/napari-imagej/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/imagej/napari-imagej"><img alt="codecov" src="https://codecov.io/gh/imagej/napari-imagej/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-imagej"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-imagej" /></a></p>
+                                        <h3>A <a href="https://github.com/napari/napari">napari</a> plugin for access to <a href="https://imagej.net/software/imagej2">ImageJ2</a></h3>
+<p><a href="https://github.com/imagej/napari-imagej/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-imagej.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-imagej"><img src="https://img.shields.io/pypi/v/napari-imagej.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-imagej.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/imagej/napari-imagej/actions"><img src="https://github.com/imagej/napari-imagej/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/imagej/napari-imagej"><img src="https://codecov.io/gh/imagej/napari-imagej/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-imagej"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-imagej" alt="napari hub" /></a></p>
 <p><strong>napari-imagej</strong> aims to provide access to all <a href="https://imagej.net/software/imagej2">ImageJ2</a> functionality through the <a href="https://github.com/napari/napari">napari</a> graphical user interface. It builds on the foundation of <a href="https://github.com/imagej/pyimagej">PyImageJ</a>, a project allowing ImageJ2 access from Python.</p>
 <p><strong>With napari-imagej, you can access:</strong></p>
 <ol>
-<li>The napari-imagej widget, providing <em>headless access</em> to:</li>
+<li>The napari-imagej widget, providing <em>headless access</em> to:
+<ul>
 <li><a href="https://github.com/imagej/imagej-plugins-commands">ImageJ2 Commands</a> - 100+ image processing algorithms</li>
 <li><a href="https://imagej.net/libs/imagej-ops">ImageJ Ops</a> - 500+ <em>functional</em> image processing algorithms</li>
 <li><a href="https://imagej.net/scripting">SciJava Scripts</a> - migrated from Fiji or ImageJ2, or written yourself!</li>
+</ul>
+</li>
 <li>The ImageJ user interface, providing access to <em>the entire ImageJ ecosystem</em> within napari.</li>
 </ol>
 <p>See the <a href="https://github.com/orgs/imagej/projects/2">project roadmap</a> for future directions.</p>
@@ -267,11 +247,11 @@ pre > code:last-child {
 <p>For technical details involved with contributing, please see <a href="https://napari-imagej.readthedocs.io/en/latest/Development.html">here</a></p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="https://opensource.org/licenses/BSD-2-Clause">BSD-2</a> license,
-"napari-imagej" is free and open source software.</p>
+&quot;napari-imagej&quot; is free and open source software.</p>
 <h2>Citing</h2>
 <p><em>napari-imagej: ImageJ ecosystem access from napari</em>, Nature Methods, 2023 Aug 18</p>
 <p>DOI: <a href="https://doi.org/10.1038/s41592-023-01990-0">10.1038/s41592-023-01990-0</a></p>
-        
+
 
                                     </div>
                                 </div>

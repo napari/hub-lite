@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,46 +206,19 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/zoccoler/napari-signal-selector/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-signal-selector.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-signal-selector"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-signal-selector.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-signal-selector.svg?color=green" /></a>
-<a href="https://github.com/zoccoler/napari-signal-selector/actions"><img alt="tests" src="https://github.com/zoccoler/napari-signal-selector/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/zoccoler/napari-signal-selector"><img alt="codecov" src="https://codecov.io/gh/zoccoler/napari-signal-selector/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-signal-selector"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-signal-selector" /></a>
-<a href="https://zenodo.org/doi/10.5281/zenodo.10041219"><img alt="DOI" src="https://zenodo.org/badge/661588266.svg" /></a></p>
+                                        <p><a href="https://github.com/zoccoler/napari-signal-selector/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-signal-selector.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-signal-selector"><img src="https://img.shields.io/pypi/v/napari-signal-selector.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-signal-selector.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/zoccoler/napari-signal-selector/actions"><img src="https://github.com/zoccoler/napari-signal-selector/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/zoccoler/napari-signal-selector"><img src="https://codecov.io/gh/zoccoler/napari-signal-selector/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-signal-selector"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-signal-selector" alt="napari hub" /></a>
+<a href="https://zenodo.org/doi/10.5281/zenodo.10041219"><img src="https://zenodo.org/badge/661588266.svg" alt="DOI" /></a></p>
 <p>An interactive signal selector and annotator for napari, based on <a href="https://matplotlib.org/stable/">matplotlib</a>.</p>
 <p><a href="#installation">Jump to Intallation</a></p>
 <hr />
 <h2>Usage</h2>
 <p>This plugin opens an embedded plotter in napari capable of plotting and interacting (selecting/annotating) with individual object signals (typically temporal features).</p>
-<p><img alt="plotting" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/plotting.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/plotting.gif" alt="plotting" /></p>
 <h3>Input Data</h3>
 <p>napari-signal-selector works with a <a href="https://napari.org/stable/howtos/layers/labels.html">Labels layer</a> containing segmented objects and whose <code>features</code> attribute contains a table that follows the example structure shown below:</p>
 <table>
@@ -336,76 +313,72 @@ pre > code:last-child {
 </table>
 <p>Basically, it needs an object identifier (in this case, the <code>label</code> column) that matches the labels in the Labels layer, and other columns containing x- and y-axis numbers to plot. Typically, x-axis is some temporal-related property.</p>
 <p>Here is how one could add such a layer to a napari viewer via code (check <a href="./examples/synthetic_example.ipynb">this example notebook</a> for more details):</p>
-<pre class="codehilite"><code class="language-python">viewer.add_labels(labels_image, features = table)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">labels_image</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">table</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>If a layer like this is selected, you can choose what to plot by means of dropdown fields in the bottom of the plotter.</p>
-<p>Below is a basic example using the "Flashing Polygons" synthetic data:</p>
-<p><img alt="intro" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/intro.gif" /></p>
+<p>Below is a basic example using the &quot;Flashing Polygons&quot; synthetic data:</p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/intro.gif" alt="intro" /></p>
 <h2>Tools</h2>
 <h3>Selection Tool</h3>
 <p>The selection tool (arrowhead icon) is a toggle button which enables you to select individual signals. Once activated, the icon gets highlighted and you can click over individual signals to select them. Right-clicking unselects everything.</p>
-<p><img alt="select" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/select.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/select.gif" alt="select" /></p>
 <p>If the region you want to click is too crowded, consider zooming in first and then selecting.</p>
-<p><img alt="zoom-select" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/zoom_select.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/zoom_select.gif" alt="zoom-select" /></p>
 <p>And if you know which label you want to select, you can enable <code>'show selected'</code> from the Labels layer options to solely display one label at a time. The Lables layer picker tool may help you get the right label.</p>
-<p><img alt="show-selected" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/show_selected.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/show_selected.gif" alt="show-selected" /></p>
 <h3>Annotation Tool</h3>
 <p>Once one or multiple signals are selected, you can annotate them with the annotation tool (brush with a 'plus' icon). You need to choose a signal class first.
 <em>Remember to right-click to remove previous selections when annotating different signal classes!</em></p>
-<p><img alt="annotation" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/annotation.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/annotation.gif" alt="annotation" /></p>
 <p>Annotations are saved back in the table in a new column called 'Annotations'.
 <em>Currently multiple annotations is not possible, i.e., more than one class assigned to the same part of the signal.</em></p>
 <h3>Span-Selection Tool</h3>
 <p>You can use the span-selection tool (bounded horizontal arrows icon) to sub-select one or multiple parts of signals. Right-click to unselect regions. Hold 'SHIFT' while dragging the mouse to select multiple sub-regions.</p>
-<p><img alt="span-select" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/span_select.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/span_select.gif" alt="span-select" /></p>
 <p>You can use this in conjunction with the annotation tool to have sub-regions from the same signal with different annotations.</p>
-<p><img alt="" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/span_annotation.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/span_annotation.gif" alt="" /></p>
 <h3>Deletion Tool</h3>
 <p>If you made a mistake, you can remove previous annotations by selecting signal(s) and clicking on the trash icon at the right of the toolbar (or just annotate them with class 0).</p>
-<p><img alt="delete" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/delete.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/delete.gif" alt="delete" /></p>
 <p>Also, with the selection tool enbaled, by holding 'SHIFT' and left-clicking, you can select all signals. This may be useful to delete all previous annotations.</p>
-<p><img alt="select-delete-all" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/select_delete_all.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/select_delete_all.gif" alt="select-delete-all" /></p>
 <h3>Exporting Annotations</h3>
 <p>The table with annotations can be displayed in napari using the 'Show table' widget from <a href="https://github.com/haesleinhuepf/napari-skimage-regionprops#napari-skimage-regionprops-nsr">napari-skimage-regionprops plugin</a>, which is available under <code>Tools &gt; Measurements &gt; Show Table (nsr)</code>. This plugin may require a specific napari version, so check its documentation for more details.</p>
-<p><img alt="" src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/table_view.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-signal-selector/raw/main/images/table_view.gif" alt="" /></p>
 <p>By the way, with <code>'show selected'</code> checked, you can click on a label row in the table and see the corresponding label in the image <strong>...and</strong> in the plotter!</p>
 <p>To export the table, click on <code>'Save as csv...'</code>.</p>
 <p>Another option is to run the following code in the napari console (replace <code>'Labels'</code> with the name of your Labels layer and <code>'annotations.csv'</code> with the desired file name or file path):</p>
-<pre class="codehilite"><code class="language-python">import pandas as pd
-df = viewer.layers['Labels'].data.features
-df.to_csv('annotations.csv')
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;Labels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">features</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;annotations.csv&#39;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <h2>Installation</h2>
 <p>You can install <code>napari-signal-selector</code> via <a href="https://pypi.org/project/pip/">pip</a>. Follow these steps from a terminal.</p>
 <p>We recommend using <code>mamba-forge</code> whenever possible. Click <a href="https://github.com/conda-forge/miniforge#mambaforge">here</a> to choose the right download option for your OS.
 <strong>If you do not use <code>mamba-forge</code>, replace the <code>mamba</code> term whenever you see it below with <code>conda</code>.</strong></p>
 <p>Create a conda environment :</p>
-<pre class="codehilite"><code>mamba create -n napari-ss-env napari pyqt python=3.9
+<pre><code>mamba create -n napari-ss-env napari pyqt python=3.9
 </code></pre>
-
 <p>Activate the environment :</p>
-<pre class="codehilite"><code>mamba activate napari-ss-env
+<pre><code>mamba activate napari-ss-env
 </code></pre>
-
 <p>Install <code>napari-signal-selector</code> via <a href="https://pypi.org/project/pip/">pip</a> :</p>
-<pre class="codehilite"><code>pip install napari-signal-selector
+<pre><code>pip install napari-signal-selector
 </code></pre>
-
 <p>Alternatively, install latest development version with :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/zoccoler/napari-signal-selector.git
+<pre><code>pip install git+https://github.com/zoccoler/napari-signal-selector.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-signal-selector" is free and open source software</p>
+&quot;napari-signal-selector&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/zoccoler/napari-signal-selector/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

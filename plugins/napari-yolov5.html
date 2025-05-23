@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,40 +210,13 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/rdemets/napari-yolov5/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-yolov5.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-yolov5"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-yolov5.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-yolov5.svg?color=green" /></a>
-<a href="https://github.com/rdemets/napari-yolov5/actions"><img alt="tests" src="https://github.com/rdemets/napari-yolov5/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/rdemets/napari-yolov5"><img alt="codecov" src="https://codecov.io/gh/rdemets/napari-yolov5/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-yolov5"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-yolov5" /></a></p>
-<p>Plugin adapted from Ultralytics to bring YOLOv5 into Napari. </p>
+                                        <p><a href="https://github.com/rdemets/napari-yolov5/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-yolov5.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-yolov5"><img src="https://img.shields.io/pypi/v/napari-yolov5.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-yolov5.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/rdemets/napari-yolov5/actions"><img src="https://github.com/rdemets/napari-yolov5/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/rdemets/napari-yolov5"><img src="https://codecov.io/gh/rdemets/napari-yolov5/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-yolov5"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-yolov5" alt="napari hub" /></a></p>
+<p>Plugin adapted from Ultralytics to bring YOLOv5 into Napari.</p>
 <p>Training and detection can be done using the GUI. Training dataset must be prepared prior to using this plugin. Further development will allow users to use Napari to prepare the dataset. Follow instructions stated on <a href="https://github.com/ultralytics/yolov5">Ultralytics Github</a> to prepare the dataset.</p>
 <p>The plugin includes 3 pre-trained networks that are able to identify mitosis stages or apoptosis on soSPIM images. More details can be found on the <a href="https://www.biorxiv.org/content/10.1101/2021.03.26.437121v1.full">pre-print</a>.</p>
 <hr />
@@ -251,57 +228,55 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>Installation</h2>
 <p>First install conda and create an environment for the plugin</p>
-<pre class="codehilite"><code>conda create --prefix env-napari-yolov5 python=3.9
+<pre><code><div class="highlight"><pre><span></span>conda create --prefix env-napari-yolov5 python=3.9
 conda activate env-napari-yolov5
+</pre></div>
 </code></pre>
-
 <p>You can install <code>napari-yolov5</code> and <code>napari</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-yolov5
+<pre><code>pip install napari-yolov5
 pip install napari[all]
 </code></pre>
-
 <p>For GPU support :</p>
-<pre class="codehilite"><code>pip uninstall torch
-pip install torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">uninstall</span><span class="w"> </span><span class="n">torch</span>
+<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">torchvision</span><span class="o">==</span><span class="mf">0.10</span><span class="o">.</span><span class="mi">0</span><span class="o">+</span><span class="n">cu111</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">torch_stable</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <p>First select if you would like to train a new network or detect objects.</p>
-<p><img alt="alt text" src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/1.jpg?raw=true" /></p>
-<p><strong><em>For <code>Training</code> :</em></strong></p>
+<p><img src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/1.jpg?raw=true" alt="alt text" /></p>
+<p><em><strong>For <code>Training</code> :</strong></em></p>
 <p>Data preparation should be done following <a href="https://github.com/ultralytics/yolov5">Ultralytics'</a> instructions.</p>
 <p>Select the size of the network, the number of epochs, the number of images per batch to load on the GPU, the size of the images (must be a stride of 32), and the name of the network.</p>
-<p><img alt="alt text" src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/2.jpg?raw=true" /></p>
+<p><img src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/2.jpg?raw=true" alt="alt text" /></p>
 <p>An example of the YAML config file is provided in <code>src/napari_yolov5/resources</code> folder.</p>
-<p><img alt="alt text" src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/3.jpg?raw=true" /></p>
+<p><img src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/3.jpg?raw=true" alt="alt text" /></p>
 <p>Progress can be seen on the Terminal or on the right-hand side of the viewer.</p>
-<p><img alt="alt text" src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/4.jpg?raw=true" /></p>
-<p><strong><em>For <code>Detection</code> :</em></strong></p>
+<p><img src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/4.jpg?raw=true" alt="alt text" /></p>
+<p><em><strong>For <code>Detection</code> :</strong></em></p>
 <p>It is possible to perform the detection on a single layer chosen in the list, all the layers opened, or by giving a folder path. For folder detection, all the images will be loaded as a single stack.</p>
-<p><img alt="alt text" src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/5.jpg?raw=true" /></p>
+<p><img src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/5.jpg?raw=true" alt="alt text" /></p>
 <p>Nucleus size of the prediction layer has te be filled to resize the image to the training dataset. Nucleus size of the training dataset will be asked in case of a custom network.</p>
-<p>Confidence threshold defines the minimum value for a detected object to be considered positive. 
+<p>Confidence threshold defines the minimum value for a detected object to be considered positive.
 iou nms threshold (intersection-over-union non-max-suppression) defines the overlapping area of two boxes as a single object. Only the box with the maximum confidence is kept.
 Progress can be seen on the Terminal.</p>
-<p><img alt="alt text" src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/6.jpg?raw=true" /></p>
+<p><img src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/6.jpg?raw=true" alt="alt text" /></p>
 <p>Few options allow for modification on how the boxes are being displayed (default : box + class + confidence score ; box + class ; box only) and if the box coordinates and the image overlay will be exported.
-Post-processing option will perform a simple 3D assignment based on 3D connected component analysis. A median filter (1x1x3 XYZ) is applied prior to the assignment. 
-The centroid of each object is then saved into a new point layer as a 3D point with a random color for each class. </p>
-<p><img alt="alt text" src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/7.jpg?raw=true" /></p>
+Post-processing option will perform a simple 3D assignment based on 3D connected component analysis. A median filter (1x1x3 XYZ) is applied prior to the assignment.
+The centroid of each object is then saved into a new point layer as a 3D point with a random color for each class.</p>
+<p><img src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/7.jpg?raw=true" alt="alt text" /></p>
 <p>The localisation of each centroid is saved and the path is shown in the Terminal at the end of the detection. It is also possible now to define the export folder.</p>
-<p><img alt="alt text" src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/8.jpg?raw=true" /></p>
+<p><img src="https://github.com/rdemets/napari-yolov5/blob/main/src/napari_yolov5/resources/Readme/8.jpg?raw=true" alt="alt text" /></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,
-"napari-yolov5" is free and open source software</p>
+&quot;napari-yolov5&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

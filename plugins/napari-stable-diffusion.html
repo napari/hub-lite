@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,43 +210,16 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/kephale/napari-stable-diffusion/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-stable-diffusion.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-stable-diffusion"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-stable-diffusion.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-stable-diffusion.svg?color=green" /></a>
-<a href="https://github.com/kephale/napari-stable-diffusion/actions"><img alt="tests" src="https://github.com/kephale/napari-stable-diffusion/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/kephale/napari-stable-diffusion"><img alt="codecov" src="https://codecov.io/gh/kephale/napari-stable-diffusion/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-stable-diffusion"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-stable-diffusion" /></a></p>
+                                        <p><a href="https://github.com/kephale/napari-stable-diffusion/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-stable-diffusion.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-stable-diffusion"><img src="https://img.shields.io/pypi/v/napari-stable-diffusion.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-stable-diffusion.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/kephale/napari-stable-diffusion/actions"><img src="https://github.com/kephale/napari-stable-diffusion/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/kephale/napari-stable-diffusion"><img src="https://codecov.io/gh/kephale/napari-stable-diffusion/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-stable-diffusion"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-stable-diffusion" alt="napari hub" /></a></p>
 <p>A demo of stable diffusion in napari.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<p><img alt="demo image of napari-stable-diffusion of the prompt &quot;a unicorn and a dinosaur eating cookies and drinking tea&quot;" src="https://github.com/kephale/napari-stable-diffusion/raw/main/napari_stable_diffusion_demo.png" /></p>
+<p><img src="https://github.com/kephale/napari-stable-diffusion/raw/main/napari_stable_diffusion_demo.png" alt="demo image of napari-stable-diffusion of the prompt &quot;a unicorn and a dinosaur eating cookies and drinking tea&quot;" /></p>
 <!--
 Don't miss the full getting started guide to set up your new package:
 https://github.com/napari/cookiecutter-napari-plugin#getting-started
@@ -250,33 +227,30 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-stable-diffusion</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-stable-diffusion
+<pre><code>pip install napari-stable-diffusion
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/kephale/napari-stable-diffusion.git
+<pre><code>pip install git+https://github.com/kephale/napari-stable-diffusion.git
 </code></pre>
-
 <p>You will also need to sign up with HuggingFace and <a href="https://huggingface.co/docs/hub/security-tokens">generate an access
 token</a> to get access to the
 Stable Diffusion model we use.</p>
 <p>When you have generated your access token you can either permanently
 set the <code>HF_TOKEN_SD</code> environment variable in your <code>.bashrc</code> or whichever file
 your OS uses, or you can include it on the command line</p>
-<pre class="codehilite"><code>HF_TOKEN_SD=&quot;hf_aaaAaaaasdadsadsaoaoaoasoidijo&quot; napari
+<pre><code><div class="highlight"><pre><span></span>HF_TOKEN_SD=&quot;hf_aaaAaaaasdadsadsaoaoaoasoidijo&quot; napari
+</pre></div>
 </code></pre>
-
-<p>For more information on the Stable Diffusion model itself, please see https://huggingface.co/CompVis/stable-diffusion-v1-4.</p>
+<p>For more information on the Stable Diffusion model itself, please see <a href="https://huggingface.co/CompVis/stable-diffusion-v1-4">https://huggingface.co/CompVis/stable-diffusion-v1-4</a>.</p>
 <h3>Apple M1 specific instructions</h3>
 <p>To utilize the M1 GPU, the nightly version of PyTorch needs to be
 installed. Consider using <code>conda</code> or <code>mamba</code> like this:</p>
-<pre class="codehilite"><code>mamba create -c pytorch-nightly -n napari-stable-diffusion python=3.9 pip pyqt pytorch torchvision
+<pre><code><div class="highlight"><pre><span></span>mamba create -c pytorch-nightly -n napari-stable-diffusion python=3.9 pip pyqt pytorch torchvision
 pip install git+https://github.com/kephale/napari-stable-diffusion.git
+</pre></div>
 </code></pre>
-
 <h2>Next steps</h2>
 <ul>
 <li>Image 2 Image support</li>
@@ -287,10 +261,10 @@ pip install git+https://github.com/kephale/napari-stable-diffusion.git
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-stable-diffusion" is free and open source software</p>
+&quot;napari-stable-diffusion&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/kephale/napari-stable-diffusion/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,41 +233,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/ucsdmanorlab/napari-bootstrapper/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-bootstrapper.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-bootstrapper"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-bootstrapper.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-bootstrapper.svg?color=green" /></a>
-<a href="https://github.com/ucsdmanorlab/napari-bootstrapper/actions"><img alt="tests" src="https://github.com/ucsdmanorlab/napari-bootstrapper/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/ucsdmanorlab/napari-bootstrapper"><img alt="codecov" src="https://codecov.io/gh/ucsdmanorlab/napari-bootstrapper/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-bootstrapper"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-bootstrapper" /></a>
-<a href="https://napari.org/stable/plugins/index.html"><img alt="npe2" src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" /></a>
-<a href="https://github.com/copier-org/copier"><img alt="Copier" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" /></a></p>
+                                        <p><a href="https://github.com/ucsdmanorlab/napari-bootstrapper/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-bootstrapper.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-bootstrapper"><img src="https://img.shields.io/pypi/v/napari-bootstrapper.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-bootstrapper.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/ucsdmanorlab/napari-bootstrapper/actions"><img src="https://github.com/ucsdmanorlab/napari-bootstrapper/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/ucsdmanorlab/napari-bootstrapper"><img src="https://codecov.io/gh/ucsdmanorlab/napari-bootstrapper/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-bootstrapper"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-bootstrapper" alt="napari hub" /></a>
+<a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a>
+<a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#installation">Installation</a></li>
@@ -281,51 +258,51 @@ pre > code:last-child {
 <ol>
 <li>Create a new environment called <code>napari-bootstrapper</code>:</li>
 </ol>
-<pre class="codehilite"><code class="language-bash">conda create -n napari-bootstrapper -c conda-forge python==3.11 napari pyqt
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-bootstrapper<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">==</span><span class="m">3</span>.11<span class="w"> </span>napari<span class="w"> </span>pyqt
+</pre></div>
 </code></pre>
-
-<ol>
+<ol start="2">
 <li>Activate the newly-created environment:</li>
 </ol>
-<pre class="codehilite"><code>conda activate napari-bootstrapper
+<pre><code><div class="highlight"><pre><span></span>conda activate napari-bootstrapper
+</pre></div>
 </code></pre>
-
-<ol>
+<ol start="3">
 <li>You can install <code>napari-bootstrapper</code> via <a href="https://pypi.org/project/pip/">pip</a>:</li>
 </ol>
-<pre class="codehilite"><code class="language-bash">pip install napari-bootstrapper
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-bootstrapper
+</pre></div>
 </code></pre>
-
 <ul>
 <li>Or you can install the latest development version from github:</li>
 </ul>
-<pre class="codehilite"><code class="language-bash">pip install git+https://github.com/ucsdmanorlab/napari-bootstrapper.git
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/ucsdmanorlab/napari-bootstrapper.git
+</pre></div>
 </code></pre>
-
 <h2>Getting Started</h2>
 <p>Run the following in your terminal:</p>
-<pre class="codehilite"><code class="language-bash">conda activate napari-bootstrapper
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>napari-bootstrapper
 napari
+</pre></div>
 </code></pre>
-
 <h2>Citation</h2>
 <p>If you find Bootstrapper useful in your research, please consider citing our <strong><a href="https://www.biorxiv.org/content/10.1101/2024.06.14.599135v1">preprint</a></strong>:</p>
-<pre class="codehilite"><code>@article {Thiyagarajan2024.06.14.599135,
-    author = {Thiyagarajan, Vijay Venu and Sheridan, Arlo and Harris, Kristen M. and Manor, Uri},
-    title = {Sparse Annotation is Sufficient for Bootstrapping Dense Segmentation},
-    year = {2024},
-    doi = {10.1101/2024.06.14.599135},
-    URL = {https://www.biorxiv.org/content/10.1101/2024.06.14.599135v2},
-}
+<pre><code><div class="highlight"><pre><span></span><span class="nv">@article</span><span class="w"> </span><span class="err">{</span><span class="n">Thiyagarajan2024</span><span class="mf">.06.14.599135</span><span class="p">,</span>
+<span class="w">	</span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Thiyagarajan</span><span class="p">,</span><span class="w"> </span><span class="n">Vijay</span><span class="w"> </span><span class="n">Venu</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Sheridan</span><span class="p">,</span><span class="w"> </span><span class="n">Arlo</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Harris</span><span class="p">,</span><span class="w"> </span><span class="n">Kristen</span><span class="w"> </span><span class="n">M</span><span class="p">.</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Manor</span><span class="p">,</span><span class="w"> </span><span class="n">Uri</span><span class="err">}</span><span class="p">,</span>
+<span class="w">	</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Sparse</span><span class="w"> </span><span class="n">Annotation</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">Sufficient</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Bootstrapping</span><span class="w"> </span><span class="n">Dense</span><span class="w"> </span><span class="n">Segmentation</span><span class="err">}</span><span class="p">,</span>
+<span class="w">	</span><span class="nf">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">2024</span><span class="err">}</span><span class="p">,</span>
+<span class="w">	</span><span class="n">doi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mf">10.1101</span><span class="o">/</span><span class="mf">2024.06.14.599135</span><span class="err">}</span><span class="p">,</span>
+<span class="w">	</span><span class="n">URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">biorxiv</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="mf">10.1101</span><span class="o">/</span><span class="mf">2024.06.14.599135</span><span class="n">v2</span><span class="err">}</span><span class="p">,</span>
+<span class="err">}</span>
+</pre></div>
 </code></pre>
-
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/ucsdmanorlab/napari-bootstrapper/issues">file an issue</a> along with a detailed description.</p>
 <h2>Funding</h2>
-<p>Chan-Zuckerberg Imaging Scientist Award DOI https://doi.org/10.37921/694870itnyzk from the Chan Zuckerberg Initiative DAF, an advised fund of Silicon Valley Community Foundation (funder DOI 10.13039/100014989).</p>
+<p>Chan-Zuckerberg Imaging Scientist Award DOI <a href="https://doi.org/10.37921/694870itnyzk">https://doi.org/10.37921/694870itnyzk</a> from the Chan Zuckerberg Initiative DAF, an advised fund of Silicon Valley Community Foundation (funder DOI 10.13039/100014989).</p>
 <p>NSF NeuroNex Technology Hub Award (1707356), NSF NeuroNex2 Award (2014862)</p>
-<p><img alt="image" src="https://github.com/ucsdmanorlab/bootstrapper/assets/64760651/4b4a6029-e1ba-42bb-ab8b-d9357cc46239" /></p>
-        
+<p><img src="https://github.com/ucsdmanorlab/bootstrapper/assets/64760651/4b4a6029-e1ba-42bb-ab8b-d9357cc46239" alt="image" /></p>
+
 
                                     </div>
                                 </div>

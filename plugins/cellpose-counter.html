@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,37 +234,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/szablowskilab/cellpose-counter/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/cellpose-counter.svg?color=green" /></a>
-<a href="https://pypi.org/project/cellpose-counter"><img alt="PyPI" src="https://img.shields.io/pypi/v/cellpose-counter.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/cellpose-counter.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/cellpose-counter"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cellpose-counter" /></a></p>
+                                        <p><a href="https://github.com/szablowskilab/cellpose-counter/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/cellpose-counter.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/cellpose-counter"><img src="https://img.shields.io/pypi/v/cellpose-counter.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/cellpose-counter.svg?color=green" alt="Python Version" /></a>
+<a href="https://napari-hub.org/plugins/cellpose-counter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cellpose-counter" alt="napari hub" /></a></p>
 <p>A Napari plugin for cell/nuclei counting from a region or interest using
 cellpose models.</p>
 <hr />
@@ -269,23 +246,23 @@ cellpose models.</p>
 <a href="https://docs.astral.sh/uv/">uv</a>):</p>
 <p>Below is a minimally working example of setting up a new virtual environment and
 installing the counter module with uv on Unix based systems.</p>
-<pre class="codehilite"><code class="language-bash">uv venv # create virtual environment in .venv
-source .venv/bin/activate
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>uv<span class="w"> </span>venv<span class="w"> </span><span class="c1"># create virtual environment in .venv</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 
-uv pip install &quot;napari[all]&quot; cellpose-counter
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&quot;</span><span class="w"> </span>cellpose-counter
+</pre></div>
 </code></pre>
-
 <p>Option 2: via Docker/Podman. The provide <a href="./Dockerfile">Dockerfile</a> can be used
 to install Napari and the counter plugin along with a preconfigured Xpra server
 using the napari-xpra image. Below is an example of building the image and
 running the application with GPU support.</p>
-<pre class="codehilite"><code class="language-bash">podman build -t cellpose-counter .
-podman run -it -d \
-    -p 9876:9876 \
-    -e XPRA_START=&quot;python3 -m napari -w cellpose-counter&quot; \
-    --device nvidia.com/gpu=all
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>cellpose-counter<span class="w"> </span>.
+podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-p<span class="w"> </span><span class="m">9876</span>:9876<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">XPRA_START</span><span class="o">=</span><span class="s2">&quot;python3 -m napari -w cellpose-counter&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--device<span class="w"> </span>nvidia.com/gpu<span class="o">=</span>all
+</pre></div>
 </code></pre>
-
 <p>Then, navigate to <code>http://localhost:9876</code> to view the application in a virtual
 machine.</p>
 <p>Note: There is a known issue installing the plugin directly from Napari. Please
@@ -301,18 +278,18 @@ for more updates.</p>
 </ol>
 <p>Once these are installed, update the pytorch package by first uninstalling torch
 (if already instsalled).</p>
-<pre class="codehilite"><code class="language-bash">uv pip uninstall torch
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>uninstall<span class="w"> </span>torch
+</pre></div>
 </code></pre>
-
 <p>Then install a torch version that is compatible with your CUDA version. For example,</p>
-<pre class="codehilite"><code class="language-bash">uv pip install torch --index-url https://download.pytorch.org/whl/cu118
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu118
+</pre></div>
 </code></pre>
-
 <p>After installation, you can verify in an interactive python console with:</p>
-<pre class="codehilite"><code class="language-python3">import torch
-torch.cuda.is_available()
+<pre><code class="language-python3"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <p>To open Napari with the cellpose counter loaded, run <code>napari -w cellpose-counter</code>.</p>
 <p>A dock widget will be open on the right side of the Napari interface. There
@@ -346,29 +323,29 @@ segmentation on uncounted nuclei.</li>
 <p>via pip (or uv, ..., etc.)</p>
 </li>
 </ol>
-<pre class="codehilite"><code class="language-bash">uv pip install cellpose-counter --upgrade
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cellpose-counter<span class="w"> </span>--upgrade
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>All contributions are welcome. Please submit an issue for feedback or bugs.</p>
 <h2>Citations</h2>
 <p>This plugin is built on top of the Cellpose segmentation and denoising models.
 If you use this plugin, please cite the following paper:</p>
-<pre class="codehilite"><code class="language-bitex">@article{stringer2021cellpose,
-title={Cellpose: a generalist algorithm for cellular segmentation},
-author={Stringer, Carsen and Wang, Tim and Michaelos, Michalis and Pachitariu, Marius},
-journal={Nature Methods},
-volume={18},
-number={1},
-pages={100--106},
-year={2021},
-publisher={Nature Publishing Group}
-}
+<pre><code class="language-bitex"><div class="highlight"><pre><span></span><span class="nv">@article</span><span class="err">{</span><span class="n">stringer2021cellpose</span><span class="p">,</span>
+<span class="n">title</span><span class="o">=</span><span class="err">{</span><span class="nl">Cellpose</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">generalist</span><span class="w"> </span><span class="n">algorithm</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">cellular</span><span class="w"> </span><span class="n">segmentation</span><span class="err">}</span><span class="p">,</span>
+<span class="n">author</span><span class="o">=</span><span class="err">{</span><span class="n">Stringer</span><span class="p">,</span><span class="w"> </span><span class="n">Carsen</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Wang</span><span class="p">,</span><span class="w"> </span><span class="n">Tim</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Michaelos</span><span class="p">,</span><span class="w"> </span><span class="n">Michalis</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Pachitariu</span><span class="p">,</span><span class="w"> </span><span class="n">Marius</span><span class="err">}</span><span class="p">,</span>
+<span class="n">journal</span><span class="o">=</span><span class="err">{</span><span class="n">Nature</span><span class="w"> </span><span class="n">Methods</span><span class="err">}</span><span class="p">,</span>
+<span class="n">volume</span><span class="o">=</span><span class="err">{</span><span class="mi">18</span><span class="err">}</span><span class="p">,</span>
+<span class="n">number</span><span class="o">=</span><span class="err">{</span><span class="mi">1</span><span class="err">}</span><span class="p">,</span>
+<span class="n">pages</span><span class="o">=</span><span class="err">{</span><span class="mi">100</span><span class="c1">--106},</span>
+<span class="nf">year</span><span class="o">=</span><span class="err">{</span><span class="mi">2021</span><span class="err">}</span><span class="p">,</span>
+<span class="n">publisher</span><span class="o">=</span><span class="err">{</span><span class="n">Nature</span><span class="w"> </span><span class="n">Publishing</span><span class="w"> </span><span class="k">Group</span><span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
 </code></pre>
-
 <h2>License</h2>
 <p><a href="./LICENSE">BSD-3</a></p>
-        
+
 
                                     </div>
                                 </div>

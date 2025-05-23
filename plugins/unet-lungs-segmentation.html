@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,38 +206,10 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>We provide a neural network model for segmenting the lungs of the mice. The model is based on the <a href="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/">U-Net</a> architecture.</p>
+                                        <p>We provide a neural network model for segmenting the lungs of the mice. The model is based on the <a href="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/">U-Net</a> architecture.</p>
 <p align="center">
     <img src="https://raw.githubusercontent.com/qchapp/lungs-segmentation/refs/heads/master/images/main_fig.png" height="500">
 </p>
-
 <p>The goal of our tool is to provid a reliable way to segment the lungs in mouse CT scans. The U-net model produces a binary mask representing the segmentation of the lungs.</p>
 <h2>Try the model</h2>
 <ul>
@@ -244,64 +220,63 @@ pre > code:last-child {
 <p>We recommend performing the installation in a clean Python environment.</p>
 <p>The code requires <code>python&gt;=3.9</code>, as well as <code>pytorch&gt;=2.0</code>. Please install Pytorch first and separately following the instructions for your platform on <a href="https://pytorch.org/get-started/locally/">pytorch.org</a>.</p>
 <p>Install <code>unet_lungs_segmentation</code> using <em>pip</em> after you've installed Pytorch:</p>
-<pre class="codehilite"><code class="language-sh">pip install unet_lungs_segmentation
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>unet_lungs_segmentation
+</pre></div>
 </code></pre>
-
 <p>or clone the repository and install with:</p>
-<pre class="codehilite"><code class="language-sh">git clone https://github.com/qchapp/lungs-segmentation.git
-pip install -e .
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/qchapp/lungs-segmentation.git
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <h2>Models</h2>
 <p>The model weights (~1 GB) will be automatically downloaded from <a href="https://huggingface.co/qchapp/unet-lungs-segmentation-weights">Hugging Face</a>.</p>
 <h2>Usage in Napari</h2>
 <p><a href="https://napari.org/stable/">Napari</a> is a multi-dimensional image viewer for python. To use our model in Napari, start the viewer with</p>
-<pre class="codehilite"><code class="language-sh">napari
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
 <p>To open an image, use <code>File &gt; Open files</code> or drag-and-drop an image into the viewer window. If you want to open medical image formats such as NIFTI directly, consider installing the <a href="https://pypi.org/project/napari-medical-image-formats/">napari-medical-image-formats</a> plugin.</p>
 <p><strong>Sample data</strong>: To test the model, you can run it on our provided sample image. In Napari, open the image from <code>File &gt; Open Sample &gt; Mouse lung CT scan</code>.</p>
-<p>Next, in the menu bar select <code>Plugins &gt; Lungs segmentation (unet_lungs_segmentation)</code>. Select an image and run it by pressing the "Segment lungs" button.</p>
+<p>Next, in the menu bar select <code>Plugins &gt; Lungs segmentation (unet_lungs_segmentation)</code>. Select an image and run it by pressing the &quot;Segment lungs&quot; button.</p>
 <p align="center">
     <img src="https://raw.githubusercontent.com/qchapp/lungs-segmentation/refs/heads/master/images/napari-screenshot.png" height="500">
 </p>
-
 <h2>Usage as a library</h2>
 <p>You can run a model in just a few lines of code to produce a segmentation mask from an image (represented as a numpy array).</p>
-<pre class="codehilite"><code class="language-py">from unet_lungs_segmentation import LungsPredict
+<pre><code class="language-py"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">unet_lungs_segmentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">LungsPredict</span>
 
-lungs_predict = LungsPredict()
-mask = lungs_predict.segment_lungs(your_image)
+<span class="n">lungs_predict</span> <span class="o">=</span> <span class="n">LungsPredict</span><span class="p">()</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">lungs_predict</span><span class="o">.</span><span class="n">segment_lungs</span><span class="p">(</span><span class="n">your_image</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>or if you want to apply a specific <code>threshold</code> (<code>float</code> between 0 and 1):</p>
-<pre class="codehilite"><code class="language-py">mask = lungs_predict.segment_lungs(your_image, threshold)
+<pre><code class="language-py"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">lungs_predict</span><span class="o">.</span><span class="n">segment_lungs</span><span class="p">(</span><span class="n">your_image</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <h2>Usage as a CLI</h2>
 <p>Run inference on an image from the command-line. For example:</p>
-<pre class="codehilite"><code class="language-sh">uls_predict_image -i /path/to/folder/image_001.tif [-t &lt;threshold&gt;]
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>uls_predict_image<span class="w"> </span>-i<span class="w"> </span>/path/to/folder/image_001.tif<span class="w"> </span><span class="o">[</span>-t<span class="w"> </span>&lt;threshold&gt;<span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <p>The <code>&lt;threshold&gt;</code> will be applied to the predicted image in order to have a binary mask. A default threshold of 0.5 will be applied if none is given. Should be a <code>float</code> between 0 and 1.</p>
 <p>The command will save the segmentation next to the image:</p>
-<pre class="codehilite"><code>folder/
+<pre><code><div class="highlight"><pre><span></span>folder/
     ├── image_001.tif
     ├── image_001_mask.tif
+</pre></div>
 </code></pre>
-
 <p>Run inference in batch on all images in a folder:</p>
-<pre class="codehilite"><code class="language-sh">uls_predict_folder -i /path/to/folder/ [-t &lt;threshold&gt;]
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>uls_predict_folder<span class="w"> </span>-i<span class="w"> </span>/path/to/folder/<span class="w"> </span><span class="o">[</span>-t<span class="w"> </span>&lt;threshold&gt;<span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <p>Will produce:</p>
-<pre class="codehilite"><code>folder/
+<pre><code><div class="highlight"><pre><span></span>folder/
     ├── image_001.tif
     ├── image_001_mask.tif
     ├── image_002.tif
     ├── image_002_mask.tif
+</pre></div>
 </code></pre>
-
 <h2>Dataset</h2>
 <p>Our model was trained using a dataset of <code>355</code> images coming from 17 different experiments, 2 different scanners and validated on <code>62</code> images.</p>
 <h2>Issues</h2>
@@ -310,7 +285,7 @@ mask = lungs_predict.segment_lungs(your_image)
 <p>This model is licensed under the <a href="LICENSE.txt">BSD-3</a> license.</p>
 <h2>Carbon footprint of this project</h2>
 <p>As per the online tool <a href="http://calculator.green-algorithms.org/"><em>Green algorithms</em></a>, the footprint of training this model was estimated to be around 584 g CO2e.</p>
-        
+
 
                                     </div>
                                 </div>

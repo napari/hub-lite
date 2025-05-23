@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -236,53 +240,25 @@ THE SOFTWARE.</a></li>
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <!-- These badges won't work while the GitHub repo is private:
+                                        <!-- These badges won't work while the GitHub repo is private:
 [![License BSD-3](https://img.shields.io/pypi/l/harpy.svg?color=green)](https://github.com/saeyslab/harpy/raw/main/LICENSE)
 [![Python Version](https://img.shields.io/pypi/pyversions/harpy-analysis.svg?color=green)](https://python.org)
 [![codecov](https://codecov.io/gh/saeyslab/harpy/graph/badge.svg?token=7UXMDWVYFZ)](https://codecov.io/gh/saeyslab/harpy)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/harpy)](https://napari-hub.org/plugins/harpy)
 -->
-
 <h1><strong>Harpy: single-cell spatial proteomics analysis that makes you happy</strong> <img src="./docs/_static/img/logo.png" align ="right" alt="" width ="150"/></h1>
-<p><a href="https://pypi.org/project/harpy-analysis"><img alt="PyPI" src="https://img.shields.io/pypi/v/harpy-analysis.svg" /></a>
-<a href="https://github.com//saeyslab/harpy/actions/"><img alt="Build Status" src="https://github.com//saeyslab/harpy/actions/workflows/build.yaml/badge.svg" /></a>
-<a href="https://harpy.readthedocs.io/en/latest/"><img alt="documentation badge" src="https://readthedocs.org/projects/harpy/badge/?version=latest" /></a></p>
+<p><a href="https://pypi.org/project/harpy-analysis"><img src="https://img.shields.io/pypi/v/harpy-analysis.svg" alt="PyPI" /></a>
+<a href="https://github.com//saeyslab/harpy/actions/"><img src="https://github.com//saeyslab/harpy/actions/workflows/build.yaml/badge.svg" alt="Build Status" /></a>
+<a href="https://harpy.readthedocs.io/en/latest/"><img src="https://readthedocs.org/projects/harpy/badge/?version=latest" alt="documentation badge" /></a></p>
 <p>Note: This package is still under very active development.</p>
 <h2>Installation</h2>
 <p><strong>Recommended</strong> for end-users. Install the latest <code>harpy-analysis</code> <a href="https://pypi.org/project/harpy-analysis">PyPI package</a> with the <code>extra</code> dependencies in a local Python environment:</p>
-<pre class="codehilite"><code class="language-bash">uv venv --python=3.12 # set python version
-source .venv/bin/activate # activate the virtual environment
-uv pip install 'harpy-analysis[extra]' # use uv to pip install dependencies
-python -c 'import harpy; print(harpy.__version__)' # check if the package is installed
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>uv<span class="w"> </span>venv<span class="w"> </span>--python<span class="o">=</span><span class="m">3</span>.12<span class="w"> </span><span class="c1"># set python version</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w"> </span><span class="c1"># activate the virtual environment</span>
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;harpy-analysis[extra]&#39;</span><span class="w"> </span><span class="c1"># use uv to pip install dependencies</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import harpy; print(harpy.__version__)&#39;</span><span class="w"> </span><span class="c1"># check if the package is installed</span>
+</pre></div>
 </code></pre>
-
 <p>If you're a developer, read the contribution guide. Checkout the docs for more <a href="https://github.com/saeyslab/harpy/blob/main/docs/installation.md">installation instructions</a>.</p>
 <h2>Tutorials</h2>
 <p>Tutorials are available <a href="https://harpy.readthedocs.io/en/latest/">here</a>.</p>
@@ -292,14 +268,14 @@ python -c 'import harpy; print(harpy.__version__)' # check if the package is ins
 <p>See <a href="https://github.com/saeyslab/harpy/blob/main/docs/contributing.md">here</a> for info on how to contribute to Harpy.</p>
 <h2>References</h2>
 <ul>
-<li>https://github.com/ashleve/lightning-hydra-template</li>
+<li><a href="https://github.com/ashleve/lightning-hydra-template">https://github.com/ashleve/lightning-hydra-template</a></li>
 </ul>
 <h2>License</h2>
 <p>Check the <a href="https://github.com/saeyslab/harpy/blob/main/LICENSE">license</a>. Harpy is free for academic usage.
 For commercial usage, please contact Saeyslab.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/saeyslab/harpy/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

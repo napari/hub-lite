@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hereariim/manini/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/manini.svg?color=green" /></a>
-<a href="https://pypi.org/project/manini"><img alt="PyPI" src="https://img.shields.io/pypi/v/manini.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/manini.svg?color=green" /></a>
-<a href="https://github.com/hereariim/manini/actions"><img alt="tests" src="https://github.com/hereariim/manini/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hereariim/manini"><img alt="codecov" src="https://codecov.io/gh/hereariim/manini/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/manini"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/manini" /></a></p>
+                                        <p><a href="https://github.com/hereariim/manini/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/manini.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/manini"><img src="https://img.shields.io/pypi/v/manini.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/manini.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hereariim/manini/actions"><img src="https://github.com/hereariim/manini/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hereariim/manini"><img src="https://codecov.io/gh/hereariim/manini/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/manini"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/manini" alt="napari hub" /></a></p>
 <p>Manini (<strong>MA</strong>chi<strong>N</strong>e <strong>IN</strong>ference  &amp; Correct<strong>I</strong>on) is thought as a tool to boost the collaborative contribution of end-users to the assessment of deep learning model during their testing phase.
 It is a user-Friendly plugin that enables to manually correct the result of an inference of deep learning model by an end-user. The plugin covers the following informational tasks: segmentation, classification and object detection.</p>
 <h2>White paper</h2>
@@ -243,7 +220,7 @@ It is a user-Friendly plugin that enables to manually correct the result of an i
 DOI: 10.22541/essoar.169876925.51005273/v1</p>
 <hr />
 <p>This plugin was written by Herearii Metuarea, PHENET engineer at LARIS (French laboratory located in Angers, France) in Imhorphen team (bioimaging research group lead) under the supervision by David Rousseau (Full professor). This plugin was designed in the context of the european project INVITE and PHENET.</p>
-<p><img alt="Screenshot from 2023-11-13 00-13-13" src="https://github.com/hereariim/manini/assets/93375163/c602e802-71b9-48ec-a9f2-cec3e4fa8220" /></p>
+<p><img src="https://github.com/hereariim/manini/assets/93375163/c602e802-71b9-48ec-a9f2-cec3e4fa8220" alt="Screenshot from 2023-11-13 00-13-13" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -254,16 +231,13 @@ and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html!
 
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>manini</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install manini
+<pre><code>pip install manini
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hereariim/manini.git
+<pre><code>pip install git+https://github.com/hereariim/manini.git
 </code></pre>
-
 <h2>Description</h2>
 <p>This plugin is a tool to perform image inference. The inference is open to the model for image segmentation (binary or multiclass), image classification and object detection. The dimension of image should be the same size with the input of model.
 Currently compatible with tensorflow h5 models and torch torchscript models. In this format, the model file must contain all the elements of the model (architecture, weights, etc). Several ongoing developments, feel free to contact us if you have some request.</p>
@@ -271,25 +245,25 @@ Currently compatible with tensorflow h5 models and torch torchscript models. In 
 <p>Imhorphen team, bioimaging research group</p>
 <p>42 rue George Morel, Angers, France</p>
 <ul>
-<li>Pr David Rousseau, david.rousseau@univ-angers.fr</li>
-<li>Herearii Metuarea, herearii.metuarea@univ-angers.fr </li>
+<li>Pr David Rousseau, <a href="mailto:david.rousseau@univ-angers.fr">david.rousseau@univ-angers.fr</a></li>
+<li>Herearii Metuarea, <a href="mailto:herearii.metuarea@univ-angers.fr">herearii.metuarea@univ-angers.fr</a></li>
 </ul>
 <h3>Scheme</h3>
-<p><img alt="manini" src="https://github.com/hereariim/manini/assets/93375163/636a5e15-da0f-4387-8f37-b8ca89b4482b" /></p>
+<p><img src="https://github.com/hereariim/manini/assets/93375163/636a5e15-da0f-4387-8f37-b8ca89b4482b" alt="manini" /></p>
 <h4>Input</h4>
-<p>The user must deposit two items (+1 optional item). </p>
+<p>The user must deposit two items (+1 optional item).</p>
 <ul>
 <li>A compressed file (.zip) containing the images in RGB</li>
 </ul>
-<pre class="codehilite"><code>.
+<pre><code><div class="highlight"><pre><span></span>.
 └── input.zip
     ├── im_1.JPG
     ├── im_2.JPG 
     ├── im_3.JPG
     ...
     └── im_n.JPG
+</pre></div>
 </code></pre>
-
 <ul>
 <li>A model file (.h5 , pt or torchscript) which is the segmentation model</li>
 <li>A text file (.txt) containing the names of the classes (optional)</li>
@@ -319,10 +293,10 @@ Currently compatible with tensorflow h5 models and torch torchscript models. In 
 <p>Tutorial video to get started : <a href="https://www.youtube.com/watch?v=HU21VQpvRAM">MANINI Napari Plugin Part 2</a></p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"manini" is free and open source software</p>
+&quot;manini&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hereariim/manini/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

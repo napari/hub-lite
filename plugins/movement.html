@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -213,53 +217,26 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/movement"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/movement.svg" /></a>
-<a href="https://pypi.org/project/movement"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/movement.svg" /></a>
-<a href="https://anaconda.org/conda-forge/movement"><img alt="Conda Forge Version" src="https://anaconda.org/conda-forge/movement/badges/version.svg" /></a>
-<a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD_3--Clause-orange.svg" /></a>
-<a href="https://github.com/neuroinformatics-unit/movement/actions"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/neuroinformatics-unit/movement/test_and_deploy.yml?label=CI" /></a>
-<a href="https://codecov.io/gh/neuroinformatics-unit/movement"><img alt="codecov" src="https://codecov.io/gh/neuroinformatics-unit/movement/branch/main/graph/badge.svg?token=P8CCH3TI8K" /></a>
-<a href="https://mybinder.org/v2/gh/neuroinformatics-unit/movement/gh-pages?filepath=notebooks/examples"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a>
-<a href="https://github.com/astral-sh/ruff"><img alt="Code style: Ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/format.json" /></a>
-<a href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a>
-<a href="https://neuroinformatics.zulipchat.com/#narrow/stream/406001-Movement/topic/Welcome!"><img alt="project chat" src="https://img.shields.io/badge/zulip-join_chat-brightgreen.svg" /></a>
-<a href="https://zenodo.org/doi/10.5281/zenodo.12755724"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.12755724.svg" /></a></p>
+                                        <p><a href="https://pypi.org/project/movement"><img src="https://img.shields.io/pypi/pyversions/movement.svg" alt="Python Version" /></a>
+<a href="https://pypi.org/project/movement"><img src="https://img.shields.io/pypi/v/movement.svg" alt="PyPI Version" /></a>
+<a href="https://anaconda.org/conda-forge/movement"><img src="https://anaconda.org/conda-forge/movement/badges/version.svg" alt="Conda Forge Version" /></a>
+<a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD_3--Clause-orange.svg" alt="License" /></a>
+<a href="https://github.com/neuroinformatics-unit/movement/actions"><img src="https://img.shields.io/github/actions/workflow/status/neuroinformatics-unit/movement/test_and_deploy.yml?label=CI" alt="CI" /></a>
+<a href="https://codecov.io/gh/neuroinformatics-unit/movement"><img src="https://codecov.io/gh/neuroinformatics-unit/movement/branch/main/graph/badge.svg?token=P8CCH3TI8K" alt="codecov" /></a>
+<a href="https://mybinder.org/v2/gh/neuroinformatics-unit/movement/gh-pages?filepath=notebooks/examples"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a>
+<a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/format.json" alt="Code style: Ruff" /></a>
+<a href="https://github.com/pre-commit/pre-commit"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" alt="pre-commit" /></a>
+<a href="https://neuroinformatics.zulipchat.com/#narrow/stream/406001-Movement/topic/Welcome!"><img src="https://img.shields.io/badge/zulip-join_chat-brightgreen.svg" alt="project chat" /></a>
+<a href="https://zenodo.org/doi/10.5281/zenodo.12755724"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.12755724.svg" alt="DOI" /></a></p>
 <h1>movement</h1>
 <p>A Python toolbox for analysing animal body movements across space and time.</p>
-<p><img alt="" src="docs/source/_static/movement_overview.png" /></p>
+<p><img src="docs/source/_static/movement_overview.png" alt="" /></p>
 <h2>Quick install</h2>
 <p>Create and activate a conda environment with movement installed (including the GUI):</p>
-<pre class="codehilite"><code class="language-bash">conda create -n movement-env -c conda-forge movement napari pyqt
-conda activate movement-env
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>movement-env<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>movement<span class="w"> </span>napari<span class="w"> </span>pyqt
+conda<span class="w"> </span>activate<span class="w"> </span>movement-env
+</pre></div>
 </code></pre>
-
 <blockquote>
 <p>[!Note]
 Read the <a href="https://movement.neuroinformatics.dev">documentation</a> for more information, including <a href="https://movement.neuroinformatics.dev/user_guide/installation.html">full installation instructions</a> and <a href="https://movement.neuroinformatics.dev/examples/index.html">examples</a>.</p>
@@ -279,7 +256,6 @@ and motion quantification. We aim to support all popular animal tracking
 frameworks and file formats.</p>
 <p>Find out more on our <a href="https://movement.neuroinformatics.dev/community/mission-scope.html">mission and scope</a> statement and our <a href="https://movement.neuroinformatics.dev/community/roadmaps.html">roadmap</a>.</p>
 <!-- Start Admonitions -->
-
 <blockquote>
 <p>[!Tip]
 If you prefer analysing your data in R, we recommend checking out the
@@ -288,7 +264,6 @@ We are working together with its developer
 to gradually converge on common data standards and workflows.</p>
 </blockquote>
 <!-- End Admonitions -->
-
 <h2>Join the movement</h2>
 <p>Contributions to movement are absolutely encouraged, whether to fix a bug, develop a new feature, or improve the documentation.
 To help you get started, we have prepared a detailed <a href="https://movement.neuroinformatics.dev/community/contributing.html">contributing guide</a>.</p>
@@ -300,13 +275,13 @@ To help you get started, we have prepared a detailed <a href="https://movement.n
 <h2>Citation</h2>
 <p>If you use movement in your work, please cite the following Zenodo DOI:</p>
 <blockquote>
-<p>Nikoloz Sirmpilatze, Chang Huan Lo, Sofía Miñano, Brandon D. Peri, Dhruv Sharma, Laura Porta, Iván Varela &amp; Adam L. Tyson (2024). neuroinformatics-unit/movement. Zenodo. https://zenodo.org/doi/10.5281/zenodo.12755724</p>
+<p>Nikoloz Sirmpilatze, Chang Huan Lo, Sofía Miñano, Brandon D. Peri, Dhruv Sharma, Laura Porta, Iván Varela &amp; Adam L. Tyson (2024). neuroinformatics-unit/movement. Zenodo. <a href="https://zenodo.org/doi/10.5281/zenodo.12755724">https://zenodo.org/doi/10.5281/zenodo.12755724</a></p>
 </blockquote>
 <h2>License</h2>
 <p>⚖️ <a href="./LICENSE">BSD 3-Clause</a></p>
 <h2>Package template</h2>
 <p>This package layout and configuration (including pre-commit hooks and GitHub actions) have been copied from the <a href="https://github.com/neuroinformatics-unit/python-cookiecutter">python-cookiecutter</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

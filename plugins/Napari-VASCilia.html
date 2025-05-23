@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,79 +234,59 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p align="left">
+                                        <p align="left">
   <img src="images/logo_3d.png" alt="VASCilia Logo" width="170">
 </p>
-
-<p>Explore the complexities of the cochlea with VASCilia, a Napari plugin created to aid in the 3D segmentation and quantification of stereocilia bundles. Equipped with a range of thoughtful features, VASCilia stands for (Vision Analysis StereoCilia) and it provides a supportive tool for auditory research, including:<br />
-1. Slice Selection: Easily navigate through 3D stacks to find the slices that matter most for your research.
-2. Stack Rotation: Adjust the orientation of your stack to facilitate better analysis.
-3. 3D Instance Segmentation: Identify and assess individual bundles with clear separation using deep learning.
-4. Bundle Deletion: Remove unwanted bundles to streamline your dataset.
-5. Regional Classification: identify whether the region is from BASE, MIDDLE, or APEX in the cochlea using deep learning.
-6. Hair Cell Differentiation: Distinguish between Inner Hair Cells and Outer Hair Cells with confidence using deep learning.
-7. Measurement Analysis: Calculate various measurements such as volume, centroid location, and surface area.
-8. Fluorescence Intensity Analysis: Assess the intensity of signal or protein with detailed precision.
-9. 3D Bundle Height Calculation: Measure the 3D distance from the peak to the base of each bundle, according to your sample's resolution.
-10. Bundle orientation: Determine bundle orientation for all hair cells based on two strategies: Height-only and Height&amp;Distance.</p>
-<p>VASCilia &#x2764;&#xfe0f; is a valuable resource for the ear research community &#128066;, simplifying the complexity of measurement and analysis. It comes with a suite of pre-trained models to facilitate 3D segmentation, cell type identification and regional classification.</p>
+<p>Explore the complexities of the cochlea with VASCilia, a Napari plugin created to aid in the 3D segmentation and quantification of stereocilia bundles. Equipped with a range of thoughtful features, VASCilia stands for (Vision Analysis StereoCilia) and it provides a supportive tool for auditory research, including:</p>
+<ol>
+<li>Slice Selection: Easily navigate through 3D stacks to find the slices that matter most for your research.</li>
+<li>Stack Rotation: Adjust the orientation of your stack to facilitate better analysis.</li>
+<li>3D Instance Segmentation: Identify and assess individual bundles with clear separation using deep learning.</li>
+<li>Bundle Deletion: Remove unwanted bundles to streamline your dataset.</li>
+<li>Regional Classification: identify whether the region is from BASE, MIDDLE, or APEX in the cochlea using deep learning.</li>
+<li>Hair Cell Differentiation: Distinguish between Inner Hair Cells and Outer Hair Cells with confidence using deep learning.</li>
+<li>Measurement Analysis: Calculate various measurements such as volume, centroid location, and surface area.</li>
+<li>Fluorescence Intensity Analysis: Assess the intensity of signal or protein with detailed precision.</li>
+<li>3D Bundle Height Calculation: Measure the 3D distance from the peak to the base of each bundle, according to your sample's resolution.</li>
+<li>Bundle orientation: Determine bundle orientation for all hair cells based on two strategies: Height-only and Height&amp;Distance.</li>
+</ol>
+<p>VASCilia ❤️ is a valuable resource for the ear research community 👂, simplifying the complexity of measurement and analysis. It comes with a suite of pre-trained models to facilitate 3D segmentation, cell type identification and regional classification.</p>
 <p>Furthermore, we are committed to supporting research growth with a comprehensive training section for those looking to explore different staining techniques or develop new segmentation models through annotation and refinement.</p>
 <p>VASCilia is here to support researchers in their quest for deeper understanding and innovation in the study of cochlear structures.<br />
-<em><a href="https://youtu.be/MwMOxJQ_elo">click the image to see a highlights reel of the plugin</a></em>  </p>
-<p><a href="https://youtu.be/MwMOxJQ_elo"><img alt="Watch the video" src="images/VASCilia_pipeline2.png" /></a></p>
-<p><em><a href="https://youtu.be/mNPJ1g0vEW8">Click me to see a video demo of the entire workflow</a></em>  </p>
+<em><a href="https://youtu.be/MwMOxJQ_elo">click the image to see a highlights reel of the plugin</a></em></p>
+<p><a href="https://youtu.be/MwMOxJQ_elo"><img src="images/VASCilia_pipeline2.png" alt="Watch the video" /></a></p>
+<p><em><a href="https://youtu.be/mNPJ1g0vEW8">Click me to see a video demo of the entire workflow</a></em></p>
 <h2>How to install :</h2>
-<p>STEP1[Install WSL]:<br />
-1. Open the Command Prompt and install the Ubuntu 20.04 Distribution by simply copy paste this command<br />
-wsl --install -d Ubuntu-20.04
-2. After the setup successfully completes, reboot your computer. Open Ubuntu by typing "Ubuntu" in the search bar. A pop-up window for Ubuntu will appear. To check if CUDA and the GPU are correctly installed and available, type nvidia-smi in the terminal  </p>
-<p>STEP2[Download the deep learning trained models]:
-1. Download the VASCilia_trained_models from https://www.dropbox.com/scl/fo/jsvldda8yvma3omfijxxn/ALeDfYUbiOuj69Flbc728rs?rlkey=mtilfz33qiizpul7uyisud5st&amp;st=41kjlbw0&amp;dl=0 
-now you should have a folder called 'models'</p>
+<p>STEP1[Install WSL]:</p>
+<ol>
+<li>Open the Command Prompt and install the Ubuntu 20.04 Distribution by simply copy paste this command<br />
+wsl --install -d Ubuntu-20.04</li>
+<li>After the setup successfully completes, reboot your computer. Open Ubuntu by typing &quot;Ubuntu&quot; in the search bar. A pop-up window for Ubuntu will appear. To check if CUDA and the GPU are correctly installed and available, type nvidia-smi in the terminal</li>
+</ol>
+<p>STEP2[Download the deep learning trained models]:</p>
+<ol>
+<li>Download the VASCilia_trained_models from <a href="https://www.dropbox.com/scl/fo/jsvldda8yvma3omfijxxn/ALeDfYUbiOuj69Flbc728rs?rlkey=mtilfz33qiizpul7uyisud5st&amp;st=41kjlbw0&amp;dl=0">https://www.dropbox.com/scl/fo/jsvldda8yvma3omfijxxn/ALeDfYUbiOuj69Flbc728rs?rlkey=mtilfz33qiizpul7uyisud5st&amp;st=41kjlbw0&amp;dl=0</a>
+now you should have a folder called 'models'</li>
+</ol>
 <ul>
-<li>📁 <strong>models</strong> <code>[Trained models]</code><ul>
+<li>📁 <strong>models</strong> <code>[Trained models]</code>
+<ul>
 <li>📁 <strong>cell_type_identification_model</strong> <code>[has weights for cell type identification IHC vs OHC]</code></li>
 <li>📁 <strong>new_seg_model</strong> <code>[incase you fine tune the existing model, the new model will be stored here]</code></li>
 <li>📁 <strong>region_prediction</strong> <code>[has weights for region prediction]</code></li>
 <li>📁 <strong>seg_model</strong>  <code>[has the weights for the 3D instance segmentation model]</code></li>
-<li>📁 <strong>Train_predict_stereocilia_exe</strong> <code>[executible needed by the plugin to segment and retrain the model using WSL]</code>  </li>
-<li>📁 <strong>ZFT_trim_model</strong> <code>[deep learning model weights for z focus tracker algorithm]</code>  </li>
-<li>📁 <strong>rotation_correction_model</strong> <code>[deep learning model weights for correcting the orientation of the stack]</code>  </li>
+<li>📁 <strong>Train_predict_stereocilia_exe</strong> <code>[executible needed by the plugin to segment and retrain the model using WSL]</code></li>
+<li>📁 <strong>ZFT_trim_model</strong> <code>[deep learning model weights for z focus tracker algorithm]</code></li>
+<li>📁 <strong>rotation_correction_model</strong> <code>[deep learning model weights for correcting the orientation of the stack]</code></li>
 </ul>
 </li>
 </ul>
 <p>STEP3[download one dataset to test VASCilia]:<br />
-download one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&amp;dl=0<br />
+download one sample from our datasets to try in this link <a href="https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&amp;dl=0">https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&amp;dl=0</a><br />
 create a folder, called raw_data folder and put the downloaded dataset inside the raw_data folder</p>
 <ul>
-<li>📁 <strong>raw_data</strong> <code>[raw data (stacks) is placed here]</code><ul>
+<li>📁 <strong>raw_data</strong> <code>[raw data (stacks) is placed here]</code>
+<ul>
 <li>📄 Litter 12 Mouse 4 MIDDLE - delBUNdelCAP_Airyscan Processing.czi</li>
 </ul>
 </li>
@@ -313,91 +297,95 @@ create a folder, called raw_data folder and put the downloaded dataset inside th
 </ul>
 <h2>Instructions for Cloning the Repository [You can do either Option A or Option B]:</h2>
 <h2>Option A: Cloning the Repository:</h2>
-<pre class="codehilite"><code class="language-sh">git clone https://github.com/ucsdmanorlab/Napari-VASCilia.git
-cd Napari-VASCilia
-conda create -y -n napari-VASCilia -c conda-forge python=3.10    
-conda activate napari-VASCilia    
-pip install -r requirements.txt
-pip install -e .
-napari  
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ucsdmanorlab/Napari-VASCilia.git
+<span class="nb">cd</span><span class="w"> </span>Napari-VASCilia
+conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>napari-VASCilia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w">    </span>
+conda<span class="w"> </span>activate<span class="w"> </span>napari-VASCilia<span class="w">    </span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+napari<span class="w">  </span>
+</pre></div>
 </code></pre>
-
 <h2>Option B: Installing via PyPI:</h2>
-<pre class="codehilite"><code class="language-sh">conda create -y -n napari-VASCilia -c conda-forge python=3.10    
-conda activate napari-VASCilia 
-# Download the requirements.txt file from this repository and ensure you have it in your working directory. 
-pip install -r requirements.txt
-pip install Napari-VASCilia
-napari  
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>napari-VASCilia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w">    </span>
+conda<span class="w"> </span>activate<span class="w"> </span>napari-VASCilia<span class="w"> </span>
+<span class="c1"># Download the requirements.txt file from this repository and ensure you have it in your working directory. </span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>Napari-VASCilia
+napari<span class="w">  </span>
+</pre></div>
 </code></pre>
-
-<p>Post-installation:<br />
-1. Activate the plugin through Plugins -&gt; VASCilia UI (Napari-VASCilia).
-2. This will generate the config.json file at C:/Users/Username/.napari-vascilia/config.json. Update the paths in config.json as needed.
-config.json will be generated upon running the plugin for the first time.</p>
+<p>Post-installation:</p>
+<ol>
+<li>Activate the plugin through Plugins -&gt; VASCilia UI (Napari-VASCilia).</li>
+<li>This will generate the config.json file at C:/Users/Username/.napari-vascilia/config.json. Update the paths in config.json as needed.
+config.json will be generated upon running the plugin for the first time.</li>
+</ol>
 <ul>
-<li>📁 C:/Users/Username/   [your home folder]</li>
-<li>📁 <strong>.napari-vascilia</strong> <code>[Folder_path]</code><ul>
+<li>📁 C:/Users/Username/   [your home folder]
+<ul>
+<li>📁 <strong>.napari-vascilia</strong> <code>[Folder_path]</code>
+<ul>
 <li>📄 <strong>config.json</strong></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 <p>Please update the /.../ portion according to your paths:</p>
-<pre class="codehilite"><code class="language-sh">{
-    &quot;rootfolder&quot;: &quot;C:/Users/.../processed_data/&quot;,
-    &quot;wsl_executable&quot;: &quot;C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2&quot;,
-    &quot;model&quot;: &quot;C:/Users/.../models/seg_model/stereocilia_v7/&quot;,
-    &quot;model_output_path&quot;: &quot;C:/Users/.../models/new_seg_model/stereocilia_v8/&quot;,
-    &quot;model_region_prediction&quot;: &quot;C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth&quot;,
-    &quot;model_celltype_identification&quot;: &quot;C:/Users/.../models/cell_type_identification_model/&quot;,
-    &quot;ZFT_trim_model&quot;: &quot;C:/Users/.../models/ZFT_trim_model/&quot;,
-    &quot;rotation_correction_model&quot;: &quot;C:/Users/.../models/rotation_correction_model/&quot;,
-    &quot;green_channel&quot;: 0,
-    &quot;red_channel&quot;: 1,
-    &quot;blue_channel&quot;: -1,
-    &quot;signal_intensity_channel&quot;: 0,
-    &quot;flag_to_resize&quot;: false,
-    &quot;flag_to_pad&quot;: false,
-    &quot;resize_dimension&quot;: 1200,
-    &quot;pad_dimension&quot;: 1500,
-    &quot;button_width&quot;: 100,
-    &quot;button_height&quot;: 35
-}
+<pre><code class="language-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;rootfolder&quot;</span>:<span class="w"> </span><span class="s2">&quot;C:/Users/.../processed_data/&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;wsl_executable&quot;</span>:<span class="w"> </span><span class="s2">&quot;C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;model&quot;</span>:<span class="w"> </span><span class="s2">&quot;C:/Users/.../models/seg_model/stereocilia_v7/&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;model_output_path&quot;</span>:<span class="w"> </span><span class="s2">&quot;C:/Users/.../models/new_seg_model/stereocilia_v8/&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;model_region_prediction&quot;</span>:<span class="w"> </span><span class="s2">&quot;C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;model_celltype_identification&quot;</span>:<span class="w"> </span><span class="s2">&quot;C:/Users/.../models/cell_type_identification_model/&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;ZFT_trim_model&quot;</span>:<span class="w"> </span><span class="s2">&quot;C:/Users/.../models/ZFT_trim_model/&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;rotation_correction_model&quot;</span>:<span class="w"> </span><span class="s2">&quot;C:/Users/.../models/rotation_correction_model/&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;green_channel&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">    </span><span class="s2">&quot;red_channel&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;blue_channel&quot;</span>:<span class="w"> </span>-1,
+<span class="w">    </span><span class="s2">&quot;signal_intensity_channel&quot;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">    </span><span class="s2">&quot;flag_to_resize&quot;</span>:<span class="w"> </span>false,
+<span class="w">    </span><span class="s2">&quot;flag_to_pad&quot;</span>:<span class="w"> </span>false,
+<span class="w">    </span><span class="s2">&quot;resize_dimension&quot;</span>:<span class="w"> </span><span class="m">1200</span>,
+<span class="w">    </span><span class="s2">&quot;pad_dimension&quot;</span>:<span class="w"> </span><span class="m">1500</span>,
+<span class="w">    </span><span class="s2">&quot;button_width&quot;</span>:<span class="w"> </span><span class="m">100</span>,
+<span class="w">    </span><span class="s2">&quot;button_height&quot;</span>:<span class="w"> </span><span class="m">35</span>
+<span class="o">}</span>
+</pre></div>
 </code></pre>
-
-<p>Congratulations :) &#127881;, now you can enjoy working with the plugin. </p>
+<p>Congratulations :) 🎉, now you can enjoy working with the plugin.</p>
 <h2>Unique about VASCilia :</h2>
 <p>VASCilia saves all the intermediate results and the variables inside a pickle file while the user is using it in a very effiecint way. That allows a super fast uploading for the analysis if the user or their supervisor wants to keep working or review the analysis steps.<br />
-<em><a href="https://youtu.be/Sxm_fsjoWL0">Click me to learn how to upload a z-stack</a></em>  </p>
+<em><a href="https://youtu.be/Sxm_fsjoWL0">Click me to learn how to upload a z-stack</a></em></p>
 <h2>How to use VASCilia :</h2>
-<p><em><a href="https://youtu.be/mNPJ1g0vEW8">Click me to see a video demo of the entire workflow</a></em>  </p>
+<p><em><a href="https://youtu.be/mNPJ1g0vEW8">Click me to see a video demo of the entire workflow</a></em></p>
 <p>There are several buttons inside the blugin in the right hand side of Napari:</p>
 <ol>
 <li>'Open CZI Cochlea Files and Preprocess' button: read the CZI file.</li>
 <li>'Upload Processed CZI Stack' button: Incase you already have processed the stack, then just uplead your Analysis_state.pkl that usually has all the variables needed to upload your analysis</li>
 <li>'Trim Full Stack' button: this button allows you to choose only the slices of interest (has been automated in v_1_1_0)</li>
-<li>"Rotate' buttom: this button allows to rotate the stack to have proper analysis (has been automated in v_1_1_0)  </li>
-<li>Segment with 3DBundleSeg: it is a two steps algorithm (2D detection + multi-object assignment algorithm across all slices) to produce robust 3D detection. 3DBundleSeg is the first instance segmentation model for stereocilia bundles in the literature. It is trained on P5 and P21 3D stacks (thousands of 2D instances) and it produces highly acccurate boundary delineation even in the most challenging datasets. Here are some examples:  </li>
+<li>&quot;Rotate' buttom: this button allows to rotate the stack to have proper analysis (has been automated in v_1_1_0)</li>
+<li>Segment with 3DBundleSeg: it is a two steps algorithm (2D detection + multi-object assignment algorithm across all slices) to produce robust 3D detection. 3DBundleSeg is the first instance segmentation model for stereocilia bundles in the literature. It is trained on P5 and P21 3D stacks (thousands of 2D instances) and it produces highly acccurate boundary delineation even in the most challenging datasets. Here are some examples:</li>
 </ol>
 <p align="center">
   <strong>3DBundleSeg can tackle challenged cases</strong>  
   <br>
   <img src="images/challenged_cases_gray.png" width="100%">
 </p>
-
 <p align="center">
   <strong>Multi-object assignment algorithm to produce robust 3D detection</strong>  
   <br>
   <img src="images/3DBundleSeg.png" width="100%">
 </p>
-
-<ol>
+<ol start="6">
 <li>Delete Label 'button': delete the unwanted detection if it is near the boundary or for any other reason.</li>
 <li>Calculate measurments 'button': calculate different measurments from the detected bundles and store them in csv file</li>
 <li>Calculate Bundle Height 'button': compute the 3D distance from the highest point in the 3D detection of each bundle to it's base. This calculation will consider the sample resolution.</li>
-<li>Perform Cell Clustering 'button': find the IHC, OHC1, OHC2, and OHC3 using either GMM, Kmeans or Deep Learning. Those layers will be added to the plugin to be used during the analysis. </li>
+<li>Perform Cell Clustering 'button': find the IHC, OHC1, OHC2, and OHC3 using either GMM, Kmeans or Deep Learning. Those layers will be added to the plugin to be used during the analysis.</li>
 <li>Compute Fluorescence Intensity 'button': produce plots and CSV files that has the accumelated intensity and mean intensity for the fluorescence signal.</li>
-<li>Predict Region 'button': Predict whether the region is from the BASE, MIDDLE, or APEX region using a RESNET50 trained model. </li>
+<li>Predict Region 'button': Predict whether the region is from the BASE, MIDDLE, or APEX region using a RESNET50 trained model.</li>
 <li>Compute Orientation: It computes the orientation using two strategies.</li>
 </ol>
 <p align="center">
@@ -405,14 +393,12 @@ config.json will be generated upon running the plugin for the first time.</p>
   <br>
   <img src="images/Bundles.png" width="50%">
 </p>
-
 <p align="center">
   <strong>Cell type identification (IHC1 in yellow, OHC1 in cyan, OHC2 in green, and OHC3 in magenta)</strong>  
   <br>
   <img src="images/clustering.png" width="50%">
 </p>
-
-<ol>
+<ol start="13">
 <li>Training Section.</li>
 </ol>
 <p align="center">
@@ -420,15 +406,16 @@ config.json will be generated upon running the plugin for the first time.</p>
   <br>
   <img src="images/Training_section2.png" width="40%">
 </p>
-
-<p>The training section is for the research ear community incase their datasets are little different than ours then they can easily create their cround truth, train a new model and use it in the plugin
-1. Create/Save Ground Truth 'button': this button will create a new layer to draw new ground truth and save them as variables inside the plugin
-2. Generate Ground Truth Mask 'button': this button will save all the generated masks after finish annotating to a new folder. 
-3. Display Stored Ground Truth 'button': this button will display the stored masks in the plugin.
-4. Copy Segmentation Masks to Ground Truth 'button': this button helps in speeding up the annotation process by copying what our trained model is producing sothat the annotator will only correct the wrong part.
-5. Move Ground Truth to Training Folder 'button': this button will move all the annotated ground truth to the training folder to start the training process. 
-6. Check Training Data 'button': this button checks the training data whether they follow the format needed by the architecture. It checks whether there are training and valiation folders and it reads every single file to make sure it doesn't have redundant or no information. It gives warning messages incase it finds an issue.
-7. Train New Model for 3DBundleSeg 'button': this button will start the training.</p>
+<p>The training section is for the research ear community incase their datasets are little different than ours then they can easily create their cround truth, train a new model and use it in the plugin</p>
+<ol>
+<li>Create/Save Ground Truth 'button': this button will create a new layer to draw new ground truth and save them as variables inside the plugin</li>
+<li>Generate Ground Truth Mask 'button': this button will save all the generated masks after finish annotating to a new folder.</li>
+<li>Display Stored Ground Truth 'button': this button will display the stored masks in the plugin.</li>
+<li>Copy Segmentation Masks to Ground Truth 'button': this button helps in speeding up the annotation process by copying what our trained model is producing sothat the annotator will only correct the wrong part.</li>
+<li>Move Ground Truth to Training Folder 'button': this button will move all the annotated ground truth to the training folder to start the training process.</li>
+<li>Check Training Data 'button': this button checks the training data whether they follow the format needed by the architecture. It checks whether there are training and valiation folders and it reads every single file to make sure it doesn't have redundant or no information. It gives warning messages incase it finds an issue.</li>
+<li>Train New Model for 3DBundleSeg 'button': this button will start the training.</li>
+</ol>
 <p>VASCilia also equipped with two more buttons for resetting (to facilitate transitions between analyzing several stacks) and also exit VASCilia.<br />
 We are still working on the documentation, so this gihub will be continiuosly updated.</p>
 <h2>Multi-Batch Processing Feature: Required File</h2>
@@ -444,42 +431,42 @@ We are still working on the documentation, so this gihub will be continiuosly up
 <h3>If You Installed the Package via pip</h3>
 <ol>
 <li>Download the file from the link above.</li>
-<li>Locate the installation directory for the package. You can find the installation path by running the following Python code: </li>
+<li>Locate the installation directory for the package. You can find the installation path by running the following Python code:</li>
 </ol>
-<pre class="codehilite"><code class="language-python">import napari_vascilia
-print(napari_vascilia.__file__)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_vascilia</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">napari_vascilia</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<ol>
-<li>Place the downloaded file in the following directory: <package_installation_path>/src/napari_vascilia/core/<br />
+<ol start="3">
+<li>Place the downloaded file in the following directory: &lt;package_installation_path&gt;/src/napari_vascilia/core/<br />
 Note: All other features of the package will function as expected without this file. This file is exclusively for batch processing of multiple files.</li>
 </ol>
 <h2>Testing Other Lab Data</h2>
 <p>Liberman Data <em><a href="https://youtu.be/PIG3q7G6Xr0">Click me to see a video demo of the entire workflow</a></em><br />
-Artur Indzhykulian Data <em><a href="https://youtu.be/WseYK4Zn-3o">Click me to see a video demo of the entire workflow</a></em>  </p>
+Artur Indzhykulian Data <em><a href="https://youtu.be/WseYK4Zn-3o">Click me to see a video demo of the entire workflow</a></em></p>
 <h2>Paper and Citation</h2>
-<p>This work will be submitted very soon. If you want to read or cite the paper &#128522;, you can find it <a href="https://doi.org/10.1101/2024.06.17.599381">here</a>.  </p>
-<p>Kassim, Y. M., Rosenberg, D. B., Renero, A., Das, S., Rahman, S., Al Shammaa, I., Salim, S., Huang, Z., Huang, K., Ninoyu, Y., Friedman, R. A., Indzhykulian, A. A., &amp; Manor, U. (2024). VASCilia (Vision Analysis StereoCilia): A Napari Plugin for Deep Learning-Based 3D Analysis of Cochlear Hair Cell Stereocilia Bundles. bioRxiv. https://doi.org/10.1101/2024.06.17.599381</p>
+<p>This work will be submitted very soon. If you want to read or cite the paper 😊, you can find it <a href="https://doi.org/10.1101/2024.06.17.599381">here</a>.</p>
+<p>Kassim, Y. M., Rosenberg, D. B., Renero, A., Das, S., Rahman, S., Al Shammaa, I., Salim, S., Huang, Z., Huang, K., Ninoyu, Y., Friedman, R. A., Indzhykulian, A. A., &amp; Manor, U. (2024). VASCilia (Vision Analysis StereoCilia): A Napari Plugin for Deep Learning-Based 3D Analysis of Cochlear Hair Cell Stereocilia Bundles. bioRxiv. <a href="https://doi.org/10.1101/2024.06.17.599381">https://doi.org/10.1101/2024.06.17.599381</a></p>
 <h2>Project Authors and Contacts</h2>
-<p><strong>Python Implementation of this repository:</strong> Dr. Yasmin M. Kassim  <br />
-<strong>Contact:</strong> ykassim@ucsd.edu, ymkgz8@mail.missouri.edu<br />
+<p><strong>Python Implementation of this repository:</strong> Dr. Yasmin M. Kassim<br />
+<strong>Contact:</strong> <a href="mailto:ykassim@ucsd.edu">ykassim@ucsd.edu</a>, <a href="mailto:ymkgz8@mail.missouri.edu">ymkgz8@mail.missouri.edu</a><br />
 Yasmin Kassim was responsible for the plugin design, fully implemented all functions in Python, wrote the manuscript,
 proofread the ground truth data, created all figures, and established the GitHub repository and codebase.</p>
-<p><strong>Stacks used in this study imaged by:</strong> Dr. David Rosenberg   </p>
-<p><strong>Height bundle ground truth analyses</strong>: Samprita Das and Alma Renero.  </p>
+<p><strong>Stacks used in this study imaged by:</strong> Dr. David Rosenberg</p>
+<p><strong>Height bundle ground truth analyses</strong>: Samprita Das and Alma Renero.</p>
 <p><strong>StereoCilia Bundles Ground Truth</strong>: 55 (P5 and P21) 3D stacks were manually annotated by Yasmin Kassim and five undergraduate students using the CVAT annotation tool. This is an extremely challenging process, as each 3D stack might have up to 60 bundles in a 3D setting, which could translate to around 1000 bundles in a 2D setting across all frames. The students involved in this effort are:<br />
 <strong>Samia Rahman, Ibraheem Al Shammaa, Samer Salim, Zhuoling Huang, and Kevin Huang</strong>.</p>
 <p>This dataset will be the first annotated dataset in the literature to 3D segment the stereocilia bundles and it will be published and available for the ear research community with the publication of this paper.</p>
-<p><strong>Other Lab Support</strong>: <br />
-Yuzuru Ninoyu assisted with some of the imaging data, with Rick Friedman’s supervision and support. <br />
-Artur Indzhykulian provided additional imaging data for testing.  </p>
-<p><strong>Lab Supervisor:</strong> Dr. Uri Manor <br />
+<p><strong>Other Lab Support</strong>:<br />
+Yuzuru Ninoyu assisted with some of the imaging data, with Rick Friedman’s supervision and support.<br />
+Artur Indzhykulian provided additional imaging data for testing.</p>
+<p><strong>Lab Supervisor:</strong> Dr. Uri Manor<br />
 The Principal Investigator, conceived and supervised the project, and provided critical
-revisions and updates to the manuscript.  </p>
-<p><strong>Contact:</strong> u1manor@UCSD.EDU<br />
+revisions and updates to the manuscript.</p>
+<p><strong>Contact:</strong> <a href="mailto:u1manor@UCSD.EDU">u1manor@UCSD.EDU</a><br />
 <strong>Department:</strong> Cell and Development Biology Department/ UCSD<br />
-<strong>Lab Website:</strong> https://manorlab.ucsd.edu/</p>
-        
+<strong>Lab Website:</strong> <a href="https://manorlab.ucsd.edu/">https://manorlab.ucsd.edu/</a></p>
+
 
                                     </div>
                                 </div>

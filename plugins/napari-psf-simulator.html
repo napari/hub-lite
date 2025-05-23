@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,44 +210,19 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/andreabassi78/napari-psf-simulator/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-psf-simulator.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-psf-simulator"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-psf-simulator.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-psf-simulator.svg?color=green" /></a>
-<a href="https://github.com/andreabassi78/napari-psf-simulator/actions"><img alt="tests" src="https://github.com/andreabassi78/napari-psf-simulator/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/andreabassi78/napari-psf-simulator"><img alt="codecov" src="https://codecov.io/gh/andreabassi78/napari-psf-simulator/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-psf-simulator"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-psf-simulator" /></a></p>
+                                        <p><a href="https://github.com/andreabassi78/napari-psf-simulator/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-psf-simulator.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-psf-simulator"><img src="https://img.shields.io/pypi/v/napari-psf-simulator.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-psf-simulator.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/andreabassi78/napari-psf-simulator/actions"><img src="https://github.com/andreabassi78/napari-psf-simulator/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/andreabassi78/napari-psf-simulator"><img src="https://codecov.io/gh/andreabassi78/napari-psf-simulator/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-psf-simulator"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-psf-simulator" alt="napari hub" /></a></p>
 <p>A plugin for the simulation of the 3D Point Spread Function of an optical systen, particularly a microscope objective.</p>
 <p>Calculates the PSF using scalar and vectorial models.<br />
-The following aberrations are included:
-- phase aberration described by a Zernike polynomials with n-m coefficients.
-- aberration induced by a slab, with a refractive index different from the one at the object.  </p>
+The following aberrations are included:</p>
+<ul>
+<li>phase aberration described by a Zernike polynomials with n-m coefficients.</li>
+<li>aberration induced by a slab, with a refractive index different from the one at the object.</li>
+</ul>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -253,46 +232,55 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-psf-simulator</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-psf-simulator
+<pre><code>pip install napari-psf-simulator
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/andreabassi78/napari-psf-simulator.git
+<pre><code>pip install git+https://github.com/andreabassi78/napari-psf-simulator.git
 </code></pre>
-
 <h2>Usage</h2>
-<p>1) Lauch the plugin and select the parameters of the microscope: <code>NA</code> (numerical aperture), <code>wavelenght</code>, <code>n</code> (refractive index at the object),
-   <code>FOV xy</code> (field of view in the transverse direction), <code>FOV z</code> (field of view in the axial direction), <code>dxy</code> (pixel size, transverse sampling), <code>dz</code> (voxel depth, axial sampling), <code>lens radius</code> (physical aperture of the lens, used in vectorial model)</p>
-<p>2) Select a propagation model between <code>scalar</code> and <code>vectorial</code>.  </p>
-<p>3) Select an aberration type (if needed).</p>
-<p>4) Press <code>Calculate PSF</code> to run the simulator. This will create a new image layer with the 3D PSF.</p>
+<ol>
+<li>
+<p>Lauch the plugin and select the parameters of the microscope: <code>NA</code> (numerical aperture), <code>wavelenght</code>, <code>n</code> (refractive index at the object),
+<code>FOV xy</code> (field of view in the transverse direction), <code>FOV z</code> (field of view in the axial direction), <code>dxy</code> (pixel size, transverse sampling), <code>dz</code> (voxel depth, axial sampling), <code>lens radius</code> (physical aperture of the lens, used in vectorial model)</p>
+</li>
+<li>
+<p>Select a propagation model between <code>scalar</code> and <code>vectorial</code>.</p>
+</li>
+<li>
+<p>Select an aberration type (if needed).</p>
+</li>
+<li>
+<p>Press <code>Calculate PSF</code> to run the simulator. This will create a new image layer with the 3D PSF.</p>
 <p>The option <code>Show Airy disk</code> creates a circle with radius given by the diffraction limit (Rayleigh criterion).</p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-psf-simulator/raw/main/images/figure.png" />
+</li>
+</ol>
+<p><img src="https://github.com/andreabassi78/napari-psf-simulator/raw/main/images/figure.png" alt="raw" />
 <strong>Napari viewer with the psf-simulator widget showing the in-focus plane of an aberrated PSF</strong></p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-psf-simulator/raw/main/images/animation.gif" />
+<p><img src="https://github.com/andreabassi78/napari-psf-simulator/raw/main/images/animation.gif" alt="raw" />
 <strong>Slicing through a PSF aberrated with Zernike polynomials of order N=3, M=1 (coma)</strong></p>
-<p>3) Click on the <code>Plot PSF Profile in Console</code> checkbox to see the x and z profiles of the PSF.
-   They will show up in  the viewer console when <code>Calculate PSF</code> is executed.</p>
-<p><img alt="raw" src="https://github.com/andreabassi78/napari-psf-simulator/raw/main/images/Plot.png" />
+<ol start="3">
+<li>Click on the <code>Plot PSF Profile in Console</code> checkbox to see the x and z profiles of the PSF.
+They will show up in  the viewer console when <code>Calculate PSF</code> is executed.</li>
+</ol>
+<p><img src="https://github.com/andreabassi78/napari-psf-simulator/raw/main/images/Plot.png" alt="raw" />
 <strong>Plot profile of the PSF, shown in the Console</strong></p>
 <h2>Detailed documentation</h2>
 <p>An exhaustive documentation of the use of the plugin on scalar and vectoral propagation models can be found in <a href="https://github.com/andreabassi78/napari-psf-simulator/raw/main/docs/napari_psf_simullator_presentation.pdf">this</a> presentation.</p>
 <p>A detailed explanation of the uses and advantages that simulating a PSF brings can be found <a href="https://github.com/andreabassi78/napari-psf-simulator/raw/main/docs/pyfocus_seminar.pptx">here</a>.</p>
-<p>The vectorial propagation model implements a secondary library: <a href="https://github.com/fcaprile/PyFocus">pyfocus</a>. The full documentation of this library can be found at <a href="https://pyfocus.readthedocs.io/en/latest/">read the docs</a> and in the paper: "PyFocus: A Python package for vectorial calculations of focused optical fields under realistic conditions. Application to toroidal foci." https://doi.org/10.1016/j.cpc.2022.108315</p>
+<p>The vectorial propagation model implements a secondary library: <a href="https://github.com/fcaprile/PyFocus">pyfocus</a>. The full documentation of this library can be found at <a href="https://pyfocus.readthedocs.io/en/latest/">read the docs</a> and in the paper: &quot;PyFocus: A Python package for vectorial calculations of focused optical fields under realistic conditions. Application to toroidal foci.&quot; <a href="https://doi.org/10.1016/j.cpc.2022.108315">https://doi.org/10.1016/j.cpc.2022.108315</a></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request. 
-The plugin has been concived to be modular allowing the insertion of new aberations and pupils. Please contact the developers on github for adding new propagations and aberrations types. 
+the coverage at least stays the same before you submit a pull request.
+The plugin has been concived to be modular allowing the insertion of new aberations and pupils. Please contact the developers on github for adding new propagations and aberrations types.
 Any suggestions or contributions are welcome.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-psf-simulator" is free and open source software</p>
+&quot;napari-psf-simulator&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/andreabassi78/napari-psf-simulator/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

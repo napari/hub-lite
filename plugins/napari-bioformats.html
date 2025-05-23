@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/napari/napari-bioformats/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-bioformats.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-bioformats"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-bioformats.svg?color=green" /></a>
-<a href="https://anaconda.org/conda-forge/napari-bioformats"><img alt="Conda" src="https://img.shields.io/conda/v/conda-forge/napari-bioformats" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-bioformats.svg?color=green" /></a>
-<a href="https://github.com/tlambert03/napari-bioformats/actions"><img alt="tests" src="https://github.com/tlambert03/napari-bioformats/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/tlambert03/napari-bioformats"><img alt="codecov" src="https://codecov.io/gh/tlambert03/napari-bioformats/branch/master/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/napari/napari-bioformats/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-bioformats.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-bioformats"><img src="https://img.shields.io/pypi/v/napari-bioformats.svg?color=green" alt="PyPI" /></a>
+<a href="https://anaconda.org/conda-forge/napari-bioformats"><img src="https://img.shields.io/conda/v/conda-forge/napari-bioformats" alt="Conda" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-bioformats.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/tlambert03/napari-bioformats/actions"><img src="https://github.com/tlambert03/napari-bioformats/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/tlambert03/napari-bioformats"><img src="https://codecov.io/gh/tlambert03/napari-bioformats/branch/master/graph/badge.svg" alt="codecov" /></a></p>
 <p>Bioformats plugin for napari using
 <a href="http://soft-matter.github.io/pims/v0.5/bioformats.html">pims-bioformats</a></p>
 <hr />
@@ -251,7 +228,7 @@ library.  A heroic effort, built over years, to read
 requires having a java runtime engine installed.  This is easy enough to do
 (the plugin will ask to install it for you if you're in a <code>conda</code> environment), but
 it definitely makes for a more complicated environment setup, it's not very
-"pythonic", and the performance will likely not feel as snappy as a native "pure"
+&quot;pythonic&quot;, and the performance will likely not feel as snappy as a native &quot;pure&quot;
 python module.</p>
 <p>So, before you reflexively install this plugin to fill that bio-formats
 sized hole in your python heart, consider trying some of the other pure-python
@@ -270,25 +247,23 @@ you'd like to see added to this list, please open an issue</em></p>
 <h2>Installation</h2>
 <p>The easiest way to install <code>napari-bioformats</code> is via <a href="https://docs.conda.io/en/latest/">conda</a>, from the
 <a href="https://conda-forge.org">conda-forge</a> channel:</p>
-<pre class="codehilite"><code>conda install -c conda-forge napari-bioformats
+<pre><code>conda install -c conda-forge napari-bioformats
 </code></pre>
-
 <p>It is also possible to install via <a href="https://pypi.org/project/pip/">pip</a>, but you will need to have a working
 JVM installed, and may need to set the <code>JAVA_HOME</code> environment variable</p>
-<pre class="codehilite"><code>pip install napari-bioformats
+<pre><code>pip install napari-bioformats
 </code></pre>
-
 <h3>First Usage</h3>
 <p>The first time you attempt to open a file with napari-bioformats, you will
 likely notice a long delay as pims downloads the <code>loci_tools.jar</code> (speed will
 depend on your internet connection). Subsequent files should open more quickly.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="https://opensource.org/licenses/GPL-3.0">GPLv3</a> license,
-"napari-bioformats" is free and open source software</p>
+&quot;napari-bioformats&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/tlambert03/napari-bioformats/issues">file an issue</a> along with a detailed description.</p>
 <p><em>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</em></p>
-        
+
 
                                     </div>
                                 </div>

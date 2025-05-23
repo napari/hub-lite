@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,40 +233,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-zplane-depth-colorizer.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-zplane-depth-colorizer"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-zplane-depth-colorizer.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-zplane-depth-colorizer.svg?color=green" /></a>
-<a href="https://github.com/maihanhoang/napari-zplane-depth-colorizer/actions"><img alt="tests" src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/maihanhoang/napari-zplane-depth-colorizer"><img alt="codecov" src="https://codecov.io/gh/maihanhoang/napari-zplane-depth-colorizer/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-zplane-depth-colorizer"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-zplane-depth-colorizer" /></a></p>
-<p>A simple plugin for 3d+t files that visualizes z-planes in 3 colors for depth information. </p>
+                                        <p><a href="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-zplane-depth-colorizer.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-zplane-depth-colorizer"><img src="https://img.shields.io/pypi/v/napari-zplane-depth-colorizer.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-zplane-depth-colorizer.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/maihanhoang/napari-zplane-depth-colorizer/actions"><img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/maihanhoang/napari-zplane-depth-colorizer"><img src="https://codecov.io/gh/maihanhoang/napari-zplane-depth-colorizer/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-zplane-depth-colorizer"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-zplane-depth-colorizer" alt="napari hub" /></a></p>
+<p>A simple plugin for 3d+t files that visualizes z-planes in 3 colors for depth information.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -272,23 +249,19 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
-<p>This plugin can colorize and provide depth information on single-channel 3D+t files. The color coding enhances the visibility of structures and the detection/annotations of dynamic events. </p>
+<p>This plugin can colorize and provide depth information on single-channel 3D+t files. The color coding enhances the visibility of structures and the detection/annotations of dynamic events.</p>
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/plugin_demo.gif" width="100%" />
 </p>
-
-<p>Identifying dynamic events such as cellular divisions can be challenging in 3D time-lapses of developing tissues such as organoids or embryos. Visualizing and annotating such events in dense 3D stacks obtained by light-sheet or two-photon microscopy where nuclei are almost in contact is especially challenging. With this visualization method, the tissue section can be "augmented" in 3D by visualizing the surrounding tissue layers in different colors. </p>
-<p>This plugin is for bioimaging researchers who need to annotate events in time lapses of dense tissues. It supports 3D+t stacks in the TZYX format. </p>
+<p>Identifying dynamic events such as cellular divisions can be challenging in 3D time-lapses of developing tissues such as organoids or embryos. Visualizing and annotating such events in dense 3D stacks obtained by light-sheet or two-photon microscopy where nuclei are almost in contact is especially challenging. With this visualization method, the tissue section can be &quot;augmented&quot; in 3D by visualizing the surrounding tissue layers in different colors.</p>
+<p>This plugin is for bioimaging researchers who need to annotate events in time lapses of dense tissues. It supports 3D+t stacks in the TZYX format.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-zplane-depth-colorizer</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-zplane-depth-colorizer
+<pre><code>pip install napari-zplane-depth-colorizer
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/maihanhoang/napari-zplane-depth-colorizer.git
+<pre><code>pip install git+https://github.com/maihanhoang/napari-zplane-depth-colorizer.git
 </code></pre>
-
 <h2>Quick Start</h2>
 <p>A sample file can be found at <code>src/napari_zplane_depth_colorizer/data/3D+t.tif</code></p>
 <ol>
@@ -302,29 +275,28 @@ https://napari.org/stable/plugins/index.html
 <h2>Parameters</h2>
 <p>There are two depth augmentation parameters for each RGB color channel: Z-Projection Type and Depth Range. Depth Range indicates which and how many z-planes are projected for a channel. The Z-Projection Type specifies which type of projection is applied. The <strong>How it works</strong> section below might help you understand the parameters better.</p>
 <h3>Z-Projection Types</h3>
-<p>The Z-projection types are the same ones found in <a href="https://imagej.net/software/fiji/">Fiji</a>, except for "Raw. "Raw is the original stack without any projection.</p>
+<p>The Z-projection types are the same ones found in <a href="https://imagej.net/software/fiji/">Fiji</a>, except for &quot;Raw. &quot;Raw is the original stack without any projection.</p>
 <h3>Depth Range</h3>
 <ul>
 <li>
-<p>Depth Range is a range and consists of two numbers [range_start, range_end]. The range is inclusive and requires range_start &lt;= range_end. </p>
+<p>Depth Range is a range and consists of two numbers [range_start, range_end]. The range is inclusive and requires range_start &lt;= range_end.</p>
 </li>
 <li>
-<p>Exception if Z-Projection Type is "Raw" since no z-projection is applied. The Depth Range for Raw can either be empty (equals 0 then) or a single number. </p>
+<p>Exception if Z-Projection Type is &quot;Raw&quot; since no z-projection is applied. The Depth Range for Raw can either be empty (equals 0 then) or a single number.</p>
 </li>
 <li>
 <p>The Depth Range indicates the z-planes relative to the reference plane that are projected and then assigned to a color channel. The reference plane is the plane for which the color merging is currently computed.</p>
 </li>
 <li>
-<p>In the illustration below, the current reference plane is the 4. plane (indicated by the color wheel in the right stack). A Depth Range of [-3, -1] for the red channel denotes the first three planes above the reference plane. Similarly, a Depth Range of [1, 2] for the blue channel indicates the first two planes below the reference plane. Negative numbers are for the planes above, and positive numbers are for ones below the reference plane. 0 is the same as the reference plane (the green plane in the illustration).   </p>
+<p>In the illustration below, the current reference plane is the 4. plane (indicated by the color wheel in the right stack). A Depth Range of [-3, -1] for the red channel denotes the first three planes above the reference plane. Similarly, a Depth Range of [1, 2] for the blue channel indicates the first two planes below the reference plane. Negative numbers are for the planes above, and positive numbers are for ones below the reference plane. 0 is the same as the reference plane (the green plane in the illustration).</p>
 </li>
 </ul>
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/entire_stack_zproj.jpg" width="100%" />
 </p>
-
 <h2>How it works</h2>
 <h3>Creating a colored image from a single-channel stack</h3>
-<p>To colorize a single-channel stack, multiple z-planes are assigned to different color (RGB) channels and then overlaid to create a composite colored image. For a simple z-stack with three planes, the 1. plane is assigned to red, the 2. to green, and the 3. plane to blue. They are overlaid/merged to create a single composite RGB-color plane. In the composite image, multiple z-planes are displayed simultaneously, with the colors providing the depth information. In this example, red indicates that cells are in the upper, while blue cells are in the deeper z-planes. The colors make it easier to detect and track cells that move or split in the z-direction.  </p>
+<p>To colorize a single-channel stack, multiple z-planes are assigned to different color (RGB) channels and then overlaid to create a composite colored image. For a simple z-stack with three planes, the 1. plane is assigned to red, the 2. to green, and the 3. plane to blue. They are overlaid/merged to create a single composite RGB-color plane. In the composite image, multiple z-planes are displayed simultaneously, with the colors providing the depth information. In this example, red indicates that cells are in the upper, while blue cells are in the deeper z-planes. The colors make it easier to detect and track cells that move or split in the z-direction.</p>
 <!---------
 In other words, instead of having multiple channels from different fluorescence labels, the z-planes are treated as different channels and then merged to create a composite image.
 
@@ -334,36 +306,30 @@ In other words, instead of having multiple channels from different fluorescence 
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/3_plane_stack.gif" width="100%" />
 </p>
-
-<p>On the left is an image of a single plane of an organoid and on the right is the colorized plane. To create the colors, the same plane was overlaid with the direct upper and lower plane, as shown in the illustration above. </p>
+<p>On the left is an image of a single plane of an organoid and on the right is the colorized plane. To create the colors, the same plane was overlaid with the direct upper and lower plane, as shown in the illustration above.</p>
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/img_gray.png" width="49%" />
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/img_color.png" width="49%" /> 
 </p>
-
 <h3>Colorizing the entire stack</h3>
-<p>To obtain a colorized stack of the same size as the original stack, the merging is applied for each z-plane. At the boundaries, the colors can differ, as there are no further z-planes to assign to a color channel. For example, the first plane in the colorized stack consists of an overlay of only two planes in green and blue, which results in a blue/green/cyan-colored image. Similarly, the last plane of the colorized stack is a red/green/yellowish image since it lacks a blue channel.    </p>
+<p>To obtain a colorized stack of the same size as the original stack, the merging is applied for each z-plane. At the boundaries, the colors can differ, as there are no further z-planes to assign to a color channel. For example, the first plane in the colorized stack consists of an overlay of only two planes in green and blue, which results in a blue/green/cyan-colored image. Similarly, the last plane of the colorized stack is a red/green/yellowish image since it lacks a blue channel.</p>
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/entire_stack.gif" width="100%" />
 </p>
-
 <h3>Varying the depth with z-projections</h3>
-<p>It is also possible to vary the depth and overlay more than three planes. To do this, a z-projection is applied to the planes before assigning them to a color and merging. In the illustration below, a different number of planes is assigned to each color. Before merging the three RGB color channels, a z-projection is applied if more than one plane is assigned to a color. In the illustration below, three planes are selected for the red color channel. A z-projection (e.g. average intensity) is applied to generate a single plane for the red channel. This z-projected plane is merged with the raw, green plane and the z-projected plane of the blue channel. </p>
+<p>It is also possible to vary the depth and overlay more than three planes. To do this, a z-projection is applied to the planes before assigning them to a color and merging. In the illustration below, a different number of planes is assigned to each color. Before merging the three RGB color channels, a z-projection is applied if more than one plane is assigned to a color. In the illustration below, three planes are selected for the red color channel. A z-projection (e.g. average intensity) is applied to generate a single plane for the red channel. This z-projected plane is merged with the raw, green plane and the z-projected plane of the blue channel.</p>
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/entire_stack_zproj.jpg" width="100%" />
 </p>
-
 <p>For the entire stack:</p>
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/entire_stack_zproj.gif" width="100%" />
 </p>
-
-<p>On the left is an image of a single plane of an organoid, and on the right is the colorized plane. To create the colors, the same plane was overlaid with three upper and two lower z-planes, as shown in the illustration above. </p>
+<p>On the left is an image of a single plane of an organoid, and on the right is the colorized plane. To create the colors, the same plane was overlaid with three upper and two lower z-planes, as shown in the illustration above.</p>
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/img_gray.png" width="49%" />
   <img src="https://github.com/maihanhoang/napari-zplane-depth-colorizer/raw/main/assets/img_color_zproj.png" width="49%" /> 
 </p>
-
 <h2>Acknowledgements</h2>
 <p><a href="https://scholar.google.com/citations?user=8ykCpTIAAAAJ&amp;hl=fr">Sham Tlili</a> provided the sample data and developed the visualization method implemented in this plugin</p>
 <h2>Contributing</h2>
@@ -371,10 +337,10 @@ In other words, instead of having multiple channels from different fluorescence 
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-zplane-depth-colorizer" is free and open source software</p>
+&quot;napari-zplane-depth-colorizer&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/maihanhoang/napari-zplane-depth-colorizer/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

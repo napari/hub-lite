@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,48 +206,21 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg" /></a>
-<a href="https://napari-hub.org/plugins/psf-analysis-CFIM"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/psf-analysis-CFIM" /></a></p>
+                                        <p><a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg" alt="License" /></a>
+<a href="https://napari-hub.org/plugins/psf-analysis-CFIM"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/psf-analysis-CFIM" alt="napari hub" /></a></p>
 <hr />
-<p><img alt="application_screenshot" src="figs/PSF_CFIM_demo_v170.gif" /></p>
+<p><img src="figs/PSF_CFIM_demo_v170.gif" alt="application_screenshot" /></p>
 <h2>Installation</h2>
 <p>You can install this package using one of the following options:</p>
-<pre class="codehilite"><code class="language-bash">  pip install psf-analysis-CFIM -U
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="w">  </span>pip<span class="w"> </span>install<span class="w"> </span>psf-analysis-CFIM<span class="w"> </span>-U
+</pre></div>
 </code></pre>
-
 <p>For the latest stable version (recommended)</p>
 <hr />
 <p>or</p>
-<pre class="codehilite"><code class="language-bash">  pip install git+https://github.com/MaxusTheOne/napari-psf-analysis-CFIM-edition
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="w">  </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/MaxusTheOne/napari-psf-analysis-CFIM-edition
+</pre></div>
 </code></pre>
-
 <p>To install the latest version (not guaranteed to be stable)</p>
 <hr />
 <p>Additionally, it can be installed via napari plugin manager under the name <strong>psf-analysis-CFIM</strong>.</p>
@@ -254,16 +231,25 @@ pre > code:last-child {
 <h2>Extra Features</h2>
 <p>This edition includes the following additional features:</p>
 <ul>
-<li><strong>Bulk Analysis for channels</strong>: Allows for bulk analysis of multiple channels.</li>
+<li><strong>Bulk Analysis for channels</strong>: Allows for bulk analysis of multiple channels.
+<ul>
 <li><strong>Combined Summary</strong>: Adds a combined summary of all channels.</li>
 <li><strong>Channel Offset Table</strong>: Adds a table with the relative offset of the channels.</li>
+</ul>
+</li>
 <li><strong>Bead Averaging</strong>: Adds an image of an averaged bead from all selected.</li>
-<li><strong>Visualisation</strong>: Improves visualisation of the psf. Most notable color by wavelength.</li>
+<li><strong>Visualisation</strong>: Improves visualisation of the psf. Most notable color by wavelength.
+<ul>
 <li><strong>Range indicator</strong> Button to mark the min and max values of the image.</li>
+</ul>
+</li>
 <li><strong>PSF Report</strong>: Adds a graded report on the quality of the PSF. &lt;- WIP</li>
 <li><strong>Bead Detection</strong>: Detects beads in the image.</li>
-<li><strong>Auto-Filling of Plugin Parameters</strong>: Automatically populates parameters for the plugin.</li>
+<li><strong>Auto-Filling of Plugin Parameters</strong>: Automatically populates parameters for the plugin.
+<ul>
 <li>At least 1 input also looks better</li>
+</ul>
+</li>
 <li><strong>Auto Analysis of Image for PSF</strong>: Performs automatic image analysis to ascertain the quality.</li>
 <li><strong>CZI Reader</strong>: Adds support for reading CZI image files.</li>
 <li><strong>Debugging</strong>: Adds a debug class to the IPython console. Small, but hey, we can show the psf box</li>
@@ -273,15 +259,15 @@ pre > code:last-child {
 <h2>Known Issues</h2>
 <ul>
 <li>for autofilling, only .czi files are supported. Other issuses might also arise from not using .czi.</li>
-<li>Installing plugin under paths including non-ASCII characters, like "æøå" cause unintended behavior.</li>
+<li>Installing plugin under paths including non-ASCII characters, like &quot;æøå&quot; cause unintended behavior.</li>
 <li>The output.csv file is comma seperated with dot as decimal seperator, this might cause issue importing in Excel.</li>
 <li>Intensity for bead finder is hardcoded for now.</li>
 <li>Some images might still crash in the analysis.</li>
 </ul>
 <h2>License</h2>
 <p>Distributed under the terms of the [BSD-3] license,
-"psf-analysis-CFIM" is free and open source software</p>
-        
+&quot;psf-analysis-CFIM&quot; is free and open source software</p>
+
 
                                     </div>
                                 </div>

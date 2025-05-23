@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,52 +206,25 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/brainglobe-segmentation"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/brainglobe-segmentation.svg" /></a>
-<a href="https://pypi.org/project/brainglobe-segmentation"><img alt="PyPI" src="https://img.shields.io/pypi/v/brainglobe-segmentation.svg" /></a>
-<a href="https://pypi.org/project/brainglobe-segmentation"><img alt="Wheel" src="https://img.shields.io/pypi/wheel/brainglobe-segmentation.svg" /></a>
-<a href="https://github.com/brainglobe/brainglobe-segmentation"><img alt="Development Status" src="https://img.shields.io/pypi/status/brainglobe-segmentation.svg" /></a>
-<a href="https://github.com/brainglobe/brainglobe-segmentation/actions"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/brainglobe/brainglobe-segmentation/test_and_deploy.yml?branch=main" /></a>
-<a href="https://codecov.io/gh/brainglobe/brainglobe-segmentation"><img alt="codecov" src="https://codecov.io/gh/brainglobe/brainglobe-segmentation/graph/badge.svg?token=WP9KTPZE5R" /></a>
-<a href="https://github.com/python/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
-<a href="https://twitter.com/brain_globe"><img alt="Twitter" src="https://img.shields.io/twitter/follow/brain_globe?style=social" /></a></p>
+                                        <p><a href="https://pypi.org/project/brainglobe-segmentation"><img src="https://img.shields.io/pypi/pyversions/brainglobe-segmentation.svg" alt="Python Version" /></a>
+<a href="https://pypi.org/project/brainglobe-segmentation"><img src="https://img.shields.io/pypi/v/brainglobe-segmentation.svg" alt="PyPI" /></a>
+<a href="https://pypi.org/project/brainglobe-segmentation"><img src="https://img.shields.io/pypi/wheel/brainglobe-segmentation.svg" alt="Wheel" /></a>
+<a href="https://github.com/brainglobe/brainglobe-segmentation"><img src="https://img.shields.io/pypi/status/brainglobe-segmentation.svg" alt="Development Status" /></a>
+<a href="https://github.com/brainglobe/brainglobe-segmentation/actions"><img src="https://img.shields.io/github/actions/workflow/status/brainglobe/brainglobe-segmentation/test_and_deploy.yml?branch=main" alt="Tests" /></a>
+<a href="https://codecov.io/gh/brainglobe/brainglobe-segmentation"><img src="https://codecov.io/gh/brainglobe/brainglobe-segmentation/graph/badge.svg?token=WP9KTPZE5R" alt="codecov" /></a>
+<a href="https://github.com/python/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black" /></a>
+<a href="https://twitter.com/brain_globe"><img src="https://img.shields.io/twitter/follow/brain_globe?style=social" alt="Twitter" /></a></p>
 <h1>brainglobe-segmentation</h1>
 <p>Segmentation of anatomical structures in a common coordinate space</p>
 <h2>Installation</h2>
 <p><strong>PyPI</strong></p>
-<pre class="codehilite"><code>pip install brainglobe-segmentation
+<pre><code><div class="highlight"><pre><span></span>pip install brainglobe-segmentation
+</pre></div>
 </code></pre>
-
 <p><strong>conda</strong></p>
-<pre class="codehilite"><code>conda install -c conda-forge brainglobe-segmentation
+<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge brainglobe-segmentation
+</pre></div>
 </code></pre>
-
 <p>N.B. Your data will need to be registered to an anatomical atlas first.</p>
 <h2>Usage</h2>
 <p>See <a href="https://brainglobe.info/documentation/brainglobe-segmentation/index.html">user guide</a>.</p>
@@ -256,9 +233,9 @@ pre > code:last-child {
 <h2>Citing brainglobe-segmentation</h2>
 <p>If you find brainglobe-segmentation useful, and use it in your research, please let us know and also cite the paper:</p>
 <blockquote>
-<p>Tyson, A. L., V&eacute;lez-Fort, M.,  Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T.,  Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 <a href="https://doi.org/10.1038/s41598-021-04676-9">doi.org/10.1038/s41598-021-04676-9</a></p>
+<p>Tyson, A. L., Vélez-Fort, M.,  Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T.,  Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 <a href="https://doi.org/10.1038/s41598-021-04676-9">doi.org/10.1038/s41598-021-04676-9</a></p>
 </blockquote>
-        
+
 
                                     </div>
                                 </div>

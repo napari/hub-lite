@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,59 +210,32 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-skimage-regionprops.svg?color=green" /></a></p>
-<p><a href="https://pypi.org/project/napari-skimage-regionprops"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-skimage-regionprops.svg?color=green" /></a></p>
-<p><a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-skimage-regionprops.svg?color=green" /></a></p>
-<p><a href="https://github.com/haesleinhuepf/napari-skimage-regionprops/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-skimage-regionprops/workflows/tests/badge.svg" /></a></p>
-<p><a href="https://codecov.io/gh/haesleinhuepf/napari-skimage-regionprops"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-skimage-regionprops/branch/master/graph/badge.svg" /></a></p>
-<p><a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-skimage-regionprops.svg" /></a></p>
-<p><a href="https://napari-hub.org/plugins/napari-skimage-regionprops"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-skimage-regionprops" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-skimage-regionprops.svg?color=green" alt="License" /></a></p>
+<p><a href="https://pypi.org/project/napari-skimage-regionprops"><img src="https://img.shields.io/pypi/v/napari-skimage-regionprops.svg?color=green" alt="PyPI" /></a></p>
+<p><a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-skimage-regionprops.svg?color=green" alt="Python Version" /></a></p>
+<p><a href="https://github.com/haesleinhuepf/napari-skimage-regionprops/actions"><img src="https://github.com/haesleinhuepf/napari-skimage-regionprops/workflows/tests/badge.svg" alt="tests" /></a></p>
+<p><a href="https://codecov.io/gh/haesleinhuepf/napari-skimage-regionprops"><img src="https://codecov.io/gh/haesleinhuepf/napari-skimage-regionprops/branch/master/graph/badge.svg" alt="codecov" /></a></p>
+<p><a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-skimage-regionprops.svg" alt="Development Status" /></a></p>
+<p><a href="https://napari-hub.org/plugins/napari-skimage-regionprops"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-skimage-regionprops" alt="napari hub" /></a></p>
 <p>A <a href="https://github.com/napari/napari">napari</a> plugin for measuring properties of labeled objects based on <a href="https://scikit-image.org/">scikit-image</a></p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/interactive.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/interactive.gif" alt="" /></p>
 <h2>Usage: measure region properties</h2>
 <p>From the menu <code>Tools &gt; Measurement &gt; Regionprops (nsr)</code> you can open a dialog where you can choose an intensity image, a corresponding label image and the features you want to measure:</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/dialog.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/dialog.png" alt="img.png" /></p>
 <p>If you want to interface with the labels and see which table row corresponds to which labeled object, use the label picker and</p>
 <p>activate the <code>show selected</code> checkbox.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/interactive.png" /></p>
-<p>If you closed a table and want to reopen it, you can use the menu <code>Tools &gt; Measurements &gt; Show table (nsr)</code> to reopen it. </p>
+<p><img src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/interactive.png" alt="" /></p>
+<p>If you closed a table and want to reopen it, you can use the menu <code>Tools &gt; Measurements &gt; Show table (nsr)</code> to reopen it.</p>
 <p>You just need to select the labels layer the properties are associated with.</p>
 <p>For visualizing measurements with different grey values, as parametric images, you can double-click table headers.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/label_value_visualization.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/label_value_visualization.gif" alt="img.png" /></p>
 <h2>Usage: measure point intensities</h2>
-<p>Analogously, also the intensity and coordinates of point layers can be measured using the menu <code>Tools &gt; Measurement &gt; Measure intensity at point coordinates (nsr)</code>. </p>
+<p>Analogously, also the intensity and coordinates of point layers can be measured using the menu <code>Tools &gt; Measurement &gt; Measure intensity at point coordinates (nsr)</code>.</p>
 <p>Also these measurements can be visualized by double-clicking table headers:</p>
-<p><img alt="img.png" src="measure_point_intensity.png" /></p>
-<p><img alt="img_1.png" src="measure_point_coordinate.png" /></p>
+<p><img src="measure_point_intensity.png" alt="img.png" /></p>
+<p><img src="measure_point_coordinate.png" alt="img_1.png" /></p>
 <h2>Working with time-lapse and tracking data</h2>
-<p>Note that tables for time-lapse data should include a column named "frame", which indicates which slice in</p>
+<p>Note that tables for time-lapse data should include a column named &quot;frame&quot;, which indicates which slice in</p>
 <p>time the given row refers to. If you want to import your own csv files for time-lapse data make sure to include this column.</p>
 <p>If you have tracking data where each column specifies measurements for a track instead of a label at a specific time point,</p>
 <p>this column must not be added.</p>
@@ -267,7 +244,7 @@ pre > code:last-child {
 <p>Last but not least, make sure that in case of time-lapse data the label image has labels that are subsquently labeled per timepoint.</p>
 <p>E.g. a dataset where label 5 is missing at timepoint 4 may be visualized incorrectly.</p>
 <h2>Usage: multichannel or multi-label data</h2>
-<p>If you want to relate objects from one channels to objects from another channel, you can use <code>Tools &gt; Measurement tables &gt; Object Features/Properties (scikit-image, nsr)</code>. </p>
+<p>If you want to relate objects from one channels to objects from another channel, you can use <code>Tools &gt; Measurement tables &gt; Object Features/Properties (scikit-image, nsr)</code>.</p>
 <p>This plugin module allos you to answer questions like:</p>
 <ul>
 <li>
@@ -277,13 +254,13 @@ pre > code:last-child {
 <p>what is the average intensity of the objects inside other objects?</p>
 </li>
 </ul>
-<p>For that, you need at least two labeled images in napari. You can relate objects along with their features. </p>
-<p>If intensity features are also wanted, then you also need to provide two intensity images. </p>
-<p>Below, there is a small example on how to use it. </p>
+<p>For that, you need at least two labeled images in napari. You can relate objects along with their features.</p>
+<p>If intensity features are also wanted, then you also need to provide two intensity images.</p>
+<p>Below, there is a small example on how to use it.</p>
 <p>Also, take a look at <a href="https://github.com/haesleinhuepf/napari-skimage-regionprops/blob/master/demo/measure_relationship_to_other_channels_plugin.ipynb">this example notebook</a>.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/things_inside_things_demo.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-skimage-regionprops/raw/master/images/things_inside_things_demo.gif" alt="" /></p>
 <h2>Usage, programmatically</h2>
-<p>You can also control the tables programmatically. See this </p>
+<p>You can also control the tables programmatically. See this</p>
 <p><a href="https://github.com/haesleinhuepf/napari-skimage-regionprops/blob/master/demo/tables.ipynb">example notebook</a> for details on regionprops and</p>
 <p><a href="https://github.com/haesleinhuepf/napari-skimage-regionprops/blob/master/demo/measure_points.ipynb">this example notebook</a> for details on measuring intensity at point coordinates. For creating parametric map images, see <a href="https://github.com/haesleinhuepf/napari-skimage-regionprops/blob/master/demo/map_measurements.ipynb">this notebook</a>.</p>
 <h2>Features</h2>
@@ -291,7 +268,7 @@ pre > code:last-child {
 <ul>
 <li>
 <p>size:</p>
-</li>
+<ul>
 <li>
 <p>area</p>
 </li>
@@ -304,11 +281,13 @@ pre > code:last-child {
 <li>
 <p>equivalent_diameter</p>
 </li>
-<li>
-<p>intensity:</p>
+</ul>
 </li>
 <li>
-<p>max_intensity </p>
+<p>intensity:</p>
+<ul>
+<li>
+<p>max_intensity</p>
 </li>
 <li>
 <p>mean_intensity</p>
@@ -319,18 +298,22 @@ pre > code:last-child {
 <li>
 <p>standard_deviation_intensity (<code>extra_properties</code> implementation using numpy)</p>
 </li>
+</ul>
+</li>
 <li>
 <p>perimeter:</p>
-</li>
+<ul>
 <li>
 <p>perimeter</p>
 </li>
 <li>
 <p>perimeter_crofton</p>
 </li>
+</ul>
+</li>
 <li>
 <p>shape</p>
-</li>
+<ul>
 <li>
 <p>major_axis_length</p>
 </li>
@@ -364,9 +347,11 @@ pre > code:last-child {
 <li>
 <p>aspect_ratio as defined for 2D labels <a href="https://imagej.nih.gov/ij/docs/menus/analyze.html#set">by ImageJ</a></p>
 </li>
+</ul>
+</li>
 <li>
 <p>position:</p>
-</li>
+<ul>
 <li>
 <p>centroid</p>
 </li>
@@ -376,9 +361,11 @@ pre > code:last-child {
 <li>
 <p>weighted_centroid</p>
 </li>
+</ul>
+</li>
 <li>
 <p>moments:</p>
-</li>
+<ul>
 <li>
 <p>moments</p>
 </li>
@@ -390,6 +377,8 @@ pre > code:last-child {
 </li>
 <li>
 <p>moments_normalized</p>
+</li>
+</ul>
 </li>
 </ul>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -426,27 +415,25 @@ pre > code:last-child {
 </ul>
 <h2>Installation</h2>
 <p>You can install <code>napari-skimage-regionprops</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-skimage-regionprops
+<pre><code>pip install napari-skimage-regionprops
 </code></pre>
-
 <p>Or if you plan to develop it:</p>
-<pre class="codehilite"><code>git clone https://github.com/haesleinhuepf/napari-skimage-regionprops
+<pre><code>git clone https://github.com/haesleinhuepf/napari-skimage-regionprops
 
 cd napari-skimage-regionprops
 
 pip install -e .
 </code></pre>
-
 <p>If there is an error message suggesting that git is not installed, run <code>conda install git</code>.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure</p>
 <p>the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,</p>
-<p>"napari-skimage-regionprops" is free and open source software</p>
+<p>&quot;napari-skimage-regionprops&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please create a thread on <a href="https://image.sc">image.sc</a> along with a detailed description and tag <a href="https://twitter.com/haesleinhuepf">@haesleinhuepf</a>.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,57 +210,31 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/lukasz-migas/napari-1d/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-plot.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-plot"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-plot.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-plot.svg?color=green" /></a>
-<a href="https://github.com/lukasz-migas/napari-1d/actions"><img alt="tests" src="https://github.com/lukasz-migas/napari-1d/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/lukasz-migas/napari-1d"><img alt="codecov" src="https://codecov.io/gh/lukasz-migas/napari-1d/branch/main/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/lukasz-migas/napari-1d/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-plot.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-plot"><img src="https://img.shields.io/pypi/v/napari-plot.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-plot.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/lukasz-migas/napari-1d/actions"><img src="https://github.com/lukasz-migas/napari-1d/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/lukasz-migas/napari-1d"><img src="https://codecov.io/gh/lukasz-migas/napari-1d/branch/main/graph/badge.svg" alt="codecov" /></a></p>
 <p>Plugin providing support for 1d plotting in napari.</p>
 <p>This plugin is in very early stages of development and many things are still in a state of disarray. New features and bug fixes
-will be coming over the coming months. </p>
+will be coming over the coming months.</p>
 <h2>Note</h2>
 <p><code>napari-plot</code> provides several custom icons and stylesheets to take advantage of the <code>Qt</code> backend. Since it would be a bit busy to add multiple layer lists,
 I opted to include a toolbar that quickly pulls the layer list whenever requested. Simple use the toolbar to access several commonly accessed elements.</p>
 <h2>Usage</h2>
 <p>You can use <code>napari-plot</code> alongside <code>napari</code> where it is embedded as a dock widget. If using this option, controls are relegated to toolbar
 where you can adjust layer properties like you would do in <code>napari</code>.</p>
-<p><img alt="embedded" src="https://github.com/lukasz-migas/napari-1d/blob/main/misc/embedded.png" /></p>
+<p><img src="https://github.com/lukasz-migas/napari-1d/blob/main/misc/embedded.png" alt="embedded" /></p>
 <p>Or as a standalone app where only one-dimensional plotting is enabled. In this mode, controls take central stage and reflect <code>napari's</code> own
 behaviour where layer controls are embedded in the main application.</p>
-<p><img alt="live-view" src="https://github.com/lukasz-migas/napari-1d/blob/main/misc/napariplot-live-line.gif" /></p>
+<p><img src="https://github.com/lukasz-migas/napari-1d/blob/main/misc/napariplot-live-line.gif" alt="live-view" /></p>
 <h2>Roadmap:</h2>
 <p>This is only provisional list of features that I would like to see implemented. It barely scratches the surface of what plotting tool should cover so as soon as the basics are covered,
 focus will be put towards adding more exotic features. If there are features that you certainly wish to be included,
 please modify the list below or create a <a href="https://github.com/lukasz-migas/napari-1d/issues/new">new issue</a></p>
 <ul>
-<li>[ ] Support for new layer types. Layers are based on <code>napari's</code> <code>Layer</code>, albeit in a two-dimensional setting. Supported and planned layers:</li>
+<li>[ ] Support for new layer types. Layers are based on <code>napari's</code> <code>Layer</code>, albeit in a two-dimensional setting. Supported and planned layers:
+<ul>
 <li>[x] Line Layer - simple line plot.</li>
 <li>[x] Scatter Layer - scatter plot (similar to <code>napari's Points</code> layer).</li>
 <li>[x] Centroids/Segments Layer - horizontal or vertical line segments.</li>
@@ -266,23 +244,34 @@ please modify the list below or create a <a href="https://github.com/lukasz-miga
 <li>[x] Points Layer - <code>napari's</code> own <code>Points</code> layer</li>
 <li>[x] Multi-line Layer - more efficient implementation of <code>Line</code> layer when multiple lines are necessary.</li>
 <li>[ ] Bar - horizontal and vertical barchart (TODO)</li>
+</ul>
+</li>
 <li>[x] Proper interactivity of each layer type (e.g. moving <code>Region</code> or <code>InfLine</code>, adding points, etc...)</li>
-<li>[x] Intuitive interactivity. <code>napari-plot</code> will provide excellent level of interactivity with the plotted data. We plan to support several types of <code>Tools</code> that permit efficient interrogation of the data. We currently provide several <code>zoom</code> and <code>select</code> tools and hope to add few extras in the future.</li>
+<li>[x] Intuitive interactivity. <code>napari-plot</code> will provide excellent level of interactivity with the plotted data. We plan to support several types of <code>Tools</code> that permit efficient interrogation of the data. We currently provide several <code>zoom</code> and <code>select</code> tools and hope to add few extras in the future.
+<ul>
 <li>[x] Box-zoom - standard zooming rectangle. Simply <code>left-mouse + drag/release</code> in the canvas on region of interest</li>
 <li>[x] Horizontal span - zoom-in only in the y-axis by <code>Ctrl + left-mouse + drag/release</code> in the canvas.</li>
 <li>[x] Vertical span - span-in only in the x-axis by <code>Shift + left-mouse + drag/release</code> in the canvas.</li>
 <li>[x] Rectangle select - rectangle tool allowing sub-selection of data in the canvas. Similar to the <code>Box-zoom</code> but without the zooming part.</li>
 <li>[x] Polygon select - polygon tool allowing sub-selection of data in the canvas.</li>
 <li>[x] Lasso select - lasso tool allowing sub-selection of data in the canvas.</li>
+</ul>
+</li>
 <li>[ ] Interactive plot legend</li>
-<li>[ ] Customizable axis visuals.</li>
+<li>[ ] Customizable axis visuals.
+<ul>
 <li>[x] Plot axis enabling customization of tick/label size and color</li>
 <li>[ ] Support for non-linear scale</li>
-<li>[ ] Add convenient plotting interface:</li>
+</ul>
+</li>
+<li>[ ] Add convenient plotting interface:
+<ul>
 <li>[ ] Add <code>.plot</code> functionality</li>
 <li>[ ] Add <code>.scatter</code> functionality</li>
 <li>[ ] Add <code>.hbar</code> and <code>.vbar</code> functionality</li>
 <li>[ ] Add <code>.imshow</code> functionality</li>
+</ul>
+</li>
 </ul>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -293,27 +282,26 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-plot</code> directly from PyPI via:</p>
-<pre class="codehilite"><code class="language-python">pip install napari-plot
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">plot</span>
+</pre></div>
 </code></pre>
-
 <p>or from the git repo:</p>
-<pre class="codehilite"><code class="language-python">git clone https://github.com/lukasz-migas/napari-1d.git
-cd napari-1d
-pip install -e '.[all]'
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lukasz</span><span class="o">-</span><span class="n">migas</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="mi">1</span><span class="n">d</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">napari</span><span class="o">-</span><span class="mi">1</span><span class="n">d</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;.[all]&#39;</span>
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-plot" is free and open source software</p>
+&quot;napari-plot&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/lukasz-migas/napari-1d/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

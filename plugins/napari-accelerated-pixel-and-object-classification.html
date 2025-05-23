@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,60 +210,33 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-accelerated-pixel-and-object-classification.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-accelerated-pixel-and-object-classification"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-accelerated-pixel-and-object-classification.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-accelerated-pixel-and-object-classification.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-accelerated-pixel-and-object-classification"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-accelerated-pixel-and-object-classification/branch/main/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-accelerated-pixel-and-object-classification.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-accelerated-pixel-and-object-classification" /></a>
-<a href="https://zenodo.org/badge/latestdoi/412525441"><img alt="DOI" src="https://zenodo.org/badge/412525441.svg" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-accelerated-pixel-and-object-classification.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-accelerated-pixel-and-object-classification"><img src="https://img.shields.io/pypi/v/napari-accelerated-pixel-and-object-classification.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-accelerated-pixel-and-object-classification.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/actions"><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-accelerated-pixel-and-object-classification"><img src="https://codecov.io/gh/haesleinhuepf/napari-accelerated-pixel-and-object-classification/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-accelerated-pixel-and-object-classification.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-accelerated-pixel-and-object-classification" alt="napari hub" /></a>
+<a href="https://zenodo.org/badge/latestdoi/412525441"><img src="https://zenodo.org/badge/412525441.svg" alt="DOI" /></a></p>
 <p><a href="https://github.com/clEsperanto/pyclesperanto_prototype">clesperanto</a> meets <a href="https://scikit-learn.org/stable/">scikit-learn</a> to classify pixels and objects in images, on a <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPU</a> using <a href="https://www.khronos.org/opencl/">OpenCL</a> in <a href="https://github.com/napari/napari">napari</a>.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/screencast.gif" />
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/screencast.gif" alt="" />
 The processed example image was kindly acquired by Daniela Vorkel, Myers lab, MPI-CBG / CSBD (<a href="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/demo_lund.mp4">Download full video</a>)</p>
 <p>For using the accelerated pixel and object classifiers in python, check out <a href="https://github.com/haesleinhuepf/apoc">apoc</a>.
-Training classifiers from pairs of image and label-mask folders is explained in 
+Training classifiers from pairs of image and label-mask folders is explained in
 <a href="https://github.com/haesleinhuepf/apoc/blob/main/demo/train_on_folders.ipynb">this notebook</a>.
 For executing APOC's pixel and object classifiers in <a href="https://fiji.sc">Fiji</a> using <a href="https://clij.github.io">clij2</a> please read the documentation of the <a href="https://github.com/clij/clijx-accelerated-pixel-and-object-classification">corresponding Fiji plugin</a>. Table classifiers and object mergers are not compatible with Fiji yet.</p>
-<p><img alt="" src="https://github.com/clij/clijx-accelerated-pixel-and-object-classification/raw/main/docs/screenshot.png" /></p>
+<p><img src="https://github.com/clij/clijx-accelerated-pixel-and-object-classification/raw/main/docs/screenshot.png" alt="" /></p>
 <h2>Usage</h2>
 <h3>Object and Semantic Segmentation</h3>
 <p>Starting point is napari with at least one image layer and one labels layer (your annotation).</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_segmentation_starting_point.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_segmentation_starting_point.png" alt="img.png" /></p>
 <p>You find Object and Semantic Segmentation in the <code>Tools &gt; Segmentation / labeling</code>. When starting those, the following graphical user interface will show up.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_and_semantic_segmentation.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_and_semantic_segmentation.png" alt="img.png" /></p>
 <ol>
-<li>Choose one or multiple images to train on. These images will be considered as multiple channels. Thus, they need to be spatially correlated. 
-   Training from multiple images showing different scenes is not (yet) supported from the graphical user interface. Check out <a href="https://github.com/haesleinhuepf/apoc/blob/main/demo/demp_pixel_classifier_continue_training.ipynb">this notebook</a> if you want to train from multiple image-annotation pairs.</li>
+<li>Choose one or multiple images to train on. These images will be considered as multiple channels. Thus, they need to be spatially correlated.
+Training from multiple images showing different scenes is not (yet) supported from the graphical user interface. Check out <a href="https://github.com/haesleinhuepf/apoc/blob/main/demo/demp_pixel_classifier_continue_training.ipynb">this notebook</a> if you want to train from multiple image-annotation pairs.</li>
 <li>Select a file where the classifier should be saved. If the file exists already, it will be overwritten.</li>
-<li>Select the ground-truth annotation labels layer. </li>
+<li>Select the ground-truth annotation labels layer.</li>
 <li>Select which label corresponds to foreground (not available in Semantic Segmentation)</li>
 <li>Select the feature images that should be considered for segmentation. If segmentation appears pixelated, try increasing the selected sigma values and untick <code>Consider original image</code>.</li>
 <li>Tree depth and number of trees allow you to fine-tune how to deal with manifold regions of different characteristics. The higher these numbers, the longer segmentation will take. In case you use many images and many features, high depth and number of trees might be necessary. (See also <code>max_depth</code> and <code>n_estimators</code> in the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">scikit-learn documentation of the Random Forest Classifier</a>.</li>
@@ -267,92 +244,94 @@ For executing APOC's pixel and object classifiers in <a href="https://fiji.sc">F
 <li>Click on Run when you're done with configuring. If the segmentation doesn't fit after the first execution, consider fine-tuning the ground-truth annotation and try again.</li>
 </ol>
 <p>A successful segmentation can for example look like this:</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_segmentation_result.png" /></p>
-<p>After your classifier has been trained successfully, click on the "Application / Prediction" tab. If you apply the classifier again, python code will be generated. 
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_segmentation_result.png" alt="img.png" /></p>
+<p>After your classifier has been trained successfully, click on the &quot;Application / Prediction&quot; tab. If you apply the classifier again, python code will be generated.
 You can use this code for example to apply the same classifier to a folder of images. If you're new to this, check out <a href="https://github.com/BiAPoL/Bio-image_Analysis_with_Python/blob/main/image_processing/12_process_folders.ipynb">this notebook</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/code_generation.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/code_generation.png" alt="img.png" /></p>
 <p>A pre-trained classifier can be <a href="https://github.com/haesleinhuepf/apoc/blob/main/demo/demo_object_segmenter.ipynb">applied from scripts as shown in the example notebook</a> or from the <code>Tools &gt; Segmentation / labeling &gt; Object segmentation (apply pretrained, APOC)</code>.</p>
 <h3>Integration with the napari-assistant</h3>
 <p>Pre-trained models can also be assembled to workflows using the <a href="https://www.napari-hub.org/plugins/napari-assistant">napari-assistant</a>. You find APOC-operations in the categories <code>Filter</code>, <code>Label</code> and <code>Label Filters</code>:</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/assistant.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/assistant.png" alt="img.png" /></p>
 <h3>Semantic segmentation</h3>
-<p>Users can also generate semantic segmentation label images where the label identifier corresponds to a class the pixel has been allocated to. 
+<p>Users can also generate semantic segmentation label images where the label identifier corresponds to a class the pixel has been allocated to.
 The tool can be found in the menu <code>Tools &gt; Segmentation / labeling &gt; Semantic segmentation (APOC)</code>.
 It works analogously like the Object Segmenter, just without the need to specify the class identifier that objects correspond to.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/semantic_segmentation.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/semantic_segmentation.png" alt="img.png" /></p>
 <h3>Probability maps</h3>
-<p>The tool for generating probability maps (<code>Tools &gt; Filtering &gt; Probability Mapper (APOC)</code> menu) works analogously to the Object Segmenter as well. 
+<p>The tool for generating probability maps (<code>Tools &gt; Filtering &gt; Probability Mapper (APOC)</code> menu) works analogously to the Object Segmenter as well.
 The only difference is that the result image is not a label image but an intensity image where the intensity represents the probability (between 0 and 1)
 that a pixel belongs to a given class. In this example: The raw image (grey) has been annotated with three classes: background (black, label 1), foreground (white, label 2) and edges (grey, label 3).
 The probability mapper was configured to create probability image (shown in green) for edges (label 3):</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/probability_mapper.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/probability_mapper.png" alt="img.png" /></p>
 <h3>Classifier statistics</h3>
-<p>While training, you can also activate the <code>Show classifier statistics</code> checkbox. 
+<p>While training, you can also activate the <code>Show classifier statistics</code> checkbox.
 When doing so, it is recommended to increase the number of trees so that the measurements are more reliable, especially when selecting many features.
 This will open a small table after training where you can see how large the share of decision trees are for each analysed feature image.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/classifier_statistics.png" /></p>
-<p>It is recommended to turn on/off the features that hold a very large share (green) or a very small share (magenta) of trees in the random forest. 
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/classifier_statistics.png" alt="img.png" /></p>
+<p>It is recommended to turn on/off the features that hold a very large share (green) or a very small share (magenta) of trees in the random forest.
 Retrain the classifier to see how the features influence the decision making.</p>
-<p>Note: Multiple of these parameters may be correlated. 
-If you select 11 feature images, which all allow to make the pixel classification similarly, but 10 of those are correlated, these 10 may appear with a share of about 0.05 while the 11th parameter has a share of 0.5. 
+<p>Note: Multiple of these parameters may be correlated.
+If you select 11 feature images, which all allow to make the pixel classification similarly, but 10 of those are correlated, these 10 may appear with a share of about 0.05 while the 11th parameter has a share of 0.5.
 Thus, study these values with care.</p>
 <h3>Merging objects</h3>
-<p>After segmentation, you can merge labeled objects using the <code>Tools &gt; Segmentation post-processing &gt; Merge objects (APOC)</code> menu. 
+<p>After segmentation, you can merge labeled objects using the <code>Tools &gt; Segmentation post-processing &gt; Merge objects (APOC)</code> menu.
 Annotate label edges that should be merged with intensity 1 and those which should be kept with intensity 2 in a blank label image.
-Select which features should be considered for merging:
-* <code>touch_portion</code>: The relative amount an object touches another. E.g. in a symmetric, honey-comb like tissue, neighboring cells have a touch-portion of <code>1/6</code> to each other.
-* <code>touch_count</code>: The number of pixels where object touch. When using this parameter, make sure that images used for training and prediction have the same voxel size.
-* <code>mean_touch_intensity</code>: The mean average intensity between touching objects. When using this parameter, make sure images used for training and prediction are normalized the same way.
-* <code>centroid_distance</code>: The distance (in pixels or voxels) between centroids of labeled objects. 
-* <code>mean_intensity_difference</code>: The absolute difference between the mean intensity of the two objects. This measurement allows differentiating bright and dark object and [not] merging them.
-* <code>standard_deviation_intensity_difference</code>: The absolute difference between the standard deviation of the two objects. This measurement allows to differentiate [in]homogeneous objects and [not] merge them.
-* <code>area_difference</code>: The difference in area/volume/pixel-count allows differentiating small and large objects and [not] merging them.
-* <code>mean_max_distance_to_centroid_ratio_difference</code>: This parameter is a shape descriptor, similar to elongation, allowing to differentiate roundish and elongate object and [not] merging them.</p>
+Select which features should be considered for merging:</p>
+<ul>
+<li><code>touch_portion</code>: The relative amount an object touches another. E.g. in a symmetric, honey-comb like tissue, neighboring cells have a touch-portion of <code>1/6</code> to each other.</li>
+<li><code>touch_count</code>: The number of pixels where object touch. When using this parameter, make sure that images used for training and prediction have the same voxel size.</li>
+<li><code>mean_touch_intensity</code>: The mean average intensity between touching objects. When using this parameter, make sure images used for training and prediction are normalized the same way.</li>
+<li><code>centroid_distance</code>: The distance (in pixels or voxels) between centroids of labeled objects.</li>
+<li><code>mean_intensity_difference</code>: The absolute difference between the mean intensity of the two objects. This measurement allows differentiating bright and dark object and [not] merging them.</li>
+<li><code>standard_deviation_intensity_difference</code>: The absolute difference between the standard deviation of the two objects. This measurement allows to differentiate [in]homogeneous objects and [not] merge them.</li>
+<li><code>area_difference</code>: The difference in area/volume/pixel-count allows differentiating small and large objects and [not] merging them.</li>
+<li><code>mean_max_distance_to_centroid_ratio_difference</code>: This parameter is a shape descriptor, similar to elongation, allowing to differentiate roundish and elongate object and [not] merging them.</li>
+</ul>
 <p>Note: most features are recommended to be used in isotropic images only.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/merge_objects.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/merge_objects.gif" alt="img.png" /></p>
 <p>For training, use an image with equivalized intensity (1), an over-segmented label image (2) and annotations (3). When drawing annotations in a new labels layer, make sure to misguide the algorithm draw on edges of touching objects a 1 if those should be merged and a 2 if they should be kept. Make sure there are no 1/2 annotation circles on both: labels which should be merged and kept.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/merge_objects2.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/merge_objects2.png" alt="img.png" /></p>
 <h3>Object classification</h3>
-<p>Click the menu <code>Tools &gt; Segmentation post-processing &gt; Object classification (APOC)</code>. </p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/menu.png" /></p>
+<p>Click the menu <code>Tools &gt; Segmentation post-processing &gt; Object classification (APOC)</code>.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/menu.png" alt="img.png" /></p>
 <p>This user interface will be shown:</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_classifier_gui.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_classifier_gui.png" alt="img.png" /></p>
 <ol>
 <li>The image layer will be used for intensity based feature extraction (see below).</li>
-<li>The labels layer should be contain the segmentation of objects that should be classified. 
-   You can use the Object Segmenter explained above to create this layer.</li>
-<li>The annotation layer should contain manual annotations of object classes. 
-   You can draw lines crossing single and multiple objects of the same kind. 
-   For example draw a line through some elongated objects with label "1" and another line through some rather roundish objects with label "2".
-   If these lines touch the background, that will be ignored.</li>
+<li>The labels layer should be contain the segmentation of objects that should be classified.
+You can use the Object Segmenter explained above to create this layer.</li>
+<li>The annotation layer should contain manual annotations of object classes.
+You can draw lines crossing single and multiple objects of the same kind.
+For example draw a line through some elongated objects with label &quot;1&quot; and another line through some rather roundish objects with label &quot;2&quot;.
+If these lines touch the background, that will be ignored.</li>
 <li>Tree depth and number of trees allow you to fine-tune how to deal with manifold objects of different characteristics. The higher these numbers, the longer classification will take. In case you use many features, high depth and number of trees might be necessary. (See also <code>max_depth</code> and <code>n_estimators</code> in the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">scikit-learn documentation of the Random Forest Classifier</a>.</li>
-<li>Select the right features for training. For example, for differentiating objects according to their shape as suggested above, select "shape".
-   The features are extracted using clEsperanto and are shown by example in <a href="https://github.com/clEsperanto/pyclesperanto_prototype/blob/master/demo/tissues/parametric_maps.ipynb">this notebook</a>.</li>
-<li>Click on the <code>Run</code> button. If classification doesn't perform well in the first attempt, try changing selected features.  </li>
+<li>Select the right features for training. For example, for differentiating objects according to their shape as suggested above, select &quot;shape&quot;.
+The features are extracted using clEsperanto and are shown by example in <a href="https://github.com/clEsperanto/pyclesperanto_prototype/blob/master/demo/tissues/parametric_maps.ipynb">this notebook</a>.</li>
+<li>Click on the <code>Run</code> button. If classification doesn't perform well in the first attempt, try changing selected features.</li>
 </ol>
 <p>If classification worked well, it may for example look like this. Note the two thick lines which were drawn to annotate elongated and roundish objects with brown and cyan:</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_classification_result.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/object_classification_result.png" alt="img.png" /></p>
 <p>A pre-trained model can later be applied <a href="https://github.com/haesleinhuepf/apoc/blob/main/demo/cell_classification.ipynb">from scripts as shown in the example notebook</a> or using the menu <code>Tools &gt; Segmentation post-processing &gt; Object classification (apply pretrained, APOC)</code>.</p>
 <h3>Object selection</h3>
 <p>Analogously to object classification, the object selector removes all objects from a label image that do not belong to a specified class.
-It can be found in the menu <code>Tools &gt; Segmentation post-processing &gt; Object selection (APOC)</code>. </p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/select_objects.gif" /></p>
+It can be found in the menu <code>Tools &gt; Segmentation post-processing &gt; Object selection (APOC)</code>.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/select_objects.gif" alt="img.png" /></p>
 <h3>Feature correlation matrix</h3>
 <p>When training object classifiers it is crucial to investigate to which degree features are correlated and select the right, ideally uncorrelated features to classify objects robustly.
 After measuring features with any compatible napari plugin listed below, you can visualize the feature correlation matrix using the menu <code>Tools &gt; Measurement tables &gt; Show feature correlation matrix (pandas, APOC)</code> and by selecting the labels layer which has been analyzed.
 Before computing the correlation matrix, all rows containing <a href="https://en.wikipedia.org/wiki/NaN">NaN</a> values are removed.
 For further details, please refer to the <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html">documentation of the underlying function in pandas</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/feature_correlation_matrix.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/feature_correlation_matrix.png" alt="img.png" /></p>
 <h3>Surface Vertex Classification (SVeC)</h3>
-<p>When using napari-APOC in combination with <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces">napari-process-points-and-surfaces&gt;=0.3.3</a>, 
+<p>When using napari-APOC in combination with <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces">napari-process-points-and-surfaces&gt;=0.3.3</a>,
 one can also classify vertices. Therefore, use for example the menu <code>Measurement &gt; Surface quality table (vedo, nppas)</code> to determine quantitative measurements
 and the menu <code>Surfaces &gt; Annotate surface manually (nppas)</code> for manual annotations. It is recommended to annotate the entire surface with value 1 as background, and specific regions of interest with integer numbers &gt; 1.
 After measurements have been extracted and annotations were made, start SVeC from the <code>Surfaces &gt; Surface vertex classification (custom properties, APOC)</code> menu. It can be used like the Object Classifier explained above.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/demo_vertex_classification.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/demo_vertex_classification.gif" alt="img.png" /></p>
 <p><a href="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/demo_vertex_classification.mp4">Download full video</a></p>
 <h3>Classifier statistics</h3>
 <p>After classifier training, you can study the share of the individual features/measurements and how they are correlated by activating the checkboxes <code>Show classifier statistics</code> and <code>Show feature correlation matrix</code>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/correlation_matrix2.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/correlation_matrix2.png" alt="img.png" /></p>
 <p>This can help understanding how the classifier works. Furthermore, you can accelerate the classifier by reducing the number of correlated features.</p>
 <h3>Object classification from custom measurements</h3>
 <p>You can also classify labeled objects according to custom measurements. For deriving those measurements, you can use these napari plugins:</p>
@@ -366,13 +345,13 @@ After measurements have been extracted and annotations were made, start SVeC fro
 </ul>
 <p>Furthermore, if you use napari from Python, you can also create a dictionary or pandas DataFrame with measurements and store it in the <code>labels_layer.features</code> to make them available in the object classifier.</p>
 <p>After labels have been measured, you can start the <code>Object Classifier (custom properties, APOC)</code> from the <code>Tools &gt; Segmentation post-processing</code> menu:</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/table_row_classifier_gui.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/table_row_classifier_gui.png" alt="img.png" /></p>
 <ol>
 <li>Select the labels layers that has been measured.</li>
-<li>The annotation layer should contain manual annotations of object classes. 
-   You can draw lines crossing single and multiple objects of the same kind. 
-   For example draw a line through some elongated objects with label "1" and another line through some rather roundish objects with label "2".
-   If these lines touch the background, that will be ignored.</li>
+<li>The annotation layer should contain manual annotations of object classes.
+You can draw lines crossing single and multiple objects of the same kind.
+For example draw a line through some elongated objects with label &quot;1&quot; and another line through some rather roundish objects with label &quot;2&quot;.
+If these lines touch the background, that will be ignored.</li>
 <li>Select the measurements / features that should be used for object classification.</li>
 <li>Use the <code>Update Measurements</code> button in case you did new measurements after Object classifier dialog was opened.</li>
 <li>Enter the filename of the classifier to be trained here. This file will be overwritten in case it existed already.</li>
@@ -384,7 +363,7 @@ After measurements have been extracted and annotations were made, start SVeC fro
 <p>You can also train those classifiers from Python and reuse them: <a href="https://haesleinhuepf.github.io/BioImageAnalysisNotebooks/27_cell_classification/apoc_simpleitk_object_classification.html">Read more about using the TableRowClassifier from python</a></p>
 <h3>Classifier statistics and correlation matrix</h3>
 <p>After classifier training, you can study the share of the individual features/measurements and how they are correlated by activating the checkboxes <code>Show classifier statistics</code> and <code>Show correlation matrix</code>.
-<img alt="img.png" src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/correlation_matrix.png" /></p>
+<img src="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification/raw/main/images/correlation_matrix.png" alt="img.png" /></p>
 <p>This can help understanding how the classifier works. Furthermore, you can accelerate the classifier by reducing the number of correlated features.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -392,24 +371,22 @@ After measurements have been extracted and annotations were made, start SVeC fro
 <p>It is recommended to install the plugin in a conda environment. Therefore install conda first, e.g. <a href="https://docs.conda.io/en/latest/miniconda.html">mini-conda</a>.
 If you never worked with conda before, reading this <a href="https://github.com/BiAPoL/Bio-image_Analysis_with_Python/blob/main/conda_basics/01_conda_environments.md">short introduction</a> might be helpful.</p>
 <p>Optional: Setup a fresh conda environment, activate it and install napari:</p>
-<pre class="codehilite"><code>conda create --name napari_apoc python=3.9
+<pre><code><div class="highlight"><pre><span></span>conda create --name napari_apoc python=3.9
 conda activate napari_apoc
 conda install napari
+</pre></div>
 </code></pre>
-
 <p>If your conda environment is set up, you can install <code>napari-accelerated-pixel-and-object-classification</code> using <a href="https://pypi.org/project/pip/">pip</a>. Note: you need <a href="https://documen.tician.de/pyopencl/">pyopencl</a> first.</p>
-<pre class="codehilite"><code>conda install -c conda-forge pyopencl
+<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge pyopencl
 pip install napari-accelerated-pixel-and-object-classification
+</pre></div>
 </code></pre>
-
 <p>Mac-users please also install this:</p>
-<pre class="codehilite"><code>conda install -c conda-forge ocl_icd_wrapper_apple
+<pre><code>conda install -c conda-forge ocl_icd_wrapper_apple
 </code></pre>
-
 <p>Linux users please also install this:</p>
-<pre class="codehilite"><code>conda install -c conda-forge ocl-icd-system
+<pre><code>conda install -c conda-forge ocl-icd-system
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions, feedback and suggestions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -424,10 +401,10 @@ the coverage at least stays the same before you submit a pull request.</p>
 </ul>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-accelerated-pixel-and-object-classification" is free and open source software</p>
+&quot;napari-accelerated-pixel-and-object-classification&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://image.sc">open a thread on image.sc</a> along with a detailed description and tag <a href="https://github.com/haesleinhuepf">@haesleinhuepf</a>.</p>
-        
+
 
                                     </div>
                                 </div>

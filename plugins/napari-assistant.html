@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,61 +210,34 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-assistant/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-assistant.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-assistant"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-assistant.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-assistant.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-assistant/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-assistant/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-assistant"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-assistant/branch/master/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-assistant.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-assistant"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-assistant" /></a>
-<a href="https://zenodo.org/badge/latestdoi/463875112"><img alt="DOI" src="https://zenodo.org/badge/463875112.svg" /></a></p>
-<p>The napari-assistant is a <a href="https://github.com/napari/napari">napari</a> meta-plugin for building image processing workflows. </p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-assistant/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-assistant.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-assistant"><img src="https://img.shields.io/pypi/v/napari-assistant.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-assistant.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-assistant/actions"><img src="https://github.com/haesleinhuepf/napari-assistant/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-assistant"><img src="https://codecov.io/gh/haesleinhuepf/napari-assistant/branch/master/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-assistant.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-assistant"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-assistant" alt="napari hub" /></a>
+<a href="https://zenodo.org/badge/latestdoi/463875112"><img src="https://zenodo.org/badge/463875112.svg" alt="DOI" /></a></p>
+<p>The napari-assistant is a <a href="https://github.com/napari/napari">napari</a> meta-plugin for building image processing workflows.</p>
 <h2>Usage</h2>
-<p>After installing one or more napari plugins that use the napari-assistant as user interface, you can start it from the 
-menu <code>Tools &gt; Utilities &gt; Assistant (na)</code> or run <code>naparia</code> from the command line. </p>
+<p>After installing one or more napari plugins that use the napari-assistant as user interface, you can start it from the
+menu <code>Tools &gt; Utilities &gt; Assistant (na)</code> or run <code>naparia</code> from the command line.</p>
 <p>By clicking on the buttons in the assistant, you can setup a workflow for processing the images.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/napari-assistant-screenshot.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/napari-assistant-screenshot.png" alt="img.png" /></p>
 <p>While setting up your workflow, you can at any point select a layer from the layer list (1) and change the parameters of
-the corresponding operation (2). The layer will update when you change parameters and also all subsequent operations. 
+the corresponding operation (2). The layer will update when you change parameters and also all subsequent operations.
 You can also vary which operation is applied to the image (3). Also make sure the right input image layer is selected (4).</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/design_workflows.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/design_workflows.png" alt="img.png" /></p>
 <h3>Saving and loading workflows</h3>
-<p>You can also save and load workflows to disk. </p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/save_and_load.png" /></p>
+<p>You can also save and load workflows to disk.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/save_and_load.png" alt="img.png" /></p>
 <p>After loading a workflow, make sure that the right input images are selected.</p>
 <h3>Code generation</h3>
-<p>The napari-assistant allows exporting the given workflow as Python script and Jupyter Notebook. </p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/code_generator.png" /></p>
+<p>The napari-assistant allows exporting the given workflow as Python script and Jupyter Notebook.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/code_generator.png" alt="img.png" /></p>
 <p>Furthermore, if you have the <a href="https://www.napari-hub.org/plugins/napari-script-editor">napari-script-editor</a> installed,
 you can also send the current workflow as code to the script editor from the same menu.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/napari_script_editor.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-assistant/raw/main/docs/napari_script_editor.png" alt="img.png" /></p>
 <h3>Plugin generation</h3>
 <p>There is also a Napari plugin generator available. Check out <a href="https://github.com/haesleinhuepf/napari-assistant-plugin-generator">its documentation</a> to learn how napari-assistant compatible plugins can be generated directly from within the assistant.</p>
 <h2>Installation</h2>
@@ -269,45 +246,47 @@ You find a complete list of plugins that use the assistant <a href="https://www.
 Multiple of these plugins come bundled when installing <a href="https://www.napari-hub.org/plugins/devbio-napari">devbio-napari</a>.
 Note: This plugin is not compatible with napari 0.6.0 and later.</p>
 <h2>For developers</h2>
-<p>If you want to make your napari-plugin accessible from the napari-assistant, consider programming functions with a simple 
+<p>If you want to make your napari-plugin accessible from the napari-assistant, consider programming functions with a simple
 interface that consume images, labels, integers, floats and strings. Annotate input and return types, e.g. like this:</p>
-<pre class="codehilite"><code class="language-python">def example_function_widget(image: &quot;napari.types.ImageData&quot;) -&gt; &quot;napari.types.LabelsData&quot;:
-    from skimage.filters import threshold_otsu
-    binary_image = image &gt; threshold_otsu(image)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">example_function_widget</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">threshold_otsu</span>
+    <span class="n">binary_image</span> <span class="o">=</span> <span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold_otsu</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
-    from skimage.measure import label
-    return label(binary_image)
+    <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.measure</span><span class="w"> </span><span class="kn">import</span> <span class="n">label</span>
+    <span class="k">return</span> <span class="n">label</span><span class="p">(</span><span class="n">binary_image</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>Furthermore, please add your function to the napari.yaml which uses <a href="https://github.com/napari/npe2">npe2</a>:</p>
-<pre class="codehilite"><code>name: napari-npe2-test
-display_name: napari-npe2-test
-contributions:
-  commands: 
-    - id: napari-npe2-test.make_magic_widget
-      python_name: napari_npe2_test._widget:example_magic_widget
-      title: Make example magic widget
-  widgets:
-    - command: napari-npe2-test.make_magic_widget
-      display_name: Segmentation / labeling &gt; Otsu Labeling (nnpe2t)
+<pre><code><div class="highlight"><pre><span></span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">npe2</span><span class="o">-</span><span class="n">test</span>
+<span class="n">display_name</span><span class="o">:</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">npe2</span><span class="o">-</span><span class="n">test</span>
+<span class="n">contributions</span><span class="o">:</span>
+<span class="w">  </span><span class="n">commands</span><span class="o">:</span><span class="w"> </span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">npe2</span><span class="o">-</span><span class="n">test</span><span class="o">.</span><span class="na">make_magic_widget</span>
+<span class="w">      </span><span class="n">python_name</span><span class="o">:</span><span class="w"> </span><span class="n">napari_npe2_test</span><span class="o">.</span><span class="na">_widget</span><span class="o">:</span><span class="n">example_magic_widget</span>
+<span class="w">      </span><span class="n">title</span><span class="o">:</span><span class="w"> </span><span class="n">Make</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="n">widget</span>
+<span class="w">  </span><span class="n">widgets</span><span class="o">:</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">command</span><span class="o">:</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">npe2</span><span class="o">-</span><span class="n">test</span><span class="o">.</span><span class="na">make_magic_widget</span>
+<span class="w">      </span><span class="n">display_name</span><span class="o">:</span><span class="w"> </span><span class="n">Segmentation</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">labeling</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Otsu</span><span class="w"> </span><span class="n">Labeling</span><span class="w"> </span><span class="o">(</span><span class="n">nnpe2t</span><span class="o">)</span>
+</pre></div>
 </code></pre>
-
-<p>To put it in the right button within the napari-assistant, please use one of the following prefixes for the <code>display_name</code>:
-* <code>Filtering / noise removal &gt;</code>
-* <code>Filtering / background removal &gt;</code>
-* <code>Filtering &gt;</code>
-* <code>Image math &gt;</code>
-* <code>Transform &gt;</code>
-* <code>Projection &gt;</code>
-* <code>Segmentation / binarization &gt;</code>
-* <code>Segmentation / labeling &gt;</code>
-* <code>Segmentation post-processing &gt;</code>
-* <code>Measurement &gt;</code>
-* <code>Label neighbor filters &gt;</code>
-* <code>Label filters &gt;</code>
-* <code>Visualization &gt;</code></p>
+<p>To put it in the right button within the napari-assistant, please use one of the following prefixes for the <code>display_name</code>:</p>
+<ul>
+<li><code>Filtering / noise removal &gt; </code></li>
+<li><code>Filtering / background removal &gt; </code></li>
+<li><code>Filtering &gt; </code></li>
+<li><code>Image math &gt; </code></li>
+<li><code>Transform &gt; </code></li>
+<li><code>Projection &gt; </code></li>
+<li><code>Segmentation / binarization &gt; </code></li>
+<li><code>Segmentation / labeling &gt; </code></li>
+<li><code>Segmentation post-processing &gt; </code></li>
+<li><code>Measurement &gt; </code></li>
+<li><code>Label neighbor filters &gt; </code></li>
+<li><code>Label filters &gt; </code></li>
+<li><code>Visualization &gt; </code></li>
+</ul>
 <p>You find a fully functional example <a href="https://github.com/haesleinhuepf/napari-npe2-test">here</a>.</p>
-<p>Last but not least, to make your napari-plugin is listed in the napari-hub when searching for "napari-assistant", make sure
+<p>Last but not least, to make your napari-plugin is listed in the napari-hub when searching for &quot;napari-assistant&quot;, make sure
 you mention it in your <code>readme</code>.</p>
 <h2>Feedback welcome!</h2>
 <p>The napari-assistant is developed in the open because we believe in the open source community. Feel free to drop feedback as <a href="https://github.com/haesleinhuepf/napari-assistant/issues">github issue</a> or via <a href="https://image.sc">image.sc</a></p>
@@ -316,11 +295,11 @@ you mention it in your <code>readme</code>.</p>
 the test coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-assistant" is free and open source software</p>
+&quot;napari-assistant&quot; is free and open source software</p>
 <h2>Acknowledgements</h2>
-<p>This project was supported by the Deutsche Forschungsgemeinschaft under Germany’s Excellence Strategy – EXC2068 - Cluster of Excellence "Physics of Life" of TU Dresden. 
+<p>This project was supported by the Deutsche Forschungsgemeinschaft under Germany’s Excellence Strategy – EXC2068 - Cluster of Excellence &quot;Physics of Life&quot; of TU Dresden.
 This project has been made possible in part by grant number <a href="https://chanzuckerberg.com/science/programs-resources/imaging/napari/improving-image-processing/">2021-240341 (Napari plugin accelerator grant)</a> from the Chan Zuckerberg Initiative DAF, an advised fund of the Silicon Valley Community Foundation.</p>
-        
+
 
                                     </div>
                                 </div>

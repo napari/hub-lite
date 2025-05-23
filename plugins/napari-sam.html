@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/MIC-DKFZ/napari-sam/raw/main/LICENSE"><img alt="License Apache Software License 2.0" src="https://img.shields.io/pypi/l/napari-sam.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-sam"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-sam.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-sam.svg?color=green" /></a>
-<a href="https://github.com/MIC-DKFZ/napari-sam/actions"><img alt="tests" src="https://github.com/MIC-DKFZ/napari-sam/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/MIC-DKFZ/napari-sam"><img alt="codecov" src="https://codecov.io/gh/MIC-DKFZ/napari-sam/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-sam"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sam" /></a></p>
+                                        <p><a href="https://github.com/MIC-DKFZ/napari-sam/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-sam.svg?color=green" alt="License Apache Software License 2.0" /></a>
+<a href="https://pypi.org/project/napari-sam"><img src="https://img.shields.io/pypi/v/napari-sam.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-sam.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/MIC-DKFZ/napari-sam/actions"><img src="https://github.com/MIC-DKFZ/napari-sam/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/MIC-DKFZ/napari-sam"><img src="https://codecov.io/gh/MIC-DKFZ/napari-sam/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-sam"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sam" alt="napari hub" /></a></p>
 <p>Segment anything with our <strong>Napari</strong> integration of Meta AI's new <strong>Segment Anything Model (SAM)</strong>!</p>
 <p>SAM is the new segmentation system from Meta AI capable of <strong>one-click segmentation of any object</strong>, and now, our plugin neatly integrates this into Napari.</p>
 <p>We have already <strong>extended</strong> SAM's click-based foreground separation to full <strong>click-based semantic segmentation and instance segmentation</strong>!</p>
@@ -247,48 +224,41 @@ pre > code:last-child {
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Everything mode</th>
-<th style="text-align: center;">Click-based semantic segmentation mode</th>
-<th style="text-align: center;">Click-based instance segmentation mode</th>
+<th style="text-align:center">Everything mode</th>
+<th style="text-align:center">Click-based semantic segmentation mode</th>
+<th style="text-align:center">Click-based instance segmentation mode</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;"><img alt="" src="https://github.com/MIC-DKFZ/napari-sam/raw/main/cats_everything.png" /></td>
-<td style="text-align: center;"><img alt="" src="https://github.com/MIC-DKFZ/napari-sam/raw/main/cats_semantic.png" /></td>
-<td style="text-align: center;"><img alt="" src="https://github.com/MIC-DKFZ/napari-sam/raw/main/cats_instance.png" /></td>
+<td style="text-align:center"><img src="https://github.com/MIC-DKFZ/napari-sam/raw/main/cats_everything.png" alt="" /></td>
+<td style="text-align:center"><img src="https://github.com/MIC-DKFZ/napari-sam/raw/main/cats_semantic.png" alt="" /></td>
+<td style="text-align:center"><img src="https://github.com/MIC-DKFZ/napari-sam/raw/main/cats_instance.png" alt="" /></td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 align="center">SAM in Napari demo</h2>
 <div align="center">
-
-https://user-images.githubusercontent.com/3471895/236152620-0de983db-954b-4480-97b9-901ee82f8edd.mp4
-
+<p><a href="https://user-images.githubusercontent.com/3471895/236152620-0de983db-954b-4480-97b9-901ee82f8edd.mp4">https://user-images.githubusercontent.com/3471895/236152620-0de983db-954b-4480-97b9-901ee82f8edd.mp4</a></p>
 </div>
-
 <hr />
 <h2>Installation</h2>
 <p>The plugin requires <code>python&gt;=3.8</code>, as well as <code>pytorch&gt;=1.7</code> and <code>torchvision&gt;=0.8</code>. Please follow the instructions here to install both PyTorch and TorchVision dependencies. Installing both PyTorch and TorchVision with CUDA support is strongly recommended.</p>
 <p>Install Napari via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari[all]
+<pre><code>pip install napari[all]
 </code></pre>
-
 <p>You can install <code>napari-sam</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/facebookresearch/segment-anything.git
+<pre><code>pip install git+https://github.com/facebookresearch/segment-anything.git
 pip install napari-sam
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/MIC-DKFZ/napari-sam.git
+<pre><code>pip install git+https://github.com/MIC-DKFZ/napari-sam.git
 </code></pre>
-
 <h2>Usage</h2>
 <p>Start Napari from the console with:</p>
-<pre class="codehilite"><code>napari
+<pre><code>napari
 </code></pre>
-
 <p>Then navigate to <code>Plugins -&gt; Segment Anything (napari-sam)</code> and drag &amp; drop an image into Napari. At last create, a labels layer that will be used for the SAM predictions, by clicking in the layer list on the third button.</p>
 <p>You can then auto-download one of the available SAM models (this can take 1-2 minutes),  activate one of the annotations &amp; segmentation modes, and you are ready to go!</p>
 <h2>Contributing</h2>
@@ -296,16 +266,16 @@ pip install napari-sam
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License 2.0</a> license,
-"napari-sam" is free and open source software</p>
+&quot;napari-sam&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/MIC-DKFZ/napari-sam/issues">file an issue</a> along with a detailed description.</p>
 <h1>Acknowledgements</h1>
-<p><img src="https://github.com/MIC-DKFZ/napari-sam/raw/main/HI_Logo.png" height="100px" /></p>
-<p><img src="https://github.com/MIC-DKFZ/napari-sam/raw/main/dkfz_logo.png" height="100px" /></p>
-<p>napari-sam is developed and maintained by the Applied Computer Vision Lab (ACVL) of <a href="http://helmholtz-imaging.de">Helmholtz Imaging</a> 
-and the <a href="https://www.dkfz.de/en/mic/index.php">Division of Medical Image Computing</a> at the 
+<img src="https://github.com/MIC-DKFZ/napari-sam/raw/main/HI_Logo.png" height="100px" />
+<img src="https://github.com/MIC-DKFZ/napari-sam/raw/main/dkfz_logo.png" height="100px" />
+<p>napari-sam is developed and maintained by the Applied Computer Vision Lab (ACVL) of <a href="http://helmholtz-imaging.de">Helmholtz Imaging</a>
+and the <a href="https://www.dkfz.de/en/mic/index.php">Division of Medical Image Computing</a> at the
 <a href="https://www.dkfz.de/en/index.html">German Cancer Research Center (DKFZ)</a>.</p>
-        
+
 
                                     </div>
                                 </div>

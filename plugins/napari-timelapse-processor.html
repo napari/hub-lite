@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,39 +233,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jo-mueller/napari-timelapse-processor/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-timelapse-processor.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-timelapse-processor"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-timelapse-processor.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-timelapse-processor.svg?color=green" /></a>
-<a href="https://github.com/jo-mueller/napari-timelapse-processor/actions"><img alt="tests" src="https://github.com/jo-mueller/napari-timelapse-processor/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jo-mueller/napari-timelapse-processor"><img alt="codecov" src="https://codecov.io/gh/jo-mueller/napari-timelapse-processor/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-timelapse-processor"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-timelapse-processor" /></a></p>
+                                        <p><a href="https://github.com/jo-mueller/napari-timelapse-processor/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-timelapse-processor.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-timelapse-processor"><img src="https://img.shields.io/pypi/v/napari-timelapse-processor.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-timelapse-processor.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jo-mueller/napari-timelapse-processor/actions"><img src="https://github.com/jo-mueller/napari-timelapse-processor/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jo-mueller/napari-timelapse-processor"><img src="https://codecov.io/gh/jo-mueller/napari-timelapse-processor/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-timelapse-processor"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-timelapse-processor" alt="napari hub" /></a></p>
 <p>meta plugin to ease processing timelapse image data</p>
 <h2>API</h2>
 <p>This plugin exposes two principal funcionalities:</p>
@@ -276,42 +253,42 @@ pre > code:last-child {
 </ul>
 <p><code>napari.layers.Tracks</code> are intrinsically 4D and thus not supported.</p>
 <p><strong>Unstacking example usage:</strong></p>
-<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import TimelapseConverter
-import numpy as np
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_timelapse_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimelapseConverter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-image_4d = np.random.rand(10, 32, 32, 32)  # 10 timepoints of 32x32x32 data
-converter = TimelapseConverter()
-list_of_images = converter.unstack(image_4d, layertype='napari.types.ImageData')
+<span class="n">image_4d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>  <span class="c1"># 10 timepoints of 32x32x32 data</span>
+<span class="n">converter</span> <span class="o">=</span> <span class="n">TimelapseConverter</span><span class="p">()</span>
+<span class="n">list_of_images</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">image_4d</span><span class="p">,</span> <span class="n">layertype</span><span class="o">=</span><span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p><strong>Stacking example usage:</strong></p>
-<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import TimelapseConverter
-import numpy as np
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_timelapse_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimelapseConverter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-random_points = [np.random.rand(10, 3)  for _ in range(10)]  # 10 timepoints of 10 random 3D points
-converter = TimelapseConverter()
+<span class="n">random_points</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>  <span class="c1"># 10 timepoints of 10 random 3D points</span>
+<span class="n">converter</span> <span class="o">=</span> <span class="n">TimelapseConverter</span><span class="p">()</span>
 
-# stack the points into a single 4D layer
-stacked_points = converter.stack(random_points, layertype='napari.types.PointsData')
+<span class="c1"># stack the points into a single 4D layer</span>
+<span class="n">stacked_points</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">random_points</span><span class="p">,</span> <span class="n">layertype</span><span class="o">=</span><span class="s1">&#39;napari.types.PointsData&#39;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>The <code>TimeLapseConverter</code> class also supports (un)stacking the <code>napari.layers.Layer</code> type (and its above-listed subclasses). Importantly, <code>features</code> that are associated with the respective layer are also (un)stacked.</p>
 <p><strong>Layer example usage</strong></p>
-<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import TimelapseConverter
-import numpy as np
-from napari.layers import Points
-import pandas as pd
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_timelapse_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimelapseConverter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Points</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-random_points = [np.random.rand(10, 3)  for _ in range(10)]  # 10 timepoints of 10 random 3D points
-random_features = [pd.DataFrame(np.random.rand(10)) for _ in range(10)]  # 10 timepoints of 10 random feature values
+<span class="n">random_points</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>  <span class="c1"># 10 timepoints of 10 random 3D points</span>
+<span class="n">random_features</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>  <span class="c1"># 10 timepoints of 10 random feature values</span>
 
-# create a list of 10 Points layers
-points = [Points(random_points[i], properties=random_features[i]) for i in range(10)]
+<span class="c1"># create a list of 10 Points layers</span>
+<span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">Points</span><span class="p">(</span><span class="n">random_points</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">properties</span><span class="o">=</span><span class="n">random_features</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
 
-converter = TimelapseConverter()
-stacked_points = converter.stack(points, layertype='napari.layers.Points')
+<span class="n">converter</span> <span class="o">=</span> <span class="n">TimelapseConverter</span><span class="p">()</span>
+<span class="n">stacked_points</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">layertype</span><span class="o">=</span><span class="s1">&#39;napari.layers.Points&#39;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <h2>frame_by_frame</h2>
 <p>The frame-by-frame functionality provides a decorator that will inspect the decorated function for <code>TimelapseConverter</code>-compatible arguments and, if a 4D value is passed as argument, will automatically (un)stack the data before and after the function call. This allows for a more intuitive API when working with timelapse data. Currently supported type annotations are:</p>
 <ul>
@@ -329,34 +306,34 @@ stacked_points = converter.stack(points, layertype='napari.layers.Points')
 </ul>
 <p>Additionally, the <code>frame_by_frame</code> supports parallelization with <a href="https://distributed.dask.org/en/latest/">dask.distributed</a>. To use it, simply pass the <code>use_dask=True</code> argument to the decorated function, even if the function itself does not require this argument. The decorater will then automatically parallelize the function call over the time-axis and remove the <code>use_dask</code> argument when calling the function.</p>
 <p><strong>Example interactive code usage:</strong> If you want to use the <code>frame_by_frame</code> functionality in, say, a Jupyter notebook, use it like this:</p>
-<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import frame_by_frame
-import numpy as np
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_timelapse_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">frame_by_frame</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-def my_function(image: 'napari.types.ImageData') -&gt; 'napari.types.ImageData':
-    return 2 * image
+<span class="k">def</span><span class="w"> </span><span class="nf">my_function</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">image</span>
 
-image_4d = np.random.rand(10, 32, 32, 32)  # 10 timepoints of 32x32x32 data
+<span class="n">image_4d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>  <span class="c1"># 10 timepoints of 32x32x32 data</span>
 
-image_4d_processed = frame_by_frame(my_function)(image_4d)  # without dask
-image_4d_processed = frame_by_frame(my_function)(image_4d, use_dask=True)  # with dask
+<span class="n">image_4d_processed</span> <span class="o">=</span> <span class="n">frame_by_frame</span><span class="p">(</span><span class="n">my_function</span><span class="p">)(</span><span class="n">image_4d</span><span class="p">)</span>  <span class="c1"># without dask</span>
+<span class="n">image_4d_processed</span> <span class="o">=</span> <span class="n">frame_by_frame</span><span class="p">(</span><span class="n">my_function</span><span class="p">)(</span><span class="n">image_4d</span><span class="p">,</span> <span class="n">use_dask</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># with dask</span>
+</pre></div>
 </code></pre>
-
 <p><strong>Example napari code</strong> If you want to use the <code>frame_by_frame</code> functionality in a napari plugin, use it like this:</p>
-<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import frame_by_frame
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_timelapse_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">frame_by_frame</span>
 
-@frame_by_frame
-def my_function(image: 'napari.types.ImageData') -&gt; 'napari.types.ImageData':
-    return 2 * image
+<span class="nd">@frame_by_frame</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_function</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">image</span>
+</pre></div>
 </code></pre>
-
 <p><strong>Hint:</strong> The <code>frame_by_frame</code> functionality runs under the assumption that input napari-data (e.g., an Image, a Surface, Points, etc) are <em>always</em> arguments and any other parameters are <em>always</em> keyword arguments. If this is not the case, the decorator will not work as intended.</p>
-<pre class="codehilite"><code class="language-python"># This works
-frame_by_frame(my_function)(image_4d, some_parameter=2, use_dask=True)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="c1"># This works</span>
+<span class="n">frame_by_frame</span><span class="p">(</span><span class="n">my_function</span><span class="p">)(</span><span class="n">image_4d</span><span class="p">,</span> <span class="n">some_parameter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">use_dask</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-# This does not work
-frame_by_frame(my_function)(image=image_4d, some_parameter=2, use_dask=True)
+<span class="c1"># This does not work</span>
+<span class="n">frame_by_frame</span><span class="p">(</span><span class="n">my_function</span><span class="p">)(</span><span class="n">image</span><span class="o">=</span><span class="n">image_4d</span><span class="p">,</span> <span class="n">some_parameter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">use_dask</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -366,21 +343,19 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-timelapse-processor</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-timelapse-processor
+<pre><code>pip install napari-timelapse-processor
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-timelapse-processor" is free and open source software</p>
+&quot;napari-timelapse-processor&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

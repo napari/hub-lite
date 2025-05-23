@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,37 +234,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/qiqi-lu/napari-kld/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-kld.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-kld"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-kld.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-kld.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/napari-kld"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-kld" /></a></p>
+                                        <p><a href="https://github.com/qiqi-lu/napari-kld/LICENSE"><img src="https://img.shields.io/pypi/l/napari-kld.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-kld"><img src="https://img.shields.io/pypi/v/napari-kld.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-kld.svg?color=green" alt="Python Version" /></a>
+<a href="https://napari-hub.org/plugins/napari-kld"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-kld" alt="napari hub" /></a></p>
 <p><code>napari-kld</code> is a <code>napari</code> plugin that implements kernel learning deconvolution algrotihm.</p>
 <h2><strong>Kernel Learning Deconvolution (KLD)</strong></h2>
 <p>KLD is a rapid deconvolution algorithm for fluorescence microscopic image, which learns the forward and backward kernels in Richardson-Lucy Deconvolution (RLD) from paired low-resolution (LR) and high-resolution (HR) images.</p>
@@ -269,21 +246,20 @@ pre > code:last-child {
 <h2><strong>Installation</strong></h2>
 <p>You must install <code>napari</code> firstly and then install <code>napari-kld</code>.</p>
 <h3><strong>Install <code>napari</code></strong></h3>
-<p>You can download the <code>napari</code> bundled app for a simple installation via https://napari.org/stable/tutorials/fundamentals/quick_start.html#installation.</p>
+<p>You can download the <code>napari</code> bundled app for a simple installation via <a href="https://napari.org/stable/tutorials/fundamentals/quick_start.html#installation">https://napari.org/stable/tutorials/fundamentals/quick_start.html#installation</a>.</p>
 <p>Or, you can install <code>napari</code> with Python using pip:</p>
-<pre class="codehilite"><code>conda create -y -n napari-env -c conda-forge python=3.10
-conda activate napari-env
-python -m pip install 'napari[all]'
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">env</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">python</span><span class="o">=</span><span class="mf">3.10</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">env</span>
+<span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="s1">&#39;napari[all]&#39;</span>
+</pre></div>
 </code></pre>
-
-<p>Refer to https://napari.org/stable/tutorials/fundamentals/quick_start.html#installation.</p>
+<p>Refer to <a href="https://napari.org/stable/tutorials/fundamentals/quick_start.html#installation">https://napari.org/stable/tutorials/fundamentals/quick_start.html#installation</a>.</p>
 <h3><strong>Install <code>napari-kld</code></strong></h3>
 <p>You can install <code>napari-kld</code> plugin with <code>napari</code>:</p>
 <p><code>Plugins</code> &gt; <code>Install/Uninstall Plugins…</code> &gt; [search napari-kld] &gt; <code>install</code>.</p>
 <p>Or you can install <code>napari-kld</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-kld
+<pre><code>pip install napari-kld
 </code></pre>
-
 <h2><strong>Instruction</strong></h2>
 <p>This plugin includes two part:</p>
 <ul>
@@ -294,7 +270,7 @@ python -m pip install 'napari[all]'
 <p><code>KL Deconvolution</code> : KLD using learned forward/backward kernels.</p>
 </li>
 </ul>
-<p><strong>You can download the <code>"test"</code> folder  at https://github.com/qiqi-lu/kernel-learning-deconvolution for testing, which save some 2D/3D images used for training and testing.</strong></p>
+<p><strong>You can download the <code>&quot;test&quot;</code> folder  at <a href="https://github.com/qiqi-lu/kernel-learning-deconvolution">https://github.com/qiqi-lu/kernel-learning-deconvolution</a> for testing, which save some 2D/3D images used for training and testing.</strong></p>
 <h2><strong>RL Deconvolution</strong></h2>
 <p>The conventional RLD using different type of backward kernels.</p>
 <ol>
@@ -302,13 +278,13 @@ python -m pip install 'napari[all]'
 <p>Open <code>napari</code> and load <code>napari-kld</code> plugin: <code>Plugins</code> &gt; <code>Kernel Learning Deconvolution</code> &gt; <code>RL Deconvolution</code></p>
 </li>
 <li>
-<p>Load input low-resolution (LR) image: <code>File</code> &gt; <code>Open File(s)</code> &gt; <code>[choose the image to be deconvolved]</code> &gt; <code>[the image will appear in the layer list of napari]</code>, such as the simulated image <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/raw/0.tif"</code>.</p>
+<p>Load input low-resolution (LR) image: <code>File</code> &gt; <code>Open File(s)</code> &gt; <code>[choose the image to be deconvolved]</code> &gt; <code>[the image will appear in the layer list of napari]</code>, such as the simulated image <code>&quot;test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/raw/0.tif&quot;</code>.</p>
 </li>
 <li>
-<p>Choose the name of loaded image in <code>Input RAW data</code>, such as <code>"0"</code>.</p>
+<p>Choose the name of loaded image in <code>Input RAW data</code>, such as <code>&quot;0&quot;</code>.</p>
 </li>
 <li>
-<p>Press <code>Choose</code> to choose a <code>PSF</code> correspongding to the loaded image, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif"</code>.</p>
+<p>Press <code>Choose</code> to choose a <code>PSF</code> correspongding to the loaded image, such as <code>&quot;test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif&quot;</code>.</p>
 </li>
 <li>
 <p>Choose the type of backward kernel in <code>Method</code> combo box:</p>
@@ -329,7 +305,7 @@ python -m pip install 'napari[all]'
 <p>Wait the <code>progress bar</code> to reach 100%.</p>
 </li>
 <li>
-<p>The output deconved image will appear in the layer list named as <code>{name of input image}_deconv_{Method}_iter_{Iterations}</code>, such as <code>"0_deconv_traditional_iter_30"</code>.</p>
+<p>The output deconved image will appear in the layer list named as <code>{name of input image}_deconv_{Method}_iter_{Iterations}</code>, such as <code>&quot;0_deconv_traditional_iter_30&quot;</code>.</p>
 </li>
 </ol>
 <p>*<em>The adjustment of parameters of backward kernels should refer to the paper : Guo, M. et al. Rapid image deconvolution and multiview fusion for optical microscopy. Nat Biotechnol 38, 1337–1346 (2020).</em></p>
@@ -337,9 +313,9 @@ python -m pip install 'napari[all]'
 <h3><strong>Training data preparation</strong></h3>
 <p>The data used for training must be prepared in a folder consisting of:</p>
 <ul>
-<li>A folder named <code>"gt"</code> (optional) , such as <code>"test/data/real/2D/train/gt"</code>, which saves all the GT images (only support .tif file).</li>
-<li>A folder named <code>"raw"</code>, such as <code>"test/data/real/2D/train/raw"</code>, which saves all the LR images (only support .tif file). The file names must be the same as those in <code>"gt"</code> folder.</li>
-<li>A file named <code>"train.txt"</code>, such as <code>"test/data/real/2D/train/train.txt"</code>, which saves the name of each image in <code>"gt"/"raw"</code> filder in each line.</li>
+<li>A folder named <code>&quot;gt&quot;</code> (optional) , such as <code>&quot;test/data/real/2D/train/gt&quot;</code>, which saves all the GT images (only support .tif file).</li>
+<li>A folder named <code>&quot;raw&quot;</code>, such as <code>&quot;test/data/real/2D/train/raw&quot;</code>, which saves all the LR images (only support .tif file). The file names must be the same as those in <code>&quot;gt&quot;</code> folder.</li>
+<li>A file named <code>&quot;train.txt&quot;</code>, such as <code>&quot;test/data/real/2D/train/train.txt&quot;</code>, which saves the name of each image in <code>&quot;gt&quot;/&quot;raw&quot;</code> filder in each line.</li>
 </ul>
 <h3><strong>When yuo have paired LR image and HR image</strong></h3>
 <p>When we have paired LR image and HR image, we can treat LR image as <strong>raw input</strong> and HR image as <strong>ground truth</strong> (GT). We can first learn the forward kernel and then learn the backward kernel in a <strong>supervised strategy</strong>.</p>
@@ -353,10 +329,10 @@ python -m pip install 'napari[all]'
 <p>Choose <code>Training</code> tab.</p>
 </li>
 <li>
-<p>Choose <code>Data Directory</code>, such as <code>"test/data/real/2D/train"</code>. Then the dimention of training data will show in the <code>Dimension</code> box.</p>
+<p>Choose <code>Data Directory</code>, such as <code>&quot;test/data/real/2D/train&quot;</code>. Then the dimention of training data will show in the <code>Dimension</code> box.</p>
 </li>
 <li>
-<p>Choose <code>Output Directory</code>, such as <code>"test/data/real/2D"</code>.</p>
+<p>Choose <code>Output Directory</code>, such as <code>&quot;test/data/real/2D&quot;</code>.</p>
 </li>
 <li>
 <p><code>PSF Directory</code> is not required as the PSF is unknown.</p>
@@ -383,10 +359,12 @@ python -m pip install 'napari[all]'
 <p>Wait the <code>progress bar</code> to reach 100% and training finished.</p>
 </li>
 </ol>
-<p>After the training of forward projection, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>forward_bs_{batch size}_lr_{learning rate}_ks_{kernel size (z)}_{kernel size (xy)}</code>, such as <code>"test/data/real/2D/checkpoints/forward_bs_1_lr_0.001_ks_1_31"</code>, which consists of:
-- a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.
-- many model checkpoints, named as <code>epoch_{epoch}.pt</code>.
-- a <code>parameters.json</code> file saving the parameters used to training the model.</p>
+<p>After the training of forward projection, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>forward_bs_{batch size}_lr_{learning rate}_ks_{kernel size (z)}_{kernel size (xy)}</code>, such as <code>&quot;test/data/real/2D/checkpoints/forward_bs_1_lr_0.001_ks_1_31&quot;</code>, which consists of:</p>
+<ul>
+<li>a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.</li>
+<li>many model checkpoints, named as <code>epoch_{epoch}.pt</code>.</li>
+<li>a <code>parameters.json</code> file saving the parameters used to training the model.</li>
+</ul>
 <h4><strong>Training of Backward Projection</strong></h4>
 <p>After training of forward projeciton, we can freeze the forward projeciton and then train the backward projeciton.</p>
 <ol>
@@ -397,10 +375,10 @@ python -m pip install 'napari[all]'
 <p>Choose <code>Training</code> tab.</p>
 </li>
 <li>
-<p>Choose <code>Data Directory</code>, such as <code>"test/data/2D/real/train"</code>. Then the dimention of training data will show in the <code>Dimension</code> box.</p>
+<p>Choose <code>Data Directory</code>, such as <code>&quot;test/data/2D/real/train&quot;</code>. Then the dimention of training data will show in the <code>Dimension</code> box.</p>
 </li>
 <li>
-<p>Choose <code>Output Directory</code>, such as <code>"test/data/2D/real"</code>.</p>
+<p>Choose <code>Output Directory</code>, such as <code>&quot;test/data/2D/real&quot;</code>.</p>
 </li>
 <li>
 <p><code>PSF Directory</code> is no required as the PSF is unknown.</p>
@@ -416,7 +394,7 @@ python -m pip install 'napari[all]'
 <li><code>Epoch</code> : The number fo epochs used to traing the model.</li>
 <li><code>Batch Size</code> : The batch size used to training the model.</li>
 <li><code>Kernel Size (z, xy)</code>: The size of backward kernel, <code>x</code> and <code>y</code> have the same size.</li>
-<li><code>FP directory</code> : the directory of the pre-trained forward projeciton model, such as <code>"test/data/real/2D/checkpoints/forward_bs_1_lr_0.001_ks_1_31/epoch_500_final.pt"</code> (commonly the model labeled with <code>"_final"</code> is used).</li>
+<li><code>FP directory</code> : the directory of the pre-trained forward projeciton model, such as <code>&quot;test/data/real/2D/checkpoints/forward_bs_1_lr_0.001_ks_1_31/epoch_500_final.pt&quot;</code> (commonly the model labeled with <code>&quot;_final&quot;</code> is used).</li>
 <li><code>Optimizer</code> : Optimization algorithm. Default: Adam.</li>
 <li><code>Learning Rate</code> : The learning rate used to trianing the model.</li>
 <li><code>Decay Step</code> : the decay step of learning rate.</li>
@@ -430,7 +408,7 @@ python -m pip install 'napari[all]'
 <p>Wait the <code>progress bar</code> to reach 100% and then the training finishes.</p>
 </li>
 </ol>
-<p>When the training finishes, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}</code>, such as <code>"test/data/real/2D/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_1_31"</code>, which consists of:</p>
+<p>When the training finishes, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}</code>, such as <code>&quot;test/data/real/2D/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_1_31&quot;</code>, which consists of:</p>
 <ul>
 <li>a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.</li>
 <li>many model checkpoints, named as <code>epoch_{epoch}.pt</code>.</li>
@@ -454,10 +432,10 @@ python -m pip install 'napari[all]'
 <p>Choose <code>Simulation</code> tab.</p>
 </li>
 <li>
-<p>Choose the <code>Output Directory</code> of the generated simulation data, such as <code>"test\data\simulation"</code>.</p>
+<p>Choose the <code>Output Directory</code> of the generated simulation data, such as <code>&quot;test\data\simulation&quot;</code>.</p>
 </li>
 <li>
-<p>Choose the <code>PSF Directory</code> (only support 2D/3D PSF file save as .tif, axes = (y, x) or (z, y, x)), such as <code>"test\data\simulation\psf.tif"</code>.</p>
+<p>Choose the <code>PSF Directory</code> (only support 2D/3D PSF file save as .tif, axes = (y, x) or (z, y, x)), such as <code>&quot;test\data\simulation\psf.tif&quot;</code>.</p>
 </li>
 <li>
 <p>Adjust the parameters as needed.</p>
@@ -481,13 +459,13 @@ python -m pip install 'napari[all]'
 <p>Wait the <code>progress bar</code> to reach 100%.</p>
 </li>
 </ol>
-<p>The generated simulation data will be save in <code>Output directory</code>, named as <code>"data_{shape_z}_{shape_y}_{shape_x}_gauss_{std of Gaussian noise}_poiss_{whether to add Poisson noise}_ratio_{Ratio}"</code>, such as: <code>"test\data\simulation\data_128_128_128_gauss_0.0_poiss_0_ratio_1.0\train"</code></p>
+<p>The generated simulation data will be save in <code>Output directory</code>, named as <code>&quot;data_{shape_z}_{shape_y}_{shape_x}_gauss_{std of Gaussian noise}_poiss_{whether to add Poisson noise}_ratio_{Ratio}&quot;</code>, such as: <code>&quot;test\data\simulation\data_128_128_128_gauss_0.0_poiss_0_ratio_1.0\train&quot;</code></p>
 <ul>
-<li><code>"data\train\gt"</code> saves the GT images which consist of structures with various shapes*.</li>
-<li><code>"data\train\raw"</code> saves the RAW images with blur and noise.</li>
-<li><code>"data\train\parameters.json"</code> is a dictionary of parameters used to generate the simulation data.</li>
-<li><code>"data\train\psf.tif"</code> is the PSF used in the simulation data generation (as the original PSF may be cropped).</li>
-<li><code>"data\train\train.txt</code> save all the image used to train the model.</li>
+<li><code>&quot;data\train\gt&quot;</code> saves the GT images which consist of structures with various shapes*.</li>
+<li><code>&quot;data\train\raw&quot;</code> saves the RAW images with blur and noise.</li>
+<li><code>&quot;data\train\parameters.json&quot;</code> is a dictionary of parameters used to generate the simulation data.</li>
+<li><code>&quot;data\train\psf.tif&quot;</code> is the PSF used in the simulation data generation (as the original PSF may be cropped).</li>
+<li><code>&quot;data\train\train.txt</code> save all the image used to train the model.</li>
 </ul>
 <p>After you generate simulation data, you can use them to train the model.</p>
 <p>*<em>the code was refered to the paper: Li, Y. et al. Incorporating the image formation process into deep learning improves network performance. Nat Methods 19, 1427–1437 (2022).</em></p>
@@ -502,7 +480,7 @@ python -m pip install 'napari[all]'
 <p>Choose <code>Training</code> tab.</p>
 </li>
 <li>
-<p>Choose <code>Data Directory</code>, such as <code>test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train"</code>, which saves the data used to train the model in should include:</p>
+<p>Choose <code>Data Directory</code>, such as <code>test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train&quot;</code>, which saves the data used to train the model in should include:</p>
 <ul>
 <li>A <code>gt</code> folder saves the GT images</li>
 <li>A <code>raw</code> folder save the raw input LR images with the same file name as GT images</li>
@@ -510,10 +488,10 @@ python -m pip install 'napari[all]'
 </ul>
 </li>
 <li>
-<p>Choose a <code>Output Directory</code> to save the model checkpoints, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0"</code>.</p>
+<p>Choose a <code>Output Directory</code> to save the model checkpoints, such as <code>&quot;test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0&quot;</code>.</p>
 </li>
 <li>
-<p>Choose <code>PSF Directory</code> of the PSF corresponding to the data, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif"</code>. Then the <code>Forward Projection</code> group box will be invisible as we do not need to learn the forward kernel when we know the PSF. Just use the PSF as the forward kernel.</p>
+<p>Choose <code>PSF Directory</code> of the PSF corresponding to the data, such as <code>&quot;test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif&quot;</code>. Then the <code>Forward Projection</code> group box will be invisible as we do not need to learn the forward kernel when we know the PSF. Just use the PSF as the forward kernel.</p>
 </li>
 <li>
 <p>If the raw input and GT image have different intensity, please check the <code>Preprocess</code> check box, which will rescale the input and GT images to have the same intensity. Here, do not check.</p>
@@ -540,8 +518,8 @@ python -m pip install 'napari[all]'
 <p>Wait the <code>progress bar</code> to reach 100% and the training finishes.</p>
 </li>
 </ol>
-<p>When the training finishes, a checkpoints folder will be created in <code>Output Directory</code> such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/checkpoints"</code>.</p>
-<p>The models is save in <code>/checkpoints</code> folder, which is named as <code>"backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}"</code>, such as <code>"/checkpoints/backward_bs_1_lr_1e-06_iter_2_ks_1_31"</code>, consists of:</p>
+<p>When the training finishes, a checkpoints folder will be created in <code>Output Directory</code> such as <code>&quot;test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/checkpoints&quot;</code>.</p>
+<p>The models is save in <code>/checkpoints</code> folder, which is named as <code>&quot;backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}&quot;</code>, such as <code>&quot;/checkpoints/backward_bs_1_lr_1e-06_iter_2_ks_1_31&quot;</code>, consists of:</p>
 <ul>
 <li>A <code>log</code> folder saved the <code>Tensorboard</code> log, which can be open with <code>Tensorboard</code>.</li>
 <li>Many model checkpoints, named as <code>epoch_{epoch}.pt</code>.</li>
@@ -557,13 +535,13 @@ python -m pip install 'napari[all]'
 <p>Choose <code>Training</code> tab.</p>
 </li>
 <li>
-<p>Choose <code>Data Directory</code>, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train"</code>.</p>
+<p>Choose <code>Data Directory</code>, such as <code>&quot;test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train&quot;</code>.</p>
 </li>
 <li>
-<p>choose <code>Output Directory</code>, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0"</code>.</p>
+<p>choose <code>Output Directory</code>, such as <code>&quot;test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0&quot;</code>.</p>
 </li>
 <li>
-<p>Choose <code>PSF Directory</code>, such as <code>"test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif"</code> then the <code>Forward Projection</code> box will be invisiable.</p>
+<p>Choose <code>PSF Directory</code>, such as <code>&quot;test/data/simulation/data_128_128_128_gauss_0.0_poiss_0_ratio_1.0/train/psf.tif&quot;</code> then the <code>Forward Projection</code> box will be invisiable.</p>
 </li>
 <li>
 <p>As there is no GT image, preprocessing is not needed. Do not check <code>Preprocess</code> check box.</p>
@@ -590,7 +568,7 @@ python -m pip install 'napari[all]'
 <p>Wait the <code>progress bar</code> to reach 100% and training finishes.</p>
 </li>
 </ol>
-<p>When the training finishes, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}_ss</code>, such as <code>"/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_31_31_ss"</code>, which consists of:</p>
+<p>When the training finishes, the results will be save in the <code>/checkpoints</code> folder in <code>Output Directory</code>, the model was named as <code>backward_bs_{batch size}_lr_{learning rate}_iter_{num of RL iterations}_ks_{kernel size (z)}_{kernel size (xy)}_ss</code>, such as <code>&quot;/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_31_31_ss&quot;</code>, which consists of:</p>
 <ul>
 <li>a <code>log</code> folder saved the <code>Tensorboard</code> log, which can be opened with <code>Tensorboard</code>.</li>
 <li>many model checkpoints, named as <code>epoch_{epoch}.pt</code>.</li>
@@ -607,7 +585,7 @@ python -m pip install 'napari[all]'
 <p>Choose <code>Prediction</code> tab.</p>
 </li>
 <li>
-<p>Load raw input low-resolution image through <code>napari</code>: <code>File</code> &gt; <code>Open File(s)</code> &gt; <code>[choose the image to be deconvolved]</code> &gt; <code>[the image will appear in the layer list of napari]</code>, such as <code>"test/data/real/2D/test/raw/2.tif"</code>.</p>
+<p>Load raw input low-resolution image through <code>napari</code>: <code>File</code> &gt; <code>Open File(s)</code> &gt; <code>[choose the image to be deconvolved]</code> &gt; <code>[the image will appear in the layer list of napari]</code>, such as <code>&quot;test/data/real/2D/test/raw/2.tif&quot;</code>.</p>
 </li>
 <li>
 <p>Choose the loaded image in <code>Input RAW data</code> box, e.g., <code>2</code>.</p>
@@ -616,10 +594,10 @@ python -m pip install 'napari[all]'
 <p>If the PSF is known, choose the <code>PSF directory</code>.</p>
 </li>
 <li>
-<p>If the PSF is unknown, choose the <code>Forward Projection</code> directory, such as <code>"test/data/real/2D/checkpoints/forward_bs_1_lr_0.001_ks_1_31/epoch_500_final.pt"</code> (commonly the model labeled with <code>"_final"</code> is used). If both the directories of PSF and Forward Projeciton is choosen, KLD will directly use the PSF selected.</p>
+<p>If the PSF is unknown, choose the <code>Forward Projection</code> directory, such as <code>&quot;test/data/real/2D/checkpoints/forward_bs_1_lr_0.001_ks_1_31/epoch_500_final.pt&quot;</code> (commonly the model labeled with <code>&quot;_final&quot;</code> is used). If both the directories of PSF and Forward Projeciton is choosen, KLD will directly use the PSF selected.</p>
 </li>
 <li>
-<p>Choose the <code>Backward Projeciton</code> directory, such as <code>"test/data/real/2D/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_1_31/epoch_1000_final.pt"</code>  (commonly the model labeled with <code>"_final"</code> is used).</p>
+<p>Choose the <code>Backward Projeciton</code> directory, such as <code>&quot;test/data/real/2D/checkpoints/backward_bs_1_lr_1e-05_iter_2_ks_1_31/epoch_1000_final.pt&quot;</code>  (commonly the model labeled with <code>&quot;_final&quot;</code> is used).</p>
 </li>
 <li>
 <p>Set the number of RL iterations at <code>Iterations (RL)</code>. Default: 2.</p>
@@ -631,7 +609,7 @@ python -m pip install 'napari[all]'
 <p>Wait the progress bar to reach 100%.</p>
 </li>
 </ol>
-<p>The deconvolved image will be directly shown in the <code>layer list</code> of <code>napari</code>, named as <code>"{input data name}_deconvo_iter_{number of RL iterations}"</code>, e.g., <code>"16_deconv_iter_2"</code>. You can save it as needed.</p>
+<p>The deconvolved image will be directly shown in the <code>layer list</code> of <code>napari</code>, named as <code>&quot;{input data name}_deconvo_iter_{number of RL iterations}&quot;</code>, e.g., <code>&quot;16_deconv_iter_2&quot;</code>. You can save it as needed.</p>
 <h3><strong>Others</strong></h3>
 <p>The <code>log</code> tab print the message during running.
 Press <code>clean</code> button will clean all the text in the <code>log</code> box.</p>
@@ -651,7 +629,7 @@ the coverage at least stays the same before you submit a pull request.</p>
 <p>MIT LICENSE</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,50 +210,23 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/glichtner/napari-pystackreg/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-pystackreg.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-pystackreg"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-pystackreg.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-pystackreg.svg?color=green" /></a>
-<a href="https://github.com/glichtner/napari-pystackreg/actions"><img alt="tests" src="https://github.com/glichtner/napari-pystackreg/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/glichtner/napari-pystackreg"><img alt="codecov" src="https://codecov.io/gh/glichtner/napari-pystackreg/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-pystackreg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-pystackreg" /></a></p>
+                                        <p><a href="https://github.com/glichtner/napari-pystackreg/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-pystackreg.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-pystackreg"><img src="https://img.shields.io/pypi/v/napari-pystackreg.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-pystackreg.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/glichtner/napari-pystackreg/actions"><img src="https://github.com/glichtner/napari-pystackreg/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/glichtner/napari-pystackreg"><img src="https://codecov.io/gh/glichtner/napari-pystackreg/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-pystackreg"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-pystackreg" alt="napari hub" /></a></p>
 <p>Robust image registration for napari.</p>
 <h2>Summary</h2>
 <p>napari-pystackreg offers the image registration capabilities of the python package
 <a href="https://github.com/glichtner/pystackreg">pystackreg</a> for napari.</p>
-<p><img alt="" src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/napari-pystackreg.gif" /></p>
+<p><img src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/napari-pystackreg.gif" alt="" /></p>
 <h2>Description</h2>
 <p>pyStackReg is used to align (register) one or more images to a common reference image, as is required usually in
 time-resolved fluorescence or wide-field microscopy.
 It is directly ported from the source code of the ImageJ plugin <code>TurboReg</code> and provides additionally the
 functionality of the ImageJ plugin <code>StackReg</code>, both of which were written by Philippe Thevenaz/EPFL
-(available at http://bigwww.epfl.ch/thevenaz/turboreg/).</p>
+(available at <a href="http://bigwww.epfl.ch/thevenaz/turboreg/">http://bigwww.epfl.ch/thevenaz/turboreg/</a>).</p>
 <p>pyStackReg provides the following five types of distortion:</p>
 <ul>
 <li>Translation</li>
@@ -263,54 +240,55 @@ images and having access to the actual transformation matrices (please see the e
 uses the high quality (i.e. high accuracy) mode of TurboReg that uses cubic spline interpolation for transformation.</p>
 <p>Please note: The bilinear transformation cannot be propagated, as a combination of bilinear transformations does not
 generally result in a bilinear transformation. Therefore, stack registration/transform functions won't work with
-bilinear transformation when using "previous" image as reference image. You can either use another reference (
-"first" or "mean" for first or mean image, respectively), or try to register/transform each image of the stack
+bilinear transformation when using &quot;previous&quot; image as reference image. You can either use another reference (
+&quot;first&quot; or &quot;mean&quot; for first or mean image, respectively), or try to register/transform each image of the stack
 separately to its respective previous image (and use the already transformed previous image as reference for the
 next image).</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-pystackreg</code> via <a href="https://pypi.org/project/pip/">pip</a> from <a href="https://pypi.org/">PyPI</a>:</p>
-<pre class="codehilite"><code>pip install napari-pystackreg
+<pre><code>pip install napari-pystackreg
 </code></pre>
-
 <p>You can also install <code>napari-pystackreg</code> via <a href="https://docs.conda.io/en/latest/">conda</a>:</p>
-<pre class="codehilite"><code>conda install -c conda-forge napari-pystackreg
+<pre><code>conda install -c conda-forge napari-pystackreg
 </code></pre>
-
 <p>Or install it via napari's plugin installer.</p>
-<pre class="codehilite"><code>Plugins &gt; Install/Uninstall Plugins... &gt; Filter for &quot;napari-pystackreg&quot; &gt; Install
+<pre><code>Plugins &gt; Install/Uninstall Plugins... &gt; Filter for &quot;napari-pystackreg&quot; &gt; Install
 </code></pre>
-
 <p>To install latest development version:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/glichtner/napari-pystackreg.git
+<pre><code>pip install git+https://github.com/glichtner/napari-pystackreg.git
 </code></pre>
-
 <h2>Usage</h2>
 <h3>Open Plugin User Interface</h3>
 <p>Start up napari, e.g. from the command line:</p>
-<pre class="codehilite"><code>napari
+<pre><code>napari
 </code></pre>
-
 <p>Then, load an image stack (e.g. via <code>File &gt; Open Image...</code>) that you want to register. You can also use the example
 stack provided by the pluging (<code>File &gt; Open Sample &gt; napari-pystackreg: PC12 moving example</code>).
 Then, select the <code>napari-pystackreg</code> plugin from the <code>Plugins &gt; napari-pystackreg: pystackreg</code> menu.</p>
-<p><img alt="" src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-initial.png" /></p>
+<p><img src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-initial.png" alt="" /></p>
 <h3>User Interface Options</h3>
 <p>A variety of options are available to control the registration process:</p>
 <ul>
 <li><code>Image Stack</code>: The image layer that should be registered/transformed.</li>
-<li><code>Transformation</code>: The type of transformation that should be applied.</li>
+<li><code>Transformation</code>: The type of transformation that should be applied.
+<ul>
 <li><code>Translation</code>: translation</li>
 <li><code>Rigid body</code>: translation + rotation</li>
 <li><code>Scaled rotation</code>: translation + rotation + scaling</li>
 <li><code>Affine</code>: translation + rotation + scaling + shearing</li>
 <li><code>Bilinear</code>: non-linear transformation; does not preserve straight lines</li>
-<li><code>Reference frame:</code> The reference image for registration.</li>
+</ul>
+</li>
+<li><code>Reference frame:</code> The reference image for registration.
+<ul>
 <li><code>Previous frame</code>: Aligns each frame (image) to its previous frame in the stack</li>
 <li><code>Mean (all frames)</code>: Aligns each frame (image) to the average of all images in the stack</li>
 <li><code>Mean (first n frames)</code>: Aligns each frame (image) to the mean of the first n frames in the stack. n is a tuneable parameter.</li>
+</ul>
+</li>
 <li><code>Moving-average stack before register</code>: Apply a moving average to the stack before registration. This can be useful to
-  reduce noise in the stack (if the signal-to-noise ratio is very low). The moving average is applied to the stack only
-  for determining the transformation matrices, but not for the actual transforming of the stack.</li>
+reduce noise in the stack (if the signal-to-noise ratio is very low). The moving average is applied to the stack only
+for determining the transformation matrices, but not for the actual transforming of the stack.</li>
 <li><code>Transformation matrix file</code>: Transformation matrices can be saved to or loaded from a file for permanent storage.</li>
 </ul>
 <h3>Reference frame</h3>
@@ -320,7 +298,7 @@ reference frame can be set to the mean of all frames in the stack (<code>Mean (a
 frames in the stack (<code>Mean (first n frames)</code>). The latter option can be useful if the first frames in the stack are more
 stable than the later frames (e.g. if the first frames are taken before the sample is moved). When selecting the
 <code>Mean (first n frames)</code> option, the number of frames to use for the mean can be set via the spinbox below the option.</p>
-<p><img alt="" src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-reference-mean-n.png" /></p>
+<p><img src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-reference-mean-n.png" alt="" /></p>
 <h3>Moving average before registration</h3>
 <p>To increase registration performance with low signal-to-noise ratio stacks, a moving average can be applied to the
 stack before registration. The moving average is applied to the stack only for determining the
@@ -328,26 +306,26 @@ transformation matrices, but not for the actual transforming of the stack. That 
 still contain the original frames (however registered), but not the averaged frames.</p>
 <p>When selecting the <code>Moving-average stack before register</code> option, the number of frames to use for the moving average can
 be set via the spinbox below the option.</p>
-<p><img alt="" src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-moving-average.png" /></p>
+<p><img src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-moving-average.png" alt="" /></p>
 <h3>Transformation matrix file</h3>
 <p>The transformation matrices can be saved to or loaded from a file for permanent storage. This can be useful if you want
 to apply the same transformation to another stack (e.g. a different channel of the same sample). The transformation
 matrices are saved as a numpy array in a binary file (<code>.npy</code>). The file can be loaded via the <code>Load</code> button and saved
 via the <code>Save</code> button.</p>
-<p><img alt="" src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-register-tmat.png" /></p>
+<p><img src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-register-tmat.png" alt="" /></p>
 <h3>Register/Transform</h3>
 <p>To perform the actual registration and transformation steps, click the <code>Register</code> and <code>Transform</code> buttons, respectively.</p>
 <p>The <code>Register</code> button will register the stack to the reference by determining the appropriate transformation matrices,
 without actually transforming the stack. The transformation matrices can be saved to a file via the <code>Save</code> button in the
 <code>Transformation matrix file</code> section.</p>
-<p><img alt="" src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-registered.png" /></p>
+<p><img src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-registered.png" alt="" /></p>
 <p>The <code>Transform</code> button (1) will transform the stack to the reference by applying the transformation matrices that are
 currently loaded to the stack selected in <code>Image Stack</code>. For the button to become active, either the transformation
 matrices have to be loaded from a file via the <code>Load</code> button in the <code>Transformation matrix file</code> section, or the
 <code>Register</code> button has to be clicked first to determine the transformation matrices.</p>
 <p>The <code>Transform</code> button will also add a new image layer to the napari viewer (2) with the transformed stack. The name of the
 new layer will be the name of the original stack with the prefix <code>Registered</code>.</p>
-<p><img alt="" src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-transformed.png" /></p>
+<p><img src="https://github.com/glichtner/napari-pystackreg/raw/main/docs/ui-transformed.png" alt="" /></p>
 <p>Finally, the <code>Register &amp; Transform</code> button will perform both the registration and transformation steps in one go.</p>
 <hr />
 <h2>Contributing</h2>
@@ -355,12 +333,12 @@ new layer will be the name of the original stack with the prefix <code>Registere
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License 2.0</a> license,
-"napari-pystackreg" is free and open source software.</p>
+&quot;napari-pystackreg&quot; is free and open source software.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/glichtner/napari-pystackreg/issues">file an issue</a> along with a detailed description.</p>
 <h2>Acknowledgments</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

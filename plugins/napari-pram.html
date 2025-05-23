@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,41 +206,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hthieu166/napari-pram/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-pram.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-pram"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-pram.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-pram.svg?color=green" /></a>
-<a href="https://github.com/hthieu166/napari-pram/actions"><img alt="tests" src="https://github.com/hthieu166/napari-pram/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hthieu166/napari-pram"><img alt="codecov" src="https://codecov.io/gh/hthieu166/napari-pram/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-pram"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-pram" /></a></p>
+                                        <p><a href="https://github.com/hthieu166/napari-pram/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-pram.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-pram"><img src="https://img.shields.io/pypi/v/napari-pram.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-pram.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hthieu166/napari-pram/actions"><img src="https://github.com/hthieu166/napari-pram/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hthieu166/napari-pram"><img src="https://codecov.io/gh/hthieu166/napari-pram/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-pram"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-pram" alt="napari hub" /></a></p>
 <p>Plugin for PRAM data annotation and processing.</p>
-<p><img alt="PRAM Demo" src="https://raw.githubusercontent.com/hthieu166/napari-pram/main/docs/figs/demo.jpg" /></p>
+<p><img src="https://raw.githubusercontent.com/hthieu166/napari-pram/main/docs/figs/demo.jpg" alt="PRAM Demo" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -246,14 +223,15 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>Usage</h2>
 <h3>Open <code>napari-pram</code> toolbox:</h3>
 <p>On the toolbar, select <code>[Plugins] &gt; napari-pram: Open PRAM's toolbox</code></p>
 <h3>Load PRAM image and annotations:</h3>
-<p>Press <kbd>Command/Control</kbd> + <kbd>O</kbd>: 
-- Select <code>*.json</code> files for annotations (from either <a href="https://www.robots.ox.ac.uk/~vgg/software/via/">VGG Annotator</a> or <code>napari-pram</code>)
-- Select <code>*.png</code> files for PRAM image</p>
+<p>Press <kbd>Command/Control</kbd> + <kbd>O</kbd>:</p>
+<ul>
+<li>Select <code>*.json</code> files for annotations (from either <a href="https://www.robots.ox.ac.uk/~vgg/software/via/">VGG Annotator</a> or <code>napari-pram</code>)</li>
+<li>Select <code>*.png</code> files for PRAM image</li>
+</ul>
 <h3>Annotate</h3>
 <ul>
 <li>Press <kbd>Annotate</kbd></li>
@@ -278,24 +256,20 @@ https://napari.org/plugins/stable/index.html
 <li>Press <kbd>Save to File</kbd> to export all annotations, predictions from the algorithm to a JSON file</li>
 </ul>
 <h2>Installation</h2>
-<p>Following this <a href="https://napari.org/tutorials/fundamentals/quick_start.html">tutorial</a> to install <code>napari</code>. </p>
+<p>Following this <a href="https://napari.org/tutorials/fundamentals/quick_start.html">tutorial</a> to install <code>napari</code>.</p>
 <p>Alternatively, you can follow my instructions as follows:</p>
 <p>You will need a python environment. I recommend <a href="https://docs.conda.io/en/latest/miniconda.html">Conda</a>. Create a new environment, for example:</p>
-<pre class="codehilite"><code>conda create --name napari-env python=3.7 pip
+<pre><code>conda create --name napari-env python=3.7 pip 
 </code></pre>
-
 <p>Activate the new environment:</p>
-<pre class="codehilite"><code>conda activate napari-env
+<pre><code>conda activate napari-env 
 </code></pre>
-
 <p>Install <a href="https://napari.org/tutorials/fundamentals/installation">napari</a> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari[all]
+<pre><code>pip install napari[all]
 </code></pre>
-
 <p>Then you can finally install our plugin <code>napari-pram</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-pram
+<pre><code>pip install napari-pram
 </code></pre>
-
 <p>Alternatively, the plugin can be installed using napari-GUI</p>
 <p><code>[Plugins] &gt; Install/Uninstall Plugins</code> and search for <code>napari-pram</code></p>
 <h2>Contributing</h2>
@@ -303,10 +277,10 @@ https://napari.org/plugins/stable/index.html
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-pram" is free and open source software</p>
+&quot;napari-pram&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

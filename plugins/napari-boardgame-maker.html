@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-boardgame-maker.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-boardgame-maker"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-boardgame-maker.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-boardgame-maker.svg?color=green" /></a>
-<a href="https://github.com/jo-mueller/napari-boardgame-maker/actions"><img alt="tests" src="https://github.com/jo-mueller/napari-boardgame-maker/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jo-mueller/napari-boardgame-maker"><img alt="codecov" src="https://codecov.io/gh/jo-mueller/napari-boardgame-maker/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-boardgame-maker"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-boardgame-maker" /></a></p>
+                                        <p><a href="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-boardgame-maker.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-boardgame-maker"><img src="https://img.shields.io/pypi/v/napari-boardgame-maker.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-boardgame-maker.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jo-mueller/napari-boardgame-maker/actions"><img src="https://github.com/jo-mueller/napari-boardgame-maker/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jo-mueller/napari-boardgame-maker"><img src="https://codecov.io/gh/jo-mueller/napari-boardgame-maker/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-boardgame-maker"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-boardgame-maker" alt="napari hub" /></a></p>
 <p>This plugin turns 2D grayscale images into 3D-printable landscape tiles for a certain all-time tabletop boardgame which revolves around building settlements, obtaining ressources expanding and collecting more points than your opponents.</p>
 <p>In short, images (for instance, <a href="https://en.wikipedia.org/wiki/Digital_elevation_model">digital elevation models</a>) can be turned into surfaces like this:</p>
 <table>
@@ -253,18 +230,18 @@ pre > code:last-child {
 </table>
 <h2>Data</h2>
 <p>In principle, all 2D grayscale image data can be used to create a tile. However, using digital elevation models is particularly cool. Such data is publicly available at <a href="https://portal.opentopography.org/raster?opentopoID=OTSDEM.032021.4326.2">OpenTopography.org</a>. Acknowledgement:</p>
-<pre class="codehilite"><code class="language-text"> NASA JPL. NASADEM Merged DEM Global 1 arc second V001. 2020, distributed by NASA EOSDIS Land Processes DAAC, https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001.
+<pre><code class="language-text"><div class="highlight"><pre><span></span> NASA JPL. NASADEM Merged DEM Global 1 arc second V001. 2020, distributed by NASA EOSDIS Land Processes DAAC, https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001.
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <p>To use the boardgame tile maker, open it from the plugins menu (<code>Plugins &gt; napari-boardgame-maker: Boardgame Tile Maker</code>) or from the tools menu (<code>Tools &gt; Boardgame tile maker (npbgm)</code>). There are a few steps and parameters to set before the tile can be created.</p>
 <p><a href="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/GUI_screenshot.jpg"></a></p>
 <p>Clicking on <code>Make hexagon</code> and <code>Make number field</code> will create a hexagonal shape in the viewer (which will be the outline of the tile) and a circular field (which can later be used to put some markers, figures, chips, etc. On the center of the board).</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/sample_with_shapes.png" /></p>
+<p><img src="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/sample_with_shapes.png" alt="" /></p>
 <p>The next step is to set the parameters for the tile. The following parameters can be set:</p>
 <h3>Radii and sizes</h3>
 <p>The following sketch shows the different radii and sizes that can be set:</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/stride_and_town.png" /></p>
+<p><img src="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/stride_and_town.png" alt="" /></p>
 <ul>
 <li><code>hexagon radius</code>: The radius of the hexagon (in pixels). Upon export, this will be rescaled to a desired physical size in mm.</li>
 <li><code>number field radius</code>: The radius of the number field (in pixels). Can also be set in mm units. The pixels are changed accordingly if the size of the whole hexagon is changed.</li>
@@ -273,7 +250,7 @@ pre > code:last-child {
 </ul>
 <h3>Topography</h3>
 <p>The following parameters can be set to create the topography of the tile:</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/slope_and_heights.png" /></p>
+<p><img src="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/slope_and_heights.png" alt="" /></p>
 <ul>
 <li><code>slope</code>: Adds a smooth transition of a given width between the edge of the cropped topography and the level of the base platte. Setting this to zero will result in a sharp edge.</li>
 <li><code>z-multiplier</code>: The height of the topography is multiplied by this factor. This can be used to scale the topography to the desired height.</li>
@@ -293,21 +270,19 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-boardgame-maker</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-boardgame-maker
+<pre><code>pip install napari-boardgame-maker
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-boardgame-maker" is free and open source software</p>
+&quot;napari-boardgame-maker&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

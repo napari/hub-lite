@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,43 +206,16 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/Macl-I/napari-fast4dreg/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-fast4dreg.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-fast4dreg"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-fast4dreg.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-fast4dreg.svg?color=green" /></a>
-<a href="https://github.com/Macl-I/napari-fast4dreg/actions"><img alt="tests" src="https://github.com/Macl-I/napari-fast4dreg/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/Macl-I/napari-fast4dreg"><img alt="codecov" src="https://codecov.io/gh/Macl-I/napari-fast4dreg/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-fast4dreg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-fast4dreg" /></a></p>
+                                        <p><a href="https://github.com/Macl-I/napari-fast4dreg/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-fast4dreg.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-fast4dreg"><img src="https://img.shields.io/pypi/v/napari-fast4dreg.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-fast4dreg.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/Macl-I/napari-fast4dreg/actions"><img src="https://github.com/Macl-I/napari-fast4dreg/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/Macl-I/napari-fast4dreg"><img src="https://codecov.io/gh/Macl-I/napari-fast4dreg/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-fast4dreg"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-fast4dreg" alt="napari hub" /></a></p>
 <p>Dask empowered multi-dimensional, registration for volumetric measurements.
 This is a python port of the original Fast4DReg Fiji Plugin, with added rotation correction in lateral direction and support for out of memory processing.
 The original paper can be found here:
-https://journals.biologists.com/jcs/article/136/4/jcs260728/287682/Fast4DReg-fast-registration-of-4D-microscopy</p>
+<a href="https://journals.biologists.com/jcs/article/136/4/jcs260728/287682/Fast4DReg-fast-registration-of-4D-microscopy">https://journals.biologists.com/jcs/article/136/4/jcs260728/287682/Fast4DReg-fast-registration-of-4D-microscopy</a></p>
 <hr />
 <!--
 Don't miss the full getting started guide to set up your new package:
@@ -247,46 +224,48 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-fast4dreg</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-fast4dreg
+<pre><code>pip install napari-fast4dreg
 </code></pre>
-
 <h2>Usage</h2>
-<p>It's easy! 
-1) Just drag and drop your image, or the test image from this repository, into napari and open it normally. 
-Don't worry if your file is big, napari already internally uses dask to open even the biggest images (although it might hurt the performance).
-2) Open the napari-fast4dreg plugin from the plugin menu.
-3) In the image row, make sure your image is selected in the image drop down menu.
-4) In the axes row, choose the structure of your input image. If your axis orientation is correct in ImageJ choose the standard TZCYX (ImageJ) orientation. If you are using python to process the image you probabbly are using the alternatively availabe CTZYX orientation. In this case just select CTZYX in the drop down menu instead.
-5) Select the reference channel used for the registration. The drift will be determined for this reference channel and applied to all other channels. Counting begins by 0. In case for the test image we select the nuclear signal in channel 1.
-6) Select the corrections that you want to apply on your image. Note that the crop function reduces only in xy, according to the previously determined drift. (e.g. drift = -5 in x --&gt; drop 5 pixels from the left hand side of the registered stack.)
-7) Wait for output (this may take a while, so go and get a coffe or tea).
-8) Enjoy your registered image.</p>
+<p>It's easy!</p>
+<ol>
+<li>Just drag and drop your image, or the test image from this repository, into napari and open it normally.
+Don't worry if your file is big, napari already internally uses dask to open even the biggest images (although it might hurt the performance).</li>
+<li>Open the napari-fast4dreg plugin from the plugin menu.</li>
+<li>In the image row, make sure your image is selected in the image drop down menu.</li>
+<li>In the axes row, choose the structure of your input image. If your axis orientation is correct in ImageJ choose the standard TZCYX (ImageJ) orientation. If you are using python to process the image you probabbly are using the alternatively availabe CTZYX orientation. In this case just select CTZYX in the drop down menu instead.</li>
+<li>Select the reference channel used for the registration. The drift will be determined for this reference channel and applied to all other channels. Counting begins by 0. In case for the test image we select the nuclear signal in channel 1.</li>
+<li>Select the corrections that you want to apply on your image. Note that the crop function reduces only in xy, according to the previously determined drift. (e.g. drift = -5 in x --&gt; drop 5 pixels from the left hand side of the registered stack.)</li>
+<li>Wait for output (this may take a while, so go and get a coffe or tea).</li>
+<li>Enjoy your registered image.</li>
+</ol>
 <h2>Example Outcome</h2>
-<p>The output will consist of the following (if chosen): 
-- registered.tif: The registered file, output of this image registration pipeline.
-- tmp_data: This folder was used for temporary data saving and stores at the end the registered image in a chunked manner (can be deleted or dragged into napari for a greater data versatility)
-- drifts.csv: csv table, home to the drift of all corrected variables, if you prefer your own plotting style, here is where you find the pure drift table.
-- XY-Drift.svg: Vector based graphic, visualising the drift in lateral direction. The svg format can be opened by your web browser or directly imported to powerpoint. Key advantage of .svg instead of .png: You can resize any way you like without loss of image quality.
-- Z-Drift.svg: Vector based graphic, visualising the drift in axial direction.
-- Rotation-Drift.svg: Showing rotation correction of the image in lateral direction.</p>
-<p><img alt="3D_MIP_registration" src="./media/3D_registration.gif" />
-<img alt="3D_plane" src="./media/3D_plane_registration.gif" />
-<img alt="XY-Drift" src="./media/XY-Drift.svg" />
-<img alt="Z-Drift" src="./media/Z-Drift.svg" />
-<img alt="Rotation-Drift" src="./media/Rotation-Drift.svg" /></p>
+<p>The output will consist of the following (if chosen):</p>
+<ul>
+<li>registered.tif: The registered file, output of this image registration pipeline.</li>
+<li>tmp_data: This folder was used for temporary data saving and stores at the end the registered image in a chunked manner (can be deleted or dragged into napari for a greater data versatility)</li>
+<li>drifts.csv: csv table, home to the drift of all corrected variables, if you prefer your own plotting style, here is where you find the pure drift table.</li>
+<li>XY-Drift.svg: Vector based graphic, visualising the drift in lateral direction. The svg format can be opened by your web browser or directly imported to powerpoint. Key advantage of .svg instead of .png: You can resize any way you like without loss of image quality.</li>
+<li>Z-Drift.svg: Vector based graphic, visualising the drift in axial direction.</li>
+<li>Rotation-Drift.svg: Showing rotation correction of the image in lateral direction.</li>
+</ul>
+<p><img src="./media/3D_registration.gif" alt="3D_MIP_registration" />
+<img src="./media/3D_plane_registration.gif" alt="3D_plane" />
+<img src="./media/XY-Drift.svg" alt="XY-Drift" />
+<img src="./media/Z-Drift.svg" alt="Z-Drift" />
+<img src="./media/Rotation-Drift.svg" alt="Rotation-Drift" /></p>
 <h2>Contributing</h2>
-<p>Contributions are very welcome. Just send me an E-mail: marcel.issler@kuleuven.be or directly submit a pull request.</p>
+<p>Contributions are very welcome. Just send me an E-mail: <a href="mailto:marcel.issler@kuleuven.be">marcel.issler@kuleuven.be</a> or directly submit a pull request.</p>
 <h2>Credit</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-fast4dreg" is free and open source software</p>
+&quot;napari-fast4dreg&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

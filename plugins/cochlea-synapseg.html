@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,40 +234,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/ucsdmanorlab/cochlea-synapseg/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/cochlea-synapseg.svg?color=green" /></a>
-<a href="https://pypi.org/project/cochlea-synapseg"><img alt="PyPI" src="https://img.shields.io/pypi/v/cochlea-synapseg.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/cochlea-synapseg.svg?color=green" /></a>
-<a href="https://github.com/ucsdmanorlab/cochlea-synapseg/actions"><img alt="tests" src="https://github.com/ucsdmanorlab/cochlea-synapseg/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/ucsdmanorlab/cochlea-synapseg"><img alt="codecov" src="https://codecov.io/gh/ucsdmanorlab/cochlea-synapseg/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/cochlea-synapseg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cochlea-synapseg" /></a></p>
-<p>A plugin to segment cochlear ribbon synapses. </p>
+                                        <p><a href="https://github.com/ucsdmanorlab/cochlea-synapseg/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/cochlea-synapseg.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/cochlea-synapseg"><img src="https://img.shields.io/pypi/v/cochlea-synapseg.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/cochlea-synapseg.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/ucsdmanorlab/cochlea-synapseg/actions"><img src="https://github.com/ucsdmanorlab/cochlea-synapseg/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/ucsdmanorlab/cochlea-synapseg"><img src="https://codecov.io/gh/ucsdmanorlab/cochlea-synapseg/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/cochlea-synapseg"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cochlea-synapseg" alt="napari hub" /></a></p>
+<p>A plugin to segment cochlear ribbon synapses.</p>
 <p>More is in the works, but for now it includes tools to more quickly generate ground truth ribbon segmentation (Plugins &gt; SynapSeg - Ground Truth Widget).</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -274,58 +251,56 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>cochlea-synapseg</code> (receommended: in a new conda environment with up-to-date napari) via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>python -m pip install cochlea-synapseg
+<pre><code>python -m pip install cochlea-synapseg
 </code></pre>
-
 <h2>Usage</h2>
 <p>After successfull installation, you can find the plugin next time you launch napari (Plugins &gt; SynapSeg - Ground Truth Widget).</p>
-<p>The ground truth widget is divided into multiple sections, for "quick use", be sure to check the settings denoted with asterisks:</p>
+<p>The ground truth widget is divided into multiple sections, for &quot;quick use&quot;, be sure to check the settings denoted with asterisks:</p>
 <h3>Image Tools</h3>
-<p><img alt="image_tools" src="https://github.com/user-attachments/assets/323984ad-2cd3-4816-8ee5-e8b3f5063bc0" /></p>
+<p><img src="https://github.com/user-attachments/assets/323984ad-2cd3-4816-8ee5-e8b3f5063bc0" alt="image_tools" /></p>
 <p>*<strong>1. Image Layer Selection</strong> - use the dropdown to select the name of your image layer (here, the layer that contains the ribbon stain)</p>
 <p>(First load a 3D image using one of napari's native readers, or using the Cochlea-Synapseg .zarr reader (reads a .zarr with '3d/raw' and '3d/labeled').)</p>
 <p>*<strong>2. Refresh Image Layer Selection</strong> - update the list of available image layers in #1</p>
 <p><strong>3. Pixel size information</strong> - (in microns), used for some point readers to successfully convert real units to pixel coordinates. Can be left as 1 if this functionality is not needed.</p>
 <p><strong>4. Split channels</strong> - splits multiple channels into separate image layers (useful for FIJI-saved .tif images)</p>
 <h3>Points Tools &amp; Points to Labels</h3>
-<p><img alt="points_tools" src="https://github.com/user-attachments/assets/6b271d5c-51c1-4ca4-b3c0-683dddd69dc8" /></p>
+<p><img src="https://github.com/user-attachments/assets/6b271d5c-51c1-4ca4-b3c0-683dddd69dc8" alt="points_tools" /></p>
 <p><strong>5. Points Layer Selection and Refresh</strong> - use the dropdown to select an existing points layer, use the refresh button to update the list (or skip to #8 if not loading in existing points)</p>
-<p><strong>6. Real -&gt; Pixel Units</strong> - if you've loaded some points were saved in real units, make sure the pixel size information above in #3 is correct, then click "real -&gt; pixel units"</p>
-<p><strong>7. Channel Adjustment</strong> - some points (like ImageJ/FIJI rois or CellCounter points), show up in the wrong z plane because their "slice" coordinates are a combination of both slice and channel info. If this happens, set the number of channels (in the original image, where the ROIs were created!), and then click "chan -&gt; z convert". Z coordinates of the points layer will be divided by the number of channels specified. </p>
-<p>*<strong>8. New Points Layer</strong> - if starting annotation from scratch, click to create a new points layer. #5 should automatically select this new layer. </p>
-<p>*<strong>9. Rotate to XY and *10. Auto-adjust Z</strong> - these convenient functions allow you to quickly annotate points in Napari's 3D view. Simply click "Rotate to XY before adding new points. These points will now have the correct XY position but will have missing Z information. (Rotate out of XY to confirm.) Click "Auto-adjust z" and the z will automatically adjust to the brightest point. </p>
-<p><strong>11. Manually Edit Z</strong> - useful for overlapping points, can be used to manually edit the z position of ONLY selected points. Use the +/- arrow keys for single z steps type in a number to move a larger amount. </p>
-<p><strong>12. Snap too Max</strong> - will automatically adjust all points to their local max (search radius defined in pixels in Advanced Settings -&gt; snap to max rad). Useful for adjusting quickly dropped points, but proceed with caution if you have close-together points. </p>
+<p><strong>6. Real -&gt; Pixel Units</strong> - if you've loaded some points were saved in real units, make sure the pixel size information above in #3 is correct, then click &quot;real -&gt; pixel units&quot;</p>
+<p><strong>7. Channel Adjustment</strong> - some points (like ImageJ/FIJI rois or CellCounter points), show up in the wrong z plane because their &quot;slice&quot; coordinates are a combination of both slice and channel info. If this happens, set the number of channels (in the original image, where the ROIs were created!), and then click &quot;chan -&gt; z convert&quot;. Z coordinates of the points layer will be divided by the number of channels specified.</p>
+<p>*<strong>8. New Points Layer</strong> - if starting annotation from scratch, click to create a new points layer. #5 should automatically select this new layer.</p>
+<p>*<strong>9. Rotate to XY and *10. Auto-adjust Z</strong> - these convenient functions allow you to quickly annotate points in Napari's 3D view. Simply click &quot;Rotate to XY before adding new points. These points will now have the correct XY position but will have missing Z information. (Rotate out of XY to confirm.) Click &quot;Auto-adjust z&quot; and the z will automatically adjust to the brightest point.</p>
+<p><strong>11. Manually Edit Z</strong> - useful for overlapping points, can be used to manually edit the z position of ONLY selected points. Use the +/- arrow keys for single z steps type in a number to move a larger amount.</p>
+<p><strong>12. Snap too Max</strong> - will automatically adjust all points to their local max (search radius defined in pixels in Advanced Settings -&gt; snap to max rad). Useful for adjusting quickly dropped points, but proceed with caution if you have close-together points.</p>
 <p>*<strong>13. Points to Labels</strong> - the key functionality of the module, creates a label layer by performing a local segmentation on all points.</p>
-<p><strong>14. Advanced Settings</strong> - adjust settings for the points to labels function to optimize local segmentation and watershed separation of points. </p>
+<p><strong>14. Advanced Settings</strong> - adjust settings for the points to labels function to optimize local segmentation and watershed separation of points.</p>
 <h3>Labels Tools</h3>
-<p><img alt="labels_tools" src="https://github.com/user-attachments/assets/6ef20ff6-61e2-4337-a177-8f957a67fb39" /></p>
+<p><img src="https://github.com/user-attachments/assets/6ef20ff6-61e2-4337-a177-8f957a67fb39" alt="labels_tools" /></p>
 <p><strong>15. Lables Layer Selection and Refresh</strong> - use the dropdown to select an existing labels layer, use the refresh button to update the list</p>
 <p><strong>16. Make Labels Editable</strong> - zarrs and other file formats tend to load in as dask arrays, which don't allow editing. Checking this box will make the labels layer editable by converting to a numpy array (will load the layer into memory, so be careful if dealing with large images!). This will allow you to edit the labels layer with tools like the paintbrush and eraser. Automatically enables if merging or removing labels is requested (see #17 and #19)</p>
-<p>*<strong>17. Remove a Label</strong> - use the labels layer eyedropper tool to identify the ID of an unwanted label, then type in the box and click "Remove label"</p>
+<p>*<strong>17. Remove a Label</strong> - use the labels layer eyedropper tool to identify the ID of an unwanted label, then type in the box and click &quot;Remove label&quot;</p>
 <p><strong>18. Max Label Display</strong> - shows the current maximum label ID. If you're painting labels by hand and need a new label ID, increment above this number. Use the refresh button to the right to get an up-to-date number if you've made changes to your label layer.</p>
-<p>*<strong>19. Merge labels</strong> - if you have an existing labels layer, and then create new labels (e.g. from the points to labels function), select the layer you'd like to merge into your existing labels layer (i.e. box 15 and 19a should be different from one another!), and then click "merge labels". This function will automatically ensure overlapping label IDs are not used. </p>
-<p><strong>20. Labels to Points</strong> - if wanted, you can take all your existing labels and convert them to a points layer based on their centroids. This may be helpful for quickly generating better labels using the points tools above. </p>
+<p>*<strong>19. Merge labels</strong> - if you have an existing labels layer, and then create new labels (e.g. from the points to labels function), select the layer you'd like to merge into your existing labels layer (i.e. box 15 and 19a should be different from one another!), and then click &quot;merge labels&quot;. This function will automatically ensure overlapping label IDs are not used.</p>
+<p><strong>20. Labels to Points</strong> - if wanted, you can take all your existing labels and convert them to a points layer based on their centroids. This may be helpful for quickly generating better labels using the points tools above.</p>
 <h3>Save to Zarr</h3>
-<p><img alt="save_zarr" src="https://github.com/user-attachments/assets/1d824f49-012f-4fac-8fa1-64d7d319cd34" /></p>
-<p>Functionality to save to .zarr format. Saves image as '3d/raw' and labels as '3d/labeled'. Used for later auto-segmentation of ribbons (not live in this plugin yet, but coming soon!). </p>
+<p><img src="https://github.com/user-attachments/assets/1d824f49-012f-4fac-8fa1-64d7d319cd34" alt="save_zarr" /></p>
+<p>Functionality to save to .zarr format. Saves image as '3d/raw' and labels as '3d/labeled'. Used for later auto-segmentation of ribbons (not live in this plugin yet, but coming soon!).</p>
 <p>*<strong>21. File Path</strong> - the directory in which to save the zarr; use the folder icon to search for an existing directory</p>
 <p>*<strong>22. File Name</strong> - the zarr name to save to; use the magnifying glass icon to select an existing .zarr</p>
 <p><strong>23. From Source</strong> - set the file path and name to where the image layer was loaded from. (Caution: if you loaded a zarr, this will result in the zarr being overwritten!)</p>
-<p>*<strong>24. Save 3D Only (recommended)</strong> - saves the image and labels layers (selected in #1 and #15) in the specified .zarr, as 3d/raw and 3d/labeled, respectively. A reader is included with this plugin for this format as well. </p>
+<p>*<strong>24. Save 3D Only (recommended)</strong> - saves the image and labels layers (selected in #1 and #15) in the specified .zarr, as 3d/raw and 3d/labeled, respectively. A reader is included with this plugin for this format as well.</p>
 <p><strong>25. Save 2D and 3D</strong> - (not recommended) to be used in the future if 2D models are to be run on the data, saves both the 3D stacks as in 24, and then individual 2D slices for each z in 2d/raw/[z] and 2d/labeled/[z]</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"cochlea-synapseg" is free and open source software</p>
+&quot;cochlea-synapseg&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

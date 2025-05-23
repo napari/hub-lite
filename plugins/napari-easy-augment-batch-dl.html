@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,43 +233,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/bnorthan/napari-easy-augment-batch-dl/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-easy-augment-batch-dl.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-easy-augment-batch-dl"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-easy-augment-batch-dl.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-easy-augment-batch-dl.svg?color=green" /></a>
-<a href="https://github.com/bnorthan/napari-easy-augment-batch-dl/actions"><img alt="tests" src="https://github.com/bnorthan/napari-easy-augment-batch-dl/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/bnorthan/napari-easy-augment-batch-dl"><img alt="codecov" src="https://codecov.io/gh/bnorthan/napari-easy-augment-batch-dl/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-easy-augment-batch-dl"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-easy-augment-batch-dl" /></a>  </p>
+                                        <p><a href="https://github.com/bnorthan/napari-easy-augment-batch-dl/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-easy-augment-batch-dl.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-easy-augment-batch-dl"><img src="https://img.shields.io/pypi/v/napari-easy-augment-batch-dl.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-easy-augment-batch-dl.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/bnorthan/napari-easy-augment-batch-dl/actions"><img src="https://github.com/bnorthan/napari-easy-augment-batch-dl/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/bnorthan/napari-easy-augment-batch-dl"><img src="https://codecov.io/gh/bnorthan/napari-easy-augment-batch-dl/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-easy-augment-batch-dl"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-easy-augment-batch-dl" alt="napari hub" /></a></p>
 <p>See <a href="https://true-north-intelligent-algorithms.github.io/napari-easy-augment-batch-dl/">full documentation</a></p>
-<p>A plugin to perform deep learning on small to medium sized image sets with UNETs, Cellpose, Stardist, SAM and friends.  In particular this plugin is useful for performing deep learning with a small number of labels and augmentation, and experimenting with different deep learning frameworks.  </p>
-<p>Important note on dependencies:  This plugin is designed to work with different permutations of dependencies.  For example it should work if one of Pytorch, Cellpose, SAM and/or Stardist is installed but does not require all.   Thus we don't specify all the dependencies and leave it up to the user to install the permutation of DL related dependencies they would like to use.  More detailed instructions are below. </p>
-<p>If you have any questions about dependencies splease post on the <a href="Image.sc">Image.sc</a> forum. </p>
+<p>A plugin to perform deep learning on small to medium sized image sets with UNETs, Cellpose, Stardist, SAM and friends.  In particular this plugin is useful for performing deep learning with a small number of labels and augmentation, and experimenting with different deep learning frameworks.</p>
+<p>Important note on dependencies:  This plugin is designed to work with different permutations of dependencies.  For example it should work if one of Pytorch, Cellpose, SAM and/or Stardist is installed but does not require all.   Thus we don't specify all the dependencies and leave it up to the user to install the permutation of DL related dependencies they would like to use.  More detailed instructions are below.</p>
+<p>If you have any questions about dependencies splease post on the <a href="Image.sc">Image.sc</a> forum.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -275,70 +252,66 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/bnorthan/napari-easy-augment-batch-dl.git
+<pre><code>pip install git+https://github.com/bnorthan/napari-easy-augment-batch-dl.git
 </code></pre>
-
 <p>You will also need to install the latest development version of tnia-python:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/True-North-Intelligent-Algorithms/tnia-python.git
+<pre><code>pip install git+https://github.com/True-North-Intelligent-Algorithms/tnia-python.git
 </code></pre>
-
 <p>You will need to install napari and for augmentation you will need albumentations library.  Also explicitly install numpy 1.26.  (We have not tested with numpy 2.0 so it is a good idea to explicitly install numpy 1.26 to avoid another dependency installing numpy 2.x)</p>
-<pre class="codehilite"><code>    pip install numpy==1.26
-    pip install napari[all]
-    pip install albumentations
-    pip install matplotlib
+<pre><code><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">numpy</span><span class="o">==</span><span class="mf">1.26</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">napari</span><span class="o">[</span><span class="n">all</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">albumentations</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">matplotlib</span>
+</pre></div>
 </code></pre>
-
 <p>You will also need one or more of stardist, cellpose, segment-everything or Yolo</p>
 <h3>Stardist</h3>
 <h4>Windows</h4>
-<pre class="codehilite"><code>    conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
-    pip install &quot;tensorflow&lt;2.11&quot;
-    pip install stardist==0.8.5
-    pip install gputools
-    pip install edt
+<pre><code><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">11.2</span><span class="w"> </span><span class="n">cudnn</span><span class="o">=</span><span class="mf">8.1</span><span class="o">.</span><span class="mi">0</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="s2">&quot;tensorflow&lt;2.11&quot;</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">stardist</span><span class="o">==</span><span class="mf">0.8</span><span class="o">.</span><span class="mi">5</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">gputools</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">edt</span>
+</pre></div>
 </code></pre>
-
 <h4>Linux</h4>
-<pre class="codehilite"><code>    pip install tensorflow[and-cuda]
-    pip install stardist
-    pip install gputools
-    pip install edt
+<pre><code><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">tensorflow</span><span class="p">[</span><span class="ow">and</span><span class="o">-</span><span class="n">cuda</span><span class="p">]</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">stardist</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">gputools</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">edt</span>
+</pre></div>
 </code></pre>
-
 <h3>Pytorch (for unet segmentation)</h3>
-<pre class="codehilite"><code>    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-    pip install pytorch-lightning
-    pip install monai
-    pip install scipy
-    pip install tifffile
+<pre><code><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">pip3</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">torch</span><span class="w"> </span><span class="n">torchvision</span><span class="w"> </span><span class="n">torchaudio</span><span class="w"> </span><span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">cu118</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">pytorch</span><span class="o">-</span><span class="n">lightning</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">monai</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">scipy</span>
+<span class="w">    </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">tifffile</span>
+</pre></div>
 </code></pre>
-
 <h3>Cellpose</h3>
-<pre class="codehilite"><code>    pip install cellpose
+<pre><code><div class="highlight"><pre><span></span>    pip install cellpose
+</pre></div>
 </code></pre>
-
 <h3>SAM (Segment Anything)</h3>
-<pre class="codehilite"><code>    pip install segment-everything
+<pre><code><div class="highlight"><pre><span></span>    pip install segment-everything
+</pre></div>
 </code></pre>
-
 <h3></h3>
 <p>You can install <code>napari-easy-augment-batch-dl</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-easy-augment-batch-dl
+<pre><code>pip install napari-easy-augment-batch-dl
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-easy-augment-batch-dl" is free and open source software</p>
+&quot;napari-easy-augment-batch-dl&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/bnorthan/napari-easy-augment-batch-dl/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

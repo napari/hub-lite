@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hereariim/napari-apple/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-apple.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-apple"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-apple.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-apple.svg?color=green" /></a>
-<a href="https://github.com/hereariim/napari-apple/actions"><img alt="tests" src="https://github.com/hereariim/napari-apple/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hereariim/napari-apple"><img alt="codecov" src="https://codecov.io/gh/hereariim/napari-apple/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-apple"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-apple" /></a></p>
+                                        <p><a href="https://github.com/hereariim/napari-apple/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-apple.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-apple"><img src="https://img.shields.io/pypi/v/napari-apple.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-apple.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hereariim/napari-apple/actions"><img src="https://github.com/hereariim/napari-apple/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hereariim/napari-apple"><img src="https://codecov.io/gh/hereariim/napari-apple/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-apple"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-apple" alt="napari hub" /></a></p>
 <p>Detection of apple based on YOLOv4-tiny model</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -245,34 +222,33 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>Before you can operate the module, you must install the <code>napari-apple</code> module.</p>
 <h3>Instruction for napari-module</h3>
 <p>You can install <code>napari-apple</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-apple
+<pre><code>pip install napari-apple
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hereariim/napari-apple.git
+<pre><code>pip install git+https://github.com/hereariim/napari-apple.git
 </code></pre>
-
 <h2>How does it works</h2>
-<p>Here, user drop its images in the napari windows. The plugin shows two widgets : 
-- Image detection
-- Export data</p>
-<p>In Image detection, user select the interesting layer to detect apple. The "Run" button run the inference detection based on Yolov4-tiny model. At the end, the result is displayed on screen. User can correct freely the detection by removing or adding box in image.</p>
-<p>In Export data, user export select the interesting shape layer and RGB image. A button "Save to csv" save bounding box coordinate in Yolo way into a text file.</p>
-<p><img alt="Capture d'écran 2024-04-24 114340" src="https://github.com/hereariim/napari-apple/assets/93375163/d8873a6a-8ebb-4686-bfe9-e7e7729378b1" /></p>
+<p>Here, user drop its images in the napari windows. The plugin shows two widgets :</p>
+<ul>
+<li>Image detection</li>
+<li>Export data</li>
+</ul>
+<p>In Image detection, user select the interesting layer to detect apple. The &quot;Run&quot; button run the inference detection based on Yolov4-tiny model. At the end, the result is displayed on screen. User can correct freely the detection by removing or adding box in image.</p>
+<p>In Export data, user export select the interesting shape layer and RGB image. A button &quot;Save to csv&quot; save bounding box coordinate in Yolo way into a text file.</p>
+<p><img src="https://github.com/hereariim/napari-apple/assets/93375163/d8873a6a-8ebb-4686-bfe9-e7e7729378b1" alt="Capture d'écran 2024-04-24 114340" /></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-apple" is free and open source software</p>
+&quot;napari-apple&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hereariim/napari-apple/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

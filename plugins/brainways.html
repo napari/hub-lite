@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,44 +206,17 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://doi.org/10.1101/2023.05.25.542252"><img alt="DOI" src="https://img.shields.io/badge/DOI-10.1101/2023.05.25.542252-green.svg" /></a>
-<a href="https://github.com/bkntr/brainways/raw/main/LICENSE"><img alt="License GNU GPL v3.0" src="https://img.shields.io/pypi/l/brainways.svg?color=green" /></a>
-<a href="https://pypi.org/project/brainways"><img alt="PyPI" src="https://img.shields.io/pypi/v/brainways.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/brainways.svg?color=green" /></a>
-<a href="https://github.com/bkntr/brainways/actions"><img alt="tests" src="https://github.com/bkntr/brainways/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/bkntr/brainways"><img alt="codecov" src="https://codecov.io/gh/bkntr/brainways/branch/main/graph/badge.svg" /></a>
-<a href="https://brainways.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/brainways/badge/?version=latest" /></a>
-<a href="https://napari-hub.org/plugins/brainways"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/brainways" /></a></p>
+                                        <p><a href="https://doi.org/10.1101/2023.05.25.542252"><img src="https://img.shields.io/badge/DOI-10.1101/2023.05.25.542252-green.svg" alt="DOI" /></a>
+<a href="https://github.com/bkntr/brainways/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/brainways.svg?color=green" alt="License GNU GPL v3.0" /></a>
+<a href="https://pypi.org/project/brainways"><img src="https://img.shields.io/pypi/v/brainways.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/brainways.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/bkntr/brainways/actions"><img src="https://github.com/bkntr/brainways/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/bkntr/brainways"><img src="https://codecov.io/gh/bkntr/brainways/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://brainways.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/brainways/badge/?version=latest" alt="Documentation Status" /></a>
+<a href="https://napari-hub.org/plugins/brainways"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/brainways" alt="napari hub" /></a></p>
 <h2>Overview</h2>
 <p>Brainways is an AI-powered tool designed for the automated analysis of brain-wide activity networks from fluorescence imaging in coronal slices. It streamlines the process of registration, cell quantification, and statistical comparison between experimental groups, all accessible through a user-friendly interface without requiring programming expertise. For advanced users, Brainways also offers a flexible Python backend for customization.</p>
-<p><img alt="Brainways User Interface Demo" src="assets/brainways-ui.gif" /></p>
+<p><img src="assets/brainways-ui.gif" alt="Brainways User Interface Demo" /></p>
 <h2>Key Features</h2>
 <p>Brainways simplifies complex analysis workflows into manageable steps:</p>
 <ol>
@@ -247,7 +224,8 @@ pre > code:last-child {
 <li><strong>Non-rigid Registration:</strong> Refines alignment to account for individual variations and tissue distortions.</li>
 <li><strong>Cell Detection:</strong> Automatically identifies cells using the <a href="https://github.com/stardist/stardist">StarDist</a> algorithm.</li>
 <li><strong>Quantification:</strong> Counts cells within defined brain regions.</li>
-<li><strong>Statistical Analysis:</strong><ul>
+<li><strong>Statistical Analysis:</strong>
+<ul>
 <li>Performs ANOVA contrast analysis between experimental conditions.</li>
 <li>Conducts Partial Least Squares (PLS) analysis.</li>
 <li>Generates network graphs visualizing brain-wide activity patterns.</li>
@@ -255,16 +233,16 @@ pre > code:last-child {
 </li>
 </ol>
 <h2>Getting Started</h2>
-<p>!!! note "Windows GPU Support Pre-installation"
-    If you plan to use Brainways with GPU acceleration on Windows, you must install GPU-compatible versions of PyTorch and TensorBoard <em>before</em> installing Brainways. Follow the instructions on the <a href="https://pytorch.org/get-started/locally/">PyTorch</a> and <a href="https://www.tensorflow.org/install/pip">TensorBoard</a> websites. Once these dependencies are met, proceed with the Brainways installation below.</p>
+<p>!!! note &quot;Windows GPU Support Pre-installation&quot;
+If you plan to use Brainways with GPU acceleration on Windows, you must install GPU-compatible versions of PyTorch and TensorBoard <em>before</em> installing Brainways. Follow the instructions on the <a href="https://pytorch.org/get-started/locally/">PyTorch</a> and <a href="https://www.tensorflow.org/install/pip">TensorBoard</a> websites. Once these dependencies are met, proceed with the Brainways installation below.</p>
 <p>Install and launch the Brainways user interface using pip:</p>
-<pre class="codehilite"><code class="language-bash">pip install brainways
-brainways ui
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>brainways
+brainways<span class="w"> </span>ui
+</pre></div>
 </code></pre>
-
 <p>For a detailed walkthrough, please refer to our <a href="02_getting_started.md">Getting Started Guide</a>.</p>
-<p>!!! tip "Achieving Reliable Results"
-    To ensure the best possible outcomes with Brainways, we highly recommend reviewing our <a href="04_best_practices.md">Best Practices Guide</a>.</p>
+<p>!!! tip &quot;Achieving Reliable Results&quot;
+To ensure the best possible outcomes with Brainways, we highly recommend reviewing our <a href="04_best_practices.md">Best Practices Guide</a>.</p>
 <h2>Architecture</h2>
 <p>Brainways is built as a monorepo containing two primary components:</p>
 <ul>
@@ -275,21 +253,21 @@ brainways ui
 <p>Brainways is under active development by Ben Kantor at the Bartal Lab, Tel Aviv University, Israel. Check out our <a href="https://github.com/bkntr/brainways/releases">releases page</a> for the latest updates.</p>
 <h2>Citation</h2>
 <p>If Brainways contributes to your research, please cite our publication: <a href="https://doi.org/10.1038/s41386-025-02105-3">Kantor and Bartal (2025)</a>.</p>
-<pre class="codehilite"><code class="language-bibtex">@article{kantor2025mapping,
-    title={Mapping brain-wide activity networks: brainways as a tool for neurobiological discovery},
-    author={Kantor, Ben and Ruzal, Keren and Ben-Ami Bartal, Inbal},
-    journal={Neuropsychopharmacology},
-    pages={1--11},
-    year={2025},
-    publisher={Springer International Publishing Cham}
-}
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">kantor2025mapping</span><span class="p">,</span>
+<span class="w">    </span><span class="na">title</span><span class="p">=</span><span class="s">{Mapping brain-wide activity networks: brainways as a tool for neurobiological discovery}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">author</span><span class="p">=</span><span class="s">{Kantor, Ben and Ruzal, Keren and Ben-Ami Bartal, Inbal}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">journal</span><span class="p">=</span><span class="s">{Neuropsychopharmacology}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">pages</span><span class="p">=</span><span class="s">{1--11}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">year</span><span class="p">=</span><span class="s">{2025}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">publisher</span><span class="p">=</span><span class="s">{Springer International Publishing Cham}</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
 <h2>License</h2>
 <p>Brainways is distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license. It is free and open-source software.</p>
 <h2>Issues and Support</h2>
 <p>Encountering problems? Please <a href="https://github.com/bkntr/brainways/issues">file an issue</a> on our GitHub repository with a detailed description of the problem.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -601,98 +605,89 @@ Creative Commons may be contacted at creativecommons.org.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://creativecommons.org/licenses/by-nc/4.0/"><img alt="License: CC BY-NC 4.0" src="https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg" /></a>
-<a href="https://pypi.org/project/napari-sam2long"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-sam2long.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-sam2long.svg?color=green" /></a>
-<a href="https://github.com/maihanhoang/napari-sam2long/actions"><img alt="tests" src="https://github.com/maihanhoang/napari-sam2long/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/maihanhoang/napari-sam2long"><img alt="codecov" src="https://codecov.io/gh/maihanhoang/napari-sam2long/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-sam2long"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sam2long" /></a>
-<a href="https://napari.org/stable/plugins/index.html"><img alt="npe2" src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" /></a>
-<a href="https://github.com/copier-org/copier"><img alt="Copier" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" /></a></p>
+                                        <p><a href="https://creativecommons.org/licenses/by-nc/4.0/"><img src="https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg" alt="License: CC BY-NC 4.0" /></a>
+<a href="https://pypi.org/project/napari-sam2long"><img src="https://img.shields.io/pypi/v/napari-sam2long.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-sam2long.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/maihanhoang/napari-sam2long/actions"><img src="https://github.com/maihanhoang/napari-sam2long/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/maihanhoang/napari-sam2long"><img src="https://codecov.io/gh/maihanhoang/napari-sam2long/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-sam2long"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sam2long" alt="napari hub" /></a>
+<a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a>
+<a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
 <p>A plugin for interactive 3D (volumetric or time-lapse) segmentation using Meta's Segment Anything Model 2 (SAM2).</p>
 <p>Designed for bioimaging researchers working with 3D volumetric or time-lapse images, this plugin supports TIFF files in ZYX or TYX format. Users can provide input and make corrections through point clicks or manually drawn masks.</p>
 <p>The tool leverages the <a href="https://github.com/Mark12Ding/SAM2Long">SAM2Long</a> model, an optimized version of <a href="https://github.com/facebookresearch/sam2">Meta's SAM 2</a> with enhancements to the memory module for improved performance on long videos. It was built to support long videos, but it remains effective for shorter videos as well.</p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
 <h3 align="center">Select object with point prompts</h3>
-
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-sam2long/raw/main/assets/napari-sam2long-firstLabel.gif" width="100%" />
 </p>
-
 <h3 align="center">Refine object selection with napari tools </h3>
-
 <p align="middle">
   <img src="https://github.com/maihanhoang/napari-sam2long/raw/main/assets/napari-sam2long-anotherLabel.gif" width="100%" />
 </p>
-
 <h2>Installation</h2>
 <p>Please see the official <a href="https://github.com/facebookresearch/sam2">SAM 2</a> repo and the <a href="https://github.com/facebookresearch/sam2/blob/main/INSTALL.md">INSTALL.md</a> for notes and FAQs on potential installation issues.</p>
 <ol>
 <li>
-<p>Create a new conda environment with python&gt;=3.10 and install napari:
-    <code>bash
-    conda create -n napari-sam2long python==3.10 pip
-    conda activate napari-sam2long
-    python -m pip install "napari[all]"</code></p>
+<p>Create a new conda environment with python&gt;=3.10 and install napari:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-sam2long<span class="w"> </span><span class="nv">python</span><span class="o">==</span><span class="m">3</span>.10<span class="w"> </span>pip
+conda<span class="w"> </span>activate<span class="w"> </span>napari-sam2long
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&quot;</span>
+</pre></div>
+</code></pre>
 </li>
 <li>
 <p>Install PyTorch and TorchVision. Select preferences <a href="https://pytorch.org/get-started/locally/">here</a> to find correct installation command.</p>
 <p>Example command can look like this:</p>
-<p><code>bash
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126</code></p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu126
+</pre></div>
+</code></pre>
 </li>
 <li>
-<p>Install SAM2Long:
-    ```bash
-    git clone git@github.com:maihanhoang/napari-sam2long.git</p>
-<p>cd napari-sam2long/SAM2Long &amp;&amp; python -m pip install -e .
-<code>4. Install napari-SAM2Long plugin:</code>bash
-cd .. &amp;&amp; python -m pip install e .
-```</p>
+<p>Install SAM2Long:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:maihanhoang/napari-sam2long.git
+
+<span class="nb">cd</span><span class="w"> </span>napari-sam2long/SAM2Long<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p>Install napari-SAM2Long plugin:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>e<span class="w"> </span>.
+</pre></div>
+</code></pre>
 </li>
 </ol>
 <h2>Usage</h2>
 <h3>Segmenting &amp; tracking first object</h3>
 <ol>
-<li><strong>Open a 3D tiff</strong> in napari, make sure it's in TYX or ZYX format.</li>
-<li><strong>Select</strong> the image in the <strong><em>Input</em></strong> dropdown.</li>
+<li>
+<p><strong>Open a 3D tiff</strong> in napari, make sure it's in TYX or ZYX format.</p>
+</li>
+<li>
+<p><strong>Select</strong> the image in the <em><strong>Input</strong></em> dropdown.</p>
+</li>
 <li>
 <p><strong>Add a new <a href="https://napari.org/0.5.0/howtos/layers/labels.html">labels layer</a></strong> <em>after</em> the input image, then select it in the <em>Labels</em> dropdown.</p>
-<p>The labels layer must be added after the image to ensure dimension alignment.
-4. <strong>Select the <em>Model</em></strong>.
-5. <strong>Click <em>Initialize</em></strong> to load the image and initialize the inference state.
-6. <strong>Define the initial object mask</strong> on any frame:
-- Use the mouse middle-click to prompt the model:
-    - <em>Middle-click</em> = add region
-    - <em>Ctrl + middle-click</em> = remove region
-- Or use napari's built-in tools (paintbrush, eraser, etc.) to draw the mask manually.</p>
+<p>The labels layer must be added after the image to ensure dimension alignment.</p>
+</li>
+<li>
+<p><strong>Select the <em>Model</em></strong>.</p>
+</li>
+<li>
+<p><strong>Click <em>Initialize</em></strong> to load the image and initialize the inference state.</p>
+</li>
+<li>
+<p><strong>Define the initial object mask</strong> on any frame:</p>
+<ul>
+<li>Use the mouse middle-click to prompt the model:
+<ul>
+<li><em>Middle-click</em> = add region</li>
+<li><em>Ctrl + middle-click</em> = remove region</li>
+</ul>
+</li>
+<li>Or use napari's built-in tools (paintbrush, eraser, etc.) to draw the mask manually.</li>
+</ul>
 <p>If the model doesn’t segment the object accurately with point prompts, manual correction using napari tools can be useful.</p>
 </li>
 <li>
@@ -701,8 +696,10 @@ cd .. &amp;&amp; python -m pip install e .
 </li>
 </ol>
 <h3>Making corrections</h3>
-<ol>
-<li>To refine segmentation, add/remove regions use:<ul>
+<ol start="8">
+<li>
+<p>To refine segmentation, add/remove regions use:</p>
+<ul>
 <li><em>(Ctrl+) middle-click</em> prompts</li>
 <li>napari’s label tools</li>
 </ul>
@@ -713,16 +710,16 @@ cd .. &amp;&amp; python -m pip install e .
 </li>
 </ol>
 <h3>Segmenting another object in the same image/video</h3>
-<ol>
+<ol start="10">
 <li>Save the current labels layer (to preserve previous segmentation).</li>
 <li>Click <em>Reset</em>, or add a new labels layer and select it in the <em>Labels</em> dropdown.
 Then repeat steps from Step 6 for the next object.</li>
 </ol>
 <h3>Segment new image/video</h3>
-<ol>
+<ol start="12">
 <li><em>Reset</em> inference state.</li>
 <li>Load new image and follow instructions starting from Step 1.
-    <em>Initialize</em> is necessary to load the new image.</li>
+<em>Initialize</em> is necessary to load the new image.</li>
 </ol>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
@@ -733,15 +730,19 @@ the coverage at least stays the same before you submit a pull request.</p>
 <p>[1]: Nikhila Ravi, Valentin Gabeur, Yuan-Ting Hu, Ronghang Hu, Chaitanya Ryali, Tengyu Ma, Haitham Khedr, Roman Rädle, Chloe Rolland, Laura Gustafson, Eric Mintun, Junting Pan, Kalyan Vasudev Alwala, Nicolas Carion, Chao-Yuan Wu, Ross Girshick, Piotr Dollár, &amp; Christoph Feichtenhofer. (2024). SAM 2: Segment Anything in Images and Videos.</p>
 <p>[2]: Ding, S., Qian, R., Dong, X., Zhang, P., Zang, Y., Cao, Y., Guo, Y., Lin, D., &amp; Wang, J. (2024). SAM2Long: Enhancing SAM 2 for Long Video Segmentation with a Training-Free Memory Tree. arXiv preprint arXiv:2410.16268.</p>
 <h2>License &amp; Attribution</h2>
-<p>This project integrates code from:
-- <a href="https://github.com/facebookresearch/sam2">SAM2</a> by Meta (<a href="LICENSE-Apache-2.0"><code>Apache 2.0 License</code></a>)
-- <a href="https://github.com/Mark12Ding/SAM2Long">SAM2Long</a> by Shuangrui Ding et al. (<a href="LICENSE-CC-BY-NC-4.0"><code>CC-BY-NC 4.0 License</code></a>)
-- <a href="https://github.com/Krishvraman/napari-SAMV2">napari-samv2</a> by Krishnan Venkataraman (<a href="LICENSE-BSD-3"><code>BSD-3 License</code></a>)</p>
-<p>The following changes were made to SAM2Long:
-- integrated SAM2Long into a napari plugin
-- modified the video predictor to support the progress bar in the plugin</p>
+<p>This project integrates code from:</p>
+<ul>
+<li><a href="https://github.com/facebookresearch/sam2">SAM2</a> by Meta (<a href="LICENSE-Apache-2.0"><code>Apache 2.0 License</code></a>)</li>
+<li><a href="https://github.com/Mark12Ding/SAM2Long">SAM2Long</a> by Shuangrui Ding et al. (<a href="LICENSE-CC-BY-NC-4.0"><code>CC-BY-NC 4.0 License</code></a>)</li>
+<li><a href="https://github.com/Krishvraman/napari-SAMV2">napari-samv2</a> by Krishnan Venkataraman (<a href="LICENSE-BSD-3"><code>BSD-3 License</code></a>)</li>
+</ul>
+<p>The following changes were made to SAM2Long:</p>
+<ul>
+<li>integrated SAM2Long into a napari plugin</li>
+<li>modified the video predictor to support the progress bar in the plugin</li>
+</ul>
 <p>Since this project includes <strong>SAM2Long</strong>, it inherits the <strong>CC-BY-NC 4.0 license</strong>, meaning <strong>commercial use is not allowed</strong>.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,108 +210,83 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-workflow-optimizer.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-workflow-optimizer"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-workflow-optimizer.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-workflow-optimizer.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-workflow-optimizer"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-workflow-optimizer/branch/main/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-workflow-optimizer.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-workflow-optimizer"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-workflow-optimizer" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-workflow-optimizer.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-workflow-optimizer"><img src="https://img.shields.io/pypi/v/napari-workflow-optimizer.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-workflow-optimizer.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/actions"><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-workflow-optimizer"><img src="https://codecov.io/gh/haesleinhuepf/napari-workflow-optimizer/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-workflow-optimizer.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-workflow-optimizer"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-workflow-optimizer" alt="napari hub" /></a></p>
 <p>Optimize image processing workflows in napari for segmentation quality</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/napari-workflow-optimizer.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/napari-workflow-optimizer.gif" alt="img.png" /></p>
 <h2>Usage</h2>
-<p>The starting point for workflow optimization is a workflow and some reference ("ground truth") labels image. 
-The label image can be a sparse annotation, which means only some objects and also parts of objets are annotated (see <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer#optimization-hints">hints</a>). 
-These datasets should be ready. You can reproduce the following procedure by downloading an 
-<a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/blob/main/demo/membranes_2d.tif">examle raw image</a> (derived from the 
-<a href="https://scikit-image.org/docs/dev/api/skimage.data.html#skimage.data.cells3d">scikit-image cells3d example data set</a>) and a corresponding 
+<p>The starting point for workflow optimization is a workflow and some reference (&quot;ground truth&quot;) labels image.
+The label image can be a sparse annotation, which means only some objects and also parts of objets are annotated (see <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer#optimization-hints">hints</a>).
+These datasets should be ready. You can reproduce the following procedure by downloading an
+<a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/blob/main/demo/membranes_2d.tif">examle raw image</a> (derived from the
+<a href="https://scikit-image.org/docs/dev/api/skimage.data.html#skimage.data.cells3d">scikit-image cells3d example data set</a>) and a corresponding
 <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/blob/main/demo/membranes_2d_sparse_labels.tif">sparse annotation label image</a>.
 For reproducing the following procedure, also follow the <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer#optimization-hints">installation instructions</a> below.
 The whole procedure is <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/napari-workflow-optimizer.mp4">also shown in this video</a>, an extended version of the trailer above.</p>
 <h3>Step 0: Loading data and setting up the workflow</h3>
-<p>Load the "membranes_2d.tif" data set, e.g. by drag&amp;drop on napari and start the Assistant from the <code>Tools &gt; Utilities &gt; Assistant (clEsperanto)</code> menu.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot1_start_raw.png" /></p>
-<p>Click the <code>Label</code> button and select as operation "Seeded watershed using local minima as seeds and an intensity threshold (nsbatwm)".</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot2_labeled_beginning.png" /></p>
-<p>Draw an annotation in a new labels layer or load the example spare annotation "membranes_2d_sparse_labels.tif". </p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot4_loaded_manual_annotation.png" /></p>
+<p>Load the &quot;membranes_2d.tif&quot; data set, e.g. by drag&amp;drop on napari and start the Assistant from the <code>Tools &gt; Utilities &gt; Assistant (clEsperanto)</code> menu.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot1_start_raw.png" alt="" /></p>
+<p>Click the <code>Label</code> button and select as operation &quot;Seeded watershed using local minima as seeds and an intensity threshold (nsbatwm)&quot;.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot2_labeled_beginning.png" alt="" /></p>
+<p>Draw an annotation in a new labels layer or load the example spare annotation &quot;membranes_2d_sparse_labels.tif&quot;.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot4_loaded_manual_annotation.png" alt="" /></p>
 <p>In case the image is not displayed as label image, convert it to a label image by right-clicking on the entry in the layers list:</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot3_load_manual_annotation.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot3_load_manual_annotation.png" alt="" /></p>
 <h3>Step 1: The Workflow Optimizer</h3>
-<p>Start the Workflow Optimizer from the <code>Tools &gt; Utilities &gt; Workflow optimizer (Labels)</code> menu. 
+<p>Start the Workflow Optimizer from the <code>Tools &gt; Utilities &gt; Workflow optimizer (Labels)</code> menu.
 Configure the target layer, showing the label image that should be optimized.
-Select the manual annotation as reference layer for the optimization. 
-Consider increasing the number of iterations. This number depends on your segmenation problem. 
+Select the manual annotation as reference layer for the optimization.
+Consider increasing the number of iterations. This number depends on your segmenation problem.
 In the present example, 100 iterations should be enough.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot5_start_optimization.png" /></p>
-<p>The optimizer will plot quality over the number of iterations to show the progress of optimization. 
-To determine the quality, the optimizer will measure the maximum overlap (<a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard index</a>) 
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot5_start_optimization.png" alt="" /></p>
+<p>The optimizer will plot quality over the number of iterations to show the progress of optimization.
+To determine the quality, the optimizer will measure the maximum overlap (<a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard index</a>)
 of any labeled object over the manually annotated objects and calculate the mean of this value over all annotated objects.
-After a moment, optimization will finish and update the labeled image. 
+After a moment, optimization will finish and update the labeled image.
 If your starting point for the optimization was already good, the result may now look better than before.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot6_finished_optimization.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot6_finished_optimization.png" alt="" /></p>
 <h3>Step 2: Manual parameter space plotting</h3>
-<p>In case the result is not perfect yet (as the fringed segmentation above suggests), consider manual plotting of the 
+<p>In case the result is not perfect yet (as the fringed segmentation above suggests), consider manual plotting of the
 individual parameters and their relation to segmentation quality to get an idea about the surrounding parameter space.
 Therefore, click the <code>Plot</code> button next to one of the workflow parameters.
-Select the range in which the labeling quality should be determined (green arrows). In our example, the optimizer was setting the parameter to 2.34. 
-Thus, to demonstrate the procedure we plot the parameter space beween 0 and 10. 
+Select the range in which the labeling quality should be determined (green arrows). In our example, the optimizer was setting the parameter to 2.34.
+Thus, to demonstrate the procedure we plot the parameter space beween 0 and 10.
 The quality plotted over this parameter obviously has a local maxium at 2.34, which was detected by the optimizer.
 However, it also has another local maxium at 8 and actually a plateau in the quality plot (orange arrows).</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot7_parameter_quality_plot.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot7_parameter_quality_plot.png" alt="" /></p>
 <p>For further optimization, we re-configure the algorithm and set a new starting point for optimization of the parameter to 8.
 Afterwards, we restart the optimization. It will then optimize the settings again from the new starting point.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot8_start_optimization_again.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot8_start_optimization_again.png" alt="" /></p>
 <p>After another moment, optimization will finish again, potentially leading to an even better result.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot9_finished_optimization_again.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot9_finished_optimization_again.png" alt="" /></p>
 <h3>Step 3: Visualization of results</h3>
 <p>Make sure the segmentation has high quality by inspecting the result visually. Use the <code>contour</code> setting of the labels layer
 and hide/show the outlines of the labeled layer:</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot10_contours_on.png" /></p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot11_contours_off.jpg" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot10_contours_on.png" alt="" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-optimizer/raw/main/docs/screenshot11_contours_off.jpg" alt="" /></p>
 <h3>Optimization Hints</h3>
 <p>The Workflow Optimizer uses the <a href="https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method">Nelder-Mead simplex method</a>
-for optimizing parameters. This algorithm varies individual parameters and makes steps in the parameter space ideally following a gradient 
-to a local optimum. Hence, this algorithm may not be capable of determining a global optimum in parameter space. 
-Parameter optimization is no magic. If it does not immediately work on your data, plot the parameters as introduced in Step 2 
-and identify parameters with a clear gradient and those with many local maxima. 
+for optimizing parameters. This algorithm varies individual parameters and makes steps in the parameter space ideally following a gradient
+to a local optimum. Hence, this algorithm may not be capable of determining a global optimum in parameter space.
+Parameter optimization is no magic. If it does not immediately work on your data, plot the parameters as introduced in Step 2
+and identify parameters with a clear gradient and those with many local maxima.
 Consider optimizing the parameters with many local maxima manually and de-selecting their checkboxes for the optimization.
-The optimizer will then only optimize the parameters showing the clear gradient. 
-Repeat these steps a couple of times to get a feeling for your parameter space. </p>
-<p>Furthermore, parameter optimization works well if
-* the initial settings are close to a good segmentation,
-* a small number of parameters (a short workflow) are optimized,
-* the reference annotation is prepared carefully and
-* the dataset is small. Consider using a small representative crop in case of bigger datasets.</p>
+The optimizer will then only optimize the parameters showing the clear gradient.
+Repeat these steps a couple of times to get a feeling for your parameter space.</p>
+<p>Furthermore, parameter optimization works well if</p>
+<ul>
+<li>the initial settings are close to a good segmentation,</li>
+<li>a small number of parameters (a short workflow) are optimized,</li>
+<li>the reference annotation is prepared carefully and</li>
+<li>the dataset is small. Consider using a small representative crop in case of bigger datasets.</li>
+</ul>
 <h3>Workflow optimization scripting</h3>
-<p>For optimizing workflows from within a jupyter notebook, check out our <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/blob/main/demo/sparse_label_image_optimizer.ipynb">example notebook for optimization using spare labels</a>. 
+<p>For optimizing workflows from within a jupyter notebook, check out our <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/blob/main/demo/sparse_label_image_optimizer.ipynb">example notebook for optimization using spare labels</a>.
 The examples are more flexible than the graphical user interface and allow for example <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/blob/main/demo/intensity_image_optimizer.ipynb">optimizing intensity images</a>
 and <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/blob/main/demo/binary_image_optimizer.ipynb">binary images</a>.
 The membrane segmentation workflow optimization similar to the one shown above is also available as <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/blob/main/demo/membrane_segmentation.ipynb">jupyter notebook</a>.</p>
@@ -317,29 +296,29 @@ to select the parameters that should be optimized. Changing parameters is ok and
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
-<p>Furthermore, to reproduce the procedure above, please download and install 
+<p>Furthermore, to reproduce the procedure above, please download and install
 <a href="https://napari.org/">napari</a>,
 <a href="https://documen.tician.de/pyopencl/">pyopencl</a>,
 the <a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">napari-pyclesperanto-assistant</a> and
-the <a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">napari-segment-blobs-and-things-with-membranes</a> plugin. E.g. using 
+the <a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">napari-segment-blobs-and-things-with-membranes</a> plugin. E.g. using
 <a href="https://docs.conda.io/en/latest/">conda</a> and <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>conda create --name napari-opti python=3.8
+<pre><code><div class="highlight"><pre><span></span>conda create --name napari-opti python=3.8
 conda activate napari-opti
 
 conda install pyopencl napari
 pip install napari-pyclesperanto-assistant napari-segment-blobs-and-things-with-membranes
 pip install napari-workflow-optimizer
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-workflow-optimizer" is free and open source software</p>
+&quot;napari-workflow-optimizer&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/haesleinhuepf/napari-workflow-optimizer/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

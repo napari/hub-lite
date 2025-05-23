@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,70 +206,41 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/guiwitz/napari-annotation-project/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-annotation-project.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-annotation-project"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-annotation-project.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-annotation-project.svg?color=green" /></a>
-<a href="https://github.com/guiwitz/napari-annotation-project/actions"><img alt="tests" src="https://github.com/guiwitz/napari-annotation-project/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/guiwitz/napari-annotation-project"><img alt="codecov" src="https://codecov.io/gh/guiwitz/napari-annotation-project/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-annotation-project"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-annotation-project" /></a></p>
+                                        <p><a href="https://github.com/guiwitz/napari-annotation-project/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-annotation-project.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-annotation-project"><img src="https://img.shields.io/pypi/v/napari-annotation-project.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-annotation-project.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/guiwitz/napari-annotation-project/actions"><img src="https://github.com/guiwitz/napari-annotation-project/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/guiwitz/napari-annotation-project"><img src="https://codecov.io/gh/guiwitz/napari-annotation-project/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-annotation-project"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-annotation-project" alt="napari hub" /></a></p>
 <p>This napari plugin allows to define projects consisting of multiple images that can be annotated with labels and rectangular regions of interest (rois). Those rois can then be exported as series of cropped images and labels, typically to train Machine Learning models. Projects can be easily reopened in order to browse through images and their annotations. This package is a meant to be a <em>light-weight plugin which does not introduce any specific dependencies</em> and that should be easily installable in any environment already containing napari and other plugins.</p>
 <h2>Usage</h2>
 <p>To start a project, you can just drag and drop files in the file list area. This prompts for the selection of a project folder. After that, more files (also from different folders) can be dragged and dropped to be included in the project. Files can optionally be copied to the project folder but this option has to be set <strong>before adding files</strong>. When selecting a file in the list, it is opened (using the default image reader or a reader plugin if installed) and two layers, one for rois, and one for annotations are added.</p>
-<p>https://user-images.githubusercontent.com/4622767/147265874-57dcd956-4d54-4c76-9129-c1fc2837e6a4.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/4622767/147265874-57dcd956-4d54-4c76-9129-c1fc2837e6a4.mp4">https://user-images.githubusercontent.com/4622767/147265874-57dcd956-4d54-4c76-9129-c1fc2837e6a4.mp4</a></p>
 <h3>Adding rois</h3>
 <p>After selecting the <code>rois</code> layer, you can add rectangular rois to the image. If you need square rois of a specific size (as often needed in DL training) you can select the <code>Fixed roi size</code> option and then use the <code>Add roi</code> button. <strong>Note that currently only 2D rois are supported</strong>. If you work with nD images, the roi is therefore added to the <strong>current selected 2D plane</strong>.</p>
 <h3>Adding annotations</h3>
 <p>After selecting the <code>annotations</code> layer, you can add annotations to your image. There are no restrictions here and you can e.g. add as many labels as you need.</p>
 <h3>Info storage</h3>
 <p>All relevant information on project location, project files and rois is stored in a yaml file <code>Parameters.yml</code>. Annotations are stored as 2D tiff files in the <code>annotations</code> as files named after the original files. <strong>Note that at the moment if multiple files have the same name, this will cause trouble</strong>. This parameter file is used when re-loading an existing project.</p>
-<p>https://user-images.githubusercontent.com/4622767/147265984-adb6ee1f-9319-45c9-a9a4-735ade2a3905.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/4622767/147265984-adb6ee1f-9319-45c9-a9a4-735ade2a3905.mp4">https://user-images.githubusercontent.com/4622767/147265984-adb6ee1f-9319-45c9-a9a4-735ade2a3905.mp4</a></p>
 <h2>Exporting rois</h2>
-<p>Once you are satisfied with your annotations and rois, you can use the rois to export only the corresponing cropped rois of both the image and annotation layers. For this you can head to the <code>Export</code> tab. Here you can set the location of the export folder, set the names of the folders that will contain cropped images and cropped annotations, and finally set the prefix names for these two types of files. Files are exported as tif files. </p>
-<p>https://user-images.githubusercontent.com/4622767/147266002-9c4485c9-5bcc-4c64-9c92-6c06775e2711.mp4</p>
+<p>Once you are satisfied with your annotations and rois, you can use the rois to export only the corresponing cropped rois of both the image and annotation layers. For this you can head to the <code>Export</code> tab. Here you can set the location of the export folder, set the names of the folders that will contain cropped images and cropped annotations, and finally set the prefix names for these two types of files. Files are exported as tif files.</p>
+<p><a href="https://user-images.githubusercontent.com/4622767/147266002-9c4485c9-5bcc-4c64-9c92-6c06775e2711.mp4">https://user-images.githubusercontent.com/4622767/147266002-9c4485c9-5bcc-4c64-9c92-6c06775e2711.mp4</a></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-annotation-project</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-annotation-project
+<pre><code>pip install napari-annotation-project
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/guiwitz/napari-annotation-project.git
+<pre><code>pip install git+https://github.com/guiwitz/napari-annotation-project.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-annotation-project" is free and open source software.</p>
+&quot;napari-annotation-project&quot; is free and open source software.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/guiwitz/napari-annotation-project/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

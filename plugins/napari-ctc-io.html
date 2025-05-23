@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,74 +206,49 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/napari-ctc-io"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-ctc-io.svg?color=green" /></a>
-<a href="https://github.com/bentaculum/napari-ctc-io/actions"><img alt="tests" src="https://github.com/bentaculum/napari-ctc-io/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/bentaculum/napari-ctc-io"><img alt="codecov" src="https://codecov.io/gh/bentaculum/napari-ctc-io/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-ctc-io"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-ctc-io" /></a></p>
+                                        <p><a href="https://pypi.org/project/napari-ctc-io"><img src="https://img.shields.io/pypi/v/napari-ctc-io.svg?color=green" alt="PyPI" /></a>
+<a href="https://github.com/bentaculum/napari-ctc-io/actions"><img src="https://github.com/bentaculum/napari-ctc-io/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/bentaculum/napari-ctc-io"><img src="https://codecov.io/gh/bentaculum/napari-ctc-io/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-ctc-io"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-ctc-io" alt="napari hub" /></a></p>
 <ul>
-<li>Drag and drop annotations/results in the <a href="https://celltrackingchallenge.net">Cell Tracking Challenge (CTC) format</a> into napari.</li>
+<li>
+<p>Drag and drop annotations/results in the <a href="https://celltrackingchallenge.net">Cell Tracking Challenge (CTC) format</a> into napari.</p>
+<p>Works for <code>TRA</code>, <code>RES</code>, etc. folders, which contain a time sequence of segmentations in <code>tiff</code> format, and a corresponding tracklet file <code>*.txt</code>.</p>
+</li>
+<li>
+<p>Write tracked cells (<code>labels</code> layer &amp; corresponding <code>tracks</code> layer) to CTC format (see usage below).</p>
+</li>
 </ul>
-<p>Works for <code>TRA</code>, <code>RES</code>, etc. folders, which contain a time sequence of segmentations in <code>tiff</code> format, and a corresponding tracklet file <code>*.txt</code>.
-- Write tracked cells (<code>labels</code> layer &amp; corresponding <code>tracks</code> layer) to CTC format (see usage below).</p>
-<p>https://github.com/bentaculum/napari-ctc-io/assets/8866751/197c9ea2-4115-4829-851a-4b77eb843bf2</p>
+<p><a href="https://github.com/bentaculum/napari-ctc-io/assets/8866751/197c9ea2-4115-4829-851a-4b77eb843bf2">https://github.com/bentaculum/napari-ctc-io/assets/8866751/197c9ea2-4115-4829-851a-4b77eb843bf2</a></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-ctc-io</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-ctc-io
+<pre><code>pip install napari-ctc-io
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/bentaculum/napari-ctc-io.git
+<pre><code>pip install git+https://github.com/bentaculum/napari-ctc-io.git
 </code></pre>
-
 <h2>Usage of writer in widget</h2>
-<pre class="codehilite"><code class="language-python">def _save(self, event=None):
-    pm = npe2.PluginManager.instance()
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">pm</span> <span class="o">=</span> <span class="n">npe2</span><span class="o">.</span><span class="n">PluginManager</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
 
-    outdir = &quot;TRA&quot;
-    writer_contrib = pm.get_writer(
-        outdir,
-        [&quot;labels&quot;, &quot;tracks&quot;],
-        &quot;napari-ctc-io&quot;,
-    )[0]
+    <span class="n">outdir</span> <span class="o">=</span> <span class="s2">&quot;TRA&quot;</span>
+    <span class="n">writer_contrib</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">get_writer</span><span class="p">(</span>
+        <span class="n">outdir</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">,</span> <span class="s2">&quot;tracks&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;napari-ctc-io&quot;</span><span class="p">,</span>
+    <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    save_layers(
-        path=outdir,
-        layers=[
-            self._viewer.layers[&quot;masks_tracked&quot;],
-            self._viewer.layers[&quot;tracks&quot;],
-        ],
-        plugin=&quot;napari-ctc-io&quot;,
-        _writer=writer_contrib,
-    )
+    <span class="n">save_layers</span><span class="p">(</span>
+        <span class="n">path</span><span class="o">=</span><span class="n">outdir</span><span class="p">,</span>
+        <span class="n">layers</span><span class="o">=</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;masks_tracked&quot;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s2">&quot;tracks&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">plugin</span><span class="o">=</span><span class="s2">&quot;napari-ctc-io&quot;</span><span class="p">,</span>
+        <span class="n">_writer</span><span class="o">=</span><span class="n">writer_contrib</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>.</p>
 <h2>License</h2>
@@ -277,7 +256,7 @@ pre > code:last-child {
 <code>napari-ctc-io</code> is free and open source software.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/bentaculum/napari-ctc-io/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

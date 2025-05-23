@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,183 +210,157 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/sofroniewn/waver/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/waver.svg?color=green" /></a>
-<a href="https://pypi.org/project/waver"><img alt="PyPI" src="https://img.shields.io/pypi/v/waver.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/waver.svg?color=green" /></a>
-<a href="https://github.com/sofroniewn/waver/actions"><img alt="tests" src="https://github.com/sofroniewn/waver/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/sofroniewn/waver"><img alt="codecov" src="https://codecov.io/gh/sofroniewn/waver/branch/main/graph/badge.svg?token=QBP7K6YUT7" /></a></p>
+                                        <p><a href="https://github.com/sofroniewn/waver/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/waver.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/waver"><img src="https://img.shields.io/pypi/v/waver.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/waver.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/sofroniewn/waver/actions"><img src="https://github.com/sofroniewn/waver/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/sofroniewn/waver"><img src="https://codecov.io/gh/sofroniewn/waver/branch/main/graph/badge.svg?token=QBP7K6YUT7" alt="codecov" /></a></p>
 <p>Run simulations of the <a href="https://en.wikipedia.org/wiki/Wave_equation">wave equation</a> in nD on grids of variable speed in Python. This library owes a lot of its design and approach to the <a href="https://github.com/flaport/fdtd">fdtd</a> library, a Python 3D electromagnetic FDTD simulator.</p>
-<p>This package allows for a fair amount of customization over your wave simulation. You can
- - specify the size and spacing of the grid
- - specify the time step for the simulation, which will be checked to ensure stability of the simulation
- - specify the duration of the simulation
- - setting a variable speed array (one value per grid point) to allow for "objects" in your environment
- - set the source of the wave, which can be a point, line, or any (n-1)D subarray
- - record the wave with a detector, which can be the full grid, the full boundary, or a particular boundary
- - use convenience methods to run many simulations with different sources on the same grid and detector combination</p>
+<p>This package allows for a fair amount of customization over your wave simulation. You can</p>
+<ul>
+<li>specify the size and spacing of the grid</li>
+<li>specify the time step for the simulation, which will be checked to ensure stability of the simulation</li>
+<li>specify the duration of the simulation</li>
+<li>setting a variable speed array (one value per grid point) to allow for &quot;objects&quot; in your environment</li>
+<li>set the source of the wave, which can be a point, line, or any (n-1)D subarray</li>
+<li>record the wave with a detector, which can be the full grid, the full boundary, or a particular boundary</li>
+<li>use convenience methods to run many simulations with different sources on the same grid and detector combination</li>
+</ul>
 <p>You can use <a href="https://napari.org/">napari</a>, a multi-dimensional image viewer for Python, to allow for easy visualization of the detected wave. Some functionality is also available as a napari plugin to allow for running simulations from a graphical user interface.</p>
 <p>Results can look like</p>
-<p>https://user-images.githubusercontent.com/6531703/128283012-a784ec06-4df9-4ddf-bf4f-e21b927fe4a3.mov</p>
+<p><a href="https://user-images.githubusercontent.com/6531703/128283012-a784ec06-4df9-4ddf-bf4f-e21b927fe4a3.mov">https://user-images.githubusercontent.com/6531703/128283012-a784ec06-4df9-4ddf-bf4f-e21b927fe4a3.mov</a></p>
 <hr />
 <h2>Installation</h2>
 <p>You can install <code>waver</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install waver
+<pre><code>pip install waver
 </code></pre>
-
 <h2>Usage</h2>
 <h3>Convenience Methods</h3>
 <p>The most convenient way to use waver is to use one of two convenience methods that will create and run a simulation
 for you and return the results.</p>
-<p>The first method <code>run_single_source</code> allows you to run a single simulation with a single source on one grid and 
+<p>The first method <code>run_single_source</code> allows you to run a single simulation with a single source on one grid and
 record the results using a detector. For example</p>
-<pre class="codehilite"><code class="language-python">from waver.simulation import run_single_source
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">waver.simulation</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_single_source</span>
 
-single_sim_params = {
-    'size': (12.8e-3, 12.8e-3),
-    'spacing': 100e-6,
-    'duration': 80e-6,
-    'min_speed': 343,
-    'max_speed': 686,
-    'speed': 686,
-    'time_step': 50e-9,
-    'temporal_downsample': 2,
-    'location': (6.4e-3, 6.4e-3),
-    'period': 5e-6,
-    'ncycles':1,
-}
+<span class="n">single_sim_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">12.8e-3</span><span class="p">,</span> <span class="mf">12.8e-3</span><span class="p">),</span>
+    <span class="s1">&#39;spacing&#39;</span><span class="p">:</span> <span class="mf">100e-6</span><span class="p">,</span>
+    <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mf">80e-6</span><span class="p">,</span>
+    <span class="s1">&#39;min_speed&#39;</span><span class="p">:</span> <span class="mi">343</span><span class="p">,</span>
+    <span class="s1">&#39;max_speed&#39;</span><span class="p">:</span> <span class="mi">686</span><span class="p">,</span>
+    <span class="s1">&#39;speed&#39;</span><span class="p">:</span> <span class="mi">686</span><span class="p">,</span>
+    <span class="s1">&#39;time_step&#39;</span><span class="p">:</span> <span class="mf">50e-9</span><span class="p">,</span>
+    <span class="s1">&#39;temporal_downsample&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">6.4e-3</span><span class="p">,</span> <span class="mf">6.4e-3</span><span class="p">),</span>
+    <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="mf">5e-6</span><span class="p">,</span>
+    <span class="s1">&#39;ncycles&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
 
-detected_wave, speed_grid = run_single_source(**single_sim_params)
+<span class="n">detected_wave</span><span class="p">,</span> <span class="n">speed_grid</span> <span class="o">=</span> <span class="n">run_single_source</span><span class="p">(</span><span class="o">**</span><span class="n">single_sim_params</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>The second method <code>run_multiple_sources</code> allows you to run multiple simulations with multiple sources on the same
 grid and with the same detector and return the results. For example</p>
-<pre class="codehilite"><code class="language-python">from waver.simulation import run_multiple_sources
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">waver.simulation</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_multiple_sources</span>
 
-multi_sim_params = {
-    'size': (12.8e-3, 12.8e-3),
-    'spacing': 100e-6,
-    'duration': 80e-6,
-    'min_speed': 343,
-    'max_speed': 686,
-    'speed': 686,
-    'time_step': 50e-9,
-    'temporal_downsample': 2,
-    'sources': [{
-        'location': (6.4e-3, 6.4e-3),
-        'period': 5e-6,
-        'ncycles':1,
-    }]
-}
+<span class="n">multi_sim_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">12.8e-3</span><span class="p">,</span> <span class="mf">12.8e-3</span><span class="p">),</span>
+    <span class="s1">&#39;spacing&#39;</span><span class="p">:</span> <span class="mf">100e-6</span><span class="p">,</span>
+    <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mf">80e-6</span><span class="p">,</span>
+    <span class="s1">&#39;min_speed&#39;</span><span class="p">:</span> <span class="mi">343</span><span class="p">,</span>
+    <span class="s1">&#39;max_speed&#39;</span><span class="p">:</span> <span class="mi">686</span><span class="p">,</span>
+    <span class="s1">&#39;speed&#39;</span><span class="p">:</span> <span class="mi">686</span><span class="p">,</span>
+    <span class="s1">&#39;time_step&#39;</span><span class="p">:</span> <span class="mf">50e-9</span><span class="p">,</span>
+    <span class="s1">&#39;temporal_downsample&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;sources&#39;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">6.4e-3</span><span class="p">,</span> <span class="mf">6.4e-3</span><span class="p">),</span>
+        <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="mf">5e-6</span><span class="p">,</span>
+        <span class="s1">&#39;ncycles&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
 
-detected_wave, speed_grid = run_multiple_sources(**multi_sim_params)
+<span class="n">detected_wave</span><span class="p">,</span> <span class="n">speed_grid</span> <span class="o">=</span> <span class="n">run_multiple_sources</span><span class="p">(</span><span class="o">**</span><span class="n">multi_sim_params</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<p>The main difference between these two methods is that <code>run_multiple_sources</code> takes a <code>sources</code> parameter which takes a list 
+<p>The main difference between these two methods is that <code>run_multiple_sources</code> takes a <code>sources</code> parameter which takes a list
 of dictionaries with keys corresponding to source related keyword arguments found in <code>run_single_source</code>.</p>
 <h3>Visualization</h3>
-<p>If you want to quickly visualize the results of <code>run_multiple_sources</code>, you can use the <code>run_and_visualize</code> command which will 
+<p>If you want to quickly visualize the results of <code>run_multiple_sources</code>, you can use the <code>run_and_visualize</code> command which will
 run the simulation and then launch napari with the results, as seen in <a href="./examples/2D/point_source.py">examples/2D/point_source.py</a></p>
-<pre class="codehilite"><code class="language-python">from waver.datasets import run_and_visualize
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">waver.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_and_visualize</span>
 
-run_and_visualize(**multi_sim_params)
+<span class="n">run_and_visualize</span><span class="p">(</span><span class="o">**</span><span class="n">multi_sim_params</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <h3>Datasets</h3>
 <p>If you want to run simulations with on many different speed grids you can use the <code>generate_simulation_dataset</code> method as a convenience. The results will be saved to a <a href="https://zarr.readthedocs.io/en/stable/">zarr</a> file of your chosing. You can then use the <code>load_simulation_dataset</code> to load the dataset.</p>
-<pre class="codehilite"><code class="language-python">from waver.datasets import generate_simulation_dataset
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">waver.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_simulation_dataset</span>
 
-# Define root path for simulation
-path = './simulation_dataset.zarr'
-runs = 5
+<span class="c1"># Define root path for simulation</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;./simulation_dataset.zarr&#39;</span>
+<span class="n">runs</span> <span class="o">=</span> <span class="mi">5</span>
 
-# Define a simulation, 12.8mm, 100um spacing
-dataset_sim_params = {
-    'size': (12.8e-3, 12.8e-3),
-    'spacing': 100e-6,
-    'duration': 80e-6,
-    'min_speed': 343,
-    'max_speed': 686,
-    'speed': 'mixed_random_ifft',
-    'time_step': 50e-9,
-    'sources': [{
-        'location': (None, 0),
-        'period': 5e-6,
-        'ncycles':1,
-    }],
-    'temporal_downsample': 2,
-    'boundary': 1,
-    'edge': 1,
-}
+<span class="c1"># Define a simulation, 12.8mm, 100um spacing</span>
+<span class="n">dataset_sim_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">12.8e-3</span><span class="p">,</span> <span class="mf">12.8e-3</span><span class="p">),</span>
+    <span class="s1">&#39;spacing&#39;</span><span class="p">:</span> <span class="mf">100e-6</span><span class="p">,</span>
+    <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mf">80e-6</span><span class="p">,</span>
+    <span class="s1">&#39;min_speed&#39;</span><span class="p">:</span> <span class="mi">343</span><span class="p">,</span>
+    <span class="s1">&#39;max_speed&#39;</span><span class="p">:</span> <span class="mi">686</span><span class="p">,</span>
+    <span class="s1">&#39;speed&#39;</span><span class="p">:</span> <span class="s1">&#39;mixed_random_ifft&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;time_step&#39;</span><span class="p">:</span> <span class="mf">50e-9</span><span class="p">,</span>
+    <span class="s1">&#39;sources&#39;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="mf">5e-6</span><span class="p">,</span>
+        <span class="s1">&#39;ncycles&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">}],</span>
+    <span class="s1">&#39;temporal_downsample&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;boundary&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;edge&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
 
-# Run and save simulation
-generate_simulation_dataset(path, runs, **dataset_sim_params)
+<span class="c1"># Run and save simulation</span>
+<span class="n">generate_simulation_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">runs</span><span class="p">,</span> <span class="o">**</span><span class="n">dataset_sim_params</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>The <code>generate_simulation_dataset</code> allows the <code>speed</code> to be a string that will specify a particular method of randomly generating speed values for the simulation grid.</p>
 <h3>The Simulation Object</h3>
 <p>If you'd like to understand in a little bit more detail how a simulation is defined then you might want to use the unerlying simulation object <code>Simulation</code> and manually set key objects like the <code>Source</code> and <code>Detector</code>. A full example of this is as follows</p>
-<pre class="codehilite"><code class="language-python"># Create a simulation
-sim = Simulation(size=size, spacing=spacing, max_speed=max_speed, time_step=time_step)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="c1"># Create a simulation</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">,</span> <span class="n">max_speed</span><span class="o">=</span><span class="n">max_speed</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="n">time_step</span><span class="p">)</span>
 
-# Set speed array
-sim.set_speed(speed=speed, min_speed=min_speed, max_speed=max_speed)
+<span class="c1"># Set speed array</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">speed</span><span class="o">=</span><span class="n">speed</span><span class="p">,</span> <span class="n">min_speed</span><span class="o">=</span><span class="n">min_speed</span><span class="p">,</span> <span class="n">max_speed</span><span class="o">=</span><span class="n">max_speed</span><span class="p">)</span>
 
-# Add source
-sim.add_source(location=location, period=period, ncycles=ncycles, phase=phase)
+<span class="c1"># Add source</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="n">period</span><span class="p">,</span> <span class="n">ncycles</span><span class="o">=</span><span class="n">ncycles</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="n">phase</span><span class="p">)</span>
 
-# Add detector grid
-sim.add_detector(spatial_downsample=spatial_downsample,
-                    boundary=boundary, edge=edge)
+<span class="c1"># Add detector grid</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_detector</span><span class="p">(</span><span class="n">spatial_downsample</span><span class="o">=</span><span class="n">spatial_downsample</span><span class="p">,</span>
+                    <span class="n">boundary</span><span class="o">=</span><span class="n">boundary</span><span class="p">,</span> <span class="n">edge</span><span class="o">=</span><span class="n">edge</span><span class="p">)</span>
 
-# Run simulation
-sim.run(duration=duration, temporal_downsample=temporal_downsample, progress=progress, leave=leave)
+<span class="c1"># Run simulation</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span> <span class="n">temporal_downsample</span><span class="o">=</span><span class="n">temporal_downsample</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="n">leave</span><span class="p">)</span>
 
-# Print simulation wave and speed data
-print('wave: ', sim.detected_wave)
-print('speed: ', sim.grid_speed)
+<span class="c1"># Print simulation wave and speed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;wave: &#39;</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">detected_wave</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;speed: &#39;</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">grid_speed</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>Note these steps are done inside the <code>run_single_source</code> method for you as a convenience.</p>
 <h2>Known Limitations</h2>
 <p>A <a href="https://en.wikipedia.org/wiki/Perfectly_matched_layer">perfectly matched layer</a> boundary has recently been added, but might not perform well under all conditions. Additional contributions would be welcome here.</p>
-<p>Right now the simulations are quite slow. I'd like to add a <a href="https://github.com/google/jax">JAX</a> backend, but 
+<p>Right now the simulations are quite slow. I'd like to add a <a href="https://github.com/google/jax">JAX</a> backend, but
 havn't done so yet. Contributions would be welcome.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"waver" is free and open source software</p>
+&quot;waver&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/sofroniewn/waver/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

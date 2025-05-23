@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,57 +210,34 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-brainbow-diagnose.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-brainbow-diagnose"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-brainbow-diagnose.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-brainbow-diagnose.svg?color=green" /></a>
-<a href="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/actions"><img alt="tests" src="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-brainbow-diagnose"><img alt="codecov" src="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-brainbow-diagnose"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-brainbow-diagnose" /></a></p>
+                                        <p><a href="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-brainbow-diagnose.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-brainbow-diagnose"><img src="https://img.shields.io/pypi/v/napari-brainbow-diagnose.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-brainbow-diagnose.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/actions"><img src="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-brainbow-diagnose"><img src="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-brainbow-diagnose"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-brainbow-diagnose" alt="napari hub" /></a></p>
 <p>Explore image in channel coordinate spaces.</p>
 <p><strong>Original motivation</strong>: Brainbow dataset have unique features that need to be addressed by specialized tools.
 This plugin allows you to visualize the distribution of the channel ratio interactively in the image space and channel spaces.</p>
 <p>You can also use this plugin along with the <a href="https://github.com/BiAPoL/napari-clusters-plotter?tab=readme-ov-file#installation"><code>napari-cluster-plotter</code> plugin</a> to interact with individual objects.</p>
-<p><img alt="demo_gif" src="https://raw.githubusercontent.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/main/docs/demo_napari-brainbow-diagnose.gif" /></p>
+<p><img src="https://raw.githubusercontent.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/main/docs/demo_napari-brainbow-diagnose.gif" alt="demo_gif" /></p>
 <h2>Available Channel space transformation</h2>
 <p>The following channel spaces are available:</p>
-<p><img alt="image|width=10" src="https://github.com/user-attachments/assets/0dae9090-da16-4653-b466-a08289e061ea" /></p>
-<p>From Cartesian RGB:
-- (a) Maxwell triangle (ternary plot) <a href="https://en.wikipedia.org/wiki/Ternary_plot">illustration</a>
-- (c) Hue-Saturation wheel <a href="https://en.wikipedia.org/wiki/File:Hsl-hsv_models.svg">illustration (g)</a>
-- (e) Spherical coordinates (Theta, Phi and Radius) <a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">illustration</a>
-- (g,i) Hue-Saturation-Value planes <a href="https://en.wikipedia.org/wiki/File:Hsl-hsv_models.svg">illustration (b)(f)</a></p>
+<p><img src="https://github.com/user-attachments/assets/0dae9090-da16-4653-b466-a08289e061ea" alt="image|width=10" /></p>
+<p>From Cartesian RGB:</p>
+<ul>
+<li>(a) Maxwell triangle (ternary plot) <a href="https://en.wikipedia.org/wiki/Ternary_plot">illustration</a></li>
+<li>(c) Hue-Saturation wheel <a href="https://en.wikipedia.org/wiki/File:Hsl-hsv_models.svg">illustration (g)</a></li>
+<li>(e) Spherical coordinates (Theta, Phi and Radius) <a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">illustration</a></li>
+<li>(g,i) Hue-Saturation-Value planes <a href="https://en.wikipedia.org/wiki/File:Hsl-hsv_models.svg">illustration (b)(f)</a></li>
+</ul>
 <h2>Example Notebooks</h2>
-<p>You can use this plugin to visualize channel space of:
-- interactively every voxel in the image (see <a href="docs/demo.ipynb">demo notebook</a>)
-- interactively every object (aka center point) in the image (see <a href="docs/cluster_plotter_compatibility.ipynb">demo notebook</a>). To use this notebook you need to install <a href="https://github.com/BiAPoL/napari-clusters-plotter?tab=readme-ov-file#installation"><code>napari-cluster-plotter</code> plugin</a>.
-- Not interactive in matplotlib to export figures: (see <a href="docs/plot_color_space_matplotlib.ipynb">demo notebook</a>)</p>
+<p>You can use this plugin to visualize channel space of:</p>
+<ul>
+<li>interactively every voxel in the image (see <a href="docs/demo.ipynb">demo notebook</a>)</li>
+<li>interactively every object (aka center point) in the image (see <a href="docs/cluster_plotter_compatibility.ipynb">demo notebook</a>). To use this notebook you need to install <a href="https://github.com/BiAPoL/napari-clusters-plotter?tab=readme-ov-file#installation"><code>napari-cluster-plotter</code> plugin</a>.</li>
+<li>Not interactive in matplotlib to export figures: (see <a href="docs/plot_color_space_matplotlib.ipynb">demo notebook</a>)</li>
+</ul>
 <h2>Example Datasets</h2>
 <p>If you want to use your dataset, you have to format it such as each channel is in one distinct <code>napari.Layers</code>
 You can open test dataset to try this plugin in <code>File &gt; Open Sample &gt; napari-brainbow-diagnose</code>.</p>
@@ -267,20 +248,18 @@ You can open test dataset to try this plugin in <code>File &gt; Open Sample &gt;
 <p>Once you have your layers you can use the dropdown and select the corresponding layer. It is advised to match the <code>red, green, blue</code> order so the ratio you see on the napari viewer corresponds to the Hue-Saturation Wheel of the plugin.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-brainbow-diagnose</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-brainbow-diagnose
+<pre><code>pip install napari-brainbow-diagnose
 </code></pre>
-
 <p>If you want to use <a href="https://github.com/BiAPoL/napari-clusters-plotter?tab=readme-ov-file#installation"><code>napari-cluster-plotter</code> plugin</a>  you also need to install it manually</p>
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose.git
+<pre><code>pip install git+https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-brainbow-diagnose" is free and open source software</p>
+&quot;napari-brainbow-diagnose&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/LaboratoryOpticsBiosciences/napari-brainbow-diagnose/issues">file an issue</a> along with a detailed description.</p>
 <hr />
@@ -292,7 +271,7 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-        
+
 
                                     </div>
                                 </div>

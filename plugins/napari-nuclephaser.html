@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,155 +206,191 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/nikvo1/napari-nuclephaser/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-nuclephaser.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-nuclephaser"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-nuclephaser.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-nuclephaser.svg?color=green" /></a>
-<a href="https://github.com/nikvo1/napari-nuclephaser/actions"><img alt="tests" src="https://github.com/nikvo1/napari-nuclephaser/workflows/tests/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-nuclephaser"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-nuclephaser" /></a>
-<a href="https://napari.org/stable/plugins/index.html"><img alt="npe2" src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" /></a>
-<a href="https://github.com/copier-org/copier"><img alt="Copier" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" /></a></p>
+                                        <p><a href="https://github.com/nikvo1/napari-nuclephaser/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-nuclephaser.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-nuclephaser"><img src="https://img.shields.io/pypi/v/napari-nuclephaser.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-nuclephaser.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/nikvo1/napari-nuclephaser/actions"><img src="https://github.com/nikvo1/napari-nuclephaser/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://napari-hub.org/plugins/napari-nuclephaser"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-nuclephaser" alt="napari hub" /></a>
+<a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a>
+<a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
 <p>A Napari plugin to detect and count nuclei on phase contrast images</p>
 <p>napari-nuclephaser utilizes <a href="https://docs.ultralytics.com/">Ultralytics</a> YOLO object detection models and <a href="https://github.com/obss/sahi">obss/sahi</a> sliced inference methods to detect cell nuclei on phase contrast (and other brightfield) images of any size, including large whole slide ones. Learn more with <a href="https://napari-nuclephaser.readthedocs.io/en/latest/index.html">documentation</a> and <a href="https://www.biorxiv.org/content/10.1101/2025.05.13.653705v1">paper</a>.</p>
 <h1>Nuclei detection</h1>
-<p>We trained a series of <a href="https://github.com/ultralytics/yolov5">YOLOv5</a> and <a href="https://github.com/ultralytics/ultralytics">YOLOv11</a> models to detect nuclei on phase contrast images. It can be used for counting cells or for individual cell tracking (using nuclei detections as tracking marks). Prominent features of this approach are:
-- Napari-nuclephaser plugin includes <a href="https://github.com/obss/sahi">obss/sahi</a> functionality, allowing detection on images of arbitrary sizes.</p>
+<p>We trained a series of <a href="https://github.com/ultralytics/yolov5">YOLOv5</a> and <a href="https://github.com/ultralytics/ultralytics">YOLOv11</a> models to detect nuclei on phase contrast images. It can be used for counting cells or for individual cell tracking (using nuclei detections as tracking marks). Prominent features of this approach are:</p>
+<ul>
+<li>Napari-nuclephaser plugin includes <a href="https://github.com/obss/sahi">obss/sahi</a> functionality, allowing detection on images of arbitrary sizes.</li>
+</ul>
 <p align="center">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset=https://github.com/user-attachments/assets/aa321f17-b0e2-4161-8a69-cb732d7065a7 height=400>
-      <img alt="Image didn't load" src=https://github.com/user-attachments/assets/fe4d6436-3490-4c06-8ddd-7c797976f407 height=400>
-    </picture>
+	<picture>
+	  <source media="(prefers-color-scheme: dark)" srcset=https://github.com/user-attachments/assets/aa321f17-b0e2-4161-8a69-cb732d7065a7 height=400>
+	  <img alt="Image didn't load" src=https://github.com/user-attachments/assets/fe4d6436-3490-4c06-8ddd-7c797976f407 height=400>
+	</picture>
 </picture>
-
-- YOLO models are fast, providing reasonable inference speed even with CPU.
-- Ability to predict and automatically count nuclei on stacks of images, making it convenient for cell population growth studies and individual cell tracking.
-
+<ul>
+<li>YOLO models are fast, providing reasonable inference speed even with CPU.</li>
+<li>Ability to predict and automatically count nuclei on stacks of images, making it convenient for cell population growth studies and individual cell tracking.</li>
+</ul>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=https://github.com/user-attachments/assets/feba9a99-1d37-4962-a2e6-175052aa4925>
   <img alt="Image didn't load" src="https://github.com/user-attachments/assets/c7e4d0e6-44c1-4268-aae5-6bb78500d928">
 </picture>
-
-# Calibration algorithm
-
-Result of object detection model inference is highly dependent on _confidence threshold_ parameter.
-
+<h1>Calibration algorithm</h1>
+<p>Result of object detection model inference is highly dependent on <em>confidence threshold</em> parameter.</p>
 <p align="center">
   <picture>
   <source media="(prefers-color-scheme: dark)" srcset=https://github.com/user-attachments/assets/8a13085f-c7ea-45f0-8931-6851f21b68a0 height="300">
   <img alt="Image didn't load" src=https://github.com/user-attachments/assets/89f76cd7-2db7-4241-bc35-36d23332b2b5 height="300">
   </picture>
 </p>
-
-We created several calibration (finding optimal confidence threshold) algorithms that allow adjusting models to specific use cases (cell types, magnifications, illumination settings, cameras etc.):
-- Calibration using known number of objects on an image. Doesn't produce accuracy metrics.
-- Calibration using fluorescent nuclei stain image (for example, DAPI image). Produces accuracy metrics.
-- Calibration using manual annotation of nuclei. Produces accuracy metrics.
-
-Apart from optimal confidence threshold search, these algorithms return accuracy metrics for specific use cases. Given that the calibration image is large, only part of it is used for search of threshold, while the second part is used for evaluation model's accuracy.
-Accuracy metrics are [Mean Absolute Percentage Error (MAPE)](https://en.wikipedia.org/wiki/Mean_absolute_percentage_error) and prediction-ground truth scatterplot, which shows how well model performs with different densities of cells.
-
-Learn more about calibration in [documentation](https://napari-nuclephaser.readthedocs.io/en/latest/General%20information/Confidence%20threshold%20calibration.html).
-
+<p>We created several calibration (finding optimal confidence threshold) algorithms that allow adjusting models to specific use cases (cell types, magnifications, illumination settings, cameras etc.):</p>
+<ul>
+<li>Calibration using known number of objects on an image. Doesn't produce accuracy metrics.</li>
+<li>Calibration using fluorescent nuclei stain image (for example, DAPI image). Produces accuracy metrics.</li>
+<li>Calibration using manual annotation of nuclei. Produces accuracy metrics.</li>
+</ul>
+<p>Apart from optimal confidence threshold search, these algorithms return accuracy metrics for specific use cases. Given that the calibration image is large, only part of it is used for search of threshold, while the second part is used for evaluation model's accuracy.
+Accuracy metrics are <a href="https://en.wikipedia.org/wiki/Mean_absolute_percentage_error">Mean Absolute Percentage Error (MAPE)</a> and prediction-ground truth scatterplot, which shows how well model performs with different densities of cells.</p>
+<p>Learn more about calibration in <a href="https://napari-nuclephaser.readthedocs.io/en/latest/General%20information/Confidence%20threshold%20calibration.html">documentation</a>.</p>
 <p align="center">
   <picture>
   <source media="(prefers-color-scheme: dark)" srcset=https://github.com/user-attachments/assets/6d89e22b-2728-40fb-839d-3c6681e29c97>
   <img alt="Image didn't load" src=https://github.com/user-attachments/assets/6a574845-4ad2-4802-b0f8-f1d908aa585a>
   </picture>
 </p>
-
-# Models
-
-Currently only YOLOv5n, YOLOv5s, YOLOv11n and YOLOv11s models, as well as fluorescent nuclei detector YOLOv5n are downloaded automatically with pip install napari-nuclephaser. To use larger models, download them with these links:
-
+<h1>Models</h1>
+<p>Currently only YOLOv5n, YOLOv5s, YOLOv11n and YOLOv11s models, as well as fluorescent nuclei detector YOLOv5n are downloaded automatically with pip install napari-nuclephaser. To use larger models, download them with these links:</p>
 <div align="center">
-
-Fluorescent nuclei detectors
-| Model                    | Link |
-| :----------------------: | :-----: |
-| Fluorescence_v5n         | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v5n.pt?download=1) |
-| Fluorescence_v5s         | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v5s.pt?download=1) |
-| Fluorescence_v5m         | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v5m.pt?download=1) |
-| Fluorescence_v5l         | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v5l.pt?download=1) |
-| Fluorescence_v5x         | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v5x.pt?download=1) |
-| Fluorescence_v11n        | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v11n.pt?download=1)|
-| Fluorescence_v11s        | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v11s.pt?download=1)|
-| Fluorescence_v11m        | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v11m.pt?download=1)|
-| Fluorescence_v11l        | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v11l.pt?download=1)|
-| Fluorescence_v11x        | [Donwload](https://zenodo.org/records/15388030/files/Fluorescence_v11x.pt?download=1)|
-
-Brighfield nuclei detectors
-| Model                    | Link |
-| :----------------------: | :-----: |
-| Brightfield_v5n          | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v5n.pt?download=1)  |
-| Brightfield_v5s          | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v5s.pt?download=1)  |
-| Brightfield_v5m          | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v5m.pt?download=1)  |
-| Brightfield_v5l          | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v5l.pt?download=1)  |
-| Brightfield_v5x          | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v5x.pt?download=1)  |
-| Brightfield_v11n         | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v11n.pt?download=1) |
-| Brightfield_v11s         | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v11s.pt?download=1) |
-| Brightfield_v11m         | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v11m.pt?download=1) |
-| Brightfield_v11l         | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v11l.pt?download=1) |
-| Brightfield_v11x         | [Donwload](https://zenodo.org/records/15388030/files/Brightfield_v11x.pt?download=1) |
-
+<p>Fluorescent nuclei detectors</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Model</th>
+<th style="text-align:center">Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Fluorescence_v5n</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v5n.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v5s</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v5s.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v5m</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v5m.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v5l</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v5l.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v5x</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v5x.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v11n</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v11n.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v11s</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v11s.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v11m</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v11m.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v11l</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v11l.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Fluorescence_v11x</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Fluorescence_v11x.pt?download=1">Donwload</a></td>
+</tr>
+</tbody>
+</table>
+<p>Brighfield nuclei detectors</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Model</th>
+<th style="text-align:center">Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Brightfield_v5n</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v5n.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v5s</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v5s.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v5m</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v5m.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v5l</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v5l.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v5x</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v5x.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v11n</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v11n.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v11s</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v11s.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v11m</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v11m.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v11l</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v11l.pt?download=1">Donwload</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Brightfield_v11x</td>
+<td style="text-align:center"><a href="https://zenodo.org/records/15388030/files/Brightfield_v11x.pt?download=1">Donwload</a></td>
+</tr>
+</tbody>
+</table>
 </div>
-
-> [!NOTE]
-> Feel free to use the models published here without the plugin!
-
-# Plugin functionality
-napari-nuclephaser plugin offers following widgets:
-- Widget for inference on single image. Result can be in the form of points or boxes with or without confidence scores. Automatically returns number of cells in the name of result layer.
-- Widget for inference on stack of images. Optionally can create .csv or .xlsx file at given location with counting results.
-- Widget for calibration using known number of cells.
-- Widget for calibration using fluorescent nuclei image (fluorescent nuclei detection model is used as a perfect predictor).
-- Widget for calibration using manual annotations.
-- Widget for transforming Napari Points layer into Labels layer, which allows turning detection in tracking algorithms-digestible form (in particular, [btrack](https://github.com/quantumjot/btrack)).
-- Widget for counting number of points in Points layer.
-
-Learn more about widgets and their functionality at [documentation](https://napari-nuclephaser.readthedocs.io/en/latest/index.html).
-
-# Citation
-
-
-<pre class="codehilite"><code class="language-bibtex">@article {Voloshin2025.05.13.653705,
-    author = {Voloshin, Nikita and Putlyaev, Egor and Chechekhina, Elizaveta and Usachev, Vladimir and Karagyaur, Maxim and Bozov, Kirill and Grigorieva, Olga and Tyurin-Kuzmin, Pyotr and Kulebyakin, Konstantin},
-    title = {NuclePhaser: a YOLO-based framework for cell nuclei detection and counting in phase contrast images of arbitrary size with support of fast calibration and testing on specific use cases},
-    year = {2025},
-    doi = {10.1101/2025.05.13.653705},
-    URL = {https://www.biorxiv.org/content/early/2025/05/16/2025.05.13.653705},
-    eprint = {https://www.biorxiv.org/content/early/2025/05/16/2025.05.13.653705.full.pdf},
-    journal = {bioRxiv}
-}
+<blockquote>
+<p>[!NOTE]
+Feel free to use the models published here without the plugin!</p>
+</blockquote>
+<h1>Plugin functionality</h1>
+<p>napari-nuclephaser plugin offers following widgets:</p>
+<ul>
+<li>Widget for inference on single image. Result can be in the form of points or boxes with or without confidence scores. Automatically returns number of cells in the name of result layer.</li>
+<li>Widget for inference on stack of images. Optionally can create .csv or .xlsx file at given location with counting results.</li>
+<li>Widget for calibration using known number of cells.</li>
+<li>Widget for calibration using fluorescent nuclei image (fluorescent nuclei detection model is used as a perfect predictor).</li>
+<li>Widget for calibration using manual annotations.</li>
+<li>Widget for transforming Napari Points layer into Labels layer, which allows turning detection in tracking algorithms-digestible form (in particular, <a href="https://github.com/quantumjot/btrack">btrack</a>).</li>
+<li>Widget for counting number of points in Points layer.</li>
+</ul>
+<p>Learn more about widgets and their functionality at <a href="https://napari-nuclephaser.readthedocs.io/en/latest/index.html">documentation</a>.</p>
+<h1>Citation</h1>
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="w"> </span><span class="p">{</span><span class="nl">Voloshin2025.05.13.653705</span><span class="p">,</span>
+<span class="w">	</span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Voloshin, Nikita and Putlyaev, Egor and Chechekhina, Elizaveta and Usachev, Vladimir and Karagyaur, Maxim and Bozov, Kirill and Grigorieva, Olga and Tyurin-Kuzmin, Pyotr and Kulebyakin, Konstantin}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{NuclePhaser: a YOLO-based framework for cell nuclei detection and counting in phase contrast images of arbitrary size with support of fast calibration and testing on specific use cases}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.1101/2025.05.13.653705}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">URL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://www.biorxiv.org/content/early/2025/05/16/2025.05.13.653705}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">eprint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://www.biorxiv.org/content/early/2025/05/16/2025.05.13.653705.full.pdf}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{bioRxiv}</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
-
-
 <!--
 Don't miss the full getting started guide to set up your new package:
 https://github.com/napari/napari-plugin-template#getting-started
@@ -358,136 +398,104 @@ https://github.com/napari/napari-plugin-template#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
-# Installation
-
-### Option 1: Using Anaconda (recommended)
-
-We recommend installation using [Anaconda Distribution](https://www.anaconda.com/)
-
-1. Install Anaconda with [Installation instructions](https://www.anaconda.com/docs/getting-started/anaconda/install)
-
-2. Open Anaconda Prompt using Search Bar or Anaconda Navigator
-
-3. Create new environment with default anaconda packages using command
-
-
-<pre class="codehilite"><code class="language-sh">conda create --name napari-env anaconda
+<h1>Installation</h1>
+<h3>Option 1: Using Anaconda (recommended)</h3>
+<p>We recommend installation using <a href="https://www.anaconda.com/">Anaconda Distribution</a></p>
+<ol>
+<li>
+<p>Install Anaconda with <a href="https://www.anaconda.com/docs/getting-started/anaconda/install">Installation instructions</a></p>
+</li>
+<li>
+<p>Open Anaconda Prompt using Search Bar or Anaconda Navigator</p>
+</li>
+<li>
+<p>Create new environment with default anaconda packages using command</p>
+</li>
+</ol>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>napari-env<span class="w"> </span>anaconda
+</pre></div>
 </code></pre>
-
-
-4. Activate new environment using command
-
-
-<pre class="codehilite"><code class="language-sh">conda activate napari-env
+<ol start="4">
+<li>Activate new environment using command</li>
+</ol>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>napari-env
+</pre></div>
 </code></pre>
-
-
-5. Install [Napari](https://napari.org/stable/) using command
-
-
-<pre class="codehilite"><code class="language-sh">pip install napari[all]
+<ol start="5">
+<li>Install <a href="https://napari.org/stable/">Napari</a> using command</li>
+</ol>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari<span class="o">[</span>all<span class="o">]</span>
+</pre></div>
 </code></pre>
-
-
-6. Verify napari installation using following command. It should open napari GUI.
-
-
-<pre class="codehilite"><code class="language-sh">napari
+<ol start="6">
+<li>Verify napari installation using following command. It should open napari GUI.</li>
+</ol>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
-
-7. Install napari-nuclephaser plugin using command
-
-
-<pre class="codehilite"><code class="language-sh">pip install napari-nuclephaser
+<ol start="7">
+<li>Install napari-nuclephaser plugin using command</li>
+</ol>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-nuclephaser
+</pre></div>
 </code></pre>
-
-
-8. Plugin is ready to be used! Start napari by typing
-
-
-<pre class="codehilite"><code class="language-sh">napari
+<ol start="8">
+<li>Plugin is ready to be used! Start napari by typing</li>
+</ol>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
-
-Initialize plugin's widgets by opening Plugins window and choosing NuclePhaser.
-
-### Installation with GPU
-
-If you have [NVIDIA GPU with CUDA](https://developer.nvidia.com/cuda-gpus), you can significantly increase plugin's speed.
-
-To install GPU-powered version of the plugin, you first need to do all the steps for the installation using Anaconda (above). Then you need to:
-
-1. Install CUDA using [official instructions](https://developer.nvidia.com/cuda-downloads)
-> [!NOTE]
-> Check which versions of CUDA are supported by current [torch installation](https://pytorch.org/get-started/locally/) and consider [installing earlier ones](https://developer.nvidia.com/cuda-toolkit-archive)
-
-2. Check CUDA installation with nvidia-smi command in the command line.
-
-
-<pre class="codehilite"><code class="language-sh">nvidia-smi
+<p>Initialize plugin's widgets by opening Plugins window and choosing NuclePhaser.</p>
+<h3>Installation with GPU</h3>
+<p>If you have <a href="https://developer.nvidia.com/cuda-gpus">NVIDIA GPU with CUDA</a>, you can significantly increase plugin's speed.</p>
+<p>To install GPU-powered version of the plugin, you first need to do all the steps for the installation using Anaconda (above). Then you need to:</p>
+<ol>
+<li>Install CUDA using <a href="https://developer.nvidia.com/cuda-downloads">official instructions</a></li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+Check which versions of CUDA are supported by current <a href="https://pytorch.org/get-started/locally/">torch installation</a> and consider <a href="https://developer.nvidia.com/cuda-toolkit-archive">installing earlier ones</a></p>
+</blockquote>
+<ol start="2">
+<li>Check CUDA installation with nvidia-smi command in the command line.</li>
+</ol>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>nvidia-smi
+</pre></div>
 </code></pre>
-
-
-3. In the environment with napari and napari-nuclephaser installed, install CUDA-supported torch by typing specific command for your system, which can be found at [torch installation page](https://pytorch.org/get-started/locally/). For example, if you have Windows-based system and CUDA 12.6, your line should look like
-
-
-<pre class="codehilite"><code class="language-sh">pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+<ol start="3">
+<li>In the environment with napari and napari-nuclephaser installed, install CUDA-supported torch by typing specific command for your system, which can be found at <a href="https://pytorch.org/get-started/locally/">torch installation page</a>. For example, if you have Windows-based system and CUDA 12.6, your line should look like</li>
+</ol>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu126
+</pre></div>
 </code></pre>
+<blockquote>
+<p>[!WARNING]
+During our tests, torchvision wasn't installed using this line. To avoid that, add -U after install:</p>
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu126
+</pre></div>
+</code></pre>
+</blockquote>
+<hr />
+<h2>Option 2: Using standalone napari app (simpler)</h2>
+<ol>
+<li>
+<p>Download and install napari as standalone app using <a href="https://napari.org/dev/tutorials/fundamentals/installation_bundle_conda.html">installation instructions</a></p>
+</li>
+<li>
+<p>Search, download and install napari-nuclephaser plugin by opening the app, navigating to Plugins window and choosing Install/Uninstall plugins...</p>
+</li>
+</ol>
+<hr />
+<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
+<h2>Contributing</h2>
+<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
+the coverage at least stays the same before you submit a pull request.</p>
+<h2>License</h2>
+<p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
+&quot;napari-nuclephaser&quot; is free and open source software</p>
+<h2>Issues</h2>
+<p>If you encounter any problems, please <a href="https://github.com/nikvo1/napari-nuclephaser/issues">file an issue</a> along with a detailed description.</p>
 
-
-
-> [!WARNING]
-> During our tests, torchvision wasn't installed using this line. To avoid that, add -U after install:
-> ```sh
->pip3 install -U torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
->```
-
-----------------------------------
-
-## Option 2: Using standalone napari app (simpler)
-
-1. Download and install napari as standalone app using [installation instructions](https://napari.org/dev/tutorials/fundamentals/installation_bundle_conda.html)
-
-2. Search, download and install napari-nuclephaser plugin by opening the app, navigating to Plugins window and choosing Install/Uninstall plugins...
-
-----------------------------------
-
-This [napari] plugin was generated with [copier] using the [napari-plugin-template].
-
-## Contributing
-
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
-
-## License
-
-Distributed under the terms of the [MIT] license,
-"napari-nuclephaser" is free and open source software
-
-## Issues
-
-If you encounter any problems, please [file an issue] along with a detailed description.
-
-[napari]: https://github.com/napari/napari
-[copier]: https://copier.readthedocs.io/en/stable/
-[@napari]: https://github.com/napari
-[MIT]: http://opensource.org/licenses/MIT
-[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
-[napari-plugin-template]: https://github.com/napari/napari-plugin-template
-
-[file an issue]: https://github.com/nikvo1/napari-nuclephaser/issues
-
-[napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
-[pip]: https://pypi.org/project/pip/
-[PyPI]: https://pypi.org/
-        
 
                                     </div>
                                 </div>

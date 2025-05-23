@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/leoguignard/napari-turing/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-turing.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-turing"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-turing.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-turing.svg?color=green" /></a>
-<a href="https://github.com/leoguignard/napari-turing/actions"><img alt="tests" src="https://github.com/leoguignard/napari-turing/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/leoguignard/napari-turing"><img alt="codecov" src="https://codecov.io/gh/leoguignard/napari-turing/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-turing"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-turing" /></a></p>
+                                        <p><a href="https://github.com/leoguignard/napari-turing/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-turing.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-turing"><img src="https://img.shields.io/pypi/v/napari-turing.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-turing.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/leoguignard/napari-turing/actions"><img src="https://github.com/leoguignard/napari-turing/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/leoguignard/napari-turing"><img src="https://codecov.io/gh/leoguignard/napari-turing/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-turing"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-turing" alt="napari hub" /></a></p>
 <p>A plugin to run simple simulations of Turing patterns</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -249,171 +226,170 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-<p><img alt="example 1" src="img/turing_patterns.gif" />
-<img alt="example 2" src="img/turing_patterns2.gif" /></p>
+<p><img src="img/turing_patterns.gif" alt="example 1" />
+<img src="img/turing_patterns2.gif" alt="example 2" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-turing</code> via <a href="https://pypi.org/project/pip/">pip</a> after downloading the content of</p>
-<pre class="codehilite"><code>pip install napari-turing
+<pre><code>pip install napari-turing
 </code></pre>
-
 <p>To install latest version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/leoguignard/napari-turing.git
+<pre><code>pip install git+https://github.com/leoguignard/napari-turing.git
 </code></pre>
-
 <h2>Troubleshooting</h2>
 <p>If the installation does not work just with the previous command, it might be useful to first install <a href="https://github.com/napari/napari">napari</a> for example that way:</p>
-<pre class="codehilite"><code>conda install napari
+<pre><code>conda install napari
 </code></pre>
-
 <h2>Creating a new model</h2>
 <p>To create your own model, you can use the template for models <a href="src/napari_turing/Models/ModelTemplate.py">here</a>.</p>
 <p>Note that a bit of knowledge in Python is probably necessary and it might not be completely trivial at first but you'll manage :)</p>
 <p>First you need to name the concentrations that you will use with the following <a href="src/napari_turing/Models/ModelTemplate.py#L40">line</a>:</p>
-<pre class="codehilite"><code class="language-python">    _concentration_names = [&quot;A&quot;, &quot;I&quot;]
+<pre><code class="language-python"><div class="highlight"><pre><span></span>    <span class="n">_concentration_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;I&quot;</span><span class="p">]</span>
+</pre></div>
 </code></pre>
-
 <p>Then, you need to declare its variables. For example you can create a parameter named <code>mu_a</code> the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L53-L60">here in the code</a>):</p>
-<pre class="codehilite"><code class="language-python">    mu_a = ModelParameter(
-        name=&quot;mu_a&quot;,  # Name of the parameter
-        description=&quot;Activator diffusion coefficient (10^-4)&quot;,  # Description of the parameter for napari
-        value=2.8,  # Initial and default value
-        min=1,  # Minimum value the parameter can take
-        max=5,  # Maximum value the parameter can take
-        exponent=1e-4,  # All values given to this instance of the class will but multiplied by this value
-    )
+<pre><code class="language-python"><div class="highlight"><pre><span></span>    <span class="n">mu_a</span> <span class="o">=</span> <span class="n">ModelParameter</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mu_a&quot;</span><span class="p">,</span>  <span class="c1"># Name of the parameter</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Activator diffusion coefficient (10^-4)&quot;</span><span class="p">,</span>  <span class="c1"># Description of the parameter for napari</span>
+        <span class="n">value</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span>  <span class="c1"># Initial and default value</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Minimum value the parameter can take</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Maximum value the parameter can take</span>
+        <span class="n">exponent</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>  <span class="c1"># All values given to this instance of the class will but multiplied by this value</span>
+    <span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>Then you need to list the parameters that are necessary to run the model (usually all the paramaters declared previously) and the parameters that you will allow the user to tune (for example, sometimes some of the parameters are co-dependent and there is no point in being able to tune both of them). That should be done the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L86-89">here in the code</a>):</p>
-<pre class="codehilite"><code class="language-python">    # These are the parameters that are necessary to run the equations.
-    _necessary_parameters = [tau, k, mu_a, mu_i]
-    # These are the parameters that can be modified via napari
-    _tunable_parameters = _necessary_parameters
+<pre><code class="language-python"><div class="highlight"><pre><span></span>    <span class="c1"># These are the parameters that are necessary to run the equations.</span>
+    <span class="n">_necessary_parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">tau</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">mu_a</span><span class="p">,</span> <span class="n">mu_i</span><span class="p">]</span>
+    <span class="c1"># These are the parameters that can be modified via napari</span>
+    <span class="n">_tunable_parameters</span> <span class="o">=</span> <span class="n">_necessary_parameters</span>
+</pre></div>
 </code></pre>
-
 <p>If you want, you can specify what the method will return as a string, it will be displayed in the napari viewer (<a href="src/napari_turing/Models/ModelTemplate.py#L90-L98">here in the code</a>):</p>
-<pre class="codehilite"><code class="language-python">    # This function allows to display some information about the model
-    # in napari
-    def __str__(self) -&gt; str:
-        return (
-            &quot;Equations (FitzHugh-Nagumo model):\n&quot;
-            &quot;  Concentration of Activator (a) and Inhibitor (i)\n&quot;
-            &quot;    - da/dt = mu_a * diffusion(a) + a - a^3 - i + k\n&quot;
-            &quot;    - tau * di/dt = mu_i * diffusion(i) + a - i&quot;
-        )
+<pre><code class="language-python"><div class="highlight"><pre><span></span>    <span class="c1"># This function allows to display some information about the model</span>
+    <span class="c1"># in napari</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;Equations (FitzHugh-Nagumo model):</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;  Concentration of Activator (a) and Inhibitor (i)</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;    - da/dt = mu_a * diffusion(a) + a - a^3 - i + k</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;    - tau * di/dt = mu_i * diffusion(i) + a - i&quot;</span>
+        <span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>Now that the basics are declared, you will need to declare how to initialize your concentrations the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L100-L116">here in the code</a>):</p>
-<pre class="codehilite"><code class="language-python">    # The following allows to reset the values of the concentrations.
-    # The function takes the name of the concentration to initialize.
-    # If no name is given or if it is None all the concentrations are
-    # reinitialized.
-    #
-    # The reason why this function is useful is that some models 
-    # require specific initialisations for them to work correctly
-    # In the following example the concentrations are reintinalized
-    # to a random value between -1 and 1.
-    # This is the default behavior, so if you don't need to change
-    # it you don't have to implement the function.
-    def init_concentrations(self, C: Optional[str] = None) -&gt; None:
-        if C is None:
-            for ci in self.concentration_names():
-                self[ci] = np.random.random((self.size, self.size)) * 2 - 1
-        else:
-            self[C] = np.random.random((self.size, self.size)) * 2 - 1
+<pre><code class="language-python"><div class="highlight"><pre><span></span>    <span class="c1"># The following allows to reset the values of the concentrations.</span>
+    <span class="c1"># The function takes the name of the concentration to initialize.</span>
+    <span class="c1"># If no name is given or if it is None all the concentrations are</span>
+    <span class="c1"># reinitialized.</span>
+    <span class="c1">#</span>
+    <span class="c1"># The reason why this function is useful is that some models </span>
+    <span class="c1"># require specific initialisations for them to work correctly</span>
+    <span class="c1"># In the following example the concentrations are reintinalized</span>
+    <span class="c1"># to a random value between -1 and 1.</span>
+    <span class="c1"># This is the default behavior, so if you don&#39;t need to change</span>
+    <span class="c1"># it you don&#39;t have to implement the function.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_concentrations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">C</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">concentration_names</span><span class="p">():</span>
+                <span class="bp">self</span><span class="p">[</span><span class="n">ci</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">C</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+</pre></div>
 </code></pre>
-
 <p>In the previous example, the all concentrations are initialized the same way. If you need to have different initializations, you can do it the following way for example (<a href="src/napari_turing/Models/GrayScott.py#L68-L76">from the GrayScott model</a>):</p>
-<pre class="codehilite"><code class="language-python">    def init_concentrations(self, C: Optional[str] = None) -&gt; None:
-        if C == &quot;X&quot; or C is None:
-            self[&quot;X&quot;] = np.ones((self.size, self.size))
-        if C == &quot;Y&quot; or C is None:
-            Y = np.zeros((self.size, self.size))
-            nb_pos = 20
-            pos = (np.random.random((2, nb_pos)) * self.size).astype(int)
-            Y[pos[0], pos[1]] = 1
-            self[&quot;Y&quot;] = Y
+<pre><code class="language-python"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">init_concentrations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">C</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span> <span class="ow">or</span> <span class="n">C</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">C</span> <span class="o">==</span> <span class="s2">&quot;Y&quot;</span> <span class="ow">or</span> <span class="n">C</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+            <span class="n">nb_pos</span> <span class="o">=</span> <span class="mi">20</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="n">nb_pos</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">Y</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span>
+</pre></div>
 </code></pre>
-
-<p>In this model, there are two concentrations, <code>X</code> and <code>Y</code> which are initialized differenty. Note that they can be accessed using <code>self["X"]</code> or <code>self.X</code>.</p>
+<p>In this model, there are two concentrations, <code>X</code> and <code>Y</code> which are initialized differenty. Note that they can be accessed using <code>self[&quot;X&quot;]</code> or <code>self.X</code>.</p>
 <p>Finally, you of course have to define the reaction equations and the diffusion equations. The way it is defined is with two functions, one for the reaction and one for the diffusion, that take as an input the name of the concentration to apply the function to and returns the new values. Then for each of your concentrations, their new values will be computed as followed:</p>
-<pre class="codehilite"><code class="language-python">new_concentration = current_concentration + dt*(reaction + diffusion)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">new_concentration</span> <span class="o">=</span> <span class="n">current_concentration</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">reaction</span> <span class="o">+</span> <span class="n">diffusion</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>Here is an example for the reaction function (<a href="src/napari_turing/Models/ModelTemplate.py#L127-L136">here in the code</a>):</p>
-<pre class="codehilite"><code class="language-python">    # This function defines the equations of the reactions.
-    # It takes as an input which concentration to compute
-    # (in this example we have to define how to compute A and I)
-    def _reaction(self, c: str) -&gt; np.ndarray:
-        if c == &quot;A&quot;:
-            # Below is the reaction part of the equation (1)
-            return self.A - self.A**3 - self.I + self.k 
-        elif c == &quot;I&quot;:
-            # Below is the reaction part of the equation (2)
-            return (self.A - self.I) / self.tau
+<pre><code class="language-python"><div class="highlight"><pre><span></span>    <span class="c1"># This function defines the equations of the reactions.</span>
+    <span class="c1"># It takes as an input which concentration to compute</span>
+    <span class="c1"># (in this example we have to define how to compute A and I)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_reaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;A&quot;</span><span class="p">:</span>
+            <span class="c1"># Below is the reaction part of the equation (1)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">I</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span> 
+        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+            <span class="c1"># Below is the reaction part of the equation (2)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
+</pre></div>
 </code></pre>
-
 <p>Of course, if you have more concentrations, you will need to define more equations.</p>
 <p>Here is an example for the reaction function (<a href="src/napari_turing/Models/ModelTemplate.py#L138-L166">here in the code</a>):</p>
-<pre class="codehilite"><code class="language-python">    # This function defines the equations of the diffusion.
-    # It takes as an input which concentration to compute
-    # (in this example we have to define how to compute A and I)
-    # Here we compute the diffusion as follow:
-    # A cell gives an equal fraction mu of its concentration to its neighbors
-    # A cell recieves an equal fraction mu of concentration from its neighbors
-    # Neighbors = (left, right, above, below)
-    # In the case of oriented diffusion the amount recieved and given to the neighbors
-    # is imbalanced according to the position of the neighbor.
-    def _diffusion(self, c: str) -&gt; np.ndarray:
-        if c == &quot;A&quot;:
-            arr = self.A # Define the array of concentrations to diffuse for the reageant A
-            mu = self.mu_a # Define the diffusion coefficient for the reageant A
-        elif c == &quot;I&quot;:
-            arr = self.I # Define the array of concentrations to diffuse for the reageant I
-            mu = self.mu_i # Define the diffusion coefficient for the reageant I
+<pre><code class="language-python"><div class="highlight"><pre><span></span>    <span class="c1"># This function defines the equations of the diffusion.</span>
+    <span class="c1"># It takes as an input which concentration to compute</span>
+    <span class="c1"># (in this example we have to define how to compute A and I)</span>
+    <span class="c1"># Here we compute the diffusion as follow:</span>
+    <span class="c1"># A cell gives an equal fraction mu of its concentration to its neighbors</span>
+    <span class="c1"># A cell recieves an equal fraction mu of concentration from its neighbors</span>
+    <span class="c1"># Neighbors = (left, right, above, below)</span>
+    <span class="c1"># In the case of oriented diffusion the amount recieved and given to the neighbors</span>
+    <span class="c1"># is imbalanced according to the position of the neighbor.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;A&quot;</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="c1"># Define the array of concentrations to diffuse for the reageant A</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_a</span> <span class="c1"># Define the diffusion coefficient for the reageant A</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">I</span> <span class="c1"># Define the array of concentrations to diffuse for the reageant I</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_i</span> <span class="c1"># Define the diffusion coefficient for the reageant I</span>
+        
+        <span class="c1"># Computes what is recieved from neighboring cells</span>
+        <span class="n">from_cell</span> <span class="o">=</span> <span class="n">convolve</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">cval</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Computes what is given to neighboring cells</span>
+        <span class="n">to_cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_neighbs</span> <span class="o">*</span> <span class="n">arr</span>
 
-        # Computes what is recieved from neighboring cells
-        from_cell = convolve(arr, self.kernel.value, mode=&quot;constant&quot;, cval=0)
-        # Computes what is given to neighboring cells
-        to_cell = self.nb_neighbs * arr
+        <span class="c1"># Computes the diffusion</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">from_cell</span> <span class="o">-</span> <span class="n">to_cell</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dy</span><span class="p">)</span>
 
-        # Computes the diffusion
-        out = mu * (from_cell - to_cell) / (self.dx * self.dy)
-
-        # In our case, the equation (2), for I specify that it has to be divided by tau
-        if c == &quot;I&quot;:
-            out /= self.tau
-        return out
+        <span class="c1"># In our case, the equation (2), for I specify that it has to be divided by tau</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">/=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span>
+        <span class="k">return</span> <span class="n">out</span>
+</pre></div>
 </code></pre>
-
 <p>The diffusion function is usually a standard one so it might not be necessary to overly change it.</p>
-<p>You can find other model examples:
-- <a href="src/napari_turing/Models/Brusselator.py">Brusselator</a>
-- <a href="src/napari_turing/Models/GrayScott.py">GrayScott</a>
-- <a href="src/napari_turing/Models/GameOfLife.py">GameOfLife</a></p>
+<p>You can find other model examples:</p>
+<ul>
+<li><a href="src/napari_turing/Models/Brusselator.py">Brusselator</a></li>
+<li><a href="src/napari_turing/Models/GrayScott.py">GrayScott</a></li>
+<li><a href="src/napari_turing/Models/GameOfLife.py">GameOfLife</a></li>
+</ul>
 <p>Once all that is done, let say you've saved your new model in the folder <a href="src/napari_turing/Models">Models</a> under the name <code>NewModel.py</code> and the model class created is name <code>NewModel</code>. Then you need to declare you model in the <a href="src/napari_turing/Models/_model_list.py"><code>_model_list.py</code></a> file. To do so you need to add the following lines in the file:</p>
-<pre class="codehilite"><code class="language-python">from enum import Enum
-from .FitzHughNagumo import FitzHughNagumo
-from .Brusselator import Brusselator
-from .GrayScott import GrayScott
-from .GameOfLife import GameOfLife
-from .NewModel import NewModel ## THAT LINE HERE
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.FitzHughNagumo</span><span class="w"> </span><span class="kn">import</span> <span class="n">FitzHughNagumo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Brusselator</span><span class="w"> </span><span class="kn">import</span> <span class="n">Brusselator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.GrayScott</span><span class="w"> </span><span class="kn">import</span> <span class="n">GrayScott</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.GameOfLife</span><span class="w"> </span><span class="kn">import</span> <span class="n">GameOfLife</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.NewModel</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewModel</span> <span class="c1">## THAT LINE HERE</span>
 
-class AvailableModels(Enum):
-    FitzHughNagumo = FitzHughNagumo
-    Brusselator = Brusselator
-    GrayScott = GrayScott
-    GameOfLife = GameOfLife
-    NewModel = NewModel ## AND THAT OTHER LINE HERE
+<span class="k">class</span><span class="w"> </span><span class="nc">AvailableModels</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">FitzHughNagumo</span> <span class="o">=</span> <span class="n">FitzHughNagumo</span>
+    <span class="n">Brusselator</span> <span class="o">=</span> <span class="n">Brusselator</span>
+    <span class="n">GrayScott</span> <span class="o">=</span> <span class="n">GrayScott</span>
+    <span class="n">GameOfLife</span> <span class="o">=</span> <span class="n">GameOfLife</span>
+    <span class="n">NewModel</span> <span class="o">=</span> <span class="n">NewModel</span> <span class="c1">## AND THAT OTHER LINE HERE</span>
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-turing" is free and open source software</p>
+&quot;napari-turing&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/leoguignard/napari-turing/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

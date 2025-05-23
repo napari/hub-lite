@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,55 +206,27 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img style="float: right;" src="https://imaging.epfl.ch/resources/logo-for-gitlab.svg"></p>
+                                        <img style="float: right;" src="https://imaging.epfl.ch/resources/logo-for-gitlab.svg">
 <h1>napari-melt-pool-tracker</h1>
 <p>Developed by the <a href="https://imaging.epfl.ch/">EPFL Center for Imaging</a> for the <a href="https://www.epfl.ch/labs/lmtm/">Thermomechanical Metallurgy Laboratory</a> in Sep 2023.
 Plugin for tracking the width and depth of the melt pool and keyhole in x-ray images of laser powder bed fusion experiments.</p>
-<p><a href="https://github.com/EPFL-Center-for-Imaging/napari-melt-pool-tracker/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-melt-pool-tracker.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-melt-pool-tracker"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-melt-pool-tracker.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-melt-pool-tracker.svg?color=green" /></a>
-<a href="https://github.com/EPFL-Center-for-Imaging/napari-melt-pool-tracker/actions"><img alt="tests" src="https://github.com/EPFL-Center-for-Imaging/napari-melt-pool-tracker/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/EPFL-Center-for-Imaging/napari-melt-pool-tracker"><img alt="codecov" src="https://codecov.io/gh/EPFL-Center-for-Imaging/napari-melt-pool-tracker/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-melt-pool-tracker"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-melt-pool-tracker" /></a>
-<a href="https://zenodo.org/doi/10.5281/zenodo.11366048"><img alt="DOI" src="https://zenodo.org/badge/700413345.svg" /></a></p>
+<p><a href="https://github.com/EPFL-Center-for-Imaging/napari-melt-pool-tracker/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-melt-pool-tracker.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-melt-pool-tracker"><img src="https://img.shields.io/pypi/v/napari-melt-pool-tracker.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-melt-pool-tracker.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/EPFL-Center-for-Imaging/napari-melt-pool-tracker/actions"><img src="https://github.com/EPFL-Center-for-Imaging/napari-melt-pool-tracker/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/EPFL-Center-for-Imaging/napari-melt-pool-tracker"><img src="https://codecov.io/gh/EPFL-Center-for-Imaging/napari-melt-pool-tracker/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-melt-pool-tracker"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-melt-pool-tracker" alt="napari hub" /></a>
+<a href="https://zenodo.org/doi/10.5281/zenodo.11366048"><img src="https://zenodo.org/badge/700413345.svg" alt="DOI" /></a></p>
 <hr />
 <h2>Installation</h2>
 <p>You can install <code>napari-melt-pool-tracker</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-melt-pool-tracker
+<pre><code>pip install napari-melt-pool-tracker
 </code></pre>
-
 <h1>Getting Started with napari-melt-pool-tracker</h1>
 <h2>Reading Data</h2>
 <ul>
 <li>The <code>napari-melt-pool-tracker</code> plugin can read h5 files from the ID19 and TOMCAT beam lines.</li>
-<li>When opening an h5 file in napari, select the "Melt Pool Tracker" as the reader for the mentioned beamlines.</li>
+<li>When opening an h5 file in napari, select the &quot;Melt Pool Tracker&quot; as the reader for the mentioned beamlines.</li>
 <li>Once the data is loaded, you have the option to save the layer as a tif file if needed.</li>
 </ul>
 <h2>Pre-processing</h2>
@@ -264,13 +240,16 @@ Plugin for tracking the width and depth of the melt pool and keyhole in x-ray im
 </ul>
 <p><strong>To perform this step:</strong></p>
 <ol>
-<li>Select the stack you want to work on using the "Input" drop-down menu.</li>
-<li>Choose one of three projection modes:</li>
+<li>Select the stack you want to work on using the &quot;Input&quot; drop-down menu.</li>
+<li>Choose one of three projection modes:
+<ul>
 <li>Default: Maximum projection along y.</li>
 <li>Pre mean: Divide each frame by the mean projection along the t-axis (to remove background) and then perform a maximum projection along y.</li>
 <li>Post median: Perform a maximum projection along y and then divide the projected images by a median-filtered version in the x-direction (to remove horizontal strips).</li>
-<li>Click "Run" to generate a new layer with the projected image and a shapes layer with a line.</li>
-<li>Select the line layer, use the "Select vertices" tool to match the line with the laser in the projected image.</li>
+</ul>
+</li>
+<li>Click &quot;Run&quot; to generate a new layer with the projected image and a shapes layer with a line.</li>
+<li>Select the line layer, use the &quot;Select vertices&quot; tool to match the line with the laser in the projected image.</li>
 </ol>
 <h2>2. Reslice with Moving Window</h2>
 <ul>
@@ -278,11 +257,11 @@ Plugin for tracking the width and depth of the melt pool and keyhole in x-ray im
 </ul>
 <p><strong>To perform this step:</strong></p>
 <ol>
-<li>Select the input stack using the "Stack" drop-down menu.</li>
-<li>Choose the line layer with the laser's position using the "Line" drop-down menu.</li>
-<li>Adjust the "Left margin" and "Right margin" sliders to set the size of the window to the left and right of the laser's position.</li>
-<li>Click "Run" to create three new layers: a resliced stack, a shapes layer indicating the laser's position based on your previous annotation, and a shapes layer with lines indicating the window's position in the original image.</li>
-<li>If the window size doesn't fit the melt pool correctly, adjust it using the margin sliders. Disable the "Auto run" checkbox for large stacks to control when reslicing occurs.</li>
+<li>Select the input stack using the &quot;Stack&quot; drop-down menu.</li>
+<li>Choose the line layer with the laser's position using the &quot;Line&quot; drop-down menu.</li>
+<li>Adjust the &quot;Left margin&quot; and &quot;Right margin&quot; sliders to set the size of the window to the left and right of the laser's position.</li>
+<li>Click &quot;Run&quot; to create three new layers: a resliced stack, a shapes layer indicating the laser's position based on your previous annotation, and a shapes layer with lines indicating the window's position in the original image.</li>
+<li>If the window size doesn't fit the melt pool correctly, adjust it using the margin sliders. Disable the &quot;Auto run&quot; checkbox for large stacks to control when reslicing occurs.</li>
 </ol>
 <h2>3. Filter Image</h2>
 <ul>
@@ -291,8 +270,8 @@ Plugin for tracking the width and depth of the melt pool and keyhole in x-ray im
 <p><strong>To filter the image:</strong></p>
 <ul>
 <li>Select the resliced layer as the input.</li>
-<li>Use the "Kernel" sliders to set the size of the median filter along different axes.</li>
-<li>Disable "Auto run" for large stacks due to the computational cost. After median filtering, the function applies Otsu thresholding to remove the background. Adjust the contrast as needed.</li>
+<li>Use the &quot;Kernel&quot; sliders to set the size of the median filter along different axes.</li>
+<li>Disable &quot;Auto run&quot; for large stacks due to the computational cost. After median filtering, the function applies Otsu thresholding to remove the background. Adjust the contrast as needed.</li>
 </ul>
 <h2>4. Calculate Radial Gradient</h2>
 <ul>
@@ -310,10 +289,10 @@ Plugin for tracking the width and depth of the melt pool and keyhole in x-ray im
 <p><strong>To annotate points:</strong></p>
 <ul>
 <li>Select any of the resliced layers as your reference image.</li>
-<li>Change the name in the "Name of the tracked point" text box to define the point you want to track, e.g., 'MP depth'.</li>
-<li>Click "Add new layer" to create a new points layer with the specified name, automatically selected as the active layer.</li>
-<li>Start tracking by pressing 't' on your keyboard. Enable "Auto play when tracking is started" for automatic playback.</li>
-<li>Adjust playback parameters as needed. Setting "Loop mode" to 'once' is advised to prevent overwriting tracked points. You can track points manually by scrolling through slices/frames (hold down <code>ctrl</code>) and saving your cursor positions at each index change.</li>
+<li>Change the name in the &quot;Name of the tracked point&quot; text box to define the point you want to track, e.g., 'MP depth'.</li>
+<li>Click &quot;Add new layer&quot; to create a new points layer with the specified name, automatically selected as the active layer.</li>
+<li>Start tracking by pressing 't' on your keyboard. Enable &quot;Auto play when tracking is started&quot; for automatic playback.</li>
+<li>Adjust playback parameters as needed. Setting &quot;Loop mode&quot; to 'once' is advised to prevent overwriting tracked points. You can track points manually by scrolling through slices/frames (hold down <code>ctrl</code>) and saving your cursor positions at each index change.</li>
 </ul>
 <h2>Saving and Processing Results</h2>
 <ul>
@@ -324,10 +303,10 @@ Plugin for tracking the width and depth of the melt pool and keyhole in x-ray im
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-melt-pool-tracker" is free and open source software</p>
+&quot;napari-melt-pool-tracker&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

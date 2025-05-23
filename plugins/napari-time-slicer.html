@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,122 +210,95 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-time-slicer/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-time-slicer.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-time-slicer"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-time-slicer.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-time-slicer.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-time-slicer/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-time-slicer/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-time-slicer"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-time-slicer/branch/main/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-time-slicer.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-time-slicer"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-time-slicer" /></a></p>
-<p>A meta plugin for processing timelapse data timepoint by timepoint. It 
-enables a list of napari plugins to process 2D+t or 3D+t data step by step when the user goes 
-through the timelapse. Currently, these plugins are using <code>napari-time-slicer</code>:
-* <a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">napari-segment-blobs-and-things-with-membranes</a>
-* <a href="https://www.napari-hub.org/plugins/napari-cupy-image-processing">napari-cupy-image-processing</a>
-* <a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">napari-pyclesperanto-assistant</a>
-* <a href="https://www.napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification">napari-accelerated-pixel-and-object-classification</a>
-* <a href="https://www.napari-hub.org/plugins/napari-simpleitk-image-processing">napari-simpleitk-image-processing</a>
-* <a href="https://www.napari-hub.org/plugins/napari-stress">napari-stress</a>
-* <a href="https://www.napari-hub.org/plugins/napari-process-points-and-surfaces">napari-process-points-and-surfaces</a></p>
-<p><code>napari-time-slicer</code> enables inter-plugin communication, e.g. allowing to combine the plugins listed above in 
+                                        <p><a href="https://github.com/haesleinhuepf/napari-time-slicer/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-time-slicer.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-time-slicer"><img src="https://img.shields.io/pypi/v/napari-time-slicer.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-time-slicer.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-time-slicer/actions"><img src="https://github.com/haesleinhuepf/napari-time-slicer/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-time-slicer"><img src="https://codecov.io/gh/haesleinhuepf/napari-time-slicer/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-time-slicer.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-time-slicer"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-time-slicer" alt="napari hub" /></a></p>
+<p>A meta plugin for processing timelapse data timepoint by timepoint. It
+enables a list of napari plugins to process 2D+t or 3D+t data step by step when the user goes
+through the timelapse. Currently, these plugins are using <code>napari-time-slicer</code>:</p>
+<ul>
+<li><a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">napari-segment-blobs-and-things-with-membranes</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-cupy-image-processing">napari-cupy-image-processing</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">napari-pyclesperanto-assistant</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification">napari-accelerated-pixel-and-object-classification</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-simpleitk-image-processing">napari-simpleitk-image-processing</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-stress">napari-stress</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-process-points-and-surfaces">napari-process-points-and-surfaces</a></li>
+</ul>
+<p><code>napari-time-slicer</code> enables inter-plugin communication, e.g. allowing to combine the plugins listed above in
 one image processing workflow for segmenting a timelapse dataset:</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-time-slicer/raw/main/images/screencast1.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-time-slicer/raw/main/images/screencast1.gif" alt="" /></p>
 <p>The workflow can then also be exported as a script. The 'Generate Code' button can be found in the <a href="https://www.napari-hub.org/plugins/napari-workflow-inspector">Workflow Inspector</a></p>
-<p>If you want to convert a 3D dataset into a 2D + time dataset, use the 
+<p>If you want to convert a 3D dataset into a 2D + time dataset, use the
 menu <code>Tools &gt; Utilities &gt; Convert 3D stack to 2D timelapse (time-slicer)</code>. It will turn the 3D dataset to a 4D datset
-where the Z-dimension (index 1) has only 1 element, which will in napari be displayed with a time-slider. Note: It is 
+where the Z-dimension (index 1) has only 1 element, which will in napari be displayed with a time-slider. Note: It is
 recommended to remove the original 3D dataset after this conversion.</p>
 <h2>Working with large on-the-fly processed datasets</h2>
-<p>Using the <a href="https://www.napari-hub.org/plugins/napari-assistant">napari-assistant</a> complex image processing workflows on timelapse datasets can be setup. 
+<p>Using the <a href="https://www.napari-hub.org/plugins/napari-assistant">napari-assistant</a> complex image processing workflows on timelapse datasets can be setup.
 In combination with the time-slicer it is possible to process time-lapse data that is larger than available computer memory.
-In case the workflow only consists of images and label-images and out-of-memory issues arise, consider storing intermediate results on disk following this procedure: 
-After setting up the workflow and testing it on a couple of selected frames, store the entire processed timelapse dataset to disk 
-using the menu <code>Tools &gt; Utilities &gt; Convert to file-backed timelapse data (time-slicer)</code>. It will open this dialog, where you can select 
-<img alt="img.png" src="https://github.com/haesleinhuepf/napari-time-slicer/raw/main/images/convert_to_file_backed_timelapse.png" /></p>
-<p>It is recommended to enter a folder location in the text field. 
-If not provided, a temporary folder will be created, typically in the User's temp folder in the home directory. 
+In case the workflow only consists of images and label-images and out-of-memory issues arise, consider storing intermediate results on disk following this procedure:
+After setting up the workflow and testing it on a couple of selected frames, store the entire processed timelapse dataset to disk
+using the menu <code>Tools &gt; Utilities &gt; Convert to file-backed timelapse data (time-slicer)</code>. It will open this dialog, where you can select
+<img src="https://github.com/haesleinhuepf/napari-time-slicer/raw/main/images/convert_to_file_backed_timelapse.png" alt="img.png" /></p>
+<p>It is recommended to enter a folder location in the text field.
+If not provided, a temporary folder will be created, typically in the User's temp folder in the home directory.
 The user is responsible for emptying this folder from time to time.
 The data stored in this folder can also be loaded into napari using its <code>File &gt; Open Folder...</code> menu.</p>
-<p>Executing this operation can take time as every timepoint of the timelapse is computed. 
-Afterwards, there will be another layer available in napari, which is typically faster to navigate through. 
+<p>Executing this operation can take time as every timepoint of the timelapse is computed.
+Afterwards, there will be another layer available in napari, which is typically faster to navigate through.
 Consider removing the layer(s) that were only needed to determine the new file-backed layer.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-time-slicer/raw/main/images/new_file_backed_layer.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-time-slicer/raw/main/images/new_file_backed_layer.png" alt="img.png" /></p>
 <h2>Usage for plugin developers</h2>
 <p>Plugins which implement the <code>napari_experimental_provide_function</code> hook can make use of the <code>@time_slicer</code>. At the moment,
-only functions which take <code>napari.types.ImageData</code>, <code>napari.types.LabelsData</code> and basic python types such as <code>int</code> 
+only functions which take <code>napari.types.ImageData</code>, <code>napari.types.LabelsData</code> and basic python types such as <code>int</code>
 and <code>float</code> are supported. If you annotate such a function with <code>@time_slicer</code> it will internally convert any 4D dataset
 to a 3D dataset according to the timepoint currently selected in napari. Furthermore, when the napari user changes the
-current timepoint or the input data of the function changes, a re-computation is invoked. Thus, it is recommended to 
-only use the <code>time_slicer</code> for functions which can provide [almost] real-time performance. Another constraint is that 
-these annotated functions have to have a <code>viewer</code> parameter. This is necessary to read the current timepoint from the 
+current timepoint or the input data of the function changes, a re-computation is invoked. Thus, it is recommended to
+only use the <code>time_slicer</code> for functions which can provide [almost] real-time performance. Another constraint is that
+these annotated functions have to have a <code>viewer</code> parameter. This is necessary to read the current timepoint from the
 viewer when invoking the re-computions.</p>
 <p>Example</p>
-<pre class="codehilite"><code class="language-python">import napari
-from napari_time_slicer import time_slicer
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_time_slicer</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_slicer</span>
 
-@time_slicer
-def threshold_otsu(image:napari.types.ImageData, viewer: napari.Viewer = None) -&gt; napari.types.LabelsData:
-    # ...
+<span class="nd">@time_slicer</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">threshold_otsu</span><span class="p">(</span><span class="n">image</span><span class="p">:</span><span class="n">napari</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">ImageData</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">napari</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">LabelsData</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</pre></div>
 </code></pre>
-
 <p>You can see a full implementations of this concept in the napari plugins listed above.</p>
 <p>If you want to combine slicing in time and processing z-stack images slice-by-slice, you can use the <code>@slice_by_slice</code> annotation.
 Make sure, to insert it after <code>@time_slicer</code> as shown below and implemented in <a href="https://github.com/haesleinhuepf/napari-pillow-image-processing/blob/4d846b226739843124953f16059241d917cde8e1/src/napari_pillow_image_processing/__init__.py#L151">napari-pillow-image-processing</a></p>
-<pre class="codehilite"><code class="language-python">from napari_time_slicer import slice_by_slice
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_time_slicer</span><span class="w"> </span><span class="kn">import</span> <span class="n">slice_by_slice</span>
 
-@time_slicer
-@slice_by_slice
-def blur_2d(image:napari.types.ImageData, sigma:float = 1, viewer: napari.Viewer = None) -&gt; napari.types.LabelsData:
-    # ...
+<span class="nd">@time_slicer</span>
+<span class="nd">@slice_by_slice</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">blur_2d</span><span class="p">(</span><span class="n">image</span><span class="p">:</span><span class="n">napari</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">ImageData</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span><span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">napari</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">LabelsData</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</pre></div>
 </code></pre>
-
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-time-slicer</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-time-slicer
+<pre><code>pip install napari-time-slicer
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/haesleinhuepf/napari-time-slicer.git
+<pre><code>pip install git+https://github.com/haesleinhuepf/napari-time-slicer.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-time-slicer" is free and open source software</p>
+&quot;napari-time-slicer&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/haesleinhuepf/napari-time-slicer/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

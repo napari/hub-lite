@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,72 +206,46 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>a napari-based tool for using surfaces to explore volumetric data in napari</p>
+                                        <p>a napari-based tool for using surfaces to explore volumetric data in napari</p>
 <p>inspired by <a href="https://github.com/dtegunov/membranorama">membranorama</a></p>
-<p><img alt="Screenshot of surforama showing a surface in the slice of a tomogram" src="surforama_screenshot.png" /></p>
+<p><img src="surforama_screenshot.png" alt="Screenshot of surforama showing a surface in the slice of a tomogram" /></p>
 <h2>installation</h2>
 <p><code>surforama</code> requires the napari viewer. If you would like to install napari and surforama together in one line, you can use the following command:</p>
-<pre class="codehilite"><code class="language-bash">pip install &quot;surforama[napari]&quot;
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;surforama[napari]&quot;</span>
+</pre></div>
 </code></pre>
-
 <p>If you already have napari installed, you can directly install surforama in the same environment:</p>
-<pre class="codehilite"><code class="language-bash">pip install surforama
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>surforama
+</pre></div>
 </code></pre>
-
 <h2>usage</h2>
 <h3>launch with demo data</h3>
 <p>If you'd like to test surforama out, you can launch surforama with demo data:</p>
-<pre class="codehilite"><code class="language-bash">surforama --demo
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>surforama<span class="w"> </span>--demo
+</pre></div>
 </code></pre>
-
 <h3>launch without data</h3>
 <p>You can launch surforama using the command line interface. After you have installed surforama, you can launch it with the following command in your terminal:</p>
-<pre class="codehilite"><code class="language-bash">surforama
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>surforama
+</pre></div>
 </code></pre>
-
 <p>After surforama launches, you can load your image and mesh into napari and get surfing!</p>
 <h3>launch with data</h3>
 <p>If you have an MRC-formatted tomogram and an obj-formatted mesh, you can launch using the following command:</p>
-<pre class="codehilite"><code class="language-bash">surforama --image-path /path/to/image.mrc --mesh-path /path/to/mesh.obj
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>surforama<span class="w"> </span>--image-path<span class="w"> </span>/path/to/image.mrc<span class="w"> </span>--mesh-path<span class="w"> </span>/path/to/mesh.obj
+</pre></div>
 </code></pre>
-
 <h2>developer installation</h2>
 <p>If you would like to make changes to the surforama source code, you can install surformama with the developer tools as follows:</p>
-<pre class="codehilite"><code class="language-bash">cd /path/to/your/surforama/source/code/folder
-pip install -e &quot;.[dev]&quot;
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/path/to/your/surforama/source/code/folder
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+</pre></div>
+</code></pre>
+<p>We use pre-commit to keep the code tidy. Install the pre-commit hooks to activate the checks:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>install
+</pre></div>
 </code></pre>
 
-<p>We use pre-commit to keep the code tidy. Install the pre-commit hooks to activate the checks:</p>
-<pre class="codehilite"><code class="language-bash">pre-commit install
-</code></pre>
-        
 
                                     </div>
                                 </div>

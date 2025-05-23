@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -403,43 +407,16 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/nnInteractive_header.png"  width="1200"></p>
+                                        <img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/nnInteractive_header.png"  width="1200">
 <h1>nnInteractive: Redefining 3D Promptable Segmentation</h1>
 <p>This repository contains the napari plugin for nnInteractive. Check out the
 <a href="https://github.com/MIC-DKFZ/nnInteractive">python backend</a> and <a href="https://www.mitk.org/MITK-nnInteractive">MITK integration</a> for more.</p>
 <h2>What is nnInteractive?</h2>
 <blockquote>
-<p>Isensee, F.*, Rokuss, M.*, Krämer, L.*, Dinkelacker, S., Ravindran, A., Stritzke, F., Hamm, B., Wald, T., Langenberg, M., Ulrich, C., Deissler, J., Floca, R., &amp; Maier-Hein, K. (2025). nnInteractive: Redefining 3D Promptable Segmentation. https://arxiv.org/abs/2503.08373 \
+<p>Isensee, F.*, Rokuss, M.*, Krämer, L.*, Dinkelacker, S., Ravindran, A., Stritzke, F., Hamm, B., Wald, T., Langenberg, M., Ulrich, C., Deissler, J., Floca, R., &amp; Maier-Hein, K. (2025). nnInteractive: Redefining 3D Promptable Segmentation. <a href="https://arxiv.org/abs/2503.08373">https://arxiv.org/abs/2503.08373</a> <br />
 *: equal contribution</p>
 </blockquote>
-<p>Link: <a href="https://arxiv.org/abs/2503.08373"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2503.08373-b31b1b.svg" /></a></p>
+<p>Link: <a href="https://arxiv.org/abs/2503.08373"><img src="https://img.shields.io/badge/arXiv-2503.08373-b31b1b.svg" alt="arXiv" /></a></p>
 <h5>Abstract:</h5>
 <p>Accurate and efficient 3D segmentation is essential for both clinical and research applications.
 While foundation models like SAM have revolutionized interactive segmentation, their 2D design and domain shift limitations make them ill-suited for 3D medical images.
@@ -450,9 +427,9 @@ It supports diverse prompts—including points, scribbles, boxes, and a novel la
 Trained on 120+ diverse volumetric 3D datasets (CT, MRI, PET, 3D Microscopy, etc.), nnInteractive sets a new state-of-the-art in accuracy, adaptability, and usability.
 Crucially, it is the first method integrated into widely used image viewers (e.g., Napari, MITK), ensuring broad accessibility for real-world clinical and research applications.
 Extensive benchmarking demonstrates that nnInteractive far surpasses existing methods, setting a new standard for AI-driven interactive 3D segmentation.</p>
-<p><img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/figure1_method.png" width="1200"></p>
+<img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/figure1_method.png" width="1200">
 <h2>Demo Videos</h2>
-<p><a href="https://www.youtube.com/watch?v=H_L6LL0FRoo">
+<a href="https://www.youtube.com/watch?v=H_L6LL0FRoo">
     <img src="https://img.youtube.com/vi/H_L6LL0FRoo/0.jpg" width="270">
 </a>
 <a href="https://www.youtube.com/watch?v=YoMZ7Xv7gKI">
@@ -460,61 +437,61 @@ Extensive benchmarking demonstrates that nnInteractive far surpasses existing me
 </a>
 <a href="https://www.youtube.com/watch?v=V0rqPYA3sjA">
     <img src="https://img.youtube.com/vi/V0rqPYA3sjA/0.jpg" width="270">
-</a></p>
+</a>
 <h2>Installation</h2>
 <h3>Prerequisites</h3>
-<p>You need a Linux or Windows computer with a Nvidia GPU. 10GB of VRAM is recommended. Small objects should work with \&lt;6GB.</p>
+<p>You need a Linux or Windows computer with a Nvidia GPU. 10GB of VRAM is recommended. Small objects should work with &lt;6GB.</p>
 <h5>1. Create a virtual environment:</h5>
 <p>nnInteractive supports Python 3.10+ and works with Conda, pip, or any other virtual environment. Here’s an example using Conda:</p>
-<pre class="codehilite"><code>conda create -n nnInteractive python=3.12
+<pre><code><div class="highlight"><pre><span></span>conda create -n nnInteractive python=3.12
 conda activate nnInteractive
+</pre></div>
 </code></pre>
-
 <h5>2. Install the correct PyTorch for your system</h5>
 <p>Go to the <a href="https://pytorch.org/get-started/locally/">PyTorch homepage</a> and pick the right configuration.
 Note that since recently PyTorch needs to be installed via pip. This is fine to do within your conda environment.</p>
 <p>For Ubuntu with a Nvidia GPU, pick 'stable', 'Linux', 'Pip', 'Python', 'CUDA12.6' (if all drivers are up to date, otherwise use and older version):</p>
-<pre class="codehilite"><code>pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip3</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">torch</span><span class="w"> </span><span class="n">torchvision</span><span class="w"> </span><span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">cu126</span>
+</pre></div>
 </code></pre>
-
 <h5>3. Install this repository + dependencies via</h5>
 <p>Either install via pip:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-nninteractive
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-nninteractive
+</pre></div>
 </code></pre>
-
 <p>Or clone and install this repository:</p>
-<pre class="codehilite"><code class="language-bash">git clone https://github.com/MIC-DKFZ/napari-nninteractive
-cd napari-nninteractive
-pip install -e .
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/MIC-DKFZ/napari-nninteractive
+<span class="nb">cd</span><span class="w"> </span>napari-nninteractive
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <p><strong>Note:</strong> Model weights are automatically downloaded on first use. This can take up to a couple of minutes depending on your internet connection</p>
 <h2>Getting Started</h2>
 <p>Use one of these three options to start napari and activate the plugin.
 Afterward, Drag and drop your images into napari.</p>
 <p>*<strong>Note if getting asked which plugin to use for opening .nii.gz files use napari-nifti.</strong></p>
 <p>a) Start napari, then Plugins -&gt; nnInteractive.</p>
-<pre class="codehilite"><code>napari
+<pre><code><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
 <p>b) Run this to start napari with the plugin already started.</p>
-<pre class="codehilite"><code>napari -w napari-nninteractive
+<pre><code><div class="highlight"><pre><span></span>napari -w napari-nninteractive
+</pre></div>
 </code></pre>
-
 <p>c) Run this to start napari with the plugin and open an image directly</p>
-<pre class="codehilite"><code>napari demo_data/liver_145_0000.nii.gz -w napari-nninteractive
+<pre><code><div class="highlight"><pre><span></span>napari demo_data/liver_145_0000.nii.gz -w napari-nninteractive
+</pre></div>
 </code></pre>
-
 <h1>How to use</h1>
 <p><strong>Note:</strong> To open Nifti (.nii.gz, .nii) files we recommend to select napari-nifti.</p>
-<p><img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/gui_instuctions.png" width="1200"></p>
+<img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/gui_instuctions.png" width="1200">
 <h2>Citation</h2>
 <p>When using nnInteractive, please cite the following paper:</p>
 <blockquote>
-<p>Isensee, F.*, Rokuss, M.*, Krämer, L.*, Dinkelacker, S., Ravindran, A., Stritzke, F., Hamm, B., Wald, T., Langenberg, M., Ulrich, C., Deissler, J., Floca, R., &amp; Maier-Hein, K. (2025). nnInteractive: Redefining 3D Promptable Segmentation. https://arxiv.org/abs/2503.08373 \
+<p>Isensee, F.*, Rokuss, M.*, Krämer, L.*, Dinkelacker, S., Ravindran, A., Stritzke, F., Hamm, B., Wald, T., Langenberg, M., Ulrich, C., Deissler, J., Floca, R., &amp; Maier-Hein, K. (2025). nnInteractive: Redefining 3D Promptable Segmentation. <a href="https://arxiv.org/abs/2503.08373">https://arxiv.org/abs/2503.08373</a> <br />
 *: equal contribution</p>
 </blockquote>
-<p>Link: <a href="https://arxiv.org/abs/2503.08373"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2503.08373-b31b1b.svg" /></a></p>
+<p>Link: <a href="https://arxiv.org/abs/2503.08373"><img src="https://img.shields.io/badge/arXiv-2503.08373-b31b1b.svg" alt="arXiv" /></a></p>
 <h1>License</h1>
 <p>Note that while this repository is available under Apache-2.0 license (see <a href="./LICENSE">LICENSE</a>), the <a href="https://huggingface.co/nnInteractive/nnInteractive">model checkpoint</a> is <code>Creative Commons Attribution Non Commercial Share Alike 4.0</code>!</p>
 <hr />
@@ -523,12 +500,11 @@ Afterward, Drag and drop your images into napari.</p>
   <img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/Logos/HI_Logo.png" width="150"> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/Logos/DKFZ_Logo.png" width="500">
 </p>
-
 <p>This repository is developed and maintained by the Applied Computer Vision Lab (ACVL)
 of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
 <a href="https://www.dkfz.de/en/medical-image-computing">Division of Medical Image Computing</a> at DKFZ.</p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
-        
+
 
                                     </div>
                                 </div>

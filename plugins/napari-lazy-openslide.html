@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,105 +210,77 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/manzt/napari-lazy-openslide/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-lazy-openslide.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-lazy-openslide"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-lazy-openslide.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-lazy-openslide.svg?color=green" /></a>
-<a href="https://github.com/manzt/napari-lazy-openslide/actions"><img alt="tests" src="https://github.com/manzt/napari-lazy-openslide/workflows/tests/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/manzt/napari-lazy-openslide/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-lazy-openslide.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-lazy-openslide"><img src="https://img.shields.io/pypi/v/napari-lazy-openslide.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-lazy-openslide.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/manzt/napari-lazy-openslide/actions"><img src="https://github.com/manzt/napari-lazy-openslide/workflows/tests/badge.svg" alt="tests" /></a></p>
 <p>An experimental plugin to lazily load multiscale whole-slide tiff images with openslide and dask.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p><strong>Step 1.)</strong> Make sure you have OpenSlide installed. Download instructions <a href="https://openslide.org/download/">here</a>.</p>
 <blockquote>
-<p>NOTE: Installation on macOS is easiest via Homebrew: <code>brew install openslide</code>. Up-to-date and multiplatform 
+<p>NOTE: Installation on macOS is easiest via Homebrew: <code>brew install openslide</code>. Up-to-date and multiplatform
 binaries for <code>openslide</code> are also avaiable via <code>conda</code>: <code>conda install -c sdvillal openslide-python</code></p>
 </blockquote>
 <p><strong>Step 2.)</strong> Install <code>napari-lazy-openslide</code> via <code>pip</code>:</p>
-<pre class="codehilite"><code>pip install napari-lazy-openslide
+<pre><code>pip install napari-lazy-openslide
 </code></pre>
-
 <h2>Usage</h2>
 <h3>Napari plugin</h3>
-<pre class="codehilite"><code class="language-bash">$ napari tumor_004.tif
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>$<span class="w"> </span>napari<span class="w"> </span>tumor_004.tif
+</pre></div>
 </code></pre>
-
 <p>By installing this package via <code>pip</code>, the plugin should be recognized by <code>napari</code>. The plugin
-attempts to read image formats recognized by <code>openslide</code> that are multiscale 
-(<code>openslide.OpenSlide.level_count &gt; 1</code>). </p>
-<p>It should be noted that <code>napari-lazy-openslide</code> is experimental and has primarily 
-been tested with <code>CAMELYON16</code> and <code>CAMELYON17</code> datasets, which can be 
+attempts to read image formats recognized by <code>openslide</code> that are multiscale
+(<code>openslide.OpenSlide.level_count &gt; 1</code>).</p>
+<p>It should be noted that <code>napari-lazy-openslide</code> is experimental and has primarily
+been tested with <code>CAMELYON16</code> and <code>CAMELYON17</code> datasets, which can be
 downloaded <a href="https://camelyon17.grand-challenge.org/Data/">here</a>.</p>
-<p><img alt="Interactive deep zoom of whole-slide image" src="tumor_004.gif" /></p>
+<p><img src="tumor_004.gif" alt="Interactive deep zoom of whole-slide image" /></p>
 <h3>Using <code>OpenSlideStore</code> with Zarr and Dask</h3>
-<p>The <code>OpenSlideStore</code> class wraps an <code>openslide.OpenSlide</code> object as a valid Zarr store. 
+<p>The <code>OpenSlideStore</code> class wraps an <code>openslide.OpenSlide</code> object as a valid Zarr store.
 The underlying <code>openslide</code> image pyramid is translated to the Zarr multiscales extension,
 where each level of the pyramid is a separate 3D <code>zarr.Array</code> with shape <code>(y, x, 4)</code>.</p>
-<pre class="codehilite"><code class="language-python">import dask.array as da
-import zarr
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dask.array</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">da</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zarr</span>
 
-from napari_lazy_openslide import OpenSlideStore
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_lazy_openslide</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenSlideStore</span>
 
-store = OpenSlideStore('tumor_004.tif')
-grp = zarr.open(store, mode=&quot;r&quot;)
+<span class="n">store</span> <span class="o">=</span> <span class="n">OpenSlideStore</span><span class="p">(</span><span class="s1">&#39;tumor_004.tif&#39;</span><span class="p">)</span>
+<span class="n">grp</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
 
-# The OpenSlideStore implements the multiscales extension
-# https://forum.image.sc/t/multiscale-arrays-v0-1/37930
-datasets = grp.attrs[&quot;multiscales&quot;][0][&quot;datasets&quot;]
+<span class="c1"># The OpenSlideStore implements the multiscales extension</span>
+<span class="c1"># https://forum.image.sc/t/multiscale-arrays-v0-1/37930</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;multiscales&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;datasets&quot;</span><span class="p">]</span>
 
-pyramid = [grp.get(d[&quot;path&quot;]) for d in datasets]
-print(pyramid)
-# [
-#   &lt;zarr.core.Array '/0' (23705, 29879, 4) uint8 read-only&gt;,
-#   &lt;zarr.core.Array '/1' (5926, 7469, 4) uint8 read-only&gt;,
-#   &lt;zarr.core.Array '/2' (2963, 3734, 4) uint8 read-only&gt;,
-# ]
+<span class="n">pyramid</span> <span class="o">=</span> <span class="p">[</span><span class="n">grp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pyramid</span><span class="p">)</span>
+<span class="c1"># [</span>
+<span class="c1">#   &lt;zarr.core.Array &#39;/0&#39; (23705, 29879, 4) uint8 read-only&gt;,</span>
+<span class="c1">#   &lt;zarr.core.Array &#39;/1&#39; (5926, 7469, 4) uint8 read-only&gt;,</span>
+<span class="c1">#   &lt;zarr.core.Array &#39;/2&#39; (2963, 3734, 4) uint8 read-only&gt;,</span>
+<span class="c1"># ]</span>
 
-pyramid = [da.from_zarr(store, component=d[&quot;path&quot;]) for d in datasets]
-print(pyramid)
-# [
-#   dask.array&lt;from-zarr, shape=(23705, 29879, 4), dtype=uint8, chunksize=(512, 512, 4), chunktype=numpy.ndarray&gt;,
-#   dask.array&lt;from-zarr, shape=(5926, 7469, 4), dtype=uint8, chunksize=(512, 512, 4), chunktype=numpy.ndarray&gt;,
-#   dask.array&lt;from-zarr, shape=(2963, 3734, 4), dtype=uint8, chunksize=(512, 512, 4), chunktype=numpy.ndarray&gt;,
-# ]
+<span class="n">pyramid</span> <span class="o">=</span> <span class="p">[</span><span class="n">da</span><span class="o">.</span><span class="n">from_zarr</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pyramid</span><span class="p">)</span>
+<span class="c1"># [</span>
+<span class="c1">#   dask.array&lt;from-zarr, shape=(23705, 29879, 4), dtype=uint8, chunksize=(512, 512, 4), chunktype=numpy.ndarray&gt;,</span>
+<span class="c1">#   dask.array&lt;from-zarr, shape=(5926, 7469, 4), dtype=uint8, chunksize=(512, 512, 4), chunktype=numpy.ndarray&gt;,</span>
+<span class="c1">#   dask.array&lt;from-zarr, shape=(2963, 3734, 4), dtype=uint8, chunksize=(512, 512, 4), chunktype=numpy.ndarray&gt;,</span>
+<span class="c1"># ]</span>
 
-# Now you can use numpy-like indexing with openslide, reading data into memory lazily!
-low_res = pyramid[-1][:]
-region = pyramid[0][y_start:y_end, x_start:x_end]
+<span class="c1"># Now you can use numpy-like indexing with openslide, reading data into memory lazily!</span>
+<span class="n">low_res</span> <span class="o">=</span> <span class="n">pyramid</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:]</span>
+<span class="n">region</span> <span class="o">=</span> <span class="n">pyramid</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">y_start</span><span class="p">:</span><span class="n">y_end</span><span class="p">,</span> <span class="n">x_start</span><span class="p">:</span><span class="n">x_end</span><span class="p">]</span>
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <code>tox</code>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/manzt/napari-lazy-openslide/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

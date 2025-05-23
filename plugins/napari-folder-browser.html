@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,71 +210,43 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-folder-browser/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-folder-browser.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-folder-browser"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-folder-browser.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-folder-browser.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-folder-browser/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-folder-browser/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-folder-browser"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-folder-browser/branch/master/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-folder-browser/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-folder-browser.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-folder-browser"><img src="https://img.shields.io/pypi/v/napari-folder-browser.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-folder-browser.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-folder-browser/actions"><img src="https://github.com/haesleinhuepf/napari-folder-browser/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-folder-browser"><img src="https://codecov.io/gh/haesleinhuepf/napari-folder-browser/branch/master/graph/badge.svg" alt="codecov" /></a></p>
 <p>Browse folders of images and open them using double-click or <ENTER>. You can also navigate through the list using arrow up/down keys.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-folder-browser/raw/main/docs/napari-folder-browser.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-folder-browser/raw/main/docs/napari-folder-browser.gif" alt="" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-folder-browser</code> from within napari by clicking menu <code>Plugins &gt; Install/uninstall Plugins...</code> and entering here:
-<img alt="img.png" src="https://github.com/haesleinhuepf/napari-folder-browser/raw/main/docs/install.png" /></p>
+<img src="https://github.com/haesleinhuepf/napari-folder-browser/raw/main/docs/install.png" alt="img.png" /></p>
 <p>You can install <code>napari-folder-browser</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-folder-browser
+<pre><code>pip install napari-folder-browser
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>Development</h2>
 <h3>Test the plugin in Napari</h3>
 <p>Simply use pip install and run napari to test the plugin in the same environment:</p>
-<pre class="codehilite"><code class="language-bash">pip install -e .
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 napari
+</pre></div>
 </code></pre>
-
 <h3>Conda</h3>
 <p>If you prefer to use conda, you can create a new environment with the following command:</p>
-<pre class="codehilite"><code class="language-bash">conda env create -f environment.yml
-conda activate napari-folder-browser
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+conda<span class="w"> </span>activate<span class="w"> </span>napari-folder-browser
+</pre></div>
 </code></pre>
-
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-folder-browser" is free and open source software</p>
+&quot;napari-folder-browser&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please create a thread on <a href="https://image.sc">image.sc</a> along with a detailed description and tag <a href="https://twitter.com/haesleinhuepf">@haesleinhuepf</a>.</p>
-        
+
 
                                     </div>
                                 </div>

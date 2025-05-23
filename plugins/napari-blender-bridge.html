@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,66 +210,39 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-blender-bridge/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-blender-bridge.svg?color=green" /></a></p>
-<p><a href="https://pypi.org/project/napari-blender-bridge"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-blender-bridge.svg?color=green" /></a></p>
-<p><a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-blender-bridge.svg?color=green" /></a></p>
-<p><a href="https://github.com/haesleinhuepf/napari-blender-bridge/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-blender-bridge/workflows/tests/badge.svg" /></a></p>
-<p><a href="https://codecov.io/gh/haesleinhuepf/napari-blender-bridge"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-blender-bridge/branch/master/graph/badge.svg" /></a></p>
-<p><a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-blender-bridge.svg" /></a></p>
-<p><a href="https://napari-hub.org/plugins/napari-blender-bridge"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-blender-bridge" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-blender-bridge/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-blender-bridge.svg?color=green" alt="License" /></a></p>
+<p><a href="https://pypi.org/project/napari-blender-bridge"><img src="https://img.shields.io/pypi/v/napari-blender-bridge.svg?color=green" alt="PyPI" /></a></p>
+<p><a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-blender-bridge.svg?color=green" alt="Python Version" /></a></p>
+<p><a href="https://github.com/haesleinhuepf/napari-blender-bridge/actions"><img src="https://github.com/haesleinhuepf/napari-blender-bridge/workflows/tests/badge.svg" alt="tests" /></a></p>
+<p><a href="https://codecov.io/gh/haesleinhuepf/napari-blender-bridge"><img src="https://codecov.io/gh/haesleinhuepf/napari-blender-bridge/branch/master/graph/badge.svg" alt="codecov" /></a></p>
+<p><a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-blender-bridge.svg" alt="Development Status" /></a></p>
+<p><a href="https://napari-hub.org/plugins/napari-blender-bridge"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-blender-bridge" alt="napari hub" /></a></p>
 <p>Transfer surface layers between Napari and Blender. This plugin is young and has just limited functionality. Contributions are welcome.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-blender-bridge/raw/main/docs/easter.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-blender-bridge/raw/main/docs/easter.gif" alt="img.png" /></p>
 <h2>Usage</h2>
 <p>This plugin has its own submenu with all functionality under <code>Tools &gt; Blender</code>. You can start up Blender, send a surface layer to Blender, retrieve all meshes back as one surface layer and shut down Blender.</p>
 <h2>Installation instructions</h2>
 <ul>
 <li>
-<p>Download and install <a href="https://www.blender.org/download/">Blender 3.5</a>. </p>
+<p>Download and install <a href="https://www.blender.org/download/">Blender 3.5</a>.</p>
 </li>
 <li>
 <p>Start Blender and click the menu <code>Edit &gt; Preferences</code>. Activate <code>Developer extras</code>.</p>
 </li>
 </ul>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-blender-bridge/raw/main/docs/blender_preferences.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-blender-bridge/raw/main/docs/blender_preferences.png" alt="img.png" /></p>
 <ul>
-<li>It is recommended to run this plugin in a conda environment together with <a href="https://github.com/haesleinhuepf/devbio-napari">devbio-napari</a>, </li>
+<li>It is recommended to run this plugin in a conda environment together with <a href="https://github.com/haesleinhuepf/devbio-napari">devbio-napari</a>,</li>
 </ul>
 <p><a href="https://vedo.embl.es/">vedo</a> and <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces">napari-process-points-and-surfaces</a>.</p>
 <p>To install these, please run these commands line-by-line:</p>
-<pre class="codehilite"><code>mamba create --name napari-blender-env python=3.9 devbio-napari vedo -c conda-forge
+<pre><code><div class="highlight"><pre><span></span>mamba create --name napari-blender-env python=3.9 devbio-napari vedo -c conda-forge
 
 mamba activate napari-blender-env
 
 pip install napari-process-points-and-surfaces napari-blender-bridge
+</pre></div>
 </code></pre>
-
 <h2>Similar and related plugins</h2>
 <p>There are other plugins for working with surface meshes:</p>
 <ul>
@@ -284,10 +261,10 @@ pip install napari-process-points-and-surfaces napari-blender-bridge
 <p>the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,</p>
-<p>"napari-blender-bridge" is free and open source software</p>
+<p>&quot;napari-blender-bridge&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/haesleinhuepf/napari-blender-bridge/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

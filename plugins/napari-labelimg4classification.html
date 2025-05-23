@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,76 +210,47 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-labelimg4classification.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-labelimg4classification"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-labelimg4classification.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-labelimg4classification.svg?color=green" /></a>
-<a href="https://github.com/hiroalchem/napari-labelimg4classification/actions"><img alt="tests" src="https://github.com/hiroalchem/napari-labelimg4classification/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hiroalchem/napari-labelimg4classification"><img alt="codecov" src="https://codecov.io/gh/hiroalchem/napari-labelimg4classification/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-labelimg4classification"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-labelimg4classification" /></a></p>
+                                        <p><a href="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-labelimg4classification.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-labelimg4classification"><img src="https://img.shields.io/pypi/v/napari-labelimg4classification.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-labelimg4classification.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hiroalchem/napari-labelimg4classification/actions"><img src="https://github.com/hiroalchem/napari-labelimg4classification/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hiroalchem/napari-labelimg4classification"><img src="https://codecov.io/gh/hiroalchem/napari-labelimg4classification/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-labelimg4classification"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-labelimg4classification" alt="napari hub" /></a></p>
 <p>A simple image-level annotation tool supporting multi-channel images for napari.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Usage</h2>
-<p>Start the labeling tool from the menu <code>Utilities &gt; label tool for classification</code>. <br />
+<p>Start the labeling tool from the menu <code>Utilities &gt; label tool for classification</code>.<br />
 First, click on the Choose directory button to open the folder selection window, and select the folder that contains the
- images you want to label and annotate. <br />
+images you want to label and annotate.<br />
 It will automatically list and display the images of tif, png, jpg, and bmp formats.
 If you want to view the channels of a multi-channel image separately, check the split channels checkbox.
-<img alt="" src="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/docs/open.gif" /></p>
+<img src="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/docs/open.gif" alt="" /></p>
 <p>Initially, all channels will be opened in grayscale, but the pseudo-color and contrast adjustments you specified will be
- carried over when you open the next image. <br />
-Thanks to napari, you can freely merge channels and turn them on and off. <br />
+carried over when you open the next image.<br />
+Thanks to napari, you can freely merge channels and turn them on and off.<br />
 Label classes can be added, and can be removed by typing the same name as an already added class.
-<img alt="" src="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/docs/color_and_label.gif" /></p>
+<img src="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/docs/color_and_label.gif" alt="" /></p>
 <p>It will automatically save the labels.csv file with the image path and label, and the class.txt file with the class of the label.
-<img alt="" src="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/docs/class_and_labels.png" /></p>
+<img src="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/docs/class_and_labels.png" alt="" /></p>
 <p>If labels.csv and class.txt are already in the folder, they will be loaded and reflected automatically.
-<img alt="" src="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/docs/reopen.gif" /></p>
+<img src="https://github.com/hiroalchem/napari-labelimg4classification/raw/main/docs/reopen.gif" alt="" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-labelimg4classification</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-labelimg4classification
+<pre><code>pip install napari-labelimg4classification
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hiroalchem/napari-labelimg4classification.git
+<pre><code>pip install git+https://github.com/hiroalchem/napari-labelimg4classification.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-labelimg4classification" is free and open source software</p>
+&quot;napari-labelimg4classification&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hiroalchem/napari-labelimg4classification/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

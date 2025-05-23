@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,54 +210,29 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p href="https://www.brainimagelibrary.org/">
+                                        <p href="https://www.brainimagelibrary.org/">
     <align="center" width="100%">
     <img width="100%" src="https://i.imgur.com/ljZKq8h.png">
 </p>
-
 <h1>Description</h1>
 <p>View datasets archived at the <strong><a href="https://www.brainimagelibrary.org/">Brain Image Library</a></strong>.</p>
 <p>**NOTE: This plugin is under early development.  Currently, only a subset of single-channel, fMOST datasets which include projections are available to view.  An example can be found <a href="https://download.brainimagelibrary.org/2b/da/2bdaf9e66a246844/mouseID_405429-182725/">here</a>.</p>
-<p><img alt="Plugin Demo GIF" src="https://imgur.com/gkDCsMd.gif" title="Plugin Demo GIF" /></p>
+<p><img src="https://imgur.com/gkDCsMd.gif" alt="Plugin Demo GIF" title="Plugin Demo GIF" /></p>
 <h3>Features</h3>
 <ul>
-<li>Multiscale Rendering</li>
+<li>Multiscale Rendering
+<ul>
 <li>In datasets that include multiple resolution representations of the data, each resolution can be combined to improve the speed of browsing and user experience.  An example of a dataset with multiple resolution projections can be found <a href="https://download.brainimagelibrary.org/2b/da/2bdaf9e66a246844/mouseID_405429-182725/">here</a>.</li>
 <li>All datasets included in the current release of napari-bil-data-viewer use multi-resolution datasets.</li>
+</ul>
+</li>
 <li>3D rendering of whole datasets.  The lowest resolution is used for rendering.  Currently, this is a limitation imposed by napari.</li>
 <li>The plugin does NOT require a BIL account as datasets are already accessible via https.</li>
 </ul>
 <h3>Known Issues / limitations</h3>
 <ul>
 <li>Currently the only datasets that are available are those which have been manually selected by the developers.  If you would like a specific dataset to be included please consider adding the dataset(s) to the <a href="https://github.com/brain-image-library/napari-bil-data-viewer/blob/main/napari_bil_data_viewer/dataset_info.py">dataset_info.py</a> file and submitting a pull request.</li>
-<li>To inquire about this plugin please contact Brain Image Library support:  bil-support@psc.edu</li>
+<li>To inquire about this plugin please contact Brain Image Library support:  <a href="mailto:bil-support@psc.edu">bil-support@psc.edu</a></li>
 <li>The plugin is still under development.  We appreciate all <a href="https://github.com/brain-image-library/napari-bil-data-viewer/issues">reports of issues / errors</a> which occur during use.</li>
 </ul>
 <hr />
@@ -265,7 +244,6 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>Option #1: Install plugin via the napari plugin menu</p>
 <ol>
@@ -274,23 +252,23 @@ https://napari.org/docs/plugins/index.html
 <li>Select install</li>
 </ol>
 <p>Option #2:  Install a fresh python virtual environment</p>
-<pre class="codehilite"><code class="language-bash"># Example of venv creation using conda
-conda create -y -n bil-viewer python=3.8
-conda activate bil-viewer
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Example of venv creation using conda</span>
+conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>bil-viewer<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
+conda<span class="w"> </span>activate<span class="w"> </span>bil-viewer
 
-# Install napari-bil-data-viewer
-pip install napari-bil-data-viewer
+<span class="c1"># Install napari-bil-data-viewer</span>
+pip<span class="w"> </span>install<span class="w"> </span>napari-bil-data-viewer
 
-# Run Napari
+<span class="c1"># Run Napari</span>
 napari
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Please consider contributing to this project!  Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-bil-data-viewer" is free and open source software</p>
+&quot;napari-bil-data-viewer&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/brain-image-library/napari-bil-data-viewer/issues">file an issue</a> along with a detailed description.</p>
 <h2>Change Log:</h2>
@@ -309,17 +287,19 @@ the coverage at least stays the same before you submit a pull request.</p>
 <p><u><strong>v0.4.2:</strong></u></p>
 <p>Add URL input to visualize image stacks (tif, tiff, jp2)</p>
 <p><u><strong>v0.5.0:</strong></u></p>
-<p>Split the plugin into 5 widgets:<br/>
-- Load Curated Datasets
-- Load Image Stack From URL
-- Load Multiscale Data From URL
-- Load Neuron Morphology From URL
-- Layer Scale Controls</p>
+<p>Split the plugin into 5 widgets:<br/></p>
+<ul>
+<li>Load Curated Datasets</li>
+<li>Load Image Stack From URL</li>
+<li>Load Multiscale Data From URL</li>
+<li>Load Neuron Morphology From URL</li>
+<li>Layer Scale Controls</li>
+</ul>
 <p><u><strong>v0.5.1:</strong></u></p>
 <p>Add metadata link to curated datasets</p>
 <p><u><strong>v0.6.0:</strong></u></p>
 <p>Add widget to visualize histology RGB tiffs</p>
-        
+
 
                                     </div>
                                 </div>

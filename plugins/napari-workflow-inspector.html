@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,61 +210,34 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-workflow-inspector/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-workflow-inspector.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-workflow-inspector"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-workflow-inspector.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-workflow-inspector.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-workflow-inspector/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-workflow-inspector/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-workflow-inspector"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-workflow-inspector/branch/main/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-workflow-inspector.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-workflow-inspector"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-workflow-inspector" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-workflow-inspector/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-workflow-inspector.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-workflow-inspector"><img src="https://img.shields.io/pypi/v/napari-workflow-inspector.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-workflow-inspector.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-workflow-inspector/actions"><img src="https://github.com/haesleinhuepf/napari-workflow-inspector/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-workflow-inspector"><img src="https://codecov.io/gh/haesleinhuepf/napari-workflow-inspector/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-workflow-inspector.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-workflow-inspector"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-workflow-inspector" alt="napari hub" /></a></p>
 <p>Inspect relationships between image processing operations in active workflows in napari. Open the inspector by clicking the menu <code>Tools &gt; Visualization &gt; Workflow Inspector</code>.</p>
-<p><img alt="img_1.png" src="https://github.com/haesleinhuepf/napari-workflow-inspector/raw/main/docs/screenshot_graph.png" /></p>
-<p>Also install the <a href="https://www.napari-hub.org/plugins/napari-script-editor">napari-script-editor</a> 
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-inspector/raw/main/docs/screenshot_graph.png" alt="img_1.png" /></p>
+<p>Also install the <a href="https://www.napari-hub.org/plugins/napari-script-editor">napari-script-editor</a>
 to generate code from active workflows.</p>
-<p><img alt="img_2.png" src="https://github.com/haesleinhuepf/napari-workflow-inspector/raw/main/docs/screenshot_script_editor.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-workflow-inspector/raw/main/docs/screenshot_script_editor.png" alt="img_2.png" /></p>
 <p>For recording workflows, all napari image processing plugins that use the <code>@time_slicer</code> interface are supported. See
 <a href="https://www.napari-hub.org/plugins/napari-time-slicer">napari-time-slicer</a> for a list. More to come, stay tuned.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-workflow-inspector</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-workflow-inspector
+<pre><code><div class="highlight"><pre><span></span>pip install napari-workflow-inspector
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-workflow-inspector" is free and open source software</p>
+&quot;napari-workflow-inspector&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/haesleinhuepf/napari-workflow-inspector/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

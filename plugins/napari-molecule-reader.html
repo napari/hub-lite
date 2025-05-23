@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -880,43 +884,18 @@ Public License instead of this License.  But first, please read
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/brisvag/napari-molecule-reader/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-molecule-reader.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-molecule-reader"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-molecule-reader.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-molecule-reader.svg?color=green" /></a>
-<a href="https://github.com/brisvag/napari-molecule-reader/actions"><img alt="tests" src="https://github.com/brisvag/napari-molecule-reader/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/brisvag/napari-molecule-reader"><img alt="codecov" src="https://codecov.io/gh/brisvag/napari-molecule-reader/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-molecule-reader"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-molecule-reader" /></a></p>
+                                        <p><a href="https://github.com/brisvag/napari-molecule-reader/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-molecule-reader.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-molecule-reader"><img src="https://img.shields.io/pypi/v/napari-molecule-reader.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-molecule-reader.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/brisvag/napari-molecule-reader/actions"><img src="https://github.com/brisvag/napari-molecule-reader/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/brisvag/napari-molecule-reader"><img src="https://codecov.io/gh/brisvag/napari-molecule-reader/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-molecule-reader"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-molecule-reader" alt="napari hub" /></a></p>
 <p>A napari plugin that read molecular structure files. It reads PDB and MMCIF files using <a href="https://github.com/samirelanduk/atomium"><code>atomium</code></a>, expanding molecular assemblies to a full visualization. Data is loaded into napari as <code>Points</code> for ball representation and <code>Vectors</code> for stick representation. If multiple models or assemblies are detected, they will be loaded as separate objects.</p>
-<p>https://user-images.githubusercontent.com/23482191/150109390-bd7fb3b4-79b4-43da-aafc-20921714df25.mp4</p>
-<p>TODO list:
-- [] handle alternate locations (i.e: different conformations in the same pdb model)</p>
+<p><a href="https://user-images.githubusercontent.com/23482191/150109390-bd7fb3b4-79b4-43da-aafc-20921714df25.mp4">https://user-images.githubusercontent.com/23482191/150109390-bd7fb3b4-79b4-43da-aafc-20921714df25.mp4</a></p>
+<p>TODO list:</p>
+<ul>
+<li>[] handle alternate locations (i.e: different conformations in the same pdb model)</li>
+</ul>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -926,25 +905,22 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-molecule-reader</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-molecule-reader
+<pre><code>pip install napari-molecule-reader
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/brisvag/napari-molecule-reader.git
+<pre><code>pip install git+https://github.com/brisvag/napari-molecule-reader.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-molecule-reader" is free and open source software</p>
+&quot;napari-molecule-reader&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/brisvag/napari-molecule-reader/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

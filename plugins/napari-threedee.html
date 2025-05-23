@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/alisterburt/napari-threedee/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-threedee.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-threedee"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-threedee.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-threedee.svg?color=green" /></a>
-<a href="https://github.com/napari-threedee/napari-threedee/actions"><img alt="tests" src="https://github.com/napari-threedee/napari-threedee/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/napari-threedee/napari-threedee"><img alt="codecov" src="https://codecov.io/gh/napari-threedee/napari-threedee/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-threedee"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-threedee" /></a></p>
+                                        <p><a href="https://github.com/alisterburt/napari-threedee/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-threedee.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-threedee"><img src="https://img.shields.io/pypi/v/napari-threedee.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-threedee.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/napari-threedee/napari-threedee/actions"><img src="https://github.com/napari-threedee/napari-threedee/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/napari-threedee/napari-threedee"><img src="https://codecov.io/gh/napari-threedee/napari-threedee/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-threedee"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-threedee" alt="napari hub" /></a></p>
 <p>A suite of useful tools based on 3D interactivity in napari</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -249,77 +226,51 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-threedee</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-threedee
+<pre><code>pip install napari-threedee
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/alisterburt/napari-threedee.git
+<pre><code>pip install git+https://github.com/alisterburt/napari-threedee.git
 </code></pre>
-
 <h2>Example applications</h2>
 <p>See the full list of <a href="https://napari-threedee.github.io/generated/gallery/">example gallery scripts here on our website</a>.</p>
 <table border="0">
 <tr><td>
-
-
-<img src="https://user-images.githubusercontent.com/1120672/173021751-9206de7d-5675-4aac-aa9e-8585457a7799.gif"
-width="300"/>
-
+<p><img src="https://user-images.githubusercontent.com/1120672/173021751-9206de7d-5675-4aac-aa9e-8585457a7799.gif"
+width="300"/></p>
 </td><td>
-
-[mesh lighting control](https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/mesh_headlight_plugin.py)
-
+<p><a href="https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/mesh_headlight_plugin.py">mesh lighting control</a></p>
 </td></tr><tr><td>
-
-<img src="https://user-images.githubusercontent.com/1120672/173022286-2473b6b2-a20e-4514-88a4-8295e001f099.gif"
-width="300"/>
-
+<p><img src="https://user-images.githubusercontent.com/1120672/173022286-2473b6b2-a20e-4514-88a4-8295e001f099.gif"
+width="300"/></p>
 </td><td>
-
-[annotate points on planes](https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/point_annotator_plugin.py)
-
+<p><a href="https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/point_annotator_plugin.py">annotate points on planes</a></p>
 </td></tr><tr><td>
-
-<img src="https://user-images.githubusercontent.com/1120672/173023185-b6936d1d-590c-4b9b-816a-3779dfe774da.gif"
-width="300"/>
-
+<p><img src="https://user-images.githubusercontent.com/1120672/173023185-b6936d1d-590c-4b9b-816a-3779dfe774da.gif"
+width="300"/></p>
 </td><td>
-
-[render plane manipulator](https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/render_plane_manipulator_plugin.py)
-
+<p><a href="https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/render_plane_manipulator_plugin.py">render plane manipulator</a></p>
 </td></tr><tr><td>
-
-<img src="https://user-images.githubusercontent.com/1120672/173023795-7150d3c2-d3d1-4913-981d-1092c1b59f21.gif"
-width="300"/>
-
+<p><img src="https://user-images.githubusercontent.com/1120672/173023795-7150d3c2-d3d1-4913-981d-1092c1b59f21.gif"
+width="300"/></p>
 </td><td>
-
-[layer manipulator](https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/layer_manipulator_plugin.py)
-
+<p><a href="https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/layer_manipulator_plugin.py">layer manipulator</a></p>
 </td></tr><tr><td>
-
-<img src="https://user-images.githubusercontent.com/1120672/173024361-2f05c68b-e94d-4734-9f5e-1606391e6463.gif"
-width="300"/>
-
+<p><img src="https://user-images.githubusercontent.com/1120672/173024361-2f05c68b-e94d-4734-9f5e-1606391e6463.gif"
+width="300"/></p>
 </td><td>
-
-[point manipulator](https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/points_manipulator_plugin.py)
-
-
+<p><a href="https://github.com/napari-threedee/napari-threedee/blob/main/docs/examples/plugin/points_manipulator_plugin.py">point manipulator</a></p>
 </td></tr></table>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-threedee" is free and open source software</p>
+&quot;napari-threedee&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/alisterburt/napari-threedee/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

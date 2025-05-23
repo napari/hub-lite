@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -876,39 +880,12 @@ Public License instead of this License.  But first, please read
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/roxas-ai/napari-roxas-ai/raw/main/LICENSE"><img alt="License GNU GPL v3.0" src="https://img.shields.io/pypi/l/napari-roxas-ai.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-roxas-ai"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-roxas-ai.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-roxas-ai.svg?color=green" /></a>
-<a href="https://github.com/roxas-ai/napari-roxas-ai/actions"><img alt="tests" src="https://github.com/roxas-ai/napari-roxas-ai/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/roxas-ai/napari-roxas-ai"><img alt="codecov" src="https://codecov.io/gh/roxas-ai/napari-roxas-ai/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-roxas-ai"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-roxas-ai" /></a></p>
+                                        <p><a href="https://github.com/roxas-ai/napari-roxas-ai/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-roxas-ai.svg?color=green" alt="License GNU GPL v3.0" /></a>
+<a href="https://pypi.org/project/napari-roxas-ai"><img src="https://img.shields.io/pypi/v/napari-roxas-ai.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-roxas-ai.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/roxas-ai/napari-roxas-ai/actions"><img src="https://github.com/roxas-ai/napari-roxas-ai/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/roxas-ai/napari-roxas-ai"><img src="https://codecov.io/gh/roxas-ai/napari-roxas-ai/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-roxas-ai"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-roxas-ai" alt="napari hub" /></a></p>
 <p>A plugin that integrates the ROXAS AI analysis methods for quantitative wood anatomy in the napari platform</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
@@ -919,7 +896,6 @@ https://github.com/napari/napari-plugin-template#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <h3>Environment setup</h3>
 <p>It's recommended to create a dedicated Python environment for napari-roxas-ai:</p>
@@ -931,39 +907,43 @@ https://napari.org/stable/plugins/index.html
 <p>Create a new environment:</p>
 </li>
 </ol>
-<pre class="codehilite"><code class="language-bash">conda create -n roxas-ai python=3.12
-conda activate roxas-ai
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>roxas-ai<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12
+conda<span class="w"> </span>activate<span class="w"> </span>roxas-ai
+</pre></div>
 </code></pre>
-
 <h3>Installation</h3>
 <p>Install <code>napari-roxas-ai</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-roxas-ai
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-roxas-ai
+</pre></div>
 </code></pre>
-
 <h3>Launching the plugin</h3>
 <p>Once installed, you can launch napari with the roxas-ai plugin:</p>
-<pre class="codehilite"><code class="language-bash">napari
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
 <h3>Verifying installation</h3>
-<p>To check if the plugin is working correctly:
-1. Go to <code>File &gt; Open Sample &gt; ROXAS AI</code> in the napari interface.
-2. The first time you open a sample, it may take some time as sample data and model weights are being downloaded. Progress will be logged in the terminal.
-3. After the downloads, a sample made of three layers should open in the viewer</p>
+<p>To check if the plugin is working correctly:</p>
+<ol>
+<li>Go to <code>File &gt; Open Sample &gt; ROXAS AI</code> in the napari interface.</li>
+<li>The first time you open a sample, it may take some time as sample data and model weights are being downloaded. Progress will be logged in the terminal.</li>
+<li>After the downloads, a sample made of three layers should open in the viewer</li>
+</ol>
 <h3>GPU Support</h3>
 <p>If you want to use GPU acceleration for model inference:</p>
 <ol>
-<li>Ensure you have the proper GPU drivers and CUDA installed for your system:</li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">NVIDIA CUDA Installation Guide Linux</a></li>
 <li>
-<p><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html">NVIDIA CUDA Installation Guide Windows</a></p>
+<p>Ensure you have the proper GPU drivers and CUDA installed for your system:</p>
+<ul>
+<li><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">NVIDIA CUDA Installation Guide Linux</a></li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html">NVIDIA CUDA Installation Guide Windows</a></li>
+</ul>
 </li>
 <li>
 <p>Enable GPU support in the napari-roxas-ai settings within the napari interface.</p>
 </li>
 <li>
 <p>You may need to reinstall PyTorch with CUDA support for your specific hardware:
-   Visit the <a href="https://pytorch.org/get-started/locally/">PyTorch Installation Guide</a> to find the appropriate installation command for your setup.</p>
+Visit the <a href="https://pytorch.org/get-started/locally/">PyTorch Installation Guide</a> to find the appropriate installation command for your setup.</p>
 </li>
 </ol>
 <h2>Contributing</h2>
@@ -971,10 +951,10 @@ conda activate roxas-ai
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,
-"napari-roxas-ai" is free and open source software</p>
+&quot;napari-roxas-ai&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/roxas-ai/napari-roxas-ai/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

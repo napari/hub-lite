@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,65 +210,38 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://napari-hub.org/plugins/napari_video"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari_video" /></a></p>
+                                        <p><a href="https://napari-hub.org/plugins/napari_video"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari_video" alt="napari hub" /></a></p>
 <p>Napari plugin for working with videos.</p>
 <p>Relies on <a href="https://pypi.org/project/pyvideoreader/">pyvideoreader</a> as a backend which itself uses <a href="https://opencv.org">opencv</a> for reading videos.</p>
 <h2>Installation</h2>
-<pre class="codehilite"><code class="language-shell">pip install napari[all] napari_video
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari<span class="o">[</span>all<span class="o">]</span><span class="w"> </span>napari_video
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <p>From a terminal:</p>
-<pre class="codehilite"><code class="language-shell">napari video.avi
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>napari<span class="w"> </span>video.avi
+</pre></div>
 </code></pre>
-
 <p>Or from within python:</p>
-<pre class="codehilite"><code class="language-shell">import napari
-from napari_video.napari_video import VideoReaderNP
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>import<span class="w"> </span>napari
+from<span class="w"> </span>napari_video.napari_video<span class="w"> </span>import<span class="w"> </span>VideoReaderNP
 
-path='video.mp4'
-vr = VideoReaderNP(path)
-with napari.gui_qt():
-    viewer = napari.view_image(vr, name=path)
+<span class="nv">path</span><span class="o">=</span><span class="s1">&#39;video.mp4&#39;</span>
+<span class="nv">vr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>VideoReaderNP<span class="o">(</span>path<span class="o">)</span>
+with<span class="w"> </span>napari.gui_qt<span class="o">()</span>:
+<span class="w">    </span><span class="nv">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>napari.view_image<span class="o">(</span>vr,<span class="w"> </span><span class="nv">name</span><span class="o">=</span>path<span class="o">)</span>
+</pre></div>
 </code></pre>
-
 <h2>Internals</h2>
 <p><code>napari_video.napari_video.VideoReaderNP</code> exposes a video with a numpy-like interface, using opencv as a backend.</p>
 <p>For instance, open a video:</p>
-<pre class="codehilite"><code class="language-python">vr = VideoReaderNP('video.avi')
-print(vr)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">vr</span> <span class="o">=</span> <span class="n">VideoReaderNP</span><span class="p">(</span><span class="s1">&#39;video.avi&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vr</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<pre class="codehilite"><code>video.avi with 60932 frames of size (920, 912, 3) at 100.00 fps
+<pre><code><div class="highlight"><pre><span></span>video.avi with 60932 frames of size (920, 912, 3) at 100.00 fps
+</pre></div>
 </code></pre>
-
 <p>Then</p>
 <ul>
 <li><code>vr[100]</code> will return the 100th frame as a numpy array with shape <code>(902, 912, 3)</code>.</li>
@@ -272,7 +249,7 @@ print(vr)
 <li>Note that by default, single-frame and slice indexing return 3D and 4D arrays, respectively. To consistently return 4D arrays, open the video with <code>remove_leading_singleton=False</code>. <code>vr[100]</code> will then return a <code>(1, 902, 912, 3)</code> array.</li>
 <li>We can also request specific ROIs and channels. For instance, <code>vr[100:200:10,100:400,800:850,1]</code> will return an array with shape <code>(10, 300, 50, 1)</code>.</li>
 </ul>
-        
+
 
                                     </div>
                                 </div>

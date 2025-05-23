@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,41 +210,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>This GUI plugin allows you to quickly find the affine matrix mapping
+                                        <p>This GUI plugin allows you to quickly find the affine matrix mapping
 one image to another using manual correspondence points annotation.</p>
 <p>More simply, this plugin allows you to select corresponding points
-on an image, and a second image you wish to transform. It computes 
-the requisite transformation matrix using Affine Transform, Euclidean Transform, 
+on an image, and a second image you wish to transform. It computes
+the requisite transformation matrix using Affine Transform, Euclidean Transform,
 or Similarity Transform, and performs this transformation on the
 moving image, aligning it to the reference image.</p>
-<p>https://user-images.githubusercontent.com/17995243/120086403-f1d0b300-c121-11eb-8000-a44a2ac54339.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/17995243/120086403-f1d0b300-c121-11eb-8000-a44a2ac54339.mp4">https://user-images.githubusercontent.com/17995243/120086403-f1d0b300-c121-11eb-8000-a44a2ac54339.mp4</a></p>
 <h1>Who is This For?</h1>
 <p>This is a simple plugin which can be used on any 2D images, provided
 they can be loaded as layers into napari. The images need not be the same
@@ -248,50 +225,50 @@ file format and this plugin also works with labels layers.</p>
 <p>No prior understanding of the transformation methods is required, as
 they perform in the background based on the reference points selected.</p>
 <h1>How to Guide</h1>
-<p>You will need a combination of two or more 2D image and/or labels layers 
+<p>You will need a combination of two or more 2D image and/or labels layers
 loaded into napari. Once you have installed affinder, you can find it in
 the dock widgets menu.</p>
-<p><img alt="Affinder widget in the Plugins-&gt;Add Dock Widget menu" src="https://i.imgur.com/w7MCXQy.png" /></p>
+<p><img src="https://i.imgur.com/w7MCXQy.png" alt="Affinder widget in the Plugins-&gt;Add Dock Widget menu" /></p>
 <p>The first two dropdown boxes will be populated with the layers currently
 loaded into napari. Select a layer to use as reference, and another to
 transform.</p>
-<p><img alt="Dropdowns allow you to select the reference and moving layers" src="https://i.imgur.com/Tdbm1sX.png" /></p>
+<p><img src="https://i.imgur.com/Tdbm1sX.png" alt="Dropdowns allow you to select the reference and moving layers" /></p>
 <p>Next, you can select the transformation model to use (affine is selected by default
 and is the least rigid transformation of those available). See <a href="#transformation-models">below</a> for a
 description of the different models.</p>
 <p>Finally, you can optionally select a path to a text file for saving out the
 resulting transformation matrix.</p>
-<p>When you click Start, affinder will add two points layers to napari. 
+<p>When you click Start, affinder will add two points layers to napari.
 The plugin will also bring your reference image in focus, and its associated points
 layer. You can then start adding reference points by clicking on your image.</p>
-<p><img alt="Adding reference points to layer" src="https://i.imgur.com/WPzNtyy.png" /></p>
+<p><img src="https://i.imgur.com/WPzNtyy.png" alt="Adding reference points to layer" /></p>
 <p>Once three points are added, affinder will switch focus to the moving image,
 and you should then proceed to select the corresponding three points.</p>
-<p><img alt="Adding corresponding points to newly focused layer" src="https://i.imgur.com/JVZCvmp.png" /></p>
+<p><img src="https://i.imgur.com/JVZCvmp.png" alt="Adding corresponding points to newly focused layer" /></p>
 <p>affinder will immediately transform the moving image to align the points you've
 selected when you add your third corresponding point to your moving image.</p>
-<p><img alt="The moving image is transformed once three points are added" src="https://i.imgur.com/NTne9fj.png" /></p>
-<p>From there, you can continue iteratively adding points until you 
+<p><img src="https://i.imgur.com/NTne9fj.png" alt="The moving image is transformed once three points are added" /></p>
+<p>From there, you can continue iteratively adding points until you
 are happy with the alignment. Affinder will switch focus between
 reference and moving image with each point.</p>
 <p>Click Finish to exit affinder.</p>
 <h2>Transformation Models</h2>
 <p>There are three transformation models available for use with affinder.
 They are listed here in order of increasing rigidity in the types of
-transforms they will allow. The eponymous Affine Transform is the 
+transforms they will allow. The eponymous Affine Transform is the
 least rigid and is the default choice.</p>
 <ul>
 <li>
-<p><a href="https://en.wikipedia.org/wiki/Affine_transformation"><strong>Affine Transform</strong></a>: 
+<p><a href="https://en.wikipedia.org/wiki/Affine_transformation"><strong>Affine Transform</strong></a>:
 the least rigid transformation, it preserves
 lines and parallelism, but not necessarily distance and angles. Translation,
 scaling, similarity, reflection, rotation and shearing are all valid
 affine transformations.</p>
 </li>
 <li>
-<p><a href="https://en.wikipedia.org/wiki/Similarity_(geometry)"><strong>Similarity Transform</strong></a>: 
-this is a "shape preserving" transformation, producing objects which are 
-geometrically similar. Translation, rotation, reflection and uniform scaling are 
+<p><a href="https://en.wikipedia.org/wiki/Similarity_(geometry)"><strong>Similarity Transform</strong></a>:
+this is a &quot;shape preserving&quot; transformation, producing objects which are
+geometrically similar. Translation, rotation, reflection and uniform scaling are
 valid similarity transforms. Shearing is not.</p>
 </li>
 <li>
@@ -308,7 +285,7 @@ issue on the <a href="https://github.com/jni/affinder">GitHub repository</a>.</p
 <p>Many plugins may be used in the course of published (or publishable) research, as well as
 during conference talks and other public facing events. If you'd like to be cited in
 a particular format, or have a DOI you'd like used, you should provide that information here.</p>
-        
+
 
                                     </div>
                                 </div>

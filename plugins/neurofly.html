@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,48 +206,21 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>This package provides tools for semi-automatic neuron reconstruction. Features based on deep learning, like image segmentation and deconvolution are implemented in <a href="https://github.com/tinygrad/tinygrad">tinygrad</a>, which can run on almost any GPU (NVIDIA, AMD, Apple, Qualcomm, Intel).</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/main.png" width="640"></p>
+                                        <p>This package provides tools for semi-automatic neuron reconstruction. Features based on deep learning, like image segmentation and deconvolution are implemented in <a href="https://github.com/tinygrad/tinygrad">tinygrad</a>, which can run on almost any GPU (NVIDIA, AMD, Apple, Qualcomm, Intel).</p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/main.png" width="640">
 <h2>Update</h2>
 <p>Our transformer-based autonomous driving model is available now!</p>
 <p>Press shortcut 'd' to automatically extend segments.</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/autonomous.gif" width="640"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/autonomous.gif" width="640">
 <h2>Installation</h2>
 <p>Install the latest version</p>
-<pre class="codehilite"><code>pip install --upgrade git+https://github.com/beanli161514/neurofly.git
+<pre><code><div class="highlight"><pre><span></span>pip install --upgrade git+https://github.com/beanli161514/neurofly.git
+</pre></div>
 </code></pre>
-
 <p>or</p>
-<pre class="codehilite"><code>pip install neurofly
+<pre><code><div class="highlight"><pre><span></span>pip install neurofly
+</pre></div>
 </code></pre>
-
 <p>You can also install from <a href="https://www.napari-hub.org/plugins/neurofly">napari hub</a>, using their plugin manager with GUI.</p>
 <h2>Dataset</h2>
 <p>We provide several expert-proofread reconstruction results for testing, model training, and evaluation. <a href="https://zenodo.org/records/13328867">Zenodo Link</a></p>
@@ -347,67 +324,104 @@ pre > code:last-child {
 </table>
 <p>$*$ annotation in progress</p>
 <h3>Label format</h3>
-<p>Morphology labels are graphs saved in SQLite database with 3 tables:
-|    segments    |  nodes  |  edges  |
-|:--------------:|:-------:|:-------:|
-|       sid      |   nid   |   src   |
-|     points     |  coord  |   des   |
-| sampled_points | creator |   date  |
-|                |  status | creator |
-|                |   type  |         |
-|                |   date  |         |
-|                | checked |         |</p>
+<p>Morphology labels are graphs saved in SQLite database with 3 tables:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">segments</th>
+<th style="text-align:center">nodes</th>
+<th style="text-align:center">edges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">sid</td>
+<td style="text-align:center">nid</td>
+<td style="text-align:center">src</td>
+</tr>
+<tr>
+<td style="text-align:center">points</td>
+<td style="text-align:center">coord</td>
+<td style="text-align:center">des</td>
+</tr>
+<tr>
+<td style="text-align:center">sampled_points</td>
+<td style="text-align:center">creator</td>
+<td style="text-align:center">date</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">status</td>
+<td style="text-align:center">creator</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">type</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">date</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">checked</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
 <p>Segments are results of the segmentation stage, they are used to generate initial nodes and edges.</p>
 <h2>Basic usage example</h2>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/pipeline.png" width="640"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/pipeline.png" width="640">
 <p>NeuroFly packaged 4 napari plugins for image browsing, image segmentation, and data annotation.</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/menu.png" width="320"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/menu.png" width="320">
 <h3>Segmentation</h3>
 <p>NeuroFly supports whole brain image saved in hierarchical data structures(ims, h5, and zarr) in <a href="https://imaris.oxinst.com/support/imaris-file-format">Imaris File Format</a> and small image volumes saved in single-channel tiff format. Here we use a mouse brain in our dataset named z002.zarr.zip as example.</p>
 <p>This brain is sparsely labeled, which means only a tiny puny part of neurons are lighted and imaged. To extract these foreground singals, you can use the provided command line interface 'seg'. We provide a default weight trained on images captured by VISoR and fMOST.</p>
-<pre class="codehilite"><code>seg -i z002.zarr.zip -vis -d z002.db
+<pre><code><div class="highlight"><pre><span></span>seg -i z002.zarr.zip -vis -d z002.db
+</pre></div>
 </code></pre>
-
 <p>or use the graphical interface</p>
-<p><img align src="https://github.com/beanli161514/neurofly/raw/main/assets/neuron_seger.png" width="200"></p>
+<img align src="https://github.com/beanli161514/neurofly/raw/main/assets/neuron_seger.png" width="200">
 <p>This process may take about 10 hours depending on your you hardware configuration. When finished, you should see the extracted segments and a database file named z002.db in your working dictionary.</p>
 <p>An image block with severe contamination and the segmentation result</p>
-<p><img align src="https://github.com/beanli161514/neurofly/raw/main/assets/segmentation.gif" width="640"></p>
+<img align src="https://github.com/beanli161514/neurofly/raw/main/assets/segmentation.gif" width="640">
 <h3>Manual connection and proofreading</h3>
 <p>Launch annotation tool from napari menu, Plugin -&gt; neurofly -&gt; Segs Annotator</p>
 <h4>Load data</h4>
 <p>Load image file (z002.zarr.zip) and database file (z002.db), then click <strong>refresh panorama</strong> button to show the panorama view.</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/overall.png" width="600"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/overall.png" width="600">
 <h4>Select one node as start point of annotation</h4>
-<p>In panorama mode, you can easily identify sparse, bright signals that are promising for reconstruction. The silde bars 'short segs filter', 'length thres', and 'point size' can be adjusted to hide noise and short segments. </p>
+<p>In panorama mode, you can easily identify sparse, bright signals that are promising for reconstruction. The silde bars 'short segs filter', 'length thres', and 'point size' can be adjusted to hide noise and short segments.</p>
 <p>If you can clearly identify foreground segments, click on one of the conspicuous segments to select it as start point of annotation. Once selected, the id of picked node will be displayed at <strong>node selection</strong>. Then click 'switch mode' to switch to labeling mode, and the tasks will be generated automatically.</p>
 <h4>Task generation</h4>
 <p>Given a selected node, task generator analyses its connected component and extract all unchecked terminal nodes. The tasks are designed very simple: Connect the center node with the surrounding nodes if there should be an edge. The criterion is whether the edge aligns well with the imaged neuron fibers.</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/task_generation.png" width="480"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/task_generation.png" width="480">
 <h4>Node operations</h4>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/labeling_mode.png" width="480"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/labeling_mode.png" width="480">
 <p>In each task, a center node and nearby segments are rendered, you can add/remove nodes and edges to get a reasonable local structure.</p>
 <p>Left click on nodes to add/remove an edge between it and the center node</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/add_edges.gif" width="480"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/add_edges.gif" width="480">
 <p>Right click to remove a node</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/remove_nodes.gif" width="480"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/remove_nodes.gif" width="480">
 <p>Press 'g' or use left panel to switch to 'image' layer, then right click to add points</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/add_nodes.gif" width="480"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/add_nodes.gif" width="480">
 <p>Use dropdown selection in right panel to add type label for center node.</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/change_type.gif" width="480"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/change_type.gif" width="480">
 <h4>Deconvolution</h4>
 <p>Press 'i' or click on 'deconvolution' to deconvolve the image</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/deconv.gif" width="640"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/deconv.gif" width="640">
 <h4>Proofreading</h4>
 <p>If you find something wrong when labeling, for example, two somas are connected together. You can use proofreading mode to check the neuron branch by branch.
 <img src="https://github.com/beanli161514/neurofly/raw/main/assets/proofreading.gif" width="640"></p>
 <h3>Performance</h3>
 <p>NeuroFly supports rendering of more than ten million points. (tested on M3 Macbook Air and RTX 3090 workstation)</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/dense.jpg" width="640"></p>
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/dense.jpg" width="640">
 <h3>Export as swc file</h3>
 <p>Switch to panorama mode, adjust 'length_thres' to filter out short segments and keep only complete neurons. Then press 'export swc files', each neuron will be saved as one .swc file in your working dictionary.</p>
-<p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/export.jpg" width="640"></p>
-        
+<img src="https://github.com/beanli161514/neurofly/raw/main/assets/export.jpg" width="640">
+
 
                                     </div>
                                 </div>

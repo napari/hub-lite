@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,73 +210,48 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/gdellaire/bbii-decon/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/bbii-decon.svg?color=green" /></a>
-<a href="https://pypi.org/project/bbii-decon"><img alt="PyPI" src="https://img.shields.io/pypi/v/bbii-decon.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/bbii-decon.svg?color=green" /></a>
-<a href="https://github.com/gdellaire/bbii-decon/actions"><img alt="tests" src="https://github.com/gdellaire/bbii-decon/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/gdellaire/bbii-decon"><img alt="codecov" src="https://codecov.io/gh/gdellaire/bbii-decon/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/bbii-decon"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/bbii-decon" /></a></p>
+                                        <p><a href="https://github.com/gdellaire/bbii-decon/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/bbii-decon.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/bbii-decon"><img src="https://img.shields.io/pypi/v/bbii-decon.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/bbii-decon.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/gdellaire/bbii-decon/actions"><img src="https://github.com/gdellaire/bbii-decon/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/gdellaire/bbii-decon"><img src="https://codecov.io/gh/gdellaire/bbii-decon/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/bbii-decon"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/bbii-decon" alt="napari hub" /></a></p>
 <p>Projected Barzilai-Borwein Image Deconvolution with Infeasible Iterates (BBii-Decon)</p>
-<p>The projected Barzilai-Borwein method of image deconvolution utilizing infeasible iterates (BBii-Decon), utilizes Barzilai-Borwein (BB) or projected BB (PBB) method and enforces a nonnegativity constraint, but allows for infeasible iterates between projections. This algorithm (BBii) results in faster convergence than the basic PBB method, while achieving better quality images, with reduced background than the unconstrained BB method (1). </p>
+<p>The projected Barzilai-Borwein method of image deconvolution utilizing infeasible iterates (BBii-Decon), utilizes Barzilai-Borwein (BB) or projected BB (PBB) method and enforces a nonnegativity constraint, but allows for infeasible iterates between projections. This algorithm (BBii) results in faster convergence than the basic PBB method, while achieving better quality images, with reduced background than the unconstrained BB method (1).</p>
 <p>The code represented is based on the original BBii algorithm written in MatLab by Kathleen Fraser and Dirk Arnold, which was ported to python 3.8 by Graham Dellaire, Dirk Arnold and Kathleen Fraser for non-commercial use.</p>
 <p>The first implementation shown here is for 2D deconvolution using a known 2D PSF of 256 X 256 pixels, and images of at least 256 pixels in one dimension. One file implements just the deconvolution of a blurred image, while the second file contains a modification of the BBii-Decon algorithm that has a built in heuristic for measuring image reconstruction error relative to a ground truth image. For general 2D deconvolution, either a theoretical 2D PSF (if you know the optical properties of your system) or the central in focus image of a fluorescent bead taken with the same imaging setup (lens, magnification, camera) can produce a suitable PSF.</p>
 <h3>GPU-acceleration</h3>
-<p>For most 2D deconvolution, optimal results are obtained with 10 iterations of the algorithm. However, if processing takes too long, acceleration using graphics processing units (GPUs) may make sense, especially for processing larger images with &gt;10 iterations or 3D images. (Note: At this time BBii-Decon is optimized for 2D deconvolution, with a 3D implementation planned in future). </p>
-<p>This plugin supports accelerated processing using the <a href="https://cupy.dev">cupy</a> library. To make use of it, please follow 
-<a href="https://docs.cupy.dev/en/stable/install.html#installing-cupy-from-conda-forge">the instructions</a> to install cupy. 
+<p>For most 2D deconvolution, optimal results are obtained with 10 iterations of the algorithm. However, if processing takes too long, acceleration using graphics processing units (GPUs) may make sense, especially for processing larger images with &gt;10 iterations or 3D images. (Note: At this time BBii-Decon is optimized for 2D deconvolution, with a 3D implementation planned in future).</p>
+<p>This plugin supports accelerated processing using the <a href="https://cupy.dev">cupy</a> library. To make use of it, please follow
+<a href="https://docs.cupy.dev/en/stable/install.html#installing-cupy-from-conda-forge">the instructions</a> to install cupy.
 Installation may look like this:</p>
-<pre class="codehilite"><code>conda create --name cupy_p38 python=3.8
-conda activate cupy_p38
-conda install -c conda-forge cupy cudatoolkit=10.2
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">name</span><span class="w"> </span><span class="n">cupy_p38</span><span class="w"> </span><span class="n">python</span><span class="o">=</span><span class="mf">3.8</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">cupy_p38</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cupy</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">10.2</span>
+</pre></div>
 </code></pre>
-
-<p>If cupy installation worked out, you will find another checkbox in the user interface. By activating it, processing 
+<p>If cupy installation worked out, you will find another checkbox in the user interface. By activating it, processing
 should become faster by factor 5-10, depending on processed image data and use GPU hardware.</p>
-<p><img alt="img.png" src="https://github.com/gdellaire/BBii-Decon/raw/main/demo/use_GPU_checkbox.png" /></p>
+<p><img src="https://github.com/gdellaire/BBii-Decon/raw/main/demo/use_GPU_checkbox.png" alt="img.png" /></p>
 <h2>Usage - napari</h2>
-<p>You can use the BBii deconvolution from within napari by clicking the menu <code>Plugins &gt; bbii-decon &gt; bbii deconvolution</code>. 
-In the dialog, select the PSF, the image to process (a) and click on <code>Run</code>. After a moment, the deconvolved image (b) 
+<p>You can use the BBii deconvolution from within napari by clicking the menu <code>Plugins &gt; bbii-decon &gt; bbii deconvolution</code>.
+In the dialog, select the PSF, the image to process (a) and click on <code>Run</code>. After a moment, the deconvolved image (b)
 will show up.</p>
-<p><img alt="img.png" src="https://github.com/gdellaire/BBii-Decon/raw/main/demo/screenshot_napari.png" /></p>
+<p><img src="https://github.com/gdellaire/BBii-Decon/raw/main/demo/screenshot_napari.png" alt="img.png" /></p>
 <h2>Usage from python</h2>
 <p>You can also call the function from python. There is a full working example in <a href="demo/BBii_Decon_2D_2021.ipynb">this notebook</a>.</p>
-<pre class="codehilite"><code>from bbii_decon import bbii
+<pre><code><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bbii_decon</span><span class="w"> </span><span class="kn">import</span> <span class="n">bbii</span>
 
-bbii(PSF, image, number_of_iterations = 15, tau = 1.0e-08, rho = 0.98)
+<span class="n">bbii</span><span class="p">(</span><span class="n">PSF</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">number_of_iterations</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.0e-08</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="mf">0.98</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <h2>Citation</h2>
-<p>1) <a href="https://ieeexplore.ieee.org/abstract/document/6816842">Kathleen Fraser, Dirk V. Arnold, and Graham Dellaire (2014). Projected Barzilai-Borwein
+<ol>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/6816842">Kathleen Fraser, Dirk V. Arnold, and Graham Dellaire (2014). Projected Barzilai-Borwein
 method with infeasible iterates for nonnegative least-squares image deblurring. In Proceedings
 of the Eleventh Conference on Computer and Robot Vision (CRV 2014), Montreal, Canada, pp.
-189--194.</a></p>
+189--194.</a></li>
+</ol>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -282,48 +261,46 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>bbii-decon</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install bbii-decon
+<pre><code>pip install bbii-decon
 </code></pre>
-
 <h2>Installation for developers</h2>
 <p>Clone the github repository:</p>
-<pre class="codehilite"><code>conda install git
+<pre><code><div class="highlight"><pre><span></span>conda install git
 
 git clone https://github.com/gdellaire/BBii-Decon.git
 
 cd BBii-Decon
 
 pip install -e .
+</pre></div>
 </code></pre>
-
 <h2>Deployment to pypi</h2>
-<p>For deploying the plugin to the python package index (pypi), one needs a <a href="https://pypi.org/account/register/">pypi user account</a> 
+<p>For deploying the plugin to the python package index (pypi), one needs a <a href="https://pypi.org/account/register/">pypi user account</a>
 first. For deploying the plugin to pypi, one needs to install some tools:</p>
-<pre class="codehilite"><code>python -m pip install --user --upgrade setuptools wheel
-python -m pip install --user --upgrade twine
+<pre><code><div class="highlight"><pre><span></span><span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">--</span><span class="n">user</span><span class="w"> </span><span class="o">--</span><span class="n">upgrade</span><span class="w"> </span><span class="n">setuptools</span><span class="w"> </span><span class="n">wheel</span>
+<span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">--</span><span class="n">user</span><span class="w"> </span><span class="o">--</span><span class="n">upgrade</span><span class="w"> </span><span class="n">twine</span>
+</pre></div>
 </code></pre>
-
 <p>The following command allows us to package the souce code as a python wheel. Make sure that the 'dist' and 'build' folders are deleted before doing this:</p>
-<pre class="codehilite"><code>python setup.py sdist bdist_wheel
+<pre><code><div class="highlight"><pre><span></span>python setup.py sdist bdist_wheel
+</pre></div>
 </code></pre>
-
 <p>This command ships the just generated to pypi:</p>
-<pre class="codehilite"><code>python -m twine upload --repository pypi dist/*
+<pre><code><div class="highlight"><pre><span></span><span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">twine</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="o">--</span><span class="n">repository</span><span class="w"> </span><span class="n">pypi</span><span class="w"> </span><span class="n">dist</span><span class="o">/*</span>
+</pre></div>
 </code></pre>
-
 <p><a href="https://realpython.com/pypi-publish-python-package/#publishing-to-pypi">Read more about distributing your python package via pypi</a>.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"bbii-decon" is free and open source software</p>
+&quot;bbii-decon&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/gdellaire/bbii-decon/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

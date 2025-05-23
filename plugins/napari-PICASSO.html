@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,63 +210,35 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/nygctech/PICASSO/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-curtain.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-PICASSO"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-PICASSO.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-PICASSO.svg?color=green" /></a>
-<a href="https://github.com/nygctech/PICASSO/actions/workflows/test_and_deploy.yml"><img alt="tests" src="https://github.com/nygctech/PICASSO/actions/workflows/test_and_deploy.yml/badge.svg?event=push" /></a>
-<a href="https://codecov.io/gh/nygctech/napari-PICASSO"><img alt="codecov" src="https://codecov.io/gh/nygctech/napari-PICASSO/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-PICASSO"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-PICASSO" /></a></p>
+                                        <p><a href="https://github.com/nygctech/PICASSO/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-curtain.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-PICASSO"><img src="https://img.shields.io/pypi/v/napari-PICASSO.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-PICASSO.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/nygctech/PICASSO/actions/workflows/test_and_deploy.yml"><img src="https://github.com/nygctech/PICASSO/actions/workflows/test_and_deploy.yml/badge.svg?event=push" alt="tests" /></a>
+<a href="https://codecov.io/gh/nygctech/napari-PICASSO"><img src="https://codecov.io/gh/nygctech/napari-PICASSO/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-PICASSO"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-PICASSO" alt="napari hub" /></a></p>
 <p>Unmix spectral spillover</p>
-<p><img alt="" src="https://user-images.githubusercontent.com/72306584/176486552-50e1bca9-65fd-4466-8c92-a114e48d2278.gif" /></p>
+<p><img src="https://user-images.githubusercontent.com/72306584/176486552-50e1bca9-65fd-4466-8c92-a114e48d2278.gif" alt="" /></p>
 <h2>Automatic Usage</h2>
-<p>You can find the <code>PICASSO</code> plugin in the menu <code>Plugins &gt; napari-PICASSO: PICASSO</code>. Select sink images that have spectral spillover from corresponding source images, then click run to optimise the mixing parameters with PICASSO. </p>
+<p>You can find the <code>PICASSO</code> plugin in the menu <code>Plugins &gt; napari-PICASSO: PICASSO</code>. Select sink images that have spectral spillover from corresponding source images, then click run to optimise the mixing parameters with PICASSO.</p>
 <h2>Manual Usage</h2>
-<p><img alt="" src="https://user-images.githubusercontent.com/72306584/176505151-572bd762-abe6-47b1-9821-4f3aaa4704c9.gif" /></p>
+<p><img src="https://user-images.githubusercontent.com/72306584/176505151-572bd762-abe6-47b1-9821-4f3aaa4704c9.gif" alt="" /></p>
 <p>Select the manual button in options pop up window. Then select sink images that have spectral spillover from corresponding source images. In the source images window, sliders for each $source$ control the mixing spillover, $m$ (top), and background, $b$ (bottom, optional).</p>
 <h2>Mixing model</h2>
 <p>$$ sink = \sum_{i} m_i(source - b_i) $$</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-PICASSO</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-PICASSO
+<pre><code>pip install napari-PICASSO
 </code></pre>
-
 <h2>Details</h2>
-<p>napari-PICASSO is a napari widget to blindly unmix fluorescence images of known members using PICASSO<sup>1</sup>. </p>
-<p>For example, if 2 fluorophores with overlapping spectra are imaged, spillover fluorescesce from a channel into an adjacent channel could be removed if you know which channel is the source of the spillover fluorescence and which channel is the sink of the spillover fluorescence. </p>
+<p>napari-PICASSO is a napari widget to blindly unmix fluorescence images of known members using PICASSO<sup>1</sup>.</p>
+<p>For example, if 2 fluorophores with overlapping spectra are imaged, spillover fluorescesce from a channel into an adjacent channel could be removed if you know which channel is the source of the spillover fluorescence and which channel is the sink of the spillover fluorescence.</p>
 <p>PICASSO is an algorithm to remove spillover fluorescence by minimizing the mutual information between sink and source images. The original algorithm described by Seo et al, minimized the mutual information between pairs of sink and source images using a Nelson-Mead simplex algorithm and computing the mutual information outright with custom written MATLAB code<sup>1</sup>. The napari plugin uses a neural net to estimate and minimize the mutual information (MINE<sup>2</sup>) between pairs of sink and source images using stochastic gradient descent with GPU acceleration.</p>
 <h2>References</h2>
 <ol>
 <li>Seo, J. et al. PICASSO allows ultra-multiplexed fluorescence imaging of spatially overlapping proteins without reference spectra measurements. Nat Commun 13, 2475 (2022).</li>
 <li>Belghazi, M. I. et al. MINE: Mutual Information Neural Estimation. arXiv:1801.04062 [cs, stat] (2018).</li>
 </ol>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,60 +210,30 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img src="https://images.squarespace-cdn.com/content/v1/57f6d51c9f74566f55ecf271/1d409ffe-c9f4-47e1-bde2-3010c1c40455/naparidlc.png?format=750w" width="450" title="napari-deeplabcut" alt="napari+deeplabcut" align="right" vspace = "80"></p>
+                                        <img src="https://images.squarespace-cdn.com/content/v1/57f6d51c9f74566f55ecf271/1d409ffe-c9f4-47e1-bde2-3010c1c40455/naparidlc.png?format=750w" width="450" title="napari-deeplabcut" alt="napari+deeplabcut" align="right" vspace = "80">
 <p><a href="https://deeplabcut.github.io/DeepLabCut/README.html">📚Documentation</a> |
 <a href="https://deeplabcut.github.io/DeepLabCut/docs/installation.html">🛠️ DeepLabCut Installation</a> |
 <a href="https://www.deeplabcut.org">🌎 Home Page</a> |</p>
-<p><a href="https://www.gnu.org/licenses/bsd3"><img alt="License: BSD-3" src="https://img.shields.io/badge/License-BSD3-blue.svg" /></a>
-<a href="https://pypi.org/project/napari-deeplabcut"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-deeplabcut.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-deeplabcut.svg?color=green" /></a>
-<a href="https://github.com/DeepLabCut/napari-deeplabcut/actions"><img alt="tests" src="https://github.com/DeepLabCut/napari-deeplabcut/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/DeepLabCut/napari-deeplabcut"><img alt="codecov" src="https://codecov.io/gh/DeepLabCut/napari-deeplabcut/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-deeplabcut"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-deeplabcut" /></a></p>
+<p><a href="https://www.gnu.org/licenses/bsd3"><img src="https://img.shields.io/badge/License-BSD3-blue.svg" alt="License: BSD-3" /></a>
+<a href="https://pypi.org/project/napari-deeplabcut"><img src="https://img.shields.io/pypi/v/napari-deeplabcut.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-deeplabcut.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/DeepLabCut/napari-deeplabcut/actions"><img src="https://github.com/DeepLabCut/napari-deeplabcut/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/DeepLabCut/napari-deeplabcut"><img src="https://codecov.io/gh/DeepLabCut/napari-deeplabcut/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-deeplabcut"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-deeplabcut" alt="napari hub" /></a></p>
 <p>A napari plugin for keypoint annotation, also used within DeepLabCut!</p>
 <h2>Installation</h2>
 <p>If you installed DeepLabCut[gui], this plugin is already installed. However, you can also use this as a stand-alone keypoint annotator without using DeepLabCut. Instructions below!</p>
-<p>Start by installing PySide6 with <code>pip install "pyside6==6.4.2"</code>; this is the library we now use to build GUIs.</p>
+<p>Start by installing PySide6 with <code>pip install &quot;pyside6==6.4.2&quot;</code>; this is the library we now use to build GUIs.</p>
 <p>You can then install <code>napari-deeplabcut</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-deeplabcut
+<pre><code>pip install napari-deeplabcut
 </code></pre>
-
 <p>Alternatively, to install the latest development version, run:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/DeepLabCut/napari-deeplabcut.git
+<pre><code>pip install git+https://github.com/DeepLabCut/napari-deeplabcut.git
 </code></pre>
-
 <h2>Usage</h2>
 <p>To use the plugin, please run:</p>
-<pre class="codehilite"><code>napari
+<pre><code>napari
 </code></pre>
-
 <p>Then, activate the plugin in Plugins &gt; napari-deeplabcut: Keypoint controls.</p>
 <p>All accepted files (config.yaml, images, h5 data files) can be loaded
 either by dropping them directly onto the canvas or via the File menu.</p>
@@ -276,7 +250,7 @@ in red)</li>
 <li><code>F</code>, to toggle between animal and body part color scheme.</li>
 <li><code>V</code>, to toggle visibility of the selected layer.</li>
 <li><code>backspace</code> to delete a point.</li>
-<li>Check the box "display text" to show the label names on the canvas.</li>
+<li>Check the box &quot;display text&quot; to show the label names on the canvas.</li>
 <li>To move to another folder, be sure to save (<code>Ctrl+S</code>), then delete the layers, and re-drag/drop the next folder.</li>
 <li>One can jump to a specific image by double-clicking and editing the current frame number (located to the right of the slider).</li>
 <li>Selected points can be copied with <code>Ctrl+C</code>, and pasted onto other images with <code>Ctrl+V</code>.</li>
@@ -284,10 +258,12 @@ in red)</li>
 <h3>Save Layers</h3>
 <p>Annotations and segmentations are saved with <code>File &gt; Save Selected Layer(s)...</code> (or its shortcut <code>Ctrl+S</code>).
 Only when saving segmentation masks does a save file dialog pop up to name the destination folder;
-keypoint annotations are otherwise automatically saved in the corresponding folder as <code>CollectedData_&lt;ScorerName&gt;.h5</code>.
-- As a reminder, DLC will only use the H5 file; so be sure if you open already labeled images you save/overwrite the H5.
-- Note, before saving a layer, make sure the points layer is selected. If the user clicked on the image(s) layer first, does <code>Save As</code>, then closes the window, any labeling work during that session will be lost!
-- Modifying and then saving points in a <code>machinelabels...</code> layer will add to or overwrite the existing <code>CollectedData</code> layer and will <strong>not</strong> save to the <code>machinelabels</code> file.</p>
+keypoint annotations are otherwise automatically saved in the corresponding folder as <code>CollectedData_&lt;ScorerName&gt;.h5</code>.</p>
+<ul>
+<li>As a reminder, DLC will only use the H5 file; so be sure if you open already labeled images you save/overwrite the H5.</li>
+<li>Note, before saving a layer, make sure the points layer is selected. If the user clicked on the image(s) layer first, does <code>Save As</code>, then closes the window, any labeling work during that session will be lost!</li>
+<li>Modifying and then saving points in a <code>machinelabels...</code> layer will add to or overwrite the existing <code>CollectedData</code> layer and will <strong>not</strong> save to the <code>machinelabels</code> file.</li>
+</ul>
 <h3>Video frame extraction and prediction refinement</h3>
 <p>Since v0.0.4, videos can be viewed in the GUI.</p>
 <p>Since v0.0.5, trailing points can be visualized; e.g., helping in the identification
@@ -317,8 +293,8 @@ The slider below the displayed image (or the left/right arrow keys) allows selec
 <p>Open <em>napari</em> and open an image folder (which needs to contain a <code>CollectedData_&lt;ScorerName&gt;.h5</code> file).
 In this case, it is not necessary to open the DLC project's <code>config.yaml</code> file, as all necessary metadata is read from the <code>h5</code> data file.</p>
 <p>Saving works as described in <em>1</em>.</p>
-<p><strong><em>Note that if a new body part has been added to the <code>config.yaml</code> file after having started to label, loading the config in the GUI is necessary to update the dropdown menus and other metadata.</em></strong></p>
-<p><strong><em>As <code>viridis</code> is <code>napari-deeplabcut</code> default colormap, loading the config in the GUI is also needed to update the color scheme.</em></strong></p>
+<p><em><strong>Note that if a new body part has been added to the <code>config.yaml</code> file after having started to label, loading the config in the GUI is necessary to update the dropdown menus and other metadata.</strong></em></p>
+<p><em><strong>As <code>viridis</code> is <code>napari-deeplabcut</code> default colormap, loading the config in the GUI is also needed to update the color scheme.</strong></em></p>
 </li>
 <li>
 <p><strong>Refining labels</strong> – the image folder contains a <code>machinelabels-iter&lt;#&gt;.h5</code> file.</p>
@@ -337,33 +313,33 @@ Note that masks can be reloaded and edited at a later stage by dropping the <cod
 </li>
 </ol>
 <h3>Workflow flowchart</h3>
-<pre class="codehilite"><code class="language-mermaid">%%{init: {&quot;flowchart&quot;: {&quot;htmlLabels&quot;: false}} }%%
-graph TD
-  id1[What stage of labeling?]
-  id2[deeplabcut.label_frames]
-  id3[deeplabcut.refine_labels]
-  id4[Add labels to, or modify in, \n `CollectedData...` layer and save that layer]
-  id5[Modify labels in `machinelabels` layer and save \n which will create a `CollectedData...` file]
-  id6[Have you refined some labels from the most recent iteration and saved already?]
-  id7[&quot;All extracted frames are already saved in `CollectedData...`.
-1. Hide or trash all `machinelabels` layers.
-2. Then modify in and save `CollectedData`&quot;]
-  id8[&quot;
-1. hide or trash all `machinelabels` layers except for the most recent.
-2. Select most recent `machinelabels` and hit `e` to show edges.
-3. Modify only in `machinelabels` and skip frames with labels without edges shown.
-4. Save `machinelabels` layer, which will add data to `CollectedData`.
-    - If you need to revisit this video later, ignore `machinelabels` and work only in `CollectedData`&quot;]
+<pre><code class="language-mermaid"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="err">{</span><span class="n">init</span><span class="o">:</span><span class="w"> </span><span class="err">{</span><span class="s2">&quot;flowchart&quot;</span><span class="o">:</span><span class="w"> </span><span class="err">{</span><span class="s2">&quot;htmlLabels&quot;</span><span class="o">:</span><span class="w"> </span><span class="no">false</span><span class="err">}}</span><span class="w"> </span><span class="err">}</span><span class="o">%%</span>
+<span class="n">graph</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">  </span><span class="n">id1</span><span class="err">[</span><span class="n">What</span><span class="w"> </span><span class="n">stage</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">labeling</span><span class="nv">?</span><span class="err">]</span>
+<span class="w">  </span><span class="n">id2</span><span class="err">[</span><span class="n">deeplabcut</span><span class="p">.</span><span class="n">label_frames</span><span class="err">]</span>
+<span class="w">  </span><span class="n">id3</span><span class="err">[</span><span class="n">deeplabcut</span><span class="p">.</span><span class="n">refine_labels</span><span class="err">]</span>
+<span class="w">  </span><span class="n">id4</span><span class="err">[</span><span class="k">Add</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="k">to</span><span class="p">,</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">modify</span><span class="w"> </span><span class="k">in</span><span class="p">,</span><span class="w"> </span><span class="err">\</span><span class="n">n</span><span class="w"> </span><span class="n n-Quoted">`CollectedData...`</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">save</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">layer</span><span class="err">]</span>
+<span class="w">  </span><span class="n">id5</span><span class="err">[</span><span class="k">Modify</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n n-Quoted">`machinelabels`</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">save</span><span class="w"> </span><span class="err">\</span><span class="n">n</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`CollectedData...`</span><span class="w"> </span><span class="k">file</span><span class="err">]</span>
+<span class="w">  </span><span class="n">id6</span><span class="err">[</span><span class="n">Have</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">refined</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">most</span><span class="w"> </span><span class="n">recent</span><span class="w"> </span><span class="n">iteration</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">already</span><span class="nv">?</span><span class="err">]</span>
+<span class="w">  </span><span class="n">id7</span><span class="err">[</span><span class="s2">&quot;All extracted frames are already saved in `CollectedData...`.</span>
+<span class="s2">1. Hide or trash all `machinelabels` layers.</span>
+<span class="s2">2. Then modify in and save `CollectedData`&quot;</span><span class="err">]</span>
+<span class="w">  </span><span class="n">id8</span><span class="err">[</span><span class="s2">&quot;</span>
+<span class="s2">1. hide or trash all `machinelabels` layers except for the most recent.</span>
+<span class="s2">2. Select most recent `machinelabels` and hit `e` to show edges.</span>
+<span class="s2">3. Modify only in `machinelabels` and skip frames with labels without edges shown.</span>
+<span class="s2">4. Save `machinelabels` layer, which will add data to `CollectedData`.</span>
+<span class="s2">	- If you need to revisit this video later, ignore `machinelabels` and work only in `CollectedData`&quot;</span><span class="err">]</span>
 
-  id1 --&gt;|I need to manually label new frames \n or fix my labels|id2
-  id1 ----&gt;|I need to refine outlier frames \nfrom analyzed videos|id3
-  id2 --&gt;id4
-  id3 --&gt;|I only have a `machinelabels...` file|id5
-  id3 ----&gt;|I have both `machinelabels` and `CollectedData` files|id6
-  id6 --&gt;|yes|id7
-  id6 ----&gt;|no, I just extracted outliers|id8
+<span class="w">  </span><span class="n">id1</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">I</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">manually</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">frames</span><span class="w"> </span><span class="err">\</span><span class="n">n</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">fix</span><span class="w"> </span><span class="n">my</span><span class="w"> </span><span class="n">labels</span><span class="o">|</span><span class="n">id2</span>
+<span class="w">  </span><span class="n">id1</span><span class="w"> </span><span class="o">----&gt;|</span><span class="n">I</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">refine</span><span class="w"> </span><span class="n">outlier</span><span class="w"> </span><span class="n">frames</span><span class="w"> </span><span class="err">\</span><span class="n">nfrom</span><span class="w"> </span><span class="n">analyzed</span><span class="w"> </span><span class="n">videos</span><span class="o">|</span><span class="n">id3</span>
+<span class="w">  </span><span class="n">id2</span><span class="w"> </span><span class="o">--&gt;</span><span class="n">id4</span>
+<span class="w">  </span><span class="n">id3</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">I</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`machinelabels...`</span><span class="w"> </span><span class="k">file</span><span class="o">|</span><span class="n">id5</span>
+<span class="w">  </span><span class="n">id3</span><span class="w"> </span><span class="o">----&gt;|</span><span class="n">I</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="n n-Quoted">`machinelabels`</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n n-Quoted">`CollectedData`</span><span class="w"> </span><span class="n">files</span><span class="o">|</span><span class="n">id6</span>
+<span class="w">  </span><span class="n">id6</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">yes</span><span class="o">|</span><span class="n">id7</span>
+<span class="w">  </span><span class="n">id6</span><span class="w"> </span><span class="o">----&gt;|</span><span class="k">no</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">just</span><span class="w"> </span><span class="n">extracted</span><span class="w"> </span><span class="n">outliers</span><span class="o">|</span><span class="n">id8</span>
+</pre></div>
 </code></pre>
-
 <h3>Labeling multiple image folders</h3>
 <p>Labeling multiple image folders has to be done in sequence; i.e., only one image folder can be opened at a time.
 After labeling the images of a particular folder is done and the associated <em>Points layer</em> has been saved, <em>all</em> layers should be removed from the layers list (lower left pane on the GUI) by selecting them and clicking on the trashcan icon.
@@ -379,7 +355,7 @@ the coverage at least stays the same before you submit a pull request.</p>
 <p>To locally install the code, please git clone the repo and then run <code>pip install -e .</code></p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-deeplabcut" is free and open source software.</p>
+&quot;napari-deeplabcut&quot; is free and open source software.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/DeepLabCut/napari-deeplabcut/issues">file an issue</a> along with a detailed description.</p>
 <h2>Acknowledgements</h2>
@@ -391,7 +367,7 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-        
+
 
                                     </div>
                                 </div>

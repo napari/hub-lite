@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,73 +210,46 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/recOrder-napari" />
-<a href="https://pypistats.org/packages/recOrder-napari"><img alt="Python package index download statistics" src="https://img.shields.io/pypi/dm/recOrder-napari.svg" /></a>
-<a href="https://pypi.org/project/recOrder-napari"><img alt="Python package index" src="https://img.shields.io/pypi/v/recOrder-napari.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari.svg" /></a></p>
-<p><code>recOrder</code> is a collection of computational imaging methods. It currently provides QLIPP (quantitative label-free imaging with phase and polarization), phase from defocus, and fluorescence deconvolution. </p>
-<p><a href="https://www.youtube.com/watch?v=JEZAaPeZhck"><img alt="Unveiling the invisible" src="https://github.com/mehta-lab/recOrder/blob/main/docs/images/comms_video_screenshot.png?raw=true" /></a></p>
+                                        <p><img src="https://img.shields.io/pypi/pyversions/recOrder-napari" alt="PyPI - Python Version" />
+<a href="https://pypistats.org/packages/recOrder-napari"><img src="https://img.shields.io/pypi/dm/recOrder-napari.svg" alt="Python package index download statistics" /></a>
+<a href="https://pypi.org/project/recOrder-napari"><img src="https://img.shields.io/pypi/v/recOrder-napari.svg" alt="Python package index" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari.svg" alt="Development Status" /></a></p>
+<p><code>recOrder</code> is a collection of computational imaging methods. It currently provides QLIPP (quantitative label-free imaging with phase and polarization), phase from defocus, and fluorescence deconvolution.</p>
+<p><a href="https://www.youtube.com/watch?v=JEZAaPeZhck"><img src="https://github.com/mehta-lab/recOrder/blob/main/docs/images/comms_video_screenshot.png?raw=true" alt="Unveiling the invisible" /></a></p>
 <p>Acquisition, calibration, background correction, reconstruction, and applications of QLIPP are described in the following <a href="https://elifesciences.org/articles/55502">E-Life Paper</a>:</p>
-<pre class="codehilite"><code class="language-bibtex">Syuan-Ming Guo, Li-Hao Yeh, Jenny Folkesson, Ivan E Ivanov, Anitha P Krishnan, Matthew G Keefe, Ezzat Hashemi, David Shin, Bryant B Chhun, Nathan H Cho, Manuel D Leonetti, May H Han, Tomasz J Nowakowski, Shalin B Mehta, &quot;Revealing architectural order with quantitative label-free imaging and deep learning,&quot; eLife 2020;9:e55502 DOI: 10.7554/eLife.55502 (2020).
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="c">Syuan-Ming Guo, Li-Hao Yeh, Jenny Folkesson, Ivan E Ivanov, Anitha P Krishnan, Matthew G Keefe, Ezzat Hashemi, David Shin, Bryant B Chhun, Nathan H Cho, Manuel D Leonetti, May H Han, Tomasz J Nowakowski, Shalin B Mehta, &quot;Revealing architectural order with quantitative label-free imaging and deep learning,&quot; eLife 2020;9:e55502 DOI: 10.7554/eLife.55502 (2020).</span>
+</pre></div>
 </code></pre>
-
 <p>These are the kinds of data you can acquire with <code>recOrder</code> and QLIPP:</p>
-<p>https://user-images.githubusercontent.com/9554101/271128301-cc71da57-df6f-401b-a955-796750a96d88.mov</p>
-<p>https://user-images.githubusercontent.com/9554101/271128510-aa2180af-607f-4c0c-912c-c18dc4f29432.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/9554101/271128301-cc71da57-df6f-401b-a955-796750a96d88.mov">https://user-images.githubusercontent.com/9554101/271128301-cc71da57-df6f-401b-a955-796750a96d88.mov</a></p>
+<p><a href="https://user-images.githubusercontent.com/9554101/271128510-aa2180af-607f-4c0c-912c-c18dc4f29432.mp4">https://user-images.githubusercontent.com/9554101/271128510-aa2180af-607f-4c0c-912c-c18dc4f29432.mp4</a></p>
 <h2>What do I need to use <code>recOrder</code></h2>
-<p><code>recOrder</code> is to be used alongside a conventional widefield microscope. For QLIPP, the microscope must be fitted with an analyzer and a universal polarizer: </p>
-<p>https://user-images.githubusercontent.com/9554101/273073475-70afb05a-1eb7-4019-9c42-af3e07bef723.mp4</p>
+<p><code>recOrder</code> is to be used alongside a conventional widefield microscope. For QLIPP, the microscope must be fitted with an analyzer and a universal polarizer:</p>
+<p><a href="https://user-images.githubusercontent.com/9554101/273073475-70afb05a-1eb7-4019-9c42-af3e07bef723.mp4">https://user-images.githubusercontent.com/9554101/273073475-70afb05a-1eb7-4019-9c42-af3e07bef723.mp4</a></p>
 <p>For phase-from-defocus or fluorescence deconvolution methods, the universal polarizer is optional.</p>
 <p>The overall structure of <code>recOrder</code> is shown in Panel B, highlighting the structure of the graphical user interface (GUI) through a napari plugin and the command-line interface (CLI) that allows users to perform reconstructions.</p>
-<p><img alt="Flow Chart" src="https://github.com/mehta-lab/recOrder/blob/main/docs/images/recOrder_Fig1_Overview.png?raw=true" /></p>
+<p><img src="https://github.com/mehta-lab/recOrder/blob/main/docs/images/recOrder_Fig1_Overview.png?raw=true" alt="Flow Chart" /></p>
 <h2>Software Quick Start</h2>
 <p>(Optional but recommended) install <a href="https://www.anaconda.com/products/distribution">anaconda</a> and create a virtual environment:</p>
-<pre class="codehilite"><code class="language-sh">conda create -y -n recOrder python=3.9
-conda activate recOrder
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>recOrder<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+conda<span class="w"> </span>activate<span class="w"> </span>recOrder
+</pre></div>
 </code></pre>
-
 <p>Install <code>recOrder-napari</code>:</p>
-<pre class="codehilite"><code class="language-sh">pip install recOrder-napari
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>recOrder-napari
+</pre></div>
 </code></pre>
-
 <p>Open <code>napari</code> with <code>recOrder-napari</code>:</p>
-<pre class="codehilite"><code class="language-sh">napari -w recOrder-napari
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>napari<span class="w"> </span>-w<span class="w"> </span>recOrder-napari
+</pre></div>
 </code></pre>
-
-<p>For more help, see <a href="https://github.com/mehta-lab/recOrder/tree/main/docs"><code>recOrder</code>'s documentation</a>. To install <code>recOrder</code> 
+<p>For more help, see <a href="https://github.com/mehta-lab/recOrder/tree/main/docs"><code>recOrder</code>'s documentation</a>. To install <code>recOrder</code>
 on a microscope, see the <a href="https://github.com/mehta-lab/recOrder/blob/main/docs/microscope-installation-guide.md">microscope installation guide</a>.</p>
 <h2>Dataset</h2>
 <p><a href="https://doi.org/10.5281/zenodo.5135889">Slides</a> and a <a href="https://doi.org/10.5281/zenodo.5178487">dataset</a> shared during a workshop on QLIPP and recOrder can be found on Zenodo, and the napari plugin's sample contributions (<code>File &gt; Open Sample &gt; recOrder-napari</code> in napari).</p>
-<p><a href="https://doi.org/10.5281/zenodo.5178487"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.5178487.svg" /></a>
-<a href="https://doi.org/10.5281/zenodo.5135889"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.5135889.svg" /></a></p>
-        
+<p><a href="https://doi.org/10.5281/zenodo.5178487"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5178487.svg" alt="DOI" /></a>
+<a href="https://doi.org/10.5281/zenodo.5135889"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5135889.svg" alt="DOI" /></a></p>
+
 
                                     </div>
                                 </div>

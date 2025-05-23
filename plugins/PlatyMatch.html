@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,44 +210,16 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://link.springer.com/chapter/10.1007/978-3-030-66415-2_30"><img alt="DOI:10.1007/978-3-030-66415-2_30" src="https://zenodo.org/badge/DOI/10.1007/978-3-030-66415-2_30.svg" /></a>
-<a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg" /></a>
-<a href="https://pypi.org/project/PlatyMatch"><img alt="PyPI" src="https://img.shields.io/pypi/v/PlatyMatch.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/PlatyMatch.svg?color=green" /></a>
-<a href="https://github.com/juglab/PlatyMatch/actions"><img alt="tests" src="https://github.com/juglab/PlatyMatch/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/juglab/PlatyMatch"><img alt="codecov" src="https://codecov.io/gh/juglab/PlatyMatch/branch/master/graph/badge.svg" /></a></p>
+                                        <p><a href="https://link.springer.com/chapter/10.1007/978-3-030-66415-2_30"><img src="https://zenodo.org/badge/DOI/10.1007/978-3-030-66415-2_30.svg" alt="DOI:10.1007/978-3-030-66415-2_30" /></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>
+<a href="https://pypi.org/project/PlatyMatch"><img src="https://img.shields.io/pypi/v/PlatyMatch.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/PlatyMatch.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/juglab/PlatyMatch/actions"><img src="https://github.com/juglab/PlatyMatch/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/juglab/PlatyMatch"><img src="https://codecov.io/gh/juglab/PlatyMatch/branch/master/graph/badge.svg" alt="codecov" /></a></p>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/34229641/117537510-b26ee500-b001-11eb-9642-3baa461bfc94.png" width=400 />
 </p>
 <h2 align="center">Registration of Multi-modal Volumetric Images by Establishing Cell Correspondence</h2>
-
 <h2>Table of Contents</h2>
 <ul>
 <li><strong><a href="#introduction">Introduction</a></strong></li>
@@ -256,36 +232,37 @@ pre > code:last-child {
 <li><strong><a href="#citation">Citation</a></strong></li>
 </ul>
 <h3>Introduction</h3>
-<p>This repository hosts the version of the code used for the <strong><a href="https://link.springer.com/chapter/10.1007/978-3-030-66415-2_30">publication</a></strong> <strong>Registration of Multi-modal Volumetric Images by Establishing Cell Correspondence</strong>. </p>
-<p>We refer to the techniques elaborated in the publication, here as <strong>PlatyMatch</strong>. <code>PlatyMatch</code> performs a linear registration of volumetric, microscopy images of embryos by establishing correspondences between cells. </p>
-<p><code>PlatyMatch</code> first detects nuclei in the two images being considered, next calculates unique <code>shape context</code> features for each nucleus detection which encapsulates the neighborhood as seen by that nucleus, and finally identifies pairs of matching nuclei through maximum bipartite matching applied to the pairwise distance matrix generated from these features. </p>
+<p>This repository hosts the version of the code used for the <strong><a href="https://link.springer.com/chapter/10.1007/978-3-030-66415-2_30">publication</a></strong> <strong>Registration of Multi-modal Volumetric Images by Establishing Cell Correspondence</strong>.</p>
+<p>We refer to the techniques elaborated in the publication, here as <strong>PlatyMatch</strong>. <code>PlatyMatch</code> performs a linear registration of volumetric, microscopy images of embryos by establishing correspondences between cells.</p>
+<p><code>PlatyMatch</code> first detects nuclei in the two images being considered, next calculates unique <code>shape context</code> features for each nucleus detection which encapsulates the neighborhood as seen by that nucleus, and finally identifies pairs of matching nuclei through maximum bipartite matching applied to the pairwise distance matrix generated from these features.</p>
 <h3>Dependencies</h3>
-<p>You can install <code>PlatyMatch</code> via <strong><a href="https://pypi.org/project/pip/">pip</a></strong>:</p>
-<pre class="codehilite"><code>conda create -y -n PlatyMatchEnv python==3.8
+<p>You can install <code>PlatyMatch</code> via <strong><a href="https://pypi.org/project/EmbedSeg/">pip</a></strong>:</p>
+<pre><code><div class="highlight"><pre><span></span>conda create -y -n PlatyMatchEnv python==3.8
 conda activate PlatyMatchEnv
 python3 -m pip install PlatyMatch
+</pre></div>
 </code></pre>
-
 <h3>Getting Started</h3>
 <p>Type in the following commands in a new terminal window.</p>
-<pre class="codehilite"><code>conda activate PlatyMatchEnv
+<pre><code><div class="highlight"><pre><span></span>conda activate PlatyMatchEnv
 napari
+</pre></div>
 </code></pre>
-
 <p>Next, select <code>PlatyMatch</code> from <code>Plugins&gt; Add Dock Widget</code>.</p>
 <h3>Datasets</h3>
 <p>Datasets are available in <strong><code>bic_eccv_data.zip</code></strong> as release assets <strong><a href="https://github.com/juglab/PlatyMatch/releases/tag/v0.0.1">here</a></strong>.
-These comprise of images, nuclei detections and keypoint locations for confocal images of 12 individual specimens under the <code>01-insitus</code> directory and static snapshots of a live embryo imaged through Light Sheet Microscopy under the <code>02-live</code> directory. 
-Folders with the same name in these two directories correspond in their developmental age, for example, <code>01-insitus/02</code> corresponds to <code>02-live/02</code>, <code>01-insitus/03</code> corresponds to <code>02-live/03</code> and so on.   </p>
+These comprise of images, nuclei detections and keypoint locations for confocal images of 12 individual specimens under the <code>01-insitus</code> directory and static snapshots of a live embryo imaged through Light Sheet Microscopy under the <code>02-live</code> directory.
+Folders with the same name in these two directories correspond in their developmental age, for example, <code>01-insitus/02</code> corresponds to <code>02-live/02</code>, <code>01-insitus/03</code> corresponds to <code>02-live/03</code> and so on.</p>
 <h3>Registering your data</h3>
 <ul>
-<li><strong>Detect Nuclei</strong> <ul>
-<li>Drag and drop your images in the viewer </li>
-<li>Click on <code>Sync with Viewer</code> button to refresh the drop-down menus </li>
+<li><strong>Detect Nuclei</strong>
+<ul>
+<li>Drag and drop your images in the viewer</li>
+<li>Click on <code>Sync with Viewer</code> button to refresh the drop-down menus</li>
 <li>Select the appropriate image in the drop down menu (for which nuclei detections are desired)</li>
 <li>Select <strong><code>Detect Nuclei</code></strong> from the drop-down menu</li>
 <li>Specify the anisotropy factor (<code>Anisotropy (Z)</code>) (i.e. the ratio of the size of the z pixel with respect to the x or y pixel. This factor is typically more than 1.0 because the z dimension is often undersampled)</li>
-<li>Ideally min scales and max scales should be estimated from your data (<code>min_scale</code> should be set as <code>min_radius/sqrt(3)</code> and <code>max_scale</code> should be set as <code>max_radius/sqrt(3)</code>. The default values of <code>min_scale=5</code> and <code>max_scale=9</code> generally works well).  </li>
+<li>Ideally min scales and max scales should be estimated from your data (<code>min_scale</code> should be set as <code>min_radius/sqrt(3)</code> and <code>max_scale</code> should be set as <code>max_radius/sqrt(3)</code>. The default values of <code>min_scale=5</code> and <code>max_scale=9</code> generally works well).</li>
 <li>Click <code>Run Scale Space Log</code> button. Please note that this step takes a few minutes.</li>
 <li>Wait until a confirmation message suggesting that nuclei detection is over shows up on the terminal</li>
 <li>Export the nuclei locations (<code>Export detections to csv</code>) to a csv file</li>
@@ -293,22 +270,24 @@ Folders with the same name in these two directories correspond in their developm
 </ul>
 </li>
 </ul>
-<p>https://user-images.githubusercontent.com/34229641/120660618-cd5d3980-c487-11eb-8996-326264a4df87.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/34229641/120660618-cd5d3980-c487-11eb-8996-326264a4df87.mp4">https://user-images.githubusercontent.com/34229641/120660618-cd5d3980-c487-11eb-8996-326264a4df87.mp4</a></p>
 <ul>
-<li><strong>Estimate Transform</strong><ul>
+<li><strong>Estimate Transform</strong>
+<ul>
 <li>In case, nuclei were exported to a csv in the <code>Detect Nuclei</code> panel, tick <code>csv</code> checkbox</li>
 <li>If the nuclei detected were specified in the order id, z, y and x in the csv file, then tick <code>IZYXR</code> checkbox</li>
 <li>Additionally if there is a header in the csv file, tick <code>Header</code> checkbox</li>
 <li>Load the detections for the <code>Moving Image</code>, which is defined as the image which will be transformed to later match another <code>fixed</code> image</li>
 <li>Load the detections for the <code>Fixed Image</code></li>
 <li>Click on <code>Run</code> pushbutton. Once the calculation is complete, a confirmation message shows up in the terminal. Export the transform matrix to a csv (Note that this step can take a few minutes)</li>
-<li>It is also possible to estimate the transform in a <code>supervised</code> fashion. For this, upload the locations of a few matching keypoints in both images. These locations serve to provide a good starting point for the transform calculation. Once the keypoint files have been uploaded for both the images, then click <code>Run</code> and then export the transform matrix to a csv file </li>
+<li>It is also possible to estimate the transform in a <code>supervised</code> fashion. For this, upload the locations of a few matching keypoints in both images. These locations serve to provide a good starting point for the transform calculation. Once the keypoint files have been uploaded for both the images, then click <code>Run</code> and then export the transform matrix to a csv file</li>
 </ul>
 </li>
 </ul>
-<p>https://user-images.githubusercontent.com/34229641/120685628-53857a00-c4a0-11eb-8f92-7ffac730e28a.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/34229641/120685628-53857a00-c4a0-11eb-8f92-7ffac730e28a.mp4">https://user-images.githubusercontent.com/34229641/120685628-53857a00-c4a0-11eb-8f92-7ffac730e28a.mp4</a></p>
 <ul>
-<li><strong>Evaluate Metrics</strong><ul>
+<li><strong>Evaluate Metrics</strong>
+<ul>
 <li>Drag images which need to be transformed, in the viewer</li>
 <li>Click on <code>Sync with Viewer</code> button to refresh the drop-down menus</li>
 <li>Specify the anisotropy factor (<code>Moving Image Anisotropy (Z)</code> and <code>Fixed Image Anisotropy (Z)</code>) (i.e. the ratio of the size of the z pixel with respect to the x or y pixel. This factor is typically more than 1.0 because the z dimension is often undersampled)</li>
@@ -321,29 +300,29 @@ Folders with the same name in these two directories correspond in their developm
 </ul>
 </li>
 </ul>
-<p>https://user-images.githubusercontent.com/34229641/120685654-5b451e80-c4a0-11eb-8d7d-de58b8b8304d.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/34229641/120685654-5b451e80-c4a0-11eb-8d7d-de58b8b8304d.mp4">https://user-images.githubusercontent.com/34229641/120685654-5b451e80-c4a0-11eb-8d7d-de58b8b8304d.mp4</a></p>
 <h3>Contributing</h3>
 <p>Contributions are very welcome. Tests can be run with <strong><a href="https://tox.readthedocs.io/en/latest/">tox</a></strong>.</p>
 <h3>Issues</h3>
 <p>If you encounter any problems, please <strong><a href="https://github.com/juglab/PlatyMatch/issues">file an issue</a></strong> along with a detailed description.</p>
 <h3>Citation</h3>
 <p>If you find our work useful in your research, please consider citing:</p>
-<pre class="codehilite"><code class="language-bibtex">@InProceedings{10.1007/978-3-030-66415-2_30,
-author=&quot;Lalit, Manan and Handberg-Thorsager, Mette and Hsieh, Yu-Wen and Jug, Florian and Tomancak, Pavel&quot;,
-editor=&quot;Bartoli, Adrien
-and Fusiello, Andrea&quot;,
-title=&quot;Registration of Multi-modal Volumetric Images by Establishing Cell Correspondence&quot;,
-booktitle=&quot;Computer Vision -- ECCV 2020 Workshops&quot;,
-year=&quot;2020&quot;,
-publisher=&quot;Springer International Publishing&quot;,
-address=&quot;Cham&quot;,
-pages=&quot;458--473&quot;,
-isbn=&quot;978-3-030-66415-2&quot;
-}
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@InProceedings</span><span class="p">{</span><span class="nl">10.1007/978-3-030-66415-2_30</span><span class="p">,</span>
+<span class="na">author</span><span class="p">=</span><span class="s">&quot;Lalit, Manan and Handberg-Thorsager, Mette and Hsieh, Yu-Wen and Jug, Florian and Tomancak, Pavel&quot;</span><span class="p">,</span>
+<span class="na">editor</span><span class="p">=</span><span class="s">&quot;Bartoli, Adrien</span>
+<span class="s">and Fusiello, Andrea&quot;</span><span class="p">,</span>
+<span class="na">title</span><span class="p">=</span><span class="s">&quot;Registration of Multi-modal Volumetric Images by Establishing Cell Correspondence&quot;</span><span class="p">,</span>
+<span class="na">booktitle</span><span class="p">=</span><span class="s">&quot;Computer Vision -- ECCV 2020 Workshops&quot;</span><span class="p">,</span>
+<span class="na">year</span><span class="p">=</span><span class="s">&quot;2020&quot;</span><span class="p">,</span>
+<span class="na">publisher</span><span class="p">=</span><span class="s">&quot;Springer International Publishing&quot;</span><span class="p">,</span>
+<span class="na">address</span><span class="p">=</span><span class="s">&quot;Cham&quot;</span><span class="p">,</span>
+<span class="na">pages</span><span class="p">=</span><span class="s">&quot;458--473&quot;</span><span class="p">,</span>
+<span class="na">isbn</span><span class="p">=</span><span class="s">&quot;978-3-030-66415-2&quot;</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
 <p><code>PlatyMatch</code> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,63 +206,34 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jules-vanaret/napari-tapenade-processing/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-tapenade-processing.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-tapenade-processing"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-tapenade-processing.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-tapenade-processing.svg?color=green" /></a>
-<a href="https://github.com/jules-vanaret/napari-tapenade-processing/actions"><img alt="tests" src="https://github.com/jules-vanaret/napari-tapenade-processing/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jules-vanaret/napari-tapenade-processing"><img alt="codecov" src="https://codecov.io/gh/jules-vanaret/napari-tapenade-processing/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-tapenade-processing"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-tapenade-processing" /></a></p>
-<p><img src="https://github.com/GuignardLab/tapenade/blob/main/imgs/tapenade3.png" width="100"></p>
+                                        <p><a href="https://github.com/jules-vanaret/napari-tapenade-processing/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-tapenade-processing.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-tapenade-processing"><img src="https://img.shields.io/pypi/v/napari-tapenade-processing.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-tapenade-processing.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jules-vanaret/napari-tapenade-processing/actions"><img src="https://github.com/jules-vanaret/napari-tapenade-processing/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jules-vanaret/napari-tapenade-processing"><img src="https://codecov.io/gh/jules-vanaret/napari-tapenade-processing/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-tapenade-processing"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-tapenade-processing" alt="napari hub" /></a></p>
+<img src="https://github.com/GuignardLab/tapenade/blob/main/imgs/tapenade3.png" width="100">
 <p>A collection of methods to process images of deep 3D/3D+time tissues in Napari.</p>
 <p><code>napari-tapenade-processing</code> is a <a href="https://github.com/napari/napari">napari</a> plugin that is part of the <a href="https://github.com/GuignardLab/tapenade">Tapenade</a> project. Tapenade is a tool for the analysis of dense 3D tissues acquired with deep imaging microscopy. It is designed to be user-friendly and to provide a comprehensive analysis of the data.</p>
 <p>If you use this plugin for your research, please <a href="https://github.com/GuignardLab/tapenade/blob/main/README.md#how-to-cite">cite us</a>.</p>
 <h2>Overview</h2>
-<p><img src="imgs/napari_preproc_demo.gif"/></p>
+<img src="imgs/napari_preproc_demo.gif"/>
 <p>While working with large and dense 3D and 3D+time gastruloid datasets, we found that being able to visualise and interact with the data dynamically greatly helped processing it.
 During the pre-processing stage, dynamical exploration and interaction led to faster tuning of the parameters by allowing direct visual feedback, and gave key biophysical insight during the analysis stage.</p>
 <p>From a given set of raw images, segmented object instances, and object mask, the plugin allows the user to quickly run all pre-processing functions from our main pipeline with custom parameters while being able to see and interact with the result of each step. For large datasets that are cumbersome to manipulate or cannot be loaded in Napari, the plugin provides a macro recording feature: the users can experiment and design their own pipeline on a smaller subset of the dataset, then run it on the full dataset without having to load it in Napari.</p>
-<p><img src="imgs/Fig_Napari_preprocessing.png"></p>
+<img src="imgs/Fig_Napari_preprocessing.png">
 <h2>Installation</h2>
 <p>The plugin obviously requires <a href="https://github.com/napari/napari">napari</a> to run. If you don't have it yet, follow the instructions <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">here</a>.</p>
 <p>The simplest way to install <code>napari-tapenade-processing</code> is via the <a href="https://github.com/napari/napari">napari</a> plugin manager. Open Napari, go to <code>Plugins &gt; Install/Uninstall Packages...</code> and search for <code>napari-tapenade-processing</code>. Click on the install button and you are ready to go!</p>
 <p>You can also install <code>napari-tapenade-processing</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-tapenade-processing
+<pre><code>pip install napari-tapenade-processing
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/jules-vanaret/napari-tapenade-processing.git
+<pre><code>pip install git+https://github.com/jules-vanaret/napari-tapenade-processing.git
 </code></pre>
-
 <h2>Usage</h2>
 <h3>General overview of the plugin within Napari</h3>
-<p><img src="imgs/proc_0.png"></p>
+<img src="imgs/proc_0.png">
 <p>To start a pre-processing pipeline, follow these steps:</p>
 <ol>
 <li>First, load your images in Napari. You can drag and drop them from your file explorer to the Napari viewer, or open them using the <code>File &gt; Open files...</code> menu.</li>
@@ -270,7 +245,7 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 <li>The plugin is composed of three tabs. The first tab is dedicated to pre-processing functions, the second tab is dedicated to the macro recording feature, and the third tab is dedicated to advanced parameters.</li>
 </ol>
 <h3>Tab 1: The pre-processing functions</h3>
-<p><img src="imgs/proc_1.png" width=300></p>
+<img src="imgs/proc_1.png" width=300>
 <p>The pre-processing tab is composed of the following elements:</p>
 <ol>
 <li>A combo box to select the pre-processing function to apply from a list.</li>
@@ -281,30 +256,30 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 </ol>
 <h3>Tab 2: The macro recording feature</h3>
 <h4>A. Recording a macro</h4>
-<p><img src="imgs/proc_macro_1.png" width=300></p>
+<img src="imgs/proc_macro_1.png" width=300>
 <p>To record a macro, click on the <code>Macro recording</code> tab and follow these steps:</p>
 <ol>
 <li>Click on <code>Choose directory</code> to select a folder where the macro file will be saved.</li>
-<li>Click on <code>Start recording macro</code> to start recording the functions you will apply. At this point, you can start applying sequences of functions to images/segementations/masks that you have already loaded in Napari or that you load in the middle of the recording. </li>
+<li>Click on <code>Start recording macro</code> to start recording the functions you will apply. At this point, you can start applying sequences of functions to images/segementations/masks that you have already loaded in Napari or that you load in the middle of the recording.</li>
 </ol>
-<p><img src="imgs/proc_macro_2.png" width=300></p>
-<ol>
+<img src="imgs/proc_macro_2.png" width=300>
+<ol start="3">
 <li>When you are finished, click <code>Stop recording and save macro</code>. It will be saved in the JSON (<code>.json</code>) format, and the name will follow the pattern <code>recorder_parameters_YYYY-MM-DD_HH-MM-SS.json</code>.</li>
 </ol>
 <h4>B. Running a macro</h4>
 <p>Macros allow you to run a sequence of functions in batch on folders of input TIFF images (either different frames of the same 3D+t image, or several 3D images). The input images should be in the same folder, and the output will be saved in a folder of your choice. The output of each function will be saved in a separate folder, and the name of the folder will be linked to the name of the function.</p>
-<p><img src="imgs/proc_macro_3.png" width=300></p>
+<img src="imgs/proc_macro_3.png" width=300>
 <p>To run a macro, click on the <code>Macro recording</code> tab and follow these steps:</p>
 <ol>
 <li>Click on <code>Select file</code> to choose the macro file you want to run.</li>
 <li>After specifying the path to the macro file, several path entries with names like <code>Path to folder ([...]) N</code> (e.g <code>Path to folder (['Image'] 1</code>) will appear. Click on the <code>Choose directory</code> button to select the folder where the input images (TIFF files) are located.</li>
 <li>Click on <code>Choose directory</code> under <code>Path to save outputs folders of tifs</code> to select the folder where the results of the pipeline will be saved. Each function call will generate a folder whose name will be linked to the name of the function.</li>
-<li>You can click the <code>Compress when saving</code> checkbox to save the output TIFF images in a compressed format using ZLIB compression. </li>
+<li>You can click the <code>Compress when saving</code> checkbox to save the output TIFF images in a compressed format using ZLIB compression.</li>
 <li>Choose the number of workers to use for parallel processing. The default value is 1, which means that the functions will be run sequentially on the images. If you have a multi-core CPU, you can increase this value to speed up the processing. Be careful that setting this value too high can lead to memory issues.</li>
 <li>Click on <code>Run macro</code> to start the processing. You will see as many folders as there are steps in your pipeline, containing the results on each frame.</li>
 </ol>
 <h3>Tab 3: Advanced parameters</h3>
-<p><img src="imgs/proc_2.png" width=300></p>
+<img src="imgs/proc_2.png" width=300>
 <p>The advanced parameters tab is composed of the following elements:</p>
 <ol>
 <li>A checkbox <code>New layers overwrite previous ones</code>: whether the output of the pre-processing functions should be saved as new layers or overwrite the previous ones that were used as input. This can be useful to save memory when you don't need to compare the input and output of a function.</li>
@@ -312,10 +287,10 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 <h2>Demo dataset</h2>
 <p>A demo dataset is available <a href="https://amubox.univ-amu.fr/s/MRdFy3KqQNjpyHa">here</a>.</p>
 <h3>Content</h3>
-<p>This test dataset is composed of a folder <code>folder_raw_data</code> which contains 5 separate frames (3D images), and a macro Json file <code>recorder_parameters.json</code>.  </p>
+<p>This test dataset is composed of a folder <code>folder_raw_data</code> which contains 5 separate frames (3D images), and a macro Json file <code>recorder_parameters.json</code>.</p>
 <h3>How to use</h3>
 <ul>
-<li>Download the folder <code>folder_raw_data</code>. </li>
+<li>Download the folder <code>folder_raw_data</code>.</li>
 <li>Load one of the image from the folder (either drag and drop, or <code>File&gt;Open file(s)</code>) and start creating your own pipeline.</li>
 <li>To try batch processing through the macro feature, click on the <code>Macro recording tab</code>, choose a path to save the macro Json file, click on <code>Start recording macro</code>, and perform a sequence of function runs of your choice. When you are finished, click <code>Stop recording and save macro</code>. Then specify the path to your macro file below (alternatively, a valid Json file is also made available), the folder where the rest of the frames are located, and the folder where the results of the pipeline will be saved. Click on run macro. You should see as many folders as there are steps in your pipeline, containing the results on each frame.</li>
 </ul>
@@ -324,12 +299,12 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-tapenade-processing" is free and open source software</p>
+&quot;napari-tapenade-processing&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/jules-vanaret/napari-tapenade-processing/issues">file an issue</a> along with a detailed description.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

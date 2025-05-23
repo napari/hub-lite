@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,56 +210,29 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/napari-wsi"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-wsi.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/napari-wsi"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-wsi" /></a>
-<a href="https://github.com/AstraZeneca/napari-wsi/actions"><img alt="Tests" src="https://github.com/AstraZeneca/napari-wsi/actions/workflows/main.yml/badge.svg" /></a>
-<img alt="Maturity Level-1" src="https://img.shields.io/badge/Maturity%20Level-ML--1-yellow" /></p>
+                                        <p><a href="https://pypi.org/project/napari-wsi"><img src="https://img.shields.io/pypi/v/napari-wsi.svg?color=green" alt="PyPI" /></a>
+<a href="https://napari-hub.org/plugins/napari-wsi"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-wsi" alt="napari hub" /></a>
+<a href="https://github.com/AstraZeneca/napari-wsi/actions"><img src="https://github.com/AstraZeneca/napari-wsi/actions/workflows/main.yml/badge.svg" alt="Tests" /></a>
+<img src="https://img.shields.io/badge/Maturity%20Level-ML--1-yellow" alt="Maturity Level-1" /></p>
 <p>A plugin to read whole-slide images within <a href="https://github.com/napari/napari">napari</a>.</p>
 <hr />
 <h2>Installation via pip</h2>
 <p>You can install <code>napari-wsi</code> via <a href="https://github.com/pypa/pip">pip</a>:</p>
-<pre class="codehilite"><code class="language-bash">pip install &quot;napari-wsi[all]&gt;=1.0&quot;
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari-wsi[all]&gt;=1.0&quot;</span>
+</pre></div>
 </code></pre>
-
 <p>This automatically installs all optional backends, as a shortcut for:</p>
-<pre class="codehilite"><code class="language-bash">pip install &quot;napari-wsi[openslide,rasterio,wsidicom]&gt;=1.0&quot;
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari-wsi[openslide,rasterio,wsidicom]&gt;=1.0&quot;</span>
+</pre></div>
 </code></pre>
-
 <p>In addition, to be able to read images using the <code>openslide</code> backend, it is
 required to install the OpenSlide library itself, for example by installing the
 <a href="https://pypi.org/project/openslide-bin/">openslide-bin</a> python package (also via <a href="https://github.com/pypa/pip">pip</a>).</p>
 <h2>Installation via conda</h2>
 <p>You can also install <code>napari-wsi</code> via <a href="https://conda-forge.org/">conda</a>:</p>
-<pre class="codehilite"><code class="language-bash">conda install -c conda-forge &quot;napari-wsi&gt;=1.0&quot;
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="s2">&quot;napari-wsi&gt;=1.0&quot;</span>
+</pre></div>
 </code></pre>
-
 <p>This already installs all optional dependencies, including OpenSlide.</p>
 <h1>Description</h1>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin provides a widget for reading various whole-slide image
@@ -265,7 +242,7 @@ formats using a common <a href="https://github.com/zarr-developers/zarr-python">
 <p>After installation, open the <code>Plugins</code> menu in the viewer and select
 <code>WSI Reader</code> to open the widget. Then select a <code>Backend</code> to use, select a <code>Path</code>
 to open, and click <code>Load</code>.</p>
-<p><img alt="The napari viewer displaying a sample image." src="./resources/sample_data.jpg" /></p>
+<p><img src="./resources/sample_data.jpg" alt="The napari viewer displaying a sample image." /></p>
 <p>If <code>sRGB</code> is selected in the <code>Color Space</code> menu and an ICC profile is attached
 to the given image, a transformation to this color space will be applied when
 the image data is read. Otherwise, the raw RGB image data will be displayed.</p>
@@ -274,57 +251,57 @@ viewer window. The file suffixes '.bif', '.ndpi', '.scn', '.svs' are registered
 with the <code>openslide</code> backend, while the suffixes '.tif' and '.tiff' are
 registered with the <code>rasterio</code> backend. These files can also be opened directly
 from the command line or from a python script:</p>
-<pre class="codehilite"><code class="language-bash">napari CMU-1.svs
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari<span class="w"> </span>CMU-1.svs
+</pre></div>
 </code></pre>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="w"> </span><span class="kn">import</span> <span class="n">Viewer</span>
 
-<pre class="codehilite"><code class="language-python">from napari import Viewer
-
-viewer = Viewer()
-viewer.open(&quot;CMU-1.svs&quot;, plugin=&quot;napari-wsi&quot;)
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;CMU-1.svs&quot;</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="s2">&quot;napari-wsi&quot;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>It is also possible to use the different backend classes directly, in which case
 some more features are available, for example:</p>
-<pre class="codehilite"><code class="language-python">from napari import Viewer
-from napari_wsi.backends.openslide import OpenSlideStore
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="w"> </span><span class="kn">import</span> <span class="n">Viewer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_wsi.backends.openslide</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenSlideStore</span>
 
-viewer = Viewer()
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">()</span>
 
-# Display the image in the sRGB color space and a physical coordinate system:
-store = OpenSlideStore(&quot;CMU-1.svs&quot;, color_space=&quot;sRGB&quot;)
-(layer,) = store.to_viewer(viewer, spatial_transform=True)
-assert layer.metadata[&quot;color_space&quot;] == &quot;sRGB&quot;
+<span class="c1"># Display the image in the sRGB color space and a physical coordinate system:</span>
+<span class="n">store</span> <span class="o">=</span> <span class="n">OpenSlideStore</span><span class="p">(</span><span class="s2">&quot;CMU-1.svs&quot;</span><span class="p">,</span> <span class="n">color_space</span><span class="o">=</span><span class="s2">&quot;sRGB&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">layer</span><span class="p">,)</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">to_viewer</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">spatial_transform</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">layer</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;color_space&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;sRGB&quot;</span>
 
-# Display a scale bar to indicate milli- or micrometers, depending on the zoom level:
-viewer.scale_bar.visible = True
-viewer.scale_bar.colored = True
+<span class="c1"># Display a scale bar to indicate milli- or micrometers, depending on the zoom level:</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">colored</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
 </code></pre>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="w"> </span><span class="kn">import</span> <span class="n">Viewer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_wsi.backends.wsidicom</span><span class="w"> </span><span class="kn">import</span> <span class="n">WSIDicomStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">requests.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPBasicAuth</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">wsidicom</span><span class="w"> </span><span class="kn">import</span> <span class="n">WsiDicomWebClient</span>
 
-<pre class="codehilite"><code class="language-python">from napari import Viewer
-from napari_wsi.backends.wsidicom import WSIDicomStore
-from requests.auth import HTTPBasicAuth
-from wsidicom import WsiDicomWebClient
-
-viewer = Viewer()
-client = WsiDicomWebClient.create_client(&quot;...&quot;, auth=HTTPBasicAuth(&quot;...&quot;, &quot;...&quot;))
-store = WSIDicomStore(client=client, study_uid=&quot;...&quot;, series_uids=&quot;...&quot;)
-store.to_viewer(viewer)
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">()</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">WsiDicomWebClient</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">))</span>
+<span class="n">store</span> <span class="o">=</span> <span class="n">WSIDicomStore</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span> <span class="n">study_uid</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="n">series_uids</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<span class="n">store</span><span class="o">.</span><span class="n">to_viewer</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>The sample images used above are part of the OpenSlide test data (see <a href="https://openslide.cs.cmu.edu/download/openslide-testdata/Aperio/">Aperio</a>
 and <a href="https://openslide.cs.cmu.edu/download/openslide-testdata/DICOM/">DICOM</a>).</p>
 <h1>Known Issues &amp; Other Notes</h1>
 <ul>
 <li>This plugin is prototype research software and there may be <strong>breaking
-  changes</strong> with each release of the plugin, which is also the case for current
-  releases of the <a href="https://github.com/napari/napari">napari</a> viewer itself.</li>
+changes</strong> with each release of the plugin, which is also the case for current
+releases of the <a href="https://github.com/napari/napari">napari</a> viewer itself.</li>
 <li>The <code>wsidicom</code> backend supports loading annotations together with the image
-  data. However, this may take several minutes, depending on the number and
-  complexity of the annotations. When loading more than a few thousand polygon
-  annotations, make sure that the experimental "<a href="https://napari.org/island-dispatch/blog/triangles_speedup_beta.html">triangles</a> speedup" setting is
-  enabled.</li>
+data. However, this may take several minutes, depending on the number and
+complexity of the annotations. When loading more than a few thousand polygon
+annotations, make sure that the experimental &quot;<a href="https://napari.org/island-dispatch/blog/triangles_speedup_beta.html">triangles</a> speedup&quot; setting is
+enabled.</li>
 </ul>
-        
+
 
                                     </div>
                                 </div>

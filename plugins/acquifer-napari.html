@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,44 +210,17 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>The acquifer-napari plugin allows loading IM04 dataset directory, as multi-dimensional images in napari.<br />
+                                        <p>The acquifer-napari plugin allows loading IM04 dataset directory, as multi-dimensional images in napari.<br />
 Sliders for well, channel, time and Z are automatically rendered when there are more than 1 coordinates along the dimension.<br />
-The plugin uses Dask-Image for efficient data-loading "on request" similar to the VirtualStack in ImageJ.  </p>
+The plugin uses Dask-Image for efficient data-loading &quot;on request&quot; similar to the VirtualStack in ImageJ.</p>
 <h2>Installation</h2>
 <p>Via the napari plugin manager : acquifer-napari.
 Or with pip : <code>pip install acquifer-napari</code>.</p>
 <p>Use <code>pip install -e .</code> to install in developement mode, so any change in the source code is directly reflected.<br />
 Use <code>npe2 list</code> to check that the plugin is correctly installed and visible by napari.<br />
 For instance here, the package defines 1 command, which is a reader.<br />
-One could have more commands, which would be implement other types. <br />
-This should output something like following 
+One could have more commands, which would be implement other types.<br />
+This should output something like following
 ┌──────────────────────────────┬─────────┬──────┬───────────────────────────────────────────────────────────┐
 │ Name                         │ Version │ Npe2 │ Contributions                                             │
 ├──────────────────────────────┼─────────┼──────┼───────────────────────────────────────────────────────────┤
@@ -251,20 +228,20 @@ This should output something like following
 <p>The plugin should be installed in an environment with napari installed.<br />
 Napari can be started with the <code>napari</code>command in a command prompt with a system wide python installation.<br />
 Once installed, napari can be opened in a IPython interactive session with</p>
-<pre class="codehilite"><code class="language-python">&gt;&gt; import napari
-&gt;&gt; napari.Viewer()
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<span class="o">&gt;&gt;</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+</pre></div>
 </code></pre>
-
 <h2>Configurations</h2>
 <p>The file <code>napari.yaml</code> in <code>acquifer_napari_plugin</code> defines what functions of the python package are visible to napari.<br />
 The top level <code>name</code> field must be the same than the python package name defined in <code>setup.cfg</code>.
 It first define a set of commands, which have a custom <code>id</code>, and a <code>python_name</code>, which is the actual location of the function in the python package (or module).<br />
 Then the napari.yaml has optional subsections <code>readers</code>, <code>writers</code>, <code>widget</code>, to reference some of the commands previously defined, to notify napari that they implemente those standard functions.<br />
 For instance I first define a command myReader pointing to myPackage.myReader, and I reference that command using the id it in the section readers<br />
-See https://napari.org/stable/plugins/first_plugin.html#add-a-napari-yaml-manifest  </p>
+See <a href="https://napari.org/stable/plugins/first_plugin.html#add-a-napari-yaml-manifest">https://napari.org/stable/plugins/first_plugin.html#add-a-napari-yaml-manifest</a></p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/Luxendo/acquifer-napari/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,42 +234,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-cardio-bio-eval.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-cardio-bio-eval"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-cardio-bio-eval.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-cardio-bio-eval.svg?color=green" /></a>
-<a href="https://github.com//Nanobiosensorics/napari-cardio-bio-eval/actions"><img alt="tests" src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/workflows/tests/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-cardio-bio-eval.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-cardio-bio-eval"><img src="https://img.shields.io/pypi/v/napari-cardio-bio-eval.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-cardio-bio-eval.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com//Nanobiosensorics/napari-cardio-bio-eval/actions"><img src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/workflows/tests/badge.svg" alt="tests" /></a></p>
 <!--[![codecov](https://codecov.io/gh/Nanobiosensorics/napari-cardio-bio-eval/branch/main/graph/badge.svg)](https://codecov.io/gh/Nanobiosensorics/napari-cardio-bio-eval)-->
-<p><a href="https://napari-hub.org/plugins/napari-cardio-bio-eval"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-cardio-bio-eval" /></a></p>
+<p><a href="https://napari-hub.org/plugins/napari-cardio-bio-eval"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-cardio-bio-eval" alt="napari hub" /></a></p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <hr />
-<p>The plugin provides a widget which can load, preprocess, annotate and export cardio biosensor data.  </p>
+<p>The plugin provides a widget which can load, preprocess, annotate and export cardio biosensor data.</p>
 <!--
 Don't miss the full getting started guide to set up your new package:
 https://github.com/napari/cookiecutter-napari-plugin#getting-started
@@ -273,12 +250,10 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-cardio-bio-eval</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-cardio-bio-eval
+<pre><code>pip install napari-cardio-bio-eval
 </code></pre>
-
 <p>Or use the Napari plugin manager and search for <code>napari-cardio-bio-eval</code>.</p>
 <!--
 First install a fresh conda enviroment (or other python enviroment) and activate it:
@@ -296,16 +271,19 @@ Then you can start napari with a simple command:
 -->
 <h1>Usage</h1>
 <p>You can open the plugin's widgets from the <strong>Plugins</strong> menu after the installation of the plugin.</p>
-<p><img alt="image" src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/5d209fb5-c921-45d6-bb63-c5e3ff1fb1f8" /></p>
+<p><img src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/5d209fb5-c921-45d6-bb63-c5e3ff1fb1f8" alt="image" /></p>
 <h2>Data loading and preprocessing</h2>
-<p>At the top of the widget, you need to select the directory, which contains the data you want to examine and process. To successfully load the data the directory have to contain the following files:
-- <em>_wl_power.file: which contains the starting values of the measurement
-- DRM directory: which contains the difference from the previous measurement point 
-- </em>_avg.file: which contains additional biosensor data</p>
+<p>At the top of the widget, you need to select the directory, which contains the data you want to examine and process. To successfully load the data the directory have to contain the following files:</p>
+<ul>
+<li>*_wl_power.file: which contains the starting values of the measurement</li>
+<li>DRM directory: which contains the difference from the previous measurement point</li>
+<li>*_avg.file: which contains additional biosensor data</li>
+</ul>
 <h4>Import parameters:</h4>
 <ul>
 <li>Flipping: horizontal and vertical mirroring of the biosensor recording</li>
-<li>Signal range type: with this you can choose how do you want to select a smaller range of the measurement in the next field <em>Ranges</em><ul>
+<li>Signal range type: with this you can choose how do you want to select a smaller range of the measurement in the next field <em>Ranges</em>
+<ul>
 <li>measurement phase: you can give the index of the phases you want to see, for example with 0-1 you can view the measurement from the start to the first pause</li>
 <li>individual point: you can select any given frames in an interval, for example with selecting 34 and 275 you can view the measurement from frame 34 to frame 275</li>
 </ul>
@@ -314,52 +292,52 @@ Then you can start napari with a simple command:
 <li>Drift correction threshold: Ranges between 25 and 500.</li>
 <li>Filter method: mean or median</li>
 </ul>
-<p><img alt="image" src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/28b5f563-1c5e-4591-bdf6-2ece936becac" /></p>
-<p><img alt="image" src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/a6004667-deac-4ff8-8729-0fcb8bc35f7f" /></p>
-<p>After selecting the source directory and the optional fliping you can load in the data with the <strong><em>Load Data</em></strong> button. After the raw data is loaded you can select the slice of the measurement you want to work with and some other parameters. Then by clicking the <strong><em>Preprocess Data</em></strong> button you start the processing and after a few seconds the well images will appear on the viewer.  </p>
-<p><img alt="image" src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/23e38c70-d058-41cc-9e9e-f2d34ea553e0" /></p>
+<p><img src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/28b5f563-1c5e-4591-bdf6-2ece936becac" alt="image" /></p>
+<p><img src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/a6004667-deac-4ff8-8729-0fcb8bc35f7f" alt="image" /></p>
+<p>After selecting the source directory and the optional fliping you can load in the data with the <em><strong>Load Data</strong></em> button. After the raw data is loaded you can select the slice of the measurement you want to work with and some other parameters. Then by clicking the <em><strong>Preprocess Data</strong></em> button you start the processing and after a few seconds the well images will appear on the viewer.</p>
+<p><img src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/23e38c70-d058-41cc-9e9e-f2d34ea553e0" alt="image" /></p>
 <p>Each well has its own layer. You can turn the layers visible or invisible by clicking the small eye icon on each layer.</p>
 <p>If the selected range is not what you wanted then you can change the parameters and preprocess again. But if you moved on to the next step (manual background selection or peak detection) then you need to restart Napari to load other data or preprocess with different parameters.</p>
-<p>After you see the wells you can proceed to the next step or if the automatic background correction is not good enough you can click the <strong><em>Select Background Points Manually</em></strong> button and it will show the automatically selected background points for each well, which you can move to better background coordinates and in the next peak detection step these points will be used by the background correction algorithm. After the first export these points will be saved so if the same directory is loaded a second time the preprocessing will use these points.</p>
+<p>After you see the wells you can proceed to the next step or if the automatic background correction is not good enough you can click the <em><strong>Select Background Points Manually</strong></em> button and it will show the automatically selected background points for each well, which you can move to better background coordinates and in the next peak detection step these points will be used by the background correction algorithm. After the first export these points will be saved so if the same directory is loaded a second time the preprocessing will use these points.</p>
 <p>During the background selection do NOT delete any layers.</p>
-<p><img alt="image" src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/133fd74a-b53b-4540-bdf9-209c325e2b4b" /></p>
+<p><img src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/133fd74a-b53b-4540-bdf9-209c325e2b4b" alt="image" /></p>
 <h2>Selecting the cells</h2>
-<p>In this step you can also set some parameters for the peak detection algorithm and then click the <strong><em>Detect Signal Peaks</em></strong> button to start the process. After a few seconds the wells with the potential cells will show on the window.</p>
+<p>In this step you can also set some parameters for the peak detection algorithm and then click the <em><strong>Detect Signal Peaks</strong></em> button to start the process. After a few seconds the wells with the potential cells will show on the window.</p>
 <h4>Detection parameters:</h4>
 <ul>
 <li>Threshold range: 25-5000</li>
 <li>Neighbourhood size: 1-10</li>
 <li>Error mask filtering:</li>
 </ul>
-<p><img alt="image" src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/842ad2e3-32dd-4d6c-8e98-47c137a7029b" /></p>
-<p>Here you can delete, add or move the points on each points layer. There are keyboard shortcuts for easier use! 
-Additionally by double clicking on any point of the image you can examine the time-signal diagram of the selected point under the widget. Be sure to select the correct layer!  </p>
+<p><img src="https://github.com/Nanobiosensorics/napari-cardio-bio-eval/assets/78443646/842ad2e3-32dd-4d6c-8e98-47c137a7029b" alt="image" /></p>
+<p>Here you can delete, add or move the points on each points layer. There are keyboard shortcuts for easier use!
+Additionally by double clicking on any point of the image you can examine the time-signal diagram of the selected point under the widget. Be sure to select the correct layer!</p>
 <p>If you do not need any of the wells, then you can delete the layer and it won't be exported. If you either delete an image or peak points layer belonging to a well, the well will not be included in the export!<br />
 After selecting the needed cells and wells (and deleting the unnecessary ones) you can export plots and additional information about them.</p>
 <h2>Exporting</h2>
-<p>You can select what kind of data do you want to export and click the <strong><em>Export Data</em></strong> button. The data will be exported to the source directory into a <em>result</em> sub-directory.</p>
+<p>You can select what kind of data do you want to export and click the <em><strong>Export Data</strong></em> button. The data will be exported to the source directory into a <em>result</em> sub-directory.</p>
 <h4>Export options:</h4>
 <ul>
 <li>Coordinates: the coordinates of the selected cells</li>
-<li>Preprocessed signals: </li>
+<li>Preprocessed signals:</li>
 <li>Raw signals:</li>
-<li>Average signal: </li>
-<li>Breakdown signal: </li>
-<li>Max well: </li>
-<li>Plot signals with well:  </li>
-<li>Plot well with coordinates: </li>
-<li>Plot cells individually: </li>
-<li>Signal parts by phases: </li>
-<li>Max centered signals: </li>
+<li>Average signal:</li>
+<li>Breakdown signal:</li>
+<li>Max well:</li>
+<li>Plot signals with well:</li>
+<li>Plot well with coordinates:</li>
+<li>Plot cells individually:</li>
+<li>Signal parts by phases:</li>
+<li>Max centered signals:</li>
 </ul>
 <h2>Segmentation widget</h2>
 <p>The data loading and preprocessing is the same but it uses a deep learning model to segment the cells.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-cardio-bio-eval" is free and open source software</p>
+&quot;napari-cardio-bio-eval&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please file an issue along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

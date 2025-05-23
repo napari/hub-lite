@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,62 +210,45 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/Jeff-Gui/napari-amdtrk/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-amdtrk.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-amdtrk"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-amdtrk.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-amdtrk.svg?color=green" /></a>
-<a href="https://github.com/Jeff-Gui/napari-amdtrk/actions"><img alt="tests" src="https://github.com/Jeff-Gui/napari-amdtrk/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/Jeff-Gui/napari-amdtrk"><img alt="codecov" src="https://codecov.io/gh/Jeff-Gui/napari-amdtrk/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-amdtrk"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-amdtrk" /></a></p>
+                                        <p><a href="https://github.com/Jeff-Gui/napari-amdtrk/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-amdtrk.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-amdtrk"><img src="https://img.shields.io/pypi/v/napari-amdtrk.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-amdtrk.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/Jeff-Gui/napari-amdtrk/actions"><img src="https://github.com/Jeff-Gui/napari-amdtrk/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/Jeff-Gui/napari-amdtrk"><img src="https://codecov.io/gh/Jeff-Gui/napari-amdtrk/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-amdtrk"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-amdtrk" alt="napari hub" /></a></p>
 <p>Amend segmentation and track within napari manually.</p>
-<p><img src="preview.png" alt="overview" width="900" /></p>
+<img src="preview.png" alt="overview" width="900" />
 <h3><a href="https://drive.google.com/file/d/1oHPdYcKv-QgOWylm21DnOF1NlVNsRIcL/view">:eyes: watch a demo video</a></h3>
 <hr />
 <h3>Input data structure</h3>
-<p>Napari-amdtrk reads an input directory which includes:
-- An intensity image (<code>tif</code>) in txyc (or txy) format
-- An object mask (<code>tif</code>) in txy format
-- An object table (<code>csv</code>) with following essential columns:
-    - frame: time frame
-    - trackId: ID of the track, starting from 1
-    - Center_of_the_object_0: x coordinate
-    - Center_of_the_object_1: y coordinate
-    - continuous_label: the corresponding label (intensity value) of the object in the object mask (You may use <code>skimage.measure.label</code> to get it from a binary mask).</p>
+<p>Napari-amdtrk reads an input directory which includes:</p>
 <ul>
 <li>
+<p>An intensity image (<code>tif</code>) in txyc (or txy) format</p>
+</li>
+<li>
+<p>An object mask (<code>tif</code>) in txy format</p>
+</li>
+<li>
+<p>An object table (<code>csv</code>) with following essential columns:</p>
+<ul>
+<li>frame: time frame</li>
+<li>trackId: ID of the track, starting from 1</li>
+<li>Center_of_the_object_0: x coordinate</li>
+<li>Center_of_the_object_1: y coordinate</li>
+<li>continuous_label: the corresponding label (intensity value) of the object in the object mask (You may use <code>skimage.measure.label</code> to get it from a binary mask).</li>
+</ul>
+</li>
+<li>
 <p>A config file named <code>config.yaml</code> (<em>other names are not allowed</em>)</p>
-<p>Within the config file, there should be:
-- intensity_suffix: suffix of the intensity image (e.g., for <code>foo_GFP.tif</code>, use <code>GFP</code> in the config). For multiple intensity images, separate them with commas (e.g., <code>GFP, mCherry</code>)
-- mask_suffix: suffix of the mask image
-- track_suffix: suffix of the tracked object table
-- frame_base: index of the first frame (either <code>0</code> or <code>1</code>)
-- stateCol: <strong>optional</strong> column name for the cell state (e.g., cell cycle phase) in the object table. Leave blank if the object table does not contain it</p>
+<p>Within the config file, there should be:</p>
+<ul>
+<li>intensity_suffix: suffix of the intensity image (e.g., for <code>foo_GFP.tif</code>, use <code>GFP</code> in the config). For multiple intensity images, separate them with commas (e.g., <code>GFP, mCherry</code>)</li>
+<li>mask_suffix: suffix of the mask image</li>
+<li>track_suffix: suffix of the tracked object table</li>
+<li>frame_base: index of the first frame (either <code>0</code> or <code>1</code>)</li>
+<li>stateCol: <strong>optional</strong> column name for the cell state (e.g., cell cycle phase) in the object table. Leave blank if the object table does not contain it</li>
+</ul>
 </li>
 </ul>
 <p><strong>Napari-amdtrk will modify mask and track files in place.</strong> Other files are not affected.</p>
@@ -282,23 +269,31 @@ pre > code:last-child {
 <li>complete cell cycle tracks: cell tracks with additional cell cycle features.</li>
 </ul>
 <p>The above operations will download data to <code>~/.amd_trk/_sample_data/</code> (<strong>~230MB</strong>). After downloading is finished, sample data will be loaded.</p>
-<p><em>Notes</em>
-- Please cite this repository if using the plugin in your work (try <code>About</code> &gt; <code>Cite this repository</code> upper right of this homepage).</p>
+<p><em>Notes</em></p>
 <ul>
-<li>Sample data (cell track videos) have been published with <a href="10.1093/bioinformatics/btac602"><em>pcnaDeep: a fast and robust single-cell tracking method using deep-learning mediated cell cycle profiling</em></a>. We acknowledge Dr Kuan Yoow Chan and members of his lab for generating the data. </li>
+<li>
+<p>Please cite this repository if using the plugin in your work (try <code>About</code> &gt; <code>Cite this repository</code> upper right of this homepage).</p>
+</li>
+<li>
+<p>Sample data (cell track videos) have been published with <a href="10.1093/bioinformatics/btac602"><em>pcnaDeep: a fast and robust single-cell tracking method using deep-learning mediated cell cycle profiling</em></a>. We acknowledge Dr Kuan Yoow Chan and members of his lab for generating the data.</p>
+</li>
 </ul>
 <hr />
 <h3>Keyboard shortcuts</h3>
 <ul>
-<li><kbd>&uarr;</kbd> and <kbd>&darr;</kbd>: toggle different operations</li>
+<li>
+<p><kbd>↑</kbd> and <kbd>↓</kbd>: toggle different operations</p>
+</li>
 <li>
 <p><kbd>enter</kbd>: run the operation</p>
 </li>
 <li>
 <p>Available to a selected object:</p>
-</li>
+<ul>
 <li><kbd>control</kbd> + <kbd>9</kbd>: shrink the object mask</li>
 <li><kbd>control</kbd> + <kbd>0</kbd>: expand the object mask</li>
+</ul>
+</li>
 </ul>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -309,22 +304,19 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>Please install <code>napari</code> GUI first:</p>
-<pre class="codehilite"><code>python -m pip install &quot;napari[all]&quot;
+<pre><code>python -m pip install &quot;napari[all]&quot;
 </code></pre>
-
 <p>You can install <code>napari-amdtrk</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-amdtrk
+<pre><code>pip install napari-amdtrk
 </code></pre>
-
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-amdtrk" is free and open source software</p>
+&quot;napari-amdtrk&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

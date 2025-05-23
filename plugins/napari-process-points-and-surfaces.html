@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,106 +210,83 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-process-points-and-surfaces.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-process-points-and-surfaces"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-process-points-and-surfaces.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-process-points-and-surfaces.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-process-points-and-surfaces"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-process-points-and-surfaces/branch/master/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-process-points-and-surfaces.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-process-points-and-surfaces"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-process-points-and-surfaces" /></a>
-<a href="https://doi.org/10.5281/zenodo.7654555"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.7654555.svg" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-process-points-and-surfaces.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-process-points-and-surfaces"><img src="https://img.shields.io/pypi/v/napari-process-points-and-surfaces.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-process-points-and-surfaces.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/actions"><img src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-process-points-and-surfaces"><img src="https://codecov.io/gh/haesleinhuepf/napari-process-points-and-surfaces/branch/master/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-process-points-and-surfaces.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-process-points-and-surfaces"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-process-points-and-surfaces" alt="napari hub" /></a>
+<a href="https://doi.org/10.5281/zenodo.7654555"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7654555.svg" alt="DOI" /></a></p>
 <p>Process and analyze surfaces using <a href="https://vedo.embl.es/">vedo</a> in <a href="https://github.com/napari/napari">napari</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/graphical_abstract.gif" />
-The nppas gastruloid example is derived from <a href="https://zenodo.org/record/7603081">AV Luque and JV Veenvliet (2023)</a> which is licensed <a href="https://creativecommons.org/licenses/by/4.0/legalcode">CC-BY</a> and can be downloaded from here: https://zenodo.org/record/7603081</p>
+<p><img src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/graphical_abstract.gif" alt="img.png" />
+The nppas gastruloid example is derived from <a href="https://zenodo.org/record/7603081">AV Luque and JV Veenvliet (2023)</a> which is licensed <a href="https://creativecommons.org/licenses/by/4.0/legalcode">CC-BY</a> and can be downloaded from here: <a href="https://zenodo.org/record/7603081">https://zenodo.org/record/7603081</a></p>
 <h2>Usage</h2>
-<p>You find menus for surface generation, smoothing and analysis in the menu <code>Tools &gt; Surfaces</code> and <code>Tools &gt; Points</code>. 
+<p>You find menus for surface generation, smoothing and analysis in the menu <code>Tools &gt; Surfaces</code> and <code>Tools &gt; Points</code>.
 For detailed explanation of the underlying algorithms, please refer to the <a href="https://vedo.embl.es/">vedo</a> documentation.</p>
-<p>For processing meshes in Python scripts, see the <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/blob/main/docs/demo.ipynb">demo notebook</a>. 
+<p>For processing meshes in Python scripts, see the <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/blob/main/docs/demo.ipynb">demo notebook</a>.
 There you also learn how this screenshot is made:</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/screenshot5.png" /></p>
-<p>For performing quantitative measurements of surface in Python scripts, see the <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/blob/main/docs/quality_measurements.ipynb">demo notebook</a>. 
+<p><img src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/screenshot5.png" alt="img.png" /></p>
+<p>For performing quantitative measurements of surface in Python scripts, see the <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/blob/main/docs/quality_measurements.ipynb">demo notebook</a>.
 There you also learn how this screenshot is made:</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/screenshot6.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/screenshot6.png" alt="img.png" /></p>
 <h3>Surface measurements and annotations</h3>
 <p>Using the menu <code>Tools &gt; Measurement tables &gt; Surface quality table (vedo, nppas)</code> you can derive quantiative measurements of
-the vertices in a given surface layer. </p>
-<p><img alt="img_1.png" src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/surface_measurements2.png" /></p>
+the vertices in a given surface layer.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/surface_measurements2.png" alt="img_1.png" /></p>
 <p>To differentiate regions when analyzing those measurements it is recommended to use the menu <code>Tools &gt; Surfaces &gt; Annotate surface manually (nppas)</code>
-after measurements have been made. This tool allows you to draw annotation label values on the surface. 
-It is recommended to do activate a colorful colormap such as <code>hsv</code> before starting to draw annotations. 
+after measurements have been made. This tool allows you to draw annotation label values on the surface.
+It is recommended to do activate a colorful colormap such as <code>hsv</code> before starting to draw annotations.
 Furthermore, set the maximum of the contrast limit range to the number of regions you want to annotate + 1.
 Annotations can be drawn as freehand lines and circles.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/surface_annotation2.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/surface_annotation2.png" alt="img.png" /></p>
 <p>After measurements and annotations were done, you can save the annotation in the same measurement table using the menu
 <code>Tools &gt; Measurement tables &gt; Surface quality/annotation to table (nppas)</code></p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/surface_annotation_in_table2.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/surface_annotation_in_table2.png" alt="img.png" /></p>
 <p>For classifying surface vertices using machine learning, please refer to the <a href="https://www.napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification">napari APOC</a> documentation.</p>
 <h3>Measurement visualization</h3>
 <p>To visualize measurements on the surface, just double-click on the table column headers.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/quality_measurements.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/raw/main/docs/quality_measurements.gif" alt="img.png" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-process-points-and-surfaces</code> via mamba/conda and pip:</p>
-<pre class="codehilite"><code>mamba install vedo vtk libnetcdf=4.7.4 -c conda-forge
+<pre><code><div class="highlight"><pre><span></span>mamba install vedo vtk libnetcdf=4.7.4 -c conda-forge
 pip install napari-process-points-and-surfaces
+</pre></div>
 </code></pre>
-
 <h3>Troubleshooting: Open3d installation</h3>
-<p>Since version 0.4.0, <code>nppas</code> does no longer depend on <a href="http://www.open3d.org/">open3d</a>. 
-Some deprecated functions still use Open3d though. 
+<p>Since version 0.4.0, <code>nppas</code> does no longer depend on <a href="http://www.open3d.org/">open3d</a>.
+Some deprecated functions still use Open3d though.
 Follow the installation instructions in the <a href="http://www.open3d.org/docs/release/getting_started.htm">open3d documentation</a> to install it and keep using those functions.
-Also consider updating code and no longer using these deprecated functions. 
+Also consider updating code and no longer using these deprecated functions.
 See <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/releases/tag/0.4.0">release notes</a> for details.</p>
 <h2>See also</h2>
-<p>There are other napari plugins with similar / overlapping functionality
-* <a href="https://www.napari-hub.org/plugins/morphometrics">morphometrics</a><br />
-* <a href="https://www.napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification">napari-accelerated-pixel-and-object-classification</a>
-* <a href="https://www.napari-hub.org/plugins/napari-pymeshlab">napari-pymeshlab</a>
-* <a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">napari-pyclesperanto-assistant</a>
-* <a href="https://www.napari-hub.org/plugins/napari-stress">napari-stress</a></p>
-<p>And there is software for doing similar things:
-* <a href="https://www.meshlab.net/">meshlab</a>
-* <a href="https://www.paraview.org/">paraview</a></p>
+<p>There are other napari plugins with similar / overlapping functionality</p>
+<ul>
+<li><a href="https://www.napari-hub.org/plugins/morphometrics">morphometrics</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification">napari-accelerated-pixel-and-object-classification</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-pymeshlab">napari-pymeshlab</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">napari-pyclesperanto-assistant</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-stress">napari-stress</a></li>
+</ul>
+<p>And there is software for doing similar things:</p>
+<ul>
+<li><a href="https://www.meshlab.net/">meshlab</a></li>
+<li><a href="https://www.paraview.org/">paraview</a></li>
+</ul>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-process-points-and-surfaces" is free and open source software</p>
+&quot;napari-process-points-and-surfaces&quot; is free and open source software</p>
 <h2>Acknowledgements</h2>
-<p>Some code snippets and example data were taken from the <a href="https://vedo.embl.es/">vedo</a> and <a href="http://www.open3d.org/">open3d</a> 
+<p>Some code snippets and example data were taken from the <a href="https://vedo.embl.es/">vedo</a> and <a href="http://www.open3d.org/">open3d</a>
 repositories and documentation. See <a href="https://github.com/haesleinhuepf/napari-process-points-and-surfaces/tree/main/licenses_third_party">thirdparty licenses</a> for licensing details.
 The Standford Bunny example dataset has been taken from <a href="http://graphics.stanford.edu/data/3Dscanrep/">The Stanford 3D Scanning Repository</a>.
-The nppas gastruloid example is derived from <a href="https://zenodo.org/record/7603081">AV Luque and JV Veenvliet (2023)</a> which is licensed <a href="https://creativecommons.org/licenses/by/4.0/legalcode">CC-BY</a> and can be downloaded from here: https://zenodo.org/record/7603081</p>
+The nppas gastruloid example is derived from <a href="https://zenodo.org/record/7603081">AV Luque and JV Veenvliet (2023)</a> which is licensed <a href="https://creativecommons.org/licenses/by/4.0/legalcode">CC-BY</a> and can be downloaded from here: <a href="https://zenodo.org/record/7603081">https://zenodo.org/record/7603081</a></p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please create a thread on <a href="https://image.sc">image.sc</a> along with a detailed description and tag <a href="https://twitter.com/haesleinhuepf">@haesleinhuepf</a>.</p>
-        
+
 
                                     </div>
                                 </div>

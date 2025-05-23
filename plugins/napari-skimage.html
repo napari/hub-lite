@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,75 +233,48 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/guiwitz/napari-skimage/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-skimage.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-skimage"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-skimage.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-skimage.svg?color=green" /></a>
-<a href="https://github.com/guiwitz/napari-skimage/actions"><img alt="tests" src="https://github.com/guiwitz/napari-skimage/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/guiwitz/napari-skimage"><img alt="codecov" src="https://codecov.io/gh/guiwitz/napari-skimage/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-skimage"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-skimage" /></a>
-<a href="https://renkulab.io/projects/guillaume.witz1/napari-skimage/sessions/new?autostart=1"><img alt="launch - renku" src="https://renkulab.io/renku-badge.svg" /></a></p>
+                                        <p><a href="https://github.com/guiwitz/napari-skimage/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-skimage.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-skimage"><img src="https://img.shields.io/pypi/v/napari-skimage.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-skimage.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/guiwitz/napari-skimage/actions"><img src="https://github.com/guiwitz/napari-skimage/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/guiwitz/napari-skimage"><img src="https://codecov.io/gh/guiwitz/napari-skimage/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-skimage"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-skimage" alt="napari hub" /></a>
+<a href="https://renkulab.io/projects/guillaume.witz1/napari-skimage/sessions/new?autostart=1"><img src="https://renkulab.io/renku-badge.svg" alt="launch - renku" /></a></p>
 <p>napari-skimage gives easy access to scikit-image functions in napari. The main goal of the plugin is to allow new users of napari, especially without coding experience, to easily explore basic image processing, in a similar way to what is possible in Fiji.</p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Philosophy</h2>
 <p>The plugin is still in early development and does not cover all functions of scikit-image. If you are interested in a specific function, please open an issue or a pull request. scikit-image functions are turned into interactive widgets mostly via magicgui, a tool that allows to create GUIs from functions in a simple way (in particular not requiring Qt knowledge). The code avoids on purpose complex approaches, e.g. to automate the creation of widgets, in order to keep the code simple and easy to understand for beginners.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-skimage</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-skimage
+<pre><code>pip install napari-skimage
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/guiwitz/napari-skimage.git
+<pre><code>pip install git+https://github.com/guiwitz/napari-skimage.git
 </code></pre>
-
 <h2>Usage</h2>
 <p>The plugin function can be accessed under <code>Plugins -&gt; napari-skimage</code>. Each function will appear as a widget on the right of the napari window. Some functions such as <code>Gaussian Filter</code> give access to a single operation and its options. Some functions such as <code>Thresholding</code> give access to variants of the same operation via a dropdown menu. Currently the plugin does not support multi-channel processing and will consider those as stacks. At the moment, the plugin offers access to the following operation types.</p>
 <h3>Filtering</h3>
 <p>A set of classical filters: Gaussian, Prewitt, Laplace etc. as well as rank filters such as median, minimum, maximum etc.</p>
-<p><img alt="Gaussian filter" src="docs/gaussian.png" /></p>
+<p><img src="docs/gaussian.png" alt="Gaussian filter" /></p>
 <h3>Thresholding</h3>
 <p>A set of thresholding methods: Otsu, Li, Yen etc.
-<img alt="Thresholding" src="docs/thresholding.png" /></p>
+<img src="docs/thresholding.png" alt="Thresholding" /></p>
 <h3>Binary morphological operations</h3>
 <p>A set of binary morphology operations: binary erosion, binary dilation etc.
-<img alt="Binary morphological operations" src="docs/binary_morphology.png" /></p>
+<img src="docs/binary_morphology.png" alt="Binary morphological operations" /></p>
 <h3>Morphological operations</h3>
 <p>A set of morphological operations: erosion, dilation, opening, closing etc.
-<img alt="Morphological operations" src="docs/morphology.png" /></p>
+<img src="docs/morphology.png" alt="Morphological operations" /></p>
 <h3>Restoration</h3>
 <p>A set of restoration operations such as rolling ball, or non-local means denoising.
-<img alt="Restoration" src="docs/denoise_nl.png" /></p>
+<img src="docs/denoise_nl.png" alt="Restoration" /></p>
 <h3>Mathematics</h3>
-<p>In addition the plugin provides a set of simple mathematical operators to:
-- operate on single images e.g. square, square root, log etc.
-- operate on two images e.g. add, subtract, multiply etc.
-<img alt="Mathematics" src="docs/simple_maths.png" /></p>
+<p>In addition the plugin provides a set of simple mathematical operators to:</p>
+<ul>
+<li>operate on single images e.g. square, square root, log etc.</li>
+<li>operate on two images e.g. add, subtract, multiply etc.
+<img src="docs/simple_maths.png" alt="Mathematics" /></li>
+</ul>
 <h2>Code structure</h2>
 <p>Each set of functions is grouped in a separate module. For example all filtering operations are grouped in <code>src/napari_skimge/skimage_filter_widget.py</code>. A set of test in <code>src/_tests/test_basic_widgets.py</code> simply check that each widget can be created and generated an output of the correct size using the default settings.</p>
 <h2>Contributing</h2>
@@ -305,10 +282,10 @@ pre > code:last-child {
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-skimage" is free and open source software</p>
+&quot;napari-skimage&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/guiwitz/napari-skimage/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

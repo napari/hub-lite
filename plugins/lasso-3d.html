@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,39 +233,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/LorenzLamm/lasso-3d/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/lasso-3d.svg?color=green" /></a>
-<a href="https://pypi.org/project/lasso-3d"><img alt="PyPI" src="https://img.shields.io/pypi/v/lasso-3d.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/lasso-3d.svg?color=green" /></a>
-<a href="https://github.com/LorenzLamm/lasso-3d/actions"><img alt="tests" src="https://github.com/LorenzLamm/lasso-3d/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/LorenzLamm/lasso-3d"><img alt="codecov" src="https://codecov.io/gh/LorenzLamm/lasso-3d/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/lasso-3d"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/lasso-3d" /></a></p>
+                                        <p><a href="https://github.com/LorenzLamm/lasso-3d/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/lasso-3d.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/lasso-3d"><img src="https://img.shields.io/pypi/v/lasso-3d.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/lasso-3d.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/LorenzLamm/lasso-3d/actions"><img src="https://github.com/LorenzLamm/lasso-3d/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/LorenzLamm/lasso-3d"><img src="https://codecov.io/gh/LorenzLamm/lasso-3d/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/lasso-3d"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/lasso-3d" alt="napari hub" /></a></p>
 <p>3D lasso tool to select large 3D areas</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -271,33 +248,40 @@ For instructions on how to use the plugin, please refer to the <a href="./docs/U
 <div style="text-align: center;">
 <img src="https://github.com/user-attachments/assets/88851e09-6f10-4219-9b45-6f608c3e10b6" alt="lasso_gif" width="75%" />
 </div>
-
 <p>How it works: A polygon is drawn and a mask is generated via:</p>
 <h3>Mask via rotation</h3>
-<p>Steps:
-1. Rotate and project polygon to 2D and create a pixel mask
-2. Create a 3D mask by stacking the pixel mask along z
-3. Rotate 3D mask s.t. it is aligned with the original polygon</p>
+<p>Steps:</p>
+<ol>
+<li>Rotate and project polygon to 2D and create a pixel mask</li>
+<li>Create a 3D mask by stacking the pixel mask along z</li>
+<li>Rotate 3D mask s.t. it is aligned with the original polygon</li>
+</ol>
 <p>This performed more efficiently than the other methods:</p>
 <h3>Mask via projection</h3>
-<p>Steps:
-1. Project all points onto the hyperplane defined by the polygon
-2. Rotate all points and the polygon s.t. they are in a horizontal plane and remove z component
-3. Create a binary pixel mask of the polygon
-4. Check which point projections are within the polygon mask
-5. reshape mask to original tomogram size</p>
+<p>Steps:</p>
+<ol>
+<li>Project all points onto the hyperplane defined by the polygon</li>
+<li>Rotate all points and the polygon s.t. they are in a horizontal plane and remove z component</li>
+<li>Create a binary pixel mask of the polygon</li>
+<li>Check which point projections are within the polygon mask</li>
+<li>reshape mask to original tomogram size</li>
+</ol>
 <h3>Mask via mesh voxelization</h3>
-<p>Steps:
-1. Move polygon along its normal in both directions until end of tomogram shape --&gt; front &amp; back polygons
-2. Define a surface by combining front &amp; back polygons into a triangular mesh
-3. Voxelize the surface, giving the outline of the cone
-4. Fill holes to receive a filled cone</p>
+<p>Steps:</p>
+<ol>
+<li>Move polygon along its normal in both directions until end of tomogram shape --&gt; front &amp; back polygons</li>
+<li>Define a surface by combining front &amp; back polygons into a triangular mesh</li>
+<li>Voxelize the surface, giving the outline of the cone</li>
+<li>Fill holes to receive a filled cone</li>
+</ol>
 <h3>Mask via attaching slices</h3>
-<p>Steps:
-1. Rotate and project polygon to 2D and generate a pixel mask (2D)
-2. Get indices of pixel mask and rotate them back to 3D space
-3. Do that for many pixel mask, varying the z-component --&gt; will be moved into tomogram along the polygon normal
-4. Binary closing to get rid of holes from integer conversion</p>
+<p>Steps:</p>
+<ol>
+<li>Rotate and project polygon to 2D and generate a pixel mask (2D)</li>
+<li>Get indices of pixel mask and rotate them back to 3D space</li>
+<li>Do that for many pixel mask, varying the z-component --&gt; will be moved into tomogram along the polygon normal</li>
+<li>Binary closing to get rid of holes from integer conversion</li>
+</ol>
 <h2>Installation</h2>
 <p>pip install .</p>
 <!-- You can install `lasso-3d` via [pip]:
@@ -309,16 +293,15 @@ For instructions on how to use the plugin, please refer to the <a href="./docs/U
 To install latest development version :
 
     pip install git+https://github.com/LorenzLamm/lasso-3d.git -->
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"lasso-3d" is free and open source software</p>
+&quot;lasso-3d&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/LorenzLamm/lasso-3d/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

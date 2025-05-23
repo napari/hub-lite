@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/nathandecaux/napari-labelprop/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-labelprop.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-labelprop"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-labelprop.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-labelprop.svg?color=green" /></a>
-<a href="https://github.com/nathandecaux/napari-labelprop/actions"><img alt="tests" src="https://github.com/nathandecaux/napari-labelprop/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/nathandecaux/napari-labelprop"><img alt="codecov" src="https://codecov.io/gh/nathandecaux/napari-labelprop/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-labelprop"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-labelprop" /></a></p>
+                                        <p><a href="https://github.com/nathandecaux/napari-labelprop/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-labelprop.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-labelprop"><img src="https://img.shields.io/pypi/v/napari-labelprop.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-labelprop.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/nathandecaux/napari-labelprop/actions"><img src="https://github.com/nathandecaux/napari-labelprop/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/nathandecaux/napari-labelprop"><img src="https://codecov.io/gh/nathandecaux/napari-labelprop/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-labelprop"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-labelprop" alt="napari hub" /></a></p>
 <h2>3D semi-automatic segmentation using deep registration-based 2D label propagation</h2>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -245,20 +222,17 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>About</h2>
-<p>See "Semi-automatic muscle segmentation in MR images using deep registration-based label propagation" paper : </p>
-<p><a href="https://www.sciencedirect.com/science/article/pii/S0031320323002297?casa_token=r5FPBVXYXX4AAAAA:mStyUXb0i4lGqBmfF1j5fV1T9FuCMrpYfwh3lwQve2XAnzUBPZviAiFgMtH7lv6hdcWsA7yM">[Paper]<img alt="Paper" src="https://www.integrad.nl/assets/uploads/2016/02/cta-elsevier_logo-no_bg.png" /></a> <a href="https://hal.science/hal-03945559/document">[PDF]<img alt="PDF" src="https://www.ouvrirlascience.fr/wp-content/uploads/2018/12/HAL-3.png" /></a></p>
+<p>See &quot;Semi-automatic muscle segmentation in MR images using deep registration-based label propagation&quot; paper :</p>
+<p><a href="https://www.sciencedirect.com/science/article/pii/S0031320323002297?casa_token=r5FPBVXYXX4AAAAA:mStyUXb0i4lGqBmfF1j5fV1T9FuCMrpYfwh3lwQve2XAnzUBPZviAiFgMtH7lv6hdcWsA7yM">[Paper]<img src="https://www.integrad.nl/assets/uploads/2016/02/cta-elsevier_logo-no_bg.png" alt="Paper" /></a> <a href="https://hal.science/hal-03945559/document">[PDF]<img src="https://www.ouvrirlascience.fr/wp-content/uploads/2018/12/HAL-3.png" alt="PDF" /></a></p>
 <p>
   <img src="https://github.com/nathandecaux/labelprop.github.io/raw/main/demo_cut.gif" width="600">
 </p>
-
 <h2>Installation</h2>
 <p>To install this project :</p>
-<pre class="codehilite"><code>pip install napari['all']
+<pre><code>pip install napari['all']
 pip install git+https://github.com/nathandecaux/napari-labelprop.git
 </code></pre>
-
 <h2>Usage</h2>
 <p>Download <a href="https://raw.githubusercontent.com/nathandecaux/napari-labelprop/main/pretrained.ckpt">pretrained weights</a>.</p>
 <p>Open napari from terminal and start using functions from 'napari-labelprop' plugin (Under Plugins scrolling menu).</p>
@@ -267,20 +241,19 @@ pip install git+https://github.com/nathandecaux/napari-labelprop.git
 <li>Inference : Propagate labels from trained weights (Pytorch checkpoint required)</li>
 <li>Training : Start training from scratch or from the pretrained weights.</li>
 </ul>
-<p>PS : "Unsupervised pretraining" is not yet implemented. See CLI option at <a href="https://github.com/nathandecaux/labelprop">LabelProp</a> repository.</p>
+<p>PS : &quot;Unsupervised pretraining&quot; is not yet implemented. See CLI option at <a href="https://github.com/nathandecaux/labelprop">LabelProp</a> repository.</p>
 <p>Every operation is done in the main thread. So, napari is not responsive during training or inference, but you can still follow the progress in the terminal.</p>
 <h5>Training</h5>
 <p>To train a model, reach the plugin in the menu bar :</p>
-<pre class="codehilite"><code>Plugins &gt; napari-labelprop &gt; Training
+<pre><code>Plugins &gt; napari-labelprop &gt; Training
 </code></pre>
-
 <p>Fill the fields with the following information :</p>
 <ul>
 <li><code>Image</code> : Select a loaded napari.layers.Image layer to segment</li>
 <li><code>Labels</code> : Select a loaded napari.layers.Labels layer with the initial labels</li>
 <li><code>hints</code> : Select a loaded napari.layers.Labels layer with scribbled pseudo labels</li>
 <li><code>Pretrained checkpoint</code> : Select a pretrained checkpoint from the server-side checkpoint directory</li>
-<li><code>Slices shape</code> : Slices are resample to this shape for training and inference, then resampled to original shape. So far, slices must be squares.  </li>
+<li><code>Slices shape</code> : Slices are resample to this shape for training and inference, then resampled to original shape. So far, slices must be squares.</li>
 <li><code>Propagation axis</code> : Set the axis to use for the propagation dimension</li>
 <li><code>Max epochs</code> : Set the maximum number of epochs to train the model</li>
 <li><code>Checkpoint output directory</code></li>
@@ -291,19 +264,18 @@ pip install git+https://github.com/nathandecaux/napari-labelprop.git
 </ul>
 <h5>Inference</h5>
 <p>To run inference on a model, reach the plugin in the menu bar :</p>
-<pre class="codehilite"><code>Plugins &gt; napari-labelprop-remote &gt; Inference
+<pre><code>Plugins &gt; napari-labelprop-remote &gt; Inference
 </code></pre>
-
 <p>Fill the fields like in the training section. Then, click on the <code>Run</code> button.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-labelprop" is free and open source software</p>
+&quot;napari-labelprop&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

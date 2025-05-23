@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,53 +206,26 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>The napari plugin for UniSPAC [A Unified Segmentation framework for Proofreading and Annotation in Connectomics]. UniSPAC provides interactive 3D neuron segmentation. Neuron segmentation, proofreading and tracking can be done with just mouse clicks, which is much more efficient than existing tools.</p>
+                                        <p>The napari plugin for UniSPAC [A Unified Segmentation framework for Proofreading and Annotation in Connectomics]. UniSPAC provides interactive 3D neuron segmentation. Neuron segmentation, proofreading and tracking can be done with just mouse clicks, which is much more efficient than existing tools.</p>
 <h2>Requirements</h2>
 <p>A system with enough GPU memory and pytorch installed. The size of the GPU memory is related to the size of the vEM image that can be processed. For  <code>test_roi1_sub_z0-100.tiff</code> with a shape of 800x800x100, the recommended minimum GPU memory is 12GB.</p>
 <h2>Installation</h2>
 <p>Step 1: install napari via pip:</p>
-<pre class="codehilite"><code>pip install -U 'napari[all]'
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">U</span><span class="w"> </span><span class="s1">&#39;napari[all]&#39;</span>
+</pre></div>
 </code></pre>
-
 <p>Step 2: install <code>napari-UniSPAC</code></p>
-<pre class="codehilite"><code>git clone https://github.com/ddd9898/napari-UniSPAC.git
+<pre><code><div class="highlight"><pre><span></span>git clone https://github.com/ddd9898/napari-UniSPAC.git
 cd napari-UniSPAC
 pip install -e .
+</pre></div>
 </code></pre>
-
 <p>Step 3: run napari:</p>
-<pre class="codehilite"><code>napari
+<pre><code><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
 <p>You can familiarise yourself with how UniSPAC's napari plugin operates by labeling  <code>test_roi1_sub_z0-100.tiff</code>, which is an example of Drosophila vEM images.</p>
-        
+
 
                                     </div>
                                 </div>

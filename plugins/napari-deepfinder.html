@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,46 +206,19 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/deep-finder/napari-deepfinder/raw/main/LICENSE"><img alt="License GNU GPL v3.0" src="https://img.shields.io/pypi/l/napari-deepfinder.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-deepfinder"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-deepfinder.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-deepfinder.svg?color=green" /></a>
-<a href="https://github.com/deep-finder/napari-deepfinder/actions"><img alt="tests" src="https://github.com/deep-finder/napari-deepfinder/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/deep-finder/napari-deepfinder"><img alt="codecov" src="https://codecov.io/gh/deep-finder/napari-deepfinder/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-deepfinder"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-deepfinder" /></a></p>
+                                        <p><a href="https://github.com/deep-finder/napari-deepfinder/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-deepfinder.svg?color=green" alt="License GNU GPL v3.0" /></a>
+<a href="https://pypi.org/project/napari-deepfinder"><img src="https://img.shields.io/pypi/v/napari-deepfinder.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-deepfinder.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/deep-finder/napari-deepfinder/actions"><img src="https://github.com/deep-finder/napari-deepfinder/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/deep-finder/napari-deepfinder"><img src="https://codecov.io/gh/deep-finder/napari-deepfinder/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-deepfinder"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-deepfinder" alt="napari hub" /></a></p>
 <p>A napari plugin for the DeepFinder library which includes display, annotation, target generation, segmentation and clustering functionalities.
 An orthoslice view has been added for an easier visualisation and annotation process.</p>
 <p><strong>The documentation for users is available <a href="https://deep-finder.github.io/napari-deepfinder/">here</a>.</strong></p>
 <blockquote>
 <p>[!WARNING]</p>
 <p>An upstream bug in <code>napari</code> versions <strong>≥ 0.5.0</strong> causes the menu bar to break when closing the <em>Orthoslice view</em>.</p>
-<p>See this issue for more details: https://github.com/napari/napari/issues/7588.</p>
+<p>See this issue for more details: <a href="https://github.com/napari/napari/issues/7588">https://github.com/napari/napari/issues/7588</a>.</p>
 <p>As a temporary workaround, you can use <a href="https://github.com/napari/napari/releases/tag/v0.4.19">napari v0.4.19</a>, which is not affected by this bug.</p>
 </blockquote>
 <hr />
@@ -253,25 +230,22 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-deepfinder</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-deepfinder
+<pre><code>pip install napari-deepfinder
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/deep-finder/napari-deepfinder.git
+<pre><code>pip install git+https://github.com/deep-finder/napari-deepfinder.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,
-"napari-deepfinder" is free and open source software</p>
+&quot;napari-deepfinder&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/deep-finder/napari-deepfinder/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

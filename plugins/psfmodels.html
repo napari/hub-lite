@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,40 +210,13 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/psfmodels"><img alt="PyPI" src="https://img.shields.io/pypi/v/psfmodels.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python
-Version" src="https://img.shields.io/pypi/pyversions/psfmodels.svg?color=green" /></a>
-<a href="https://github.com/tlambert03/psfmodels/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/tlambert03/psfmodels/actions/workflows/ci.yml/badge.svg" /></a>
-<a href="https://codecov.io/gh/tlambert03/psfmodels"><img alt="codecov" src="https://codecov.io/gh/tlambert03/psfmodels/branch/main/graph/badge.svg" /></a></p>
+                                        <p><a href="https://pypi.org/project/psfmodels"><img src="https://img.shields.io/pypi/v/psfmodels.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/psfmodels.svg?color=green" alt="Python
+Version" /></a>
+<a href="https://github.com/tlambert03/psfmodels/actions/workflows/ci.yml"><img src="https://github.com/tlambert03/psfmodels/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+<a href="https://codecov.io/gh/tlambert03/psfmodels"><img src="https://codecov.io/gh/tlambert03/psfmodels/branch/main/graph/badge.svg" alt="codecov" /></a></p>
 <p>Python bindings for scalar and vectorial models of the point spread function.</p>
-<p>Original C++ code and MATLAB MEX bindings Copyright &copy; 2006-2013, <a href="http://www.francoisaguet.net/software.html">Francois
+<p>Original C++ code and MATLAB MEX bindings Copyright © 2006-2013, <a href="http://www.francoisaguet.net/software.html">Francois
 Aguet</a>, distributed under GPL-3.0
 license. Python bindings by Talley Lambert</p>
 <p>This package contains three models:</p>
@@ -249,7 +226,7 @@ information and implementation details, see Francois' Thesis<sup>2</sup>.</li>
 <li>A scalar model, based on Gibson &amp; Lanni<sup>3</sup>.</li>
 <li>A gaussian approximation (both paraxial and non-paraxial), using paramters from Zhang et al (2007)<sup>4</sup>.</li>
 </ol>
-<p><small></p>
+<small>
 <p><sup>1</sup> <a href="https://doi.org/10.1364/OE.17.006829">F. Aguet et al., (2009) Opt. Express 17(8), pp.
 6829-6848</a></p>
 <p><sup>2</sup> <a href="http://bigwww.epfl.ch/publications/aguet0903.html">F. Aguet. (2009) Super-Resolution Fluorescence Microscopy Based on
@@ -258,7 +235,7 @@ Physical Models. Swiss Federal Institute of Technology Lausanne, EPFL Thesis no.
 <p><sup>3</sup> <a href="https://opg.optica.org/josaa/abstract.cfm?uri=josaa-9-1-154">F. Gibson and F. Lanni (1992) J. Opt. Soc. Am. A, vol. 9, no. 1, pp. 154-166</a></p>
 <p><sup>4</sup> <a href="https://doi.org/10.1364/AO.46.001819">Zhang et al (2007). Appl Opt
 . 2007 Apr 1;46(10):1819-29.</a></p>
-<p></small></p>
+</small>
 <h3>see also:</h3>
 <p>For a different (faster) scalar-based Gibson–Lanni PSF model, see the
 <a href="https://github.com/MicroscPSF">MicroscPSF</a> project, based on <a href="https://doi.org/10.1364/JOSAA.34.001029">Li et al
@@ -267,15 +244,15 @@ Physical Models. Swiss Federal Institute of Technology Lausanne, EPFL Thesis no.
 <a href="https://github.com/MicroscPSF/MicroscPSF-Matlab">MATLAB</a>, and
 <a href="https://github.com/MicroscPSF/MicroscPSF-ImageJ">ImageJ/Java</a></p>
 <h2>Install</h2>
-<pre class="codehilite"><code class="language-sh">pip install psfmodels
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>psfmodels
+</pre></div>
 </code></pre>
-
 <h3>from source</h3>
-<pre class="codehilite"><code class="language-sh">git clone https://github.com/tlambert03/PSFmodels.git
-cd PSFmodels
-pip install -e &quot;.[dev]&quot;  # will compile c code via pybind11
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tlambert03/PSFmodels.git
+<span class="nb">cd</span><span class="w"> </span>PSFmodels
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span><span class="w">  </span><span class="c1"># will compile c code via pybind11</span>
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <p>There are two main functions in <code>psfmodels</code>: <code>vectorial_psf</code> and <code>scalar_psf</code>.
 Additionally, each version has a helper function called <code>vectorial_psf_centered</code>
@@ -290,32 +267,32 @@ from each other. All functions accept an argument <code>pz</code>, specifying th
 of the point source relative to the coverslip. See additional keyword arguments
 below</p>
 <p><em>Note, all output dimensions (<code>nx</code> and <code>nz</code>) should be odd.</em></p>
-<pre class="codehilite"><code class="language-python">import psfmodels as psfm
-import matplotlib.pyplot as plt
-from matplotlib.colors import PowerNorm
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">psfmodels</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">psfm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">PowerNorm</span>
 
-# generate centered psf with a point source at `pz` microns from coverslip
-# shape will be (127, 127, 127)
-psf = psfm.make_psf(127, 127, dxy=0.05, dz=0.05, pz=0)
-fig, (ax1, ax2) = plt.subplots(1, 2)
-ax1.imshow(psf[nz//2], norm=PowerNorm(gamma=0.4))
-ax2.imshow(psf[:, nx//2], norm=PowerNorm(gamma=0.4))
-plt.show()
+<span class="c1"># generate centered psf with a point source at `pz` microns from coverslip</span>
+<span class="c1"># shape will be (127, 127, 127)</span>
+<span class="n">psf</span> <span class="o">=</span> <span class="n">psfm</span><span class="o">.</span><span class="n">make_psf</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="n">dxy</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">pz</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">psf</span><span class="p">[</span><span class="n">nz</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">norm</span><span class="o">=</span><span class="n">PowerNorm</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">psf</span><span class="p">[:,</span> <span class="n">nx</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">norm</span><span class="o">=</span><span class="n">PowerNorm</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
 </code></pre>
+<p><img src="fig.png" alt="Image of PSF" /></p>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="c1"># instead of nz and dz, you can directly specify a vector of z positions</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<p><img alt="Image of PSF" src="fig.png" /></p>
-<pre class="codehilite"><code class="language-python"># instead of nz and dz, you can directly specify a vector of z positions
-import numpy as np
-
-# generate 31 evenly spaced Z positions from -3 to 3 microns
-psf = psfm.make_psf(np.linspace(-3, 3, 31), nx=127)
-psf.shape  # (31, 127, 127)
+<span class="c1"># generate 31 evenly spaced Z positions from -3 to 3 microns</span>
+<span class="n">psf</span> <span class="o">=</span> <span class="n">psfm</span><span class="o">.</span><span class="n">make_psf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">nx</span><span class="o">=</span><span class="mi">127</span><span class="p">)</span>
+<span class="n">psf</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># (31, 127, 127)</span>
+</pre></div>
 </code></pre>
-
 <p><strong>all</strong> PSF functions accept the following parameters. Units should be provided
 in microns unless otherwise stated. Python API may change slightly in the
 future.  See function docstrings as well.</p>
-<pre class="codehilite"><code>nx (int):       XY size of output PSF in pixels, must be odd.
+<pre><code><div class="highlight"><pre><span></span>nx (int):       XY size of output PSF in pixels, must be odd.
 dxy (float):    pixel size in sample space (microns) [default: 0.05]
 pz (float):     depth of point source relative to coverslip (in microns) [default: 0]
 ti0 (float):    working distance of the objective (microns) [default: 150.0]
@@ -328,8 +305,8 @@ ng (float):     coverslip refractive index, experimental value [default: 1.515]
 ns (float):     sample refractive index [default: 1.47]
 wvl (float):    emission wavelength (microns) [default: 0.6]
 NA (float):     numerical aperture [default: 1.4]
+</pre></div>
 </code></pre>
-
 <h2>Comparison with other models</h2>
 <p>While these models are definitely slower than the one implemented in <a href="https://doi.org/10.1364/JOSAA.34.001029">Li et al
 (2017)</a> and
@@ -345,7 +322,7 @@ system PSF (excitation x detection) as might be observed on a light sheet
 microscope (currently, only strictly orthogonal illumination and detection are
 supported).  See the <a href="notebooks/lightsheet.ipynb">lightsheet.ipynb</a> Jupyter notebook for
 examples.</p>
-        
+
 
                                     </div>
                                 </div>

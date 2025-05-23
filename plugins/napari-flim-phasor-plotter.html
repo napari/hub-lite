@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,60 +206,37 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-flim-phasor-plotter.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-flim-phasor-plotter"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-flim-phasor-plotter.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-flim-phasor-plotter.svg?color=green" /></a>
-<a href="https://github.com/zoccoler/napari-flim-phasor-plotter/actions"><img alt="tests" src="https://github.com/zoccoler/napari-flim-phasor-plotter/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/zoccoler/napari-flim-phasor-plotter"><img alt="codecov" src="https://codecov.io/gh/zoccoler/napari-flim-phasor-plotter/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-flim-phasor-plotter"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-flim-phasor-plotter" /></a>
-<a href="https://zenodo.org/doi/10.5281/zenodo.12620955"><img alt="DOI" src="https://zenodo.org/badge/578127094.svg" /></a></p>
-<p>Napari-flim-phasor-plotter is a <a href="https://napari.org/stable/">napari</a> plugin to interactively load and show raw fluorescence lifetime imaging microscopy (FLIM) single images and series and generate phasor plots. These are Fourier transforms of the decay data being visualized using the <a href="https://github.com/BiAPoL/napari-clusters-plotter">napari-clusters-plotter</a> plotter, adapted to suit the FLIM context. This allows qualitative and quantitative downstream analysis of FLIM images.  </p>
+                                        <p><a href="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-flim-phasor-plotter.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-flim-phasor-plotter"><img src="https://img.shields.io/pypi/v/napari-flim-phasor-plotter.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-flim-phasor-plotter.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/zoccoler/napari-flim-phasor-plotter/actions"><img src="https://github.com/zoccoler/napari-flim-phasor-plotter/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/zoccoler/napari-flim-phasor-plotter"><img src="https://codecov.io/gh/zoccoler/napari-flim-phasor-plotter/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-flim-phasor-plotter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-flim-phasor-plotter" alt="napari hub" /></a>
+<a href="https://zenodo.org/doi/10.5281/zenodo.12620955"><img src="https://zenodo.org/badge/578127094.svg" alt="DOI" /></a></p>
+<p>Napari-flim-phasor-plotter is a <a href="https://napari.org/stable/">napari</a> plugin to interactively load and show raw fluorescence lifetime imaging microscopy (FLIM) single images and series and generate phasor plots. These are Fourier transforms of the decay data being visualized using the <a href="https://github.com/BiAPoL/napari-clusters-plotter">napari-clusters-plotter</a> plotter, adapted to suit the FLIM context. This allows qualitative and quantitative downstream analysis of FLIM images.</p>
 <hr />
 <h2>Quick demo</h2>
-<p><img alt="" src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/napari_FLIM_phasor_calculator_Demo.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/napari_FLIM_phasor_calculator_Demo.gif" alt="" /></p>
 <h2>Contents</h2>
 <ul>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#loading-raw-flim-data">Loading Raw FLIM Data</a><ol>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#loading-raw-flim-data">Loading Raw FLIM Data</a>
+<ol>
 <li><a href="#1-input-data-types">Input Data Types</a></li>
 <li><a href="#2-opening-a-raw-flim-image">Opening a Raw FLIM Image</a></li>
 <li><a href="#3-loading-stacks">Loading Stacks</a></li>
 <li><a href="#4-sample-data">Sample Data</a></li>
 </ol>
 </li>
-<li><a href="#phasor-analysis">Phasor Analysis</a><ol>
+<li><a href="#phasor-analysis">Phasor Analysis</a>
+<ol>
 <li><a href="#1-generating-phasor-plots">Generating Phasor Plots</a></li>
 <li><a href="#2-phasor-plot-navigation">Phasor Plot Navigation</a></li>
 <li><a href="#3-phasor-plot-selection">Phasor Plot Selection</a></li>
-<li><a href="#4-integrating-phasor-analysis-into-a-workflow">Integrating Phasor Analysis into a Workflow</a><ul>
+<li><a href="#4-integrating-phasor-analysis-into-a-workflow">Integrating Phasor Analysis into a Workflow</a>
+<ul>
 <li><a href="#clustering">Clustering</a></li>
 <li><a href="#post-processing">Post-processing</a></li>
 </ul>
@@ -264,6 +245,8 @@ pre > code:last-child {
 </li>
 <li><a href="#saving-results">Saving Results</a></li>
 <li><a href="#data-conversion">Data Conversion</a></li>
+</ul>
+</li>
 <li><a href="#limitations">Limitations</a></li>
 <li><a href="#contributing">Contributing</a></li>
 <li><a href="#license">License</a></li>
@@ -273,34 +256,34 @@ pre > code:last-child {
 <p>We recommend installing <code>napari-flim-phasor-plotter</code> with <a href="https://mamba.readthedocs.io/en/latest/">mamba</a> after having <a href="https://github.com/conda-forge/miniforge">Miniforge</a> installed in your computer. Follow these steps from a terminal.</p>
 <p>Click <a href="https://github.com/conda-forge/miniforge/releases">here</a> to choose the right download option for your OS after clicking on the latest release.</p>
 <p>Create a conda environment:</p>
-<pre class="codehilite"><code>mamba create -n napari-flim-phasor-env python=3.10 napari pyqt git
+<pre><code>mamba create -n napari-flim-phasor-env python=3.10 napari pyqt git
 </code></pre>
-
 <p>Activate the environment:</p>
-<pre class="codehilite"><code>mamba activate napari-flim-phasor-env
+<pre><code>mamba activate napari-flim-phasor-env
 </code></pre>
-
 <p>Install <code>napari-flim-phasor-plotter</code> plugin with:</p>
-<pre class="codehilite"><code>pip install napari-flim-phasor-plotter
+<pre><code>pip install napari-flim-phasor-plotter
 </code></pre>
-
 <p>Alternatively, clone this repository and install the latest plugin development version with:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/zoccoler/napari-flim-phasor-plotter.git
+<pre><code>pip install git+https://github.com/zoccoler/napari-flim-phasor-plotter.git
 </code></pre>
-
 <h2>Usage</h2>
 <h3>Loading Raw FLIM Data</h3>
 <h4>1. Input Data Types</h4>
-<p>This plugin can read the following FLIM <strong>file types</strong>:
-  - <code>.ptu</code>
-  - <code>.sdt</code>
-  - <code>.tif</code> (including <code>ome.tif</code>)
-  - <code>.zarr</code></p>
-<p>This plugin works with the following <strong>data shapes</strong>:
-  - 2D FLIM images (actually 3D data where FLIM counts are in the first axis, i.e., <code>(photon_counts, y, x)</code>).
-  - 3D FLIM images (actually 4D data where FLIM counts are in the first axis, i.e., <code>(photon_counts, z, y, x)</code>).
-  - 3D timelapse FLIM images (actually 5D data where FLIM counts are in the first axis, i.e., <code>(photon_counts, t, z, y, x)</code>).
-  - Multichannel <code>.tif</code> or <code>.zarr</code> data may need to be loaded separately.</p>
+<p>This plugin can read the following FLIM <strong>file types</strong>:</p>
+<ul>
+<li><code>.ptu</code></li>
+<li><code>.sdt</code></li>
+<li><code>.tif</code> (including <code>ome.tif</code>)</li>
+<li><code>.zarr</code></li>
+</ul>
+<p>This plugin works with the following <strong>data shapes</strong>:</p>
+<ul>
+<li>2D FLIM images (actually 3D data where FLIM counts are in the first axis, i.e., <code>(photon_counts, y, x)</code>).</li>
+<li>3D FLIM images (actually 4D data where FLIM counts are in the first axis, i.e., <code>(photon_counts, z, y, x)</code>).</li>
+<li>3D timelapse FLIM images (actually 5D data where FLIM counts are in the first axis, i.e., <code>(photon_counts, t, z, y, x)</code>).</li>
+<li>Multichannel <code>.tif</code> or <code>.zarr</code> data may need to be loaded separately.</li>
+</ul>
 <p>If you read your files using this plugin as a reader, it returns and works with the data axes in the following order (data from multiple detectors are displayed as distinct napari layers):</p>
 <p>(<code>photon_counts</code>, <code>time</code>, <code>z</code>, <code>y</code>, <code>x</code>)</p>
 <p>Even if the data is 2D, the plugin will add a unitary <code>time</code> and a <code>z</code> axis.
@@ -309,28 +292,48 @@ It also provides the standard intensity image in another layer by summing the <c
 <p>Drag and drop a compatible file format (check supported file formats <a href="#input-data">here below</a>) to open a FLIM image. It gets displayed in two layer: a 'raw FLIM image series' (a sequence of intensity images each corresponding to an individual time point of the FLIM 'micro-time'), and a timely summed up image (usually just known as the 'intensity' image). Scrolling through the FLIM time series provides a first glimpse of lifetimes across image regions.</p>
 <h4>3. Loading Stacks</h4>
 <p>If you have multiple slices or time-points as separated files, you can choose a folder containing the files. In order for the plugin to properly build a stack, the file names must contain some indication about which slice or time-point they represent, i.e., <strong>each file name should contain a <code>_t</code> and/or <code>_z</code> followed by a number</strong>.</p>
-<p>Here are a few example templates:
-- timelapse:
-  - <code>image_t001.ptu</code>
-  - <code>image_t002.ptu</code>
-- z-stack:
-  - <code>image_z01.sdt</code>
-  - <code>image_z02.sdt</code>
-- 3D timelapse:
-  - <code>image_t001_z001.tif</code>
-  - <code>image_t001_z002.tif</code>
-  - ...
-  - <code>image_t002_z001.tif</code></p>
+<p>Here are a few example templates:</p>
+<ul>
+<li>timelapse:
+<ul>
+<li><code>image_t001.ptu</code></li>
+<li><code>image_t002.ptu</code></li>
+</ul>
+</li>
+<li>z-stack:
+<ul>
+<li><code>image_z01.sdt</code></li>
+<li><code>image_z02.sdt</code></li>
+</ul>
+</li>
+<li>3D timelapse:
+<ul>
+<li><code>image_t001_z001.tif</code></li>
+<li><code>image_t001_z002.tif</code></li>
+<li>...</li>
+<li><code>image_t002_z001.tif</code></li>
+</ul>
+</li>
+</ul>
 <h4>4. Sample Data</h4>
 <p>The plugin comes with a few sample FLIM raw images:</p>
 <ul>
-<li>'2D' raw FLIM images:</li>
+<li>'2D' raw FLIM images:
+<ul>
 <li>Hazelnut (originally a <code>.ptu</code> file)</li>
 <li>Seminal Receptacle (originally a <code>.sdt</code> file)</li>
-<li>'3D' raw FLIM image stack (Hazelnut 3D)</li>
+</ul>
+</li>
+<li>'3D' raw FLIM image stack (Hazelnut 3D)
+<ul>
 <li>Hazelnut 3D (originally a series of <code>.ptu</code> files)</li>
-<li>'2D' synthetic FLIM image</li>
+</ul>
+</li>
+<li>'2D' synthetic FLIM image
+<ul>
 <li>Lifetime Cat</li>
+</ul>
+</li>
 </ul>
 <p>To load it, go to <code>File &gt; Open Sample -&gt; FLIM phasor plotter</code>.</p>
 <h3>Phasor Analysis</h3>
@@ -344,60 +347,66 @@ It also provides the standard intensity image in another layer by summing the <c
 <h4>4. Integrating Phasor Analysis into a Workflow</h4>
 <h5>Clustering</h5>
 <p>This plugin integrates with <a href="https://github.com/BiAPoL/napari-clusters-plotter">napari-clusters-plotter plugin</a>. Thus, you can use the <a href="https://github.com/BiAPoL/napari-clusters-plotter?tab=readme-ov-file#clustering">clustering widget</a> provided by the <code>napari-clusters-plotter</code> plugin to segment the phasor plot automatically and then visualize the segmentation results in the original FLIM image. Access it via <code>Tools -&gt; Measurement post-processing -&gt; Clustering (ncp)</code>. Below is a demonstration:</p>
-<p><img alt="clustering" src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/clustering.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/clustering.gif" alt="clustering" /></p>
 <h5>Post-processing</h5>
-<p>After cluster selection, it is common to have different labels (colors) for selected clusters. Within each label, it is also common to have disconnected regions and even isolated pixel in the segmentation. To address this, we offer a few basic post-processing functions. </p>
+<p>After cluster selection, it is common to have different labels (colors) for selected clusters. Within each label, it is also common to have disconnected regions and even isolated pixel in the segmentation. To address this, we offer a few basic post-processing functions.</p>
 <p>A common step is to select a single cluster of interest for further processing. By selecting the <code>Labels</code> layer (usually named <code>cluster_ids_in_space</code>) and checking the <code>show selected</code> checkbox, we can identify our cluster/label os interest by continuously increasing the label number until we find the desired cluster. After that, we can extract the chosen label as a mask via <code>Plugins -&gt; FLIM phasor plotter -&gt; Manual Label Extraction</code> (or <code>Layers -&gt; Data -&gt; Post-Processing -&gt; Manual Label Extraction</code> if napari version &gt;= <code>0.5.0</code>). This will create a new layer with the mask of the selected cluster.</p>
 <p>To connect small isolated regions and remove small holes within the mask, we can use the <code>smooth_cluster_mask</code> function. This can be accessed via <code>Plugins -&gt; FLIM phasor plotter -&gt; Smooth Cluster Mask</code> (or <code>Layers -&gt; Data -&gt; Post-Processing -&gt; Smooth Cluster Mask</code> if napari version &gt;= <code>0.5.0</code>). This will remove holes with an area smaller than the specified <code>fill area px</code> in total number of pixels and connect regions within a given <code>smooth radius</code>. Don't forget to select the layer containing the mask before running the function, because this function expects a layer with a single label (like a binary mask).</p>
 <p>Beyond this point, we can use other plugins, like the <code>napari-segment-blobs-and-things-with-membranes</code> and <code>napari-skimage-regionprops</code> plugins, to further process the mask. For example, we can perform instance segmentation on the mask via <code>Tools -&gt; Segmentation / labeling -&gt; Connectec component labeling (scikit-image, nsbatwm)</code>. We can also extract features from the objects via <code>Tools -&gt; Measurement tables -&gt; Objetct Features/Properties (scikit-image, nsr)</code>.</p>
 <p>Below is a demonstration of the post-processing steps:</p>
-<p><img alt="post-processing" src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/post_processing.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/post_processing.gif" alt="post-processing" /></p>
 <p>Also, this example workflow can be reproduced by running this jupyter notebook: <a href="./src/napari_flim_phasor_plotter/notebooks/Example_workflow.ipynb">Example_workflow.ipynb</a>.</p>
 <h3>Saving Results</h3>
 <p>Save your segmentation results by selecting (clicking on) the corresponding <code>Labels</code> layer (usually named <code>cluster_ids_in_space</code>) and then going to <code>File -&gt; Save Selected Layer</code>. This can save the layer as a <code>.tif</code> file. To save a screenshot of the phasor plot, click on the <code>Save</code> button on the toolbar. To save the phasor plot as a <code>.csv</code> file, go to <code>Tools -&gt; Measurement -&gt; Show table (nsr)</code> and a new widget will show up. From the <code>labels layer</code> dropdown, choose the layer that contains the table, whose name starts with <code>Labelled_pixels_from_</code>... and then click on the <code>Run</code> button. This should bring the table with <code>G</code> and <code>S</code> values for each pixel. Click on the <code>Save as csv...</code> button to save the table as a <code>.csv</code> file.</p>
-<p><img alt="saving" src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/saving_results.gif" /></p>
+<p><img src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/saving_results.gif" alt="saving" /></p>
 <h3>Data Conversion</h3>
 <h4>Single File Conversion</h4>
 <h5>To <code>.ome.tif</code> (5D Output)</h5>
 <p>If you have a <code>.ptu</code> or <code>.sdt</code> file and want to convert it to an <code>.ome.tif</code> file with minimal metadata, you can do so via <code>Plugins &gt; FLIM-phasor-plotter &gt; Convert Single File to ome.tif</code> (or <code>Layers -&gt; Data -&gt; Convert -&gt; Single File -&gt; Convert Single File to ome.tif</code> if napari version &gt;= <code>0.5.0</code>).</p>
 <p>After providing the path to the file, the plugin will try to fill the minimal metadata fields from the original raw file. In case it cannot find the information of a mandatory field (like the FLIM time resolution), it will display the missing field(s) in red to be filled manually.</p>
-<p><img alt="" src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/convert_file_to_ome_tif.png" /></p>
-<p>After filling the necessary fields, click on <code>Convert</code> to start the conversion. It will create a new folder (<code>OME-TIFs</code>) in the same path as the original file with at least two files:
-- one 5D (<code>ch, t, z, y, x</code>) <code>.ome.tif</code> file containing the intensity data (without the <code>photon_counts</code> axis)
-- one or more (in case of a timelapsed acquisition) 5D (<code>ch, photon_counts, z, y, x</code>) <code>.ome.tif</code> files containing the FLIM data (with the <code>photon_counts</code> axis), one file per timepoint.</p>
+<p><img src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/convert_file_to_ome_tif.png" alt="" /></p>
+<p>After filling the necessary fields, click on <code>Convert</code> to start the conversion. It will create a new folder (<code>OME-TIFs</code>) in the same path as the original file with at least two files:</p>
+<ul>
+<li>one 5D (<code>ch, t, z, y, x</code>) <code>.ome.tif</code> file containing the intensity data (without the <code>photon_counts</code> axis)</li>
+<li>one or more (in case of a timelapsed acquisition) 5D (<code>ch, photon_counts, z, y, x</code>) <code>.ome.tif</code> files containing the FLIM data (with the <code>photon_counts</code> axis), one file per timepoint.</li>
+</ul>
 <p>The output files will always be 5D to be readily suitable for uploading to an OMERO server. If a dimension is missing, it will be added with a size of 1.</p>
 <h4>Multiple Files Conversion (Stack)</h4>
 <h5>To <code>.ome.tif</code> (5D Output)</h5>
 <p>If you have a collection of <code>.ptu</code> or <code>.sdt</code> files and want to convert them to <code>.ome.tif</code> files with minimal metadata, you can do so via <code>Plugins &gt; FLIM-phasor-plotter &gt; Convert Folder (Stack) to ome.tif</code> (or <code>Layers -&gt; Data -&gt; Convert -&gt; Folder (Stack) -&gt; Convert Folder (Stack) to ome.tif</code> if napari version &gt;= <code>0.5.0</code>).</p>
 <p>After providing the path to the folder, the plugin will try to fill the minimal metadata fields with the information present in the original files. In case it cannot find the information of a necessary field (like the Z Pixel Size), it will display the missing field(s) in red to be filled manually.</p>
-<p><img alt="" src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/convert_folder_to_ome_tif.png" /></p>
-<p>After filling the necessary fields, click on <code>Convert</code> to start the conversion. It will create a new folder (<code>OME-TIFs</code>) in the same path as the original files with at least two files:
-- one 5D (<code>ch, t, z, y, x</code>) <code>.ome.tif</code> file containing the intensity data (without the <code>photon_counts</code> axis)
-- one or more (in case of a timelapsed acquisition) 5D (<code>ch, photon_counts, z, y, x</code>) <code>.ome.tif</code> files containing the FLIM data (with the <code>photon_counts</code> axis), one file per timepoint.</p>
+<p><img src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/convert_folder_to_ome_tif.png" alt="" /></p>
+<p>After filling the necessary fields, click on <code>Convert</code> to start the conversion. It will create a new folder (<code>OME-TIFs</code>) in the same path as the original files with at least two files:</p>
+<ul>
+<li>one 5D (<code>ch, t, z, y, x</code>) <code>.ome.tif</code> file containing the intensity data (without the <code>photon_counts</code> axis)</li>
+<li>one or more (in case of a timelapsed acquisition) 5D (<code>ch, photon_counts, z, y, x</code>) <code>.ome.tif</code> files containing the FLIM data (with the <code>photon_counts</code> axis), one file per timepoint.</li>
+</ul>
 <p>The output files will always be 5D to be readily suitable for uploading to an OMERO server. If a dimension is missing, it will be added with a size of 1.</p>
 <h4>To <code>.zarr</code> (6D Output)</h4>
 <p>If a collection of raw (uncompressed) images are larger than 4GB, we recommend converting them to <code>.zarr</code>. This can be done via <code>Plugins &gt; FLIM-phasor-plotter &gt; Convert Folder (Stack) to zarr</code>(or <code>Layers -&gt; Data -&gt; Convert -&gt; Folder (Stack) -&gt; Convert Folder (Stack) to zarr</code> if napari version &gt;= <code>0.5.0</code>).</p>
 <p><em>Warning: In the current version, lazy loading with <code>.zarr</code> is available, but processing may still load all data into memory, so keep track of your memory usage.</em></p>
-<p><img alt="" src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/convert_to_zarr.png" /></p>
-<p>Click on <code>Convert</code> to start the conversion. It will create a new "folder" (<code>.zarr</code>) in the same path as the original files. The <code>.zarr</code> file does <strong>not</strong> store any metadata, so keep the original files for reference.</p>
+<p><img src="https://github.com/zoccoler/napari-flim-phasor-plotter/raw/main/images/convert_to_zarr.png" alt="" /></p>
+<p>Click on <code>Convert</code> to start the conversion. It will create a new &quot;folder&quot; (<code>.zarr</code>) in the same path as the original files. The <code>.zarr</code> file does <strong>not</strong> store any metadata, so keep the original files for reference.</p>
 <h2>Limitations</h2>
-<p>The plugin does not support:
-- Phasor calibration
-- Round cluster selection or cursor selection (only free-hand selection is available)
-- Pseudo-channel generation from selected clusters in the phasor plot
-- FRET analysis
-- Tile processing
-- Fitting of decay curves</p>
+<p>The plugin does not support:</p>
+<ul>
+<li>Phasor calibration</li>
+<li>Round cluster selection or cursor selection (only free-hand selection is available)</li>
+<li>Pseudo-channel generation from selected clusters in the phasor plot</li>
+<li>FRET analysis</li>
+<li>Tile processing</li>
+<li>Fitting of decay curves</li>
+</ul>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-flim-phasor-plotter" is free and open source software. </p>
-<p>If you use this plugin in a publication, please cite us: https://doi.org/10.5281/zenodo.12620956</p>
+&quot;napari-flim-phasor-plotter&quot; is free and open source software.</p>
+<p>If you use this plugin in a publication, please cite us: <a href="https://doi.org/10.5281/zenodo.12620956">https://doi.org/10.5281/zenodo.12620956</a></p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/zoccoler/napari-flim-phasor-plotter/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,71 +210,46 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jookuma/napari-segment-anything/raw/main/LICENSE"><img alt="License Apache Software License 2.0" src="https://img.shields.io/pypi/l/napari-segment-anything.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-segment-anything"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-segment-anything.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-segment-anything.svg?color=green" /></a>
-<a href="https://github.com/jookuma/napari-segment-anything/actions"><img alt="tests" src="https://github.com/jookuma/napari-segment-anything/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jookuma/napari-segment-anything"><img alt="codecov" src="https://codecov.io/gh/jookuma/napari-segment-anything/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-segment-anything"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-segment-anything" /></a></p>
+                                        <p><a href="https://github.com/jookuma/napari-segment-anything/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-segment-anything.svg?color=green" alt="License Apache Software License 2.0" /></a>
+<a href="https://pypi.org/project/napari-segment-anything"><img src="https://img.shields.io/pypi/v/napari-segment-anything.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-segment-anything.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jookuma/napari-segment-anything/actions"><img src="https://github.com/jookuma/napari-segment-anything/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jookuma/napari-segment-anything"><img src="https://codecov.io/gh/jookuma/napari-segment-anything/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-segment-anything"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-segment-anything" alt="napari hub" /></a></p>
 <p>Napari plugin of <a href="https://github.com/facebookresearch/segment-anything">Segment Anything Model (SAM)</a></p>
 <p>Download the network weights <a href="https://github.com/facebookresearch/segment-anything#model-checkpoints">here</a></p>
-<p>https://user-images.githubusercontent.com/21022743/230456433-2fa7bc40-a735-4d73-8d87-ecf776bbe2be.mp4</p>
+<p><a href="https://user-images.githubusercontent.com/21022743/230456433-2fa7bc40-a735-4d73-8d87-ecf776bbe2be.mp4">https://user-images.githubusercontent.com/21022743/230456433-2fa7bc40-a735-4d73-8d87-ecf776bbe2be.mp4</a></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-segment-anything</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-segment-anything
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-segment-anything
+</pre></div>
 </code></pre>
-
 <p>We recommend installing the latest development version because this package is being developed:</p>
-<pre class="codehilite"><code class="language-bash">pip install git+https://github.com/jookuma/napari-segment-anything.git
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/jookuma/napari-segment-anything.git
+</pre></div>
 </code></pre>
-
 <p><strong>IMPORTANT</strong>: <code>napari</code> won't work if you don't have <code>pyqt5</code> or <code>pyside2</code> installed.</p>
 <h2>Instructions</h2>
 <h3>Opening napari-segment-anything</h3>
 <p>This software is napari plugin, so once you have napari installed you can open it using the command line:</p>
-<pre class="codehilite"><code class="language-bash">napari &lt;your image path&gt; -w napari-segment-anything 'Segment Anything'
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari<span class="w"> </span>&lt;your<span class="w"> </span>image<span class="w"> </span>path&gt;<span class="w"> </span>-w<span class="w"> </span>napari-segment-anything<span class="w"> </span><span class="s1">&#39;Segment Anything&#39;</span>
+</pre></div>
 </code></pre>
-
 <p>I noticed that sometimes napari fails to load the plugin widget from the command line, go to step 2 from below to load it.</p>
 <p>If you prefer the user interface you need to:</p>
-<p>1) Drag and drop your image into napari to load it;
-2) Go to the "Plugins" file menu in the upper right corner and select the "Segment Anything" plugin.
-3) Follow the instructions below for usage.</p>
+<ol>
+<li>Drag and drop your image into napari to load it;</li>
+<li>Go to the &quot;Plugins&quot; file menu in the upper right corner and select the &quot;Segment Anything&quot; plugin.</li>
+<li>Follow the instructions below for usage.</li>
+</ol>
 <p><strong>IMPORTANT</strong>: If you get an error make sure you have <code>pyqt5</code> or <code>pyside2</code> installed.</p>
 <h3>Usage</h3>
 <ul>
-<li>Interactions are done on the "SAM points" and "SAM box" layers using the existing functionalities of napari. Only rectangle shapes trigger the network prediction.</li>
+<li>Interactions are done on the &quot;SAM points&quot; and &quot;SAM box&quot; layers using the existing functionalities of napari. Only rectangle shapes trigger the network prediction.</li>
 <li>For points supervision, left clicks are positive cues (object) and right clicks are negative (background).</li>
-<li>Press the "Confirm Annot." button (or the "C" key) to propagate the current segmentation mask to the label image.</li>
+<li>Press the &quot;Confirm Annot.&quot; button (or the &quot;C&quot; key) to propagate the current segmentation mask to the label image.</li>
 <li>Use the napari labels layer features to delete or edit already confirmed labels.</li>
 </ul>
 <h2>Contributing</h2>
@@ -278,10 +257,10 @@ pre > code:last-child {
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License 2.0</a> license,
-"napari-segment-anything" is a free and open source software</p>
+&quot;napari-segment-anything&quot; is a free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/jookuma/napari-segment-anything/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,70 +206,41 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>This plugin contains two widgets: file watcher and script editor.</p>
+                                        <p>This plugin contains two widgets: file watcher and script editor.</p>
 <h2>Usage: file watcher</h2>
 <p>The file watcher monitors a folder and displays its images (tiff, ome-zarr or hdf5) as napari layers, watch the following video for a demo:</p>
-<p><a href="https://www.youtube.com/watch?v=lFRVwlHgJ-Y" title="Demo napari-file-watcher"><img alt="IMAGE ALT TEXT" src="http://img.youtube.com/vi/lFRVwlHgJ-Y/0.jpg" /></a></p>
+<p><a href="https://www.youtube.com/watch?v=lFRVwlHgJ-Y" title="Demo napari-file-watcher"><img src="http://img.youtube.com/vi/lFRVwlHgJ-Y/0.jpg" alt="IMAGE ALT TEXT" /></a></p>
 <p>Instructions:</p>
 <ol>
-<li>Select the folder you want to monitor by pressing "Browse".</li>
-<li>Select the extension of the files: "zarr", "hdf5" or "tiff".</li>
-<li>Click "Watch and run" to display the current items &amp; the newly arrived as napari layers.</li>
+<li>Select the folder you want to monitor by pressing &quot;Browse&quot;.</li>
+<li>Select the extension of the files: &quot;zarr&quot;, &quot;hdf5&quot; or &quot;tiff&quot;.</li>
+<li>Click &quot;Watch and run&quot; to display the current items &amp; the newly arrived as napari layers.</li>
 <li>If you click in one of the files of the list, the metadata will show (for hdf5 and zarr)</li>
 </ol>
 <h2>Usage: scripting editor</h2>
-<p>The script editor is for developing scripts and saving them in the filesystem. 
+<p>The script editor is for developing scripts and saving them in the filesystem.
 We have used this widget in the context of developing scripts for microscopy control software that implements another file watcher.</p>
 <p>Instructions:</p>
 <ol>
-<li>Select the folder where you want to save your scripts in "Browse".</li>
+<li>Select the folder where you want to save your scripts in &quot;Browse&quot;.</li>
 <li>Type the name of the script in the edit box below.</li>
-<li>Click "Add" for saving it into the folder after typing, or "Open" to display an existing file.</li>
+<li>Click &quot;Add&quot; for saving it into the folder after typing, or &quot;Open&quot; to display an existing file.</li>
 </ol>
 <h2>Installation</h2>
 <p>You can install <code>napari-file-watcher</code> via [pip]:</p>
-<pre class="codehilite"><code>pip install napari-file-watcher
+<pre><code>pip install napari-file-watcher
 </code></pre>
-
 <p>Or if you plan to develop it:</p>
-<pre class="codehilite"><code>git clone https://github.com/kasasxav/napari-file-watcher
+<pre><code>git clone https://github.com/kasasxav/napari-file-watcher
 cd napari-file-watcher
 pip install -e .
 </code></pre>
-
 <p>If there is an error message suggesting that git is not installed, run <code>conda install git</code>.</p>
 <h2>Contributing</h2>
 <p>Contributions are welcome, tests are run with pytest.</p>
 <h2>Issues</h2>
-<p>Issues can be reported at: https://github.com/kasasxav/napari-file-watcher/issues</p>
-        
+<p>Issues can be reported at: <a href="https://github.com/kasasxav/napari-file-watcher/issues">https://github.com/kasasxav/napari-file-watcher/issues</a></p>
+
 
                                     </div>
                                 </div>

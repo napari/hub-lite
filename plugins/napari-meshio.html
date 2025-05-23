@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,41 +210,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/GenevieveBuckley/napari-meshio/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-meshio.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-meshio"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-meshio.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-meshio.svg?color=green" /></a>
-<a href="https://github.com/GenevieveBuckley/napari-meshio/actions"><img alt="tests" src="https://github.com/GenevieveBuckley/napari-meshio/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/GenevieveBuckley/napari-meshio"><img alt="codecov" src="https://codecov.io/gh/GenevieveBuckley/napari-meshio/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-meshio"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-meshio" /></a></p>
+                                        <p><a href="https://github.com/GenevieveBuckley/napari-meshio/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-meshio.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-meshio"><img src="https://img.shields.io/pypi/v/napari-meshio.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-meshio.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/GenevieveBuckley/napari-meshio/actions"><img src="https://github.com/GenevieveBuckley/napari-meshio/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/GenevieveBuckley/napari-meshio"><img src="https://codecov.io/gh/GenevieveBuckley/napari-meshio/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-meshio"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-meshio" alt="napari hub" /></a></p>
 <p>This napari plugin uses <a href="https://github.com/nschloe/meshio">meshio</a> to read and write mesh files to surfaces in napari.</p>
-<p><img alt="Screenshot: Stanford bunny example data in napari" src="assets/bunny-screenshot.png" /></p>
+<p><img src="assets/bunny-screenshot.png" alt="Screenshot: Stanford bunny example data in napari" /></p>
 <p><em>Image caption: screenshot of the <a href="http://graphics.stanford.edu/data/3Dscanrep/">Stanford bunny</a> example surface mesh open in napari.</em></p>
 <!--
 Don't miss the full getting started guide to set up your new package:
@@ -249,10 +226,10 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <ul>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#how-to-use-napari-meshio">How to use napari-meshio</a><ul>
+<li><a href="#how-to-use-napari-meshio">How to use napari-meshio</a>
+<ul>
 <li><a href="#read-surface-data-from-file">Read surface data from file</a></li>
 <li><a href="#open-example-surface-data">Open example surface data</a></li>
 <li><a href="#save-surface-data">Save surface data</a></li>
@@ -265,13 +242,11 @@ https://napari.org/stable/plugins/index.html
 </ul>
 <h2>Installation</h2>
 <p>You can install <code>napari-meshio</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-meshio
+<pre><code>pip install napari-meshio
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/GenevieveBuckley/napari-meshio.git
+<pre><code>pip install git+https://github.com/GenevieveBuckley/napari-meshio.git
 </code></pre>
-
 <h2>How to use napari-meshio</h2>
 <h3>Read surface data from file</h3>
 <p>Drag and drop the file onto the napari viewer.</p>
@@ -280,23 +255,25 @@ https://napari.org/stable/plugins/index.html
 <p>Launch the napari viewer, then open one of the sample datasets (eg: the <a href="http://graphics.stanford.edu/data/3Dscanrep/">Stanford bunny</a>) from the file menu:</p>
 <p><code>File</code> &gt; <code>Open Sample</code> &gt; <code>napari-meshio</code> &gt; <code>bunny</code></p>
 <p>Or, open sample data from python with:</p>
-<pre class="codehilite"><code class="language-python">import napari
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
-viewer = napari.Viewer(ndisplay=3)
-viewer.open_sample('napari-meshio', 'bunny')
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span><span class="p">(</span><span class="s1">&#39;napari-meshio&#39;</span><span class="p">,</span> <span class="s1">&#39;bunny&#39;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <h3>Save surface data</h3>
 <p>To save a surface layer, click the layer name to select it, and then choose save from the file menu:</p>
 <p><code>File</code> &gt; <code>Save selected layer(s)</code></p>
-<p>You can also use keyboard shortcuts to save the selected surface layer:
-- Windows/Linux: <code>Control</code> + <code>S</code>
-- Mac: <code>⌘</code> + <code>S</code></p>
+<p>You can also use keyboard shortcuts to save the selected surface layer:</p>
+<ul>
+<li>Windows/Linux: <code>Control</code> + <code>S</code></li>
+<li>Mac: <code>⌘</code> + <code>S</code></li>
+</ul>
 <p>Or, save surface layers from python with:</p>
-<pre class="codehilite"><code class="language-python">filename = &quot;bunny.stl&quot;
-viewer.layers['bunny'].save(filename)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;bunny.stl&quot;</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bunny&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p><em>Note: this code example assumes you have the Stanford bunny example dataset loaded.</em></p>
 <p>A <a href="#supported-mesh-file-formats">wide variety of surface mesh file formats are supported</a> by
 <a href="https://github.com/nschloe/meshio">meshio</a>.
@@ -345,12 +322,12 @@ ANSYS msh (<code>.msh</code>),
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-meshio" is free and open source software</p>
+&quot;napari-meshio&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/GenevieveBuckley/napari-meshio/issues">file an issue</a> along with a detailed description.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

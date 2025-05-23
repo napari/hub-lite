@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,135 +210,186 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/devbio-napari/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/devbio-napari.svg?color=green" /></a>
-<a href="https://pypi.org/project/devbio-napari"><img alt="PyPI" src="https://img.shields.io/pypi/v/devbio-napari.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/devbio-napari.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-plot-profile/actions"><img alt="tests" src="https://github.com/haesleinhuepf/devbio-napari/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/devbio-napari"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/devbio-napari/branch/master/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/devbio-napari.svg" /></a>
-<a href="https://napari-hub.org/plugins/devbio-napari"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/devbio-napari" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/devbio-napari/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/devbio-napari.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/devbio-napari"><img src="https://img.shields.io/pypi/v/devbio-napari.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/devbio-napari.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-plot-profile/actions"><img src="https://github.com/haesleinhuepf/devbio-napari/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/devbio-napari"><img src="https://codecov.io/gh/haesleinhuepf/devbio-napari/branch/master/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/devbio-napari.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/devbio-napari"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/devbio-napari" alt="napari hub" /></a></p>
 <p>A bundle of napari plugins useful for 3D+t image processing and analysis for studying developmental biology.</p>
 <ul>
-<li><a href="https://www.napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification">accelerated-pixel-and-object-classification</a></li>
+<li><a href="https://www.napari-hub.org/plugins/napari-accelerated-pixel-and-object-classification">accelerated-pixel-and-object-classification</a>
+<ul>
 <li>Instance segmentation</li>
 <li>Semantic segmentation</li>
 <li>Object classification</li>
 <li>Random Forest Classifier training</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-animation">animation</a> </li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-animation">animation</a>
+<ul>
 <li>Visualization</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-blob-detection">blob-detection</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-blob-detection">blob-detection</a>
+<ul>
 <li>Detection</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-brightness-contrast">brightness-contrast</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-brightness-contrast">brightness-contrast</a>
+<ul>
 <li>Visualization</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-clusters-plotter">clusters-plotter</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-clusters-plotter">clusters-plotter</a>
+<ul>
 <li>Visualization</li>
 <li>Plotting</li>
 <li>Semantic object segmentation</li>
 <li>Dimensionality reduction</li>
 <li>Unsupervised machine learning</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-crop">crop</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-crop">crop</a>
+<ul>
 <li>Transformation</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-curtain">curtain</a></li>
-<li>Visualization </li>
-<li><a href="https://www.napari-hub.org/plugins/napari-czifile2">czifile2</a></li>
-<li>File input/output</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-folder-browser">folder-browser</a></li>
-<li>File input/output</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-layer-details-display">layer-details-display</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-curtain">curtain</a>
+<ul>
 <li>Visualization</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-mouse-controls">mouse-controls</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-czifile2">czifile2</a>
+<ul>
+<li>File input/output</li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-folder-browser">folder-browser</a>
+<ul>
+<li>File input/output</li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-layer-details-display">layer-details-display</a>
+<ul>
+<li>Visualization</li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-mouse-controls">mouse-controls</a>
+<ul>
 <li>Interaction</li>
-<li><a href="https://www.napari-hub.org/plugins/PlatyMatch">PlatyMatch</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/PlatyMatch">PlatyMatch</a>
+<ul>
 <li>Image registration</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-plot-profile">plot-profile</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-plot-profile">plot-profile</a>
+<ul>
 <li>Visualization</li>
 <li>Quantification</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-plugin-search">plugin-search</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-plugin-search">plugin-search</a>
+<ul>
 <li>Interaction</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">pyclesperanto-assistant</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant">pyclesperanto-assistant</a>
+<ul>
 <li>Filtering</li>
 <li>Instance segmentation</li>
 <li>Semantic segmentation</li>
 <li>Quantification</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-pystackreg">pystackreg</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-pystackreg">pystackreg</a>
+<ul>
 <li>Image registration</li>
 <li>Motion correction</li>
-<li><a href="https://www.napari-hub.org/plugins/RedLionfish">RedLionfish</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/RedLionfish">RedLionfish</a>
+<ul>
 <li>Deconvolution</li>
 <li>Processing</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-roi">roi</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-roi">roi</a>
+<ul>
 <li>Manual segmentation</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">segment-blobs-and-things-with-membranes</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes">segment-blobs-and-things-with-membranes</a>
+<ul>
 <li>Filtering</li>
 <li>Instance segmentation</li>
 <li>Semantic segmentation</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-simpleitk-image-processing">simpleitk-image-processing</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-simpleitk-image-processing">simpleitk-image-processing</a>
+<ul>
 <li>Filtering</li>
 <li>Instance segmentation</li>
 <li>Semantic segmentation</li>
 <li>Quantification</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-skimage-regionprops">skimage-regionprops</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-skimage-regionprops">skimage-regionprops</a>
+<ul>
 <li>Quantification</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-stl-exporter">stl-exporter</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-stl-exporter">stl-exporter</a>
+<ul>
 <li>File input/output</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-tabu">tabu</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-tabu">tabu</a>
+<ul>
 <li>Interaction</li>
-<li><a href="https://www.napari-hub.org/plugins/the-segmentation-game">the-segmentation-game</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/the-segmentation-game">the-segmentation-game</a>
+<ul>
 <li>Quantification</li>
 <li>Segmentation quality assurance</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-workflow-inspector">workflow-inspector</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-workflow-inspector">workflow-inspector</a>
+<ul>
 <li>Visualization</li>
-<li><a href="https://www.napari-hub.org/plugins/napari-workflow-optimizer">workflow-optimizer</a></li>
+</ul>
+</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-workflow-optimizer">workflow-optimizer</a>
+<ul>
 <li>Interaction</li>
 <li>Optimization</li>
+</ul>
+</li>
 </ul>
 <hr />
 <h2>Installation</h2>
 <p>You can install <code>devbio-napari</code> via conda/mamba. If you have never used conda before, please <a href="https://biapol.github.io/blog/mara_lampert/getting_started_with_mambaforge_and_python/readme.html">read this guide first</a>.<br />
 Start by creating an environment using mamba.</p>
-<pre class="codehilite"><code>mamba create --name devbio-napari-env napari=0.4.19 python=3.9 devbio-napari pyqt -c conda-forge -c pytorch
+<pre><code><div class="highlight"><pre><span></span>mamba create --name devbio-napari-env napari=0.4.19 python=3.9 devbio-napari pyqt -c conda-forge -c pytorch
+</pre></div>
 </code></pre>
-
 <p>Afterwards, activate the environment like this:</p>
-<pre class="codehilite"><code>mamba activate devbio-napari-env
+<pre><code><div class="highlight"><pre><span></span>mamba activate devbio-napari-env
+</pre></div>
 </code></pre>
-
 <p>Afterwards, run this command from the command line</p>
-<pre class="codehilite"><code>naparia
+<pre><code><div class="highlight"><pre><span></span>naparia
+</pre></div>
 </code></pre>
-
-<p>This window should open. It shows the <a href="https://www.napari-hub.org/plugins/napari-assistant">Assistant</a> graphical user interface. 
+<p>This window should open. It shows the <a href="https://www.napari-hub.org/plugins/napari-assistant">Assistant</a> graphical user interface.
 Read more about how to use it in its <a href="https://www.napari-hub.org/plugins/napari-assistant">documentation</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/devbio-napari/raw/master/docs/screenshot.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/devbio-napari/raw/master/docs/screenshot.png" alt="img.png" /></p>
 <h2>Troubleshooting: Graphics cards drivers</h2>
-<p>In case error messages contains "ImportError: DLL load failed while importing cl: The specified procedure could not be found" <a href="https://github.com/clEsperanto/pyclesperanto_prototype/issues/55">see also</a> or ""clGetPlatformIDs failed: PLATFORM_NOT_FOUND_KHR", please install recent drivers for your graphics card and/or OpenCL device. Select the right driver source depending on your hardware from this list:</p>
+<p>In case error messages contains &quot;ImportError: DLL load failed while importing cl: The specified procedure could not be found&quot; <a href="https://github.com/clEsperanto/pyclesperanto_prototype/issues/55">see also</a> or &quot;&quot;clGetPlatformIDs failed: PLATFORM_NOT_FOUND_KHR&quot;, please install recent drivers for your graphics card and/or OpenCL device. Select the right driver source depending on your hardware from this list:</p>
 <ul>
 <li><a href="https://www.amd.com/en/support">AMD drivers</a></li>
 <li><a href="https://www.nvidia.com/download/index.aspx">NVidia drivers</a></li>
@@ -343,39 +398,37 @@ Read more about how to use it in its <a href="https://www.napari-hub.org/plugins
 <li><a href="https://www.microsoft.com/en-us/p/opencl-and-opengl-compatibility-pack/9nqpsl29bfff">Microsoft Windows OpenCL support</a></li>
 </ul>
 <p>Sometimes, mac-users need to install this:</p>
-<pre class="codehilite"><code>conda install -c conda-forge ocl_icd_wrapper_apple
+<pre><code>conda install -c conda-forge ocl_icd_wrapper_apple
 </code></pre>
-
 <p>Sometimes, linux users need to install this:</p>
-<pre class="codehilite"><code>conda install -c conda-forge ocl-icd-system
+<pre><code>conda install -c conda-forge ocl-icd-system
 </code></pre>
-
 <p>In case installation didn't work in the first attempt, you may have to call this command line to reset the napari configuration:</p>
-<pre class="codehilite"><code>napari --reset
+<pre><code><div class="highlight"><pre><span></span>napari --reset
+</pre></div>
 </code></pre>
-
 <h2>Troubleshooting: pytorch</h2>
 <p>In case pytorch-related plugins fail, install pytorch as explained on <a href="https://pytorch.org/get-started/locally/">its website</a>. Consider replacing <code>conda</code> with <code>mamba</code> in given instructions.</p>
 <p>For example if you have an NVidia GPU at hand, install pytorch like this:</p>
-<pre class="codehilite"><code>mamba install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+<pre><code><div class="highlight"><pre><span></span>mamba install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+</pre></div>
 </code></pre>
-
 <p>Or if not:</p>
-<pre class="codehilite"><code>mamba install pytorch torchvision torchaudio cpuonly -c pytorch
+<pre><code><div class="highlight"><pre><span></span>mamba install pytorch torchvision torchaudio cpuonly -c pytorch
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
-<p>Contributions are very welcome. 
-If you want to <a href="https://github.com/haesleinhuepf/devbio-napari/pulls">suggest a new napari plugin</a> to become part of this distribution, please make sure it interoperates nicely with the other plugins. 
+<p>Contributions are very welcome.
+If you want to <a href="https://github.com/haesleinhuepf/devbio-napari/pulls">suggest a new napari plugin</a> to become part of this distribution, please make sure it interoperates nicely with the other plugins.
 For example, if the plugin you suggest provided cell segmentation algorithms, please check if the resulting segmented cells can be analysed using napari-skimage-regionprops.
-Furthermore, please make sure the README of the plugin you are proposing comes with user documentation, e.g. a step-by-step guide with screenshots explaining what users can do with the plugin and how to use it. 
+Furthermore, please make sure the README of the plugin you are proposing comes with user documentation, e.g. a step-by-step guide with screenshots explaining what users can do with the plugin and how to use it.
 It is recommended to provide example data as well so that end-users can try out the plugin under conditions it was developed for.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"devbio-napari" is free and open source software</p>
+&quot;devbio-napari&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/haesleinhuepf/devbio/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

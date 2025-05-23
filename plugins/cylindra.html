@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,84 +206,61 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hanjinliu/cylindra/blob/main/LICENSE"><img alt="BSD 3-Clause License" src="https://img.shields.io/pypi/l/cylindra.svg?color=green" /></a>
-<a href="https://pypistats.org/packages/cylindra"><img alt="Python package index download statistics" src="https://img.shields.io/pypi/dm/cylindra.svg" /></a>
-<a href="https://badge.fury.io/py/cylindra"><img alt="PyPI version" src="https://badge.fury.io/py/cylindra.svg" /></a>
-<a href="https://codecov.io/gh/hanjinliu/cylindra"><img alt="codecov" src="https://codecov.io/gh/hanjinliu/cylindra/graph/badge.svg?token=X1F259JYT5" /></a>
-<a href="https://napari-hub.org/plugins/cylindra"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cylindra" /></a></p>
-<p><img alt="" src="https://github.com/hanjinliu/cylindra/blob/main/resources/fig.png" /></p>
+                                        <p><a href="https://github.com/hanjinliu/cylindra/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/cylindra.svg?color=green" alt="BSD 3-Clause License" /></a>
+<a href="https://pypistats.org/packages/cylindra"><img src="https://img.shields.io/pypi/dm/cylindra.svg" alt="Python package index download statistics" /></a>
+<a href="https://badge.fury.io/py/cylindra"><img src="https://badge.fury.io/py/cylindra.svg" alt="PyPI version" /></a>
+<a href="https://codecov.io/gh/hanjinliu/cylindra"><img src="https://codecov.io/gh/hanjinliu/cylindra/graph/badge.svg?token=X1F259JYT5" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/cylindra"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cylindra" alt="napari hub" /></a></p>
+<p><img src="https://github.com/hanjinliu/cylindra/blob/main/resources/fig.png" alt="" /></p>
 <h1>cylindra</h1>
 <p><code>cylindra</code> is a GUI-integrated cryo-ET image analysis tool for cylindric periodic
 structures such as microtubules.</p>
-<h3><a href="https://hanjinliu.github.io/cylindra/">&rarr; Documentation</a></h3>
+<h3><a href="https://hanjinliu.github.io/cylindra/">→ Documentation</a></h3>
 <h2>Installation</h2>
 <ul>
 <li>Use <code>pip</code></li>
 </ul>
-<pre class="codehilite"><code class="language-shell">pip install cylindra -U
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cylindra<span class="w"> </span>-U
+</pre></div>
 </code></pre>
-
 <ul>
 <li>From source</li>
 </ul>
 <p>If you install from the source, you'll need Rust to compile a part of the code.</p>
-<pre class="codehilite"><code class="language-shell">git clone git+https://github.com/hanjinliu/cylindra
-cd cylindra
-pip install -e .
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git+https://github.com/hanjinliu/cylindra
+<span class="nb">cd</span><span class="w"> </span>cylindra
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <h4>Launch GUI</h4>
 <ul>
-<li>From shell</li>
+<li>
+<p>From shell</p>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>cylindra
+</pre></div>
+</code></pre>
+</li>
+<li>
+<p>From a Python interpreter</p>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cylindra</span><span class="w"> </span><span class="kn">import</span> <span class="n">start</span>
+
+<span class="c1"># launch a napari viewer with a cylindra dock widget.</span>
+<span class="n">ui</span> <span class="o">=</span> <span class="n">start</span><span class="p">()</span>
+</pre></div>
+</code></pre>
+</li>
 </ul>
-<p><code>shell
-  cylindra</code></p>
-<ul>
-<li>From a Python interpreter</li>
-</ul>
-<p>```python
-  from cylindra import start</p>
-<p># launch a napari viewer with a cylindra dock widget.
-  ui = start()
-  ```</p>
 <h4>Command line interface</h4>
 <p><code>cylindra</code> is implemented with some basic command line interface (CLI).</p>
-<pre class="codehilite"><code class="language-shell">cylindra --help
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>cylindra<span class="w"> </span>--help
+</pre></div>
 </code></pre>
-
 <h2>Implemented Functions</h2>
 <ul>
 <li>Automatic/manual fitting of splines to cylindrical structures in 3D.</li>
 <li>Analyze lattice structures (such as lattice spacing and skew angle) using Cylindric
-  Fourier transformation.</li>
+Fourier transformation.</li>
 <li>Automatic determination of polarity, protofilament number etc.</li>
 <li>Monomer mapping along splines for subtomogram averaging and alignment.</li>
 <li>Microtubule seam search with or without binding proteins.</li>
@@ -289,13 +270,13 @@ pip install -e .
 </ul>
 <h2>Prerequisite and Recommendations</h2>
 <ul>
-<li><strong>Python &ge; 3.10</strong>. This project follows <a href="https://scientific-python.org/specs/spec-0000/">spec-0000</a>.</li>
+<li><strong>Python ≥ 3.10</strong>. This project follows <a href="https://scientific-python.org/specs/spec-0000/">spec-0000</a>.</li>
 <li><strong>Sufficient memory size</strong>. Most of the intense calculations are done out-of-core
-  using <code>dask</code>, so that you can even run on 8-GB memory PC in many cases. However,
-  larger memory size will make parallel processing more efficient. &ge;32 GB is
-  recommended.</li>
+using <code>dask</code>, so that you can even run on 8-GB memory PC in many cases. However,
+larger memory size will make parallel processing more efficient. ≥32 GB is
+recommended.</li>
 <li><strong>Images should be loaded from SSD</strong>. Raw image stacks are loaded lazily in most of
-  the processes. Loading from HDD will slow down many analyses as well. In the latest version, you can use "Cache image on SSD" option to directly analyze tomograms stored in HDD.</li>
+the processes. Loading from HDD will slow down many analyses as well. In the latest version, you can use &quot;Cache image on SSD&quot; option to directly analyze tomograms stored in HDD.</li>
 </ul>
 <h2>Issues</h2>
 <p>If you encountered any bugs or have any requests, feel free to
@@ -306,11 +287,12 @@ work well on other cylindric structures)</p>
 and the recorded macro from <code>Others &gt; Macro &gt; Show macro</code>.</p>
 <h2>Citation</h2>
 <p>If you find <code>cylindra</code> useful in your work, please consider citing <a href="https://www.biorxiv.org/content/10.1101/2024.04.30.591984v1">our paper</a>.</p>
-<pre class="codehilite"><code>Heterogeneous local structures of the microtubule lattice revealed by cryo-ET and non-averaging analysis
+<pre><code><div class="highlight"><pre><span></span>Heterogeneous local structures of the microtubule lattice revealed by cryo-ET and non-averaging analysis
 Hanjin Liu, Hiroshi Yamaguchi, Masahide Kikkawa, Tomohiro Shima
 bioRxiv 2024.04.30.591984; doi: https://doi.org/10.1101/2024.04.30.591984
+</pre></div>
 </code></pre>
-        
+
 
                                     </div>
                                 </div>

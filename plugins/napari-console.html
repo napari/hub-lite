@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,38 +210,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/napari/napari-console/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-console.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-console"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-console.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-console.svg?color=green" /></a>
-<a href="https://github.com/napari/napari-console/actions"><img alt="tests" src="https://github.com/napari/napari-console/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/napari/napari-console"><img alt="codecov" src="https://codecov.io/gh/napari/napari-console/branch/main/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/napari/napari-console/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-console.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-console"><img src="https://img.shields.io/pypi/v/napari-console.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-console.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/napari/napari-console/actions"><img src="https://github.com/napari/napari-console/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/napari/napari-console"><img src="https://codecov.io/gh/napari/napari-console/branch/main/graph/badge.svg" alt="codecov" /></a></p>
 <p>A plugin that adds a console to napari</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -248,25 +225,24 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Local variables</h2>
 <p>In napari-console 0.0.8 and earlier, the console <code>locals()</code> namespace only
 contained a reference to the napari viewer that enclosed the console.</p>
 <p>Since version 0.0.9, it instead contains everything in the enclosing frame that
 called napari. That is, if your Python code is:</p>
-<pre class="codehilite"><code class="language-python">import napari
-import numpy as np
-from scipy import ndimage as ndi
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 
-image = np.random.random((500, 500))
-labels = ndi.label(image &gt; 0.7)[0]
+<span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="mf">0.7</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-viewer, image_layer = napari.imshow(image)
-labels_layer = viewer.add_labels(labels)
+<span class="n">viewer</span><span class="p">,</span> <span class="n">image_layer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">labels_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
 
-napari.run()
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
 </code></pre>
-
 <p>Then the napari console will have the variables <code>np</code>, <code>napari</code>, <code>ndi</code>, <code>image</code>,
 <code>labels</code>, <code>viewer</code>, <code>image_layer</code>, and <code>labels_layer</code> in its namespace.</p>
 <p>This is implemented by inspecting the Python stack when the console is first
@@ -279,18 +255,17 @@ napari and the console within some larger application), you can add
 console.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-console</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-console
+<pre><code>pip install napari-console
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-console" is free and open source software</p>
+&quot;napari-console&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/sofroniewn/napari-console/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

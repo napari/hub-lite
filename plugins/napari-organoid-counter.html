@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,44 +206,17 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://napari-hub.org/plugins/napari-organoid-counter"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-organoid-counter" /></a>
-<img alt="stability-stable" src="https://img.shields.io/badge/stability-stable-green.svg" />
-<a href="https://zenodo.org/badge/latestdoi/476715320"><img alt="DOI" src="https://zenodo.org/badge/476715320.svg" /></a>
-<a href="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-organoid-counter.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-organoid-counter"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-organoid-counter.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/badge/python-3.9%20%7C%203.10-blue" /></a>
-<a href="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/actions"><img alt="tests" src="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/HelmholtzAI-Consultants-Munich/napari-organoid-counter"><img alt="codecov" src="https://codecov.io/gh/HelmholtzAI-Consultants-Munich/napari-organoid-counter/branch/main/graph/badge.svg" /></a></p>
+                                        <p><a href="https://napari-hub.org/plugins/napari-organoid-counter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-organoid-counter" alt="napari hub" /></a>
+<img src="https://img.shields.io/badge/stability-stable-green.svg" alt="stability-stable" />
+<a href="https://zenodo.org/badge/latestdoi/476715320"><img src="https://zenodo.org/badge/476715320.svg" alt="DOI" /></a>
+<a href="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-organoid-counter.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-organoid-counter"><img src="https://img.shields.io/pypi/v/napari-organoid-counter.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/badge/python-3.9%20%7C%203.10-blue" alt="Python Version" /></a>
+<a href="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/actions"><img src="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/HelmholtzAI-Consultants-Munich/napari-organoid-counter"><img src="https://codecov.io/gh/HelmholtzAI-Consultants-Munich/napari-organoid-counter/branch/main/graph/badge.svg" alt="codecov" /></a></p>
 <p>A napari plugin to automatically count lung organoids from microscopy imaging data. Note: this plugin only supports single channel grayscale images.</p>
-<p><strong><em>Hold it for the demo!</em></strong></p>
-<p><img alt="Alt Text" src="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/blob/main/readme-content/demo-plugin-v2.gif" /></p>
+<p><em><strong>Hold it for the demo!</strong></em></p>
+<p><img src="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/blob/main/readme-content/demo-plugin-v2.gif" alt="Alt Text" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
@@ -247,20 +224,16 @@ pre > code:last-child {
 <ol>
 <li>
 <p>You can install <code>napari-organoid-counter</code> via <a href="https://pypi.org/project/napari-organoid-counter/">pip</a>:</p>
-<p><code>pip install napari-organoid-counter</code></p>
-</li>
-</ol>
+<p><code> pip install napari-organoid-counter</code></p>
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>```pip install git+https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter.git```
-</code></pre>
-
-<ol>
+<p><code>pip install git+https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter.git</code></p>
+</li>
 <li>
 <p>Additionally, you will then need to install one additional dependency:</p>
-<p><code>mim install "mmcv&lt;2.2.0,&gt;=2.0.0rc4"</code></p>
+<p><code>mim install &quot;mmcv&lt;2.2.0,&gt;=2.0.0rc4&quot;</code></p>
 </li>
 </ol>
-<p>For installing on a Windows machine directly from within napari, follow the instuctions <a href="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/blob/main/readme-content/How%20to%20install%20on%20a%20Windows%20machine.pdf">here</a>. Step 2 additionally needs to be performed here too (mim install "mmcv&lt;2.2.0,&gt;=2.0.0rc4").</p>
+<p>For installing on a Windows machine directly from within napari, follow the instuctions <a href="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/blob/main/readme-content/How%20to%20install%20on%20a%20Windows%20machine.pdf">here</a>. Step 2 additionally needs to be performed here too (mim install &quot;mmcv&lt;2.2.0,&gt;=2.0.0rc4&quot;).</p>
 <h2>What's new in v2?</h2>
 <p>Checkout our <em>What's New in v2</em> <a href="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/blob/main/.napari/DESCRIPTION.md#whats-new-in-v2">here</a>.</p>
 <h2>How to use?</h2>
@@ -271,35 +244,36 @@ pre > code:last-child {
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-organoid-counter" is free and open source software</p>
+&quot;napari-organoid-counter&quot; is free and open source software</p>
 <h2>Dependencies</h2>
 <p><code>napari-organoid-counter</code> uses the <code>napari-aicsimageio</code><sup>[1]</sup> <sup>[2]</sup> plugin for reading and processing CZI images.</p>
-<p>[1] Eva Maxfield Brown, Dan Toloudis, Jamie Sherman, Madison Swain-Bowden, Talley Lambert, AICSImageIO Contributors (2021). AICSImageIO: Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in Pure Python [Computer software]. GitHub. https://github.com/AllenCellModeling/aicsimageio</p>
-<p>[2] Eva Maxfield Brown, Talley Lambert, Peter Sobolewski, Napari-AICSImageIO Contributors (2021). Napari-AICSImageIO: Image Reading in Napari using AICSImageIO [Computer software]. GitHub. https://github.com/AllenCellModeling/napari-aicsimageio</p>
+<p>[1] Eva Maxfield Brown, Dan Toloudis, Jamie Sherman, Madison Swain-Bowden, Talley Lambert, AICSImageIO Contributors (2021). AICSImageIO: Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in Pure Python [Computer software]. GitHub. <a href="https://github.com/AllenCellModeling/aicsimageio">https://github.com/AllenCellModeling/aicsimageio</a></p>
+<p>[2] Eva Maxfield Brown, Talley Lambert, Peter Sobolewski, Napari-AICSImageIO Contributors (2021). Napari-AICSImageIO: Image Reading in Napari using AICSImageIO [Computer software]. GitHub. <a href="https://github.com/AllenCellModeling/napari-aicsimageio">https://github.com/AllenCellModeling/napari-aicsimageio</a></p>
 <p>The latest version also uses models developed with the <code>mmdetection</code> package <sup>[3]</sup>, see <a href="https://github.com/open-mmlab/mmdetection">here</a></p>
-<p>[3] Chen, Kai, et al. "MMDetection: Open mmlab detection toolbox and benchmark." arXiv preprint arXiv:1906.07155 (2019).</p>
+<p>[3] Chen, Kai, et al. &quot;MMDetection: Open mmlab detection toolbox and benchmark.&quot; arXiv preprint arXiv:1906.07155 (2019).</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/HelmholtzAI-Consultants-Munich/napari-organoid-counter/issues">file an issue</a> along with a detailed description.</p>
 <h2>Citing</h2>
 <p>If you use this plugin for your work, please cite it using the following:</p>
 <blockquote>
-<p>Christina Bukas, Harshavardhan Subramanian, &amp; Marie Piraud. (2023). HelmholtzAI-Consultants-Munich/napari-organoid-counter: v0.2.0 (v0.2.0). Zenodo. https://doi.org/10.5281/zenodo.7859571</p>
-<p>bibtex:</p>
+<p>Christina Bukas, Harshavardhan Subramanian, &amp; Marie Piraud. (2023). HelmholtzAI-Consultants-Munich/napari-organoid-counter: v0.2.0 (v0.2.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.7859571">https://doi.org/10.5281/zenodo.7859571</a></p>
 </blockquote>
-<pre class="codehilite"><code>@software{christina_bukas_2022_6457904,
-  author       = {Christina Bukas, Harshavardhan Subramanian, &amp; Marie Piraud},
-  title        = {{HelmholtzAI-Consultants-Munich/napari-organoid- 
-                   counter: second release of the napari plugin for lung
-                   organoid counting}},
-  month        = apr,
-  year         = 2023,
-  publisher    = {Zenodo},
-  version      = {v0.2.0},
-  doi          = {10.5281/zenodo.7859571},
-  url          = {https://doi.org/10.5281/zenodo.7859571}
-}
+<p>bibtex:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="err">@</span><span class="n">software</span><span class="p">{</span><span class="n">christina_bukas_2022_6457904</span><span class="p">,</span>
+<span class="w">  </span><span class="n">author</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">Christina</span><span class="w"> </span><span class="n">Bukas</span><span class="p">,</span><span class="w"> </span><span class="n">Harshavardhan</span><span class="w"> </span><span class="n">Subramanian</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Marie</span><span class="w"> </span><span class="n">Piraud</span><span class="p">},</span>
+<span class="w">  </span><span class="n">title</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="n">HelmholtzAI</span><span class="o">-</span><span class="n">Consultants</span><span class="o">-</span><span class="n">Munich</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">organoid</span><span class="o">-</span><span class="w"> </span>
+<span class="w">                   </span><span class="n">counter</span><span class="p">:</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="n">release</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">napari</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">lung</span>
+<span class="w">                   </span><span class="n">organoid</span><span class="w"> </span><span class="n">counting</span><span class="p">}},</span>
+<span class="w">  </span><span class="n">month</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">apr</span><span class="p">,</span>
+<span class="w">  </span><span class="n">year</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mi">2023</span><span class="p">,</span>
+<span class="w">  </span><span class="n">publisher</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
+<span class="w">  </span><span class="n">version</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">v0</span><span class="o">.</span><span class="mf">2.0</span><span class="p">},</span>
+<span class="w">  </span><span class="n">doi</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">7859571</span><span class="p">},</span>
+<span class="w">  </span><span class="n">url</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">7859571</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-        
+
 
                                     </div>
                                 </div>

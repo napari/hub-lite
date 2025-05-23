@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,52 +210,25 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://cellpose-napari.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/cellpose-napari/badge/?version=latest" /></a>
-<a href="https://github.com/mouseland/cellpose-napari/actions"><img alt="tests" src="https://github.com/mouseland/cellpose-napari/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/MouseLand/cellpose-napari"><img alt="codecov" src="https://codecov.io/gh/Mouseland/cellpose-napari/branch/main/graph/badge.svg" /></a>
-<a href="https://badge.fury.io/py/cellpose-napari"><img alt="PyPI version" src="https://badge.fury.io/py/cellpose-napari.svg" /></a>
-<a href="https://pypistats.org/packages/cellpose-napari"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/cellpose-napari" /></a>
-<a href="https://pypistats.org/packages/cellpose-napari"><img alt="Python version" src="https://img.shields.io/pypi/pyversions/cellpose-napari" /></a>
-<a href="https://github.com/mouseland/cellpose-napari/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/cellpose-napari.svg?color=green" /></a>
-<a href="https://github.com/MouseLand/cellpose-napari/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors-anon/MouseLand/cellpose-napari" /></a>
-<a href="https://www.cellpose.org"><img alt="website" src="https://img.shields.io/website?url=https%3A%2F%2Fwww.cellpose.org" /></a>
-<a href="https://github.com/MouseLand/cellpose-napari/"><img alt="GitHub stars" src="https://img.shields.io/github/stars/MouseLand/cellpose-napari?style=social" /></a>
-<a href="https://github.com/MouseLand/cellpose-napari/"><img alt="GitHub forks" src="https://img.shields.io/github/forks/MouseLand/cellpose-napari?style=social" /></a></p>
+                                        <p><a href="https://cellpose-napari.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/cellpose-napari/badge/?version=latest" alt="Documentation Status" /></a>
+<a href="https://github.com/mouseland/cellpose-napari/actions"><img src="https://github.com/mouseland/cellpose-napari/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/MouseLand/cellpose-napari"><img src="https://codecov.io/gh/Mouseland/cellpose-napari/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://badge.fury.io/py/cellpose-napari"><img src="https://badge.fury.io/py/cellpose-napari.svg" alt="PyPI version" /></a>
+<a href="https://pypistats.org/packages/cellpose-napari"><img src="https://img.shields.io/pypi/dm/cellpose-napari" alt="PyPI - Downloads" /></a>
+<a href="https://pypistats.org/packages/cellpose-napari"><img src="https://img.shields.io/pypi/pyversions/cellpose-napari" alt="Python version" /></a>
+<a href="https://github.com/mouseland/cellpose-napari/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/cellpose-napari.svg?color=green" alt="License" /></a>
+<a href="https://github.com/MouseLand/cellpose-napari/graphs/contributors"><img src="https://img.shields.io/github/contributors-anon/MouseLand/cellpose-napari" alt="Contributors" /></a>
+<a href="https://www.cellpose.org"><img src="https://img.shields.io/website?url=https%3A%2F%2Fwww.cellpose.org" alt="website" /></a>
+<a href="https://github.com/MouseLand/cellpose-napari/"><img src="https://img.shields.io/github/stars/MouseLand/cellpose-napari?style=social" alt="GitHub stars" /></a>
+<a href="https://github.com/MouseLand/cellpose-napari/"><img src="https://img.shields.io/github/forks/MouseLand/cellpose-napari?style=social" alt="GitHub forks" /></a></p>
 <p>a napari plugin for anatomical segmentation of general cellular images</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<p>The plugin code was written by Carsen Stringer, and the cellpose code was written by Carsen Stringer and Marius Pachitariu. To learn about Cellpose, read the <a href="https://t.co/kBMXmPp3Yn?amp=1"><strong>paper</strong></a> or watch this <a href="https://t.co/JChCsTD0SK?amp=1"><strong>talk</strong></a>. </p>
-<p>For support with the plugin, please open an <a href="https://github.com/MouseLand/cellpose-napari/issues">issue</a>. For support with cellpose, please open an <a href="https://github.com/MouseLand/cellpose/issues">issue</a> on the cellpose repo. </p>
+<p>The plugin code was written by Carsen Stringer, and the cellpose code was written by Carsen Stringer and Marius Pachitariu. To learn about Cellpose, read the <a href="https://t.co/kBMXmPp3Yn?amp=1"><strong>paper</strong></a> or watch this <a href="https://t.co/JChCsTD0SK?amp=1"><strong>talk</strong></a>.</p>
+<p>For support with the plugin, please open an <a href="https://github.com/MouseLand/cellpose-napari/issues">issue</a>. For support with cellpose, please open an <a href="https://github.com/MouseLand/cellpose/issues">issue</a> on the cellpose repo.</p>
 <p>If you use this plugin please cite the <a href="https://www.nature.com/articles/s41592-020-01018-x">paper</a>:
 ::</p>
-<pre class="codehilite"><code>  @article{stringer2021cellpose,
+<pre><code>  @article{stringer2021cellpose,
   title={Cellpose: a generalist algorithm for cellular segmentation},
   author={Stringer, Carsen and Wang, Tim and Michaelos, Michalis and Pachitariu, Marius},
   journal={Nature Methods},
@@ -262,73 +239,76 @@ pre > code:last-child {
   publisher={Nature Publishing Group}
   }
 </code></pre>
-
-<p><img alt="cellpose-napari_plugin" src="https://cellpose-napari.readthedocs.io/en/latest/_images/napari_main_demo_fast_small.gif?raw=true" title="cellpose-napari" /></p>
+<p><img src="https://cellpose-napari.readthedocs.io/en/latest/_images/napari_main_demo_fast_small.gif?raw=true" alt="cellpose-napari_plugin" title="cellpose-napari" /></p>
 <h2>Installation</h2>
 <p>Install an <a href="https://www.anaconda.com/download/">Anaconda</a> distribution of Python -- Choose <strong>Python 3</strong> and your operating system. Note you might need to use an anaconda prompt if you did not add anaconda to the path.</p>
 <p>Install <code>napari</code> with pip: <code>pip install napari[all]</code>. Then install <code>cellpose-napari</code> via [pip]:</p>
-<pre class="codehilite"><code>pip install cellpose-napari
+<pre><code>pip install cellpose-napari
 </code></pre>
-
 <p>Or install the plugin inside napari in the plugin window.</p>
-<p>If install fails in your base environment, create a new environment:
-1. Download the <a href="https://github.com/MouseLand/cellpose-napari/blob/master/environment.yml?raw=true"><code>environment.yml</code></a> file from the repository. You can do this by cloning the repository, or copy-pasting the text from the file into a text document on your local computer.
-2. Open an anaconda prompt / command prompt with <code>conda</code> for <strong>python 3</strong> in the path
-3. Change directories to where the <code>environment.yml</code> is and run <code>conda env create -f environment.yml</code>
-4. To activate this new environment, run <code>conda activate cellpose_napari</code>
-5. You should see <code>(cellpose_napari)</code> on the left side of the terminal line. </p>
+<p>If install fails in your base environment, create a new environment:</p>
+<ol>
+<li>Download the <a href="https://github.com/MouseLand/cellpose-napari/blob/master/environment.yml?raw=true"><code>environment.yml</code></a> file from the repository. You can do this by cloning the repository, or copy-pasting the text from the file into a text document on your local computer.</li>
+<li>Open an anaconda prompt / command prompt with <code>conda</code> for <strong>python 3</strong> in the path</li>
+<li>Change directories to where the <code>environment.yml</code> is and run <code>conda env create -f environment.yml</code></li>
+<li>To activate this new environment, run <code>conda activate cellpose_napari</code></li>
+<li>You should see <code>(cellpose_napari)</code> on the left side of the terminal line.</li>
+</ol>
 <p>If you have <strong>issues</strong> with cellpose installation, see the <a href="https://cellpose.readthedocs.io/en/latest/installation.html">cellpose docs</a> for more details, and then if the suggestions fail, open an issue.</p>
 <h3>Upgrading software</h3>
 <p>You can upgrade the plugin with</p>
-<pre class="codehilite"><code>pip install cellpose-napari --upgrade
+<pre><code><div class="highlight"><pre><span></span>pip install cellpose-napari --upgrade
+</pre></div>
 </code></pre>
-
 <p>and you can upgrade cellpose with</p>
-<pre class="codehilite"><code>pip install cellpose --upgrade
+<pre><code><div class="highlight"><pre><span></span>pip install cellpose --upgrade
+</pre></div>
 </code></pre>
-
 <h3>GPU version (CUDA) on Windows or Linux</h3>
 <p>If you plan on running many images, you may want to install a GPU version of <em>torch</em> (if it isn't already installed).</p>
 <p>Before installing the GPU version, remove the CPU version:</p>
-<pre class="codehilite"><code>pip uninstall torch
+<pre><code><div class="highlight"><pre><span></span>pip uninstall torch
+</pre></div>
 </code></pre>
-
 <p>Follow the instructions <a href="https://pytorch.org/get-started/locally/">here</a> to determine what version to install. The Anaconda install is recommended along with CUDA version 10.2. For instance this command will install the 10.2 version on Linux and Windows (note the <code>torchvision</code> and <code>torchaudio</code> commands are removed because cellpose doesn't require them):</p>
-<pre class="codehilite"><code>conda install pytorch cudatoolkit=10.2 -c pytorch
-~~~~
-
-When upgrading GPU Cellpose in the future, you will want to ignore dependencies (to ensure that the pip version of torch does not install):
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">pytorch</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">10.2</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">pytorch</span>
+</pre></div>
 </code></pre>
-
-<p>pip install --no-deps cellpose --upgrade
-~~~</p>
+<p>When upgrading GPU Cellpose in the future, you will want to ignore dependencies (to ensure that the pip version of torch does not install):</p>
+<pre><code><div class="highlight"><pre><span></span>pip install --no-deps cellpose --upgrade
+</pre></div>
+</code></pre>
 <h3>Installation of github version</h3>
 <p>Follow steps from above to install the dependencies. In the github repository, run <code>pip install -e .</code> and the github version will be installed. If you want to go back to the pip version of cellpose-napari, then say <code>pip install cellpose-napari</code>.</p>
 <h2>Running the software</h2>
 <p>Open napari with the cellpose-napari dock widget open</p>
-<pre class="codehilite"><code>napari -w cellpose-napari
+<pre><code><div class="highlight"><pre><span></span>napari -w cellpose-napari
+</pre></div>
 </code></pre>
-
 <p>There is sample data in the File menu, or get started with your own images!</p>
 <h3>Detailed usage <a href="https://cellpose-napari.readthedocs.io/">documentation</a>.</h3>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests are run with pytest.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"cellpose-napari" is free and open source software.</p>
+&quot;cellpose-napari&quot; is free and open source software.</p>
 <h2>Dependencies</h2>
-<p>cellpose-napari relies on the following excellent packages (which are automatically installed with conda/pip if missing):
-- <a href="https://napari.org">napari</a>
-- <a href="https://napari.org/magicgui/">magicgui</a></p>
-<p>cellpose relies on the following excellent packages (which are automatically installed with conda/pip if missing):
-- <a href="https://pytorch.org/">torch</a>
-- <a href="http://www.numpy.org/">numpy</a> (&gt;=1.16.0)
-- <a href="http://numba.pydata.org/numba-doc/latest/user/5minguide.html">numba</a>
-- <a href="https://www.scipy.org/">scipy</a>
-- <a href="https://natsort.readthedocs.io/en/master/">natsort</a>
-- <a href="https://pypi.org/project/tifffile/">tifffile</a>
-- <a href="https://opencv.org/">opencv</a></p>
-        
+<p>cellpose-napari relies on the following excellent packages (which are automatically installed with conda/pip if missing):</p>
+<ul>
+<li><a href="https://napari.org">napari</a></li>
+<li><a href="https://napari.org/magicgui/">magicgui</a></li>
+</ul>
+<p>cellpose relies on the following excellent packages (which are automatically installed with conda/pip if missing):</p>
+<ul>
+<li><a href="https://pytorch.org/">torch</a></li>
+<li><a href="http://www.numpy.org/">numpy</a> (&gt;=1.16.0)</li>
+<li><a href="http://numba.pydata.org/numba-doc/latest/user/5minguide.html">numba</a></li>
+<li><a href="https://www.scipy.org/">scipy</a></li>
+<li><a href="https://natsort.readthedocs.io/en/master/">natsort</a></li>
+<li><a href="https://pypi.org/project/tifffile/">tifffile</a></li>
+<li><a href="https://opencv.org/">opencv</a></li>
+</ul>
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,38 +206,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/avidaq"><img alt="PyPI" src="https://img.shields.io/pypi/v/avidaq.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/avidaq.svg?color=green" /></a>
-<a href="https://github.com/optimax/avidaq/actions"><img alt="tests" src="https://github.com/optimax/avidaq/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/optimax/avidaq"><img alt="codecov" src="https://codecov.io/gh/optimax/avidaq/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/avidaq"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/avidaq" /></a></p>
+                                        <p><a href="https://pypi.org/project/avidaq"><img src="https://img.shields.io/pypi/v/avidaq.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/avidaq.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/optimax/avidaq/actions"><img src="https://github.com/optimax/avidaq/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/optimax/avidaq"><img src="https://codecov.io/gh/optimax/avidaq/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/avidaq"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/avidaq" alt="napari hub" /></a></p>
 <p>controls for napari and micromanger</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -244,69 +221,68 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <h3>Standard installation</h3>
 <p>You can install <code>avidaq</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-shell">pip install napari[all] avidaq
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari<span class="o">[</span>all<span class="o">]</span><span class="w"> </span>avidaq
+</pre></div>
 </code></pre>
-
 <h3>Install from plugin menu</h3>
 <p>Alternatively you can install <code>avidaq</code> via the <a href="https://github.com/napari/napari">napari</a> plugin menu:</p>
-<h2><img alt="napari-add-plugin" src="napari-add-plugin.png" /></h2>
+<h2><img src="napari-add-plugin.png" alt="napari-add-plugin" /></h2>
 <h2>Running</h2>
 <p>First start micromanager.  Make sure the server port checkbox is activated.</p>
 <p>Then to start napari with the avidaq plugin active run:
 <code>napari -w avidaq</code></p>
-<p><img alt="" src="screenshot.png" /></p>
+<p><img src="screenshot.png" alt="" /></p>
 <h2>Updating presets</h2>
 <p>MDA presets are stored in a json file in the user's home directory.</p>
-<pre class="codehilite"><code class="language-shell">`C:\\Users\YourName\.avidaq\mda_presets.json`
+<pre><code class="language-shell"><div class="highlight"><pre><span></span><span class="sb">`</span>C:<span class="se">\\</span>Users<span class="se">\Y</span>ourName<span class="se">\.</span>avidaq<span class="se">\m</span>da_presets.json<span class="sb">`</span>
+</pre></div>
 </code></pre>
-
 <p>This file should exist after plugin installation with some defaults. You do not need to create the file yourself.</p>
 <p>Add or modify the values and reload napari to see the changes.</p>
 <p>All parameter entries are optional, if not provided the default value will be used.</p>
-<p>The parameter names and their descriptions can be found [here] (https://github.com/micro-manager/pycro-manager/blob/main/pycromanager/acq_util.py#L102-L115)</p>
+<p>The parameter names and their descriptions can be found [here] (<a href="https://github.com/micro-manager/pycro-manager/blob/main/pycromanager/acq_util.py#L102-L115">https://github.com/micro-manager/pycro-manager/blob/main/pycromanager/acq_util.py#L102-L115</a>)</p>
 <p>The format is as follows:</p>
-<pre class="codehilite"><code class="language-json">{
-    &quot;gui_display_name&quot;: {
-        &quot;parameter_name&quot;: value,
-        &quot;parameter_name&quot;: value,
-        ...
-    },
-    &quot;gui_display_name&quot;: {
-        &quot;parameter_name&quot;: value,
-        &quot;parameter_name&quot;: value,
-        ...
-    },
-    ...
-}
+<pre><code class="language-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;gui_display_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;parameter_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">value</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;parameter_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">value</span><span class="p">,</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;gui_display_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;parameter_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">value</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;parameter_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">value</span><span class="p">,</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="err">...</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
 <p>defaults:</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;Basic&quot;: {
-    &quot;num_time_points&quot;: 5,
-    &quot;z_start&quot;: 0,
-    &quot;z_end&quot;: 6,
-    &quot;z_step&quot;: 0.4
-  },
-  &quot;Simple&quot;: {
-    &quot;num_time_points&quot;: 2,
-    &quot;z_start&quot;: 0,
-    &quot;z_end&quot;: 2,
-    &quot;z_step&quot;: 0.1
-  },
-  &quot;Detailed&quot;: {
-    &quot;num_time_points&quot;: 10,
-    &quot;z_start&quot;: 0,
-    &quot;z_end&quot;: 12,
-    &quot;z_step&quot;: 0.2
-  }
-}
+<pre><code class="language-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Basic&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;num_time_points&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_step&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;Simple&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;num_time_points&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_step&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;Detailed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;num_time_points&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;z_step&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
 <h2>Development</h2>
@@ -328,7 +304,7 @@ https://napari.org/plugins/index.html
 <h3>Releasing to pypi</h3>
 <p>Project is automically built and deployed to pypi upon</p>
 <hr />
-        
+
 
                                     </div>
                                 </div>

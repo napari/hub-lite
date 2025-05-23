@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,43 +210,16 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/0x00b1/napari-features/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-features.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-features"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-features.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-features.svg?color=green" /></a>
-<a href="https://github.com/0x00b1/napari-features/actions"><img alt="tests" src="https://github.com/0x00b1/napari-features/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/0x00b1/napari-features"><img alt="codecov" src="https://codecov.io/gh/0x00b1/napari-features/branch/master/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/0x00b1/napari-features/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-features.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-features"><img src="https://img.shields.io/pypi/v/napari-features.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-features.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/0x00b1/napari-features/actions"><img src="https://github.com/0x00b1/napari-features/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/0x00b1/napari-features"><img src="https://codecov.io/gh/0x00b1/napari-features/branch/master/graph/badge.svg" alt="codecov" /></a></p>
 <p>An extensible, general-purpose feature extraction plug-in for the <a href="https://napari.org">Napari</a> image viewer.</p>
 <h2>Features</h2>
 <h3>Color</h3>
 <h4>Image</h4>
-<pre class="codehilite"><code>color_image_integrated_intensity
+<pre><code>color_image_integrated_intensity
 color_image_maximum_intensity
 color_image_mean_intensity
 color_image_median_absolute_deviation_intensity
@@ -252,9 +229,8 @@ color_image_quantile_1_intensity
 color_image_quantile_3_intensity
 color_image_standard_deviation_intensity
 </code></pre>
-
 <h4>Object</h4>
-<pre class="codehilite"><code>color_object_center_mass_intensity_x
+<pre><code>color_object_center_mass_intensity_x
 color_object_center_mass_intensity_y
 color_object_integrated_intensity
 color_object_integrated_intensity_edge
@@ -281,10 +257,9 @@ color_object_distribution_coefficient_of_variation_intensity
 color_object_distribution_integrated_intensity
 Color_object_distribution_mean_intensity
 </code></pre>
-
 <h3>Location</h3>
 <h4>Object neighborhood</h4>
-<pre class="codehilite"><code>location_object_neighborhood_angle
+<pre><code>location_object_neighborhood_angle
 location_object_neighborhood_closest_0_distance
 location_object_neighborhood_closest_0_object_index
 location_object_neighborhood_closest_1_distance
@@ -294,36 +269,30 @@ location_object_neighborhood_closest_2_object_index
 location_object_neighborhood_neighbors
 location_object_neighborhood_touching
 </code></pre>
-
 <h3>Metadata</h3>
 <h4>Image</h4>
-<pre class="codehilite"><code>metadata_image_checksum
+<pre><code>metadata_image_checksum
 metadata_image_filename
 </code></pre>
-
 <h4>Layer</h4>
-<pre class="codehilite"><code>metadata_layer_name
+<pre><code>metadata_layer_name
 metadata_layer_type
 </code></pre>
-
 <h4>Object</h4>
-<pre class="codehilite"><code>metadata_object_index
+<pre><code>metadata_object_index
 </code></pre>
-
 <h3>Shape</h3>
 <h4>Image</h4>
-<pre class="codehilite"><code>shape_image_area
+<pre><code>shape_image_area
 </code></pre>
-
 <h4>Image skeleton</h4>
-<pre class="codehilite"><code>shape_image_skeleton_branches
+<pre><code>shape_image_skeleton_branches
 shape_image_skeleton_endpoints
 shape_image_skeleton_length
 shape_image_skeleton_trunks
 </code></pre>
-
 <h4>Object</h4>
-<pre class="codehilite"><code>shape_object_area
+<pre><code>shape_object_area
 shape_object_bounding_box_area
 shape_object_bounding_box_maximum_x
 shape_object_bounding_box_maximum_y
@@ -412,10 +381,9 @@ shape_object_skeleton_branches
 shape_object_skeleton_length
 shape_object_skeleton_trunks
 </code></pre>
-
 <h3>Texture</h3>
 <h4>Object</h4>
-<pre class="codehilite"><code>texture_object_haralick_angular_second_moment
+<pre><code>texture_object_haralick_angular_second_moment
 texture_object_haralick_contrast
 texture_object_haralick_coorelation
 texture_object_haralick_sum_of_squares_variance
@@ -429,7 +397,7 @@ texture_object_haralick_measure_of_correlation_0
 texture_object_haralick_measure_of_correlation_1
 texture_object_haralick_maximum_correlation_coefficient
 </code></pre>
-        
+
 
                                     </div>
                                 </div>

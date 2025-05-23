@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,54 +206,29 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/RoccoDAnt/napari-superres/blob/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-superres.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-superres"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-superres.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-superres.svg?color=green" /></a>
-<a href="https://github.com/RoccoDAnt/napari-superres/actions"><img alt="tests" src="https://github.com/RoccoDAnt/napari-superres/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/RoccoDAnt/napari-superres"><img alt="codecov" src="https://codecov.io/gh/RoccoDAnt/napari-superres/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-superres"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/RoccoDAnt/napari-superres" /></a></p>
+                                        <p><a href="https://github.com/RoccoDAnt/napari-superres/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-superres.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-superres"><img src="https://img.shields.io/pypi/v/napari-superres.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-superres.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/RoccoDAnt/napari-superres/actions"><img src="https://github.com/RoccoDAnt/napari-superres/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/RoccoDAnt/napari-superres"><img src="https://codecov.io/gh/RoccoDAnt/napari-superres/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-superres"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/RoccoDAnt/napari-superres" alt="napari hub" /></a></p>
 <p>A collection of super-resolution microscopy FF-SRM methods.</p>
 <p>Open-source implementation of methods for Fluorescence Fluctuation based Super Resolution Microscopy (FF-SRM):</p>
 <p>Review: <a href="https://onlinelibrary.wiley.com/doi/10.1111/jmi.13135">Alva et al., 2022. “Fluorescence Fluctuation-Based Super-Resolution Microscopy: Basic Concepts for an Easy Start.” Journal of Microscopy, August.</a></p>
 <p>MSSR article: <a href="https://doi.org/10.1038/s41467-022-34693-9">Torres-García, E., Pinto-Cámara, R., Linares, A. et al. Extending resolution within a single imaging frame. Nat Commun 13, 7452 (2022).</a></p>
-<p>ESI article: <a href="https://doi.org/10.1021/acsphotonics.5b00307">Idir Yahiatene, Simon Hennig, Marcel Müller, Thomas Huser (2015/2016). "Entropy-based Super-resolution Imaging (ESI): From Disorder to Fine Detail" ACS Photonics 8, 2 (2015)</a></p>
+<p>ESI article: <a href="https://doi.org/10.1021/acsphotonics.5b00307">Idir Yahiatene, Simon Hennig, Marcel Müller, Thomas Huser (2015/2016). &quot;Entropy-based Super-resolution Imaging (ESI): From Disorder to Fine Detail&quot; ACS Photonics 8, 2 (2015)</a></p>
 <p>SOFI article: <a href="https://doi.org/10.1073/pnas.0907866106">T. Dertinger, R. Colyer, G. Iyer, and J. Enderlein. Fast, background-free, 3D super-resolution optical fluctuation imaging (SOFI). PNAS 52, 106 (2009) </a></p>
 <p>SRRF article: <a href="https://www.nature.com/articles/ncomms12471">Gustafsson, N., Culley, S., Ashdown, G., D. M. Owen, P. Matos Pereira, and R. Henriques. Fast live-cell conventional fluorophore nanoscopy with ImageJ through super-resolution radial fluctuations. Nat Commun 7, 12471 (2016)</a></p>
 <p>MUSICAL article: <a href="https://www.nature.com/articles/ncomms13752">K. Agarwal and R. Machan, Multiple Signal Classification Algorithm for super-resolution fluorescence microscopy, Nature Communications, vol. 7, article id. 13752, (2016)</a></p>
-<p>Methods implemented:
-- MSSR
-- ESI
-- SOFI
-- SRRF
-- MUSICAL
-- Split channels</p>
+<p>Methods implemented:</p>
+<ul>
+<li>MSSR</li>
+<li>ESI</li>
+<li>SOFI</li>
+<li>SRRF</li>
+<li>MUSICAL</li>
+<li>Split channels</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -260,9 +239,9 @@ pre > code:last-child {
 </thead>
 <tbody>
 <tr>
-<td><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_7_SRRF_Alva_2022.png" /></td>
-<td><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_2a_MSSR_Garcia_2021.png" /></td>
-<td><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_6_ESI_Alva_2022.png" /></td>
+<td><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_7_SRRF_Alva_2022.png" alt="" /></td>
+<td><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_2a_MSSR_Garcia_2021.png" alt="" /></td>
+<td><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_6_ESI_Alva_2022.png" alt="" /></td>
 </tr>
 <tr>
 <td>from Fig. 7 of <a href="https://onlinelibrary.wiley.com/doi/10.1111/jmi.13135">Alva et al., 2022</a></td>
@@ -271,10 +250,12 @@ pre > code:last-child {
 </tr>
 </tbody>
 </table>
-<p>Repositories available:
-- <a href="https://github.com/biophotonics-bielefeld/ESI">ESI</a> GitHub repository
-- <a href="https://github.com/xiyuyi-at-LLNL/pysofi">PySOFI</a> GitHub repository
-- <a href="https://sites.google.com/site/uthkrishth/musical">MUSICAL</a> Google site</p>
+<p>Repositories available:</p>
+<ul>
+<li><a href="https://github.com/biophotonics-bielefeld/ESI">ESI</a> GitHub repository</li>
+<li><a href="https://github.com/xiyuyi-at-LLNL/pysofi">PySOFI</a> GitHub repository</li>
+<li><a href="https://sites.google.com/site/uthkrishth/musical">MUSICAL</a> Google site</li>
+</ul>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -284,20 +265,17 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>First install napari viewer (if you haven't):</p>
-<pre class="codehilite"><code>conda create -y -n napari-env -c conda-forge python=3.9
+<pre><code>conda create -y -n napari-env -c conda-forge python=3.9
 conda activate napari-env
 pip install &quot;napari[all]&quot;
 </code></pre>
-
-<p>For details check: https://napari.org/stable/</p>
+<p>For details check: <a href="https://napari.org/stable/">https://napari.org/stable/</a></p>
 <p>You can install the plugin <a href="https://github.com/LIBREhub/napari-LatAm-Workshop-2023/blob/napari-superres/docs/day3/napari-superres/napari-superres_installation_guide.pdf">graphically</a>.</p>
 <p>or install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/RoccoDAnt/napari-superres.git
+<pre><code>pip install git+https://github.com/RoccoDAnt/napari-superres.git
 </code></pre>
-
 <p>You might need to install <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git</a> first.</p>
 <hr />
 <p>Examples of use:</p>
@@ -389,21 +367,18 @@ pip install &quot;napari[all]&quot;
 <td>Parameters:</td>
 <td>Emission [nm]: 510 NA: 1.4, Mag: 100, Pizel size: 8000, Threshold: -0.5, Alpha: 4, Subpixels per pixel: 20</td>
 </tr>
-<tr>
-<td>----------------------------------</td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<hr />
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-superres" is free and open source software</p>
+&quot;napari-superres&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/RoccoDAnt/napari-superres/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

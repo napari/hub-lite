@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,34 +206,7 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><strong>The preprint describing this work is now available <a href="https://www.biorxiv.org/content/10.1101/2022.03.17.484806v1">on bioRxiv</a>.</strong></p>
+                                        <p><strong>The preprint describing this work is now available <a href="https://www.biorxiv.org/content/10.1101/2022.03.17.484806v1">on bioRxiv</a>.</strong></p>
 <p><strong>Documentation for the plugin, including more detailed installation instructions, can be found <a href="https://empanada.readthedocs.io/en/latest/empanada-napari.html">here</a>.</strong></p>
 <p><a href="https://github.com/volume-em/empanada">empanada</a> is a tool for deep learning-based panoptic segmentation of 2D and 3D electron microscopy images of cells.
 This plugin allows the running of panoptic segmentation models trained in empanada within <a href="https://napari.org">napari</a>.
@@ -245,52 +222,53 @@ raise an <a href="https://github.com/napari/napari/issues">issue here instead</a
 <h2>Installation</h2>
 <p>It's recommended to have installed napari through <a href="https://docs.conda.io/en/latest/miniconda.html">conda</a>.
 Then to install this plugin:</p>
-<pre class="codehilite"><code class="language-shell">pip install empanada-napari
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>empanada-napari
+</pre></div>
 </code></pre>
-
 <p>Launch napari:</p>
-<pre class="codehilite"><code class="language-shell">napari
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
-<p>Look for empanada-napari under the "Plugins" menu.</p>
-<p><img alt="empanada" src="images/demo.gif" /></p>
+<p>Look for empanada-napari under the &quot;Plugins&quot; menu.</p>
+<p><img src="images/demo.gif" alt="empanada" /></p>
 <h2>GPU Support</h2>
 <p><strong>Note: Mac doesn't support NVIDIA GPUS. This section only applies to Windows and Linux systems.</strong></p>
 <p>As for any deep learning models, having a GPU installed on your system will significantly
 increase model throughput (although we ship CPU optimized versions of all models with the plugin).</p>
 <p>This plugin relies on torch for running models. If a GPU was found on your system, then you will see that the
-"Use GPU" checkbox is checked by default in the "2D Inference" and "3D Inference" plugin widgets. Or if when running
-inference you see a message that says "Using CPU" in the terminal that means a GPU is not being used.</p>
+&quot;Use GPU&quot; checkbox is checked by default in the &quot;2D Inference&quot; and &quot;3D Inference&quot; plugin widgets. Or if when running
+inference you see a message that says &quot;Using CPU&quot; in the terminal that means a GPU is not being used.</p>
 <p>Make sure that GPU drivers are correctly installed. In terminal or command prompt:</p>
-<pre class="codehilite"><code class="language-shell">nvidia-smi
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>nvidia-smi
+</pre></div>
 </code></pre>
-
-<p>If this returns "command not found" then you need to <a href="https://www.nvidia.com/download/index.aspx">install the driver from NVIDIA</a>. Instead, if
+<p>If this returns &quot;command not found&quot; then you need to <a href="https://www.nvidia.com/download/index.aspx">install the driver from NVIDIA</a>. Instead, if
 if the driver is installed correctly, you may need to switch to the GPU enabled version of torch.</p>
 <p>First, uninstall the current version of torch:</p>
-<pre class="codehilite"><code class="language-shell">pip uninstall torch
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>torch
+</pre></div>
 </code></pre>
-
 <p>Then <a href="https://pytorch.org/get-started/locally/">install torch &gt;= 1.10 using conda for your system</a>.
 This command should work:</p>
-<pre class="codehilite"><code class="language-shell">conda install pytorch cudatoolkit=11.3 -c pytorch
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>pytorch<span class="w"> </span><span class="nv">cudatoolkit</span><span class="o">=</span><span class="m">11</span>.3<span class="w"> </span>-c<span class="w"> </span>pytorch
+</pre></div>
 </code></pre>
-
 <h2>Citing this work</h2>
 <p>If you use results generated by this plugin in a publication, please cite:</p>
-<pre class="codehilite"><code class="language-bibtex">@article {Conrad2022.03.17.484806,
-    author = {Conrad, Ryan and Narayan, Kedar},
-    title = {Instance segmentation of mitochondria in electron microscopy images with a generalist deep learning model},
-    elocation-id = {2022.03.17.484806},
-    year = {2022},
-    doi = {10.1101/2022.03.17.484806},
-    publisher = {Cold Spring Harbor Laboratory},
-    URL = {https://www.biorxiv.org/content/early/2022/03/18/2022.03.17.484806},
-    eprint = {https://www.biorxiv.org/content/early/2022/03/18/2022.03.17.484806.full.pdf},
-    journal = {bioRxiv}
-}
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="w"> </span><span class="p">{</span><span class="nl">Conrad2022.03.17.484806</span><span class="p">,</span>
+<span class="w">	</span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Conrad, Ryan and Narayan, Kedar}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Instance segmentation of mitochondria in electron microscopy images with a generalist deep learning model}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">elocation-id</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2022.03.17.484806}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2022}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.1101/2022.03.17.484806}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">publisher</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Cold Spring Harbor Laboratory}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">URL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://www.biorxiv.org/content/early/2022/03/18/2022.03.17.484806}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">eprint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://www.biorxiv.org/content/early/2022/03/18/2022.03.17.484806.full.pdf}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{bioRxiv}</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-        
+
 
                                     </div>
                                 </div>

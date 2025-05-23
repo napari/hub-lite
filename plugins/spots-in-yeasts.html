@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts/raw/master/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green.svg" /></a>
-<a href="https://pypi.org/project/spots-in-yeasts"><img alt="PyPI" src="https://img.shields.io/pypi/v/spots-in-yeasts.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/spots-in-yeasts.svg?color=green" /></a>
-<a href="https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts/actions"><img alt="tests" src="https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/MontpellierRessourcesImagerie/spots-in-yeasts"><img alt="codecov" src="https://codecov.io/gh/MontpellierRessourcesImagerie/spots-in-yeasts/branch/master/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/spots-in-yeasts"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/spots-in-yeasts" /></a></p>
+                                        <p><a href="https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts/raw/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT" /></a>
+<a href="https://pypi.org/project/spots-in-yeasts"><img src="https://img.shields.io/pypi/v/spots-in-yeasts.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/spots-in-yeasts.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts/actions"><img src="https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/MontpellierRessourcesImagerie/spots-in-yeasts"><img src="https://codecov.io/gh/MontpellierRessourcesImagerie/spots-in-yeasts/branch/master/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/spots-in-yeasts"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/spots-in-yeasts" alt="napari hub" /></a></p>
 <p>A Napari plugin segmenting yeast cells and fluo spots to extract statistics.</p>
 <hr />
 <p>The skeleton on this <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -243,30 +220,32 @@ pre > code:last-child {
 <p>This Napari plugin's purpose is to extract statistics about fluo spots in yeast cells. We produce a segmentation of cells (based on the brightfield) and a segmentation of spots (based on the fluo channel). Then, we associate the measures to each cells.</p>
 </blockquote>
 <p>Unless you use the <code>NapariJ</code> plugin to open images, or the <code>cast_extension.ijm</code> script to cast files, you can only launch this plugin on <code>.tif</code> images.</p>
-<p>For now, the code produces JSON files compiling the metrics such as:
-- The number of spots per cell.
-- The average intensity of a spot.
-- The area of each spot.
-- The location of each spot.</p>
+<p>For now, the code produces JSON files compiling the metrics such as:</p>
+<ul>
+<li>The number of spots per cell.</li>
+<li>The average intensity of a spot.</li>
+<li>The area of each spot.</li>
+<li>The location of each spot.</li>
+</ul>
 <p>We provide <code>cast_extension.ijm</code> which is another script meant to be used in Fiji/ImageJ. It is able to convert <code>.nd</code> and <code>.czi</code> images into basic <code>.tif</code> images so you can open them in Napari.</p>
 <p>You can process your images either in <strong>one-shot</strong> <em>(image per image)</em> or in <strong>batch mode</strong> <em>(by providing the path to a folder)</em>. In case you used batch mode, a control image is created so you can quickly check whether your segmentation was correctly performed.</p>
-<p>Required packages in your environment:
-- <code>napari</code>
-- <code>cellpose</code>
-- <code>numpy</code>
-- <code>skimage</code>
-- <code>termcolor</code>
-- <code>matplotlib</code>
-- <code>cv2</code></p>
+<p>Required packages in your environment:</p>
+<ul>
+<li><code>napari</code></li>
+<li><code>cellpose</code></li>
+<li><code>numpy</code></li>
+<li><code>skimage</code></li>
+<li><code>termcolor</code></li>
+<li><code>matplotlib</code></li>
+<li><code>cv2</code></li>
+</ul>
 <h2>Installation</h2>
 <p>You can install <code>spots-in-yeasts</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install spots-in-yeasts
+<pre><code>pip install spots-in-yeasts
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts.git
+<pre><code>pip install git+https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts.git
 </code></pre>
-
 <h2>Example</h2>
 <ul>
 <li>Your images must have exactly two channels. The number of slices in each channel is totally up to you.</li>
@@ -274,18 +253,18 @@ pre > code:last-child {
 <li>If you want to use the batch mode, you must use <code>.tif</code> images.</li>
 </ul>
 <p>The two following images are the <strong>brightfield</strong> and <strong>fluo spots</strong> channels of the same image:</p>
-<p><img alt="Brightfield" src="https://dev.mri.cnrs.fr/attachments/download/3017/bf.png" />
-<img alt="Spots" src="https://dev.mri.cnrs.fr/attachments/download/3018/fluo.png" /></p>
+<p><img src="https://dev.mri.cnrs.fr/attachments/download/3017/bf.png" alt="Brightfield" />
+<img src="https://dev.mri.cnrs.fr/attachments/download/3018/fluo.png" alt="Spots" /></p>
 <p>The following images are the <strong>cells labels</strong> and the <strong>spots positions</strong>:</p>
-<p><img alt="Labeled cells" src="https://dev.mri.cnrs.fr/attachments/download/3016/cells.png" />
-<img alt="Detected spots" src="https://dev.mri.cnrs.fr/attachments/download/3019/spots.png" /></p>
+<p><img src="https://dev.mri.cnrs.fr/attachments/download/3016/cells.png" alt="Labeled cells" />
+<img src="https://dev.mri.cnrs.fr/attachments/download/3019/spots.png" alt="Detected spots" /></p>
 <h2>Usage</h2>
 <h3>One-shot</h3>
 <ul>
 <li>Open Napari. Keep the terminal opened, it provides lots of information.</li>
 <li>Before starting, make sure that no layer is currently open. You can clear your viewer with the <code>Clear layers</code> button.</li>
 <li>Drag'n'drop your image into the Napari viewer. It should show up in the left column.</li>
-<li>Click the <code>Split channels</code> button to separate the brightfield and the fluo on two different layers. Now, you should have two layers named "brightfield" and "fluo-spots".</li>
+<li>Click the <code>Split channels</code> button to separate the brightfield and the fluo on two different layers. Now, you should have two layers named &quot;brightfield&quot; and &quot;fluo-spots&quot;.</li>
 <li>To segment yeast cells, click the <code>Segment cells</code> button. The interface will certainly freeze during a few seconds (~10/30s). A new layer should appear, containing a value of intensity for each individual cell.</li>
 <li>Click on the <code>Segment spots</code> button. This is a pretty fast operation. A new layer containing spots just appeared. Spots are represented as small white dots. You can change that in the layer's settings you struggle controling the result.</li>
 <li>Finally, you can use the <code>Extract stats</code> button to create a JSON file. This file will automatically be opened in your default text editor, but it is a <strong>temporary file</strong>, which means that it is not saved anywhere and will get lost if you don't save it yourself.</li>
@@ -303,7 +282,7 @@ pre > code:last-child {
 <h2>Messages:</h2>
 <ul>
 <li><code>Export directory set to: /some/path/to/output</code>: Folder provided by the user to receive produced files (JSON, controls)</li>
-<li><code>===== Working on: d1-230421-11S_2 (1/32)====</code>: Name of the image currently processed and its rank. For example here, "d1-230421-11S_2" is being processed and it is the first image processed from a folder containing 32 images.</li>
+<li><code>===== Working on: d1-230421-11S_2 (1/32)====</code>: Name of the image currently processed and its rank. For example here, &quot;d1-230421-11S_2&quot; is being processed and it is the first image processed from a folder containing 32 images.</li>
 <li><code>Selected slices: (4, 8). (11 slices available)</code>: The script doesn't use all the slices in the image. Instead, it detects the most is-focus slice and takes N slices before and after it. In this example, 11 slices were available in the image. We are using the slices 4, 5, 6, 7, 8 for processing, so the most in-focus one is the 6th.</li>
 <li><code>Segmenting cells...</code>: Notification that the script started segmenting yeasts cells.</li>
 <li><code>Cells segmentation done. 219 cells found.</code>: End of cells segmentation. This message also provides you with the number of indiviual detected. This number is displayed before labels touching the borders are removed.</li>
@@ -322,10 +301,10 @@ pre > code:last-child {
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"spots-in-yeasts" is free and open source software</p>
+&quot;spots-in-yeasts&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/MontpellierRessourcesImagerie/spots-in-yeasts/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

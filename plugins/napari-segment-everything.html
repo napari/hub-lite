@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-segment-everything.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-segment-everything"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-segment-everything.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-segment-everything.svg?color=green" /></a>
-<a href="https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/actions"><img alt="tests" src="https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/True-North-Intelligent-Algorithms/napari-segment-everything"><img alt="codecov" src="https://codecov.io/gh/True-North-Intelligent-Algorithms/napari-segment-everything/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-segment-everything"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-segment-everything" /></a></p>
+                                        <p><a href="https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-segment-everything.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-segment-everything"><img src="https://img.shields.io/pypi/v/napari-segment-everything.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-segment-everything.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/actions"><img src="https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/True-North-Intelligent-Algorithms/napari-segment-everything"><img src="https://codecov.io/gh/True-North-Intelligent-Algorithms/napari-segment-everything/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-segment-everything"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-segment-everything" alt="napari hub" /></a></p>
 <p>A Napari SAM plugin to segment everything in your image (not just some things)</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -245,15 +222,14 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
-<p>https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/assets/4366342/1f451e4a-bf66-4b77-a91d-4fa283270160</p>
+<p><a href="https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/assets/4366342/1f451e4a-bf66-4b77-a91d-4fa283270160">https://github.com/True-North-Intelligent-Algorithms/napari-segment-everything/assets/4366342/1f451e4a-bf66-4b77-a91d-4fa283270160</a></p>
 <h2>Instructions</h2>
 <h3>0. Select recipe (implementation)</h3>
-<p>Use the 'select recipe' combo box to choose the implementation.   Currently 'Mobile SAM v2', 'Mobile SAM finetuned' and 'SAM Automatic Mask Generator' are available.  Not that the sub-options will change slightly depending on which recipe you choose.  'Mobile SAM v2' and 'Mobile SAM finetuned' (finetuned using Cellpose training data) first use a bounding box detector to locate objects then feed the bounding boxes to SAM.  'SAM Automatic Mask Generator' uses a grid of points as the prompt for SAM.  Our experiments indicate that the 'Mobile SAM' recipes work well in most cases.  'SAM Automatic Mask Generator' may be useful for cases where bounding box detection was sub-optimal.  </p>
+<p>Use the 'select recipe' combo box to choose the implementation.   Currently 'Mobile SAM v2', 'Mobile SAM finetuned' and 'SAM Automatic Mask Generator' are available.  Not that the sub-options will change slightly depending on which recipe you choose.  'Mobile SAM v2' and 'Mobile SAM finetuned' (finetuned using Cellpose training data) first use a bounding box detector to locate objects then feed the bounding boxes to SAM.  'SAM Automatic Mask Generator' uses a grid of points as the prompt for SAM.  Our experiments indicate that the 'Mobile SAM' recipes work well in most cases.  'SAM Automatic Mask Generator' may be useful for cases where bounding box detection was sub-optimal.</p>
 <h3>1. Generate 3D labels</h3>
-<p>In the first step adjust SAM settings and generate a 3D representation of your labels.  The 3D view is needed to represent overlapping labels (labels that overlap in xy can be represented at different z).  After tweaking settings press 'Generate 3D labels'.  Be patient.  SAM with permissive settings can potentially find thousands of labels in a complicated image.  At least 6G of GPU memory is recommended to run SAM and to render to 3D label map (which can be large). </p>
+<p>In the first step adjust SAM settings and generate a 3D representation of your labels.  The 3D view is needed to represent overlapping labels (labels that overlap in xy can be represented at different z).  After tweaking settings press 'Generate 3D labels'.  Be patient.  SAM with permissive settings can potentially find thousands of labels in a complicated image.  At least 6G of GPU memory is recommended to run SAM and to render to 3D label map (which can be large).</p>
 <h3>2. Filter 3D labels</h3>
-<p>In the next step select a stat (solidity, hue, IOE, stability and other stats are available) then use the sliders and number boxes to filter out labels that do not represent structure of interest.  If you double click on a label a popup will appear containing the stats for that label.  Inpect stats for labels you want to keep, and labels you want to eliminate to help determine the filter settings. </p>
+<p>In the next step select a stat (solidity, hue, IOE, stability and other stats are available) then use the sliders and number boxes to filter out labels that do not represent structure of interest.  If you double click on a label a popup will appear containing the stats for that label.  Inpect stats for labels you want to keep, and labels you want to eliminate to help determine the filter settings.</p>
 <h3>3. Generate 2D labels</h3>
 <p>In this step the 3D labels are projected to a 2D label map, use the dropdown to choose between projecting big labels in front or small labels in front.</p>
 <h2>Contributing</h2>
@@ -261,10 +237,10 @@ https://napari.org/stable/plugins/index.html
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-segment-everything" is free and open source software</p>
+&quot;napari-segment-everything&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

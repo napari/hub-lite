@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hiroalchem/napari-SAM4IS/raw/main/LICENSE"><img alt="License Apache Software License 2.0" src="https://img.shields.io/pypi/l/napari-SAM4IS.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-SAM4IS"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-SAM4IS.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-SAM4IS.svg?color=green" /></a>
-<a href="https://github.com/hiroalchem/napari-SAM4IS/actions"><img alt="tests" src="https://github.com/hiroalchem/napari-SAM4IS/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hiroalchem/napari-SAM4IS"><img alt="codecov" src="https://codecov.io/gh/hiroalchem/napari-SAM4IS/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-SAM4IS"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-SAM4IS" /></a></p>
+                                        <p><a href="https://github.com/hiroalchem/napari-SAM4IS/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-SAM4IS.svg?color=green" alt="License Apache Software License 2.0" /></a>
+<a href="https://pypi.org/project/napari-SAM4IS"><img src="https://img.shields.io/pypi/v/napari-SAM4IS.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-SAM4IS.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hiroalchem/napari-SAM4IS/actions"><img src="https://github.com/hiroalchem/napari-SAM4IS/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hiroalchem/napari-SAM4IS"><img src="https://codecov.io/gh/hiroalchem/napari-SAM4IS/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-SAM4IS"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-SAM4IS" alt="napari hub" /></a></p>
 <h3>napari plugin for instance and semantic segmentation annotation using Segment Anything Model (SAM)</h3>
 <p>This is a plugin for <a href="https://napari.org/">napari</a>, a multi-dimensional image viewer for Python, that allows for instance and semantic segmentation annotation. This plugin provides an easy-to-use interface for annotating images with the option to output annotations as COCO format.</p>
 <hr />
@@ -250,40 +227,37 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>To use this plugin, you'll need to install the <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">napari</a> multi-dimensional image viewer and the <a href="https://github.com/facebookresearch/segment-anything">Segment Anything Model (SAM)</a> library.</p>
 <h3>napari Installation</h3>
 <p>You can install napari using pip:</p>
-<pre class="codehilite"><code>pip install &quot;napari[all]&quot;
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="ss">&quot;napari[all]&quot;</span>
+</pre></div>
 </code></pre>
-
 <p>Alternatively, you can install napari and all of its dependencies with conda:</p>
-<pre class="codehilite"><code>conda install -c conda-forge napari
+<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge napari
+</pre></div>
 </code></pre>
-
 <p>For more detailed instructions, please refer to the <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">napari installation guide</a>.</p>
 <h3>SAM Installation</h3>
 <p>You can install SAM from the <a href="https://github.com/facebookresearch/segment-anything">official GitHub repository</a> using pip:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/facebookresearch/segment-anything.git
+<pre><code><div class="highlight"><pre><span></span>pip install git+https://github.com/facebookresearch/segment-anything.git
+</pre></div>
 </code></pre>
-
 <p>Or you can install from source by cloning the repository:</p>
-<pre class="codehilite"><code>git clone https://github.com/facebookresearch/segment-anything.git
+<pre><code><div class="highlight"><pre><span></span>git clone https://github.com/facebookresearch/segment-anything.git
 cd segment-anything
 pip install -e .
+</pre></div>
 </code></pre>
-
 <p>For more detailed instructions, please refer to the <a href="https://github.com/facebookresearch/segment-anything#installation">SAM installation guide</a>.</p>
 <h3>napari-SAM4IS Installation</h3>
 <p>You can install <code>napari-SAM4IS</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-SAM4IS
+<pre><code>pip install napari-SAM4IS
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hiroalchem/napari-SAM4IS.git
+<pre><code>pip install git+https://github.com/hiroalchem/napari-SAM4IS.git
 </code></pre>
-
 <h2>Usage</h2>
 <h3>Preparation</h3>
 <ol>
@@ -292,14 +266,14 @@ pip install -e .
 <li>In the widget that appears, select the model you want to use and click the load button. (The default option is recommended.)</li>
 <li>Next, select the image layer you want to annotate.</li>
 <li>Then, select whether you want to do instance segmentation or semantic segmentation. (Note that for 3D images, semantic segmentation should be chosen in the current version.)</li>
-<li>Finally, select the output layer as "shapes" for instance segmentation or "labels" for semantic segmentation. (For instance segmentation, the "Accept" layer can also be used.)</li>
+<li>Finally, select the output layer as &quot;shapes&quot; for instance segmentation or &quot;labels&quot; for semantic segmentation. (For instance segmentation, the &quot;Accept&quot; layer can also be used.)</li>
 </ol>
 <h3>Annotation</h3>
 <ol>
 <li>Select the SAM-Box layer and use the rectangle tool to enclose the object you want to segment.</li>
 <li>An automatic segmentation mask will be created and output to the SAM-Predict layer.</li>
 <li>If you want to make adjustments, do so in the SAM-Predict layer.</li>
-<li>To accept or reject the annotation, press "a" or "r" on the keyboard, respectively.</li>
+<li>To accept or reject the annotation, press &quot;a&quot; or &quot;r&quot; on the keyboard, respectively.</li>
 <li>If you accept the annotation, it will be output as label 1 for semantic segmentation or converted to a polygon and output to the designated layer for instance segmentation.</li>
 <li>If you reject the annotation, the segmentation mask in the SAM-Predict layer will be discarded.</li>
 <li>After accepting or rejecting the annotation, the SAM-Predict layer will automatically reset to blank and return to the SAM-Box layer.</li>
@@ -307,17 +281,17 @@ pip install -e .
 <h3>Saving</h3>
 <ol>
 <li>If you have output to the labels layer, use napari's standard functionality to save the mask.</li>
-<li>If you have output to the shapes layer, you can save the shapes layer using napari's standard functionality, or you can click the "save" button to output a JSON file in COCO format for each image in the folder. (The JSON file will have the same name as the image.)</li>
+<li>If you have output to the shapes layer, you can save the shapes layer using napari's standard functionality, or you can click the &quot;save&quot; button to output a JSON file in COCO format for each image in the folder. (The JSON file will have the same name as the image.)</li>
 </ol>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License 2.0</a> license,
-"napari-SAM4IS" is free and open source software</p>
+&quot;napari-SAM4IS&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hiroalchem/napari-SAM4IS/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

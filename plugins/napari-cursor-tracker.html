@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/faymanns/napari-cursor-tracker/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-cursor-tracker.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-cursor-tracker"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-cursor-tracker.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-cursor-tracker.svg?color=green" /></a>
-<a href="https://github.com/faymanns/napari-cursor-tracker/actions"><img alt="tests" src="https://github.com/faymanns/napari-cursor-tracker/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/faymanns/napari-cursor-tracker"><img alt="codecov" src="https://codecov.io/gh/faymanns/napari-cursor-tracker/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-cursor-tracker"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-cursor-tracker" /></a></p>
+                                        <p><a href="https://github.com/faymanns/napari-cursor-tracker/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-cursor-tracker.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-cursor-tracker"><img src="https://img.shields.io/pypi/v/napari-cursor-tracker.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-cursor-tracker.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/faymanns/napari-cursor-tracker/actions"><img src="https://github.com/faymanns/napari-cursor-tracker/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/faymanns/napari-cursor-tracker"><img src="https://codecov.io/gh/faymanns/napari-cursor-tracker/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-cursor-tracker"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-cursor-tracker" alt="napari hub" /></a></p>
 <p>Plugin for easy manual annotation/tracking of 3D or 2D + t dataset by following the cursor.</p>
 <hr />
 <!--
@@ -246,35 +223,33 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-cursor-tracker</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-cursor-tracker
+<pre><code>pip install napari-cursor-tracker
 </code></pre>
-
 <h2>Getting Started with napari-cursor-tracker</h2>
 <p>Welcome to <code>napari-cursor-tracker</code>, a tool that simplifies the annotation of points in stacks of images by tracking your cursor's position. This documentation will guide you through the process of setting up and using this plugin effectively.</p>
 <h3>Points Layer Setup</h3>
 <p>Before you can start tracking, you need to create a points layer, which will store the positions of your cursor for each image in the stack. Here's how to set it up:</p>
 <ol>
 <li>
-<p><strong>Choose a Reference Image:</strong> Start by selecting a "Reference image" from your image stack. The number of frames or slices in the reference image determines how many points your new layer will have (one per frame/slice).</p>
+<p><strong>Choose a Reference Image:</strong> Start by selecting a &quot;Reference image&quot; from your image stack. The number of frames or slices in the reference image determines how many points your new layer will have (one per frame/slice).</p>
 </li>
 <li>
 <p><strong>Specify Point Name:</strong> Assign a name to the tracked point. This name will also serve as the name for the new layer. This step is particularly useful when tracking multiple points.</p>
 </li>
 <li>
-<p><strong>Create the Layer:</strong> Click on "Add new layer" to create the points layer. Initially, all points will be located at the origin (0, 0, 0), but their positions will be updated as you start tracking.</p>
+<p><strong>Create the Layer:</strong> Click on &quot;Add new layer&quot; to create the points layer. Initially, all points will be located at the origin (0, 0, 0), but their positions will be updated as you start tracking.</p>
 </li>
 </ol>
 <h3>Tracking Your Cursor</h3>
 <p>Now that you have set up the points layer, you can start tracking your cursor's position. Follow these steps:</p>
 <ol>
 <li>
-<p><strong>Select the Active Layer:</strong> Choose the points layer where you want to save the tracking results as the "Active layer."</p>
+<p><strong>Select the Active Layer:</strong> Choose the points layer where you want to save the tracking results as the &quot;Active layer.&quot;</p>
 </li>
 <li>
-<p><strong>Initiate Tracking:</strong> Begin tracking your cursor's position by pressing the 't' key on your keyboard. To stop tracking, press 't' again. If the "Auto play when tracking is started" option is enabled, playback will start automatically when you press 't'. Alternatively, you can manually scroll through the images, and your cursor's position will be saved whenever the slice/frame index changes.</p>
+<p><strong>Initiate Tracking:</strong> Begin tracking your cursor's position by pressing the 't' key on your keyboard. To stop tracking, press 't' again. If the &quot;Auto play when tracking is started&quot; option is enabled, playback will start automatically when you press 't'. Alternatively, you can manually scroll through the images, and your cursor's position will be saved whenever the slice/frame index changes.</p>
 </li>
 <li>
 <p><strong>Customize Playback:</strong> To facilitate or expedite tracking, you can adjust playback parameters as needed.</p>
@@ -287,7 +262,7 @@ https://napari.org/stable/plugins/index.html
 <p><strong>Create Individual Layers:</strong> Create a separate points layer for each point you want to track.</p>
 </li>
 <li>
-<p><strong>Select Active Layer:</strong> Use the "Active layer" dropdown menu to select the specific points layer you want to work with.</p>
+<p><strong>Select Active Layer:</strong> Use the &quot;Active layer&quot; dropdown menu to select the specific points layer you want to work with.</p>
 </li>
 <li>
 <p><strong>Start Tracking:</strong> Begin tracking the selected point following the previously mentioned tracking process.</p>
@@ -301,10 +276,10 @@ https://napari.org/stable/plugins/index.html
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-cursor-tracker" is free and open source software</p>
+&quot;napari-cursor-tracker&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

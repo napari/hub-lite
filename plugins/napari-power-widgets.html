@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,94 +210,67 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hanjinliu/napari-power-widgets/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-power-widgets.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-power-widgets"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-power-widgets.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-power-widgets.svg?color=green" /></a>
-<a href="https://github.com/hanjinliu/napari-power-widgets/actions"><img alt="tests" src="https://github.com/hanjinliu/napari-power-widgets/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hanjinliu/napari-power-widgets"><img alt="codecov" src="https://codecov.io/gh/hanjinliu/napari-power-widgets/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-power-widgets"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-power-widgets" /></a></p>
+                                        <p><a href="https://github.com/hanjinliu/napari-power-widgets/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-power-widgets.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-power-widgets"><img src="https://img.shields.io/pypi/v/napari-power-widgets.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-power-widgets.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hanjinliu/napari-power-widgets/actions"><img src="https://github.com/hanjinliu/napari-power-widgets/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hanjinliu/napari-power-widgets"><img src="https://codecov.io/gh/hanjinliu/napari-power-widgets/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-power-widgets"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-power-widgets" alt="napari hub" /></a></p>
 <p>Powerful <code>magicgui</code> widgets and type annotations for general-purpose napari plugin development.</p>
 <p><code>napari-power-widgets</code> makes the full use of type-to-widget mapping strategy of <code>magicgui</code> to provide napari-specific types and value-widgets, which will be very useful to improve UI/UX of your napari plugins with simple codes.</p>
 <p>Currently, <code>napari-power-widgets</code> does not provide any reader, writer or widget. It is supposed to be used programmatically.</p>
 <h3>Examples</h3>
-<p>Some types/widgets and the possible usage are picked up here (<a href="https://github.com/hanjinliu/napari-power-widgets/blob/main/src/napari_power_widgets/types.py">&rarr; check all</a>). If you have any neat ideas, please open an issue.</p>
+<p>Some types/widgets and the possible usage are picked up here (<a href="https://github.com/hanjinliu/napari-power-widgets/blob/main/src/napari_power_widgets/types.py">→ check all</a>). If you have any neat ideas, please open an issue.</p>
 <h4>1. <code>BoxSelection</code></h4>
 <p>Alias of a four-float tuple for 2D selection. You can set the value by drawing a interaction box in the viewer.</p>
 <p><em>e. g. : image cropper, rectangular labeling etc.</em></p>
-<pre class="codehilite"><code class="language-python">@magicgui
-def f(box: BoxSelection):
-    print(box)
-viewer.window.add_dock_widget(f)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">BoxSelection</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<p><img alt="" src="images/BoxSelection.gif" /></p>
+<p><img src="images/BoxSelection.gif" alt="" /></p>
 <h4>2. <code>OneOfRectangles</code></h4>
 <p>Alias of <code>np.ndarray</code> for one of rectangles in a <code>Shapes</code> layer.</p>
 <p><em>e. g. : image cropper, rectangular labeling etc.</em></p>
-<pre class="codehilite"><code class="language-python">@magicgui
-def f(rect: OneOfRectangles):
-    print(rect)
-viewer.window.add_dock_widget(f)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">rect</span><span class="p">:</span> <span class="n">OneOfRectangles</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<p><img alt="" src="images/OneOfRectangles.gif" /></p>
+<p><img src="images/OneOfRectangles.gif" alt="" /></p>
 <h4>3. <code>LineData</code></h4>
 <p>Alias of <code>np.ndarray</code> for a line data. You can obtain the data by manually drawing a line in the viewer.</p>
 <p><em>e. g. : line profiling, kymograph etc.</em></p>
-<pre class="codehilite"><code class="language-python">@magicgui
-def f(line: LineData):
-    print(line)
-viewer.window.add_dock_widget(f)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="n">LineData</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<p><img alt="" src="images/LineData.gif" /></p>
+<p><img src="images/LineData.gif" alt="" /></p>
 <h4>4. <code>OneOfLabels</code></h4>
 <p>Alias of boolean <code>np.ndarray</code> for a labeled region. You can choose ones by directly clicking the viewer.</p>
 <p><em>e. g. : image masking, feature measurement etc.</em></p>
-<pre class="codehilite"><code class="language-python">@magicgui
-def f(label: OneOfLabels):
-    pass
-viewer.window.add_dock_widget(f)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">label</span><span class="p">:</span> <span class="n">OneOfLabels</span><span class="p">):</span>
+    <span class="k">pass</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<p><img alt="" src="images/OneOfLabels.gif" /></p>
+<p><img src="images/OneOfLabels.gif" alt="" /></p>
 <h4>5. <code>ZRange</code></h4>
 <p>Alias of a tuple of float that represents the limit of the third dimension. You can select the values by moving the dimension slider.</p>
 <p><em>e. g. : movie trimming, partial image projection etc.</em></p>
-<pre class="codehilite"><code class="language-python">@magicgui
-def f(zrange: ZRange):
-    print(zrange)
-viewer.window.add_dock_widget(f)
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">zrange</span><span class="p">:</span> <span class="n">ZRange</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">zrange</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<p><img alt="" src="images/ZRange.gif" /></p>
+<p><img src="images/ZRange.gif" alt="" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -303,25 +280,22 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-power-widgets</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-power-widgets
+<pre><code>pip install napari-power-widgets
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hanjinliu/napari-power-widgets.git
+<pre><code>pip install git+https://github.com/hanjinliu/napari-power-widgets.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-power-widgets" is free and open source software</p>
+&quot;napari-power-widgets&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hanjinliu/napari-power-widgets/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

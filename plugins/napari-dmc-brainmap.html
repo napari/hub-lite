@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,65 +206,39 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <h1>napari-dmc-brainmap</h1>
+                                        <h1>napari-dmc-brainmap</h1>
 <p><em>DMC-BrainMap is an end-to-end tool for multi-feature brain mapping across species.</em><br />
 This <a href="https://napari.org/stable/">napari</a> plugin was generated with <a href="https://github.com/cookiecutter/cookiecutter">Cookiecutter</a> using napari's <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<p><a href="https://github.com/hejDMC/napari-dmc-brainmap/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-dmc-brainmap.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-dmc-brainmap"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-dmc-brainmap.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-dmc-brainmap.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/napari-dmc-brainmap"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-dmc-brainmap" /></a></p>
+<p><a href="https://github.com/hejDMC/napari-dmc-brainmap/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-dmc-brainmap.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-dmc-brainmap"><img src="https://img.shields.io/pypi/v/napari-dmc-brainmap.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-dmc-brainmap.svg?color=green" alt="Python Version" /></a>
+<a href="https://napari-hub.org/plugins/napari-dmc-brainmap"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-dmc-brainmap" alt="napari hub" /></a></p>
 <h2>Quick start</h2>
 <p>A detailed guide and tutorial can be found on the <a href="https://github.com/hejDMC/napari-dmc-brainmap/wiki">Wiki pages of this repo</a>.</p>
 <h3>Installation</h3>
-<p>DMC-BrainMap is a plugin for <a href="https://napari.org/stable/">napari</a>. Hence, you first need to install napari and subsequently the DMC-BrainMap plugin via the plugin manager. To install napari, we recommend to install napari into a clean virtual environment using <em>conda</em> or <em>venv</em>. Please refer to the <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#napari-installation">napari installation guide</a> for more information and <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#napari-installation">for information on installing napari as a bundled app</a>.  </p>
+<p>DMC-BrainMap is a plugin for <a href="https://napari.org/stable/">napari</a>. Hence, you first need to install napari and subsequently the DMC-BrainMap plugin via the plugin manager. To install napari, we recommend to install napari into a clean virtual environment using <em>conda</em> or <em>venv</em>. Please refer to the <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#napari-installation">napari installation guide</a> for more information and <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#napari-installation">for information on installing napari as a bundled app</a>.</p>
 <h4>Step 1: Setup the virtual environment (Python 3.10)</h4>
-<pre class="codehilite"><code>conda create -y -n napari-env -c conda-forge python=3.10
+<pre><code><div class="highlight"><pre><span></span>conda create -y -n napari-env -c conda-forge python=3.10
 conda activate napari-env
+</pre></div>
 </code></pre>
-
 <h4>Step 2: Install napari</h4>
-<pre class="codehilite"><code>python -m pip install &quot;napari[all]&quot;
+<pre><code><div class="highlight"><pre><span></span><span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="ss">&quot;napari[all]&quot;</span>
+</pre></div>
 </code></pre>
-
 <h4>Step 3: Install napari-dmc-brainmap</h4>
 <p>You can install <code>napari-dmc-brainmap</code> via the napari plugin manager or via <a href="https://pypi.org/project/napari-dmc-brainmap/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-dmc-brainmap
+<pre><code>pip install napari-dmc-brainmap
 </code></pre>
-
 <h3>Usage</h3>
-<p>Please refer to the Wiki pages for detailed instructions and a short tutorial on how to use DMC-BrainMap. When working with DMC-BrainMap on your own data, please keep the following points in mind:
-- DMC-BrainMap requires single-channel 16-bit .tif/.tiff images to work (in principle 8-bit also work)
-- DMC-BrainMap requires that your data is organized by animals in separate folders (you can pool data later down the lane)
-- DMC-BrainMap uses 5 channel labels (<code>dapi</code>, <code>green</code>, <code>n3</code>, <code>cy3</code>, <code>cy5</code>) corresponding to blue, green, orange, red and far red channels. <em>However, these are only labels, you can assign them as you please. Hence, you can use DMC-BrainMap also for non-fluorescence data given you converted your images to single-channel 16-bit .tif/.tiff images</em>. Please contact us if you need to use more than 5 channels.
-- It is essential that you structure your data in the following way (hierarchical organization, same name for images in different channels, channel labels are selected by you), <strong>otherwise DMC-BrainMap won't work</strong>:</p>
-<pre class="codehilite"><code>animal_id-001
+<p>Please refer to the Wiki pages for detailed instructions and a short tutorial on how to use DMC-BrainMap. When working with DMC-BrainMap on your own data, please keep the following points in mind:</p>
+<ul>
+<li>DMC-BrainMap requires single-channel 16-bit .tif/.tiff images to work (in principle 8-bit also work)</li>
+<li>DMC-BrainMap requires that your data is organized by animals in separate folders (you can pool data later down the lane)</li>
+<li>DMC-BrainMap uses 5 channel labels (<code>dapi</code>, <code>green</code>, <code>n3</code>, <code>cy3</code>, <code>cy5</code>) corresponding to blue, green, orange, red and far red channels. <em>However, these are only labels, you can assign them as you please. Hence, you can use DMC-BrainMap also for non-fluorescence data given you converted your images to single-channel 16-bit .tif/.tiff images</em>. Please contact us if you need to use more than 5 channels.</li>
+<li>It is essential that you structure your data in the following way (hierarchical organization, same name for images in different channels, channel labels are selected by you), <strong>otherwise DMC-BrainMap won't work</strong>:</li>
+</ul>
+<pre><code><div class="highlight"><pre><span></span>animal_id-001
 │
 └───stitched
 │   │
@@ -280,32 +258,33 @@ conda activate napari-env
 │   
 animal_id-2
 │   ...
+</pre></div>
 </code></pre>
-
 <h2>Documentation</h2>
 <p>Documentation on DMC-BrainMap's source code can be found on the project's <a href="https://napari-dmc-brainmap.readthedocs.io/en/latest/#">Read the Docs page</a>.</p>
 <h2>Seeking help or contributing</h2>
-<p>DMC-BrainMap is an open-source project, and we welcome contributions of all kinds. If you have any questions, feedback, or suggestions, please feel free to open an issue on this repository. </p>
+<p>DMC-BrainMap is an open-source project, and we welcome contributions of all kinds. If you have any questions, feedback, or suggestions, please feel free to open an issue on this repository.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="https://github.com/teamdigitale/licenses/blob/master/BSD-3-Clause">BSD-3</a> license,
-"napari-dmc-brainmap" is free and open source software</p>
+&quot;napari-dmc-brainmap&quot; is free and open source software</p>
 <h2>Citing DMC-BrainMap</h2>
 <p>If you use DMC-BrainMap in your scientific work, please cite:</p>
-<pre class="codehilite"><code>Jung, F., Cao, X., Heymans, L., Carlén, M. (2025) &quot;DMC-BrainMap - an open-source, end-to-end tool for multi-feature brain mapping across species&quot;, bioRxiv, https://doi.org/10.1101/2025.02.19.639009
+<pre><code><div class="highlight"><pre><span></span><span class="n">Jung</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="o">.</span><span class="p">,</span><span class="w"> </span><span class="n">Cao</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="p">,</span><span class="w"> </span><span class="n">Heymans</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">.</span><span class="p">,</span><span class="w"> </span><span class="n">Carlén</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">.</span><span class="w"> </span><span class="p">(</span><span class="mi">2025</span><span class="p">)</span><span class="w"> </span><span class="s2">&quot;DMC-BrainMap - an open-source, end-to-end tool for multi-feature brain mapping across species&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">bioRxiv</span><span class="p">,</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.1101</span><span class="o">/</span><span class="mf">2025.02</span><span class="o">.</span><span class="mf">19.639009</span>
+</pre></div>
+</code></pre>
+<p>BibTeX:</p>
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">Jung2025x</span><span class="p">,</span>
+<span class="w">   </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Felix Jung and Xiao Cao and Loran Heymans and Marie Carlen}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.1101/2025.02.19.639009}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{bioRxiv}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">month</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{DMC-BrainMap - an open-source, end-to-end tool for multi-feature brain mapping across species}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{http://biorxiv.org/lookup/doi/10.1101/2025.02.19.639009}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
 
-<p>BibTeX:</p>
-<pre class="codehilite"><code class="language-bibtex">@article{Jung2025x,
-   author = {Felix Jung and Xiao Cao and Loran Heymans and Marie Carlen},
-   doi = {10.1101/2025.02.19.639009},
-   journal = {bioRxiv},
-   month = {2},
-   title = {DMC-BrainMap - an open-source, end-to-end tool for multi-feature brain mapping across species},
-   url = {http://biorxiv.org/lookup/doi/10.1101/2025.02.19.639009},
-   year = {2025},
-}
-</code></pre>
-        
 
                                     </div>
                                 </div>

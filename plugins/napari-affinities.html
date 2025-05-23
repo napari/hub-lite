@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/pattonw/napari-affinities/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-affinities.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-affinities"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-affinities.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-affinities.svg?color=green" /></a>
-<a href="https://github.com/pattonw/napari-affinities/actions"><img alt="tests" src="https://github.com/pattonw/napari-affinities/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/pattonw/napari-affinities"><img alt="codecov" src="https://codecov.io/gh/pattonw/napari-affinities/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-affinities"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-affinities" /></a></p>
+                                        <p><a href="https://github.com/pattonw/napari-affinities/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-affinities.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-affinities"><img src="https://img.shields.io/pypi/v/napari-affinities.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-affinities.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/pattonw/napari-affinities/actions"><img src="https://github.com/pattonw/napari-affinities/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/pattonw/napari-affinities"><img src="https://codecov.io/gh/pattonw/napari-affinities/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-affinities"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-affinities" alt="napari hub" /></a></p>
 <p>A plugin for creating, visualizing, and processing affinities</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -249,66 +226,66 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>Installation</h2>
 <p>You will need a conda environment for everything to run
 smoothly. Supported python versions are 3.7, 3.8, 3.9.</p>
 <h3>pip</h3>
 <p>You can install <code>napari-affinities</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>`pip install napari-affinities`
+<pre><code>`pip install napari-affinities`
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>`pip install git+https://github.com/pattonw/napari-affinities.git`
+<pre><code>`pip install git+https://github.com/pattonw/napari-affinities.git`
 </code></pre>
-
 <p>Install torch according to your system <a href="https://pytorch.org/get-started/locally/">(follow the instructions here)</a>. For example with cuda 10.2 available, run:</p>
-<pre class="codehilite"><code>conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
+<pre><code>conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
 </code></pre>
-
 <p>Install conda requirements:</p>
-<pre class="codehilite"><code>conda install -c conda-forge affogato
+<pre><code>conda install -c conda-forge affogato
 </code></pre>
-
 <h3>conda</h3>
 <p>If you install via conda, there are fewer steps since
 affogato and pytorch will be installed for you.</p>
 <p>You can install <code>napari-affinities</code> via [conda]:</p>
-<pre class="codehilite"><code>`conda install -c conda-forge napari-affinities`
+<pre><code>`conda install -c conda-forge napari-affinities`
 </code></pre>
-
 <h3>Download example model:</h3>
 <h4>2D:</h4>
 <p><a href="https://oc.embl.de/index.php/s/zfWMKu7HoQnSJLs">epithelial example model</a>
-Place the model zip file wherever you want. You can open it in the plugin with the "load from file" button.</p>
+Place the model zip file wherever you want. You can open it in the plugin with the &quot;load from file&quot; button.</p>
 <h4>3D</h4>
 <p><a href="https://owncloud.gwdg.de/index.php/s/LsShICsOcilqPRs">lightsheet example model</a>
 Unpack the tar file into test data (<code>lightsheet_nuclei_test_data</code> (an hdf5 file)) and model (<code>LightsheetNucleusSegmentation.zip</code> (a bioimageio model)).
-Move the data into sample_data which will enable you to load the "Lightsheet Sample" data in napari.
-Place the model zip file anywhere you want. You can open it in the plugin with the "load from file" button.</p>
+Move the data into sample_data which will enable you to load the &quot;Lightsheet Sample&quot; data in napari.
+Place the model zip file anywhere you want. You can open it in the plugin with the &quot;load from file&quot; button.</p>
 <h5>Workarounds to be fixed:</h5>
 <ol>
-<li>you need to update the <code>rdf.yaml</code> in the <code>LightsheetNucleusSegmentation.zip</code> with the following:</li>
-<li>"shape" for "input0" should be updated with a larger minimum input size and "output0" should be updated with a larger halo. If not fixed, there will be significant tiling artifacts.</li>
-<li>(Optional) "output0" should be renamed to affinities. The plugin supports multiple outputs and relies on names for figuring out which one is which. If unrecognized names are provided we assume the outputs are ordered (affinities, fgbg, lsds) but this is less reliable than explicit names.</li>
+<li>you need to update the <code>rdf.yaml</code> in the <code>LightsheetNucleusSegmentation.zip</code> with the following:
+<ul>
+<li>&quot;shape&quot; for &quot;input0&quot; should be updated with a larger minimum input size and &quot;output0&quot; should be updated with a larger halo. If not fixed, there will be significant tiling artifacts.</li>
+<li>(Optional) &quot;output0&quot; should be renamed to affinities. The plugin supports multiple outputs and relies on names for figuring out which one is which. If unrecognized names are provided we assume the outputs are ordered (affinities, fgbg, lsds) but this is less reliable than explicit names.</li>
+</ul>
+</li>
 <li>This model also generates foreground in the same array as affinities, i.e. a 10 channel output <code>(fgbg, [-1, 0, 0], [0, -1, 0], [0, 0, -1], [-2, 0, 0], ...)</code>. Although predictions will work, post processing such as mutex watershed will break unless you manually separate the first channel.</li>
 </ol>
 <h2>Use</h2>
 <p>Requirements for the model:</p>
 <ol>
 <li>Bioimageio packaged pytorch model</li>
-<li>Outputs with names "affinities", "fgbg"(optional) or "lsds"(optional)</li>
+<li>Outputs with names &quot;affinities&quot;, &quot;fgbg&quot;(optional) or &quot;lsds&quot;(optional)
+<ul>
 <li>if these names are not used, it will be assumed that the outputs are affinities, fgbg, then lsds in that order</li>
+</ul>
+</li>
 </ol>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-affinities" is free and open source software</p>
+&quot;napari-affinities&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/pattonw/napari-affinities/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

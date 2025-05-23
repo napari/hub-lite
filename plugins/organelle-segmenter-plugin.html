@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,53 +206,26 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/ndcn/organelle-segmenter-plugin/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/organelle-segmenter-plugin.svg?color=green" /></a>
-<a href="https://pypi.org/project/organelle-segmenter-plugin"><img alt="PyPI" src="https://img.shields.io/pypi/v/organelle-segmenter-plugin.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/organelle-segmenter-plugin.svg?color=green" /></a>
-<a href="https://github.com/ndcn/organelle-segmenter-plugin/actions"><img alt="tests" src="https://github.com/ndcn/organelle-segmenter-plugin/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/ndcn/organelle-segmenter-plugin"><img alt="codecov" src="https://codecov.io/gh/ndcn/organelle-segmenter-plugin/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/organelle-segmenter-plugin"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/organelle-segmenter-plugin" /></a></p>
+                                        <p><a href="https://github.com/ndcn/organelle-segmenter-plugin/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/organelle-segmenter-plugin.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/organelle-segmenter-plugin"><img src="https://img.shields.io/pypi/v/organelle-segmenter-plugin.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/organelle-segmenter-plugin.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/ndcn/organelle-segmenter-plugin/actions"><img src="https://github.com/ndcn/organelle-segmenter-plugin/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/ndcn/organelle-segmenter-plugin"><img src="https://codecov.io/gh/ndcn/organelle-segmenter-plugin/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/organelle-segmenter-plugin"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/organelle-segmenter-plugin" alt="napari hub" /></a></p>
 <h3>A <a href="https://napari.org/stable/">napari</a> plugin implementing <a href="https://github.com/ndcn/infer-subc"><code>infer-subc</code></a> segmentation workflows.</h3>
 <p>See <a href="https://github.com/ndcn/infer-subc"><code>infer-subc</code></a> for more information.</p>
 <h1>FRAMEWORK, RESOURCES &amp; CONTRIBUTIONS</h1>
 <h2>Forked from Allen Institute for Cell Science project</h2>
 <p>The Allen Cell &amp; Structure Segmenter plugin for napari, from which this projects is forked, provides an intuitive graphical user interface to access the powerful segmentation capabilities of an open source 3D segmentation software package developed and maintained by the Allen Institute for Cell Science (classic workflows only with v1.0). ​<a href="https://allencell.org/segmenter">The Allen Cell &amp; Structure Segmenter</a> is a Python-based open source toolkit developed at the Allen Institute for Cell Science for 3D segmentation of intracellular structures in fluorescence microscope images. This toolkit brings together classic image segmentation and iterative deep learning workflows first to generate initial high-quality 3D intracellular structure segmentations and then to easily curate these results to generate the ground truths for building robust and accurate deep learning models. The toolkit takes advantage of the high replicate 3D live cell image data collected at the Allen Institute for Cell Science of over 30 endogenous fluorescently tagged human induced pluripotent stem cell (hiPSC) lines. Each cell line represents a different intracellular structure with one or more distinct localization patterns within undifferentiated hiPS cells and hiPSC-derived cardiomyocytes.</p>
-<p>More details about Segmenter can be found at https://allencell.org/segmenter</p>
+<p>More details about Segmenter can be found at <a href="https://allencell.org/segmenter">https://allencell.org/segmenter</a></p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/ndcn/organelle-segmenter-plugin/issues">file an issue</a> along with a detailed description.</p>
 <h2>Contributing</h2>
-<p>Contributions are very welcome. </p>
+<p>Contributions are very welcome.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license</p>
-<p>"organelle-segmenter-plugin" is free and open source software.</p>
-        
+<p>&quot;organelle-segmenter-plugin&quot; is free and open source software.</p>
+
 
                                     </div>
                                 </div>

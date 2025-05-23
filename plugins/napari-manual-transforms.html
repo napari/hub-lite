@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,79 +210,52 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/tlambert03/napari-manual-transforms/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-manual-transforms.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-manual-transforms"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-manual-transforms.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-manual-transforms.svg?color=green" /></a>
-<a href="https://github.com/tlambert03/napari-manual-transforms/actions"><img alt="tests" src="https://github.com/tlambert03/napari-manual-transforms/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/tlambert03/napari-manual-transforms"><img alt="codecov" src="https://codecov.io/gh/tlambert03/napari-manual-transforms/branch/main/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/tlambert03/napari-manual-transforms/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-manual-transforms.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-manual-transforms"><img src="https://img.shields.io/pypi/v/napari-manual-transforms.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-manual-transforms.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/tlambert03/napari-manual-transforms/actions"><img src="https://github.com/tlambert03/napari-manual-transforms/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/tlambert03/napari-manual-transforms"><img src="https://codecov.io/gh/tlambert03/napari-manual-transforms/branch/main/graph/badge.svg" alt="codecov" /></a></p>
 <p>Interface to manually edit layer affine transforms.</p>
 <ul>
 <li>express rotations as quaternion, euler angle, or axis + angle.</li>
 <li>allows rotation around arbitrary origin</li>
 <li>currently, focusing on rigid rotations</li>
 <li>Alt-Drag to rotate a layer independently of the rest.</li>
-<li>image resampling (i.e. "apply" the transformation to create new dataset that can be saved)</li>
+<li>image resampling (i.e. &quot;apply&quot; the transformation to create new dataset that can be saved)</li>
 </ul>
-<p><img alt="Plugin Preview" src="/preview.jpeg" /></p>
+<p><img src="/preview.jpeg" alt="Plugin Preview" /></p>
 <p>caveats:</p>
 <ul>
 <li>only works on 3D Image layers for now, open a feature request for other dims/layers.</li>
-<li>will likely result in "Non-orthogonal slicing is being requested" warnings in 2D view.</li>
+<li>will likely result in &quot;Non-orthogonal slicing is being requested&quot; warnings in 2D view.</li>
 </ul>
 <h2>Try it out</h2>
-<pre class="codehilite"><code class="language-python">import napari
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
-v = napari.Viewer()
-v.dims.ndisplay = 3
-v.open_sample('napari', 'cells3d')
-v.window.add_plugin_dock_widget('napari-manual-transforms')
+<span class="n">v</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">v</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">v</span><span class="o">.</span><span class="n">open_sample</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="s1">&#39;cells3d&#39;</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_plugin_dock_widget</span><span class="p">(</span><span class="s1">&#39;napari-manual-transforms&#39;</span><span class="p">)</span>
 
-napari.run()
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
 </code></pre>
-
 <hr />
 <h2>Installation</h2>
 <p>You can install <code>napari-manual-transforms</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-sh">pip install napari-manual-transforms
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-manual-transforms
+</pre></div>
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code class="language-sh">pip install git+https://github.com/tlambert03/napari-manual-transforms.git
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/tlambert03/napari-manual-transforms.git
+</pre></div>
 </code></pre>
-
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-manual-transforms" is free and open source software</p>
+&quot;napari-manual-transforms&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/tlambert03/napari-manual-transforms/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

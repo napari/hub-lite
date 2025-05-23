@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,45 +206,18 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/cellfinder"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/cellfinder.svg" /></a>
-<a href="https://pypi.org/project/cellfinder"><img alt="PyPI" src="https://img.shields.io/pypi/v/cellfinder.svg" /></a>
-<a href="https://pepy.tech/project/cellfinder"><img alt="Downloads" src="https://pepy.tech/badge/cellfinder" /></a>
-<a href="https://pypi.org/project/cellfinder"><img alt="Wheel" src="https://img.shields.io/pypi/wheel/cellfinder.svg" /></a>
-<a href="https://github.com/brainglobe/cellfinder"><img alt="Development Status" src="https://img.shields.io/pypi/status/cellfinder.svg" /></a>
-<a href="https://github.com/brainglobe/cellfinder/actions"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/brainglobe/cellfinder/test_and_deploy.yml?branch=main" /></a>
-<a href="https://codecov.io/gh/brainglobe/cellfinder"><img alt="codecov" src="https://codecov.io/gh/brainglobe/cellfinder/branch/main/graph/badge.svg?token=nx1lhNI7ox" /></a>
-<a href="https://github.com/python/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
-<a href="https://pycqa.github.io/isort/"><img alt="Imports: isort" src="https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&amp;labelColor=ef8336" /></a>
-<a href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a>
-<a href="https://brainglobe.info/community/developers/index.html"><img alt="Contributions" src="https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg" /></a>
-<a href="https://twitter.com/brain_globe"><img alt="Twitter" src="https://img.shields.io/twitter/follow/brain_globe?style=social" /></a></p>
+                                        <p><a href="https://pypi.org/project/cellfinder"><img src="https://img.shields.io/pypi/pyversions/cellfinder.svg" alt="Python Version" /></a>
+<a href="https://pypi.org/project/cellfinder"><img src="https://img.shields.io/pypi/v/cellfinder.svg" alt="PyPI" /></a>
+<a href="https://pepy.tech/project/cellfinder"><img src="https://pepy.tech/badge/cellfinder" alt="Downloads" /></a>
+<a href="https://pypi.org/project/cellfinder"><img src="https://img.shields.io/pypi/wheel/cellfinder.svg" alt="Wheel" /></a>
+<a href="https://github.com/brainglobe/cellfinder"><img src="https://img.shields.io/pypi/status/cellfinder.svg" alt="Development Status" /></a>
+<a href="https://github.com/brainglobe/cellfinder/actions"><img src="https://img.shields.io/github/actions/workflow/status/brainglobe/cellfinder/test_and_deploy.yml?branch=main" alt="Tests" /></a>
+<a href="https://codecov.io/gh/brainglobe/cellfinder"><img src="https://codecov.io/gh/brainglobe/cellfinder/branch/main/graph/badge.svg?token=nx1lhNI7ox" alt="codecov" /></a>
+<a href="https://github.com/python/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black" /></a>
+<a href="https://pycqa.github.io/isort/"><img src="https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&amp;labelColor=ef8336" alt="Imports: isort" /></a>
+<a href="https://github.com/pre-commit/pre-commit"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" alt="pre-commit" /></a>
+<a href="https://brainglobe.info/community/developers/index.html"><img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg" alt="Contributions" /></a>
+<a href="https://twitter.com/brain_globe"><img src="https://img.shields.io/twitter/follow/brain_globe?style=social" alt="Twitter" /></a></p>
 <h1>cellfinder</h1>
 <p>cellfinder is software for automated 3D cell detection in very large 3D images (e.g., serial two-photon or lightsheet volumes of whole mouse brains).
 There are three different ways to interact and use it, each with different user interfaces and objectives in mind.
@@ -254,16 +231,16 @@ For more details, head over to <a href="https://brainglobe.info/documentation/ce
 <h2>Installation</h2>
 <p>You can find <a href="https://brainglobe.info/documentation/cellfinder/installation.html#installation">the installation instructions</a> on the BrainGlobe website, which will go into more detail about the installation process if you want to minimise your installation to suit your needs.
 However, we recommend that users install <code>cellfinder</code> either through installing BrainGlobe version 1, or (if you also want the command-line interface) installing <code>brainglobe-workflows</code>.</p>
-<pre class="codehilite"><code class="language-bash"># If you want to install all BrainGlobe tools, including cellfinder, in a consistent manner with one command:
-pip install brainglobe&gt;=1.0.0
-# If you want to install the brainmapper CLI tool as well:
-pip install brainglobe-workflows&gt;=1.0.0
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># If you want to install all BrainGlobe tools, including cellfinder, in a consistent manner with one command:</span>
+pip<span class="w"> </span>install<span class="w"> </span>brainglobe&gt;<span class="o">=</span><span class="m">1</span>.0.0
+<span class="c1"># If you want to install the brainmapper CLI tool as well:</span>
+pip<span class="w"> </span>install<span class="w"> </span>brainglobe-workflows&gt;<span class="o">=</span><span class="m">1</span>.0.0
+</pre></div>
 </code></pre>
-
 <p>If you only want the <code>cellfinder</code> package by itself, you can <code>pip install</code> it alone:</p>
-<pre class="codehilite"><code class="language-bash">pip install cellfinder&gt;=1.0.0
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cellfinder&gt;<span class="o">=</span><span class="m">1</span>.0.0
+</pre></div>
 </code></pre>
-
 <p>Be sure to specify a version greater than version <code>v1.0.0</code> - prior to this version the <code>cellfinder</code> package had a very different structure that is incompatible with BrainGlobe version 1 and the other tools in the BrainGlobe suite.
 See <a href="https://brainglobe.info/blog/">our blog posts</a> for more information on the release of BrainGlobe version 1.</p>
 <h2>Seeking help or contributing</h2>
@@ -275,9 +252,9 @@ See <a href="https://brainglobe.info/blog/">our blog posts</a> for more informat
 <a href="https://doi.org/10.1371/journal.pcbi.1009074">https://doi.org/10.1371/journal.pcbi.1009074</a></p>
 </blockquote>
 <p><strong>If you use this, or any other tools in the brainglobe suite, please
- <a href="https://brainglobe.info/contact.html">let us know</a>, and
- we'd be happy to promote your paper/talk etc.</strong></p>
-        
+<a href="https://brainglobe.info/contact.html">let us know</a>, and
+we'd be happy to promote your paper/talk etc.</strong></p>
+
 
                                     </div>
                                 </div>

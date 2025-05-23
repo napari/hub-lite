@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hereariim/napari-blossom/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-blossom.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-blossom"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-blossom.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-blossom.svg?color=green" /></a>
-<a href="https://github.com/hereariim/napari-blossom/actions"><img alt="tests" src="https://github.com/hereariim/napari-blossom/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hereariim/napari-blossom"><img alt="codecov" src="https://codecov.io/gh/hereariim/napari-blossom/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-blossom"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-blossom" /></a></p>
+                                        <p><a href="https://github.com/hereariim/napari-blossom/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-blossom.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-blossom"><img src="https://img.shields.io/pypi/v/napari-blossom.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-blossom.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hereariim/napari-blossom/actions"><img src="https://github.com/hereariim/napari-blossom/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hereariim/napari-blossom"><img src="https://codecov.io/gh/hereariim/napari-blossom/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-blossom"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-blossom" alt="napari hub" /></a></p>
 <p>Segmentation of blossom apple tree images</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -249,30 +226,27 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <p>This plugin was written by Herearii Metuarea, student intern at LARIS (French laboratory located in Angers, France) in Imhorphen, french scientific team lead by David Rousseau (Full professor). This plugin was designed as part of the european project INVITE.</p>
-<p><img width="86" alt="Logo-IRHS-h_2022_png_large" src="https://github.com/hereariim/napari-blossom/assets/93375163/750bbd60-ef3e-4148-9cbd-8a32e11252a4"> <img alt="Logo-INRAE" src="https://github.com/hereariim/napari-blossom/assets/93375163/d7cc95a1-f09c-4430-8ac8-8962c1046767" /> <img alt="logo2" src="https://github.com/hereariim/napari-blossom/assets/93375163/3b41c838-acc8-49a3-81f8-46d1305f43d3" /> <img alt="logolaris1" src="https://github.com/hereariim/napari-blossom/assets/93375163/bf92a903-5810-4c43-aa28-573f96f64ff9" /> <img alt="logo1" src="https://github.com/hereariim/napari-blossom/assets/93375163/f9361560-dd4f-49f4-955d-ffe41b5c014d" /></p>
+<p><img width="86" alt="Logo-IRHS-h_2022_png_large" src="https://github.com/hereariim/napari-blossom/assets/93375163/750bbd60-ef3e-4148-9cbd-8a32e11252a4"> <img src="https://github.com/hereariim/napari-blossom/assets/93375163/d7cc95a1-f09c-4430-8ac8-8962c1046767" alt="Logo-INRAE" /> <img src="https://github.com/hereariim/napari-blossom/assets/93375163/3b41c838-acc8-49a3-81f8-46d1305f43d3" alt="logo2" /> <img src="https://github.com/hereariim/napari-blossom/assets/93375163/bf92a903-5810-4c43-aa28-573f96f64ff9" alt="logolaris1" /> <img src="https://github.com/hereariim/napari-blossom/assets/93375163/f9361560-dd4f-49f4-955d-ffe41b5c014d" alt="logo1" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-blossom</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-blossom
+<pre><code>pip install napari-blossom
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hereariim/napari-blossom.git
+<pre><code>pip install git+https://github.com/hereariim/napari-blossom.git
 </code></pre>
-
 <h2>How does it works</h2>
 <p>This module offers a plugin that allows you to segment the images of the apple tree flowers. As input, you can enter a <strong>single image</strong> with the image selection widget. Once the image is entered in the napari window, you can segment the apple blossoms with the image segmentation widget by running the run button. The segmented image will appear in the napari window.</p>
-<p><img alt="Capture d'écran 2024-04-24 120758" src="https://github.com/hereariim/napari-blossom/assets/93375163/4f0c6ac7-b3a8-4849-9c5c-0ff5f35c8362" /></p>
+<p><img src="https://github.com/hereariim/napari-blossom/assets/93375163/4f0c6ac7-b3a8-4849-9c5c-0ff5f35c8362" alt="Capture d'écran 2024-04-24 120758" /></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-blossom" is free and open source software</p>
+&quot;napari-blossom&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hereariim/napari-blossom/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

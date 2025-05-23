@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,58 +206,35 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="" src="https://raw.githubusercontent.com/hnguyentt/mousechd-napari/master/assets/demo.gif" /></p>
+                                        <p><img src="https://raw.githubusercontent.com/hnguyentt/mousechd-napari/master/assets/demo.gif" alt="" /></p>
 <p><em>Tool for heart segmentation and congenital heart defect detection in mice.</em></p>
 <h2>Installation</h2>
 <p>There are several ways to run the plugin: (1) from bundle, (2) Containers (Docker or Apptainer), (3) from code</p>
 <h3>From Bundle</h3>
-<p>(1) Install Napari by following this instruction https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-a-bundled-app</p>
+<p>(1) Install Napari by following this instruction <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-a-bundled-app">https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-a-bundled-app</a></p>
 <p>(2) Install <code>mousechd-napari</code> plugin:
-    * Run Napari
-    * <code>Plugins</code> --&gt; <code>Install/Uninstall Plugins ...</code> --&gt; Search for <code>mousechd-napari</code> --&gt; Click on <code>install</code>.</p>
+* Run Napari
+* <code>Plugins</code> --&gt; <code>Install/Uninstall Plugins ...</code> --&gt; Search for <code>mousechd-napari</code> --&gt; Click on <code>install</code>.</p>
 <p>(3) Restart Napari to run the plugin</p>
 <h3>Containers</h3>
 <h4>Docker</h4>
 <h5>Pull docker</h5>
-<pre class="codehilite"><code>sudo docker pull hoanguyen93/mousechd-napari
+<pre><code><div class="highlight"><pre><span></span>sudo docker pull hoanguyen93/mousechd-napari
+</pre></div>
 </code></pre>
-
 <h5>Run MouseCHD Plugin</h5>
 <ul>
 <li>
 <p>Run plugin with local resources:</p>
-<p><code>sudo docker run --gpus all -v &lt;path/to/home/on/host&gt;:&lt;path/to/home/on/host&gt; -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari</code></p>
-<p><details>
-<summary>Example:</summary></p>
-<p><code>sudo docker run --gpus all -v /home/hnguyent:/home/hnguyent -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari</code></p>
-</details>
+<pre><code><div class="highlight"><pre><span></span>sudo docker run --gpus all -v &lt;path/to/home/on/host&gt;:&lt;path/to/home/on/host&gt; -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari
+</pre></div>
+</code></pre>
+  <details>
+  <summary>Example:</summary>
+<pre><code><div class="highlight"><pre><span></span>sudo docker run --gpus all -v /home/hnguyent:/home/hnguyent -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari
+</pre></div>
+</code></pre>
+  </details>
 <p>Open this link on your browser: <a href="http://localhost:9876/">http://localhost:9876/</a></p>
 </li>
 <li>
@@ -274,27 +255,27 @@ pre > code:last-child {
 <h4>Apptainer (Singularity)</h4>
 <p>If you want to run with server resource, follow <a href="./docs/server_setup.md">this instruction</a> to setup running on server.</p>
 <ul>
-<li>Download Apptainer image <code>mousechd-napari.sif</code> from (Zenodo)[https://zenodo.org/records/14652180] or simply: <code>wget https://zenodo.org/records/14652180/files/mousechd-napari.sif</code></li>
-<li>Run the plugin: </li>
+<li>Download Apptainer image <code>mousechd-napari.sif</code> from (Zenodo)[<a href="https://zenodo.org/records/14652180">https://zenodo.org/records/14652180</a>] or simply: <code>wget https://zenodo.org/records/14652180/files/mousechd-napari.sif</code></li>
+<li>Run the plugin:</li>
 </ul>
-<pre class="codehilite"><code>apptainer exec \
-    --nv \
-    --bind /tmp/.X11-unix:/tmp/.X11-unix \
-    --env DISPLAY=$DISPLAY \
-    &lt;path/to/mousechd-napari.sif&gt; napari
+<pre><code><div class="highlight"><pre><span></span><span class="nv">apptainer</span><span class="w"> </span><span class="k">exec</span><span class="w"> </span>\
+<span class="w">    </span><span class="o">--</span><span class="nv">nv</span><span class="w"> </span>\
+<span class="w">    </span><span class="o">--</span><span class="nv">bind</span><span class="w"> </span><span class="o">/</span><span class="nv">tmp</span><span class="o">/</span>.<span class="nv">X11</span><span class="o">-</span><span class="nv">unix</span>:<span class="o">/</span><span class="nv">tmp</span><span class="o">/</span>.<span class="nv">X11</span><span class="o">-</span><span class="nv">unix</span><span class="w"> </span>\
+<span class="w">    </span><span class="o">--</span><span class="nv">env</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span><span class="mh">$D</span><span class="nv">ISPLAY</span><span class="w"> </span>\
+<span class="w">    </span><span class="o">&lt;</span><span class="nv">path</span><span class="o">/</span><span class="nv">to</span><span class="o">/</span><span class="nv">mousechd</span><span class="o">-</span><span class="nv">napari</span>.<span class="nv">sif</span><span class="o">&gt;</span><span class="w"> </span><span class="nv">napari</span>
+</pre></div>
 </code></pre>
-
 <h3>From code</h3>
-<pre class="codehilite"><code class="language-bash">conda create -n mousechd_napari python=3.9
-conda activate mousechd_napari
-pip install &quot;napari[all]&quot;
-pip install mousechd-napari
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>mousechd_napari<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+conda<span class="w"> </span>activate<span class="w"> </span>mousechd_napari
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span>mousechd-napari
 napari
+</pre></div>
 </code></pre>
-
 <h2>How to use</h2>
 <p>Please find details instruction in folder <a href="https://github.com/hnguyentt/mousechd-napari/tree/master/docs">docs</a></p>
-        
+
 
                                     </div>
                                 </div>

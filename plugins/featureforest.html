@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,42 +206,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/juglab/featureforest/blob/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/featureforest.svg?color=green" /></a>
-<a href="https://pypi.org/project/featureforest"><img alt="PyPI" src="https://img.shields.io/pypi/v/featureforest.svg?color=green" /></a>
-<img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/featureforest" />
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/featureforest.svg?color=green" /></a>
-<a href="https://github.com/juglab/featureforest/actions"><img alt="tests" src="https://github.com/juglab/featureforest/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/juglab/featureforest"><img alt="codecov" src="https://codecov.io/gh/juglab/featureforest/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/featureforest"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/featureforest" /></a></p>
+                                        <p><a href="https://github.com/juglab/featureforest/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/featureforest.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/featureforest"><img src="https://img.shields.io/pypi/v/featureforest.svg?color=green" alt="PyPI" /></a>
+<img src="https://img.shields.io/pypi/dm/featureforest" alt="PyPI - Downloads" />
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/featureforest.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/juglab/featureforest/actions"><img src="https://github.com/juglab/featureforest/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/juglab/featureforest"><img src="https://codecov.io/gh/juglab/featureforest/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/featureforest"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/featureforest" alt="napari hub" /></a></p>
 <!--[![Downloads](https://pepy.tech/badge/featureforest)](https://pepy.tech/project/featureforest)-->
-
 <p><strong>A napari plugin for making image annotation using feature space of vision transformers and random forest classifier.</strong>
 We developed a <em>napari</em> plugin to train a <em>Random Forest</em> model using extracted features of vision foundation models and just a few scribble labels provided by the user as input. This approach can do the segmentation of desired objects almost as well as manual segmentations but in a much shorter time with less manual effort.</p>
 <hr />
@@ -245,35 +221,35 @@ We developed a <em>napari</em> plugin to train a <em>Random Forest</em> model us
 <p>You can check the documentation <a href="https://juglab.github.io/featureforest/">here</a> (⚠️ work in progress!).</p>
 <h2>Installation</h2>
 <p>To install this plugin you need to use <a href="https://conda.io/projects/conda/en/latest/index.html">conda</a> or <a href="https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html">mamba</a> to create an environment and install the requirements. Use commands below to create the environment and install the plugin:</p>
-<pre class="codehilite"><code class="language-bash">git clone https://github.com/juglab/featureforest
-cd ./featureforest
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/juglab/featureforest
+<span class="nb">cd</span><span class="w"> </span>./featureforest
+</pre></div>
 </code></pre>
-
-<pre class="codehilite"><code class="language-bash"># for GPU
-conda env create -f ./env_gpu.yml
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># for GPU</span>
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>./env_gpu.yml
+</pre></div>
 </code></pre>
-
-<pre class="codehilite"><code class="language-bash"># if you don't have a GPU
-conda env create -f ./env_cpu.yml
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># if you don&#39;t have a GPU</span>
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>./env_cpu.yml
+</pre></div>
 </code></pre>
-
 <p>For developers that want to contribute to FeatureForest, you need to use this command to install the <code>dev</code> dependencies:</p>
-<pre class="codehilite"><code class="language-bash">pip install -U &quot;featureforest[dev]&quot;
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;featureforest[dev]&quot;</span>
+</pre></div>
 </code></pre>
-
 <p>And make sure you have <code>pre-commit</code> installed in your environment, before committing changes:</p>
-<pre class="codehilite"><code class="language-bash">pre-commit install
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>install
+</pre></div>
 </code></pre>
-
 <p>For more detailed installation guide, check out <a href="https://juglab.github.io/featureforest/install/">here</a>.</p>
 <h2>Cite us</h2>
-<p>Seifi, Mehdi, Damian Dalle Nogare, Juan Battagliotti, Vera Galinova, Ananya Kediga Rao, AI4Life Horizon Europe Programme Consortium, Johan Decelle, Florian Jug, and Joran Deschamps. "FeatureForest: the power of foundation models, the usability of random forests." bioRxiv (2024): 2024-12. <a href="https://www.biorxiv.org/content/10.1101/2024.12.12.628025v1.full">DOI: 10.1101/2024.12.12.628025</a></p>
+<p>Seifi, Mehdi, Damian Dalle Nogare, Juan Battagliotti, Vera Galinova, Ananya Kediga Rao, AI4Life Horizon Europe Programme Consortium, Johan Decelle, Florian Jug, and Joran Deschamps. &quot;FeatureForest: the power of foundation models, the usability of random forests.&quot; bioRxiv (2024): 2024-12. <a href="https://www.biorxiv.org/content/10.1101/2024.12.12.628025v1.full">DOI: 10.1101/2024.12.12.628025</a></p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"featureforest" is free and open source software</p>
+&quot;featureforest&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/juglab/featureforest/issues/new">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

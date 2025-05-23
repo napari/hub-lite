@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,105 +210,73 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/hanjinliu/napari-result-stack/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-result-stack.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-result-stack"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-result-stack.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-result-stack.svg?color=green" /></a>
-<a href="https://github.com/hanjinliu/napari-result-stack/actions"><img alt="tests" src="https://github.com/hanjinliu/napari-result-stack/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/hanjinliu/napari-result-stack"><img alt="codecov" src="https://codecov.io/gh/hanjinliu/napari-result-stack/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-result-stack"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-result-stack" /></a></p>
+                                        <p><a href="https://github.com/hanjinliu/napari-result-stack/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-result-stack.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-result-stack"><img src="https://img.shields.io/pypi/v/napari-result-stack.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-result-stack.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/hanjinliu/napari-result-stack/actions"><img src="https://github.com/hanjinliu/napari-result-stack/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/hanjinliu/napari-result-stack"><img src="https://codecov.io/gh/hanjinliu/napari-result-stack/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-result-stack"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-result-stack" alt="napari hub" /></a></p>
 <p>Widgets and type annotations for storing function results of any types.</p>
 <h2><code>Stored</code> type</h2>
-<p>Type <code>Stored[T]</code> is equivalent to <code>T</code> for the type checker, but <code>magicgui</code> is aware of this annotation and behaves as a "storage" for the <code>T</code> instances.</p>
-<pre class="codehilite"><code class="language-python">from pathlib import Path
-import pandas as pd
-from magicgui import magicgui
-from napari_result_stack import Stored
+<p>Type <code>Stored[T]</code> is equivalent to <code>T</code> for the type checker, but <code>magicgui</code> is aware of this annotation and behaves as a &quot;storage&quot; for the <code>T</code> instances.</p>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="kn">import</span> <span class="n">magicgui</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_result_stack</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stored</span>
 
-# Returned values will be stored in a result stack.
-@magicgui
-def provide_data(path: Path) -&gt; Stored[pd.DataFrame]:
-    return pd.read_csv(path)
+<span class="c1"># Returned values will be stored in a result stack.</span>
+<span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">provide_data</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Stored</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
-# You can choose one of the values stored in the result stack
-# for the argument `df` from a ComboBox widget.
-@magicgui
-def print_data(df: Stored[pd.DataFrame]):
-    print(df)
+<span class="c1"># You can choose one of the values stored in the result stack</span>
+<span class="c1"># for the argument `df` from a ComboBox widget.</span>
+<span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_data</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">Stored</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-<p><img alt="" src="https://github.com/hanjinliu/napari-result-stack/blob/main/images/demo-0.gif" /></p>
+<p><img src="https://github.com/hanjinliu/napari-result-stack/blob/main/images/demo-0.gif" alt="" /></p>
 <ul>
 <li>Different types use different storage. e.g. <code>Stored[int]</code> and <code>Stored[str]</code> do not share the same place.</li>
-<li>Even for the same type, you can specify the second key to split the storage. e.g. <code>Stored[int]</code>, <code>Stored[int, 0]</code> and <code>Stored[int, "my-plugin-name"]</code> use the distinct storages.</li>
+<li>Even for the same type, you can specify the second key to split the storage. e.g. <code>Stored[int]</code>, <code>Stored[int, 0]</code> and <code>Stored[int, &quot;my-plugin-name&quot;]</code> use the distinct storages.</li>
 </ul>
 <h2>Manually store variables</h2>
 <p><code>Stored.valuesof[T]</code> is a <code>list</code>-like object that returns a view of the values stored in <code>Stored[T]</code>. This value view is useful if you want to store values outside <code>@magicgui</code>.</p>
-<pre class="codehilite"><code class="language-python">from magicgui.widgets import PushButton
-from datetime import datetime
-from napari_result_stack import Stored
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">magicgui.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">PushButton</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari_result_stack</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stored</span>
 
-button = PushButton(text=&quot;Click!&quot;)
+<span class="n">button</span> <span class="o">=</span> <span class="n">PushButton</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Click!&quot;</span><span class="p">)</span>
 
-@button.changed.connect
-def _record_now():
-    Stored.valuesof[datetime].append(datetime.now())
+<span class="nd">@button</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_record_now</span><span class="p">():</span>
+    <span class="n">Stored</span><span class="o">.</span><span class="n">valuesof</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+</pre></div>
 </code></pre>
-
 <h2>Result stack widget</h2>
 <p><code>napari-result-stack</code> provides a plugin widget that is helpful to inspect all the stored values.</p>
-<p><img alt="" src="https://github.com/hanjinliu/napari-result-stack/blob/main/images/demo-1.gif" /></p>
+<p><img src="https://github.com/hanjinliu/napari-result-stack/blob/main/images/demo-1.gif" alt="" /></p>
 <details><summary>Show code</summary><div>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_result_stack</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stored</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="kn">import</span> <span class="n">magicgui</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
+<span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f0</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Stored</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
 
-<pre class="codehilite"><code class="language-python">from napari_result_stack import Stored
-from magicgui import magicgui
-import numpy as np
-import pandas as pd
+<span class="nd">@magicgui</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f1</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Stored</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Stored</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 
-@magicgui
-def f0() -&gt; Stored[pd.DataFrame]:
-    return pd.DataFrame(np.random.random((4, 3)))
-
-@magicgui
-def f1(x: Stored[pd.DataFrame]) -&gt; Stored[float]:
-    return np.mean(np.array(x))
-
-viewer.window.add_dock_widget(f0, name=&quot;returns a DataFrame&quot;)
-viewer.window.add_dock_widget(f1, name=&quot;mean of a DataFrame&quot;)
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">f0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;returns a DataFrame&quot;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mean of a DataFrame&quot;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
-
-
----
+<hr />
 </div></details>
-
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -314,25 +286,22 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-result-stack</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-result-stack
+<pre><code>pip install napari-result-stack
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/hanjinliu/napari-result-stack.git
+<pre><code>pip install git+https://github.com/hanjinliu/napari-result-stack.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-result-stack" is free and open source software</p>
+&quot;napari-result-stack&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hanjinliu/napari-result-stack/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

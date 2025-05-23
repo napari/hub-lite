@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/morphometrics/morphometrics/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/morphometrics.svg?color=green" /></a>
-<a href="https://pypi.org/project/morphometrics"><img alt="PyPI" src="https://img.shields.io/pypi/v/morphometrics.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/morphometrics.svg?color=green" /></a>
-<a href="https://github.com/morphometrics/morphometrics/actions"><img alt="tests" src="https://github.com/morphometrics/morphometrics/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/morphometrics/morphometrics"><img alt="codecov" src="https://codecov.io/gh/morphometrics/morphometrics/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/morphometrics"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/morphometrics" /></a></p>
+                                        <p><a href="https://github.com/morphometrics/morphometrics/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/morphometrics.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/morphometrics"><img src="https://img.shields.io/pypi/v/morphometrics.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/morphometrics.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/morphometrics/morphometrics/actions"><img src="https://github.com/morphometrics/morphometrics/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/morphometrics/morphometrics"><img src="https://codecov.io/gh/morphometrics/morphometrics/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/morphometrics"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/morphometrics" alt="napari hub" /></a></p>
 <p>A plugin for quantifying shape and neighborhoods from images.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -245,88 +222,67 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>Installation</h2>
 <h3>conda environment file</h3>
 <p>You can install <code>morphometrics</code> via our conda environment file. To do so, first install anaconda or miniconda on
-your computer. Then, download the <a href="https://raw.githubusercontent.com/kevinyamauchi/morphometrics/master/environment.yml"><code>environment.yml file</code></a> (right click the link and "Save as..."). In your terminal,
+your computer. Then, download the <a href="https://raw.githubusercontent.com/kevinyamauchi/morphometrics/master/environment.yml"><code>environment.yml file</code></a> (right click the link and &quot;Save as...&quot;). In your terminal,
 navigate to the directory you downloaded the <code>environment.yml</code> file to:</p>
-<pre class="codehilite"><code class="language-bash">cd &lt;path/to/downloaded/environment.yml&gt;
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;path/to/downloaded/environment.yml&gt;
+</pre></div>
 </code></pre>
-
 <p>Then create the <code>morphometrics</code> environment using</p>
-<pre class="codehilite"><code class="language-bash">conda env create -f environment.yml
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+</pre></div>
 </code></pre>
-
 <p>Once the environment has been created, you can activate it and use <code>morphometrics</code> as described below.</p>
-<pre class="codehilite"><code class="language-bash">conda activate morphometrics
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>morphometrics
+</pre></div>
 </code></pre>
-
 <p>If you are on Mac OS or Linux install the following:</p>
 <p>Mac:</p>
-<pre class="codehilite"><code class="language-bash">conda install -c conda-forge ocl_icd_wrapper_apple
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>ocl_icd_wrapper_apple
+</pre></div>
 </code></pre>
-
 <p>Linux:</p>
-<pre class="codehilite"><code class="language-bash">conda install -c conda-forge ocl-icd-system
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>ocl-icd-system
+</pre></div>
 </code></pre>
-
 <h3>Development installation</h3>
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/kevinyamauchi/morphometrics.git
+<pre><code>pip install git+https://github.com/kevinyamauchi/morphometrics.git
 </code></pre>
-
 <h2>Example applications</h2>
 <table border="0">
 <tr><td>
-
-
-<img src="https://github.com/kevinyamauchi/morphometrics/raw/main/resources/surface_distance_measurement.gif"
-width="300"/>
-
+<p><img src="https://github.com/kevinyamauchi/morphometrics/raw/main/resources/surface_distance_measurement.gif"
+width="300"/></p>
 </td><td>
-
-[measure the distance between surfaces](https://github.com/kevinyamauchi/morphometrics/blob/main/examples/surface_distance_measurement.ipynb)
-
+<p><a href="https://github.com/kevinyamauchi/morphometrics/blob/main/examples/surface_distance_measurement.ipynb">measure the distance between surfaces</a></p>
 </td></tr><tr><td>
-
-<img src="https://github.com/kevinyamauchi/morphometrics/raw/main/resources/region_props_plugin.png"
-width="300"/>
-
+<p><img src="https://github.com/kevinyamauchi/morphometrics/raw/main/resources/region_props_plugin.png"
+width="300"/></p>
 </td><td>
-
-[napari plugin for measuring properties of segmented objects (regionprops)](https://github.com/kevinyamauchi/morphometrics/blob/main/examples/measure_with_widget.py)
-
+<p><a href="https://github.com/kevinyamauchi/morphometrics/blob/main/examples/measure_with_widget.py">napari plugin for measuring properties of segmented objects (regionprops)</a></p>
 </td></tr><tr><td>
-
-<img src="https://github.com/kevinyamauchi/morphometrics/raw/main/resources/object_classification.png"
-width="300"/>
-
+<p><img src="https://github.com/kevinyamauchi/morphometrics/raw/main/resources/object_classification.png"
+width="300"/></p>
 </td><td>
-
-[object classification](https://github.com/kevinyamauchi/morphometrics/blob/main/examples/object_classification.ipynb)
-
+<p><a href="https://github.com/kevinyamauchi/morphometrics/blob/main/examples/object_classification.ipynb">object classification</a></p>
 </td></tr><tr><td>
-
-<img src="https://github.com/kevinyamauchi/morphometrics/raw/main/resources/mesh_object.png"
-width="300"/>
-
+<p><img src="https://github.com/kevinyamauchi/morphometrics/raw/main/resources/mesh_object.png"
+width="300"/></p>
 </td><td>
-
-[mesh binary mask](https://github.com/kevinyamauchi/morphometrics/blob/main/examples/mesh_binary_mask.ipynb)
-
-
+<p><a href="https://github.com/kevinyamauchi/morphometrics/blob/main/examples/mesh_binary_mask.ipynb">mesh binary mask</a></p>
 </td></tr></table>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"morphometrics" is free and open source software</p>
+&quot;morphometrics&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/kevinyamauchi/morphometrics/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

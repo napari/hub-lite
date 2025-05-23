@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,72 +206,43 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/chanzuckerberg/napari-cryoet-data-portal/raw/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/pypi/l/napari-cryoet-data-portal.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-cryoet-data-portal"><img alt="Python package index" src="https://img.shields.io/pypi/v/napari-cryoet-data-portal.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Supported Python versions" src="https://img.shields.io/pypi/pyversions/napari-cryoet-data-portal.svg?color=green" /></a>
-<a href="https://github.com/chanzuckerberg/napari-cryoet-data-portal/actions"><img alt="Test status" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/chanzuckerberg/napari-cryoet-data-portal"><img alt="Code coverage" src="https://codecov.io/gh/chanzuckerberg/napari-cryoet-data-portal/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-cryoet-data-portal"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-cryoet-data-portal" /></a></p>
+                                        <p><a href="https://github.com/chanzuckerberg/napari-cryoet-data-portal/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-cryoet-data-portal.svg?color=green" alt="MIT License" /></a>
+<a href="https://pypi.org/project/napari-cryoet-data-portal"><img src="https://img.shields.io/pypi/v/napari-cryoet-data-portal.svg?color=green" alt="Python package index" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-cryoet-data-portal.svg?color=green" alt="Supported Python versions" /></a>
+<a href="https://github.com/chanzuckerberg/napari-cryoet-data-portal/actions"><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/workflows/tests/badge.svg" alt="Test status" /></a>
+<a href="https://codecov.io/gh/chanzuckerberg/napari-cryoet-data-portal"><img src="https://codecov.io/gh/chanzuckerberg/napari-cryoet-data-portal/branch/main/graph/badge.svg" alt="Code coverage" /></a>
+<a href="https://napari-hub.org/plugins/napari-cryoet-data-portal"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-cryoet-data-portal" alt="napari hub" /></a></p>
 <p>List and open tomograms from the CZ Imaging Institute's <a href="https://chanzuckerberg.github.io/cryoet-data-portal">CryoET Data Portal</a> in <a href="https://github.com/napari/napari">napari</a>.</p>
-<p><img alt="Plugin showing tomogram TS_043" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/61427a1f-df88-4e12-a680-32b8a10b6e6b" /></p>
+<p><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/61427a1f-df88-4e12-a680-32b8a10b6e6b" alt="Plugin showing tomogram TS_043" /></p>
 <h2>Installation</h2>
 <p>You can install the latest stable version using <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-cryoet-data-portal
+<pre><code>pip install napari-cryoet-data-portal
 </code></pre>
-
 <p>You will also need to install napari separately as a Python package in the same environment.
 One way to do that with Qt included is to run:</p>
-<pre class="codehilite"><code>pip install &quot;napari[all]&quot;
+<pre><code>pip install &quot;napari[all]&quot;
 </code></pre>
-
 <p>but more generally you should follow the <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-python-package-recommended">latest napari installation instructions</a>.</p>
 <h2>Usage</h2>
 <p>See the following video for a demonstration of basic usage of the plugin.</p>
-<p>https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/51207e08-68af-446a-87bb-3de9c6756d35</p>
+<p><a href="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/51207e08-68af-446a-87bb-3de9c6756d35">https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/51207e08-68af-446a-87bb-3de9c6756d35</a></p>
 <p>Click the <em>Connect</em> button to establish a connection to the data portal.</p>
-<p><img alt="Connect button and URL to the portal" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/acefbbe8-855a-490b-be44-45a003069b08" /></p>
+<p><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/acefbbe8-855a-490b-be44-45a003069b08" alt="Connect button and URL to the portal" /></p>
 <p>You can optionally query a subset of datasets, runs, voxel spacings, or tomograms using their corresponding IDs.
 This can speed up the listing process as the portal grows.
 To do so, select an ID type in the associated drop-down box from this panel, then enter the IDs of interest separated by commas in the text box next to it.
 For example, if you only want to list datasets 10000 and 10001, select <em>Dataset IDs</em> from the drop-down box and enter the text <em>10000,10001</em> in the text box.
 By default, all datasets are listed.</p>
 <p>After connecting to the portal, datasets are added below as they are found.</p>
-<p><img alt="Datasets and tomograms in the portal shown as an interactive tree" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/7af78e00-bbba-4c5b-a286-fb865ca8cff0" /></p>
+<p><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/7af78e00-bbba-4c5b-a286-fb865ca8cff0" alt="Datasets and tomograms in the portal shown as an interactive tree" /></p>
 <p>Datasets and tomograms can be filtered by specifying a regular expression pattern.</p>
-<p><img alt="Datasets and tomograms filtered by the text 26, so that only two are shown" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/96a57f4c-290e-4932-aa2d-95d13edd2d8c" /></p>
+<p><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/96a57f4c-290e-4932-aa2d-95d13edd2d8c" alt="Datasets and tomograms filtered by the text 26, so that only two are shown" /></p>
 <p>Selecting a dataset displays its metadata, which can be similarly explored and filtered.</p>
-<p><img alt="Metadata of dataset 10000 shown as an interactive tree of keys and values" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/b230720a-9083-4e35-a9db-44071c979fcc" /></p>
+<p><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/b230720a-9083-4e35-a9db-44071c979fcc" alt="Metadata of dataset 10000 shown as an interactive tree of keys and values" /></p>
 <p>Selecting a tomogram displays its metadata and also opens the lowest resolution tomogram and all of its associated point annotations in the napari viewer.</p>
-<p><img alt="Metadata of tomogram TS_026 shown as an interactive tree of keys and values" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/386b3116-ba16-4f5d-840d-4eafa3dc62b0" /></p>
+<p><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/386b3116-ba16-4f5d-840d-4eafa3dc62b0" alt="Metadata of tomogram TS_026 shown as an interactive tree of keys and values" /></p>
 <p>Higher resolution tomograms can be loaded instead by selecting a different resolution and clicking the <em>Open</em> button.</p>
-<p><img alt="Open button and resolution selector showing high resolution" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/d84c93b2-e6e7-43ee-aeb9-acd1a314637e" /></p>
+<p><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/d84c93b2-e6e7-43ee-aeb9-acd1a314637e" alt="Open button and resolution selector showing high resolution" /></p>
 <p>In this case, napari only loads the data that needs to be displayed in the canvas.
 While this can reduce the amount of data loaded, it may also cause performance problems when initially opening and exploring the data.
 By default, opening a new tomogram clears all the existing layers in napari.
@@ -275,24 +250,23 @@ If instead you want to keep those layers, uncheck the associated check-box in th
 <p>In general, finding and fetching data from the portal can take a long time.
 All plugin operations that fetch data from the portal try to run concurrently in order to keep interaction with napari and the plugin as responsive as possible.
 These operations can also be cancelled by clicking the <em>Cancel</em> button.</p>
-<p><img alt="Progress bar with loading status and cancel button" src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/2dc316ae-5231-4159-bc93-785548dbf6a5" /></p>
+<p><img src="https://github.com/chanzuckerberg/napari-cryoet-data-portal/assets/2608297/2dc316ae-5231-4159-bc93-785548dbf6a5" alt="Progress bar with loading status and cancel button" /></p>
 <h2>Contributing</h2>
 <p>This is still in early development, but contributions and ideas are welcome!
 Don't hesitate to <a href="https://github.com/chanzuckerberg/napari-cryoet-data-portal/issues">open an issue</a> or <a href="https://github.com/chanzuckerberg/napari-cryoet-data-portal/pulls">open a pull request</a> to help improve this plugin.</p>
 <p>To setup a development environment, fork this repository, clone your fork, change into its top level directory and run:</p>
-<pre class="codehilite"><code>pip install -e &quot;.[testing]&quot;
+<pre><code>pip install -e &quot;.[testing]&quot;
 </code></pre>
-
 <p>This project adheres to the <a href="https://github.com/chanzuckerberg/.github/tree/master/CODE_OF_CONDUCT.md">Contributor Covenant code of conduct</a>.
 By participating, you are expected to uphold this code.
-Please report unacceptable behavior to opensource@chanzuckerberg.com.</p>
+Please report unacceptable behavior to <a href="mailto:opensource@chanzuckerberg.com">opensource@chanzuckerberg.com</a>.</p>
 <h2>Security</h2>
 <p>If you believe you have found a security issue, please see our <a href="/SECURITY.md">security policy</a> on how to report it.</p>
 <h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license, "napari-cryoet-data-portal" is free and open source software. See the <a href="/LICENSE">license file</a> for more details.</p>
+<p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license, &quot;napari-cryoet-data-portal&quot; is free and open source software. See the <a href="/LICENSE">license file</a> for more details.</p>
 <h2>Acknowledgements</h2>
 <p>This plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-        
+
 
                                     </div>
                                 </div>

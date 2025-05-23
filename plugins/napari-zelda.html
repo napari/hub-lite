@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,41 +210,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/RoccoDAnt/napari-zelda/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-zelda.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-zelda"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-zelda.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-zelda.svg?color=green" /></a>
-<a href="https://github.com/RoccoDAnt/napari-zelda/actions"><img alt="tests" src="https://github.com/RoccoDAnt/napari-zelda/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/RoccoDAnt/napari-zelda"><img alt="codecov" src="https://codecov.io/gh/RoccoDAnt/napari-zelda/branch/master/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/RoccoDAnt/napari-zelda/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-zelda.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-zelda"><img src="https://img.shields.io/pypi/v/napari-zelda.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-zelda.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/RoccoDAnt/napari-zelda/actions"><img src="https://github.com/RoccoDAnt/napari-zelda/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/RoccoDAnt/napari-zelda"><img src="https://codecov.io/gh/RoccoDAnt/napari-zelda/branch/master/graph/badge.svg" alt="codecov" /></a></p>
 <h2>ZELDA: a 3D Image Segmentation and Parent-Child relation plugin for microscopy image analysis in napari</h2>
 <h4>Authors: Rocco D'Antuono, Giuseppina Pisignano</h4>
-<h6>Article: Front. Comput. Sci., 04 January 2022 | https://doi.org/10.3389/fcomp.2021.796117</h6>
+<h6>Article: Front. Comput. Sci., 04 January 2022 | <a href="https://doi.org/10.3389/fcomp.2021.796117">https://doi.org/10.3389/fcomp.2021.796117</a></h6>
 <h6>Examples of 2D and 3D data sets: <a href="https://zenodo.org/record/5651284#.YYgn_WDP2Ch">https://doi.org/10.5281/zenodo.5651284</a></h6>
 <hr />
 <h2>What you can do with ZELDA plugin for napari</h2>
@@ -251,13 +228,26 @@ Multidimensional images (each channel corresponding to a napari layer) can be us
 <p>Segment objects such as cells and organelles in 2D/3D.</p>
 </li>
 <li>
-<p>Segment two populations in 2D/3D (e.g. cells and organelles, nuclei and nuclear spots, tissue structures and cells) establishing the "Parent-Child" relation: count how many mitochondria are contained in each cell, how many spots localize in every nucleus, how many cells are within a tissue compartment.</p>
+<p>Segment two populations in 2D/3D (e.g. cells and organelles, nuclei and nuclear spots, tissue structures and cells) establishing the &quot;Parent-Child&quot; relation: count how many mitochondria are contained in each cell, how many spots localize in every nucleus, how many cells are within a tissue compartment.</p>
 </li>
 </ol>
-<p>Example: cell cytoplasms (parent objects) and mitochondria (child objects)
-  <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-AF488.png" /> <br> <strong>Actin</strong> | <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-MT.png" /> <br> <strong>Mitochondria</strong>| <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-AF488_MT.png" /> <br> <strong>Merge</strong>
-  ------ | ------| -----
-  <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-AF488_parents.png" /> <br> <strong>Parent cell cytoplasms</strong> | <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-MT_children.png" /> <br> <strong>Children mitochondria</strong>| <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-MT_childrenbyParent.png" /> <br> <strong>Children labelled by Parents</strong></p>
+<p>Example: cell cytoplasms (parent objects) and mitochondria (child objects)</p>
+<table>
+<thead>
+<tr>
+<th><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-AF488.png" alt="" /> <br> <strong>Actin</strong></th>
+<th><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-MT.png" alt="" /> <br> <strong>Mitochondria</strong></th>
+<th><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-AF488_MT.png" alt="" /> <br> <strong>Merge</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-AF488_parents.png" alt="" /> <br> <strong>Parent cell cytoplasms</strong></td>
+<td><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-MT_children.png" alt="" /> <br> <strong>Children mitochondria</strong></td>
+<td><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/2D-MT_childrenbyParent.png" alt="" /> <br> <strong>Children labelled by Parents</strong></td>
+</tr>
+</tbody>
+</table>
 <p>The images shown above are available in the <a href="https://github.com/RoccoDAnt/napari-zelda/tree/main/docs"><strong>docs</strong></a> folder of this repository and were segmented using ZELDA with the following parameters:</p>
 <table>
 <thead>
@@ -277,31 +267,20 @@ Multidimensional images (each channel corresponding to a napari layer) can be us
 <table>
 <thead>
 <tr>
-<th><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Plugin-set_panel_to_float.png" /> <br> <strong>Float a panel in napari</strong></th>
+<th><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Plugin-set_panel_to_float.png" alt="" /> <br> <strong>Float a panel in napari</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
 </table>
-<ol>
+<ol start="3">
 <li>
 <p>Plot results within napari interface.</p>
 <table>
 <thead>
 <tr>
-<th><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Plot_hist_Area.png" /> <br> <strong>Histogram</strong></th>
-<th><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Plot_scatter_Area-EqDiam.png" /> <br> <strong>Scatterplot</strong></th>
+<th><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Plot_hist_Area.png" alt="" /> <br> <strong>Histogram</strong></th>
+<th><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Plot_scatter_Area-EqDiam.png" alt="" /> <br> <strong>Scatterplot</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody>
 </table>
 </li>
 <li>
@@ -309,14 +288,9 @@ Multidimensional images (each channel corresponding to a napari layer) can be us
 <table>
 <thead>
 <tr>
-<th><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/CustomProtocol.png" /> <br> <strong>Custom image analysis workflow</strong></th>
+<th><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/CustomProtocol.png" alt="" /> <br> <strong>Custom image analysis workflow</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
 </table>
 </li>
 <li>
@@ -324,56 +298,50 @@ Multidimensional images (each channel corresponding to a napari layer) can be us
 <table>
 <thead>
 <tr>
-<th><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_Import_and_Export_Protocols.png" /> <br> <strong>Import and Export of ZELDA Protocols</strong></th>
+<th><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_Import_and_Export_Protocols.png" alt="" /> <br> <strong>Import and Export of ZELDA Protocols</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
 </table>
 </li>
 </ol>
 <h2>Installation</h2>
-<p><strong>Option A.</strong> The easiest option is to use the napari interface to install ZELDA (make sure napari!=0.4.11):
-1. Plugins / Install/Uninstall Package(s)</p>
-<p><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Plugin_install_in_napari.png" /></p>
+<p><strong>Option A.</strong> The easiest option is to use the napari interface to install ZELDA (make sure napari!=0.4.11):</p>
 <ol>
+<li>Plugins / Install/Uninstall Package(s)</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Plugin_install_in_napari.png" alt="" /></p>
+<ol start="2">
 <li>
 <p>Choose ZELDA
-<img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Plugin_install_ZELDA_in_napari_Arrow.png" /></p>
+<img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Plugin_install_ZELDA_in_napari_Arrow.png" alt="" /></p>
 </li>
 <li>
 <p>ZELDA is installed
-<img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Plugin_installed_ZELDA_in_napari_Arrow.png" /></p>
+<img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Plugin_installed_ZELDA_in_napari_Arrow.png" alt="" /></p>
 </li>
 <li>
 <p>Launch ZELDA
-<img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Launch_ZELDA.png" /></p>
+<img src="https://raw.githubusercontent.com/RoccoDAnt/napari-zelda/main/docs/Clipboard_ZELDA_Launch_ZELDA.png" alt="" /></p>
 </li>
 </ol>
 <p><strong>Option B.</strong> You can install <code>napari-zelda</code> also via <a href="https://pypi.org/project/pip/">pip</a>. For the best experience, create a conda environment and use napari!=0.4.11, using the following instructions:</p>
-<pre class="codehilite"><code>conda create -y -n napari-env python=3.8  
+<pre><code>conda create -y -n napari-env python=3.8  
 conda activate napari-env
 conda install napari pyqt  
-pip install napari-zelda
+pip install napari-zelda  
 </code></pre>
-
 <p><strong>Option C.</strong> Alternatively, clone the repository and install locally via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install -e .
+<pre><code>pip install -e .
 </code></pre>
-
 <p><strong>Option D.</strong> Get the latest code with <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git</a> and <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>conda create -y -n napari-env python=3.8 git
+<pre><code>conda create -y -n napari-env python=3.8 git
 conda activate napari-env
 conda install napari pyqt
 pip install git+https://github.com/RoccoDAnt/napari-zelda.git
 </code></pre>
-
 <h2>Specifications</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<p>The GUI has been developed using <a href="https://github.com/napari/magicgui">magicgui</a> widgets, while the image analysis and processing include functions from <a href="https://scikit-image.org/">scikit-image</a>, <a href="https://scipy.org/">SciPy</a>, and <a href="https://numpy.org/">NumPy</a>. Results are handled with <a href="https://pandas.pydata.org/">pandas</a> and <a href="https://datatable.readthedocs.io/en/latest/">datatable</a>. Plots are obtained with <a href="https://matplotlib.org/">matplotlib</a>.  </p>
+<p>The GUI has been developed using <a href="https://github.com/napari/magicgui">magicgui</a> widgets, while the image analysis and processing include functions from <a href="https://scikit-image.org/">scikit-image</a>, <a href="https://scipy.org/">SciPy</a>, and <a href="https://numpy.org/">NumPy</a>. Results are handled with <a href="https://pandas.pydata.org/">pandas</a> and <a href="https://datatable.readthedocs.io/en/latest/">datatable</a>. Plots are obtained with <a href="https://matplotlib.org/">matplotlib</a>.</p>
 <!--
 Don't miss the full getting started guide to set up your new package:
 https://github.com/napari/cookiecutter-napari-plugin#getting-started
@@ -381,26 +349,25 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Contributing</h2>
 <p>Contributions are welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <p>Users can add new protocol steps to their local installation using <a href="https://github.com/napari/magicgui">magicgui</a> widgets.
 Code can be added at the end of napari_zelda.py file:</p>
 <blockquote>
-<h3>Add here new functionalities for ZELDA</h3>
-<h3>@magicgui(layout="vertical")</h3>
-<h3>def new_functionality_widget(viewer: 'napari.Viewer'):</h3>
-<h3>...</h3>
+<p>###Add here new functionalities for ZELDA ###</p>
+<p>###@magicgui(layout=&quot;vertical&quot;)</p>
+<p>###def new_functionality_widget(viewer: 'napari.Viewer'):</p>
+<p>###...</p>
 <h3></h3>
-<h3>End</h3>
+<p>###End###</p>
 </blockquote>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-zelda" is free and open source software</p>
+&quot;napari-zelda&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/RoccoDAnt/napari-zelda/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

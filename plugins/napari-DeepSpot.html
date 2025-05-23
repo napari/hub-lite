@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/ebouilhol/napari-DeepSpot/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-DeepSpot.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-DeepSpot"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-DeepSpot.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-DeepSpot.svg?color=green" /></a>
-<a href="https://github.com/ebouilhol/napari-DeepSpot/actions"><img alt="tests" src="https://github.com/ebouilhol/napari-DeepSpot/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/ebouilhol/napari-DeepSpot"><img alt="codecov" src="https://codecov.io/gh/ebouilhol/napari-DeepSpot/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-DeepSpot"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-DeepSpot" /></a></p>
+                                        <p><a href="https://github.com/ebouilhol/napari-DeepSpot/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-DeepSpot.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-DeepSpot"><img src="https://img.shields.io/pypi/v/napari-DeepSpot.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-DeepSpot.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/ebouilhol/napari-DeepSpot/actions"><img src="https://github.com/ebouilhol/napari-DeepSpot/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/ebouilhol/napari-DeepSpot"><img src="https://codecov.io/gh/ebouilhol/napari-DeepSpot/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-DeepSpot"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-DeepSpot" alt="napari hub" /></a></p>
 <p>RNA spot enhancement for fluorescent microscopy images.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -249,60 +226,60 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-DeepSpot</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-DeepSpot
+<pre><code>pip install napari-DeepSpot
 </code></pre>
-
 <h2>Build from source</h2>
-<p>This plugin is using Tensorflow, make sure your Python environment has Tensorflow, on create a new environment using the following commands:
-* Conda:<br />
+<p>This plugin is using Tensorflow, make sure your Python environment has Tensorflow, on create a new environment using the following commands:</p>
+<ul>
+<li>Conda:<br />
 <code>conda env create -f environment.yml</code><br />
-<code>conda activate deepspot-napari</code>
-* Or pip: <br />
-<code>pip install -r requirements.txt</code></p>
+<code>conda activate deepspot-napari</code></li>
+<li>Or pip:<br />
+<code>pip install -r requirements.txt</code></li>
+</ul>
 <h2>Usage</h2>
-<p>Open one or multiple images using Napari GUI : 
+<p>Open one or multiple images using Napari GUI :
 File &gt; Open &gt; Select your image</p>
 <p>The images are then displayed on Napari</p>
 <p>Load the Plugin:
 Plugins &gt; Napari-DeepSpot:Enhance Spot</p>
-<p><img alt="Usage" src="./image/napari.png" /></p>
-<p>Click on the right panel Button "Enhance"</p>
+<p><img src="./image/napari.png" alt="Usage" /></p>
+<p>Click on the right panel Button &quot;Enhance&quot;</p>
 <p>Wait a few seconds for the magic to happen :</p>
-<p><img alt="Usage" src="./image/napari_enhance.png" /></p>
+<p><img src="./image/napari_enhance.png" alt="Usage" /></p>
 <p>You can see the original images and the enhanced version in the left panel in the layer section.</p>
 <p>To save the images : File &gt; Save all layers or File &gt; Save selected layers.</p>
-<p><img alt="Usage" src="./image/napari_video.gif" /></p>
+<p><img src="./image/napari_video.gif" alt="Usage" /></p>
 <h2>Citation</h2>
 <p>If you use this plugin please cite the <a href="https://www.biorxiv.org/content/10.1101/2021.11.25.469984v1">paper</a>:</p>
 <blockquote>
 <p>@article {Bouilhol2021DeepSpot,<br />
-   author = {Bouilhol, Emmanuel and Lefevre, Edgar and Dartigues, Benjamin and Brackin, Robyn and Savulescu, Anca Flavia and Nikolski, Macha},<br />
-   title = {DeepSpot: a deep neural network for RNA spot enhancement in smFISH microscopy images},<br />
-   elocation-id = {2021.11.25.469984},<br />
-   year = {2021},<br />
-   doi = {10.1101/2021.11.25.469984},<br />
-   publisher = {Cold Spring Harbor Laboratory},<br />
-   URL = {https://www.biorxiv.org/content/early/2021/11/25/2021.11.25.469984},<br />
-   eprint = {https://www.biorxiv.org/content/early/2021/11/25/2021.11.25.469984.full.pdf},<br />
-   journal = {bioRxiv}<br />
-}  </p>
+author = {Bouilhol, Emmanuel and Lefevre, Edgar and Dartigues, Benjamin and Brackin, Robyn and Savulescu, Anca Flavia and Nikolski, Macha},<br />
+title = {DeepSpot: a deep neural network for RNA spot enhancement in smFISH microscopy images},<br />
+elocation-id = {2021.11.25.469984},<br />
+year = {2021},<br />
+doi = {10.1101/2021.11.25.469984},<br />
+publisher = {Cold Spring Harbor Laboratory},<br />
+URL = {<a href="https://www.biorxiv.org/content/early/2021/11/25/2021.11.25.469984">https://www.biorxiv.org/content/early/2021/11/25/2021.11.25.469984</a>},<br />
+eprint = {<a href="https://www.biorxiv.org/content/early/2021/11/25/2021.11.25.469984.full.pdf">https://www.biorxiv.org/content/early/2021/11/25/2021.11.25.469984.full.pdf</a>},<br />
+journal = {bioRxiv}<br />
+}</p>
 </blockquote>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-DeepSpot" is free and open source software</p>
+&quot;napari-DeepSpot&quot; is free and open source software</p>
 <h2>Known Issues</h2>
 <p>If you have troubles with the Python packages <code>typing extensions</code>, use the command :<br />
-<code>pip install typing-extensions --upgrade</code>  </p>
-<p>When using "Enhance" on multiple images, Napari may freeze. Just wait until it comes to life again, the images will still be enhanced. This is due to Napari memory usage and will be fix one day.</p>
+<code>pip install typing-extensions --upgrade</code></p>
+<p>When using &quot;Enhance&quot; on multiple images, Napari may freeze. Just wait until it comes to life again, the images will still be enhanced. This is due to Napari memory usage and will be fix one day.</p>
 <h2>Other Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/ebouilhol/napari-DeepSpot/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

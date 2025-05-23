@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,51 +210,22 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/MBPhys/Partial-Aligner/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-medical-image-formats.svg?color=green" /></a>
-<a href="https://pypi.org/project/Partial-Aligner"><img alt="PyPI" src="https://img.shields.io/pypi/v/Partial-Aligner.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/Partial-Aligner.svg?color=green" /></a></p>
+                                        <p><a href="https://github.com/MBPhys/Partial-Aligner/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-medical-image-formats.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/Partial-Aligner"><img src="https://img.shields.io/pypi/v/Partial-Aligner.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/Partial-Aligner.svg?color=green" alt="Python Version" /></a></p>
 <p>A napari plugin to affine transform images and parts of images in 2D and 3D. It was developed in the context of brain slice registration and solves multiple, related problems when working with histology slices.</p>
 <hr />
 <h2>Installation</h2>
 <p>You can install <code>Partial-Aligner</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install Partial-Aligner
+<pre><code>pip install Partial-Aligner
 </code></pre>
-
 <p>To make full use of this plugin, please also install the sister plugins:</p>
-<pre class="codehilite"><code>pip install Label-Creator
+<pre><code>pip install Label-Creator
 pip install Layer-Data-Replace
 pip install World2Data
 </code></pre>
-
 <h2>Usage</h2>
-<p>It is important to note that this plugin is part of a group of plugins (<a href="https://github.com/DKFZ-TMTRR/Label-Creator," title="Creates Labels">Label-Creator</a>, <a href="https://github.com/DKFZ-TMTRR/Layer-Data-Replace," title="Replaces the data of a layer with other data">Layer-Data-Replace</a>, <a href="https://github.com/DKFZ-TMTRR/World2Data," title="Applies a transformation to an image">World2Data</a>) which are intended to be used together. </p>
+<p>It is important to note that this plugin is part of a group of plugins (<a href="https://github.com/DKFZ-TMTRR/Label-Creator," title="Creates Labels">Label-Creator</a>, <a href="https://github.com/DKFZ-TMTRR/Layer-Data-Replace," title="Replaces the data of a layer with other data">Layer-Data-Replace</a>, <a href="https://github.com/DKFZ-TMTRR/World2Data," title="Applies a transformation to an image">World2Data</a>) which are intended to be used together.</p>
 <p>The principle workflow with this plugin is as follows:</p>
 <ol>
 <li>Load an image of interest (ioi) using standard napari.</li>
@@ -266,7 +241,6 @@ pip install World2Data
     <img src="https://user-images.githubusercontent.com/36212786/149524198-9a25b6dc-4169-4546-85b3-7c2f57fccc97.png" width="50%" height="50%">  <br /> 
      <i>DAPI staining (red) before (left) and after (right) manual registration on an MRI image (green).</i> 
 </p>
-
 <ul>
 <li>Histology artifact repair: Parts of your histology slice are misplaced? Transform the misplaced parts! Label them and change the transformation parameters for the misplaced parts until you are happy with their alignment with the rest of the image.</li>
 </ul>
@@ -274,18 +248,17 @@ pip install World2Data
 <img src="https://user-images.githubusercontent.com/36212786/149526385-09aeebe2-d03e-4dd4-a424-d0f3af207529.png" width="50%" height="50%">  <br /> 
      <i> Original slice with misplaced region (left), marked using the label function (middle) and after manual adjustment (right), where the misplaced region (green) was cut and newly positioned.</i> 
 </p>
-
 <p>To make this plugin run reasonably fast, the affine transformations are not applied to the image data in real time. Instead, the internal napari viewing parameters are changed according to the transformation parameters. Therefore, to save transformed image data, the <a href="https://github.com/DKFZ-TMTRR/World2Data," title="Applies a transformation to an image">World2Data</a> plugin is used, which calculates and saves the resulting image based on the internal napari viewing parameters.</p>
 <p>Here we showcase a resulting multimodal 3D alignment of a whole mouse brain. The modalities are CT, MRI, simulated radiation dose distributions, DAPI staining and DNA-damage repair foci, with a Nissl-staining mouse atlas as template.</p>
-<p>https://user-images.githubusercontent.com/36212786/149530462-51a53631-bf74-459b-ab4e-572c52cf2692.mov</p>
+<p><a href="https://user-images.githubusercontent.com/36212786/149530462-51a53631-bf74-459b-ab4e-572c52cf2692.mov">https://user-images.githubusercontent.com/36212786/149530462-51a53631-bf74-459b-ab4e-572c52cf2692.mov</a></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"Partial-Aligner" is free and open source software.</p>
+&quot;Partial-Aligner&quot; is free and open source software.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/MBPhys/Partial-Aligner/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

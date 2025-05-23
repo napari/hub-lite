@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,47 +210,19 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/sebi06/napari-czann-segment/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-czann-segment.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-czann-segment"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-czann-segment.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-czann-segment.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/napari-czann-segment"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-czann-segment" /></a></p>
+                                        <p><a href="https://github.com/sebi06/napari-czann-segment/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-czann-segment.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-czann-segment"><img src="https://img.shields.io/pypi/v/napari-czann-segment.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-czann-segment.svg?color=green" alt="Python Version" /></a>
+<a href="https://napari-hub.org/plugins/napari-czann-segment"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-czann-segment" alt="napari hub" /></a></p>
 <p>Semantic Segmentation of multidimensional images using Deep Learning ONNX models packaged as *.czann files.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<p><img alt="Train on APEER and use model in Napari" src="https://github.com/sebi06/napari-czann-segment/raw/main/readme_images/Train_APEER_run_Napari_CZANN_no_highlights_small.gif" /></p>
+<p><img src="https://github.com/sebi06/napari-czann-segment/raw/main/readme_images/Train_APEER_run_Napari_CZANN_no_highlights_small.gif" alt="Train on APEER and use model in Napari" /></p>
 <h2>Installation</h2>
 <p>Before installing, please setup a conda environment. If you have never worked with conda environments, go through <a href="https://biapol.github.io/blog/johannes_mueller/anaconda_getting_started/">this tutorial</a> first.</p>
 <p>You can then install <code>napari-czann-segment</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-czann-segment
+<pre><code>pip install napari-czann-segment
 </code></pre>
-
 <h2>What does the plugin do</h2>
 <p>The plugin allows you to:</p>
 <ul>
@@ -270,68 +246,68 @@ pre > code:last-child {
 </ul>
 <p>In order to use this plugin the user has to do the following things:</p>
 <ul>
-<li>Open the image using "File - Open Files(s)" (requires <a href="https://github.com/AllenCellModeling/napari-aicsimageio">napari-aicsimageio</a> plugin).</li>
-<li>Click <strong>napari-czann-segment: Segment with CZANN model</strong> in the "Plugins" menu.</li>
+<li>Open the image using &quot;File - Open Files(s)&quot; (requires <a href="https://github.com/AllenCellModeling/napari-aicsimageio">napari-aicsimageio</a> plugin).</li>
+<li>Click <strong>napari-czann-segment: Segment with CZANN model</strong> in the &quot;Plugins&quot; menu.</li>
 <li><strong>Select a czann file</strong> to use the model for segmentation.</li>
 <li>metadata of the model will be shown (see example below)</li>
 </ul>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Parameter</th>
-<th style="text-align: left;">Value</th>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Value</th>
 <th>Explanation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">model_type</td>
-<td style="text-align: left;">ModelType.SINGLE_CLASS_SEMANTIC_SEGMENTATION</td>
+<td style="text-align:left">model_type</td>
+<td style="text-align:left">ModelType.SINGLE_CLASS_SEMANTIC_SEGMENTATION</td>
 <td>see: <a href="https://pypi.org/project/czmodel/">czmodel</a> for details</td>
 </tr>
 <tr>
-<td style="text-align: left;">input_shape</td>
-<td style="text-align: left;">[1024, 1024, 1]</td>
+<td style="text-align:left">input_shape</td>
+<td style="text-align:left">[1024, 1024, 1]</td>
 <td>tile dimensions of model input</td>
 </tr>
 <tr>
-<td style="text-align: left;">output_shape</td>
-<td style="text-align: left;">[1024, 1024, 3]</td>
+<td style="text-align:left">output_shape</td>
+<td style="text-align:left">[1024, 1024, 3]</td>
 <td>tile dimensions of model output</td>
 </tr>
 <tr>
-<td style="text-align: left;">model_id</td>
-<td style="text-align: left;">ba32bc6d-6bc9-4774-8b47-20646c7cb838</td>
+<td style="text-align:left">model_id</td>
+<td style="text-align:left">ba32bc6d-6bc9-4774-8b47-20646c7cb838</td>
 <td>unique GUID for that model</td>
 </tr>
 <tr>
-<td style="text-align: left;">min_overlap</td>
-<td style="text-align: left;">[128, 128]</td>
+<td style="text-align:left">min_overlap</td>
+<td style="text-align:left">[128, 128]</td>
 <td>tile overlap used during training (for this model)</td>
 </tr>
 <tr>
-<td style="text-align: left;">classes</td>
-<td style="text-align: left;">['background', 'grains', 'inclusions']</td>
+<td style="text-align:left">classes</td>
+<td style="text-align:left">['background', 'grains', 'inclusions']</td>
 <td>available classes</td>
 </tr>
 <tr>
-<td style="text-align: left;">model_name</td>
-<td style="text-align: left;">APEER-trained model</td>
+<td style="text-align:left">model_name</td>
+<td style="text-align:left">APEER-trained model</td>
 <td>name of the model</td>
 </tr>
 </tbody>
 </table>
-<p><img alt="Napari - Image loaded and czann selected" src="https://github.com/sebi06/napari-czann-segment/raw/main/readme_images/napari_czann1.png" /></p>
+<p><img src="https://github.com/sebi06/napari-czann-segment/raw/main/readme_images/napari_czann1.png" alt="Napari - Image loaded and czann selected" /></p>
 <ul>
 <li>Adjust the <strong>minimum overlap</strong> for the tiling (optional, see <a href="https://pypi.org/project/cztile/">cztile</a> for details).</li>
 <li>Select the <strong>layer</strong> to be segmented.</li>
 <li>Toggle <strong>Use GPU for inference</strong> checkbox to enable / disable using a GPU (Nvidia) for the segmentation (experimental feature).</li>
 <li>Press <strong>Segment Selected Image Layer</strong> to run the segmentation.</li>
 </ul>
-<p><img alt="Napari - Image successfully segmented" src="https://github.com/sebi06/napari-czann-segment/raw/main/readme_images/napari_czann3.png" /></p>
+<p><img src="https://github.com/sebi06/napari-czann-segment/raw/main/readme_images/napari_czann3.png" alt="Napari - Image successfully segmented" /></p>
 <p>A successful is obviously only the starting point for further image analysis steps to extract the desired numbers from the segmented image.
-Another example is shown below demonstrating a simple "Grain Size Analysis" using a deep-learning model trained on <a href="https://www.apeer.com">APEER</a> used in <a href="https://github.com/napari/napari">napari</a></p>
-<p><img alt="Napari - Simple Grain Size Analysis" src="https://github.com/sebi06/napari-czann-segment/raw/main/readme_images/grainsize_czann_napari.png" /></p>
+Another example is shown below demonstrating a simple &quot;Grain Size Analysis&quot; using a deep-learning model trained on <a href="https://www.apeer.com">APEER</a> used in <a href="https://github.com/napari/napari">napari</a></p>
+<p><img src="https://github.com/sebi06/napari-czann-segment/raw/main/readme_images/grainsize_czann_napari.png" alt="Napari - Simple Grain Size Analysis" /></p>
 <h3>Remarks</h3>
 <blockquote>
 <p><strong>IMPORTANT</strong>: Currently the plugin only supports using models trained on a <strong>single channel</strong> image. Therefore, make sure that during the training on <a href="https://www.apeer.com">APEER</a> or somewhere else the correct inputs images are used.
@@ -353,30 +329,27 @@ It is quite simple to train a single RGB image, which actually has three channel
 </li>
 </ul>
 <p>Feel free to create a new environment using the <a href="env_napari_czann_segment.yml">YAML</a> file at your own risk:</p>
-<pre class="codehilite"><code>cd the-github-repo-with-YAML-file
+<pre><code>cd the-github-repo-with-YAML-file
 conda env create --file conda_env_napari_czann_segment.yml
 conda activate napari_czmodel
 </code></pre>
-
 <ul>
 <li><strong>Install the plugin locally</strong></li>
 </ul>
 <p>Please run the following command:</p>
-<pre class="codehilite"><code>pip install -e .
+<pre><code>pip install -e .
 </code></pre>
-
 <p>To install latest development version:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/sebi06/napari_czann_segment.git
+<pre><code>pip install git+https://github.com/sebi06/napari_czann_segment.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions and Feedback are very welcome.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-czann-segment" is free and open source software</p>
+&quot;napari-czann-segment&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/sebi06/napari-czann-segment/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

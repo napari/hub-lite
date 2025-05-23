@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,51 +210,23 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="SpatialData banner" src="https://github.com/scverse/spatialdata/blob/main/docs/_static/img/spatialdata_horizontal.png?raw=true" /></p>
+                                        <p><img src="https://github.com/scverse/spatialdata/blob/main/docs/_static/img/spatialdata_horizontal.png?raw=true" alt="SpatialData banner" /></p>
 <h1>napari-spatialdata: interactive exploration and annotation of spatial omics data</h1>
-<p><a href="https://github.com/scverse/napari-spatialdata/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-spatialdata.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-spatialdata"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-spatialdata.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-spatialdata.svg?color=green" /></a>
-<a href="https://github.com/scverse/napari-spatialdata/actions"><img alt="tests" src="https://github.com/scverse/napari-spatialdata/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/scverse/napari-spatialdata"><img alt="codecov" src="https://codecov.io/gh/scverse/napari-spatialdata/branch/main/graph/badge.svg?token=ASqlOKnOj7" /></a>
-<a href="https://results.pre-commit.ci/latest/github/scverse/napari-spatialdata/main"><img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/scverse/napari-spatialdata/main.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-spatialdata"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-spatialdata" /></a>
-<a href="https://zenodo.org/badge/latestdoi/477021400"><img alt="DOI" src="https://zenodo.org/badge/477021400.svg" /></a></p>
+<p><a href="https://github.com/scverse/napari-spatialdata/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-spatialdata.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-spatialdata"><img src="https://img.shields.io/pypi/v/napari-spatialdata.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-spatialdata.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/scverse/napari-spatialdata/actions"><img src="https://github.com/scverse/napari-spatialdata/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/scverse/napari-spatialdata"><img src="https://codecov.io/gh/scverse/napari-spatialdata/branch/main/graph/badge.svg?token=ASqlOKnOj7" alt="codecov" /></a>
+<a href="https://results.pre-commit.ci/latest/github/scverse/napari-spatialdata/main"><img src="https://results.pre-commit.ci/badge/github/scverse/napari-spatialdata/main.svg" alt="pre-commit.ci status" /></a>
+<a href="https://napari-hub.org/plugins/napari-spatialdata"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-spatialdata" alt="napari hub" /></a>
+<a href="https://zenodo.org/badge/latestdoi/477021400"><img src="https://zenodo.org/badge/477021400.svg" alt="DOI" /></a></p>
 <p>This repository contains a napari plugin for interactively exploring and annotating
 SpatialData objects. Here you can find the [napari-spatialdata documentation]
-(https://spatialdata.scverse.org/projects/napari/en/stable/notebooks/spatialdata.html). <code>napari-spatialdata</code> is part of the <code>SpatialData</code> ecosystem. To learn more about SpatialData, please see the <a href="https://spatialdata.scverse.org/">spatialdata documentation</a>.</p>
+(<a href="https://spatialdata.scverse.org/projects/napari/en/stable/notebooks/spatialdata.html">https://spatialdata.scverse.org/projects/napari/en/stable/notebooks/spatialdata.html</a>). <code>napari-spatialdata</code> is part of the <code>SpatialData</code> ecosystem. To learn more about SpatialData, please see the <a href="https://spatialdata.scverse.org/">spatialdata documentation</a>.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-spatialdata</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-spatialdata[all]
+<pre><code>pip install napari-spatialdata[all]
 </code></pre>
-
 <p>The <code>all</code> command will install the qt bindings <code>PyQt5</code>.</p>
 <p>You can find more details on this in the <a href="https://spatialdata.scverse.org/en/stable/installation.html">installation instructions</a>.</p>
 <h2>Using napari-spatialdata as default zarr reader</h2>
@@ -258,15 +234,13 @@ SpatialData objects. Here you can find the [napari-spatialdata documentation]
 -&gt; <code>Plugins</code> and follow the instructions under <code>File extension readers</code>.</p>
 <h2>Development Version</h2>
 <p>You can install <code>napari-spatialdata</code> from Github with:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/scverse/napari-spatialdata
+<pre><code>pip install git+https://github.com/scverse/napari-spatialdata
 </code></pre>
-
 <p>Or, you can also install in editable mode after cloning the repo by:</p>
-<pre class="codehilite"><code>git clone https://github.com/scverse/napari-spatialdata
+<pre><code>git clone https://github.com/scverse/napari-spatialdata
 cd napari-spatialdata
 pip install -e .
 </code></pre>
-
 <p>Note: when performing an editable install of <code>napari-spatialdata</code>, <code>spatialdata</code>
 will be reinstalled from <code>pip</code>. So, if you previously also made an editable install
 of <code>spatialdata</code>, you need to re-run <code>pip install -e .</code> on the <code>spatialdata</code>
@@ -284,11 +258,11 @@ see the <a href="https://spatialdata.scverse.org/en/stable/tutorials/notebooks/n
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-spatialdata" is free and open source software</p>
+&quot;napari-spatialdata&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please file an <a href="https://github.com/scverse/napari-spatialdata/issues">issue</a> along with a detailed description.</p>
 <h2>Citation</h2>
-<p>Marconato, L., Palla, G., Yamauchi, K.A. et al. SpatialData: an open and universal data framework for spatial omics. Nat Methods (2024). https://doi.org/10.1038/s41592-024-02212-x</p>
+<p>Marconato, L., Palla, G., Yamauchi, K.A. et al. SpatialData: an open and universal data framework for spatial omics. Nat Methods (2024). <a href="https://doi.org/10.1038/s41592-024-02212-x">https://doi.org/10.1038/s41592-024-02212-x</a></p>
 <p>napari-spatialdata is part of the scverse® project (<a href="https://scverse.org">website</a>, <a href="https://scverse.org/about/roles">governance</a>) and is fiscally sponsored by <a href="https://numfocus.org/">NumFOCUS</a>.
 If you like scverse® and want to support our mission, please consider making a tax-deductible <a href="https://numfocus.org/donate-to-scverse">donation</a> to help the project pay for developer time, professional services, travel, workshops, and a variety of other needs.</p>
 <div align="center">
@@ -299,7 +273,7 @@ If you like scverse® and want to support our mission, please consider making a 
   >
 </a>
 </div>
-        
+
 
                                     </div>
                                 </div>

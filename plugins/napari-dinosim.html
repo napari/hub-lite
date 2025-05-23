@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,41 +206,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/AAitorG/napari-dinoSim/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-dinoSim.svg?color=blue" /></a>
-<a href="https://doi.org/10.1101/2025.03.09.642092"><img alt="biorxiv" src="https://img.shields.io/badge/bioRxiv-Paper-bd2635.svg" /></a>
-<a href="https://pypi.org/project/napari-dinoSim"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-dinoSim.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-dinoSim.svg?color=green" /></a>
-<a href="https://github.com/AAitorG/napari-dinoSim/actions"><img alt="tests" src="https://github.com/AAitorG/napari-dinoSim/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/AAitorG/napari-dinoSim"><img alt="codecov" src="https://codecov.io/gh/AAitorG/napari-dinoSim/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-dinosim"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-dinosim" /></a></p>
-<p><img alt="DINOSim-simple" src="docs/DINOSim-simplest.png" /></p>
+                                        <p><a href="https://github.com/AAitorG/napari-dinoSim/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-dinoSim.svg?color=blue" alt="License MIT" /></a>
+<a href="https://doi.org/10.1101/2025.03.09.642092"><img src="https://img.shields.io/badge/bioRxiv-Paper-bd2635.svg" alt="biorxiv" /></a>
+<a href="https://pypi.org/project/napari-dinoSim"><img src="https://img.shields.io/pypi/v/napari-dinoSim.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-dinoSim.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/AAitorG/napari-dinoSim/actions"><img src="https://github.com/AAitorG/napari-dinoSim/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/AAitorG/napari-dinoSim"><img src="https://codecov.io/gh/AAitorG/napari-dinoSim/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-dinosim"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-dinosim" alt="napari hub" /></a></p>
+<p><img src="docs/DINOSim-simplest.png" alt="DINOSim-simple" /></p>
 <p>A <a href="https://github.com/napari/napari">napari</a> plugin for zero-shot image segmentation using DINOv2 vision transformers.</p>
 <hr />
 <h2>Overview</h2>
@@ -244,50 +221,52 @@ pre > code:last-child {
 <p>For detailed information about the widget's functionality, UI elements, and usage instructions, please refer to the <a href="./docs/plugin_documentation.md">Plugin Documentation</a>. A simple <a href="./src/dinoSim_example.ipynb">example notebook</a> demonstrating how to use DINOSim programmatically is also available.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-dinoSim</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-sh">pip install napari-dinosim
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-dinosim
+</pre></div>
 </code></pre>
-
 <p>or from source using <a href="https://docs.conda.io/en/latest/miniconda.html">conda</a>:</p>
-<pre class="codehilite"><code class="language-bash"># Clone the repository
-git clone https://github.com/AAitorG/napari-dinoSim.git
-cd napari-dinoSim
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AAitorG/napari-dinoSim.git
+<span class="nb">cd</span><span class="w"> </span>napari-dinoSim
 
-# Create and activate the conda environment
-conda env create -f environment.yml
-conda activate napari-dinosim
+<span class="c1"># Create and activate the conda environment</span>
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+conda<span class="w"> </span>activate<span class="w"> </span>napari-dinosim
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <p>To launch napari, run the following command in your terminal:</p>
-<pre class="codehilite"><code class="language-sh">napari
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
-<p>Within the napari interface, locate and click the <code>DINOSim segmentation</code> plugin in the Plugins section of the top bar. You can then:
-1. Drag and drop your image into the napari viewer
-2. Select points on the objects you want to segment
-3. The plugin will automatically generate segmentation masks based on your selections</p>
+<p>Within the napari interface, locate and click the <code>DINOSim segmentation</code> plugin in the Plugins section of the top bar. You can then:</p>
+<ol>
+<li>Drag and drop your image into the napari viewer</li>
+<li>Select points on the objects you want to segment</li>
+<li>The plugin will automatically generate segmentation masks based on your selections</li>
+</ol>
 <p>For more detailed instructions and examples, please refer to our <a href="./docs/plugin_documentation.md">Plugin Documentation</a>.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-dinoSim" is free and open source software.</p>
+&quot;napari-dinoSim&quot; is free and open source software.</p>
 <h2>Citation</h2>
 <p>Please note that DINOSim is based on a <a href="https://doi.org/10.1101/2025.03.09.642092">publication</a>. If you use DINOSim in your research, please be so kind to cite our work:</p>
-<pre class="codehilite"><code class="language-bibtex">@article {Gonzalez-Marfil2025dinosim,
-    title = {DINOSim: Zero-Shot Object Detection and Semantic Segmentation on Electron Microscopy Images},
-    author = {Gonz{\'a}lez-Marfil, Aitor and G{\'o}mez-de-Mariscal, Estibaliz and Arganda-Carreras, Ignacio},
-    journal = {bioRxiv},
-    publisher = {Cold Spring Harbor Laboratory},
-    url = {https://www.biorxiv.org/content/early/2025/03/13/2025.03.09.642092},
-    doi = {10.1101/2025.03.09.642092},
-    year = {2025}
-}
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="w"> </span><span class="p">{</span><span class="nl">Gonzalez-Marfil2025dinosim</span><span class="p">,</span>
+<span class="w">    </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{DINOSim: Zero-Shot Object Detection and Semantic Segmentation on Electron Microscopy Images}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Gonz{\&#39;a}lez-Marfil, Aitor and G{\&#39;o}mez-de-Mariscal, Estibaliz and Arganda-Carreras, Ignacio}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{bioRxiv}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">publisher</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Cold Spring Harbor Laboratory}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://www.biorxiv.org/content/early/2025/03/13/2025.03.09.642092}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.1101/2025.03.09.642092}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome! Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>. Please ensure the test coverage at least stays the same before submitting a pull request.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/AAitorG/napari-dinoSim/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

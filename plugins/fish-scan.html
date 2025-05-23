@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,39 +234,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/ariannaravera/fish-scan/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/fish-scan.svg?color=green" /></a>
-<a href="https://pypi.org/project/fish-scan"><img alt="PyPI" src="https://img.shields.io/pypi/v/fish-scan.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/fish-scan.svg?color=green" /></a>
-<a href="https://github.com/ariannaravera/fish-scan/actions"><img alt="tests" src="https://github.com/ariannaravera/fish-scan/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/ariannaravera/fish-scan"><img alt="codecov" src="https://codecov.io/gh/ariannaravera/fish-scan/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/fish-scan"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/fish-scan" /></a></p>
+                                        <p><a href="https://github.com/ariannaravera/fish-scan/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/fish-scan.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/fish-scan"><img src="https://img.shields.io/pypi/v/fish-scan.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/fish-scan.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/ariannaravera/fish-scan/actions"><img src="https://github.com/ariannaravera/fish-scan/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/ariannaravera/fish-scan"><img src="https://codecov.io/gh/ariannaravera/fish-scan/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/fish-scan"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/fish-scan" alt="napari hub" /></a></p>
 <p>Plugin to enhance fish detection and analysis for underwater research</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -273,16 +250,13 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>fish-scan</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install fish-scan
+<pre><code>pip install fish-scan
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/ariannaravera/fish-scan.git
+<pre><code>pip install git+https://github.com/ariannaravera/fish-scan.git
 </code></pre>
-
 <h2>Tutorial</h2>
 <h3>1. Color correction</h3>
 <p>With this tool you can correct colors in your image.</p>
@@ -301,10 +275,9 @@ https://napari.org/stable/plugins/index.html
 <li>then, once you start correcting the image, the new generated images will be called as “Current_corrected_<em>original-name</em>”</li>
 <li>if you perform the correction more times, your previous corrected image will be named “Previous_corrected_<em>original-name</em>” and the new generated always “Current_corrected_<em>original-name</em>”.</li>
 </ul>
-<p>This allows you to keep as “previous” the result that you already liked and approved, while the “current” you can play and experiment new corrections. 
+<p>This allows you to keep as “previous” the result that you already liked and approved, while the “current” you can play and experiment new corrections.
 Be aware that if you select as input image of the correction “previous” this means that you didn’t like the “current” one and it will be overwrite (while the “previous” remain the same), otherwise if you liked the “current” and you use it as input image of the new correction, then the “current” will become “previous” and the new result “current”.
-At anytime if you want you can re-start from the original image by selecting it as input image (original image is NEVER changed).
- </p>
+At anytime if you want you can re-start from the original image by selecting it as input image (original image is NEVER changed).</p>
 <h3>2. Set Scale</h3>
 <p>With this tool you can automatically measure your fish if a scale is in the image.</p>
 <ol>
@@ -312,35 +285,44 @@ At anytime if you want you can re-start from the original image by selecting it 
 <p>Click on “Select 1 cm” and draw a line on the scale represeting 1cm, as in this example:</p>
 </li>
 <li>
-<p>Click on “Set scale” and your fish will be automaticall measure in your final analysis with this scale
- </p>
+<p>Click on “Set scale” and your fish will be automaticall measure in your final analysis with this scale</p>
 </li>
 </ol>
 <h3>3. Segmentation &amp; Analysis</h3>
 <p>With this tool you can segment your fish.</p>
-<p>Steps:
-1.  Select the “Image” you want to analyse (be aware of the nomenclature*)
-2.  Click “Select fish area” button
-3.  Start drawing your mask with the brush (yellow arrow below). I suggest to start drwaing the fish contours and then with the paint bucket (red arrow below) fill the inside. Adjust it with the eraser (orange arrow below) if needed</p>
+<p>Steps:</p>
 <ol>
-<li>Select the output folder you want the results saved in by clicking “Browse”</li>
-<li>Finally, click on “Analyse the fish” to generate your analysis</li>
+<li>
+<p>Select the “Image” you want to analyse (be aware of the nomenclature*)</p>
+</li>
+<li>
+<p>Click “Select fish area” button</p>
+</li>
+<li>
+<p>Start drawing your mask with the brush (yellow arrow below). I suggest to start drwaing the fish contours and then with the paint bucket (red arrow below) fill the inside. Adjust it with the eraser (orange arrow below) if needed</p>
+</li>
+<li>
+<p>Select the output folder you want the results saved in by clicking “Browse”</p>
+</li>
+<li>
+<p>Finally, click on “Analyse the fish” to generate your analysis</p>
+</li>
 </ol>
 <p>Here is an example of the results you obtain from it:
-•   two graphs per image,
-o   one representing the percentage of the 3 dominant color you want to study (black, white and orange) </p>
-<p>o   one with the composition of the real RGB values found in the image (the ones that are categorized in the 3 main classes you have in graph 1)</p>
-<p>•   one csv file in which there are the number of black, white and orange pixels, their percentages (same values of graph 1), the length of the fish in pixels (always provided) and the length converted in cm (if a scale was provided).
-o   If in the output folder chosen there were already a previously created csv we will append to that the new info, otherwise a new csv is created.</p>
+•	two graphs per image,
+o	one representing the percentage of the 3 dominant color you want to study (black, white and orange)</p>
+<p>o	one with the composition of the real RGB values found in the image (the ones that are categorized in the 3 main classes you have in graph 1)</p>
+<p>•	one csv file in which there are the number of black, white and orange pixels, their percentages (same values of graph 1), the length of the fish in pixels (always provided) and the length converted in cm (if a scale was provided).
+o	If in the output folder chosen there were already a previously created csv we will append to that the new info, otherwise a new csv is created.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"fish-scan" is free and open source software</p>
+&quot;fish-scan&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/ariannaravera/fish-scan/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,38 +206,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/junlabucsd/napari-mm3/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-mm3.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-mm3"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-mm3.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-mm3.svg?color=green" /></a>
-<a href="https://github.com/junlabucsd/napari-mm3/actions"><img alt="tests" src="https://github.com/junlabucsd/napari-mm3/workflows/tests/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-mm3"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-mm3" /></a></p>
+                                        <p><a href="https://github.com/junlabucsd/napari-mm3/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-mm3.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-mm3"><img src="https://img.shields.io/pypi/v/napari-mm3.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-mm3.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/junlabucsd/napari-mm3/actions"><img src="https://github.com/junlabucsd/napari-mm3/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://napari-hub.org/plugins/napari-mm3"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-mm3" alt="napari hub" /></a></p>
 <p>A plugin for mother machine image analysis by the <a href="https://jun.ucsd.edu/">Jun Lab</a>.</p>
 <p>Reference:
 <a href="https://elifesciences.org/reviewed-preprints/88463">Tools and methods for high-throughput single-cell imaging with the mother machine. Ryan Thiermann, Michael Sandler, Gursharan Ahir, John T. Sauls, Jeremy W. Schroeder, Steven D. Brown, Guillaume Le Treut, Fangwei Si, Dongyang Li, Jue D. Wang, Suckjoon Jun. eLife12:RP88463
@@ -247,28 +224,27 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
-<p>https://github.com/junlabucsd/napari-mm3/assets/40699438/1b3e6121-f5e1-475f-aca3-c6ed1b5bab3a</p>
+<p><a href="https://github.com/junlabucsd/napari-mm3/assets/40699438/1b3e6121-f5e1-475f-aca3-c6ed1b5bab3a">https://github.com/junlabucsd/napari-mm3/assets/40699438/1b3e6121-f5e1-475f-aca3-c6ed1b5bab3a</a></p>
 <h2>Installation</h2>
 <p>We describe installation with mamba, a faster version of conda which we recommend. Installation with conda is the exact same, except replace <code>mamba</code> with <code>conda</code> Run the following command:</p>
-<pre class="codehilite"><code>mamba create -n napari-mm3 -c conda-forge conda-build tensorflow napari
+<pre><code><div class="highlight"><pre><span></span>mamba create -n napari-mm3 -c conda-forge conda-build tensorflow napari
+</pre></div>
 </code></pre>
-
 <p>Now, you need to install our code (please let us know if this causes problems -- it has been a pain point in the past). To do so, clone the repository:</p>
-<pre class="codehilite"><code>git clone https://github.com/junlabucsd/napari-mm3.git
+<pre><code><div class="highlight"><pre><span></span>git clone https://github.com/junlabucsd/napari-mm3.git
+</pre></div>
 </code></pre>
-
 <p>Then, run the following commands from within your conda environment:</p>
-<pre class="codehilite"><code>cd napari-mm3
+<pre><code><div class="highlight"><pre><span></span>cd napari-mm3
 pip install -e .
+</pre></div>
 </code></pre>
-
 <p>This supplies you with the latest, most recent version of our code.</p>
 <p>If you would like to have a more stable version, simply run <code>pip install napari-mm3</code>. In general, we recommend going off of the github version.</p>
 <p>napari-MM3 can use the <a href="https://pypi.org/project/python-bioformats/">python-bioformats</a> library to import various image file formats. It can be installed with pip:</p>
-<pre class="codehilite"><code>pip install python-bioformats
+<pre><code><div class="highlight"><pre><span></span>pip install python-bioformats
+</pre></div>
 </code></pre>
-
 <p>If your raw images are in the .nd2 format, they will be read in with the nd2reader package. In this case, Bio-Formats is not required.</p>
 <p>NOTES:
 Not running the conda command above and trying to install things in a different way may lead to difficult issues with PyQt5. We recommend following the above commands to simplify the situation.
@@ -277,7 +253,7 @@ Using <code>pip -e .</code> instead of <code>mamba develop .</code> is a deliber
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>Usage guide</h2>
-<p>https://github.com/junlabucsd/napari-mm3/assets/8302475/68c726be-620e-4375-b1c9-3db56ac9a82a</p>
+<p><a href="https://github.com/junlabucsd/napari-mm3/assets/8302475/68c726be-620e-4375-b1c9-3db56ac9a82a">https://github.com/junlabucsd/napari-mm3/assets/8302475/68c726be-620e-4375-b1c9-3db56ac9a82a</a></p>
 <p>Additional reference information is available below.</p>
 <h3>a. Preprocessing</h3>
 <ul>
@@ -292,7 +268,7 @@ the coverage at least stays the same before you submit a pull request.</p>
 </li>
 </ul>
 <h3>b. Segmentation</h3>
-<p><strong><em>With Otsu's method:</em></strong></p>
+<p><em><strong>With Otsu's method:</strong></em></p>
 <ul>
 <li>
 <p><a href="https://github.com/junlabucsd/napari-mm3/blob/main/docs/subtract-widget.md">Subtract</a> -- Remove (via subtraction) empty traps from the background of traps that contain cells; run this on the phase contrast channel.</p>
@@ -301,7 +277,7 @@ the coverage at least stays the same before you submit a pull request.</p>
 <p><a href="https://github.com/junlabucsd/napari-mm3/blob/main/docs/segmentotsu-widget.md">SegmentOtsu</a> -- Use Otsu's method to segment cells.</p>
 </li>
 </ul>
-<p><strong><em>With U-Net:</em></strong></p>
+<p><em><strong>With U-Net:</strong></em></p>
 <ul>
 <li>
 <p><a href="https://github.com/junlabucsd/napari-mm3/blob/main/docs/annotate-widget.md">Annotate</a> -- annotate images for ML (U-Net or similar) training purposes.</p>
@@ -349,10 +325,10 @@ the coverage at least stays the same before you submit a pull request.</p>
 </ul>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-mm3" is free and open source software</p>
+&quot;napari-mm3&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/junlabucsd/napari-mm3/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

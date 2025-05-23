@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,52 +234,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://pypi.org/project/napari-trackastra"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-trackastra.svg?color=green" /></a>
-<a href="https://github.com/weigertlab/napari-trackastra/actions"><img alt="tests" src="https://github.com/weigertlab/napari-trackastra/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/weigertlab/napari-trackastra"><img alt="codecov" src="https://codecov.io/gh/weigertlab/napari-trackastra/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-trackastra"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-trackastra" /></a></p>
+                                        <p><a href="https://pypi.org/project/napari-trackastra"><img src="https://img.shields.io/pypi/v/napari-trackastra.svg?color=green" alt="PyPI" /></a>
+<a href="https://github.com/weigertlab/napari-trackastra/actions"><img src="https://github.com/weigertlab/napari-trackastra/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/weigertlab/napari-trackastra"><img src="https://codecov.io/gh/weigertlab/napari-trackastra/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-trackastra"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-trackastra" alt="napari hub" /></a></p>
 <p>A napari plugin for cell tracking with <a href="https://github.com/weigertlab/trackastra"><code>trackastra</code></a>.</p>
-<p><img alt="demo" src="https://github.com/weigertlab/napari-trackastra/assets/8866751/097eb82d-0fef-423e-9275-3fb528c20f7d" /></p>
+<p><img src="https://github.com/weigertlab/napari-trackastra/assets/8866751/097eb82d-0fef-423e-9275-3fb528c20f7d" alt="demo" /></p>
 <h2>Installation</h2>
 <ol>
 <li>
 <p>Please install napari as outlined <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">here</a>.</p>
 </li>
 <li>
-<p>After that, install the latest version of this plugin from PyPI with:
-    <code>pip install napari-trackastra</code></p>
+<p>After that, install the latest version of this plugin from PyPI with:</p>
+<pre><code><div class="highlight"><pre><span></span>pip install napari-trackastra
+</pre></div>
+</code></pre>
 </li>
 </ol>
-<p>Notes:
-- For tracking with an integer linear program (ILP, which is optional), follow the <a href="https://github.com/weigertlab/trackastra/blob/main/README.md#installation">installation instructions of the main <code>trackastra</code> package</a>.
-- On Windows currently only supported for Python 3.10.</p>
+<p>Notes:</p>
+<ul>
+<li>For tracking with an integer linear program (ILP, which is optional), follow the <a href="https://github.com/weigertlab/trackastra/blob/main/README.md#installation">installation instructions of the main <code>trackastra</code> package</a>.</li>
+<li>On Windows currently only supported for Python 3.10.</li>
+</ul>
 <h2>Usage</h2>
 <ul>
 <li><code>trackastra</code> expects a timeseries of raw images and corresponding segmentations masks as input.</li>
@@ -283,7 +264,7 @@ pre > code:last-child {
 <li>Tracked cells can be directly saved to <a href="https://celltrackingchallenge.net/datasets/">Cell Tracking Challenge format</a>.</li>
 <li>Results can be drag-and-dropped back into napari for inspection.</li>
 </ul>
-        
+
 
                                     </div>
                                 </div>

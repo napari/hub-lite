@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,127 +206,102 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>Annotrack is a napari plugin for annotating errors in object trajectories. The plugin will help you take a sample of track segments along with a small section of corresponding image and segmentation. Annotrack allows you to annotate three types of errors: (1) ID swap errors (track jumps between objects), (2) false starts (track starts on a pre-existing object) and false terminations (track ends but object still exists). By looking at the combined rates of false starts and false terminations you can assess track discontinutation errors. </p>
-<p><strong>Please note:</strong> Images and segmentations must be in zarr format. Tracks should be in parquet format.  </p>
+                                        <p>Annotrack is a napari plugin for annotating errors in object trajectories. The plugin will help you take a sample of track segments along with a small section of corresponding image and segmentation. Annotrack allows you to annotate three types of errors: (1) ID swap errors (track jumps between objects), (2) false starts (track starts on a pre-existing object) and false terminations (track ends but object still exists). By looking at the combined rates of false starts and false terminations you can assess track discontinutation errors.</p>
+<p><strong>Please note:</strong> Images and segmentations must be in zarr format. Tracks should be in parquet format.</p>
 <h2>Installation</h2>
 <p>There are three main ways to install annotrack:</p>
 <h3>Install Using pip</h3>
 <p><em>Please note that this is planned/under development</em></p>
 <p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
-<pre class="codehilite"><code class="language-bash">pip install annotrack
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>annotrack
+</pre></div>
 </code></pre>
-
 <h3>Install</h3>
 <p><em>Please note that this is planned/under development</em></p>
 <p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
-<pre class="codehilite"><code class="language-bash">install napari
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>install<span class="w"> </span>napari
 napari
+</pre></div>
 </code></pre>
-
-<p>Once napari has opened (this may take a second the first time you open it), go to the pannel at the top of the screen and select the 'plugins' dropdown. Then select install/uninstall plugins. A new window will open showing available plugins. Either scroll down to or search 'annotrack' and click 'install'. </p>
+<p>Once napari has opened (this may take a second the first time you open it), go to the pannel at the top of the screen and select the 'plugins' dropdown. Then select install/uninstall plugins. A new window will open showing available plugins. Either scroll down to or search 'annotrack' and click 'install'.</p>
 <h3>Install from Source Code</h3>
 <p><em>please use this for now</em></p>
 <p>Type the following into your terminal (MacOS or Ubuntu) or annaconda prompt (windows):</p>
-<pre class="codehilite"><code class="language-bash">git clone https://github.com/AbigailMcGovern/annotrack.git
-cd annotrack
-pip install .
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AbigailMcGovern/annotrack.git
+<span class="nb">cd</span><span class="w"> </span>annotrack
+pip<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <h2>Opening Annotrack</h2>
 <p>Once annotrack is properly installed you will be able to open annotrack by opening napari. You can open napari through the command line (terminal (MacOS or Ubuntu) or annaconda prompt (windows)) as follows:</p>
-<pre class="codehilite"><code class="language-bash">napari
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
-<p>You can find the annotrack widgets by selecting the dropdown 'plugins' at the pannel at the top of the screen and hovering over 'annotrack'.  </p>
+<p>You can find the annotrack widgets by selecting the dropdown 'plugins' at the pannel at the top of the screen and hovering over 'annotrack'.</p>
 <h2>Sample from CSV</h2>
 <p>To sample your tracks you will need to supply the file paths for the images, segmentations, and tracks. You supply this in a csv that is structured as shown below:</p>
-<p><img alt="csv_structure widget" src="https://github.com/AbigailMcGovern/annotrack/blob/main/media/csv_structure.png" /></p>
-<p>In this csv, you may also specify how many samples are to be taken from each file. If this is not provided, annotrack will use the value you supply to the <code>sample_from_csv</code> widget. The csv must contain a column that specifies a category to which each sample belongs (e.g., species, experimental condition, drug, etc.).  If this isnt important for your samples, just add a dummy category (e.g., sample_type : [A, A, A, A]). </p>
-<p>To access the widget and sample track segments, go to the top of the screen, go to <strong>plugins &gt; annotrack &gt; sample_from_csv</strong>. When the widget is displayed, select the csv file, select a directory into which to save results, and proivide a name for the summary data file (i.e., where your annotations will be written). </p>
-<p><img alt="sample_from_csv widget" src="https://github.com/AbigailMcGovern/annotrack/blob/main/media/sample_from_csv.png" /></p>
+<p><img src="https://github.com/AbigailMcGovern/annotrack/blob/main/media/csv_structure.png" alt="csv_structure widget" /></p>
+<p>In this csv, you may also specify how many samples are to be taken from each file. If this is not provided, annotrack will use the value you supply to the <code>sample_from_csv</code> widget. The csv must contain a column that specifies a category to which each sample belongs (e.g., species, experimental condition, drug, etc.).  If this isnt important for your samples, just add a dummy category (e.g., sample_type : [A, A, A, A]).</p>
+<p>To access the widget and sample track segments, go to the top of the screen, go to <strong>plugins &gt; annotrack &gt; sample_from_csv</strong>. When the widget is displayed, select the csv file, select a directory into which to save results, and proivide a name for the summary data file (i.e., where your annotations will be written).</p>
+<p><img src="https://github.com/AbigailMcGovern/annotrack/blob/main/media/sample_from_csv.png" alt="sample_from_csv widget" /></p>
 <h3>Widget parameters</h3>
 <ul>
-<li><strong>path to csv</strong>: 
-        The path storing the info from which to generate the samples. 
-        The CSV should have the columns: image_path, labels_path, tracks_path, <category_col>, 
-        You can also add an optional n_samples column if you would like to 
-        specify how many samples to take from each individual file. Otherwise, 
-        the default "n_samples" you've supplied will be used.</li>
-<li><strong>output dir</strong>: 
-        Where will the output be saved?</li>
-<li><strong>output name</strong>: 
-        What will output summary files/directories be called?</li>
-<li><strong>n samples</strong>: 
-        How many samples to be obtained from each file. Will be overwritten
-        if there is a valid integer number in the n_samples colum of the csv.</li>
-<li><strong>tzyx cols</strong>: 
-        What are the names of the columns denoting time (in frames) and coordinate
-        positions (in pixels) in the file containing tracks? The order should be:
-        t, z, y, x. </li>
-<li><strong>id col</strong>: 
-        What is the name of the column denoting the specific ID for each tracked
-        object?</li>
-<li><strong>scale</strong>: 
-        size of pixels (e.g., in um) for the z, y, and x coordinates (in that
-        order)</li>
-<li><strong>frames</strong>: 
-        Approximate maximum number of frames of track segment. 
-        Max frames = frames (if even) or frames - 1 (if odd)</li>
-<li><strong>box size</strong>: 
-        Approximate size of bounding box (in pixels). </li>
-<li><strong>min track len</strong>: 
-        You can set a minimum track len to include in the search. 
-        This can help to eliminate less useful data. This should be at least 1 to only include tracked objects. Set higher only if you are specifically interested in longer lived tracks. </li>
-<li><strong>image channel</strong>: 
-        This denotes the index of the channel from which to get 
-        image data (0: channel 1, 1: channel 2, 2: channel 3, 3: channel 4)</li>
+<li><strong>path to csv</strong>:
+The path storing the info from which to generate the samples.
+The CSV should have the columns: image_path, labels_path, tracks_path, &lt;category_col&gt;,
+You can also add an optional n_samples column if you would like to
+specify how many samples to take from each individual file. Otherwise,
+the default &quot;n_samples&quot; you've supplied will be used.</li>
+<li><strong>output dir</strong>:
+Where will the output be saved?</li>
+<li><strong>output name</strong>:
+What will output summary files/directories be called?</li>
+<li><strong>n samples</strong>:
+How many samples to be obtained from each file. Will be overwritten
+if there is a valid integer number in the n_samples colum of the csv.</li>
+<li><strong>tzyx cols</strong>:
+What are the names of the columns denoting time (in frames) and coordinate
+positions (in pixels) in the file containing tracks? The order should be:
+t, z, y, x.</li>
+<li><strong>id col</strong>:
+What is the name of the column denoting the specific ID for each tracked
+object?</li>
+<li><strong>scale</strong>:
+size of pixels (e.g., in um) for the z, y, and x coordinates (in that
+order)</li>
+<li><strong>frames</strong>:
+Approximate maximum number of frames of track segment.
+Max frames = frames (if even) or frames - 1 (if odd)</li>
+<li><strong>box size</strong>:
+Approximate size of bounding box (in pixels).</li>
+<li><strong>min track len</strong>:
+You can set a minimum track len to include in the search.
+This can help to eliminate less useful data. This should be at least 1 to only include tracked objects. Set higher only if you are specifically interested in longer lived tracks.</li>
+<li><strong>image channel</strong>:
+This denotes the index of the channel from which to get
+image data (0: channel 1, 1: channel 2, 2: channel 3, 3: channel 4)</li>
 </ul>
 <h3>Annotate Now?</h3>
 <p>In the case that we are annotating multiple conditions to compare, we want to show them in the one session in randomised order with the annotator blinded to where the sample has originated from. We want to be able to annotated unannotated data from the sample without having the burden of having to do this all at once. The annotations are therefore saved into the saved sample. A selected number of samples saved from the various tracking experiments can be annotated using the following code. If you re-execute this code, you will only be shown not yet annotated data, unless you request otherwise.</p>
-<p>Keys to navagate and annotate samples
-- '2' - move to next sample
-- '1' - move to previous sample
-- 'y' - annotate as correct (will move to the next sample automatically)
-- 'n' - annotate as containing an error (will move to the next sample automatically)
-- 'i' - annotate the frame following a ID swap error
-- 't' - annotate the fame following an incorrect termination
-- 'Shift-t' - annotate the frame containing a false start error
-- 's' - annotate an error ('i', 't', or 'Shift-t') as being associated with a segmentation error (merge or split of objects)</p>
-<p>When an error is associated the specific frame ('i', 't', 'Shift-t', or 's'), the frame number (within the original image) will be added to a list of errors for the sample within the sample's (.smpl) info data frame. E.g., you may have a list of ID swaps for your sampled track segment (<code>[108, 111, 112]</code>) and a corresponding list of segmentation error associations (<code>[108, 112]</code>). </p>
+<p>Keys to navagate and annotate samples</p>
+<ul>
+<li>'2' - move to next sample</li>
+<li>'1' - move to previous sample</li>
+<li>'y' - annotate as correct (will move to the next sample automatically)</li>
+<li>'n' - annotate as containing an error (will move to the next sample automatically)</li>
+<li>'i' - annotate the frame following a ID swap error</li>
+<li>'t' - annotate the fame following an incorrect termination</li>
+<li>'Shift-t' - annotate the frame containing a false start error</li>
+<li>'s' - annotate an error ('i', 't', or 'Shift-t') as being associated with a segmentation error (merge or split of objects)</li>
+</ul>
+<p>When an error is associated the specific frame ('i', 't', 'Shift-t', or 's'), the frame number (within the original image) will be added to a list of errors for the sample within the sample's (.smpl) info data frame. E.g., you may have a list of ID swaps for your sampled track segment (<code>[108, 111, 112]</code>) and a corresponding list of segmentation error associations (<code>[108, 112]</code>).</p>
 <h2>Annotate Existing Sample</h2>
 <p>If you have already saved a sample and want to annotate it, you can load the sample data using the <code>annotate_existing_sample</code> widget. This might be useful if you want to have several annotators annotate the same sample. To access this widget, open napari</p>
-<p><img alt="annotate_existing_sample widget" src="https://github.com/AbigailMcGovern/annotrack/blob/main/media/annotate_existing_sample.png" /></p>
+<p><img src="https://github.com/AbigailMcGovern/annotrack/blob/main/media/annotate_existing_sample.png" alt="annotate_existing_sample widget" /></p>
 <h2>Contributing and User Support</h2>
-<p><strong>User support:</strong> If you have an issue with annotrack please add an issue (go to the Issues tab at the top of the GitHub page). If your issue is a bug, please include as much information as possible to help debug the problem. Examples of information include: details about the image and segmentation data (dimensions), number of images, number of samples you are trying to take. If you are requesting an improvement, try to be as clear as possible about what you need. </p>
+<p><strong>User support:</strong> If you have an issue with annotrack please add an issue (go to the Issues tab at the top of the GitHub page). If your issue is a bug, please include as much information as possible to help debug the problem. Examples of information include: details about the image and segmentation data (dimensions), number of images, number of samples you are trying to take. If you are requesting an improvement, try to be as clear as possible about what you need.</p>
 <p><strong>Contributing:</strong> If you want to contribute to annotrack, please fork the repo and if you want to make changes make a pull request with as much detail about the change as possible. Please ensure any changes you want to make don't break the existing functions.</p>
-        
+
 
                                     </div>
                                 </div>

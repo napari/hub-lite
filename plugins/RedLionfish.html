@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,34 +210,7 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="RedLionfish Logo" src="./redlionfish_logo.svg" /></p>
+                                        <p><img src="./redlionfish_logo.svg" alt="RedLionfish Logo" /></p>
 <h1>RedLionfish (RL) deconvolution</h1>
 <p><em>Richardson-Lucy deconvolution for fishes, scientists and engineers.</em></p>
 <p>This software is for filtering 3D data using the Richardson-Lucy deconvolution algorithm.</p>
@@ -250,7 +227,7 @@ point spread function (PSF) or optical transfer function (OTF) artifacts from ex
 <h2>Napari plugin</h2>
 <p>You can now use the Napari's plugin installation in <em>Menu -&gt; Plugins -&gt; Install/Uninstall Plugins...</em>.
 However, if you chose to use this method, GPU acceleration may not be available and it will use the CPU backend. Better check.</p>
-<p><img alt="" src="resources\imag1.jpg" /></p>
+<p><img src="resources%5Cimag1.jpg" alt="" /></p>
 <p>Alternatively, if you follow the installation instructions below, and install the napari in the same python environment
 then the plugin should be immediately available in the <em>Menu -&gt; Plugins -&gt; RedLionfish</em>.</p>
 <h2>Installation</h2>
@@ -258,24 +235,24 @@ then the plugin should be immediately available in the <em>Menu -&gt; Plugins -&
 <p>This package can be installed using pip or conda.</p>
 <p>Napari plugin installation engine can also be used to install this package.</p>
 <h3>Install from PyPi</h3>
-<pre class="codehilite"><code>pip install redlionfish
+<pre><code><div class="highlight"><pre><span></span>pip install redlionfish
+</pre></div>
 </code></pre>
-
 <h3>Conda install</h3>
 <p>This package is available in conda-forge channel.
 It contains the precompiled libraries and it will install all the requirments for GPU-accelerated RL calculations.</p>
 <p><code>conda install redlionfish -c conda-forge</code></p>
 <p>In Linux , the package <code>ocl-icd-system</code> may also be useful.</p>
-<pre class="codehilite"><code>conda install reikna pyopencl ocl-icd-system -c conda-forge
+<pre><code><div class="highlight"><pre><span></span>conda install reikna pyopencl ocl-icd-system -c conda-forge
+</pre></div>
 </code></pre>
-
 <h4>Manual installation using the conda package file.</h4>
 <p>Download the appropriate conda package .bz2 at <a href="https://github.com/rosalindfranklininstitute/RedLionfish/releases">https://github.com/rosalindfranklininstitute/RedLionfish/releases</a></p>
 <p>In the command line, successively run:</p>
-<pre class="codehilite"><code>conda install &lt;filename.bz2&gt;
+<pre><code><div class="highlight"><pre><span></span>conda install &lt;filename.bz2&gt;
 conda update --all -c conda-forge
+</pre></div>
 </code></pre>
-
 <p>The second line is needed because you are installing from a local file, conda installer will not install dependencies. Right after this you should run the update command given.</p>
 <h3>Manual installation (advanced and for developers)</h3>
 <p>Please note that in order to use OpenCL GPU accelerations, PyOpenCL must be installed.
@@ -343,7 +320,7 @@ During the calculation it will print some information to the console/terminal, i
 <p>In order to use the functions, add the follwoing import to your code,</p>
 <p><code>import RedLionfishDeconv</code></p>
 <p>The most useful function is perhaps the following.</p>
-<p><code>def doRLDeconvolutionFromNpArrays(data_np , psf_np ,*, niter=10, method='gpu', useBlockAlgorithm=False, callbkTickFunc=None, resAsUint8 = False)</code></p>
+<p><code>def doRLDeconvolutionFromNpArrays(data_np , psf_np ,*, niter=10, method='gpu', useBlockAlgorithm=False, callbkTickFunc=None, resAsUint8 = False) </code></p>
 <p>This will do the Richardson-Lucy deconvolution on the data_np (numpy, 3 dimensional data volume) using the provided PSF data volume, for 10 iterations. GPU method is generally faster but it may fail. If it does fail, the program will automatically use the CPU version that uses the scipy fft package.</p>
 <h2>Manually building the conda package</h2>
 <p>For this installation, ensure that the conda-build package is installed</p>
@@ -357,7 +334,7 @@ During the calculation it will print some information to the console/terminal, i
 <p>It will take a while to complete.</p>
 <h2>Contact</h2>
 <p>Report issues and questions in project's github page, please. Please don't try to send emails as they may be igored or spam-filtered.</p>
-        
+
 
                                     </div>
                                 </div>

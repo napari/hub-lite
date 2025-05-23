@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,93 +210,66 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-segment-blobs-and-things-with-membranes.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-segment-blobs-and-things-with-membranes"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-segment-blobs-and-things-with-membranes.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-segment-blobs-and-things-with-membranes.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-segment-blobs-and-things-with-membranes"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/branch/master/graph/badge.svg" /></a>
-<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari-segment-blobs-and-things-with-membranes.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-segment-blobs-and-things-with-membranes" /></a>
-<a href="https://doi.org/10.5281/zenodo.7027634"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.7027634.svg" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-segment-blobs-and-things-with-membranes.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-segment-blobs-and-things-with-membranes"><img src="https://img.shields.io/pypi/v/napari-segment-blobs-and-things-with-membranes.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-segment-blobs-and-things-with-membranes.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/actions"><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-segment-blobs-and-things-with-membranes"><img src="https://codecov.io/gh/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/branch/master/graph/badge.svg" alt="codecov" /></a>
+<a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"><img src="https://img.shields.io/pypi/status/napari-segment-blobs-and-things-with-membranes.svg" alt="Development Status" /></a>
+<a href="https://napari-hub.org/plugins/napari-segment-blobs-and-things-with-membranes"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-segment-blobs-and-things-with-membranes" alt="napari hub" /></a>
+<a href="https://doi.org/10.5281/zenodo.7027634"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7027634.svg" alt="DOI" /></a></p>
 <p>This napari-plugin is based on scikit-image and allows segmenting nuclei and cells based on fluorescence microscopy images with high intensity in nuclei and/or membranes.</p>
 <h2>Usage</h2>
 <p>This plugin populates image processing operations to the <code>Tools</code> menu in napari.
 You can recognize them with their suffix <code>(nsbatwm)</code> in brackets.
-Furthermore, it can be used from the <a href="https://www.napari-hub.org/plugins/napari-assistant">napari-assistant</a> graphical user interface. 
+Furthermore, it can be used from the <a href="https://www.napari-hub.org/plugins/napari-assistant">napari-assistant</a> graphical user interface.
 Therefore, just click the menu <code>Tools &gt; Utilities &gt; Assistant (na)</code> or run <code>naparia</code> from the command line.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/tools_menu_screenshot.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/tools_menu_screenshot.png" alt="img.png" /></p>
 <p>You can also call these functions as shown in <a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/blob/main/docs/demo.ipynb">the demo notebook</a>.</p>
 <h3>Voronoi-Otsu-Labeling</h3>
-<p>This algorithm uses <a href="https://ieeexplore.ieee.org/document/4310076">Otsu's thresholding method</a> in combination with 
-<a href="https://scikit-image.org/docs/dev/api/skimage.filters.html#skimage.filters.gaussian">Gaussian blur</a> and a 
-<a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi-Tesselation</a> 
+<p>This algorithm uses <a href="https://ieeexplore.ieee.org/document/4310076">Otsu's thresholding method</a> in combination with
+<a href="https://scikit-image.org/docs/dev/api/skimage.filters.html#skimage.filters.gaussian">Gaussian blur</a> and a
+<a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi-Tesselation</a>
 approach to label bright objects such as nuclei in an intensity image. The alogrithm has two sigma parameters which allow
 you to fine-tune where objects should be cut (<code>spot_sigma</code>) and how smooth outlines should be (<code>outline_sigma</code>).
 This implementation aims to be similar to <a href="https://github.com/clEsperanto/pyclesperanto_prototype/blob/master/demo/segmentation/voronoi_otsu_labeling.ipynb">Voronoi-Otsu-Labeling in clesperanto</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/voronoi_otsu_labeling.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/voronoi_otsu_labeling.png" alt="img.png" /></p>
 <h3>Seeded Watershed</h3>
 <p>Starting from an image showing high-intensity membranes and a seed-image where objects have been labeled (e.g. using Voronoi-Otsu-Labeling),
 objects are labeled that are constrained by the membranes.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/seeded_watershed.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/seeded_watershed.png" alt="img.png" /></p>
 <h3>Seeded Watershed with mask</h3>
-<p>If there is additionally a mask image available, one can use the <code>Seeded Watershed with mask</code>, to constraint the flooding 
+<p>If there is additionally a mask image available, one can use the <code>Seeded Watershed with mask</code>, to constraint the flooding
 on a membrane image (1), starting from nuclei (2), limited by a mask image (3) to produce a cell segmentation within the mask (4).</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/seeded_watershed_with_mask.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/seeded_watershed_with_mask.png" alt="img.png" /></p>
 <h3>Seeded Watershed using local minima as starting points</h3>
 <p>Similar to the Seeded Watershed and Voronoi-Otsu-Labeling explained above, you can use this tool to segment an image
-showing membranes without an additional image showing nuclei. The two sigma parameters allow to fine tune how close 
+showing membranes without an additional image showing nuclei. The two sigma parameters allow to fine tune how close
 objects can be and how precise their boundaries are detected.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/local_minima_seeded_watershed.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/local_minima_seeded_watershed.png" alt="img.png" /></p>
 <h3>Gaussian blur</h3>
 <p>Applies a <a href="https://scikit-image.org/docs/dev/api/skimage.filters.html#skimage.filters.gaussian">Gaussian blur</a> to an
 image. This might be useful for denoising, e.g. before applying the Threshold-Otsu method.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/gaussian_blur.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/gaussian_blur.png" alt="img.png" /></p>
 <h3>Subtract background</h3>
-<p>Subtracts background using <a href="https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_rolling_ball.html">scikit-image's rolling-ball algorithm</a>. 
+<p>Subtracts background using <a href="https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_rolling_ball.html">scikit-image's rolling-ball algorithm</a>.
 This might be useful, for example to make intensity of membranes more similar in different regions of an image.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/subtract_background.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/subtract_background.png" alt="img.png" /></p>
 <h3>Threshold Otsu</h3>
-<p>Binarizes an image using <a href="https://scikit-image.org/docs/dev/auto_examples/segmentation/plot_thresholding.html">scikit-image's threshold Otsu algorithm</a>, also known as 
+<p>Binarizes an image using <a href="https://scikit-image.org/docs/dev/auto_examples/segmentation/plot_thresholding.html">scikit-image's threshold Otsu algorithm</a>, also known as
 <a href="https://ieeexplore.ieee.org/document/4310076">Otsu's method</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/threshold_otsu.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/threshold_otsu.png" alt="img.png" /></p>
 <h3>Split touching objects (formerly known as binary watershed).</h3>
 <p>In case objects stick together after thresholding, this tool might help.
 It aims to deliver similar results as <a href="https://imagej.nih.gov/ij/docs/menus/process.html#watershed">ImageJ's watershed implementation</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/binary_watershed.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/binary_watershed.png" alt="img.png" /></p>
 <h3>Connected component labeling</h3>
 <p>Takes a binary image and produces a label image with all separated objects labeled differently. Under the hood, it uses
 <a href="https://scikit-image.org/docs/dev/auto_examples/segmentation/plot_label.html">scikit-image's label function</a>.</p>
-<p><img alt="img.png" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/connected_component_labeling.png" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/connected_component_labeling.png" alt="img.png" /></p>
 <h3>Manual split and merge labels</h3>
 <p>Split and merge labels in napari manually via the <code>Tools &gt; Utilities menu</code>:</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/split_and_merge_demo.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes/raw/main/docs/split_and_merge_demo.gif" alt="" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
@@ -302,10 +279,10 @@ It aims to deliver similar results as <a href="https://imagej.nih.gov/ij/docs/me
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-segment-blobs-and-things-with-membranes" is free and open source software</p>
+&quot;napari-segment-blobs-and-things-with-membranes&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please create a thread on <a href="https://image.sc">image.sc</a> along with a detailed description and tag <a href="https://twitter.com/haesleinhuepf">@haesleinhuepf</a>.</p>
-        
+
 
                                     </div>
                                 </div>

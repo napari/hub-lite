@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,34 +206,7 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <!--
+                                        <!--
 [![License MIT](https://img.shields.io/pypi/l/automated-lung-morphometry.svg?color=green)](https://github.com/Quooooooookka/automated-lung-morphometry/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/automated-lung-morphometry.svg?color=green)](https://pypi.org/project/automated-lung-morphometry)
 [![Python Version](https://img.shields.io/pypi/pyversions/automated-lung-morphometry.svg?color=green)](https://python.org)
@@ -237,7 +214,6 @@ pre > code:last-child {
 [![codecov](https://codecov.io/gh/Quooooooookka/automated-lung-morphometry/branch/main/graph/badge.svg)](https://codecov.io/gh/Quooooooookka/automated-lung-morphometry)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/automated-lung-morphometry)](https://napari-hub.org/plugins/automated-lung-morphometry)
 -->
-
 <h1>AlveolEye: Automated lung morphometry made easy</h1>
 <p>This repository contains the beta version of AlveolEye, which is created by the Sucre lab.
 This code is authored by Joseph Hirsh, Samuel Hirsh, Nick Negretti, and Shawyon Shirazi.</p>
@@ -248,25 +224,33 @@ to calculate mean linear intercept (MLI) and airspace volume density (ASVD) from
 <p>The target of this process is to create a conda environment that has both napari, and all of the AlveolEye requirements.</p>
 <p>If you already have conda setup, you can skip step 1</p>
 <ol>
-<li>Install miniconda by downlading the appropriate version from <a href="https://docs.anaconda.com/free/miniconda/">here</a></li>
-</ol>
+<li>
+<p>Install miniconda by downlading the appropriate version from <a href="https://docs.anaconda.com/free/miniconda/">here</a></p>
 <p>a. Choose the version that matches your processor</p>
-<p>b. Download the "pkg" version for easy install
-2. Open a terminal, or miniconda prompt, and clone this git repository by running:</p>
-<pre class="codehilite"><code>```git clone https://github.com/SucreLab/AlveolEye```
-</code></pre>
-
-<ol>
+<p>b. Download the &quot;pkg&quot; version for easy install</p>
+</li>
+<li>
+<p>Open a terminal, or miniconda prompt, and clone this git repository by running:</p>
+<p><code>git clone https://github.com/SucreLab/AlveolEye</code></p>
+</li>
 <li>
 <p>Go to the AlveolEye directory</p>
-<p><code>cd AlveolEye</code>
-4. Create the conda environment</p>
-<p><code>conda env create -f ./environment.yml</code>
-5. Activate the new environment</p>
-<p><code>conda activate AlveolEye</code>
-6. Install the plugin</p>
-<p><code>pip install .</code>
-7. Launch napari, followed by locating the plugin in the plugin menu</p>
+<p><code>cd AlveolEye</code></p>
+</li>
+<li>
+<p>Create the conda environment</p>
+<p><code>conda env create -f ./environment.yml</code></p>
+</li>
+<li>
+<p>Activate the new environment</p>
+<p><code>conda activate AlveolEye</code></p>
+</li>
+<li>
+<p>Install the plugin</p>
+<p><code>pip install .</code></p>
+</li>
+<li>
+<p>Launch napari, followed by locating the plugin in the plugin menu</p>
 <p><code>napari</code></p>
 </li>
 </ol>
@@ -274,51 +258,68 @@ to calculate mean linear intercept (MLI) and airspace volume density (ASVD) from
 <ol>
 <li>Open a terminal, or miniconda prompt, activate the environment and run napari</li>
 </ol>
-<pre class="codehilite"><code>conda activate AlveolEye
+<pre><code><div class="highlight"><pre><span></span>conda activate AlveolEye
 napari
+</pre></div>
 </code></pre>
-
 <h1>AlveolEye Usage Tutorial</h1>
 <h2>Annotated Diagram</h2>
-<p><img alt="annotated diagram" src="./docs/AlveolEye_annotated_diagram.png" /></p>
+<p><img src="./docs/AlveolEye_annotated_diagram.png" alt="annotated diagram" /></p>
 <h2>Processing: Identify and segment vessel and airway epithelium with an AI computer vision model.</h2>
 <ol>
-<li><img alt="#FF3333" src="https://placehold.co/15x15/FF3333/FF3333.png" /> <strong>Select an image</strong>: The remaining steps will concern this image.</li>
-</ol>
+<li>
+<p><img src="https://placehold.co/15x15/FF3333/FF3333.png" alt="#FF3333" /> <strong>Select an image</strong>: The remaining steps will concern this image.</p>
 <p>a. Click the “Import Image” button.</p>
-<p>b. Use operating system default file dialogue to select an image (<em>.jpg, </em>.png, or *.tiff).</p>
-<p>c. Check the image in the “Image” layer (of the Napari Viewer) and the file name (displayed to the right of the “Import Image” button) to confirm that the image loaded correctly.
-2. <img alt="#FF9933" src="https://placehold.co/15x15/FF9933/FF9933.png" /> <strong>Select a model</strong></span>: The selected model will run on the image and predict (segment) vessel and airway epithelium.</p>
+<p>b. Use operating system default file dialogue to select an image (*.jpg, *.png, or *.tiff).</p>
+<p>c. Check the image in the “Image” layer (of the Napari Viewer) and the file name (displayed to the right of the “Import Image” button) to confirm that the image loaded correctly.</p>
+</li>
+<li>
+<p><img src="https://placehold.co/15x15/FF9933/FF9933.png" alt="#FF9933" /> <strong>Select a model</strong></span>: The selected model will run on the image and predict (segment) vessel and airway epithelium.</p>
 <p>a. To use the default model, skip to step 3; otherwise, proceed to step 2b. Use the provided default model unless you have a specific reason not to.</p>
 <p>b. Click the “Import Weights” button.</p>
 <p>c. Use operating system file dialogue to select a model (*.pth).</p>
-<p>d. Check the file name (displayed to the right of the “Import Weights” button) to confirm that the model loaded correctly.
-3. <img alt="#FFFF33" src="https://placehold.co/15x15/FFFF33/FFFF33.png" /> <strong>Select a confidence level</strong>: Type a percentage and/or click the “-” and “+” buttons in the “Minimum confidence” input box to set the confidence level. Predictions with lower confidence then the set confidence level will not appear.
-4. <img alt="#f03c15" src="https://placehold.co/15x15/33FF33/33FF33.png" /> <strong>Run processing</strong>: Click the “Run Processing” button to run the model and segment vessel and airway epithelium filtered by confidence level. Once completed, manually edit the prediction as necessary with the built-in napari tools to the left of the displayed image layer. See Napari documentation for more information about how to use these tools.</p>
+<p>d. Check the file name (displayed to the right of the “Import Weights” button) to confirm that the model loaded correctly.</p>
+</li>
+<li>
+<p><img src="https://placehold.co/15x15/FFFF33/FFFF33.png" alt="#FFFF33" /> <strong>Select a confidence level</strong>: Type a percentage and/or click the “-” and “+” buttons in the “Minimum confidence” input box to set the confidence level. Predictions with lower confidence then the set confidence level will not appear.</p>
+</li>
+<li>
+<p><img src="https://placehold.co/15x15/33FF33/33FF33.png" alt="#f03c15" /> <strong>Run processing</strong>: Click the “Run Processing” button to run the model and segment vessel and airway epithelium filtered by confidence level. Once completed, manually edit the prediction as necessary with the built-in napari tools to the left of the displayed image layer. See Napari documentation for more information about how to use these tools.</p>
+</li>
+</ol>
 <hr />
 <h2>Postprocessing: Identify alveolar tissue, and airwary and vessel lumens with “classical” (non-AI) methods; remove small particles and holes to prepare for assessments.</h2>
 <ol>
-<li><img alt="#FF3333" src="https://placehold.co/15x15/FF3333/FF3333.png" /> <strong>Toggle manual thresholding</strong>: To manually set a threshold value, toggle manual threshold; otherwise, a threshold value will be determined with Otsu's method.</li>
-</ol>
+<li>
+<p><img src="https://placehold.co/15x15/FF3333/FF3333.png" alt="#FF3333" /> <strong>Toggle manual thresholding</strong>: To manually set a threshold value, toggle manual threshold; otherwise, a threshold value will be determined with Otsu's method.</p>
 <p>a. To use manual thresholding, check the “Manual thresholding” box and proceed; to use automatic thresholding, leave the box unchecked and skip to step 2.</p>
-<p>b. Type a percentage and/or click the “-” and “+” buttons in the “Manual thresholding” input box to set the threshold level.
-2. <img alt="#FF9933" src="https://placehold.co/15x15/FF9933/FF9933.png" /> <strong>Remove small particles</strong>: Type a percentage and/or click the “-” and “+” buttons in the “Remove small particles” input box to set the maximum size cutoff for particles to remove. Particles with fewer pixels than the set number will be removed.
-3. <img alt="#FFFF33" src="https://placehold.co/15x15/FFFF33/FFFF33.png" /> <strong>Remove small holes</strong>: Type a percentage and/or click the “-” and “+” buttons in the “Remove small holes” input box to set the maximum size cutoff for holes to remove. Holes with fewer pixels than the set number will be removed.
-4. <img alt="#f03c15" src="https://placehold.co/15x15/33FF33/33FF33.png" /> <strong>Run postprocessing</strong>: Click “Run Postprocessing” button to identify alveolar tissue, airwary lumens, and vessel lumens, and to remove small particles and holes. Once completed, manually edit the post-processing layer as necessary with the built-in napari tools to the left of the displayed image layer. See Napari documentation for more information about how to use these tools.</p>
+<p>b. Type a percentage and/or click the “-” and “+” buttons in the “Manual thresholding” input box to set the threshold level.</p>
+</li>
+<li>
+<p><img src="https://placehold.co/15x15/FF9933/FF9933.png" alt="#FF9933" /> <strong>Remove small particles</strong>: Type a percentage and/or click the “-” and “+” buttons in the “Remove small particles” input box to set the maximum size cutoff for particles to remove. Particles with fewer pixels than the set number will be removed.</p>
+</li>
+<li>
+<p><img src="https://placehold.co/15x15/FFFF33/FFFF33.png" alt="#FFFF33" /> <strong>Remove small holes</strong>: Type a percentage and/or click the “-” and “+” buttons in the “Remove small holes” input box to set the maximum size cutoff for holes to remove. Holes with fewer pixels than the set number will be removed.</p>
+</li>
+<li>
+<p><img src="https://placehold.co/15x15/33FF33/33FF33.png" alt="#f03c15" /> <strong>Run postprocessing</strong>: Click “Run Postprocessing” button to identify alveolar tissue, airwary lumens, and vessel lumens, and to remove small particles and holes. Once completed, manually edit the post-processing layer as necessary with the built-in napari tools to the left of the displayed image layer. See Napari documentation for more information about how to use these tools.</p>
+</li>
+</ol>
 <hr />
 <h2>Assessments: Calculate morphometry assessments—mean linear intercept (MLI) and airspace volume density (ASVD) on the fully classified image.</h2>
 <ol>
-<li><img alt="#FF3333" src="https://placehold.co/15x15/FF3333/FF3333.png" /> <strong>Select ASVD</strong>: To include ASVD calculations in results, check the “ASVD” checkbox; otherwise, leave the box unchecked. Leave the box unchecked to increase the speed of the assessments calculation or to exclude unnecessary data from the final export file.</li>
-<li><img alt="#FF9933" src="https://placehold.co/15x15/FF9933/FF9933.png" /> <strong>Select MLI</strong>: To include MLI calculations in results, check the “MLI” checkbox; otherwise, leave the box unchecked. Leave the box unchecked to increase the speed of the assessments calculation or to exclude unnecessary data from the final export file.</li>
-<li><img alt="#FFFF33" src="https://placehold.co/15x15/FFFF33/FFFF33.png" /> <strong>Set number of lines</strong>: Type a number and/or click the “-” and “+” buttons in the “number of lines” input box to set the number of MLI lines.</li>
-<li><img alt="#f03c15" src="https://placehold.co/15x15/33FF33/33FF33.png" /> <strong>Set minimum length</strong>: Type a number and/or click the “-” and “+” buttons in the “minimum length” input box to set the minimum length required for a chord to be included in the mean calculation.</li>
-<li><img alt="#f03c15" src="https://placehold.co/15x15/3359FF/3359FF.png" /> <strong>Set scale</strong>: Type a number and/or click the “-” and “+” buttons in the “scale” input box to set the scale factor (i.e. a pixel to physical space multiplier).</li>
-<li><img alt="#f03c15" src="https://placehold.co/15x15/C433FF/C433FF.png" /> <strong>Run Assessments</strong>: Click the “Run Assessments” button to calculate the selected assessments. The ASVD and MLI calculation results will display to the right of the assessment checkboxes.</li>
+<li><img src="https://placehold.co/15x15/FF3333/FF3333.png" alt="#FF3333" /> <strong>Select ASVD</strong>: To include ASVD calculations in results, check the “ASVD” checkbox; otherwise, leave the box unchecked. Leave the box unchecked to increase the speed of the assessments calculation or to exclude unnecessary data from the final export file.</li>
+<li><img src="https://placehold.co/15x15/FF9933/FF9933.png" alt="#FF9933" /> <strong>Select MLI</strong>: To include MLI calculations in results, check the “MLI” checkbox; otherwise, leave the box unchecked. Leave the box unchecked to increase the speed of the assessments calculation or to exclude unnecessary data from the final export file.</li>
+<li><img src="https://placehold.co/15x15/FFFF33/FFFF33.png" alt="#FFFF33" /> <strong>Set number of lines</strong>: Type a number and/or click the “-” and “+” buttons in the “number of lines” input box to set the number of MLI lines.</li>
+<li><img src="https://placehold.co/15x15/33FF33/33FF33.png" alt="#f03c15" /> <strong>Set minimum length</strong>: Type a number and/or click the “-” and “+” buttons in the “minimum length” input box to set the minimum length required for a chord to be included in the mean calculation.</li>
+<li><img src="https://placehold.co/15x15/3359FF/3359FF.png" alt="#f03c15" /> <strong>Set scale</strong>: Type a number and/or click the “-” and “+” buttons in the “scale” input box to set the scale factor (i.e. a pixel to physical space multiplier).</li>
+<li><img src="https://placehold.co/15x15/C433FF/C433FF.png" alt="#f03c15" /> <strong>Run Assessments</strong>: Click the “Run Assessments” button to calculate the selected assessments. The ASVD and MLI calculation results will display to the right of the assessment checkboxes.</li>
 </ol>
 <hr />
-<h2>Export Results: Collect assessment results for each image and export all the data into a file when done (<em>.csv or </em>.json).</h2>
+<h2>Export Results: Collect assessment results for each image and export all the data into a file when done (*.csv or *.json).</h2>
 <ul>
-<li><strong>Interpreting Results</strong><ul>
+<li><strong>Interpreting Results</strong>
+<ul>
 <li><strong>MLI:</strong> Mean Linear Intercept for the given image</li>
 <li><strong>Standard deviation:</strong> The standard deviation of the lengths of the chord used to calculate MLI</li>
 <li><strong>Number of chords:</strong> The number of chords used to calculate MLI</li>
@@ -327,17 +328,20 @@ napari
 <li><strong>Non airspace pixels:</strong> The total number non-airspace pixels</li>
 </ul>
 </li>
-<li><img alt="#FF3333" src="https://placehold.co/15x15/FF3333/FF3333.png" /> <strong>Add last result</strong>: Click the “Add” button to add the assessment data to the final export file. Once the results are added, you can return to the "Processing" step and do another image.</li>
-<li><img alt="#FF9933" src="https://placehold.co/15x15/FF9933/FF9933.png" /> <strong>Remove last result</strong>: Click the “Remove” button to remove the last results added to the export file.</li>
-<li><img alt="#FFFF33" src="https://placehold.co/15x15/FFFF33/FFFF33.png" /> <strong>Clear export data</strong>: Click the “Clear” button to clear the export data file.</li>
-<li><img alt="#f03c15" src="https://placehold.co/15x15/33FF33/33FF33.png" /> <strong>Export Results</strong>: Click the “Export Results” button to open a file dialogue for saving the assessments results. Note that the plugin supports two export result file types, <em>.csv and </em>.json that you can choose between.</li>
 </ul>
+<ol>
+<li><img src="https://placehold.co/15x15/FF3333/FF3333.png" alt="#FF3333" /> <strong>Add last result</strong>: Click the “Add” button to add the assessment data to the final export file. Once the results are added, you can return to the &quot;Processing&quot; step and do another image.</li>
+<li><img src="https://placehold.co/15x15/FF9933/FF9933.png" alt="#FF9933" /> <strong>Remove last result</strong>: Click the “Remove” button to remove the last results added to the export file.</li>
+<li><img src="https://placehold.co/15x15/FFFF33/FFFF33.png" alt="#FFFF33" /> <strong>Clear export data</strong>: Click the “Clear” button to clear the export data file.</li>
+<li><img src="https://placehold.co/15x15/33FF33/33FF33.png" alt="#f03c15" /> <strong>Export Results</strong>: Click the “Export Results” button to open a file dialogue for saving the assessments results. Note that the plugin supports two export result file types, *.csv and *.json that you can choose between.</li>
+</ol>
 <hr />
 <h2>Manual Annotation Help: Information and tips to help you manually annotate your images</h2>
 <h3>Annotated Diagram</h3>
-<p><img alt="annotated diagram" src="./docs/Napari_annotated_diagram.png" /></p>
+<p><img src="./docs/Napari_annotated_diagram.png" alt="annotated diagram" /></p>
 <ul>
-<li><strong>Labels</strong></li>
+<li><strong>Labels</strong>
+<ul>
 <li><strong>Blocker</strong>: 1</li>
 <li><strong>Airway Epithelium</strong>: 2</li>
 <li><strong>Vessel Endothelium</strong>: 3</li>
@@ -345,26 +349,35 @@ napari
 <li><strong>Vessel Lumen</strong>: 5</li>
 <li><strong>Parenchyma</strong>: 6</li>
 <li><strong>Alveoli</strong>: 7</li>
-<li><strong>Annotation Tips</strong></li>
-<li><img alt="#FF3333" src="https://placehold.co/15x15/FF3333/FF3333.png" /> <strong>Eyedropper Tool</strong>: Quickly identify and switch to the correct label by using the eyedropper tool. Click on a part of the image to switch to the label of the pixel you clicked.</li>
-<li><img alt="#FF9933" src="https://placehold.co/15x15/FF9933/FF9933.png" /> <strong>Select the Correct Layer</strong>: Before making annotations, ensure you're working on the proper layer. Select the appropriate layer under "layer list."</li>
-<li><img alt="#FFFF33" src="https://placehold.co/15x15/FFFF33/FFFF33.png" /> <strong>Optimize Your View</strong>: Hide unnecessary layers to make annotation easier. Toggle a layer's visibility by clicking the eye icon next to its name.</li>
+</ul>
+</li>
+<li><strong>Annotation Tips</strong>
+<ul>
+<li><img src="https://placehold.co/15x15/FF3333/FF3333.png" alt="#FF3333" /> <strong>Eyedropper Tool</strong>: Quickly identify and switch to the correct label by using the eyedropper tool. Click on a part of the image to switch to the label of the pixel you clicked.</li>
+<li><img src="https://placehold.co/15x15/FF9933/FF9933.png" alt="#FF9933" /> <strong>Select the Correct Layer</strong>: Before making annotations, ensure you're working on the proper layer. Select the appropriate layer under &quot;layer list.&quot;</li>
+<li><img src="https://placehold.co/15x15/FFFF33/FFFF33.png" alt="#FFFF33" /> <strong>Optimize Your View</strong>: Hide unnecessary layers to make annotation easier. Toggle a layer's visibility by clicking the eye icon next to its name.</li>
+</ul>
+</li>
 </ul>
 <hr />
 <h2>More</h2>
 <ul>
-<li><strong>Light/Dark Mode</strong>: Change application appearance to a lighter or darker aesthetic according to personal preference.</li>
+<li><strong>Light/Dark Mode</strong>: Change application appearance to a lighter or darker aesthetic according to personal preference.
+<ul>
 <li><strong>On Windows/Linux</strong>: Ctrl + Shift + T</li>
 <li><strong>On macOS</strong>: Cmd + Shift + T</li>
-<li><strong>Switch theme through napari preferences</strong><ul>
-<li>In the menu bar at the top of the screen, select "napari."</li>
-<li>In the dropdown, select "Preferences."</li>
-<li>In the menu on the left, click "Appearance."</li>
-<li>Under the theme dropdown, select "dark," "light," or "system," according to personal preference.</li>
+<li><strong>Switch theme through napari preferences</strong>
+<ul>
+<li>In the menu bar at the top of the screen, select &quot;napari.&quot;</li>
+<li>In the dropdown, select &quot;Preferences.&quot;</li>
+<li>In the menu on the left, click &quot;Appearance.&quot;</li>
+<li>Under the theme dropdown, select &quot;dark,&quot; &quot;light,&quot; or &quot;system,&quot; according to personal preference.</li>
 </ul>
 </li>
 </ul>
-        
+</li>
+</ul>
+
 
                                     </div>
                                 </div>

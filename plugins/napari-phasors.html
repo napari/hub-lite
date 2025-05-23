@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/napari-phasors/napari-phasors/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-phasors.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-phasors"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-phasors.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-phasors.svg?color=green" /></a>
-<a href="https://github.com/napari-phasors/napari-phasors/actions"><img alt="tests" src="https://github.com/napari-phasors/napari-phasors/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/napari-phasors/napari-phasors"><img alt="codecov" src="https://codecov.io/gh/napari-phasors/napari-phasors/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-phasors"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-phasors" /></a></p>
+                                        <p><a href="https://github.com/napari-phasors/napari-phasors/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-phasors.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-phasors"><img src="https://img.shields.io/pypi/v/napari-phasors.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-phasors.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/napari-phasors/napari-phasors/actions"><img src="https://github.com/napari-phasors/napari-phasors/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/napari-phasors/napari-phasors"><img src="https://codecov.io/gh/napari-phasors/napari-phasors/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-phasors"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-phasors" alt="napari hub" /></a></p>
 <p>A simple plugin to do phasor analysis in napari. Based on the <a href="https://www.phasorpy.org/">phasorpy</a> library.</p>
 <p><a href="#installation">Jump to Intallation</a></p>
 <hr />
@@ -245,61 +222,56 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Usage</h2>
 <p>napari-phasors is composed of a few widgets that allow reading a few specific FLIM and hyperspectral file formats, perform phasor analysis, and display and export the results of manual phasor selections.</p>
 <h3>Sample Data</h3>
 <p>Two sample datasets for FLIM are provided, along with their corresponding calibration images. Additionally, a paramecium image is included as sample data for hyperspectral analysis.</p>
-<p><img alt="sample_data" src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/sample_data.gif" /></p>
+<p><img src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/sample_data.gif" alt="sample_data" /></p>
 <h3>Phasor Analysis</h3>
 <h4>Plot FLIM Data</h4>
 <p>FLIM phasor data can be plotted as a 2D histogram or scatter plot. The colormap, the number of bins and the scale of the colors can be customized.
-Filtering and thresholding can also be applied to process phasor data and the mean intensity image. </p>
-<p><img alt="phasors_flim" src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/phasors_flim.gif" /></p>
+Filtering and thresholding can also be applied to process phasor data and the mean intensity image.</p>
+<p><img src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/phasors_flim.gif" alt="phasors_flim" /></p>
 <h4>Plot Hyperspectral Data</h4>
 <p>Hyperspectral phasor data can also be plotted as a 2D histogram or scatter plot and visualized in the full universal circle.</p>
-<p><img alt="phasors_hyperspectral" src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/phasors_hyperspectral.gif" /></p>
+<p><img src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/phasors_hyperspectral.gif" alt="phasors_hyperspectral" /></p>
 <h3>Apparent Lifetime Display</h3>
 <p>A FLIM image can be colormapped according to the phase or modulation apparent lifetime. A histogram is also created for visualization of the distribution of apparent lifetimes of the FLIM image.</p>
-<p><img alt="lifetimes" src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/lifetimes.gif" /></p>
+<p><img src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/lifetimes.gif" alt="lifetimes" /></p>
 <h3>Phasor Calibration</h3>
 <p>FLIM images can be calibrated using a reference image acquired under the same experimental parameters. This reference image should consist of a homogeneous solution of a fluorophore with a known fluorescence lifetime and the laser frequency used in the experiment. This ensures accuracy and consistency in lifetime measurements.</p>
-<p><img alt="calibration" src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/calibration.gif" /></p>
+<p><img src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/calibration.gif" alt="calibration" /></p>
 <h3>Phasor Custom Import</h3>
 <p>Supported file formats (<code>.tif</code>, <code>.ptu</code>, <code>.sdt</code>, <code>.fbd</code>, <code>.lsm</code>, <code>.ome.tif</code>) can be read and transformed to the phasor space. Additional options, such as the harmonics, channels and frames, can be specified depending on the file format to be read.</p>
-<p><img alt="custom_import" src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/custom_import.gif" /></p>
+<p><img src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/custom_import.gif" alt="custom_import" /></p>
 <h3>Phasor Export</h3>
 <p>The average intensity image and the phasor coordinates can be exported as OME-TIF files that can be read by napari-phasors and PhasorPy. Alternatively, the phasor coordinates, as well as the selections (cursors) can be exported as a CSV file.</p>
-<p><img alt="export_phasors" src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/export_phasors.gif" /></p>
+<p><img src="https://github.com/napari-phasors/napari-phasors/raw/main/gifs/export_phasors.gif" alt="export_phasors" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-phasors</code> via <a href="https://pypi.org/project/pip/">pip</a>. Follow these steps from a terminal.</p>
 <p>We recommend using <code>miniforge</code> whenever possible. Click <a href="https://github.com/conda-forge/miniforge?tab=readme-ov-file#miniforge">here</a> to choose the right download option for your OS.
 <strong>If you do not use <code>miniforge</code>, but rather Anaconda or Miniconda, replace the <code>mamba</code> term whenever you see it below with <code>conda</code>.</strong></p>
 <p>Create a conda environment with napari by typing :</p>
-<pre class="codehilite"><code>mamba create -n napari-phasors-env napari pyqt python=3.10
+<pre><code>mamba create -n napari-phasors-env napari pyqt python=3.10
 </code></pre>
-
 <p>Activate the environment :</p>
-<pre class="codehilite"><code>mamba activate napari-phasors-env
+<pre><code>mamba activate napari-phasors-env
 </code></pre>
-
 <p>Install <code>napari-phasors</code> via <a href="https://pypi.org/project/pip/">pip</a> :</p>
-<pre class="codehilite"><code>pip install napari-phasors
+<pre><code>pip install napari-phasors
 </code></pre>
-
 <p>Alternatively, install latest development version with :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/napari-phasors/napari-phasors.git
+<pre><code>pip install git+https://github.com/napari-phasors/napari-phasors.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-phasors" is free and open source software</p>
+&quot;napari-phasors&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/napari-phasors/napari-phasors/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

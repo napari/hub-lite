@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,63 +206,32 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/piedrro/napari-bacseg/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-bacseg.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-bacseg"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-bacseg.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-bacseg.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/napari-bacseg"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-bacseg" /></a></p>
+                                        <p><a href="https://github.com/piedrro/napari-bacseg/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-bacseg.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-bacseg"><img src="https://img.shields.io/pypi/v/napari-bacseg.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-bacseg.svg?color=green" alt="Python Version" /></a>
+<a href="https://napari-hub.org/plugins/napari-bacseg"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-bacseg" alt="napari hub" /></a></p>
 <p>Bacterial segmentation and analysis platform than can inport/export files in multiple formats. Integrating many tools such as Cellpose, ColiCoords, Oufti/MicrobeTracker.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installing BacSeg from PyPi</h2>
 <p>Create a new conda environment:</p>
-<pre class="codehilite"><code>conda create --name napari-bacseg python==3.9
+<pre><code>conda create --name napari-bacseg python==3.9
 conda activate napari-bacseg
 conda install -c anaconda git
 conda update --all
 </code></pre>
-
 <p>Install <code>napari-bacseg</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-bacseg
+<pre><code>pip install napari-bacseg
 </code></pre>
-
 <p>Launch Napari:</p>
-<pre class="codehilite"><code>napari
+<pre><code>napari
 </code></pre>
-
 <p>Install latest version of 'napri-bacseg' from <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-bacseg --upgrade
+<pre><code>pip install napari-bacseg --upgrade
 </code></pre>
-
 <p>Select <strong>napari-bacseg</strong> from the <strong>Plugins</strong> dropdown menu</p>
 <h2>Installing BacSeg From GitHub</h2>
-<pre class="codehilite"><code>conda create –-name napari-bacseg python==3.9
+<pre><code>conda create –-name napari-bacseg python==3.9
 conda activate napari-bacseg
 conda install -c anaconda git
 conda update --all
@@ -267,32 +240,28 @@ pip install napari[all]
 
 pip install git+https://github.com/piedrro/napari-bacseg.git
 </code></pre>
-
 <h2>Updating BacSeg From Github</h2>
 <p>Once you have installed the plugin, you can update the plugin by running the following commands:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/piedrro/napari-bacseg.git
+<pre><code>pip install git+https://github.com/piedrro/napari-bacseg.git
 </code></pre>
-
 <h2>GPU Installation</h2>
 <p>Once you have installed the plugin, you can install the GPU version of the plugin by running the following commands:</p>
-<pre class="codehilite"><code>pip uninstall torch torchvision torchaudio -y
+<pre><code>pip uninstall torch torchvision torchaudio -y
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 </code></pre>
-
 <p>If the latest CUDA versions don't work, try an older version like cuda 11.3:</p>
-<pre class="codehilite"><code>pip uninstall torch torchvision torchaudio -y
+<pre><code>pip uninstall torch torchvision torchaudio -y
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu113
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-bacseg" is free and open source software</p>
+&quot;napari-bacseg&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/piedrro/napari-bacseg/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

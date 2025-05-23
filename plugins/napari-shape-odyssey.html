@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jo-mueller/napari-shape-odyssey/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-shape-odyssey.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-shape-odyssey"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-shape-odyssey.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-shape-odyssey.svg?color=green" /></a>
-<a href="https://github.com/jo-mueller/napari-shape-odyssey/actions"><img alt="tests" src="https://github.com/jo-mueller/napari-shape-odyssey/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jo-mueller/napari-shape-odyssey"><img alt="codecov" src="https://codecov.io/gh/jo-mueller/napari-shape-odyssey/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-shape-odyssey"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-shape-odyssey" /></a></p>
+                                        <p><a href="https://github.com/jo-mueller/napari-shape-odyssey/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-shape-odyssey.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-shape-odyssey"><img src="https://img.shields.io/pypi/v/napari-shape-odyssey.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-shape-odyssey.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jo-mueller/napari-shape-odyssey/actions"><img src="https://github.com/jo-mueller/napari-shape-odyssey/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jo-mueller/napari-shape-odyssey"><img src="https://codecov.io/gh/jo-mueller/napari-shape-odyssey/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-shape-odyssey"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-shape-odyssey" alt="napari hub" /></a></p>
 <p>Analyze shapes of meshes: This plugin provides advanced measures of shape for meshes. It is based largely on the following libraries and tools:</p>
 <ul>
 <li><a href="https:/github.com/robinmagnet/pyfm">PyFM</a></li>
@@ -243,12 +220,12 @@ pre > code:last-child {
 <h2>Shape analysis</h2>
 <p>This plugin provides Laplace spectra (<a href="https://dl.acm.org/doi/abs/10.1145/1060244.1060256">Reuter, Wolter, Peinecke (2005)</a>), heat kernel signatures (<a href="https://ieeexplore.ieee.org/abstract/document/5539838/">Bronstein &amp; Kokkinos (2010)</a>) &amp; wave kernel signatures (<a href="https://ieeexplore.ieee.org/abstract/document/6130444">Audrey, Schlickewei, Cremers et al.</a>).</p>
 <p><strong>Laplace spectra</strong> can be imagined to be the equivalent of resonance modes on the surface of a mesh. The resonance and the resonance modes can, for typical objects, look like this:</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/Eigenvalues.gif" /></p>
+<p><img src="https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/Eigenvalues.gif" alt="" /></p>
 <p><strong>Heat kernel signatures</strong>: Heat dissipation on a mesh depends on local geometry. You can use the heat kernel signature to easily generate a large number of local features of shape</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/heat_kernel_signature.gif" /></p>
+<p><img src="https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/heat_kernel_signature.gif" alt="" /></p>
 <h2>Unwrapping</h2>
 <p>This plugin provides a number of methods to unwrap a mesh into basic shapes such as spheres or disks. The method relies on <a href="https://github.com/GeometryCollective/boundary-first-flattening">boundary-first flattening</a> - currently it's only available on Windows.</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/unwrap_to_sphere.png" /></p>
+<p><img src="https://github.com/jo-mueller/napari-shape-odyssey/raw/main/docs/imgs/unwrap_to_sphere.png" alt="" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -258,23 +235,22 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-shape-odyssey</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <p>´´´bash
-    pip install napari-shape-odyssey
-    napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
-    pyFM @ git+https://github.com/RobinMagnet/pyFM.git
+pip install napari-shape-odyssey
+napari-skimage-regionprops @ git+https://github.com/jo-mueller/napari-skimage-regionprops.git
+pyFM @ git+https://github.com/RobinMagnet/pyFM.git
 ´´´</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-shape-odyssey" is free and open source software</p>
+&quot;napari-shape-odyssey&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

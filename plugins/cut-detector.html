@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,41 +206,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/15bonte/cut-detector/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/cut-detector.svg?color=green" /></a>
-<a href="https://pypi.org/project/cut-detector"><img alt="PyPI" src="https://img.shields.io/pypi/v/cut-detector.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/cut-detector.svg?color=green" /></a>
-<a href="https://github.com/15bonte/cut-detector/actions"><img alt="tests" src="https://github.com/15bonte/cut-detector/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/15bonte/cut-detector"><img alt="codecov" src="https://codecov.io/gh/15bonte/cut-detector/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/cut-detector"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cut-detector" /></a></p>
+                                        <p><a href="https://github.com/15bonte/cut-detector/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/cut-detector.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/cut-detector"><img src="https://img.shields.io/pypi/v/cut-detector.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/cut-detector.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/15bonte/cut-detector/actions"><img src="https://github.com/15bonte/cut-detector/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/15bonte/cut-detector"><img src="https://codecov.io/gh/15bonte/cut-detector/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/cut-detector"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cut-detector" alt="napari hub" /></a></p>
 <p>Automatic micro-tubule cut detector.</p>
-<p>https://github.com/user-attachments/assets/2af2e1a6-adf9-4d63-a353-e190c4814d83</p>
+<p><a href="https://github.com/user-attachments/assets/2af2e1a6-adf9-4d63-a353-e190c4814d83">https://github.com/user-attachments/assets/2af2e1a6-adf9-4d63-a353-e190c4814d83</a></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -246,12 +223,10 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <video width="640" height="480" controls>
   <source src="https://github.com/15bonte/cut-detector-models/blob/main/demo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-
 <h2>Installation</h2>
 <h3>Conda environment</h3>
 <p>It is highly recommended to create a dedicated conda environment, by following these few steps:</p>
@@ -263,37 +238,37 @@ https://napari.org/stable/plugins/index.html
 <p>Open an Anaconda prompt as admin to create a new environment using <a href="https://docs.conda.io/en/latest/">conda</a>. We advice to use python 3.10 and conda 23.10.0, to get conda-libmamba-solver as default solver.</p>
 </li>
 </ol>
-<pre class="codehilite"><code class="language-bash">conda create --name cut_detector python=3.10 conda=23.10.0
-conda activate cut_detector
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>cut_detector<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span><span class="nv">conda</span><span class="o">=</span><span class="m">23</span>.10.0
+conda<span class="w"> </span>activate<span class="w"> </span>cut_detector
+</pre></div>
 </code></pre>
-
 <h3>Package installation</h3>
 <p>Once in a dedicated environment, our package can be installed via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-bash">pip install cut_detector
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cut_detector
+</pre></div>
 </code></pre>
-
 <p>Alternatively, you can clone the github repo to access to playground scripts.</p>
-<pre class="codehilite"><code class="language-bash">git clone https://github.com/15bonte/cut-detector.git
-cd cut-detector
-pip install -e .
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/15bonte/cut-detector.git
+<span class="nb">cd</span><span class="w"> </span>cut-detector
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <h3>GPU</h3>
 <p>We highly recommend to use GPU to speed up segmentation. To use your NVIDIA GPU, the first step is to download the dedicated driver from <a href="https://www.nvidia.com/Download/index.aspx?lang=en-us">NVIDIA</a>.</p>
 <p>Next we need to remove the CPU version of torch:</p>
-<pre class="codehilite"><code class="language-bash">pip uninstall torch
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>torch
+</pre></div>
 </code></pre>
-
 <p>The GPU version of torch to be installed can be found <a href="https://pytorch.org/get-started/locally/">here</a>. You may choose the CUDA version supported by your GPU, and install it with conda. This package has been developed with the version 11.6, installed with this command:</p>
-<pre class="codehilite"><code class="language-bash">conda install pytorch==1.12.1 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">1</span>.12.1<span class="w"> </span>torchvision<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">11</span>.6<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia
+</pre></div>
 </code></pre>
-
 <h2>Update</h2>
 <p>To update cut-detector to the latest version, open an Anaconda prompt and use the following commands:</p>
-<pre class="codehilite"><code class="language-bash">conda activate cut_detector
-pip install cut-detector --upgrade
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>cut_detector
+pip<span class="w"> </span>install<span class="w"> </span>cut-detector<span class="w"> </span>--upgrade
+</pre></div>
 </code></pre>
-
 <h2>Definitions</h2>
 <p>Each detected cell division is labeled with one of the following categories:</p>
 <ul>
@@ -301,7 +276,7 @@ pip install cut-detector --upgrade
 <li>NO_MID_BODY_DETECTED: Along the cell division, no mid-body was detected on the MKLP1 channel. This category encompasses different cases: the detection may have failed, the mid-body may not express the fluorescence, or this may not actually be a division.</li>
 <li>MORE_THAN_TWO_DAUGHTER_TRACKS: Tripolar division. This category encompasses both actual tripolar divisions and wrong identifications of daughter cells (mainly caused by segmentation issues).</li>
 <li>NEAR_BORDER: Division close to the border of the image, hence ignored as it is likely to be difficult to detect micro-tubule cuts. A division is classified as NEAR_BORDER as soon as the distance between 1 detected mid-body and the border of the image is less than 20px.</li>
-<li>NO_CUT_DETECTED: Division whose mid-body was detected, but with all micro-tubule bridges classified as "No cut". Likely to be at the end of the video, cells dying before the end of division, or cells going out of frame.</li>
+<li>NO_CUT_DETECTED: Division whose mid-body was detected, but with all micro-tubule bridges classified as &quot;No cut&quot;. Likely to be at the end of the video, cells dying before the end of division, or cells going out of frame.</li>
 <li>TOO_SHORT_CUT: First micro-tubule cut detected before or at 50 minutes. Ignored as this is very unlikely, so it is probably caused by a wrong division detection.</li>
 </ul>
 <p>Division movies start at the maximum between:</p>
@@ -320,10 +295,10 @@ the coverage at least stays the same before you submit a pull request.</p>
 <p>Scripts required to improve any of Cut Detector tasks can be found in the folder <a href="https://github.com/15bonte/cut-detector/tree/main/developers">developers</a>.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"cut-detector" is free and open source software</p>
+&quot;cut-detector&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/15bonte/cut-detector/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

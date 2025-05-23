@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,43 +210,15 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
-<a href="https://badge.fury.io/py/napari-layer-table"><img alt="PyPI version" src="https://badge.fury.io/py/napari-layer-table.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-layer-table"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-layer-table" /></a>
-<a href="https://www.python.org/downloads/release/python-3100/"><img alt="Python" src="https://img.shields.io/badge/python-3.7|3.8|3.9|3.10-blue.svg" /></a>
-<a href=""><img alt="OS" src="https://img.shields.io/badge/OS-Linux|Windows|macOS-blue.svg" /></a>
-<a href="https://github.com/mapmanager/napari-layer-table/actions"><img alt="tests" src="https://github.com/mapmanager/napari-layer-table/workflows/Tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/mapmanager/napari-layer-table"><img alt="codecov" src="https://codecov.io/gh/mapmanager/napari-layer-table/branch/main/graph/badge.svg?token=8S8EFI8NBC" /></a></p>
+                                        <p><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3" /></a>
+<a href="https://badge.fury.io/py/napari-layer-table"><img src="https://badge.fury.io/py/napari-layer-table.svg" alt="PyPI version" /></a>
+<a href="https://napari-hub.org/plugins/napari-layer-table"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-layer-table" alt="napari hub" /></a>
+<a href="https://www.python.org/downloads/release/python-3100/"><img src="https://img.shields.io/badge/python-3.7%7C3.8%7C3.9%7C3.10-blue.svg" alt="Python" /></a>
+<a href=""><img src="https://img.shields.io/badge/OS-Linux%7CWindows%7CmacOS-blue.svg" alt="OS" /></a>
+<a href="https://github.com/mapmanager/napari-layer-table/actions"><img src="https://github.com/mapmanager/napari-layer-table/workflows/Tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/mapmanager/napari-layer-table"><img src="https://codecov.io/gh/mapmanager/napari-layer-table/branch/main/graph/badge.svg?token=8S8EFI8NBC" alt="codecov" /></a></p>
 <!-- [![PyPI](https://img.shields.io/pypi/v/napari-layer-table.svg?color=green)](https://pypi.org/project/napari-layer-table) -->
 <!-- [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-layer-table)](https://napari-hub.org/plugins/napari-layer-table) -->
-
 <p>A plugin to display a layer as a table.</p>
 <p>This will work well with point layers. We are debugging shapes and labeled layers, come back to check on that!</p>
 <hr />
@@ -254,30 +230,28 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/stable/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-layer-table</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-layer-table
+<pre><code>pip install napari-layer-table
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/mapmanager/napari-layer-table.git
+<pre><code>pip install git+https://github.com/mapmanager/napari-layer-table.git
 </code></pre>
-
 <h2>Using the Plugin</h2>
 <p>You can use the napari-layer-table plugin to display points layer as a table.</p>
 <ul>
 <li>Open a napari viewer with a Points layer</li>
 <li>Add the plugin to the napari viewer from Plugins menu -&gt; Add dock widget -&gt; napari-layer-table: Points Table</li>
 <li>The selected layer is displayed in the table.</li>
-<li>The table has columns for:<ul>
+<li>The table has columns for:
+<ul>
 <li>Point symbol with face color</li>
 <li>Point coordinates (x,y,z)</li>
 <li>If the layer has properties, they are also shown as columns</li>
 </ul>
 </li>
 </ul>
-<p><img alt="" src="plugin-2.gif" /></p>
+<p><img src="plugin-2.gif" alt="" /></p>
 <h2>Plugin Features</h2>
 <ul>
 <li>Bi-directional selection between layer and table.</li>
@@ -301,10 +275,10 @@ https://napari.org/plugins/stable/index.html
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,
-"napari-layer-table" is free and open source software</p>
+&quot;napari-layer-table&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/mapmanager/napari-layer-table/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

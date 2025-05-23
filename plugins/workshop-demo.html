@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/DragaDoncila/workshop-demo/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/workshop-demo.svg?color=green" /></a>
-<a href="https://pypi.org/project/workshop-demo"><img alt="PyPI" src="https://img.shields.io/pypi/v/workshop-demo.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/workshop-demo.svg?color=green" /></a>
-<a href="https://github.com/DragaDoncila/workshop-demo/actions"><img alt="tests" src="https://github.com/DragaDoncila/workshop-demo/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/DragaDoncila/workshop-demo"><img alt="codecov" src="https://codecov.io/gh/DragaDoncila/workshop-demo/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/workshop-demo"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/workshop-demo" /></a></p>
+                                        <p><a href="https://github.com/DragaDoncila/workshop-demo/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/workshop-demo.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/workshop-demo"><img src="https://img.shields.io/pypi/v/workshop-demo.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/workshop-demo.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/DragaDoncila/workshop-demo/actions"><img src="https://github.com/DragaDoncila/workshop-demo/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/DragaDoncila/workshop-demo"><img src="https://codecov.io/gh/DragaDoncila/workshop-demo/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/workshop-demo"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/workshop-demo" alt="napari hub" /></a></p>
 <p>A demo napari plugin incorporating reader, writer and dock widget contributions using the new npe2 plugin architecture.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -249,16 +226,13 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>workshop-demo</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install workshop-demo
+<pre><code>pip install workshop-demo
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/DragaDoncila/workshop-demo.git
+<pre><code>pip install git+https://github.com/DragaDoncila/workshop-demo.git
 </code></pre>
-
 <h2>What is this?</h2>
 <p>This plugin was created to serve as a semi-meaningful example of a plugin using
 the new napari <a href="https://pypi.org/project/npe2/">npe2</a> architecture.</p>
@@ -269,8 +243,8 @@ when building your own plugin.</p>
 <h2>Using this plugin</h2>
 <h3>Sample Data</h3>
 <p>You can download sample data for this plugin from the tracking challenge website. Any 2D+T
-sequence should work, but this plugin has been tested only with the 
-<a href="http://data.celltrackingchallenge.net/training-datasets/Fluo-C2DL-Huh7.zip">Human hepatocarcinoma-derived cells expressing the fusion protein YFP-TIA-1</a> 
+sequence should work, but this plugin has been tested only with the
+<a href="http://data.celltrackingchallenge.net/training-datasets/Fluo-C2DL-Huh7.zip">Human hepatocarcinoma-derived cells expressing the fusion protein YFP-TIA-1</a>
 dataset.</p>
 <h3>Reading Data</h3>
 <p>This plugin's reader is designed for tracking challenge segmentation gold standard ground truth
@@ -279,35 +253,35 @@ data conforming to the file format described in the <a href="https://public.cell
 reader will attempt to find the number of frames of the associated sequence in a sister
 directory of the ground truth data directory and open a labels layer with the same number
 of frames, thus ensuring the labelled data is correctly overlaid onto the original sequence.</p>
-<p>https://user-images.githubusercontent.com/17995243/146114062-36124c05-f44a-488e-8991-f39a702c917f.mov</p>
+<p><a href="https://user-images.githubusercontent.com/17995243/146114062-36124c05-f44a-488e-8991-f39a702c917f.mov">https://user-images.githubusercontent.com/17995243/146114062-36124c05-f44a-488e-8991-f39a702c917f.mov</a></p>
 <h3>Segmenting Data</h3>
-<p>One of the dock widgets provided by this plugin is "Segment by Threshold". The widget
-allows you to select a 2D+T image layer in the viewer (e.g. any of the sequences in the Human 
+<p>One of the dock widgets provided by this plugin is &quot;Segment by Threshold&quot;. The widget
+allows you to select a 2D+T image layer in the viewer (e.g. any of the sequences in the Human
 hepatocarcinoma dataset above) and segment it using a selection of scikit-image thresholding functions.</p>
 <p>The segmentation is then returned as a <code>Labels</code> layer into the viewer.</p>
-<p>https://user-images.githubusercontent.com/17995243/146114088-f6fb645e-8d78-4880-827b-2f0334dad859.mov</p>
+<p><a href="https://user-images.githubusercontent.com/17995243/146114088-f6fb645e-8d78-4880-827b-2f0334dad859.mov">https://user-images.githubusercontent.com/17995243/146114088-f6fb645e-8d78-4880-827b-2f0334dad859.mov</a></p>
 <h3>Highlighting Segmentation Differences</h3>
 <p>The second dock widget provided by this plugin allows you to visually compare your segmentation
 against the ground truth data by computing the difference between the two and adding this as a
 layer in the napari viewer.</p>
 <p>To use this widget, open it from the Plugins menu and select the two layers you wish to compare.</p>
-<p>https://user-images.githubusercontent.com/17995243/146114112-c891723f-8640-4708-8014-c78731fb3396.mov</p>
+<p><a href="https://user-images.githubusercontent.com/17995243/146114112-c891723f-8640-4708-8014-c78731fb3396.mov">https://user-images.githubusercontent.com/17995243/146114112-c891723f-8640-4708-8014-c78731fb3396.mov</a></p>
 <h3>Writing to Zip</h3>
 <p>Finally, you can save your segmentation to a zip file whose internal directory structure
-will closely mimic that of the tracking challenge datasets, so that it may be opened 
+will closely mimic that of the tracking challenge datasets, so that it may be opened
 again in the viewer.</p>
 <p>To save your layer, choose File -&gt; Save selected layer(s) with <em>one</em> labels layer selected,
 then select label zipper from the dropdown choices.</p>
-<p>https://user-images.githubusercontent.com/17995243/146114163-ee886990-979c-4756-97c5-aaf2c39dccde.mov</p>
+<p><a href="https://user-images.githubusercontent.com/17995243/146114163-ee886990-979c-4756-97c5-aaf2c39dccde.mov">https://user-images.githubusercontent.com/17995243/146114163-ee886990-979c-4756-97c5-aaf2c39dccde.mov</a></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"workshop-demo" is free and open source software</p>
+&quot;workshop-demo&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/DragaDoncila/workshop-demo/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

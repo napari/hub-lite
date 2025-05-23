@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,38 +210,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/sebgoti/napari-spacetx-explorer/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-spacetx-explorer.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-spacetx-explorer"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-spacetx-explorer.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-spacetx-explorer.svg?color=green" /></a>
-<a href="https://github.com/sebgoti/napari-spacetx-explorer/actions"><img alt="tests" src="https://github.com/sebgoti/napari-spacetx-explorer/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/sebgoti/napari-spacetx-explorer"><img alt="codecov" src="https://codecov.io/gh/sebgoti/napari-spacetx-explorer/branch/master/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/sebgoti/napari-spacetx-explorer/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-spacetx-explorer.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-spacetx-explorer"><img src="https://img.shields.io/pypi/v/napari-spacetx-explorer.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-spacetx-explorer.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/sebgoti/napari-spacetx-explorer/actions"><img src="https://github.com/sebgoti/napari-spacetx-explorer/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/sebgoti/napari-spacetx-explorer"><img src="https://codecov.io/gh/sebgoti/napari-spacetx-explorer/branch/master/graph/badge.svg" alt="codecov" /></a></p>
 <p>A napari plugin for interactive visualization of decoded spots from spatial transcriptomic data stored as CSV</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -256,30 +233,29 @@ want to analyze decoded spot maps from spatial omics experiments but it can
 used as well for any other type of coordinate data where each point has assigned
 a label (e. g. a gene) as a string and the x and y-coordinates of the point's center.
 The header for these data must be 'target', 'xc', and 'yc', respectively.</p>
-<p><img alt="img.png" src="https://github.com/sebgoti/napari-spacetx-explorer/raw/main/docs/Read_Hookspec.png" /></p>
+<p><img src="https://github.com/sebgoti/napari-spacetx-explorer/raw/main/docs/Read_Hookspec.png" alt="img.png" /></p>
 <h2>Selecting genes</h2>
 <p>After loading the gene/target maps it is possible to select specific groups for better visualization.
-This creates a new "Points" layer in napari with the selected groups displayed in different colors.</p>
-<p><img alt="img.png" src="https://github.com/sebgoti/napari-spacetx-explorer/raw/main/docs/_function_hookspec.png" /></p>
+This creates a new &quot;Points&quot; layer in napari with the selected groups displayed in different colors.</p>
+<p><img src="https://github.com/sebgoti/napari-spacetx-explorer/raw/main/docs/_function_hookspec.png" alt="img.png" /></p>
 <h2>Loading data in OME.ZARR format</h2>
-<p>The plugin napari-ome-zarr can be used to display whole-tissue images in addition to the spot maps produced with the 
+<p>The plugin napari-ome-zarr can be used to display whole-tissue images in addition to the spot maps produced with the
 <code>napari-spacetx-explorer</code> plugin.</p>
-<p><img alt="img.png" src="https://github.com/sebgoti/napari-spacetx-explorer/raw/main/docs/_ome_zarr_napari_spacetx_explorer.png" /></p>
+<p><img src="https://github.com/sebgoti/napari-spacetx-explorer/raw/main/docs/_ome_zarr_napari_spacetx_explorer.png" alt="img.png" /></p>
 <h2>Installation</h2>
-<p>The easiest installation is via the "Install/Uninstall Plugins..." under the Plugins menu in napari.<br />
-Another way is through <a href="https://pypi.org/project/pip/">pip</a> </p>
-<pre class="codehilite"><code>pip install napari-spacetx-explorer
+<p>The easiest installation is via the &quot;Install/Uninstall Plugins...&quot; under the Plugins menu in napari.<br />
+Another way is through <a href="https://pypi.org/project/pip/">pip</a></p>
+<pre><code>pip install napari-spacetx-explorer
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-spacetx-explorer" is free and open source software</p>
+&quot;napari-spacetx-explorer&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems or would like some support, please <a href="https://github.com/sebgoti/napari-spacetx-explorer/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

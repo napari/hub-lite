@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,36 +206,9 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>Microscope control plugin for Napari via Python Microscope.</p>
-<p>Current development stage is whatever comes before alpha and "proof of
-concept".</p>
+                                        <p>Microscope control plugin for Napari via Python Microscope.</p>
+<p>Current development stage is whatever comes before alpha and &quot;proof of
+concept&quot;.</p>
 <h2>To test</h2>
 <p>I haven't had access to real hardware yet, so this has all been
 developed with simulated devices.</p>
@@ -239,30 +216,28 @@ developed with simulated devices.</p>
 <li>
 <p>Start the device server with simulated devices.</p>
 <p>a. Create a device server configuration file like so::</p>
-<pre class="codehilite"><code>import microscope
-from microscope.device_server import device
-from microscope.simulators import (
-    SimulatedCamera,
-    SimulatedFilterWheel,
-    SimulatedLightSource,
-    SimulatedStage,
-)
+<pre><code> import microscope
+ from microscope.device_server import device
+ from microscope.simulators import (
+     SimulatedCamera,
+     SimulatedFilterWheel,
+     SimulatedLightSource,
+     SimulatedStage,
+ )
 
-DEVICES = [
-    device(SimulatedCamera, &quot;localhost&quot;, 8000,),
-    device(SimulatedLightSource, &quot;localhost&quot;, 8001),
-    device(SimulatedFilterWheel, &quot;localhost&quot;, 8002,
-           {&quot;positions&quot;: 6}),
-    device(SimulatedStage, &quot;localhost&quot;, 8003,
-           {&quot;limits&quot;: {&quot;X&quot;: microscope.AxisLimits(0, 25000),
-                       &quot;Y&quot;: microscope.AxisLimits(0, 12000)}}),
-]
+ DEVICES = [
+     device(SimulatedCamera, &quot;localhost&quot;, 8000,),
+     device(SimulatedLightSource, &quot;localhost&quot;, 8001),
+     device(SimulatedFilterWheel, &quot;localhost&quot;, 8002,
+            {&quot;positions&quot;: 6}),
+     device(SimulatedStage, &quot;localhost&quot;, 8003,
+            {&quot;limits&quot;: {&quot;X&quot;: microscope.AxisLimits(0, 25000),
+                        &quot;Y&quot;: microscope.AxisLimits(0, 12000)}}),
+ ]
 </code></pre>
-
 <p>b. Start the device server (ensure port 8000-8003 are unused)::</p>
-<pre class="codehilite"><code>$ device-server path-to-microscope-config.py
+<pre><code> $ device-server path-to-microscope-config.py
 </code></pre>
-
 </li>
 <li>
 <p>Start napari</p>
@@ -272,16 +247,16 @@ DEVICES = [
 </li>
 <li>
 <p>Connect to the camera:</p>
-<p>a. On the new widget, click on the "Add device" button.</p>
+<p>a. On the new widget, click on the &quot;Add device&quot; button.</p>
 <p>b. Enter the camera URI <code>PYRO:SimulatedCamera@localhost:8000</code></p>
 </li>
 <li>
 <p>Tick the <code>Enabled</code> box to enable the camera and then press the
-"Snap" button.</p>
+&quot;Snap&quot; button.</p>
 </li>
 <li>
 <p>A random values image will appear displayed on the napari viewer.
-Keep pressing the "Snap" button to get new images.  The top left
+Keep pressing the &quot;Snap&quot; button to get new images.  The top left
 corner of the image is the simulated image number.</p>
 </li>
 <li>
@@ -300,11 +275,10 @@ does change state of the devices, as can be seen in the logs)</p>
 TIFF (histology samples are perfect) to simulate a camera that returns
 subsections of the image file based on the simulated stage position.</p>
 <p>For quick example, try::</p>
-<pre class="codehilite"><code>wget https://zenodo.org/record/1445489/files/B0002.tif
+<pre><code>wget https://zenodo.org/record/1445489/files/B0002.tif
 </code></pre>
-
 <p>And use the following device server configuration file::</p>
-<pre class="codehilite"><code>from microscope.device_server import device
+<pre><code>from microscope.device_server import device
 from microscope.simulators.stage_aware_camera import simulated_setup_from_image
 
 DEVICES = [
@@ -312,18 +286,16 @@ DEVICES = [
            conf={&quot;filepath&quot;: &quot;B0002.tif&quot;}),
 ]
 </code></pre>
-
 <p>The URI for the devices will be::</p>
-<pre class="codehilite"><code>PYRO:camera@localhost:8000
+<pre><code>PYRO:camera@localhost:8000
 PYRO:filterwheel@localhost:8000
 PYRO:stage@localhost:8000
 </code></pre>
-
 <p>Changing the filterwheel changes which channel from the image is
 returned.  Changing the stage coordinates changes the image that is
 returned (but beware of the corners, pixels outside the image size are
 not handled yet and will give an error).</p>
-        
+
 
                                     </div>
                                 </div>

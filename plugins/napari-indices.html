@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,39 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/Emmanulla0/napari-indices/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-indices.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-indices"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-indices.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-indices.svg?color=green" /></a>
-<a href="https://github.com/Emmanulla0/napari-indices/actions"><img alt="tests" src="https://github.com/Emmanulla0/napari-indices/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/Emmanulla0/napari-indices"><img alt="codecov" src="https://codecov.io/gh/Emmanulla0/napari-indices/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-indices"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-indices" /></a></p>
+                                        <p><a href="https://github.com/Emmanulla0/napari-indices/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-indices.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-indices"><img src="https://img.shields.io/pypi/v/napari-indices.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-indices.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/Emmanulla0/napari-indices/actions"><img src="https://github.com/Emmanulla0/napari-indices/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/Emmanulla0/napari-indices"><img src="https://codecov.io/gh/Emmanulla0/napari-indices/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-indices"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-indices" alt="napari hub" /></a></p>
 <p>Calculer les indices de végétation</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -248,31 +225,29 @@ https://napari.org/stable/plugins/index.html
 <p>Emmanuella OKAFOR (L3 PA CMI-PSI_Université d'Angers) developed this plugin during her internship with a french team called ImHorPHen (lead by David ROUSSEAU). This plugin realises vegetation indexes computation with hyperspectral images. For the momment, there are five vegetation indexes : NDVI, TCARI, NPCI, SGI, NDGI.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-indices</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-indices
+<pre><code>pip install napari-indices
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/Emmanulla0/napari-indices.git
+<pre><code>pip install git+https://github.com/Emmanulla0/napari-indices.git
 </code></pre>
-
 <h2>Plugin description</h2>
 <p>Using this plugin requires importing the bands of a hyperspectral image into a <strong>tif file</strong>, in our case, 160 bands. You must launch it by accessing the <strong>Plugins &gt; napari-indices&gt; Vegetation indices</strong> menu.</p>
-<p><img alt="Capture d'écran 2023-05-29 124720" src="https://github.com/Emmanuella0/napari-indices/assets/132358490/3b3895df-d0a7-466e-8ada-92bd4b642852" /></p>
+<p><img src="https://github.com/Emmanuella0/napari-indices/assets/132358490/3b3895df-d0a7-466e-8ada-92bd4b642852" alt="Capture d'écran 2023-05-29 124720" /></p>
 <p>Then select the vegetation index to be calculated and the different bands to be used, then click the <strong>Run</strong> button to start the calculation. This results in the images corresponding to the calculated indices.</p>
-<p><img alt="etape_2" src="https://github.com/Emmanuella0/napari-indices/assets/132358490/4875f0fc-3435-4875-ba4e-8881cb179b96" /></p>
-<p>The areas of interest to be analysed must then be defined. To do this, click the <strong>Shapes</strong> button on the Napari interface and choose the <strong>add rectangle</strong> shape from the menu that appears. Using the mouse, it is then possible to draw a rectangle on each of the two areas to be analyzed, for example a tree sheet and a green sheet of paper. </p>
-<p><img alt="etape_3" src="https://github.com/Emmanuella0/napari-indices/assets/132358490/fc8612fe-5deb-4290-b4c3-9cac20acf1ce" /></p>
-<p>To perform the Fisher ratio calculation and display the histogram, it is necessary to go back to the <strong>Plugins &gt; napari-indices &gt; ExempleQWidget</strong> menu and click the <strong>Click me! </strong>. This action opens a new window displaying the best vegetation index to use, its corresponding Fisher ratio and the histogram of the two selected regions on the image of the vegetation index concerned. A video explaining the plugin is available at: https://uabox.univ-angers.fr/index.php/s/LqB0qs11n3jxZVJ.</p>
-<p><img alt="Histogram" src="https://github.com/Emmanuella0/napari-indices/assets/132358490/be176176-1972-402c-9a01-8e367347d9d8" /></p>
+<p><img src="https://github.com/Emmanuella0/napari-indices/assets/132358490/4875f0fc-3435-4875-ba4e-8881cb179b96" alt="etape_2" /></p>
+<p>The areas of interest to be analysed must then be defined. To do this, click the <strong>Shapes</strong> button on the Napari interface and choose the <strong>add rectangle</strong> shape from the menu that appears. Using the mouse, it is then possible to draw a rectangle on each of the two areas to be analyzed, for example a tree sheet and a green sheet of paper.</p>
+<p><img src="https://github.com/Emmanuella0/napari-indices/assets/132358490/fc8612fe-5deb-4290-b4c3-9cac20acf1ce" alt="etape_3" /></p>
+<p>To perform the Fisher ratio calculation and display the histogram, it is necessary to go back to the <strong>Plugins &gt; napari-indices &gt; ExempleQWidget</strong> menu and click the **Click me! **. This action opens a new window displaying the best vegetation index to use, its corresponding Fisher ratio and the histogram of the two selected regions on the image of the vegetation index concerned. A video explaining the plugin is available at: <a href="https://uabox.univ-angers.fr/index.php/s/LqB0qs11n3jxZVJ">https://uabox.univ-angers.fr/index.php/s/LqB0qs11n3jxZVJ</a>.</p>
+<p><img src="https://github.com/Emmanuella0/napari-indices/assets/132358490/be176176-1972-402c-9a01-8e367347d9d8" alt="Histogram" /></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-indices" is free and open source software</p>
+&quot;napari-indices&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/Emmanulla0/napari-indices/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,34 +233,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>Napari plugin to use segment anything version 2.1 models from Meta.</p>
+                                        <p>Napari plugin to use segment anything version 2.1 models from Meta.</p>
 <p>Plugin made for segmenting 3d volumetric data or 3d time series data.</p>
 <hr />
 <h2>Installation</h2>
@@ -265,17 +242,17 @@ pre > code:last-child {
 <li>Python and pytorch versions</li>
 </ol>
 <p>python&gt;=3.10,torch&gt;=2.5.1 and torchvision&gt;=0.20.1 required</p>
-<p>To install pytorch with your respective OS please visit - https://pytorch.org/get-started/locally/</p>
-<ol>
+<p>To install pytorch with your respective OS please visit - <a href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></p>
+<ol start="2">
 <li>SAM v2 installation from meta</li>
 </ol>
-<p>Please refer https://github.com/facebookresearch/sam2</p>
-<ol>
+<p>Please refer <a href="https://github.com/facebookresearch/sam2">https://github.com/facebookresearch/sam2</a></p>
+<ol start="3">
 <li>Install napari</li>
 </ol>
-<p>python -m pip install "napari[all]"</p>
-<p>Following is a sample conda environment installation with the above pre-req </p>
-<pre class="codehilite"><code>conda create -n samv2_env python=3.10
+<p>python -m pip install &quot;napari[all]&quot;</p>
+<p>Following is a sample conda environment installation with the above pre-req</p>
+<pre><code>conda create -n samv2_env python=3.10
 conda activate samv2_env
 pip3 install torch torchvision
 
@@ -286,25 +263,24 @@ python -m pip install &quot;napari[all]&quot;
 
 pip install napari-SAMV2
 </code></pre>
-
 <h2>Usage</h2>
-<p>Middle mouse click - positive point or keyboard shortcut "a"</p>
-<p>Ctrl + Middle mouse click - negative point or keyboard shortcut "n"</p>
+<p>Middle mouse click - positive point or keyboard shortcut &quot;a&quot;</p>
+<p>Ctrl + Middle mouse click - negative point or keyboard shortcut &quot;n&quot;</p>
 <p>Time Series Segmentation :</p>
-<p><img alt="samv2_time_series_demo" src="https://github.com/user-attachments/assets/078ca2bb-3016-4257-ac7c-c3cde8f9d125" /></p>
+<p><img src="https://github.com/user-attachments/assets/078ca2bb-3016-4257-ac7c-c3cde8f9d125" alt="samv2_time_series_demo" /></p>
 <p>Volume Segmentation :</p>
-<p><img alt="samv2_volume_segmentation" src="https://github.com/user-attachments/assets/af05fcc4-a60d-44e8-ae05-70764d96e828" /></p>
+<p><img src="https://github.com/user-attachments/assets/af05fcc4-a60d-44e8-ae05-70764d96e828" alt="samv2_volume_segmentation" /></p>
 <p>Reference :</p>
 <p>Example Data in the demo videos are from,</p>
-<p>Cell tracking challenge - https://celltrackingchallenge.net/ </p>
+<p>Cell tracking challenge - <a href="https://celltrackingchallenge.net/">https://celltrackingchallenge.net/</a></p>
 <p>and</p>
-<p>FlyEM project - https://www.janelia.org/project-team/flyem/hemibrain</p>
+<p>FlyEM project - <a href="https://www.janelia.org/project-team/flyem/hemibrain">https://www.janelia.org/project-team/flyem/hemibrain</a></p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-SAMV2" is free and open source software</p>
+&quot;napari-SAMV2&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/Krishvraman/napari-SAMV2/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

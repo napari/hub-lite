@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,41 +210,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jayunruh/napari-IP-workflow/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-IP-workflow.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-IP-workflow"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-IP-workflow.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-IP-workflow.svg?color=green" /></a>
-<a href="https://github.com/jayunruh/napari-IP-workflow/actions"><img alt="tests" src="https://github.com/jayunruh/napari-IP-workflow/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jayunruh/napari-IP-workflow"><img alt="codecov" src="https://codecov.io/gh/jayunruh/napari-IP-workflow/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-IP-workflow"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-IP-workflow" /></a></p>
+                                        <p><a href="https://github.com/jayunruh/napari-IP-workflow/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-IP-workflow.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-IP-workflow"><img src="https://img.shields.io/pypi/v/napari-IP-workflow.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-IP-workflow.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jayunruh/napari-IP-workflow/actions"><img src="https://github.com/jayunruh/napari-IP-workflow/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jayunruh/napari-IP-workflow"><img src="https://codecov.io/gh/jayunruh/napari-IP-workflow/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-IP-workflow"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-IP-workflow" alt="napari hub" /></a></p>
 <p>A plugin to do image preprocessing, segmentation, and measurements on other images.  The typical workflow is background subtraction followed by smoothing, thresholding, and size filtering.  This is typically done on nuclear stained images.  Segmentation can optionally be followed by circular label expansion to find cytoplasmic signals. The labeled signals are then measured on background subtracted images.</p>
-<h2>General organization</h2>
+<p>##General organization</p>
 <p>The code is separated into non-interactive processing functions (ipfunctions module) and an interactive widget (segwidget module).  Please look at the code on github for examples: <a href="https://github.com/jayunruh/napari-ip-workflow">Github</a>. The expected workflow is from jupyter notebooks with an interactive workflow shown in src/napari-ip-workflow/_tests/standard_segementation_widget.ipynb and a non-interactive workflow shown in src/napari-ip-workflow/_tests/standard_segmentation.ipynb.  The expectation is to find the best parameters in an interactive way (ideally testing on several images) and then use the non-interactive workflow to batch through more data sets.  All image processing algorithms are in the ipfunctions module and the segwidget module has the Napari widget code.  Below I describe the strategies that are utilized in the workflow.</p>
 <h2>Background subtraction strategy</h2>
 <p>Automated background subtraction (e.g. as in Fiji) is often accomplished with a low pass filter-style approach like rolling ball background subtraction.  This approach fails as feature sizes grow larger or measurements approach the background.  Manual selection of the background is more robust but introduces human variability and isn't compatible with high throughput analyses.  Our approach is to attempt to automate regional selection of background as follows.  First the image is smoothed with a Gaussian filter to eliminate background noise.  Next, minimum values are subtracted from each channel and the resulting images are summed.   Next, a uniform 2D boxcar smoothing is applied to the image--background level regions in the resulting image are at least the boxcar size distance away from foreground objects.  The minimum pixel in that resulting image is a good approximation for the background region of the image.  A thick border is specified to avoid lower intensity regions at the border of the image.  This algorithm is implemented in the ipfunctions module as findBackground.  Once the background region is found, it can be measured with measureCirc.</p>
@@ -255,25 +232,22 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-IP-workflow</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-IP-workflow
+<pre><code>pip install napari-IP-workflow
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/jayunruh/napari-IP-workflow.git
+<pre><code>pip install git+https://github.com/jayunruh/napari-IP-workflow.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,
-"napari-IP-workflow" is free and open source software</p>
+&quot;napari-IP-workflow&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/jayunruh/napari-IP-workflow/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

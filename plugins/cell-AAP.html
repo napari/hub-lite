@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,104 +206,85 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="" src="https://github.com/anishjv/cell-AAP/blob/main/images/figure2.png?raw=true" />
-<img alt="" src="https://github.com/anishjv/cell-AAP/blob/main/images/rpe1_u2os.png?raw=true" /></p>
-<p>Utilities for the semi-automated generation of instance segmentation annotations to be used for neural network training. Utilities are built ontop of <a href="https://github.com/lmcinnes/umap">UMAP</a>, <a href="https://arxiv.org/abs/1911.02282">HDBSCAN</a> and a finetuned encoder version of FAIR's <a href="https://github.com/facebookresearch/segment-anything/tree/main?tab=readme-ov-file">Segment Anything Model</a> developed by Computational Cell Analytics for the project <a href="https://github.com/computational-cell-analytics/micro-sam/tree/master/micro_sam/sam_annotator">micro-sam</a>. In addition to providing utilies for annotation building, we train networks using FAIR's <a href="https://github.com/facebookresearch/detectron2">detectron2</a> to 
-1. Demonstrate the efficacy of our utilities. 
-2. Be used for microscopy annotation of supported cell lines </p>
-<p>Cell-line specific models currently include:
-1. HeLa
-2. U2OS</p>
-<p>Models have demonstrated performance efficacy on:
-1. HT1080 (HeLa model)
-2. RPE1 (U2OS model)</p>
+                                        <p><img src="https://github.com/anishjv/cell-AAP/blob/main/images/figure2.png?raw=true" alt="" />
+<img src="https://github.com/anishjv/cell-AAP/blob/main/images/rpe1_u2os.png?raw=true" alt="" /></p>
+<p>Utilities for the semi-automated generation of instance segmentation annotations to be used for neural network training. Utilities are built ontop of <a href="https://github.com/lmcinnes/umap">UMAP</a>, <a href="https://arxiv.org/abs/1911.02282">HDBSCAN</a> and a finetuned encoder version of FAIR's <a href="https://github.com/facebookresearch/segment-anything/tree/main?tab=readme-ov-file">Segment Anything Model</a> developed by Computational Cell Analytics for the project <a href="https://github.com/computational-cell-analytics/micro-sam/tree/master/micro_sam/sam_annotator">micro-sam</a>. In addition to providing utilies for annotation building, we train networks using FAIR's <a href="https://github.com/facebookresearch/detectron2">detectron2</a> to</p>
+<ol>
+<li>Demonstrate the efficacy of our utilities.</li>
+<li>Be used for microscopy annotation of supported cell lines</li>
+</ol>
+<p>Cell-line specific models currently include:</p>
+<ol>
+<li>HeLa</li>
+<li>U2OS</li>
+</ol>
+<p>Models have demonstrated performance efficacy on:</p>
+<ol>
+<li>HT1080 (HeLa model)</li>
+<li>RPE1 (U2OS model)</li>
+</ol>
 <p>We've also developed a napari application for the usage of these pre-trained networks.</p>
 <h1>Installation</h1>
 <p>We highly recommend installing cell-AAP in a clean conda environment. To do so you must have <a href="https://docs.anaconda.com/free/miniconda/#quick-command-line-install">miniconda</a> or <a href="https://docs.anaconda.com/free/anaconda/">anaconda</a> installed.</p>
 <p>If a conda distribution has been installed:</p>
 <ol>
 <li>
-<p>Create and activate a clean environment </p>
-<pre class="codehilite"><code>conda create -n cell-aap-env python=3.11.0
-conda activate cell-app-env
+<p>Create and activate a clean environment</p>
+<pre><code> conda create -n cell-aap-env python=3.11.0
+ conda activate cell-app-env
 </code></pre>
-
 </li>
 <li>
 <p>Within this environment install pip</p>
-<pre class="codehilite"><code>conda install pip
+<pre><code> conda install pip
 </code></pre>
-
 </li>
 <li>
 <p>Then install cell-AAP from PyPi</p>
-<pre class="codehilite"><code>pip install cell-AAP --upgrade
+<pre><code> pip install cell-AAP --upgrade
 </code></pre>
-
 </li>
 <li>
 <p>Finally detectron2 must be built from source, atop cell-AAP</p>
-<pre class="codehilite"><code>#For MacOS
-CC=clang CXX=clang++ ARCHFLAGS=&quot;-arch arm64&quot; python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+<pre><code> #For MacOS
+ CC=clang CXX=clang++ ARCHFLAGS=&quot;-arch arm64&quot; python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 
-#For other operating systems 
-python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+ #For other operating systems 
+ python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 </code></pre>
-
 </li>
 </ol>
 <h1>Napari Plugin Usage</h1>
 <ol>
-<li>To open napari simply type "napari" into the command line, ensure that you are working the correct environment</li>
-<li>To instantiate the plugin navigate to the "Plugins" menu and select "cell-AAP"</li>
-<li>You should now see the Plugin, where you can select an image, display it, and run inference on it. </li>
+<li>To open napari simply type &quot;napari&quot; into the command line, ensure that you are working the correct environment</li>
+<li>To instantiate the plugin navigate to the &quot;Plugins&quot; menu and select &quot;cell-AAP&quot;</li>
+<li>You should now see the Plugin, where you can select an image, display it, and run inference on it.</li>
 </ol>
 <h1>Configs Best Practices</h1>
-<p>If running inference on large volumes of data, i.e. timeseries data &gt;= 300 MB in size, we recommend to proceed in the following manner. </p>
+<p>If running inference on large volumes of data, i.e. timeseries data &gt;= 300 MB in size, we recommend to proceed in the following manner.</p>
 <ol>
 <li>Assemble a small, &lt; 100 MB, substack of your data using python or a program like <a href="https://imagej.net/ij/download.html">ImageJ</a></li>
 <li>Use this substack to find the optimal parameters for your data, (Number of Cells, Network confidence threshold)</li>
 <li>Run Inference over the volume using the discovered optimal parameters</li>
 </ol>
 <h1>Interpreting Results</h1>
-<p>Once inference is complete the following colors indicate class prediction
-- Red: Non-mitotic
-- Blue: Mitotic</p>
+<p>Once inference is complete the following colors indicate class prediction</p>
+<ul>
+<li>Red: Non-mitotic</li>
+<li>Blue: Mitotic</li>
+</ul>
 <p>For analysis purposes, masks in the semantic and instance segmentations have the following value mapping:
-Semantic
-- 1: Non-mitotic
-- 100: Mitotic</p>
-<p>Instance
-- $2x$: Non-mitotic
-- $2x-1$: Mitotic</p>
-        
+Semantic</p>
+<ul>
+<li>1: Non-mitotic</li>
+<li>100: Mitotic</li>
+</ul>
+<p>Instance</p>
+<ul>
+<li>$2x$: Non-mitotic</li>
+<li>$2x-1$: Mitotic</li>
+</ul>
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -71,7 +75,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.5</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -153,7 +157,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">nanopyx >=0.3.1</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">nanopyx>=1.2</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -202,40 +206,13 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img src="https://github.com/HenriquesLab/NanoPyx/blob/main/.github/logo.png" align="right" width="230"/></p>
-<p><a href="https://github.com/HenriquesLab/NanoPyx/blob/main/LICENSE.txt"><img alt="License" src="https://img.shields.io/github/license/HenriquesLab/NanoPyx?color=Green" /></a>
-<a href="https://pypi.org/project/napari-nanopyx"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-nanopyx.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-nanopyx.svg?color=green" /></a>
-<a href="https://napari-hub.org/plugins/napari-nanopyx"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-nanopyx" /></a>
-<a href="https://github.com/HenriquesLab/napari-NanoPyx/wiki/3.-Methods"><img alt="Docs" src="https://img.shields.io/badge/documentation-link-blueviolet" /></a>
-<a href="https://github.com/HenriquesLab/napari-NanoPyx/wiki"><img alt="Wiki" src="https://img.shields.io/badge/wiki-click_me-blue" /></a></p>
+                                        <img src="https://github.com/HenriquesLab/NanoPyx/blob/main/.github/logo.png" align="right" width="230"/>
+<p><a href="https://github.com/HenriquesLab/NanoPyx/blob/main/LICENSE.txt"><img src="https://img.shields.io/github/license/HenriquesLab/NanoPyx?color=Green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-nanopyx"><img src="https://img.shields.io/pypi/v/napari-nanopyx.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-nanopyx.svg?color=green" alt="Python Version" /></a>
+<a href="https://napari-hub.org/plugins/napari-nanopyx"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-nanopyx" alt="napari hub" /></a>
+<a href="https://github.com/HenriquesLab/napari-NanoPyx/wiki/3.-Methods"><img src="https://img.shields.io/badge/documentation-link-blueviolet" alt="Docs" /></a>
+<a href="https://github.com/HenriquesLab/napari-NanoPyx/wiki"><img src="https://img.shields.io/badge/wiki-click_me-blue" alt="Wiki" /></a></p>
 <p>napari plugin of <a href="https://github.com/HenriquesLab/NanoPyx">NanoPyx</a> (the successor to NanoJ) - focused on light microscopy and super-resolution imaging.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -244,18 +221,18 @@ pre > code:last-child {
 It is a successor to <a href="https://github.com/HenriquesLab/NanoJ-Core">NanoJ</a>, which is a Java library for the analysis of super-resolution microscopy data.</p>
 <p>NanoPyx focuses on performance, by heavily exploiting cython aided multiprocessing and simplicity. It implements methods for the bioimage analysis field, with a special emphasis on those developed by the <a href="https://henriqueslab.github.io/">Henriques Laboratory</a>.
 It will be distributed as a Python Library and also as <a href="https://github.com/HenriquesLab/NanoPyx#codeless-jupyter-notebooks-available">Codeless Jupyter Notebooks</a>, that can be run locally or on Google Colab, and as a <a href="https://github.com/HenriquesLab/napari-NanoPyx">napari plugin</a>.</p>
-<p>You can read more about NanoPyx in our <a href="https://www.biorxiv.org/content/10.1101/2023.08.13.553080v1">preprint</a>.</p>
-<p>Currently it implements the following approaches:
-- A reimplementation of the NanoJ image registration, SRRF and Super Resolution metrics
-- eSRRF
-- Non-local means denoising
-- More to come soon™</p>
-<p>if you found this work useful, please cite: <a href="https://www.biorxiv.org/content/10.1101/2023.08.13.553080v1">preprint</a> and  <a href="https://zenodo.org/badge/latestdoi/505388398"><img alt="DOI" src="https://zenodo.org/badge/505388398.svg" /></a></p>
+<p>You can read more about NanoPyx in our <a href="https://doi.org/10.1038/s41592-024-02562-6">publication</a>.</p>
+<p>Currently it implements the following approaches:</p>
+<ul>
+<li>A reimplementation of the NanoJ image registration, SRRF and Super Resolution metrics</li>
+<li>eSRRF</li>
+<li>Non-local means denoising</li>
+<li>More to come soon™</li>
+</ul>
 <h2>Installation</h2>
 <p>You can install <code>napari-nanopyx</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-nanopyx
+<pre><code>pip install napari-nanopyx
 </code></pre>
-
 <h2>User Documentation</h2>
 <p>You can find installation and usage instructions in the <a href="https://github.com/HenriquesLab/napari-NanoPyx/wiki">wiki</a>.</p>
 <h2>Contributing</h2>
@@ -263,12 +240,12 @@ It will be distributed as a Python Library and also as <a href="https://github.c
 Please read our <a href="https://github.com/HenriquesLab/NanoPyx/blob/main/CONTRIBUTING.md">Contribution Guidelines</a> to know how to proceed.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="https://creativecommons.org/licenses/by/4.0/">CC-By v4.0</a> license,
-"napari-nanopyx" is free and open source software</p>
+&quot;napari-nanopyx&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
 <h2>Citing</h2>
-<p>If you found this work useful, please cite: <a href="https://www.biorxiv.org/content/10.1101/2023.08.13.553080v1">preprint</a> and  <a href="https://zenodo.org/badge/latestdoi/505388398"><img alt="DOI" src="https://zenodo.org/badge/505388398.svg" /></a></p>
-        
+<p>If you found this work useful, please cite our <a href="https://doi.org/10.1038/s41592-024-02562-6">publication</a>.</p>
+
 
                                     </div>
                                 </div>
@@ -283,7 +260,7 @@ Please read our <a href="https://github.com/HenriquesLab/NanoPyx/blob/main/CONTR
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.5</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -390,7 +367,7 @@ Please read our <a href="https://github.com/HenriquesLab/NanoPyx/blob/main/CONTR
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">nanopyx >=0.3.1</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pytest ; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov ; extra == 'testing'</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">nanopyx>=1.2</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,38 +206,10 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>Stitching tiled 3D light-sheet data in napari</p>
+                                        <p>Stitching tiled 3D light-sheet data in napari</p>
 <p align="center">
   <img height="460" src="https://github.com/user-attachments/assets/91f61f24-6fcf-4aa1-8a8f-de8c5e3db4a2" alt="Stitching a mouse brain acquired at a resolution of 4.06 &micro;m/px, 4.06 &micro;m/px, 5 &micro;m/px using 4 tiles">
 </p>
-
 <hr />
 <p>A <a href="https://napari.org">napari</a> plugin for stitching tiled 3D acquisitions from a <a href="https://www.mesospim.org/">mesoSPIM</a> light-sheet microscope.
 The plugin utilises <a href="https://imagej.net/BigStitcher">BigStitcher</a> to align the tiles and napari to visualise the stitched data.</p>
@@ -242,9 +218,8 @@ The plugin utilises <a href="https://imagej.net/BigStitcher">BigStitcher</a> to 
 will not specify the Qt backend for napari, and you will therefore need to install that separately. Please see the
 <a href="https://napari.org/stable/tutorials/fundamentals/installation.html"><code>napari</code> installation instructions</a> for further advice on this.</p>
 <p>To install latest development version:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/brainglobe/brainglobe-stitch.git
+<pre><code>pip install git+https://github.com/brainglobe/brainglobe-stitch.git
 </code></pre>
-
 <p>This plugin requires Fiji to be installed on your system. You can download Fiji <a href="https://imagej.net/Fiji/Downloads">here</a>.</p>
 <p>The BigStitcher plugin must be installed in Fiji. Please follow the instructions <a href="https://imagej.net/plugins/bigstitcher/#download">here</a>.</p>
 <h2>Seeking help or contributing</h2>
@@ -252,14 +227,14 @@ will not specify the Qt backend for napari, and you will therefore need to insta
 <h2>Citation</h2>
 <p>If you find this package useful, please make sure to cite the original BigStitcher publication:</p>
 <blockquote>
-<p>Hörl, D., Rojas Rusak, F., Preusser, F. <em>et al.</em> BigStitcher: reconstructing high-resolution image datasets of cleared and expanded samples. Nat Methods 16, 870–874 (2019). https://doi.org/10.1038/s41592-019-0501-0</p>
+<p>Hörl, D., Rojas Rusak, F., Preusser, F. <em>et al.</em> BigStitcher: reconstructing high-resolution image datasets of cleared and expanded samples. Nat Methods 16, 870–874 (2019). <a href="https://doi.org/10.1038/s41592-019-0501-0">https://doi.org/10.1038/s41592-019-0501-0</a></p>
 </blockquote>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"brainglobe-stitch" is free and open source software</p>
+&quot;brainglobe-stitch&quot; is free and open source software</p>
 <h2>Acknowledgements</h2>
 <p>This <a href="https://napari.org">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using napari's <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template and the <a href="https://github.com/neuroinformatics-unit/python-cookiecutter">Neuroinformatics Unit's template</a>.</p>
-        
+
 
                                     </div>
                                 </div>

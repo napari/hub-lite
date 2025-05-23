@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-sc3D-viewer.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-sc3D-viewer.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-sc3D-viewer"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-sc3D-viewer.svg?color=green" /></a>
-<a href="https://github.com/GuignardLab/napari-sc3D-viewer/actions"><img alt="tests" src="https://github.com/GuignardLab/napari-sc3D-viewer/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/GuignardLab/napari-sc3D-viewer"><img alt="codecov" src="https://codecov.io/gh/GuignardLab/napari-sc3D-viewer/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-sc3D-viewer"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sc3D-viewer" /></a></p>
+                                        <p><a href="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-sc3D-viewer.svg?color=green" alt="License" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-sc3D-viewer.svg?color=green" alt="Python Version" /></a>
+<a href="https://pypi.org/project/napari-sc3D-viewer"><img src="https://img.shields.io/pypi/v/napari-sc3D-viewer.svg?color=green" alt="PyPI" /></a>
+<a href="https://github.com/GuignardLab/napari-sc3D-viewer/actions"><img src="https://github.com/GuignardLab/napari-sc3D-viewer/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/GuignardLab/napari-sc3D-viewer"><img src="https://codecov.io/gh/GuignardLab/napari-sc3D-viewer/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-sc3D-viewer"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sc3D-viewer" alt="napari hub" /></a></p>
 <p>A plugin to visualise 3D spatial single cell omics</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -249,7 +226,7 @@ pre > code:last-child {
 <li><a href="https://doi.org/10.6084/m9.figshare.21695849.v1">E8.5 replicate 2</a></li>
 <li><a href="https://doi.org/10.6084/m9.figshare.21695879.v1">E9.0 replicate 1</a></li>
 </ul>
-<p>Once downloaded, one can open them in the viewer as explained below (note that the files for the tissue names are stored in the json file there: <code>napari-sc3D-viewer/test_data/corresptissues.json</code>). It can be downloaded by right-clicking on the following <a href="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/test_data/corresptissues.json">link</a> and then clicking on "Save link as".</p>
+<p>Once downloaded, one can open them in the viewer as explained below (note that the files for the tissue names are stored in the json file there: <code>napari-sc3D-viewer/test_data/corresptissues.json</code>). It can be downloaded by right-clicking on the following <a href="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/test_data/corresptissues.json">link</a> and then clicking on &quot;Save link as&quot;.</p>
 <h2>Installation</h2>
 <hr />
 <p><strong>Disclaimer:</strong>
@@ -262,20 +239,20 @@ While we tried to make the installation and usage as easy as possible, please ke
 </ul>
 <p>Installing <a href="https://github.com/napari/napari">napari</a> and the <a href="https://github.com/GuignardLab/napari-sc3D-viewer">napari-sc3d-viewer</a> plugin can be done either through command line or using an interface.</p>
 <p>If you have decided to use command line, as <a href="https://github.com/napari/napari">napari</a> developers do, we strongly recommend to install the viewer in an environement such as a conda environment <code>conda</code> for example:</p>
-<pre class="codehilite"><code class="language-shell">conda create -n sc3D python=3.10
-conda activate sc3D
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>sc3D<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
+conda<span class="w"> </span>activate<span class="w"> </span>sc3D
+</pre></div>
 </code></pre>
-
 <h3>Installing napari</h3>
 <p>The first step is to <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">install napari</a> on your computer. The previous link should explain how to do so. There you can find either the installation via terminal or directly by <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-a-bundled-app">downloading the binary</a>.</p>
 <h4>Quick trouble shooting</h4>
-<p>Installing <a href="https://github.com/napari/napari">napari</a> can sometimes be difficult. If you try to install <a href="https://github.com/napari/napari">napari</a> via the command line and it gets stuck "resolving the environment" you can try to install it the following way:</p>
-<pre class="codehilite"><code class="language-shell">conda create -n sc3D python=3.10
-conda activate sc3D
-conda install pyqt pip
-pip install napari
+<p>Installing <a href="https://github.com/napari/napari">napari</a> can sometimes be difficult. If you try to install <a href="https://github.com/napari/napari">napari</a> via the command line and it gets stuck &quot;resolving the environment&quot; you can try to install it the following way:</p>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>sc3D<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
+conda<span class="w"> </span>activate<span class="w"> </span>sc3D
+conda<span class="w"> </span>install<span class="w"> </span>pyqt<span class="w"> </span>pip
+pip<span class="w"> </span>install<span class="w"> </span>napari
+</pre></div>
 </code></pre>
-
 <h3>Installing napari-sc3D-viewer</h3>
 <p>Once <a href="https://github.com/napari/napari">napari</a> is installed, you can install <code>napari-sc3D-viewer</code>.
 As for <a href="https://github.com/napari/napari">napari</a>, <a href="https://github.com/GuignardLab/napari-sc3D-viewer">napari-sc3D-viewer</a> can be installed either through an interface or via the terminal.</p>
@@ -283,63 +260,63 @@ As for <a href="https://github.com/napari/napari">napari</a>, <a href="https://g
 <p>To install <a href="https://github.com/GuignardLab/napari-sc3D-viewer">napari-sc3D-viewer</a> with a visual interface, you should use the <a href="https://napari.org/stable/plugins/find_and_install_plugin.html">napari's plugin manager</a> look for the plugin there and install it as explained in the previous link.</p>
 <h4>Installation via the terminal</h4>
 <p>Another way is to install <code>napari-sc3D-viewer</code> via <a href="https://pypi.org/project/pip/">pip</a> or via <a href="https://conda.io">conda</a>:</p>
-<pre class="codehilite"><code class="language-shell">conda install napari-sc3d-viewer
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>napari-sc3d-viewer
+</pre></div>
 </code></pre>
-
 <p>or</p>
-<pre class="codehilite"><code class="language-shell">pip install napari-sc3d-viewer
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-sc3d-viewer
+</pre></div>
 </code></pre>
-
 <p>Finally, to install latest development version :</p>
-<pre class="codehilite"><code class="language-shell">pip install git+https://github.com/GuignardLab/napari-sc3D-viewer.git
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/GuignardLab/napari-sc3D-viewer.git
+</pre></div>
 </code></pre>
-
 <h4>Installation of the surface computation module</h4>
 <p>To install the surface computation enabled version it is necessary to use Python 3.9 (until <a href="https://vtk.org/">VTK</a> is ported to Python 3.10) and you can run one of the following commands:</p>
-<pre class="codehilite"><code class="language-shell">pip install '.[pyvista]'
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;.[pyvista]&#39;</span>
+</pre></div>
 </code></pre>
-
 <p>from the correct folder or</p>
-<pre class="codehilite"><code class="language-shell">pip install 'napari-sc3D-viewer[pyvista]'
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;napari-sc3D-viewer[pyvista]&#39;</span>
+</pre></div>
 </code></pre>
-
 <p>or</p>
-<pre class="codehilite"><code class="language-shell">conda install 'napari-sc3D-viewer[pyvista]'
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;napari-sc3D-viewer[pyvista]&#39;</span>
+</pre></div>
 </code></pre>
-
 <p>to install directly from pip or</p>
-<pre class="codehilite"><code class="language-shell">pip install 'napari-sc3D-viewer[pyvista] @ git+https://github.com/GuignardLab/napari-sc3D-viewer.git'
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;napari-sc3D-viewer[pyvista] @ git+https://github.com/GuignardLab/napari-sc3D-viewer.git&#39;</span>
+</pre></div>
 </code></pre>
-
 <p>to install the latest version</p>
 <h2>Usage</h2>
 <p><code>napari-sc3D-viewer</code> allows users to easily visualise and navigate 3D spatial single-cell transcriptomics using napari.</p>
 <h3>Starting the plugin</h3>
 <p>First, you need to start <a href="https://github.com/napari/napari">napari</a>, for example, one can start it from a terminal just by typing:</p>
-<pre class="codehilite"><code class="language-shell">napari
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
 <p>in the correct environment.</p>
 <p>Then, one can follow the following steps to browse the dataset.</p>
-<p>To open the plugin you can click on the "Load spatial single cell" from the <code>Plugins -&gt; napari-sc3d-viewer</code> menu:
-<img alt="loading image" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/0.openplugin.png" /></p>
+<p>To open the plugin you can click on the &quot;Load spatial single cell&quot; from the <code>Plugins -&gt; napari-sc3d-viewer</code> menu:
+<img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/0.openplugin.png" alt="loading image" /></p>
 <p>Once opened you should have an interface poping similar to the one showed in the image below (note that it might not be exactly the same depending on the version of the viewer you are using).</p>
 <h3>Loading and opening a dataset</h3>
 <p>The expected dataset is a <a href="https://scanpy.readthedocs.io/en/latest/index.html">scanpy</a>/<a href="https://anndata.readthedocs.io/en/latest/">anndata</a> h5ad file together with an optional json file that maps cluster id numbers to actual tissue/cluster name.</p>
 <p>The json file should look like that:</p>
-<pre class="codehilite"><code class="language-json">{
-    &quot;1&quot;: &quot;Endoderm&quot;,
-    &quot;2&quot;: &quot;Heart&quot;,
-    &quot;10&quot;: &quot;Anterior neuroectoderm&quot;
-}
+<pre><code class="language-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Endoderm&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Heart&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;10&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Anterior neuroectoderm&quot;</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
 <p>If no json file or a wrong json file is given, the original cluster id numbers are used.</p>
 <p>The h5ad file should be informed in (1) and the json file in (2).
-<img alt="loading image" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/1.loading.png" /></p>
+<img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/1.loading.png" alt="loading image" /></p>
 <p>Let <code>data</code> be your h5ad data structure. To work properly, the viewer is expecting 4 different columns to be present in the h5ad file:</p>
 <ul>
-<li>the cluster id column (by default named 'predicted.id' that can be accessed as <code>data.obs['predicted.id']</code>)</li>
+<li>the cluster id column (by default named '<a href="http://predicted.id">predicted.id</a>' that can be accessed as <code>data.obs['predicted.id']</code>)</li>
 <li>the 3D position column (by default named 'X_spatial_registered' that can be accessed as <code>data.obsm['X_spatial_registered']</code>)</li>
 <li>the gene names if not already in the column name (by default named 'feature_name' that can be accessed as <code>data.var['feature_name']</code>)</li>
 <li>umap coordinates (by default named 'X_umap' that can be accessed as <code>data.obsm['X_umap']</code>)</li>
@@ -349,7 +326,7 @@ As for <a href="https://github.com/napari/napari">napari</a>, <a href="https://g
 <h3>Exploring a dataset</h3>
 <p>Once the dataset is loaded there are few options to explore it.</p>
 <p>The viewer should look like to the following:
-<img alt="viewer" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/2.viewer.png" /></p>
+<img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/2.viewer.png" alt="viewer" /></p>
 <p>It is divided in two main parts, the Tissue visualisation (1) part and the Metric visualisation (2) one.
 Both of them are themselves split in two and three tabs respectively. All these tabs allow you to visualise and explore the dataset in different fashions.</p>
 <p>The Tissues tab (1.1) allows to select the tissues to display, to show the legend and to colour the cells according to their tissue types.</p>
@@ -357,31 +334,31 @@ Both of them are themselves split in two and three tabs respectively. All these 
 <p>The Single metric tab (2.1) allows to display a metric, whether it is a gene intensity or a numerical metric that is embedded in the visualised dataset. This tab also allows to threshold cells according to the viewed metric, to change the contrast and the colour map.</p>
 <p>The 2 Genes (2.2) tab allows to display gene coexpression.</p>
 <p>The umap tab (2.3) allows to display the umap of the selected cells and to manually select subcategories of cells to be displayed.</p>
-<p><img alt="viewer" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/3.description.png" /></p>
-<h4>Explanatory "videos"</h4>
+<p><img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/3.description.png" alt="viewer" /></p>
+<h4>Explanatory &quot;videos&quot;</h4>
 <p>The plugin is meant to be easy to use. That means that you should be able to play with it and figure things out by yourself.</p>
 <p>That being said, it is not always that easy. You can find below a series of videos showing how to perform some of the main features.</p>
 <h4>Loading data</h4>
-<p><img alt="Loading data video" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/loading.gif" /></p>
+<p><img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/loading.gif" alt="Loading data video" /></p>
 <h4>Selecting tissues</h4>
-<p><img alt="Selecting tissues video" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/tissue-select.gif" /></p>
+<p><img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/tissue-select.gif" alt="Selecting tissues video" /></p>
 <h4>Displaying one gene</h4>
-<p><img alt="Displaying one gene video" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/gene1.gif" /></p>
+<p><img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/gene1.gif" alt="Displaying one gene video" /></p>
 <h4>Displaying two genes co-expression</h4>
-<p><img alt="Displaying genes video" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/gene2.gif" /></p>
+<p><img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/gene2.gif" alt="Displaying genes video" /></p>
 <h4>Playing with the umap</h4>
-<p><img alt="Playing with the umap video" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/umap.gif" /></p>
+<p><img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/umap.gif" alt="Playing with the umap video" /></p>
 <h4>Computing and processing the surface</h4>
-<p><img alt="Computing and processing the surface video" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/surfaces.gif" /></p>
+<p><img src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/surfaces.gif" alt="Computing and processing the surface video" /></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-sc3D-viewer" is free and open source software</p>
+&quot;napari-sc3D-viewer&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/GuignardLab/napari-sc3D-viewer/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="napari-kics" src="https://github.com/mpicbg-csbd/napari-kics/raw/main/docs/banner.png?sanitize=true&amp;raw=true" /></p>
-<p><a href="https://github.com/RichardLitt/standard-readme"><img alt="standard-readme compliant" src="https://img.shields.io/badge/readme%20style-standard-brightgreen.svg" /></a>
-<a href="./LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-kics.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-kics"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-kics.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-kics.svg?color=green" /></a>
-<a href="https://github.com/mpicbg-csbd/napari-kics/actions/workflows/python-package.yml"><img alt="Python package" src="https://github.com/mpicbg-csbd/napari-kics/actions/workflows/python-package.yml/badge.svg" /></a></p>
+                                        <p><img src="https://github.com/mpicbg-csbd/napari-kics/raw/main/docs/banner.png?sanitize=true&amp;raw=true" alt="napari-kics" /></p>
+<p><a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/readme%20style-standard-brightgreen.svg" alt="standard-readme compliant" /></a>
+<a href="./LICENSE"><img src="https://img.shields.io/pypi/l/napari-kics.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-kics"><img src="https://img.shields.io/pypi/v/napari-kics.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-kics.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/mpicbg-csbd/napari-kics/actions/workflows/python-package.yml"><img src="https://github.com/mpicbg-csbd/napari-kics/actions/workflows/python-package.yml/badge.svg" alt="Python package" /></a></p>
 <blockquote>
 <p>A plugin to estimate chromosome sizes from karyotype images.</p>
 </blockquote>
@@ -255,15 +232,15 @@ pre > code:last-child {
 </ul>
 <h2>Install</h2>
 <p>You can install <code>napari-kics</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-sh">pip install napari-kics
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-kics
+</pre></div>
 </code></pre>
-
 <p>This will install all required dependencies as well. We recommend installing it in a virtual environment, e.g. using <a href="https://www.anaconda.com/products/distribution">conda</a>:</p>
-<pre class="codehilite"><code class="language-sh">conda create -n kics python
-conda activate kics
-pip install napari-kics
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>kics<span class="w"> </span>python
+conda<span class="w"> </span>activate<span class="w"> </span>kics
+pip<span class="w"> </span>install<span class="w"> </span>napari-kics
+</pre></div>
 </code></pre>
-
 <p>We recommend using <a href="https://github.com/mamba-org/mamba">mamba</a> as a faster alternative to conda.</p>
 <h2>Usage</h2>
 <ol>
@@ -273,9 +250,9 @@ pip install napari-kics
 <li>Follow instructions in the panel on the right.</li>
 </ol>
 <p>You may use the interactive analysis plots directly via command line:</p>
-<pre class="codehilite"><code class="language-sh">karyotype-analysis-plots
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>karyotype-analysis-plots
+</pre></div>
 </code></pre>
-
 <h2>Example</h2>
 <ol>
 <li>Launch Napari via command line (<code>napari</code>).</li>
@@ -284,9 +261,9 @@ pip install napari-kics
 <li>Follow instructions in the panel on the right.</li>
 </ol>
 <p>Try out the interactive analysis plots directly via command line:</p>
-<pre class="codehilite"><code class="language-sh">karyotype-analysis-plots --example
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>karyotype-analysis-plots<span class="w"> </span>--example
+</pre></div>
 </code></pre>
-
 <h2>Citation</h2>
 <blockquote>
 <p>Arne Ludwig, Alexandr Dibrov, Gene Myers, Martin Pippel.
@@ -295,21 +272,21 @@ Estimating chromosome sizes from karyotype images enables validation of
 </blockquote>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-kics" is free and open source software</p>
+&quot;napari-kics&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/mpicbg-csbd/napari-kics/issues">file an issue</a> along with a detailed description.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Please <a href="https://github.com/mpicbg-csbd/napari-kics/pulls">file a pull request</a> with your
 contribution.</p>
 <p>You can setup a local development environment for <code>napari-kics</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-sh">git clone https://github.com/mpicbg-csbd/napari-kics.git
-cd napari-kics
-pip install -e .
+<pre><code class="language-sh"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/mpicbg-csbd/napari-kics.git
+<span class="nb">cd</span><span class="w"> </span>napari-kics
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
 </code></pre>
-
 <h2>Overview</h2>
-<p>https://user-images.githubusercontent.com/17703905/139654249-685703b5-2196-4a73-a036-d40d578ebcdf.mp4</p>
-        
+<p><a href="https://user-images.githubusercontent.com/17703905/139654249-685703b5-2196-4a73-a036-d40d578ebcdf.mp4">https://user-images.githubusercontent.com/17703905/139654249-685703b5-2196-4a73-a036-d40d578ebcdf.mp4</a></p>
+
 
                                     </div>
                                 </div>

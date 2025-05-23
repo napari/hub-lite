@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,42 +206,15 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://mybinder.org/v2/gh/FrancisCrickInstitute/CALM_Template/HEAD?labpath=blob%2Fmain%2Fsegment_image.ipynb"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a>
-<a href="https://www.python.org/downloads/release/python-3115/"><img alt="Python 3.11" src="https://img.shields.io/badge/python-3.11-blue.svg" /></a>
-<img alt="Commit activity" src="https://img.shields.io/github/commit-activity/y/FrancisCrickInstitute/CALM_Template?style=plastic" />
-<img alt="GitHub" src="https://img.shields.io/github/license/FrancisCrickInstitute/CALM_Template?color=green&amp;style=plastic" /></p>
-<p>PARSEG (PAralellised Refinement of SEGmentations) combines segmentation masks and filters overlapping objects based on colocalization statistics, such as percent overlap. </p>
+                                        <p><a href="https://mybinder.org/v2/gh/FrancisCrickInstitute/CALM_Template/HEAD?labpath=blob%2Fmain%2Fsegment_image.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a>
+<a href="https://www.python.org/downloads/release/python-3115/"><img src="https://img.shields.io/badge/python-3.11-blue.svg" alt="Python 3.11" /></a>
+<img src="https://img.shields.io/github/commit-activity/y/FrancisCrickInstitute/CALM_Template?style=plastic" alt="Commit activity" />
+<img src="https://img.shields.io/github/license/FrancisCrickInstitute/CALM_Template?color=green&amp;style=plastic" alt="GitHub" /></p>
+<p>PARSEG (PAralellised Refinement of SEGmentations) combines segmentation masks and filters overlapping objects based on colocalization statistics, such as percent overlap.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s [cookiecutter-napari-plugin] template.</p>
 <h2>Overview</h2>
-<p>By leveraging <a href="https://www.dask.org/">Dask</a>, PARSEG filters overlapping segmentations masks in a computationally efficient manner by processing individual 2D slices in parallel. </p>
+<p>By leveraging <a href="https://www.dask.org/">Dask</a>, PARSEG filters overlapping segmentations masks in a computationally efficient manner by processing individual 2D slices in parallel.</p>
 <p>There are two different ways to interact with PARSEG and use it for different objectives:</p>
 <ul>
 <li>As a napari plugin for graphical user interaction</li>
@@ -245,9 +222,8 @@ pre > code:last-child {
 </ul>
 <h2>Installation</h2>
 <p>You can install <code>napari-segmentation-overlap-filter</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-segmentation-overlap-filter
+<pre><code>pip install napari-segmentation-overlap-filter
 </code></pre>
-
 <h2>Getting Started</h2>
 <h3>Napari Plugin</h3>
 <ol>
@@ -264,7 +240,7 @@ pre > code:last-child {
 <p>This <a href="https://github.com/FrancisCrickInstitute/PARSEG/blob/main/Notebooks/Combine_Segmentations_And_Filter_Overlaps.ipynb">example notebook</a> shows how you can integrate the Python API into your own workflow for filtering and combining overlapping segmentation masks</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please file an issue along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,55 +210,42 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <blockquote>
+                                        <blockquote>
 <p>[!IMPORTANT]
-<strong>New Version 1.2 Announcement!</strong>
-* New Models:
-  * NucleoNet: A base model for EM instance nucleus segmentation
-  * DropNet: A base model for EM Lipid Droplet instance segmentation
-* New modules 
-  * Archive Model - archives the model into a hidden archive folder 
-  * Create Tiles - Split big images winto small tiles (with Mask/ optional)
-  * Merge Tiles - Opposite of split tiles, create full image from tiles created by create tiles
-  * Morph labels - applies morphological operations to labels
-  * Count labels - counts and lists the label IDs within the dataset
-  * Filter labels - removes small pixel/voxel area labels or labels touching the image boundaries
-  * Export and import a model - export or import locally saved model files to use within empanada-napari
-* Updated modules
-  * 2D Inference - now allows ROI inference and filling holes in segmentation label maps
-  * 3D Inference - allows erosion, dilation and fill holes in segmentation to help tackle big split merge errors
-  * Export segmentations - now allows 3D segmentations to be exported as a single .tiff image
-  * Pick and save finetune/training patches - now allows paired grayscale and label mask images to create training patches 
-  * Split label - now allows users to specify new label IDs 
-* Updated documentation
-  * Check out the updated documentation <a href="https://empanada.readthedocs.io/en/latest/index.html">here</a>!</p>
+<strong>New Version 1.2 Announcement!</strong></p>
+<ul>
+<li>New Models:
+<ul>
+<li>NucleoNet: A base model for EM instance nucleus segmentation</li>
+<li>DropNet: A base model for EM Lipid Droplet instance segmentation</li>
+</ul>
+</li>
+<li>New modules
+<ul>
+<li>Archive Model - archives the model into a hidden archive folder</li>
+<li>Create Tiles - Split big images winto small tiles (with Mask/ optional)</li>
+<li>Merge Tiles - Opposite of split tiles, create full image from tiles created by create tiles</li>
+<li>Morph labels - applies morphological operations to labels</li>
+<li>Count labels - counts and lists the label IDs within the dataset</li>
+<li>Filter labels - removes small pixel/voxel area labels or labels touching the image boundaries</li>
+<li>Export and import a model - export or import locally saved model files to use within empanada-napari</li>
+</ul>
+</li>
+<li>Updated modules
+<ul>
+<li>2D Inference - now allows ROI inference and filling holes in segmentation label maps</li>
+<li>3D Inference - allows erosion, dilation and fill holes in segmentation to help tackle big split merge errors</li>
+<li>Export segmentations - now allows 3D segmentations to be exported as a single .tiff image</li>
+<li>Pick and save finetune/training patches - now allows paired grayscale and label mask images to create training patches</li>
+<li>Split label - now allows users to specify new label IDs</li>
+</ul>
+</li>
+<li>Updated documentation
+<ul>
+<li>Check out the updated documentation <a href="https://empanada.readthedocs.io/en/latest/index.html">here</a>!</li>
+</ul>
+</li>
+</ul>
 </blockquote>
 <p><strong>The paper describing this work is now available <a href="https://www.cell.com/cell-systems/fulltext/S2405-4712(22)00494-X">on Cell Systems</a>.</strong></p>
 <p><strong>Documentation for the plugin, including more detailed installation instructions, can be found <a href="https://empanada.readthedocs.io/en/latest/empanada-napari.html">here</a>.</strong></p>
@@ -271,70 +262,71 @@ raise an <a href="https://github.com/napari/napari/issues">issue here instead</a
 <a href="https://www.ebi.ac.uk/empiar/EMPIAR-10982/">EMPIAR-10982</a>.</p>
 <h2>Installation</h2>
 <h3>New Users</h3>
-<p>If you've previously installed and used conda, it's recommended (but optional) to create a new virtual 
-environment in order to avoid dependency conflicts. </p>
+<p>If you've previously installed and used conda, it's recommended (but optional) to create a new virtual
+environment in order to avoid dependency conflicts.</p>
 <p>empanada-napari works with python=3.9 or lower</p>
 <p>It's recommended to have installed napari through <a href="https://docs.conda.io/en/latest/miniconda.html">conda</a>. Then to install this plugin:</p>
-<pre class="codehilite"><code class="language-shell">pip install empanada-napari==1.2
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>empanada-napari<span class="o">==</span><span class="m">1</span>.2
+</pre></div>
 </code></pre>
-
 <p>Launch napari:</p>
-<pre class="codehilite"><code class="language-shell">napari
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>napari
+</pre></div>
 </code></pre>
-
-<p>Look for empanada-napari under the "Plugins" menu.</p>
+<p>Look for empanada-napari under the &quot;Plugins&quot; menu.</p>
 <h3>Returning Users</h3>
-<p>If you installed napari into a virtual environment as suggested in the original release documentation, 
+<p>If you installed napari into a virtual environment as suggested in the original release documentation,
 be sure to activate it and uninstall the old empanada-napari.</p>
-<pre class="codehilite"><code class="language-shell">pip uninstall empanada-napari
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>empanada-napari
+</pre></div>
 </code></pre>
-
 <p>Then install the newest version:</p>
-<pre class="codehilite"><code class="language-shell">pip install empanada-napari==1.2
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>empanada-napari<span class="o">==</span><span class="m">1</span>.2
+</pre></div>
 </code></pre>
-
-<p><img alt="empanada" src="images/demo.gif" /></p>
+<p><img src="images/demo.gif" alt="empanada" /></p>
 <h2>GPU Support</h2>
 <p><strong>Note: Mac doesn't support NVIDIA GPUS. This section only applies to Windows and Linux systems.</strong></p>
 <p>As for any deep learning models, having a GPU installed on your system will significantly
 increase model throughput (although we ship CPU optimized versions of all models with the plugin).</p>
 <p>This plugin relies on torch for running models. If a GPU was found on your system, then you will see that the
-"Use GPU" checkbox is checked by default in the "2D Inference" and "3D Inference" plugin widgets. Or if when running
-inference you see a message that says "Using CPU" in the terminal that means a GPU is not being used.</p>
+&quot;Use GPU&quot; checkbox is checked by default in the &quot;2D Inference&quot; and &quot;3D Inference&quot; plugin widgets. Or if when running
+inference you see a message that says &quot;Using CPU&quot; in the terminal that means a GPU is not being used.</p>
 <p>Make sure that GPU drivers are correctly installed. In terminal or command prompt:</p>
-<pre class="codehilite"><code class="language-shell">nvidia-smi
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>nvidia-smi
+</pre></div>
 </code></pre>
-
-<p>If this returns "command not found" then you need to <a href="https://www.nvidia.com/download/index.aspx">install the driver from NVIDIA</a>. Instead, if
+<p>If this returns &quot;command not found&quot; then you need to <a href="https://www.nvidia.com/download/index.aspx">install the driver from NVIDIA</a>. Instead, if
 if the driver is installed correctly, you may need to switch to the GPU enabled version of torch.</p>
 <p>First, uninstall the current version of torch:</p>
-<pre class="codehilite"><code class="language-shell">pip uninstall torch
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>torch
+</pre></div>
 </code></pre>
-
 <p>Then <a href="https://pytorch.org/get-started/locally/">install torch &gt;= 1.10 using conda for your system</a>.
 This command should work:</p>
-<pre class="codehilite"><code class="language-shell">conda install pytorch cudatoolkit=11.3 -c pytorch
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>pytorch<span class="w"> </span><span class="nv">cudatoolkit</span><span class="o">=</span><span class="m">11</span>.3<span class="w"> </span>-c<span class="w"> </span>pytorch
+</pre></div>
 </code></pre>
-
 <h2>Citing this work</h2>
 <p>If you use results generated by this plugin in a publication, please cite:</p>
-<pre class="codehilite"><code class="language-bibtex">@article { Conrad2023,
-    author = {Conrad, Ryan and Narayan, Kedar},
-    title = {Instance segmentation of mitochondria in electron microscopy images with a generalist deep learning model trained on a diverse dataset},
-    journal = {Cell Systems},
-    year = {2023},
-    month = {Jan},
-    day = {18},
-    publisher = {Elsevier},
-    volume = {14},
-    number = {1},
-    pages = {58-71.e5},
-    issn = {2405-4712},
-    doi = {10.1016/j.cels.2022.12.006},
-    url = {https://doi.org/10.1016/j.cels.2022.12.006}
-}
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">Conrad2023</span><span class="p">,</span>
+<span class="w">    </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Conrad, Ryan and Narayan, Kedar}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Instance segmentation of mitochondria in electron microscopy images with a generalist deep learning model trained on a diverse dataset}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Cell Systems}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2023}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">month</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Jan}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">day</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{18}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">publisher</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Elsevier}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">volume</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{14}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">number</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{1}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">pages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{58-71.e5}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">issn</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2405-4712}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.1016/j.cels.2022.12.006}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://doi.org/10.1016/j.cels.2022.12.006}</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-        
+
 
                                     </div>
                                 </div>

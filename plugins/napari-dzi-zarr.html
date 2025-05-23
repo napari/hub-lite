@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,66 +210,37 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/napari/napari-dzi-zarr/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-dzi-zarr.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-dzi-zarr"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-dzi-zarr.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-dzi-zarr.svg?color=green" /></a>
-<a href="https://github.com/manzt/napari-dzi-zarr/actions"><img alt="tests" src="https://github.com/manzt/napari-dzi-zarr/workflows/tests/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/napari/napari-dzi-zarr/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-dzi-zarr.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-dzi-zarr"><img src="https://img.shields.io/pypi/v/napari-dzi-zarr.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-dzi-zarr.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/manzt/napari-dzi-zarr/actions"><img src="https://github.com/manzt/napari-dzi-zarr/workflows/tests/badge.svg" alt="tests" /></a></p>
 <p>An experimental plugin for viewing Deep Zoom Images (DZI) with napari + zarr + dask.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Description</h2>
-<p>The <a href="https://github.com/openseadragon/openseadragon/wiki/The-DZI-File-Format">DZI File Format</a> 
-is a pyramidal tile source specification where individual tiles are RGB/RGBA JPEG/PNG images. 
-DZI is a very popular tile source for zoomable web-viewers like 
-<a href="https://openseadragon.github.io/">OpenSeadragon</a>, and as a result many tile sources are available over 
-HTTP. This plugin wraps a DZI tile source (local or remote) as a multiscale Zarr, where each pyramidal level is a <code>zarr.Array</code> of shape <code>(level_height, level_width, 3/4)</code>, allowing the same images to be viewed 
+<p>The <a href="https://github.com/openseadragon/openseadragon/wiki/The-DZI-File-Format">DZI File Format</a>
+is a pyramidal tile source specification where individual tiles are RGB/RGBA JPEG/PNG images.
+DZI is a very popular tile source for zoomable web-viewers like
+<a href="https://openseadragon.github.io/">OpenSeadragon</a>, and as a result many tile sources are available over
+HTTP. This plugin wraps a DZI tile source (local or remote) as a multiscale Zarr, where each pyramidal level is a <code>zarr.Array</code> of shape <code>(level_height, level_width, 3/4)</code>, allowing the same images to be viewed
 in <code>napari</code> + <code>dask</code>.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-dzi-zarr</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-dzi-zarr
+<pre><code>pip install napari-dzi-zarr
 </code></pre>
-
 <h2>Usage</h2>
 <p>This high-resolution scan of Rembrandt's Night Watch is available thanks to <a href="https://twitter.com/erdmann">R.G Erdmann</a>. More examples can be found on <a href="http://boschproject.org">boschproject.org</a>.</p>
-<pre class="codehilite"><code>$ napari http://hyper-resolution.org/dzi/Rijksmuseum/SK-C-5/SK-C-5_VIS_20-um_2019-12-21.dzi
+<pre><code>$ napari http://hyper-resolution.org/dzi/Rijksmuseum/SK-C-5/SK-C-5_VIS_20-um_2019-12-21.dzi
 </code></pre>
-
-<p><img alt="Rembrandt's Night Watch in napari" src="./night_watch_napari.png" /></p>
+<p><img src="./night_watch_napari.png" alt="Rembrandt's Night Watch in napari" /></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-dzi-zarr" is free and open source software</p>
+&quot;napari-dzi-zarr&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/manzt/napari-dzi-zarr/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

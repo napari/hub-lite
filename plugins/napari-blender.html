@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -203,36 +207,9 @@ Mozilla Public License Version 2.0</a></li>
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p>napari-blender is a plugin for napari that allows you to render 3D scenes using Blender.</p>
+                                        <p>napari-blender is a plugin for napari that allows you to render 3D scenes using Blender.</p>
 <p>This is a system that combines optical validation of model predictions by having different 3D visualizations and quantitative evaluation. Utilizing Blender’s rendering capabilities for deepening the understanding of nuclei segmentation for users with different levels of expertise. Examples are time-lapse animations (aimed to be generated from label data), opaque ground truth visualizations with solid prediction objects to compare prediction quality optically and 3D images where nuclei are coloured according to their prediction quality. To facilitate meaningful quantitative evaluation, different metrics are calculated for these predictions and displayed within the animation, such as the Jaccard index, Intersection over Union and the F1-score. The emphasis in this system is on operating it with limited technical knowledge, allowing for bridging between researchers and developers; but includes metrics that allow for a deeper understanding of performance for expert users.</p>
-<h2>Documentation can be found at https://living-technologies.github.io/napari-blender/</h2>
+<h2>Documentation can be found at <a href="https://living-technologies.github.io/napari-blender/">https://living-technologies.github.io/napari-blender/</a></h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
 Don't miss the full getting started guide to set up your new package:
@@ -241,30 +218,26 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
-<p>The installation of <code>napari-blender</code> is made easier by the inclusion of a virtual environment containing specified versions of each library. These versions should be followed, since dependencies could otherwise break the build. </p>
+<p>The installation of <code>napari-blender</code> is made easier by the inclusion of a virtual environment containing specified versions of each library. These versions should be followed, since dependencies could otherwise break the build.</p>
 <p>Download the <a href="https://github.com/Living-Technologies/napari-blender/blob/main/environment.yml">environment.yml</a>, and navigate to the directory of the file. Install by:</p>
-<pre class="codehilite"><code>conda env create -f environment.yml
+<pre><code>conda env create -f environment.yml
 conda activate napari-blender-env
 </code></pre>
-
 <p>Now you can install the plug-in using:</p>
-<pre class="codehilite"><code>pip install napari-blender
+<pre><code>pip install napari-blender
 </code></pre>
-
 <p>Note:</p>
 <p>In Windows, an error might occur in the installation of the <code>mathutils</code> package, stating 'Microsoft Visual C++ 14.0 or greater is required'. A fix can be found on<a href="https://stackoverflow.com/questions/64261546/how-to-solve-error-microsoft-visual-c-14-0-or-greater-is-required-when-inst">StackOverflow</a>.</p>
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/Living-Technologies/napari-blender.git
+<pre><code>pip install git+https://github.com/Living-Technologies/napari-blender.git
 </code></pre>
-
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="https://www.mozilla.org/media/MPL/2.0/index.txt">Mozilla Public License 2.0</a> license,
-"napari-blender" is free and open source software</p>
+&quot;napari-blender&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/Living-Technologies/napari-blender/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

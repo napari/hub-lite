@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,39 +210,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <!-- [![License](https://img.shields.io/pypi/l/misic-napari-plugin.svg?color=green)](https://github.com/pswap/misic-napari-plugin/raw/master/LICENSE)
+                                        <!-- [![License](https://img.shields.io/pypi/l/misic-napari-plugin.svg?color=green)](https://github.com/pswap/misic-napari-plugin/raw/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/misic-napari-plugin.svg?color=green)](https://pypi.org/project/misic-napari-plugin)
 [![Python Version](https://img.shields.io/pypi/pyversions/misic-napari-plugin.svg?color=green)](https://python.org)
 [![tests](https://github.com/pswap/misic-napari-plugin/workflows/tests/badge.svg)](https://github.com/pswap/misic-napari-plugin/actions)
 [![codecov](https://codecov.io/gh/pswap/misic-napari-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/pswap/misic-napari-plugin) -->
-
 <hr />
 <!--
 Don't miss the full getting started guide to set up your new package:
@@ -247,88 +223,87 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
-<p>A napari plugin for <a href="https://elifesciences.org/articles/65151">MiSiC</a>. Segmentation of bacteria in dense colonies. 
+<p>A napari plugin for <a href="https://elifesciences.org/articles/65151">MiSiC</a>. Segmentation of bacteria in dense colonies.
 The plugin provides acces to preprocessing of the image like scaling, gamma correction, sharpness and noise variance that can improve the segmentation of bacteria irrespective of the imaging modality.</p>
 <h2>Install Napari</h2>
 <p>Install napari either the bundled app or through [pip/conda]
-https://napari.org/#installation</p>
+<a href="https://napari.org/#installation">https://napari.org/#installation</a></p>
 <h2>Installation</h2>
 <p>Install <code>misic-napari</code> through plugin manager in napari.</p>
 <p>Or</p>
 <p>You can install <code>misic-napari</code> via [pip] in the napari console:</p>
-<pre class="codehilite"><code>pip install misic-napari
+<pre><code>pip install misic-napari
 </code></pre>
-
 <h2>Tutorial</h2>
-<p>Note: 
-The image should be in the format [n,row,col] or [row,col], i.e., a single image or a stack. Hyper-stacks are not supported yet. </p>
+<p>Note:
+The image should be in the format [n,row,col] or [row,col], i.e., a single image or a stack. Hyper-stacks are not supported yet.</p>
 <h4>get_width</h4>
 <p>Creates a Shapes layer with name 'cell-width' where the cell width can be hand drawn using line drawing tools in the shapes layer. This need not be precise and can be adjusted later. Click <code>get_cell_width</code> to obtain the desired mean cell width. This will be used to scale the image accordingly before segmentation.</p>
 <h4>segment</h4>
 <p>This can be used to quickly set the parameters that can be later used to segment the whole stack.</p>
-<pre class="codehilite"><code>use_roi
+<pre><code><div class="highlight"><pre><span></span>use_roi
+</pre></div>
 </code></pre>
-
 <p>A square ROI of side 256 is created by default for quickly checking adjusting the segmentation parameters. The roi can be resized or moved in the <code>roi</code> shapes layer.</p>
-<pre class="codehilite"><code>light_background
+<pre><code><div class="highlight"><pre><span></span>light_background
+</pre></div>
 </code></pre>
-
 <p>True; for phase-contrast images.</p>
 <p>False; for bright-field and fluorescence images.</p>
-<pre class="codehilite"><code>use_local_noise
+<pre><code><div class="highlight"><pre><span></span>use_local_noise
+</pre></div>
 </code></pre>
-
 <p>If checked, this adds noise to image with local variance. In this case, a noise_var of around 0.1 works well. If unchecked, this adds noise with global variance of noise_var/100. Adding may help in removing false positives.</p>
-<pre class="codehilite"><code>gaussian_laplace
+<pre><code><div class="highlight"><pre><span></span>gaussian_laplace
+</pre></div>
 </code></pre>
-
-<p>Useful when segmenting fluorescence images. </p>
-<pre class="codehilite"><code>adjust_scale
+<p>Useful when segmenting fluorescence images.</p>
+<pre><code><div class="highlight"><pre><span></span>adjust_scale
+</pre></div>
 </code></pre>
-
 <p>Fine-tuning the scale around ([0.8,1.2]) the scale obtained from cell-width determined in <code>get_cell_width</code>.</p>
-<pre class="codehilite"><code>noise_var
+<pre><code><div class="highlight"><pre><span></span><span class="n">noise_var</span>
+</pre></div>
 </code></pre>
-
-<p>Amount of noise to be added to the image at the preprocessing step. This helps reduce the False Positives and, in many cases, to separate cells effectively. </p>
-<pre class="codehilite"><code>gamma
+<p>Amount of noise to be added to the image at the preprocessing step. This helps reduce the False Positives and, in many cases, to separate cells effectively.</p>
+<pre><code><div class="highlight"><pre><span></span>gamma
+</pre></div>
 </code></pre>
-
-<p>gamma correction </p>
-<pre class="codehilite"><code>sharpness_scale and sharpness_amount
+<p>gamma correction</p>
+<pre><code><div class="highlight"><pre><span></span>sharpness_scale and sharpness_amount
+</pre></div>
 </code></pre>
-
 <p>Unsharp mask based sharpness with sigma = sharpness_scale and amount = sharpness_amount</p>
 <h3>segment_stack</h3>
-<p>Segments the entire stack using the parameters that were obtained in "segment".</p>
+<p>Segments the entire stack using the parameters that were obtained in &quot;segment&quot;.</p>
 <h3>save</h3>
-<p>The parameters can be saved in a json file. </p>
+<p>The parameters can be saved in a json file.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the [MIT] license,
-"misic-napari" is free and open source software</p>
+&quot;misic-napari&quot; is free and open source software</p>
 <h2>Cite</h2>
-<pre class="codehilite"><code>@article {10.7554/eLife.65151,
-article_type = {journal},
-title = {Misic, a general deep learning-based method for the high-throughput cell segmentation of complex bacterial communities},
-author = {Panigrahi, Swapnesh and Murat, Dorothée and Le Gall, Antoine and Martineau, Eugénie and Goldlust, Kelly and Fiche, Jean-Bernard and Rombouts, Sara and Nöllmann, Marcelo and Espinosa, Leon and Mignot, Tâm},
-editor = {Xiao, Jie and Storz, Gisela and Hensel, Zach},
-volume = 10,
-year = 2021,
-month = {sep},
-pub_date = {2021-09-09},
-pages = {e65151},
-citation = {eLife 2021;10:e65151},
-doi = {10.7554/eLife.65151},
-url = {https://doi.org/10.7554/eLife.65151},
-abstract = {Studies of bacterial communities, biofilms and microbiomes, are multiplying due to their impact on health and ecology. Live imaging of microbial communities requires new tools for the robust identification of bacterial cells in dense and often inter-species populations, sometimes over very large scales. Here, we developed MiSiC, a general deep-learning-based 2D segmentation method that automatically segments single bacteria in complex images of interacting bacterial communities with very little parameter adjustment, independent of the microscopy settings and imaging modality. Using a bacterial predator-prey interaction model, we demonstrate that MiSiC enables the analysis of interspecies interactions, resolving processes at subcellular scales and discriminating between species in millimeter size datasets. The simple implementation of MiSiC and the relatively low need in computing power make its use broadly accessible to fields interested in bacterial interactions and cell biology.},
-keywords = {Deep learning, image analysis, microscopy, myxococcus xanthus, biofilms},
-journal = {eLife},
-issn = {2050-084X},
-publisher = {eLife Sciences Publications, Ltd},
-}
+<pre><code><div class="highlight"><pre><span></span><span class="err">@</span><span class="nx">article</span><span class="w"> </span><span class="p">{</span><span class="m m-Double">10.7554</span><span class="o">/</span><span class="nx">eLife</span><span class="m m-Double">.65151</span><span class="p">,</span>
+<span class="nx">article_type</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">journal</span><span class="p">},</span>
+<span class="nx">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">Misic</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">general</span><span class="w"> </span><span class="nx">deep</span><span class="w"> </span><span class="nx">learning</span><span class="o">-</span><span class="nx">based</span><span class="w"> </span><span class="nx">method</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">high</span><span class="o">-</span><span class="nx">throughput</span><span class="w"> </span><span class="nx">cell</span><span class="w"> </span><span class="nx">segmentation</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">complex</span><span class="w"> </span><span class="nx">bacterial</span><span class="w"> </span><span class="nx">communities</span><span class="p">},</span>
+<span class="nx">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">Panigrahi</span><span class="p">,</span><span class="w"> </span><span class="nx">Swapnesh</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Murat</span><span class="p">,</span><span class="w"> </span><span class="nx">Dorothée</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Le</span><span class="w"> </span><span class="nx">Gall</span><span class="p">,</span><span class="w"> </span><span class="nx">Antoine</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Martineau</span><span class="p">,</span><span class="w"> </span><span class="nx">Eugénie</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Goldlust</span><span class="p">,</span><span class="w"> </span><span class="nx">Kelly</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Fiche</span><span class="p">,</span><span class="w"> </span><span class="nx">Jean</span><span class="o">-</span><span class="nx">Bernard</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Rombouts</span><span class="p">,</span><span class="w"> </span><span class="nx">Sara</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Nöllmann</span><span class="p">,</span><span class="w"> </span><span class="nx">Marcelo</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Espinosa</span><span class="p">,</span><span class="w"> </span><span class="nx">Leon</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Mignot</span><span class="p">,</span><span class="w"> </span><span class="nx">Tâm</span><span class="p">},</span>
+<span class="nx">editor</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">Xiao</span><span class="p">,</span><span class="w"> </span><span class="nx">Jie</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Storz</span><span class="p">,</span><span class="w"> </span><span class="nx">Gisela</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Hensel</span><span class="p">,</span><span class="w"> </span><span class="nx">Zach</span><span class="p">},</span>
+<span class="nx">volume</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="nx">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2021</span><span class="p">,</span>
+<span class="nx">month</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">sep</span><span class="p">},</span>
+<span class="nx">pub_date</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="mi">2021</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">09</span><span class="p">},</span>
+<span class="nx">pages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">e65151</span><span class="p">},</span>
+<span class="nx">citation</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">eLife</span><span class="w"> </span><span class="mi">2021</span><span class="p">;</span><span class="mi">10</span><span class="p">:</span><span class="nx">e65151</span><span class="p">},</span>
+<span class="nx">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="m m-Double">10.7554</span><span class="o">/</span><span class="nx">eLife</span><span class="m m-Double">.65151</span><span class="p">},</span>
+<span class="nx">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">https</span><span class="p">:</span><span class="c1">//doi.org/10.7554/eLife.65151},</span>
+<span class="kd">abstract</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">Studies</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">bacterial</span><span class="w"> </span><span class="nx">communities</span><span class="p">,</span><span class="w"> </span><span class="nx">biofilms</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">microbiomes</span><span class="p">,</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">multiplying</span><span class="w"> </span><span class="nx">due</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">their</span><span class="w"> </span><span class="nx">impact</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">health</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">ecology</span><span class="p">.</span><span class="w"> </span><span class="nx">Live</span><span class="w"> </span><span class="nx">imaging</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">microbial</span><span class="w"> </span><span class="nx">communities</span><span class="w"> </span><span class="nx">requires</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="nx">tools</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">robust</span><span class="w"> </span><span class="nx">identification</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">bacterial</span><span class="w"> </span><span class="nx">cells</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">dense</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">often</span><span class="w"> </span><span class="nx">inter</span><span class="o">-</span><span class="nx">species</span><span class="w"> </span><span class="nx">populations</span><span class="p">,</span><span class="w"> </span><span class="nx">sometimes</span><span class="w"> </span><span class="nx">over</span><span class="w"> </span><span class="nx">very</span><span class="w"> </span><span class="nx">large</span><span class="w"> </span><span class="nx">scales</span><span class="p">.</span><span class="w"> </span><span class="nx">Here</span><span class="p">,</span><span class="w"> </span><span class="nx">we</span><span class="w"> </span><span class="nx">developed</span><span class="w"> </span><span class="nx">MiSiC</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">general</span><span class="w"> </span><span class="nx">deep</span><span class="o">-</span><span class="nx">learning</span><span class="o">-</span><span class="nx">based</span><span class="w"> </span><span class="mi">2</span><span class="nx">D</span><span class="w"> </span><span class="nx">segmentation</span><span class="w"> </span><span class="nx">method</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">automatically</span><span class="w"> </span><span class="nx">segments</span><span class="w"> </span><span class="nx">single</span><span class="w"> </span><span class="nx">bacteria</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">complex</span><span class="w"> </span><span class="nx">images</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">interacting</span><span class="w"> </span><span class="nx">bacterial</span><span class="w"> </span><span class="nx">communities</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">very</span><span class="w"> </span><span class="nx">little</span><span class="w"> </span><span class="nx">parameter</span><span class="w"> </span><span class="nx">adjustment</span><span class="p">,</span><span class="w"> </span><span class="nx">independent</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">microscopy</span><span class="w"> </span><span class="nx">settings</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">imaging</span><span class="w"> </span><span class="nx">modality</span><span class="p">.</span><span class="w"> </span><span class="nx">Using</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">bacterial</span><span class="w"> </span><span class="nx">predator</span><span class="o">-</span><span class="nx">prey</span><span class="w"> </span><span class="nx">interaction</span><span class="w"> </span><span class="nx">model</span><span class="p">,</span><span class="w"> </span><span class="nx">we</span><span class="w"> </span><span class="nx">demonstrate</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">MiSiC</span><span class="w"> </span><span class="nx">enables</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">analysis</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">interspecies</span><span class="w"> </span><span class="nx">interactions</span><span class="p">,</span><span class="w"> </span><span class="nx">resolving</span><span class="w"> </span><span class="nx">processes</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="nx">subcellular</span><span class="w"> </span><span class="nx">scales</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">discriminating</span><span class="w"> </span><span class="nx">between</span><span class="w"> </span><span class="nx">species</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">millimeter</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="nx">datasets</span><span class="p">.</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">simple</span><span class="w"> </span><span class="nx">implementation</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">MiSiC</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">relatively</span><span class="w"> </span><span class="nx">low</span><span class="w"> </span><span class="nx">need</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">computing</span><span class="w"> </span><span class="nx">power</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">its</span><span class="w"> </span><span class="nx">use</span><span class="w"> </span><span class="nx">broadly</span><span class="w"> </span><span class="nx">accessible</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">fields</span><span class="w"> </span><span class="nx">interested</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">bacterial</span><span class="w"> </span><span class="nx">interactions</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">cell</span><span class="w"> </span><span class="nx">biology</span><span class="p">.},</span>
+<span class="nx">keywords</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">Deep</span><span class="w"> </span><span class="nx">learning</span><span class="p">,</span><span class="w"> </span><span class="nx">image</span><span class="w"> </span><span class="nx">analysis</span><span class="p">,</span><span class="w"> </span><span class="nx">microscopy</span><span class="p">,</span><span class="w"> </span><span class="nx">myxococcus</span><span class="w"> </span><span class="nx">xanthus</span><span class="p">,</span><span class="w"> </span><span class="nx">biofilms</span><span class="p">},</span>
+<span class="nx">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">eLife</span><span class="p">},</span>
+<span class="nx">issn</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="mi">2050</span><span class="o">-</span><span class="mi">084</span><span class="nx">X</span><span class="p">},</span>
+<span class="nx">publisher</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="nx">eLife</span><span class="w"> </span><span class="nx">Sciences</span><span class="w"> </span><span class="nx">Publications</span><span class="p">,</span><span class="w"> </span><span class="nx">Ltd</span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-        
+
 
                                     </div>
                                 </div>

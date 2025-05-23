@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,39 +234,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-swc-editor.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-swc-editor"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-swc-editor.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-swc-editor.svg?color=green" /></a>
-<a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor/actions"><img alt="tests" src="https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-swc-editor"><img alt="codecov" src="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-swc-editor/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-swc-editor"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-swc-editor" /></a></p>
+                                        <p><a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-swc-editor.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-swc-editor"><img src="https://img.shields.io/pypi/v/napari-swc-editor.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-swc-editor.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor/actions"><img src="https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-swc-editor"><img src="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-swc-editor/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-swc-editor"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-swc-editor" alt="napari hub" /></a></p>
 <p>Use point and shape layer to edit swc format in napari.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
@@ -273,16 +250,15 @@ https://github.com/napari/napari-plugin-template#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Features</h2>
-<p>https://github.com/user-attachments/assets/cba1820f-d0b5-436c-a981-62bae0e1a6ba</p>
+<p><a href="https://github.com/user-attachments/assets/cba1820f-d0b5-436c-a981-62bae0e1a6ba">https://github.com/user-attachments/assets/cba1820f-d0b5-436c-a981-62bae0e1a6ba</a></p>
 <h3>IO</h3>
 <h4>READER</h4>
 <ul>
-<li>Your .swc should follow the following specs: http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html</li>
+<li>Your .swc should follow the following specs: <a href="http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html">http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html</a></li>
 <li>the reader will create 2 napari layer: <code>point_layer</code> and <code>shape_layer</code>. Only <code>point_layer</code> is interactive, <code>shape_layer</code> is used to render path between swc points.</li>
-<li>The raw swc can be accessed in the point layer metadata. Such as <code>point_layer.metadata["raw_swc"]</code></li>
-<li>A <code>pd.DataFrame</code> object is also saved in the metadata: <code>point_layer.metadata["swc_data"]</code></li>
+<li>The raw swc can be accessed in the point layer metadata. Such as <code>point_layer.metadata[&quot;raw_swc&quot;]</code></li>
+<li>A <code>pd.DataFrame</code> object is also saved in the metadata: <code>point_layer.metadata[&quot;swc_data&quot;]</code></li>
 </ul>
 <h4>WRITER</h4>
 <ul>
@@ -292,51 +268,55 @@ https://napari.org/stable/plugins/index.html
 <h3>Napari Interface</h3>
 <h4>Structure ID and point symbol</h4>
 <p>In swc, structure id allow to label the type of neuron structure the point belongs to. In this plugin by default, the points will follow this symbol mapping:</p>
-<pre class="codehilite"><code class="language-python">SWC_SYMBOL = {
-    0: &quot;clobber&quot;,  # undefined
-    1: &quot;star&quot;,  # soma
-    2: &quot;disc&quot;,  # axon
-    3: &quot;triangle_down&quot;,  # basal dendrite
-    4: &quot;triangle_up&quot;,  # apical dendrite
-}
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">SWC_SYMBOL</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;clobber&quot;</span><span class="p">,</span>  <span class="c1"># undefined</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;star&quot;</span><span class="p">,</span>  <span class="c1"># soma</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;disc&quot;</span><span class="p">,</span>  <span class="c1"># axon</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;triangle_down&quot;</span><span class="p">,</span>  <span class="c1"># basal dendrite</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;triangle_up&quot;</span><span class="p">,</span>  <span class="c1"># apical dendrite</span>
+<span class="p">}</span>
+</pre></div>
 </code></pre>
-
-<p><img alt="image" src="https://github.com/user-attachments/assets/618aa000-370d-43f9-8645-8a3b7e9b9739" /></p>
+<p><img src="https://github.com/user-attachments/assets/618aa000-370d-43f9-8645-8a3b7e9b9739" alt="image" /></p>
 <p>You can also visualize the swc data in a table using the widget under <code>Plugin &gt; SWC Editor Widget</code></p>
-<p><img alt="image" src="https://github.com/user-attachments/assets/ed43f4c2-582b-4bc1-bbb1-54e8d9487f1d" /></p>
-<p>When using the "Show swc table" you will have an interactive table widget:
-- left-click on table: highlight + center on the corresponding point
-- <strong>double</strong>-left-click on table: highlight + center on the correspongind point <strong>+ zoom</strong>
-- selection on the point layer: highlight the corresponding row on the table</p>
+<p><img src="https://github.com/user-attachments/assets/ed43f4c2-582b-4bc1-bbb1-54e8d9487f1d" alt="image" /></p>
+<p>When using the &quot;Show swc table&quot; you will have an interactive table widget:</p>
+<ul>
+<li>left-click on table: highlight + center on the corresponding point</li>
+<li><strong>double</strong>-left-click on table: highlight + center on the correspongind point <strong>+ zoom</strong></li>
+<li>selection on the point layer: highlight the corresponding row on the table</li>
+</ul>
 <h4>SWC Edition</h4>
 <p><strong>ALL INTERACTIONS ARE ONLY BOUND TO THE <code>point_layer</code></strong>
-<strong>THERE IS NO CTRL-Z (please save your progress)</strong>
-- <strong>Add point</strong>: You can edit the "r" and the "structure_id" using the <code>point_size</code> and <code>symbol</code> <img alt="image" src="https://github.com/user-attachments/assets/44255691-ffa0-4f63-8368-499b0c8ff6a4" />
-- <strong>Remove point</strong>: (Select the point and press <code>1</code> or <code>suppr</code> or <code>delete</code>) All the link pointing to this point will be removed
-- <strong>Add edge</strong>: Select 2 or more point(s) and press on your keyboard <code>l</code> (aka: link).
-- <strong>Remove edge</strong>: Select 1 or more point(s) and press on your keyboard <code>u</code> (aka: unlink).</p>
-<p>If you want to link point as you are adding them you have two solutions:
-- press "CTRL" while you add points, this will create a link with the previously selected point
-- use the <code>Plugin &gt; SWC Editor Widget</code> Checkbox ("link previous node with new node (same as using CTRL+Click)"): when selected, all new points will be selected with the previously selected point</p>
-<p>https://github.com/user-attachments/assets/273f1221-2882-4a7c-ab7f-6d3ecb7f3fa6</p>
+<strong>THERE IS NO CTRL-Z (please save your progress)</strong></p>
+<ul>
+<li><strong>Add point</strong>: You can edit the &quot;r&quot; and the &quot;structure_id&quot; using the <code>point_size</code> and <code>symbol</code> <img src="https://github.com/user-attachments/assets/44255691-ffa0-4f63-8368-499b0c8ff6a4" alt="image" /></li>
+<li><strong>Remove point</strong>: (Select the point and press <code>1</code> or <code>suppr</code> or <code>delete</code>) All the link pointing to this point will be removed</li>
+<li><strong>Add edge</strong>: Select 2 or more point(s) and press on your keyboard <code>l</code> (aka: link).</li>
+<li><strong>Remove edge</strong>: Select 1 or more point(s) and press on your keyboard <code>u</code> (aka: unlink).</li>
+</ul>
+<p>If you want to link point as you are adding them you have two solutions:</p>
+<ul>
+<li>press &quot;CTRL&quot; while you add points, this will create a link with the previously selected point</li>
+<li>use the <code>Plugin &gt; SWC Editor Widget</code> Checkbox (&quot;link previous node with new node (same as using CTRL+Click)&quot;): when selected, all new points will be selected with the previously selected point</li>
+</ul>
+<p><a href="https://github.com/user-attachments/assets/273f1221-2882-4a7c-ab7f-6d3ecb7f3fa6">https://github.com/user-attachments/assets/273f1221-2882-4a7c-ab7f-6d3ecb7f3fa6</a></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-swc-editor</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-swc-editor
+<pre><code>pip install napari-swc-editor
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor.git
+<pre><code>pip install git+https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-swc-editor" is free and open source software</p>
+&quot;napari-swc-editor&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-editor/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

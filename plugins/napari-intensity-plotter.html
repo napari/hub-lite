@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,42 +234,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/Tbrn1103/napari-intensity-plotter/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-intensity-plotter.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-intensity-plotter"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-intensity-plotter.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-intensity-plotter.svg?color=green" /></a>
-<a href="https://github.com/Tbrn1103/napari-intensity-plotter/actions"><img alt="tests" src="https://github.com/Tbrn1103/napari-intensity-plotter/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/Tbrn1103/napari-intensity-plotter"><img alt="codecov" src="https://codecov.io/gh/Tbrn1103/napari-intensity-plotter/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-intensity-plotter"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-intensity-plotter" /></a></p>
+                                        <p><a href="https://github.com/Tbrn1103/napari-intensity-plotter/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-intensity-plotter.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-intensity-plotter"><img src="https://img.shields.io/pypi/v/napari-intensity-plotter.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-intensity-plotter.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/Tbrn1103/napari-intensity-plotter/actions"><img src="https://github.com/Tbrn1103/napari-intensity-plotter/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/Tbrn1103/napari-intensity-plotter"><img src="https://codecov.io/gh/Tbrn1103/napari-intensity-plotter/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-intensity-plotter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-intensity-plotter" alt="napari hub" /></a></p>
 <h1>napari-intensity-plotter</h1>
 <p><strong>napari-intensity-plotter</strong> is a plugin for <strong><a href="https://napari.org">napari</a></strong> that provides tools to measure and plot intensity profiles in 2D time-series images.</p>
-<p><img alt="Intensity Plot Widget" src="images/intensity_plot_widget_example.png" /></p>
+<p><img src="images/intensity_plot_widget_example.png" alt="Intensity Plot Widget" /></p>
 <p><em>Screenshot: Intensity profile of a region of interest in a 2D time-series image.</em></p>
 <h2>Features</h2>
 <ul>
@@ -274,48 +251,52 @@ pre > code:last-child {
 </ul>
 <h2>Installation</h2>
 <p>You can install <code>napari-intensity-plotter</code> via pip:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-intensity-plotter
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-intensity-plotter
+</pre></div>
 </code></pre>
-
 <p>Alternatively, you can install it directly from the napari plugin interface.</p>
 <h3>Usage</h3>
 <ol>
 <li>
 <p><strong>Load a 2D Time-Series Image</strong><br />
-   Load a 2D time-series image (e.g., fluorescence microscopy data) in napari.</p>
+Load a 2D time-series image (e.g., fluorescence microscopy data) in napari.</p>
 </li>
 <li>
 <p><strong>Activate the Widgets</strong><br />
-   Open the <code>Intensity Plot Widget</code> and <code>Intensity Plot Control Widget</code> from the <code>Plugins</code> menu in napari.</p>
+Open the <code>Intensity Plot Widget</code> and <code>Intensity Plot Control Widget</code> from the <code>Plugins</code> menu in napari.</p>
 </li>
 <li>
-<p><strong>Intensity Plot Widget</strong>  </p>
-</li>
+<p><strong>Intensity Plot Widget</strong></p>
+<ul>
 <li>Move your mouse over the image, or click on a specific location to plot the intensity profile of the selected region across slices (e.g., time).</li>
-<li>
-<p>The region of interest (ROI) size can be adjusted using the square size setting in the control widget.</p>
+<li>The region of interest (ROI) size can be adjusted using the square size setting in the control widget.</li>
+</ul>
 </li>
 <li>
-<p><strong>Intensity Plot Control Widget</strong>  </p>
-</li>
+<p><strong>Intensity Plot Control Widget</strong></p>
+<ul>
 <li>Configure the square size for the ROI (ensures that the region size remains odd).</li>
 <li>Set the directory to save plots and intensity data.</li>
-<li>
-<p>Save the intensity profile as a <code>.csv</code> or <code>.png</code> file by clicking the corresponding buttons or using keyboard shortcuts (<code>Ctrl+S</code>).</p>
+<li>Save the intensity profile as a <code>.csv</code> or <code>.png</code> file by clicking the corresponding buttons or using keyboard shortcuts (<code>Ctrl+S</code>).</li>
+</ul>
 </li>
 <li>
-<p><strong>Additional Controls</strong>  </p>
-</li>
+<p><strong>Additional Controls</strong></p>
+<ul>
 <li>Hide all layers using the <code>Hide All Layers</code> button or <code>Ctrl+D</code>.</li>
 <li>Use the rectangle to visualize the selected ROI.</li>
+</ul>
+</li>
 </ol>
 <h3>Example Workflow</h3>
 <p><strong>Step 1</strong>: Load a 2D time-series image (e.g., <code>tif</code> or <code>nd2</code>) into napari. Ensure the layer is visible.</p>
 <p><strong>Step 2</strong>: Open the <code>Intensity Plot Widget</code> to visualize intensity changes over time or slices for a specific ROI.</p>
-<p><strong>Step 3</strong>: Use the <code>Intensity Plot Control Widget</code> to:
-- Adjust the square size for the ROI.
-- Specify a directory to save intensity data.
-- Enable saving in CSV or PNG formats.</p>
+<p><strong>Step 3</strong>: Use the <code>Intensity Plot Control Widget</code> to:</p>
+<ul>
+<li>Adjust the square size for the ROI.</li>
+<li>Specify a directory to save intensity data.</li>
+<li>Enable saving in CSV or PNG formats.</li>
+</ul>
 <p><strong>Step 4</strong>: Save the plotted intensity data by clicking <code>Save to CSV/PNG</code> or pressing <code>Ctrl+S</code>.</p>
 <p><strong>Step 5</strong>: Hide all layers if necessary using <code>Hide All Layers</code> or <code>Ctrl+D</code>.</p>
 <h2>Contributing</h2>
@@ -325,7 +306,7 @@ pre > code:last-child {
 <p>Special thanks to the napari community for their continuous support and resources.</p>
 <h2>License</h2>
 <p>This project is licensed under the BSD 3-Clause License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
-        
+
 
                                     </div>
                                 </div>

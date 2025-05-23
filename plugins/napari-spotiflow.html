@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,50 +206,23 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://www.gnu.org/licenses/bsd3"><img alt="License: BSD-3" src="https://img.shields.io/badge/License-BSD3-blue.svg" /></a>
-<a href="https://pypi.org/project/napari-spotiflow"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-spotiflow.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-spotiflow.svg?color=green" /></a>
-<a href="https://github.com/weigertlab/napari-spotiflow/actions"><img alt="tests" src="https://github.com/weigertlab/napari-spotiflow/workflows/tests/badge.svg" /></a>
-<a href="https://pypistats.org/packages/napari-spotiflow"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/napari-spotiflow" /></a>
-<a href="https://napari-hub.org/plugins/napari-spotiflow"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-spotiflow" /></a></p>
-<h2><img alt="Logo" src="https://github.com/weigertlab/napari-spotiflow/raw/main/artwork/spotiflow_logo.png" /></h2>
+                                        <p><a href="https://www.gnu.org/licenses/bsd3"><img src="https://img.shields.io/badge/License-BSD3-blue.svg" alt="License: BSD-3" /></a>
+<a href="https://pypi.org/project/napari-spotiflow"><img src="https://img.shields.io/pypi/v/napari-spotiflow.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-spotiflow.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/weigertlab/napari-spotiflow/actions"><img src="https://github.com/weigertlab/napari-spotiflow/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://pypistats.org/packages/napari-spotiflow"><img src="https://img.shields.io/pypi/dm/napari-spotiflow" alt="PyPI - Downloads" /></a>
+<a href="https://napari-hub.org/plugins/napari-spotiflow"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-spotiflow" alt="napari hub" /></a></p>
+<h2><img src="https://github.com/weigertlab/napari-spotiflow/raw/main/artwork/spotiflow_logo.png" alt="Logo" /></h2>
 <h1>Spotiflow: napari plugin</h1>
-<p>Napari plugin for <em>Spotiflow</em>, a deep learning-based, threshold-agnostic, and subpixel-accurate spot detection method for 2D and 3D fluorescence microscopy images. The plugin allows using several pre-trained models as well as user-trained ones. For the main repository, see <a href="https://github.com/weigertlab/spotiflow">here</a>. </p>
-<p>https://github.com/weigertlab/napari-spotiflow/assets/11042162/02940480-daa9-4a21-8cf5-ad73c26c9838</p>
+<p>Napari plugin for <em>Spotiflow</em>, a deep learning-based, threshold-agnostic, and subpixel-accurate spot detection method for 2D and 3D fluorescence microscopy images. The plugin allows using several pre-trained models as well as user-trained ones. For the main repository, see <a href="https://github.com/weigertlab/spotiflow">here</a>.</p>
+<p><a href="https://github.com/weigertlab/napari-spotiflow/assets/11042162/02940480-daa9-4a21-8cf5-ad73c26c9838">https://github.com/weigertlab/napari-spotiflow/assets/11042162/02940480-daa9-4a21-8cf5-ad73c26c9838</a></p>
 <p>If you use this plugin for your research, please <a href="https://github.com/weigertlab/spotiflow#how-to-cite">cite us</a> as well as <a href="https://github.com/napari/napari?tab=readme-ov-file#citing-napari">napari</a>.</p>
 <hr />
 <h2>Installation</h2>
 <p>The plugin can be installed directly from PyPi (make sure you use a conda environment with <code>napari</code> and <code>spotiflow</code> installed):</p>
-<pre class="codehilite"><code>pip install napari-spotiflow
+<pre><code><div class="highlight"><pre><span></span>pip install napari-spotiflow
+</pre></div>
 </code></pre>
-
 <h2>Usage</h2>
 <ol>
 <li>Open the image (or open one of our samples, <em>e.g.</em> <code>File &gt; Open Sample &gt; napari-spotiflow &gt; HybISS</code>)</li>
@@ -262,7 +239,7 @@ pre > code:last-child {
 </ul>
 <h2>How to cite</h2>
 <p>See the <a href="https://github.com/weigertlab/spotiflow?tab=readme-ov-file#how-to-cite">main repository's <em>How to cite</em> section</a> as well as napari's <a href="https://github.com/napari/napari?tab=readme-ov-file#citing-napari"><em>citing napari</em> section</a>.</p>
-        
+
 
                                     </div>
                                 </div>

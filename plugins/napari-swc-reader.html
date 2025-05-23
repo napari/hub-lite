@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -230,41 +234,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-swc-reader.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-swc-reader"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-swc-reader.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-swc-reader.svg?color=green" /></a>
-<a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader/actions"><img alt="tests" src="https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-swc-reader"><img alt="codecov" src="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-swc-reader/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-swc-reader"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-swc-reader" /></a></p>
+                                        <p><a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-swc-reader.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-swc-reader"><img src="https://img.shields.io/pypi/v/napari-swc-reader.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-swc-reader.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader/actions"><img src="https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-swc-reader"><img src="https://codecov.io/gh/LaboratoryOpticsBiosciences/napari-swc-reader/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-swc-reader"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-swc-reader" alt="napari hub" /></a></p>
 <p>A minimal napari plugin to load swc file to napari viewer.</p>
-<p><img alt="image" src="https://github.com/user-attachments/assets/1c9e5788-0e74-48ab-be0b-0fb74b35192c" /></p>
+<p><img src="https://github.com/user-attachments/assets/1c9e5788-0e74-48ab-be0b-0fb74b35192c" alt="image" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a>.</p>
 <h2>Features</h2>
@@ -272,31 +249,33 @@ pre > code:last-child {
 <li>Load swc file(s) to napari viewer</li>
 <li>Display swc file(s) in napari viewer as points layers and lines layers</li>
 <li>Size of points and lines are using the radius of the swc file</li>
-<li>You can load an example swc from https://neuromorpho.org/dableFiles/jacobs/CNG%20version/204-2-6nj.CNG.swc or load it under <code>File</code> -&gt; <code>Open Sample</code> -&gt; <code>napari-swc-reader</code></li>
+<li>You can load an example swc from <a href="https://neuromorpho.org/dableFiles/jacobs/CNG%20version/204-2-6nj.CNG.swc">https://neuromorpho.org/dableFiles/jacobs/CNG version/204-2-6nj.CNG.swc</a> or load it under <code>File</code> -&gt; <code>Open Sample</code> -&gt; <code>napari-swc-reader</code></li>
 </ul>
-<p><strong>Limitations:</strong>
-- Only support swc file(s) following specs http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html 7 columns
-- Cannot write swc file(s) to disk but you can access the raw swc data from the napari layers from <code>metadata</code> attribute with key <code>raw_swc</code></p>
-<p><strong>Roadmap:</strong>
-- Switch to use <code>napari.layers.Graph</code> <a href="https://github.com/napari/napari/issues/4274">when it is available</a></p>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>Only support swc file(s) following specs <a href="http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html">http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html</a> 7 columns</li>
+<li>Cannot write swc file(s) to disk but you can access the raw swc data from the napari layers from <code>metadata</code> attribute with key <code>raw_swc</code></li>
+</ul>
+<p><strong>Roadmap:</strong></p>
+<ul>
+<li>Switch to use <code>napari.layers.Graph</code> <a href="https://github.com/napari/napari/issues/4274">when it is available</a></li>
+</ul>
 <h2>Installation</h2>
 <p>You can install <code>napari-swc-reader</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-swc-reader
+<pre><code>pip install napari-swc-reader
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader.git
+<pre><code>pip install git+https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader.git
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-swc-reader" is free and open source software</p>
+&quot;napari-swc-reader&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/LaboratoryOpticsBiosciences/napari-swc-reader/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

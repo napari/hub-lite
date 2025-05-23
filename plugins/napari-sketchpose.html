@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,61 +206,33 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/koopa31/napari-sketchpose/raw/main/LICENSE"><img alt="License GNU GPL v3.0" src="https://img.shields.io/pypi/l/napari-sketchpose.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-sketchpose"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-sketchpose.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-sketchpose.svg?color=green" /></a>
-<a href="https://github.com/koopa31/napari-sketchpose/actions"><img alt="tests" src="https://github.com/koopa31/napari-sketchpose/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/koopa31/napari-sketchpose"><img alt="codecov" src="https://codecov.io/gh/koopa31/napari-sketchpose/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-sketchpose"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sketchpose" /></a></p>
-<p>A plugin to adapt the Omnipose implementation to frugal labeling. It aims to facilitate the training from scratch or the 
+                                        <p><a href="https://github.com/koopa31/napari-sketchpose/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-sketchpose.svg?color=green" alt="License GNU GPL v3.0" /></a>
+<a href="https://pypi.org/project/napari-sketchpose"><img src="https://img.shields.io/pypi/v/napari-sketchpose.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-sketchpose.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/koopa31/napari-sketchpose/actions"><img src="https://github.com/koopa31/napari-sketchpose/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/koopa31/napari-sketchpose"><img src="https://codecov.io/gh/koopa31/napari-sketchpose/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-sketchpose"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-sketchpose" alt="napari hub" /></a></p>
+<p>A plugin to adapt the Omnipose implementation to frugal labeling. It aims to facilitate the training from scratch or the
 use of transfer learning with little data, by not needing to draw entire cells, but a few squiggles instead (see GIF below).</p>
-<p>If you use this plugin please cite the <a href="https://hal.science/hal-04330824">paper</a>: </p>
+<p>If you use this plugin please cite the <a href="https://hal.science/hal-04330824">paper</a>:</p>
 <p>Clément Cazorla, Nathanaël Munier, Renaud Morin, Pierre Weiss. Sketchpose: Learning to Segment
 Cells with Partial Annotations. 2023. ffhal-04330824f</p>
-<pre class="codehilite"><code class="language-bibtex">@unpublished{cazorla:hal-04330824,
-      TITLE = {{Sketchpose: Learning to Segment Cells with Partial Annotations}},
-      AUTHOR = {Cazorla, Cl{\'e}ment and Munier, Nathana{\&quot;e}l and Morin, Renaud and Weiss, Pierre},
-      URL = {https://hal.science/hal-04330824},
-      NOTE = {working paper or preprint},
-      YEAR = {2023},
-      MONTH = Dec,
-      KEYWORDS = {Cellpose -Segmentation -Frugal learning -Napari -Deep learning -Distance map},
-      PDF = {https://hal.science/hal-04330824/file/sketchpose_hal.pdf},
-      HAL_ID = {hal-04330824},
-      HAL_VERSION = {v1},
-    }
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nc">@unpublished</span><span class="p">{</span><span class="nl">cazorla:hal-04330824</span><span class="p">,</span>
+<span class="w">      </span><span class="na">TITLE</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{{Sketchpose: Learning to Segment Cells with Partial Annotations}}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">AUTHOR</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Cazorla, Cl{\&#39;e}ment and Munier, Nathana{\&quot;e}l and Morin, Renaud and Weiss, Pierre}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">URL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://hal.science/hal-04330824}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">NOTE</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{working paper or preprint}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">YEAR</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2023}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">MONTH</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nv">Dec</span><span class="p">,</span>
+<span class="w">      </span><span class="na">KEYWORDS</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Cellpose -Segmentation -Frugal learning -Napari -Deep learning -Distance map}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">PDF</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://hal.science/hal-04330824/file/sketchpose_hal.pdf}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">HAL_ID</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{hal-04330824}</span><span class="p">,</span>
+<span class="w">      </span><span class="na">HAL_VERSION</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{v1}</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
 </code></pre>
-
-<p><img alt="" src="https://bitbucket.org/koopa31/napari-sketchpose/raw/b691817e9e20a3c1c2bc69277579f6fb9b26354e/images/frugalpose.gif" />
-Image Credit: Eduard Muzhevskyi</p>
-<hr />
+<h2><img src="https://bitbucket.org/koopa31/napari-sketchpose/raw/b691817e9e20a3c1c2bc69277579f6fb9b26354e/images/frugalpose.gif" alt="" />
+Image Credit: Eduard Muzhevskyi</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
 Don't miss the full getting started guide to set up your new package:
@@ -265,22 +241,19 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>First, we advise you to create a conda environment in Python 3.10, in which you will run Napari:</p>
-<pre class="codehilite"><code>conda create -n sketchpose_env python=3.10
+<pre><code>conda create -n sketchpose_env python=3.10
 conda activate sketchpose_env
 conda install pip
 python -m pip install &quot;napari[all]&quot; --upgrade
 </code></pre>
-
 <p>You can install <code>napari_sketchpose</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari_sketchpose
+<pre><code>pip install napari_sketchpose
 </code></pre>
-
 <p>WARNING:</p>
 <p>For Windows users, CUDA version of PyTorch may not be installed properly. When the plugin starts for the first time, it checks whether
-CUDA version is installed. If not, it tries to install it using light-the-torch library. If this does not work, you should re-install 
+CUDA version is installed. If not, it tries to install it using light-the-torch library. If this does not work, you should re-install
 CUDA torch and torchvision versions manually, otherwise the plugin will not work properly.</p>
 <h2>Tutorial</h2>
 <p>We strongly recommend reading the <a href="https://sketchpose-doc.readthedocs.io/en/latest/">documentation</a> to get the most out of the plugin.
@@ -290,10 +263,10 @@ A step-by-step tutorial illustrated with GIFs will guide you through the various
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GNU GPL v3.0</a> license,
-"napari-sketchpose" is free and open source software</p>
+&quot;napari-sketchpose&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

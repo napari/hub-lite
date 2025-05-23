@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,52 +206,24 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/tdmorello/napari-basicpy/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-basicpy.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-basicpy"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-basicpy.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-basicpy.svg?color=green" /></a>
-<a href="https://github.com/tdmorello/napari-basicpy/actions"><img alt="tests" src="https://github.com/tdmorello/napari-basicpy/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/tdmorello/napari-basicpy"><img alt="codecov" src="https://codecov.io/gh/tdmorello/napari-basicpy/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-basicpy"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-basicpy" /></a></p>
+                                        <p><a href="https://github.com/tdmorello/napari-basicpy/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-basicpy.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-basicpy"><img src="https://img.shields.io/pypi/v/napari-basicpy.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-basicpy.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/tdmorello/napari-basicpy/actions"><img src="https://github.com/tdmorello/napari-basicpy/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/tdmorello/napari-basicpy"><img src="https://codecov.io/gh/tdmorello/napari-basicpy/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-basicpy"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-basicpy" alt="napari hub" /></a></p>
 <p>BaSiCPy illumination correction for <a href="https://github.com/napari/napari">napari</a></p>
 <h2>Example</h2>
-<p><img alt="example" src="resources/example.gif" /></p>
+<p><img src="resources/example.gif" alt="example" /></p>
 <hr />
 <h2>Installation</h2>
 <h3>Recommended Installation Method</h3>
 <p>We highly recommend using a <code>conda</code> virtual environment to install and operate this plugin.</p>
 <p>To use Python 3.9, for example:</p>
-<pre class="codehilite"><code>conda create -n basicpy -c conda-forge python=3.9 napari pyqt &amp;&amp; \
+<pre><code>conda create -n basicpy -c conda-forge python=3.9 napari pyqt &amp;&amp; \
 conda activate basicpy &amp;&amp; \
 pip install napari-basicpy
 </code></pre>
-
 <p>For further instructions on installing <code>napari</code>, visit their <a href="https://napari.org/stable/tutorials/fundamentals/installation">install guide</a>.</p>
 <hr />
 <p><strong>IMPORTANT NOTE FOR APPLE SILICON AND WINDOWS USERS:</strong></p>
@@ -255,17 +231,14 @@ pip install napari-basicpy
 <hr />
 <h3>Other Installation Methods</h3>
 <p>You can also install <code>napari-basicpy</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-basicpy
+<pre><code>pip install napari-basicpy
 </code></pre>
-
 <p>To install latest development version:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/peng-lab/napari-basicpy.git
+<pre><code>pip install git+https://github.com/peng-lab/napari-basicpy.git
 </code></pre>
-
 <p>or</p>
-<pre class="codehilite"><code>pip install git+https://github.com/tdmorello/napari-basicpy.git
+<pre><code>pip install git+https://github.com/tdmorello/napari-basicpy.git
 </code></pre>
-
 <h2>Usage</h2>
 <h3>General Usage</h3>
 <p>This plugin expects a stack of tiles as input. Mosaic images should be deconstructed into their tiled components before processing. Individual tiles should be two-dimensional.</p>
@@ -277,10 +250,10 @@ pip install napari-basicpy
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-basicpy" is free and open source software</p>
+&quot;napari-basicpy&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/peng-lab/napari-basicpy/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

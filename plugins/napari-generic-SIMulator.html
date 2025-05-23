@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,48 +210,23 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-generic-SIMulator.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-generic-SIMulator"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-generic-SIMulator.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-generic-SIMulator.svg?color=green" /></a>
-<a href="https://github.com/Meizhu-Liang/napari-generic-SIMulator/actions"><img alt="tests" src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/Meizhu-Liang/napari-generic-SIMulator"><img alt="codecov" src="https://codecov.io/gh/Meizhu-Liang/napari-generic-SIMulator/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-generic-SIMulator"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-generic-SIMulator" /></a></p>
-<p>A napari plugin to simulate raw-image stacks of Structured illumination microscopy (SIM). </p>
+                                        <p><a href="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-generic-SIMulator.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-generic-SIMulator"><img src="https://img.shields.io/pypi/v/napari-generic-SIMulator.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-generic-SIMulator.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/Meizhu-Liang/napari-generic-SIMulator/actions"><img src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/Meizhu-Liang/napari-generic-SIMulator"><img src="https://codecov.io/gh/Meizhu-Liang/napari-generic-SIMulator/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-generic-SIMulator"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-generic-SIMulator" alt="napari hub" /></a></p>
+<p>A napari plugin to simulate raw-image stacks of Structured illumination microscopy (SIM).</p>
 <p>The simulation is originally based on the paper <strong>GPU-accelerated real-time reconstruction in Python of three-dimensional datasets from structured illumination microscopy with hexagonal patterns</strong> by
-Hai Gong, Wenjun Guo and Mark A. A. Neil (https://doi.org/10.1098/rsta.2020.0162). </p>
+Hai Gong, Wenjun Guo and Mark A. A. Neil (<a href="https://doi.org/10.1098/rsta.2020.0162">https://doi.org/10.1098/rsta.2020.0162</a>).</p>
 <p>The calculation can be GPU-accelerated if the CUPY (tested with cupy-cuda11x) is installed. In addition, the TORCH package can complete the acceleration both on CPU if TORCH is installed, and on GPU if TORCH is compiled with the CUDA (tested with torch v1.13.1+cu117) enabled.</p>
-<p>Currently applies to:
-- conventional 2-beam SIM data with 3 angles and 3 phases
-- 3-beam hexagonal SIM data with 7 phases, as described in the paper
-- 3-beam hexagonal SIM data with 5 phases at right-angles
-- conventional 3-beam 3-D data with 3 angles and 5 phases</p>
+<p>Currently applies to:</p>
+<ul>
+<li>conventional 2-beam SIM data with 3 angles and 3 phases</li>
+<li>3-beam hexagonal SIM data with 7 phases, as described in the paper</li>
+<li>3-beam hexagonal SIM data with 5 phases at right-angles</li>
+<li>conventional 3-beam 3-D data with 3 angles and 5 phases</li>
+</ul>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -257,56 +236,59 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-generic-SIMulator</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-generic-SIMulator
+<pre><code>pip install napari-generic-SIMulator
 </code></pre>
-
 <p>To install latest development version :</p>
-<pre class="codehilite"><code>pip install git+https://github.com/Meizhu-Liang/napari-generic-SIMulator.git
+<pre><code>pip install git+https://github.com/Meizhu-Liang/napari-generic-SIMulator.git
 </code></pre>
-
 <p>This plugin is compatible with <strong>napari 0.4.17</strong> or above, older versions of napari would show errors in <em>interpolation</em>.</p>
 <h2>Usage</h2>
-<p>1) Open napari and create the viewer.</p>
-<p>2) Launch two widgets: <strong>Point cloud generator</strong> and <strong>SIM data generator</strong> in <strong><em>Plugin</em></strong>.</p>
-<p><img alt="raw" src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/lauch.png" /></p>
+<ol>
+<li>
+<p>Open napari and create the viewer.</p>
+</li>
+<li>
+<p>Launch two widgets: <strong>Point cloud generator</strong> and <strong>SIM data generator</strong> in <em><strong>Plugin</strong></em>.</p>
+<p><img src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/lauch.png" alt="raw" /></p>
 <p>The two widgets can be tabbed together.
-   <img alt="raw" src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/2tabs.png" /></p>
-<p>3) Choose the type and other parameters of point cloud as a sample in <strong>Point cloud generator</strong>.</p>
-<pre class="codehilite"><code>![raw](https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/pc.png)
-
-The point cloud can be displayed in three dimensions, and be saved and loaded as .pcd files.
-
-https://user-images.githubusercontent.com/74197598/227589232-9006842b-6706-48b7-9f2b-fe93c6698503.mp4
-</code></pre>
-
-<p>4) Adjust parameters in SIM data generator to simulate a raw image stack.</p>
-<p>Apart from basic parameters such as the refractive index, the wavelengths and so on, the z scanning can be either 
-   <strong>z drift</strong>: the conventional SIM (imaging a raw stack at the same z-position) or <strong>z step</strong>: the drifting case in 
-   the papaer mentioned above (imaging only one raw image at a z-position).</p>
-<p><img alt="raw" src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/raw_stack.png" /></p>
-<p>The parameters used in the simulation can be saved with the image stack by clicking <strong>save tif with tags</strong>. Tags (of current or of one stack dragged into napari viewer) can be printed in Python by <strong>print tags</strong>. </p>
-<p>5) Three-dimensional point spread function (<strong>PSF</strong>), optical transfer function (<strong>OTF</strong>) and <strong>illumination</strong> patterns applied in the simulation can be showed by buttons. Note the all of these correspond the generated raw-image stack, so keep the parameters the same before showing the <strong>PSF</strong> (or <strong>OTF</strong> and <strong>illumination</strong>).</p>
-<pre class="codehilite"><code>https://user-images.githubusercontent.com/74197598/227588321-ad3c8f17-1c61-4079-9e34-9b1f990714c1.mp4
-
-https://user-images.githubusercontent.com/74197598/227586957-b76ad56e-44d5-4d9b-a1cc-2cfd08ca5400.mp4
-
-https://user-images.githubusercontent.com/74197598/227585827-64531265-b4fb-48a9-9698-7f263f22d718.mp4
-</code></pre>
-
-<p>6) The raw image stacks can be then processed by napari-sim-processor (https://www.napari-hub.org/plugins/napari-sim-processor).</p>
-<p><img alt="raw" src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/processor.png" /></p>
+<img src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/2tabs.png" alt="raw" /></p>
+</li>
+<li>
+<p>Choose the type and other parameters of point cloud as a sample in <strong>Point cloud generator</strong>.</p>
+<p><img src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/pc.png" alt="raw" /></p>
+<p>The point cloud can be displayed in three dimensions, and be saved and loaded as .pcd files.</p>
+<p><a href="https://user-images.githubusercontent.com/74197598/227589232-9006842b-6706-48b7-9f2b-fe93c6698503.mp4">https://user-images.githubusercontent.com/74197598/227589232-9006842b-6706-48b7-9f2b-fe93c6698503.mp4</a></p>
+</li>
+<li>
+<p>Adjust parameters in SIM data generator to simulate a raw image stack.</p>
+<p>Apart from basic parameters such as the refractive index, the wavelengths and so on, the z scanning can be either
+<strong>z drift</strong>: the conventional SIM (imaging a raw stack at the same z-position) or <strong>z step</strong>: the drifting case in
+the papaer mentioned above (imaging only one raw image at a z-position).</p>
+<p><img src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/raw_stack.png" alt="raw" /></p>
+<p>The parameters used in the simulation can be saved with the image stack by clicking <strong>save tif with tags</strong>. Tags (of current or of one stack dragged into napari viewer) can be printed in Python by <strong>print tags</strong>.</p>
+</li>
+<li>
+<p>Three-dimensional point spread function (<strong>PSF</strong>), optical transfer function (<strong>OTF</strong>) and <strong>illumination</strong> patterns applied in the simulation can be showed by buttons. Note the all of these correspond the generated raw-image stack, so keep the parameters the same before showing the <strong>PSF</strong> (or <strong>OTF</strong> and <strong>illumination</strong>).</p>
+<p><a href="https://user-images.githubusercontent.com/74197598/227588321-ad3c8f17-1c61-4079-9e34-9b1f990714c1.mp4">https://user-images.githubusercontent.com/74197598/227588321-ad3c8f17-1c61-4079-9e34-9b1f990714c1.mp4</a></p>
+<p><a href="https://user-images.githubusercontent.com/74197598/227586957-b76ad56e-44d5-4d9b-a1cc-2cfd08ca5400.mp4">https://user-images.githubusercontent.com/74197598/227586957-b76ad56e-44d5-4d9b-a1cc-2cfd08ca5400.mp4</a></p>
+<p><a href="https://user-images.githubusercontent.com/74197598/227585827-64531265-b4fb-48a9-9698-7f263f22d718.mp4">https://user-images.githubusercontent.com/74197598/227585827-64531265-b4fb-48a9-9698-7f263f22d718.mp4</a></p>
+</li>
+<li>
+<p>The raw image stacks can be then processed by napari-sim-processor (<a href="https://www.napari-hub.org/plugins/napari-sim-processor">https://www.napari-hub.org/plugins/napari-sim-processor</a>).</p>
+<p><img src="https://github.com/Meizhu-Liang/napari-generic-SIMulator/raw/main/images/processor.png" alt="raw" /></p>
+</li>
+</ol>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-generic-SIMulator" is free and open source software</p>
+&quot;napari-generic-SIMulator&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/Meizhu-Liang/napari-generic-SIMulator/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

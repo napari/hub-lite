@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,71 +210,45 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/juglab/napari-n2v/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-n2v.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-n2v"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-n2v.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-n2v.svg?color=green" /></a>
-<a href="https://github.com/juglab/napari-n2v/actions"><img alt="tests" src="https://github.com/juglab/napari-n2v/workflows/build/badge.svg" /></a>
-<a href="https://codecov.io/gh/juglab/napari-n2v"><img alt="codecov" src="https://codecov.io/gh/juglab/napari-n2v/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-n2v"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-n2v" /></a></p>
+                                        <p><a href="https://github.com/juglab/napari-n2v/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-n2v.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-n2v"><img src="https://img.shields.io/pypi/v/napari-n2v.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-n2v.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/juglab/napari-n2v/actions"><img src="https://github.com/juglab/napari-n2v/workflows/build/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/juglab/napari-n2v"><img src="https://codecov.io/gh/juglab/napari-n2v/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-n2v"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-n2v" alt="napari hub" /></a></p>
 <p>A self-supervised denoising algorithm now usable by all in napari.</p>
-<h2><img src="https://raw.githubusercontent.com/juglab/napari-n2v/master/docs/images/noisy_denoised.png" width="800" /></h2>
+<img src="https://raw.githubusercontent.com/juglab/napari-n2v/master/docs/images/noisy_denoised.png" width="800" />
+----------------------------------
 <h2>Installation</h2>
-<p>Check out the <a href="https://juglab.github.io/napari-n2v/installation.html">documentation</a> for more detailed installation 
-instructions. </p>
-<p>You can then start the napari plugin by clicking on "Plugins &gt; napari_n2v &gt; Training",
+<p>Check out the <a href="https://juglab.github.io/napari-n2v/installation.html">documentation</a> for more detailed installation
+instructions.</p>
+<p>You can then start the napari plugin by clicking on &quot;Plugins &gt; napari_n2v &gt; Training&quot;,
 or run the plugin directly from a <a href="scripts/start_plugin.py">script</a>.</p>
 <h2>Quick demo</h2>
 <p>You can try out a demo by loading the <code>N2V Demo prediction</code> plugin and directly clicking on <code>Predict</code>. This model was trained using the <a href="https://juglab.github.io/napari-n2v/examples.html">N2V2 example</a>.</p>
-<p><img src="https://raw.githubusercontent.com/juglab/napari-n2v/master/docs/images/demo.gif" width="800" /></p>
+<img src="https://raw.githubusercontent.com/juglab/napari-n2v/master/docs/images/demo.gif" width="800" />
 <h2>Documentation</h2>
 <p>Documentation is available on the <a href="https://juglab.github.io/napari-n2v/">project website</a>.</p>
 <h2>Contributing and feedback</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request. You can also 
+the coverage at least stays the same before you submit a pull request. You can also
 help us improve by <a href="https://github.com/juglab/napari-n2v/issues">filing an issue</a> along with a detailed description or contact us
 through the <a href="https://forum.image.sc/">image.sc</a> forum (tag @jdeschamps).</p>
 <h2>Citations</h2>
 <h3>N2V</h3>
-<p>Alexander Krull, Tim-Oliver Buchholz, and Florian Jug. "<a href="https://ieeexplore.ieee.org/document/8954066">Noise2void-learning denoising from single noisy images.</a>" 
+<p>Alexander Krull, Tim-Oliver Buchholz, and Florian Jug. &quot;<a href="https://ieeexplore.ieee.org/document/8954066">Noise2void-learning denoising from single noisy images.</a>&quot;
 <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>. 2019.</p>
 <h3>structN2V</h3>
-<p>Coleman Broaddus, et al. "<a href="https://ieeexplore.ieee.org/document/9098336">Removing structured noise with self-supervised blind-spot networks.</a>" <em>2020 IEEE 17th 
+<p>Coleman Broaddus, et al. &quot;<a href="https://ieeexplore.ieee.org/document/9098336">Removing structured noise with self-supervised blind-spot networks.</a>&quot; <em>2020 IEEE 17th
 International Symposium on Biomedical Imaging (ISBI)</em>. IEEE, 2020.</p>
 <h3>N2V2</h3>
-<p>Eva Hoeck, Tim-Oliver Buchholz, et al. "<a href="https://arxiv.org/abs/2211.08512">N2V2 - Fixing Noise2Void Checkerboard Artifacts with Modified Sampling Strategies and a Tweaked Network Architecture</a>", arXiv (2022). </p>
+<p>Eva Hoeck, Tim-Oliver Buchholz, et al. &quot;<a href="https://arxiv.org/abs/2211.08512">N2V2 - Fixing Noise2Void Checkerboard Artifacts with Modified Sampling Strategies and a Tweaked Network Architecture</a>&quot;, arXiv (2022).</p>
 <h2>Acknowledgements</h2>
-<p>This plugin was developed thanks to the support of the Silicon Valley Community Foundation (SCVF) and the 
+<p>This plugin was developed thanks to the support of the Silicon Valley Community Foundation (SCVF) and the
 Chan-Zuckerberg Initiative (CZI) with the napari Plugin Accelerator grant <em>2021-240383</em>.</p>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-n2v" is a free and open source software.</p>
-        
+&quot;napari-n2v&quot; is a free and open source software.</p>
+
 
                                     </div>
                                 </div>

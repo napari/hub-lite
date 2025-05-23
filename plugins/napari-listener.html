@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,37 +206,10 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/aganders3/napari-listener/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-listener.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-listener"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-listener.svg?color=green" /></a>
-<a href="https://github.com/aganders3/napari-listener/actions"><img alt="tests" src="https://github.com/aganders3/napari-listener/workflows/tests/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-listener"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-listener" /></a></p>
+                                        <p><a href="https://github.com/aganders3/napari-listener/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-listener.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-listener"><img src="https://img.shields.io/pypi/v/napari-listener.svg?color=green" alt="PyPI" /></a>
+<a href="https://github.com/aganders3/napari-listener/actions"><img src="https://github.com/aganders3/napari-listener/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://napari-hub.org/plugins/napari-listener"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-listener" alt="napari hub" /></a></p>
 <p>Opens a socket to listen for commands to control napari from other processes.
 This can be useful for controlling napari programmatically from other
 applications, or for improving general OS integration (e.g. opening data from a
@@ -242,35 +219,33 @@ file or UrL in a running instance of napari).</p>
 <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-listener</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-listener
+<pre><code>pip install napari-listener
 </code></pre>
-
 <h2>Usage</h2>
-<p>Once installed, <code>napari-listener</code> can be started from the <code>napari &gt; Plugins &gt;
-Start Listening</code> menu. You will see a new docked widget that displays the
+<p>Once installed, <code>napari-listener</code> can be started from the <code>napari &gt; Plugins &gt; Start Listening</code> menu. You will see a new docked widget that displays the
 address and port for the listener.</p>
 <p>The listener is a TCP server that expects app-model command IDs. It will
 execute any valid app-model command, but <code>napari-listener</code> registers its own
 additional commands for demonstration purposes in
-https://github.com/aganders3/napari-listener/blob/main/src/napari_listener/_actions.py.</p>
+<a href="https://github.com/aganders3/napari-listener/blob/main/src/napari_listener/_actions.py">https://github.com/aganders3/napari-listener/blob/main/src/napari_listener/_actions.py</a>.</p>
 <p>You can test <code>napari-listener</code> using a TCP client such as
 <a href="https://linux.die.net/man/1/nc">netcat</a> or
 <a href="https://curl.se/docs/manpage.html">curl</a> to send an app-model command (and
 optional args). For example:</p>
-<pre class="codehilite"><code class="language-shell">% nc 127.0.0.1 40256 &lt;&lt;&lt; &quot;napari:open-file /path/to/local/file&quot;
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>%<span class="w"> </span>nc<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="m">40256</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="s2">&quot;napari:open-file /path/to/local/file&quot;</span>
+</pre></div>
 </code></pre>
-
-<p><img src="https://raw.githubusercontent.com/aganders3/napari-listener/main/napari-listener-demo.gif" alt="quick demo of napari-listener"></p>
+<img src="https://raw.githubusercontent.com/aganders3/napari-listener/main/napari-listener-demo.gif" alt="quick demo of napari-listener">
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-listener" is free and open source software</p>
+&quot;napari-listener&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed
 description.</p>
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,59 +210,33 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/bbridge0200/napari-allencell-annotator/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-allencell-annotator.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-allencell-annotator"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-allencell-annotator.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-allencell-annotator.svg?color=green" /></a>
-<a href="https://github.com/bbridge0200/napari-allencell-annotator/actions"><img alt="tests" src="https://github.com/bbridge0200/napari-allencell-annotator/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/bbridge0200/napari-allencell-annotator"><img alt="codecov" src="https://codecov.io/gh/bbridge0200/napari-allencell-annotator/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-allencell-annotator"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-allencell-annotator" /></a></p>
-<p>A plugin that enables image annotation/scoring and writes annotations to a .csv file. 
+                                        <p><a href="https://github.com/bbridge0200/napari-allencell-annotator/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-allencell-annotator.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-allencell-annotator"><img src="https://img.shields.io/pypi/v/napari-allencell-annotator.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-allencell-annotator.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/bbridge0200/napari-allencell-annotator/actions"><img src="https://github.com/bbridge0200/napari-allencell-annotator/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/bbridge0200/napari-allencell-annotator"><img src="https://codecov.io/gh/bbridge0200/napari-allencell-annotator/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-allencell-annotator"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-allencell-annotator" alt="napari hub" /></a></p>
+<p>A plugin that enables image annotation/scoring and writes annotations to a .csv file.
 Plugin provided by the Allen Institute for Cell Science.</p>
 <p>The Allen Cell Image Annotator plugin for napari provides an intuitive
-graphical user interface to create annotation templates, annotate large 
-image sets using these templates, and save image annotations to a csv file. 
-The Allen Cell Image Annotator is a Python-based open source toolkit 
-developed at the Allen Institute for Cell Science for both blind, unbiased and un-blind 
+graphical user interface to create annotation templates, annotate large
+image sets using these templates, and save image annotations to a csv file.
+The Allen Cell Image Annotator is a Python-based open source toolkit
+developed at the Allen Institute for Cell Science for both blind, unbiased and un-blind
 microscope image annotating. This toolkit supports easy image set selection
 from a file finder and creation of annotation templates (text, checkbox, drop-down, spinbox, and point).
 With napari's multi-dimensional image viewing capabilities, the plugin seamlessly allows users to
 view each image and write annotations into the custom template.
 Annotation templates can be written to a json file for sharing or re-using. After annotating,
-the annotation template, image file list, and the annotation values 
-are conveniently saved to csv file, which can be re-opened for further annotating. </p>
+the annotation template, image file list, and the annotation values
+are conveniently saved to csv file, which can be re-opened for further annotating.</p>
 <ul>
-<li>Supports the following image types:<ul>
+<li>Supports the following image types:
+<ul>
 <li><code>OME-TIFF</code></li>
 <li><code>TIFF</code></li>
-<li><code>CZI</code> </li>
-<li><code>PNG</code> </li>
+<li><code>CZI</code></li>
+<li><code>PNG</code></li>
 <li><code>JPEG</code></li>
 <li><code>OME-ZARR</code></li>
 </ul>
@@ -273,53 +251,71 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/plugins/index.html
 -->
-
 <h2>Installation using Command Line</h2>
 <h3>1. Prerequisites</h3>
-<p>The plugin requires <a href="https://docs.anaconda.com/anaconda/install/">Conda</a>.
-- <a href="https://docs.anaconda.com/anaconda/install/windows/">Installing on Windows </a> 
-  - Follow the steps linked above except
-  - On step 8, check top the box to add to PATH
-  - <img alt="Alt text" src="napari_allencell_annotator/assets/windowsstep8.png" />
-- <a href="https://docs.anaconda.com/anaconda/install/mac-os/">Installing on Mac </a> </p>
+<p>The plugin requires <a href="https://docs.anaconda.com/anaconda/install/">Conda</a>.</p>
+<ul>
+<li><a href="https://docs.anaconda.com/anaconda/install/windows/">Installing on Windows </a>
+<ul>
+<li>Follow the steps linked above except</li>
+<li>On step 8, check top the box to add to PATH</li>
+<li><img src="napari_allencell_annotator/assets/windowsstep8.png" alt="Alt text" /></li>
+</ul>
+</li>
+<li><a href="https://docs.anaconda.com/anaconda/install/mac-os/">Installing on Mac </a></li>
+</ul>
 <h3>2. Install the plugin</h3>
 <p>Click the link corresponding to your OS.</p>
 <h4><a href="https://alleninstitute-my.sharepoint.com/:u:/g/personal/r_dhamrongsirivadh_alleninstitute_org/EexXIxeeIbNEs4KMjimcXOcBMn2J2QwxJhNEkOcRHC1eVg?e=JKa5WI">Windows</a></h4>
 <ul>
-<li>From the link above, click the three dots on the top menu bar and select download. </li>
-<li>Open a file explorer and go to the Downloads folder. Use <strong>Option 1</strong> below. A prompt window should open and start installing. If this fails use <strong>Option 2</strong>. </li>
+<li>From the link above, click the three dots on the top menu bar and select download.</li>
+<li>Open a file explorer and go to the Downloads folder. Use <strong>Option 1</strong> below. A prompt window should open and start installing. If this fails use <strong>Option 2</strong>.
+<ul>
 <li><strong>Option 1</strong>: Double-click the file <em>install_napari.sh</em></li>
-<li><strong>Option 2</strong>: Search the file finder for Anaconda Prompt. Open version 3. Run the following commands one line at a time. <ul>
+<li><strong>Option 2</strong>: Search the file finder for Anaconda Prompt. Open version 3. Run the following commands one line at a time.
+<ul>
 <li>conda create -n napari_annotator python=3.10 anaconda</li>
 <li>conda activate napari_annotator</li>
 <li>python -m pip install --upgrade pip</li>
-<li>python -m pip install "napari[all]"</li>
+<li>python -m pip install &quot;napari[all]&quot;</li>
 <li>python -m pip install napari-allencell-annotator</li>
 <li>napari</li>
 </ul>
 </li>
-<li><strong>Still not working?</strong> Try using conda forge instead of pip. <ul>
-<li>Ex: conda install -c conda-forge napari instead of python -m pip install "napari[all]"</li>
+<li><strong>Still not working?</strong> Try using conda forge instead of pip.
+<ul>
+<li>Ex: conda install -c conda-forge napari instead of python -m pip install &quot;napari[all]&quot;</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <h4><a href="https://alleninstitute-my.sharepoint.com/:u:/g/personal/r_dhamrongsirivadh_alleninstitute_org/ESeAYWwWFuRFhgpqgbiKQ6QBXdU8Dg8OU9ilpJ5VmoY-cA?e=BHpReg">MacOS/Unix</a></h4>
 <ul>
-<li>From the link above, download the file. </li>
-<li>Open terminal. </li>
-<li>Run <em>chmod +x ./Downloads/install_napari.command</em> </li>
+<li>From the link above, download the file.</li>
+<li>Open terminal.</li>
+<li>Run <em>chmod +x ./Downloads/install_napari.command</em>
+<ul>
 <li>If you get a file not found error try adjusting the path to match where install_napari.command was downloaded.</li>
-<li>Open finder, navigate to the file, double-click <em>install_napari.command</em> . </li>
-<li>A terminal window should open and start installing. </li>
+</ul>
+</li>
+<li>Open finder, navigate to the file, double-click <em>install_napari.command</em> .
+<ul>
+<li>A terminal window should open and start installing.</li>
+</ul>
+</li>
 </ul>
 <h3>3. Launch the Plugin</h3>
-<p>Once the napari window opens, go to <strong>Plugins</strong>.
-- If <strong>napari-allencell-annotator</strong> is listed click it to launch. 
-- If it is not listed 
-- <strong>Install/Uninstall Plugins</strong> ⇨ check the box next to <strong>napari-allencell-annotator</strong> ⇨ <strong>close</strong> ⇨ <strong>Plugins</strong> ⇨ <strong>napari-allencell-annotator</strong> .</p>
+<p>Once the napari window opens, go to <strong>Plugins</strong>.</p>
+<ul>
+<li>If <strong>napari-allencell-annotator</strong> is listed click it to launch.</li>
+<li>If it is not listed</li>
+<li><strong>Install/Uninstall Plugins</strong> ⇨ check the box next to <strong>napari-allencell-annotator</strong> ⇨ <strong>close</strong> ⇨ <strong>Plugins</strong> ⇨ <strong>napari-allencell-annotator</strong> .</li>
+</ul>
 <h3>4. Re-opening the Plugin After Installing</h3>
 <ul>
-<li>Windows</li>
+<li>Windows
+<ul>
 <li>Search for anaconda navigator in file finder</li>
 <li>Click on navigator version 3</li>
 <li>Once the navigator opens, click <strong>Environments</strong> on the left side</li>
@@ -327,14 +323,20 @@ https://napari.org/plugins/index.html
 <li>Press the play button</li>
 <li>Type <em>napari</em> in the prompt that opens</li>
 <li>Click <strong>Plugins</strong> ⇨ <strong>napari-allencell-annotator</strong></li>
-<li>MacOS</li>
+</ul>
+</li>
+<li>MacOS
+<ul>
 <li>Open terminal</li>
-<li>Run these commands one line at a time<ul>
+<li>Run these commands one line at a time
+<ul>
 <li>conda activate napari_annotator</li>
 <li>napari</li>
 </ul>
 </li>
 <li>Click <strong>Plugins</strong> ⇨ <strong>napari-allencell-annotator</strong></li>
+</ul>
+</li>
 </ul>
 <h2>Installation from Napari Hub</h2>
 <p>If you have previously installed Napari on your machine, you can follow these steps to install the plugin from Napari Hub.</p>
@@ -348,27 +350,33 @@ https://napari.org/plugins/index.html
 </ul>
 <h3>2. Launch the Plugin</h3>
 <ul>
-<li>Click <strong>Plugins</strong> ⇨ <strong>napari-allencell-annotator</strong></li>
+<li>Click <strong>Plugins</strong> ⇨ <strong>napari-allencell-annotator</strong>
+<ul>
 <li>You might have to restart Napari for the annotator to appear in the plugin list.</li>
 <li>If you still can't see the plugin, go to <strong>Install/Uninstall Plugins</strong> ⇨ check the box next to <strong>napari-allencell-annotator</strong>.</li>
+</ul>
+</li>
 </ul>
 <h2>Quick Start</h2>
 <ol>
 <li>Open napari</li>
-<li>Start the plugin </li>
+<li>Start the plugin
+<ul>
 <li>Open napari, go to <strong>Plugins</strong> ⇨ <strong>napari-allencell-annotator</strong>.</li>
+</ul>
+</li>
 <li>Create or import annotations and add images to annotate.</li>
 </ol>
-<p>For more detailed usage instructions, check out this <a href="napari_allencell_annotator/assets/AnnotatorInstructions.pdf">document</a> </p>
+<p>For more detailed usage instructions, check out this <a href="napari_allencell_annotator/assets/AnnotatorInstructions.pdf">document</a></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-allencell-annotator" is free and open source software</p>
+&quot;napari-allencell-annotator&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/bbridge0200/napari-allencell-annotator/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

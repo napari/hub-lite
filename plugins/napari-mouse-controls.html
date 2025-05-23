@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,74 +210,46 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-mouse-controls.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-mouse-controls"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-mouse-controls.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-mouse-controls.svg?color=green" /></a>
-<a href="https://github.com/haesleinhuepf/napari-mouse-controls/actions"><img alt="tests" src="https://github.com/haesleinhuepf/napari-mouse-controls/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/haesleinhuepf/napari-mouse-controls"><img alt="codecov" src="https://codecov.io/gh/haesleinhuepf/napari-mouse-controls/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-mouse-controls"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-mouse-controls" /></a></p>
+                                        <p><a href="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-mouse-controls.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-mouse-controls"><img src="https://img.shields.io/pypi/v/napari-mouse-controls.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-mouse-controls.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/haesleinhuepf/napari-mouse-controls/actions"><img src="https://github.com/haesleinhuepf/napari-mouse-controls/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/haesleinhuepf/napari-mouse-controls"><img src="https://codecov.io/gh/haesleinhuepf/napari-mouse-controls/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-mouse-controls"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-mouse-controls" alt="napari hub" /></a></p>
 <p>Control zoom, slicing and contrast windowing with mouse and touch screen</p>
 <hr />
 <h2>Usage</h2>
 <p>You find the mouse control panel in the menu <code>Tools &gt; Utilities &gt; Mouse controls</code></p>
 <h3>Zoom</h3>
-<p>After clicking the Zoom button <img alt="" src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/src/napari_mouse_controls/icons/Zoom.png" />, you can click in the napari canvas and move the mouse up and down to zoom in and out.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/docs/zoom.gif" /></p>
+<p>After clicking the Zoom button <img src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/src/napari_mouse_controls/icons/Zoom.png" alt="" />, you can click in the napari canvas and move the mouse up and down to zoom in and out.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/docs/zoom.gif" alt="" /></p>
 <h3>Slicing</h3>
-<p>After clicking the Slicing button <img alt="" src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/src/napari_mouse_controls/icons/Slicing.png" />, you can control the currently displayed slice by moving the mouse.
+<p>After clicking the Slicing button <img src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/src/napari_mouse_controls/icons/Slicing.png" alt="" />, you can control the currently displayed slice by moving the mouse.
 By moving the mouse up and down, you control the currently selected Z-plane.
 By moving the mouse left and right, you control the currently seleted time point.</p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/docs/slicing.gif" /></p>
+<p><img src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/docs/slicing.gif" alt="" /></p>
 <h3>Windowing</h3>
-<p>After clicking the Windowing button <img alt="" src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/src/napari_mouse_controls/icons/Windowing.png" />, you can modify the brightness and contrast by moving the mouse. 
+<p>After clicking the Windowing button <img src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/src/napari_mouse_controls/icons/Windowing.png" alt="" />, you can modify the brightness and contrast by moving the mouse.
 By moving the mouse up and down, you control window width of the range of displayed grey values (max - min).
-By moving the mouse left and right, you control the center of the grey value window. </p>
-<p><img alt="" src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/docs/windowing.gif" /></p>
+By moving the mouse left and right, you control the center of the grey value window.</p>
+<p><img src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/docs/windowing.gif" alt="" /></p>
 <h3>Normal / default mode</h3>
-<p>Click the Default button <img alt="" src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/src/napari_mouse_controls/icons/Default.png" />
+<p>Click the Default button <img src="https://github.com/haesleinhuepf/napari-mouse-controls/raw/main/src/napari_mouse_controls/icons/Default.png" alt="" />
 to return to napari's normal mode.</p>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-mouse-controls</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-mouse-controls
+<pre><code>pip install napari-mouse-controls
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-mouse-controls" is free and open source software</p>
+&quot;napari-mouse-controls&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please create a thread on <a href="https://image.sc">image.sc</a> along with a detailed description and tag <a href="https://twitter.com/haesleinhuepf">@haesleinhuepf</a>.</p>
-        
+
 
                                     </div>
                                 </div>

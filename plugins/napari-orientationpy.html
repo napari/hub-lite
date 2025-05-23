@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,97 +206,66 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><img alt="EPFL Center for Imaging logo" src="https://imaging.epfl.ch/resources/logo-for-gitlab.svg" /></p>
+                                        <p><img src="https://imaging.epfl.ch/resources/logo-for-gitlab.svg" alt="EPFL Center for Imaging logo" /></p>
 <h1>napari-orientationpy</h1>
 <p>Analyze orientations in 2D, 3D, and RGB images in Napari. This plugin is based on the <a href="https://gitlab.com/epfl-center-for-imaging/orientationpy/">Orientationpy</a> project.</p>
 <p align="center">
     <img src="assets/ori_color-1.gif" height="400">
 </p>
-
 <h2>Installation</h2>
 <p>You can install <code>napari-orientationpy</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-orientationpy
+<pre><code>pip install napari-orientationpy
 </code></pre>
-
 <h2>Usage</h2>
 <p>To get started, open an image in the Napari viewer and start <code>napari-orientationpy</code> from the <code>Plugins</code> menu:</p>
-<pre class="codehilite"><code>Plugins &gt; Napari Orientationpy &gt; Orientation measurement
+<pre><code><div class="highlight"><pre><span></span>Plugins &gt; Napari Orientationpy &gt; Orientation measurement
+</pre></div>
 </code></pre>
-
 <ol>
 <li><strong>Select the structural scale parameter <code>sigma</code></strong>. This value control represents the scale at which the image gradients are computed. Try different values of <code>sigma</code> to understand what works best for your images. A reasonable guess would be the order in size, in pixels, of the structures that you are interested in. For example, if you are imaging fibers that appear to be about 4 pixels wide, try to set a value of <em>sigma=4</em>.</li>
 </ol>
 <p align="center">
     <img src="assets/sigmas.png" height="230">
 </p>
-
-<ol>
+<ol start="2">
 <li>
 <p><strong>If you are analyzing a 3D image, select <code>fiber</code> or <code>membrane</code> mode</strong>. In <code>fiber</code> mode, the orientation normals follow fibrous structures. In <code>membrane</code> mode, the orientations are normal to the surface of membranous structures.</p>
 </li>
 <li>
 <p><strong>Decide which outputs you'd like to visualize.</strong></p>
 </li>
+</ol>
+<ul>
 <li>The <code>color-coded orientation</code> is a pixel-wise representation of 3D orientations as colors (similar colors = similar orientations).</li>
 <li>The <code>orientation vectors</code> get rendered in a <code>Vectors</code> layer in Napari. They are sampled on a regular grid defined by the <code>Spacing (X)</code>, <code>Spacing (Y)</code> and <code>Spacing (Z)</code> values (for 2D images, the <code>Z</code> value is ignored). The length of the vectors can be rescaled based on the <code>energy</code> value of the orientation computation.</li>
-<li>
-<p>You can also output the local <code>orientation gradient</code> (misorientation).</p>
-</li>
-<li>
-<p><strong>Compute orientation</strong>. This button will trigger the orientation computation <strong>only when necessary</strong> (i.e. when the value of <code>sigma</code>, the <code>mode</code> or the <code>image</code> have changed). If you only adjust the <code>orientation vectors</code> parameters, clicking the compute button will update the results very fast.</p>
-</li>
-<li><strong>Save orientation (CSV)</strong>. This will save the orientation measurements as a CSV table with columns <code>X</code>, <code>Y</code>, <code>Z</code>, <code>theta</code>, <code>phi</code>, <code>energy</code>, and <code>coherency</code> for all the pixels in the image. </li>
+<li>You can also output the local <code>orientation gradient</code> (misorientation).</li>
+</ul>
+<ol start="4">
+<li><strong>Compute orientation</strong>. This button will trigger the orientation computation <strong>only when necessary</strong> (i.e. when the value of <code>sigma</code>, the <code>mode</code> or the <code>image</code> have changed). If you only adjust the <code>orientation vectors</code> parameters, clicking the compute button will update the results very fast.</li>
+<li><strong>Save orientation (CSV)</strong>. This will save the orientation measurements as a CSV table with columns <code>X</code>, <code>Y</code>, <code>Z</code>, <code>theta</code>, <code>phi</code>, <code>energy</code>, and <code>coherency</code> for all the pixels in the image.</li>
 </ol>
 <h3>Plotting the 3D orientation distribution</h3>
 <p>If you have computed <strong>orientation vectors</strong> for a 3D image, you can plot their spatial distribution as a <code>stereographic projection</code> along the <code>X</code>, <code>Y</code> or <code>Z</code> direction directly in Napari. Select the widget from:</p>
-<pre class="codehilite"><code>Plugins &gt; Napari Orientationpy &gt; Orientation distribution (3D)
+<pre><code><div class="highlight"><pre><span></span>Plugins &gt; Napari Orientationpy &gt; Orientation distribution (3D)
+</pre></div>
 </code></pre>
-
 <p align="center">
     <img src="assets/fibers_dist.png" height="400">
 </p>
-
 <h2>Sample images</h2>
 <p>We provide a few sample images to test our plugin. Open them from:</p>
-<pre class="codehilite"><code>File &gt; Open Sample &gt; Napari Orientationpy
+<pre><code><div class="highlight"><pre><span></span>File &gt; Open Sample &gt; Napari Orientationpy
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Please get in touch if you'd like to be involved in improving or extending the package.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-orientationpy" is free and open source software</p>
+&quot;napari-orientationpy&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please file an issue along with a detailed description.</p>
 <hr />
-        
+
 
                                     </div>
                                 </div>

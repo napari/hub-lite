@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,42 +210,15 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/ch-n/napari-time_series_plotter/raw/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-time_series_plotter.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-time_series_plotter.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-time_series_plotter"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-time_series_plotter.svg?color=blue" /></a>
-<a href="https://anaconda.org/conda-forge/napari-time-series-plotter"><img alt="Anaconda-Server Badge" src="https://anaconda.org/conda-forge/napari-time-series-plotter/badges/version.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-time-series-plotter"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-time-series-plotter" /></a>
-<a href="https://github.com/ch-n/napari-time_series_plotter/actions"><img alt="tests" src="https://github.com/ch-n/napari-time_series_plotter/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/ch-n/napari-time_series_plotter"><img alt="codecov" src="https://codecov.io/gh/ch-n/napari-time_series_plotter/branch/main/graph/badge.svg" /></a></p>
+                                        <p><a href="https://github.com/ch-n/napari-time_series_plotter/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-time_series_plotter.svg?color=green" alt="License" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-time_series_plotter.svg?color=green" alt="Python Version" /></a>
+<a href="https://pypi.org/project/napari-time_series_plotter"><img src="https://img.shields.io/pypi/v/napari-time_series_plotter.svg?color=blue" alt="PyPI" /></a>
+<a href="https://anaconda.org/conda-forge/napari-time-series-plotter"><img src="https://anaconda.org/conda-forge/napari-time-series-plotter/badges/version.svg" alt="Anaconda-Server Badge" /></a>
+<a href="https://napari-hub.org/plugins/napari-time-series-plotter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-time-series-plotter" alt="napari hub" /></a>
+<a href="https://github.com/ch-n/napari-time_series_plotter/actions"><img src="https://github.com/ch-n/napari-time_series_plotter/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/ch-n/napari-time_series_plotter"><img src="https://codecov.io/gh/ch-n/napari-time_series_plotter/branch/main/graph/badge.svg" alt="codecov" /></a></p>
 <h2>Description</h2>
-<p>Napari-time_series_plotter (TSP) is a plugin for the <code>napari</code> ndimensional image viewer. </p>
+<p>Napari-time_series_plotter (TSP) is a plugin for the <code>napari</code> ndimensional image viewer.</p>
 <p><strong>TSP</strong> adds live plotting of time-resolved images to napari. You can select and visualize pixel/voxel or ROI mean values from one or multiple image layers as intensity-over-time line plots (The first image dimension is handled as time) and save the figures or the underlying time series data as CSV file. TSP supports 3D to nD images (3D: t+2D, nD: t+nD).</p>
 <p><strong>Plotting</strong> is handeled by the <code>Explorer</code> widget, it offers three different plotting modes: Voxel, Shapes, Points
 <br>--&gt; Voxel mode offers live plotting while moving the cursor over an image layer
@@ -254,56 +231,55 @@ pre > code:last-child {
 <h2>Installation</h2>
 <p>You can either install the latest version via pip or conda.</p>
 <p><strong>pip:</strong></p>
-<pre class="codehilite"><code>pip install napari-time-series-plotter
+<pre><code>pip install napari-time-series-plotter
 </code></pre>
-
-<p>or download the packaged <code>tar.gz</code> file from the release assets and install it with </p>
-<pre class="codehilite"><code>pip install /path/to/file.tar.gz
+<p>or download the packaged <code>tar.gz</code> file from the release assets and install it with</p>
+<pre><code>pip install /path/to/file.tar.gz
 </code></pre>
-
 <p><strong>conda:</strong></p>
-<pre class="codehilite"><code>conda install -c conda-forge napari-time-series-plotter
+<pre><code>conda install -c conda-forge napari-time-series-plotter
 </code></pre>
-
 <p>Alternatively, you can install the plugin directly in the <code>napari</code> viewer plugin manager, the napari hub, or the release assets.</p>
-<p><br></p>
+<br>
 <p>To install the latest development version install directly from the relevant GitHub branch.</p>
 <h2>Usage</h2>
 <h3>Basics and Live plotting</h3>
-<p><a href="./demo_videos/TSP_basic_and_voxel_plotting_demo.webm"><img alt="basic_demo" src="./demo_videos/TSP_basic_and_voxel_plotting_demo.jpg" /></a></p>
+<p><a href="./demo_videos/TSP_basic_and_voxel_plotting_demo.webm"><img src="./demo_videos/TSP_basic_and_voxel_plotting_demo.jpg" alt="basic_demo" /></a></p>
 <ol>
 <li>Select the <code>TSPExplorer</code> widget in the <code>Plugins</code> tab of the napari viewer</li>
 <li>Use the <code>LayerSelector</code> to choose the image layers you want to source for plotting</li>
-<li>Move the corsor over the layer while holding "Shift"</li>
+<li>Move the corsor over the layer while holding &quot;Shift&quot;</li>
 </ol>
-<p>The <code>Options</code> tab offers multiple options to customize your plot. 
-- Set custom title or axe labels
-- Switch between autoscaling and manually defined max and min values of the axes
-- Switch to label truncation in the options tab if your layer names are too long for the figure legend (set max length manually)
-- Set a scaling factor for the X-axis</p>
+<p>The <code>Options</code> tab offers multiple options to customize your plot.</p>
+<ul>
+<li>Set custom title or axe labels</li>
+<li>Switch between autoscaling and manually defined max and min values of the axes</li>
+<li>Switch to label truncation in the options tab if your layer names are too long for the figure legend (set max length manually)</li>
+<li>Set a scaling factor for the X-axis</li>
+</ul>
 <p>The plot can be modified and saved through its toolbar above.</p>
 <h3>Plotting ROIs</h3>
-<p><a href="./demo_videos//TSP_ROI_plotting_demo.webm"><img alt="roi_demo" src="./demo_videos/TSP_ROI_plotting_demo.jpg" /></a></p>
+<p><a href="./demo_videos//TSP_ROI_plotting_demo.webm"><img src="./demo_videos/TSP_ROI_plotting_demo.jpg" alt="roi_demo" /></a></p>
 <ol>
 <li>Select the Shapes plotting mode via the <code>Options</code> tab (Voxel mode is the default).</li>
 <li>Use the <code>LayerSelector</code> to choose the image layers you want to source for plotting.</li>
-<li>Add one ore more shapes to the "ROI Selection" layer.
-   <br>The "ROI Selection" shapes are 2D only, effecting the currently displayed slice.
-   <br>(newly added shapes might have to be moved before they are correctly plottet)</li>
+<li>Add one ore more shapes to the &quot;ROI Selection&quot; layer.
+<br>The &quot;ROI Selection&quot; shapes are 2D only, effecting the currently displayed slice.
+<br>(newly added shapes might have to be moved before they are correctly plottet)</li>
 <li>Reposition or remove shapes if needed.</li>
 <li>Change the ROI mode in the <code>Options</code> tab (Default: mean).</li>
 </ol>
 <h3>Plotting multiple Points</h3>
-<p><a href="./demo_videos/TSP_Points_plotting_demo.webm"><img alt="points_demo" src="./demo_videos/TSP_Points_plotting_demo.jpg" /></a></p>
+<p><a href="./demo_videos/TSP_Points_plotting_demo.webm"><img src="./demo_videos/TSP_Points_plotting_demo.jpg" alt="points_demo" /></a></p>
 <ol>
 <li>Select the Shapes plotting mode via the <code>Options</code> tab (Voxel mode is the default).</li>
 <li>Use the <code>LayerSelector</code> to choose the image layers you want to source for plotting.</li>
-<li>Add one or more points to the "Point selection" layer.
-   <br>The points can be on different slices (3D and 4D support only) or images (grid mode)</li>
+<li>Add one or more points to the &quot;Point selection&quot; layer.
+<br>The points can be on different slices (3D and 4D support only) or images (grid mode)</li>
 <li>Reposition or remove points if needed.</li>
 </ol>
 <h3>View time series as table</h3>
-<p><a href="./demo_videos/TSP_Inspector_demo.webm"><img alt="points_demo" src="./demo_videos/TSP_Inspector_demo.jpg" /></a></p>
+<p><a href="./demo_videos/TSP_Inspector_demo.webm"><img src="./demo_videos/TSP_Inspector_demo.jpg" alt="points_demo" /></a></p>
 <ol>
 <li>Select the <code>TSPInspector</code> widget in the <code>Plugins</code> tab of the napari viewer</li>
 <li>Press the load from plot button to load the currently displayed plots into the <code>Inspector</code></li>
@@ -326,18 +302,18 @@ pre > code:last-child {
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-time_series_plotter" is free and open-source software</p>
+&quot;napari-time_series_plotter&quot; is free and open-source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/ch-n/napari-time_series_plotter/issues">file an issue</a> along with a detailed description.</p>
 <hr />
 <h2>References</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <p>Images used in the demo gif were taken from <a href="https://www.cancerimagingarchive.net/">The Cancer Imaging Archive</a> <br></p>
-<pre class="codehilite"><code>DOI: https://doi.org/10.7937/K9/TCIA.2015.VOSN3HN1
+<pre><code>DOI: https://doi.org/10.7937/K9/TCIA.2015.VOSN3HN1
 Images: 1.3.6.1.4.1.9328.50.16.281868838636204210586871132130856898223
         1.3.6.1.4.1.9328.50.16.254461916058189583774506642993503110733
 </code></pre>
-        
+
 
                                     </div>
                                 </div>

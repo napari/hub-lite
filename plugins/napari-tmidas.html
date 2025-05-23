@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -229,114 +233,80 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/macromeer/napari-tmidas/raw/main/LICENSE"><img alt="License BSD-3" src="https://img.shields.io/pypi/l/napari-tmidas.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-tmidas"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-tmidas.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-tmidas.svg?color=green" /></a>
-<a href="https://github.com/macromeer/napari-tmidas/actions"><img alt="tests" src="https://github.com/macromeer/napari-tmidas/workflows/tests/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-tmidas"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-tmidas" /></a></p>
+                                        <p><a href="https://github.com/macromeer/napari-tmidas/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-tmidas.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-tmidas"><img src="https://img.shields.io/pypi/v/napari-tmidas.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-tmidas.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/macromeer/napari-tmidas/actions"><img src="https://github.com/macromeer/napari-tmidas/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://napari-hub.org/plugins/napari-tmidas"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-tmidas" alt="napari hub" /></a></p>
 <!-- [![codecov](https://codecov.io/gh/macromeer/napari-tmidas/branch/main/graph/badge.svg)](https://codecov.io/gh/macromeer/napari-tmidas) -->
 <p>The <code>napari-tmidas</code> plugin consists of a growing collection of pipelines for fast batch processing of confocal and whole slide microscopy images of biological tissues. This is a WIP and based on the CLI version of <a href="https://github.com/MercaderLabAnatomy/T-MIDAS">T-MIDAS</a>.</p>
 <h2>Features</h2>
 <p>Currently, napari-tmidas provides pipelines as widgets for batch image conversion / cropping / processing, ROI colocalization and label inspection (cf. <a href="#usage">Usage</a> below).</p>
 <h2>Installation</h2>
 <p>First, install Napari in a virtual environment:</p>
-<pre class="codehilite"><code>mamba create -y -n napari-tmidas -c conda-forge python=3.11 tqdm
+<pre><code>mamba create -y -n napari-tmidas -c conda-forge python=3.11 tqdm
 mamba activate napari-tmidas
 python -m pip install &quot;napari[all]&quot;
 </code></pre>
-
 <p>Now you can install <code>napari-tmidas</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-tmidas
+<pre><code>pip install napari-tmidas
 </code></pre>
-
 <p>It is recommended to install the latest development version:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/macromeer/napari-tmidas.git
+<pre><code>pip install git+https://github.com/macromeer/napari-tmidas.git
 </code></pre>
-
 <h3>Dependencies</h3>
 <p>To use the Batch Microscopy Image Conversion pipeline, we need some libraries to read microscopy formats:</p>
-<pre class="codehilite"><code>pip install nd2 readlif tiffslide pylibCZIrw acquifer-napari
+<pre><code>pip install nd2 readlif tiffslide pylibCZIrw acquifer-napari
 </code></pre>
-
 <p>For the Batch Crop Anything pipeline, we need to install MobileSAM and its dependencies:</p>
-<pre class="codehilite"><code>pip install git+https://github.com/ChaoningZhang/MobileSAM.git
+<pre><code>pip install git+https://github.com/ChaoningZhang/MobileSAM.git
 </code></pre>
-
 <p>If you want to batch compress images using <a href="https://github.com/facebook/zstd">Zstandard</a>, use the package manager of your operating system to install it:</p>
-<pre class="codehilite"><code>sudo apt-get install zstd    # for Linux
+<pre><code>sudo apt-get install zstd    # for Linux
 brew install zstd            # for macOS
 choco install zstandard      # for Windows
 </code></pre>
-
 <h2>Usage</h2>
 <p>To use the plugin, start napari in the activated virtual environment with this terminal command:</p>
-<pre class="codehilite"><code>mamba run -n napari-tmidas napari
+<pre><code>mamba run -n napari-tmidas napari
 </code></pre>
-
 <p>You can then find the installed plugin in the Plugins tab.</p>
 <h3>Microscopy Image Conversion</h3>
 <p>You can start this pipeline via <code>Plugins &gt; T-MIDAS &gt; Batch Microscopy Image Conversion</code>. Currently, this pipeline supports the conversion of <code>.nd2, .lif, .ndpi, .czi</code> and acquifer data. After scanning a folder of your choice for microscopy image data, select a file in the first column of the table and preview and export any image data it contains.</p>
-<p><img src="https://github.com/user-attachments/assets/e377ca71-2f30-447d-825e-d2feebf7061b" alt="Microscopy Image Conversion Widget" style="width:75%; height:auto;"></p>
+<img src="https://github.com/user-attachments/assets/e377ca71-2f30-447d-825e-d2feebf7061b" alt="Microscopy Image Conversion Widget" style="width:75%; height:auto;">
 <h3>Image Processing</h3>
 <ol>
 <li>After opening <code>Plugins &gt; T-MIDAS &gt; Batch Image Processing</code>, enter the path to the folder containing the images to be processed (currently supports TIF, later also ZARR). You can also filter for filename suffix.</li>
 </ol>
-<p><img alt="image" src="https://github.com/user-attachments/assets/41ecb689-9abe-4371-83b5-9c5eb37069f9" /></p>
-<ol>
+<p><img src="https://github.com/user-attachments/assets/41ecb689-9abe-4371-83b5-9c5eb37069f9" alt="image" /></p>
+<ol start="2">
 <li>As a result, a table appears with the found images. You can click on them to inspect them in the viewer.</li>
 </ol>
-<p><img alt="image" src="https://github.com/user-attachments/assets/8360942a-be8f-49ec-bc25-385ee43bd601" /></p>
-<ol>
+<p><img src="https://github.com/user-attachments/assets/8360942a-be8f-49ec-bc25-385ee43bd601" alt="image" /></p>
+<ol start="3">
 <li>Next, select a processing function, set parameters if applicable and <code>Start Batch Processing</code>.</li>
 </ol>
-<p><img alt="image" src="https://github.com/user-attachments/assets/05929660-6672-4f76-89da-4f17749ccfad" /></p>
-<ol>
+<p><img src="https://github.com/user-attachments/assets/05929660-6672-4f76-89da-4f17749ccfad" alt="image" /></p>
+<ol start="4">
 <li>You can click on the images in the table to show them in the viewer. For example first click on one of the <code>Original Files</code>, and then the corresponding <code>Processed File</code> to see an overlay.</li>
 </ol>
-<p><img src="https://github.com/user-attachments/assets/cfe84828-c1cc-4196-9a53-5dfb82d5bfce" alt="Image Processing Widget" style="width:75%; height:auto;"></p>
+<img src="https://github.com/user-attachments/assets/cfe84828-c1cc-4196-9a53-5dfb82d5bfce" alt="Image Processing Widget" style="width:75%; height:auto;">
 <p>Note that whenever you click on an <code>Original File</code> or <code>Processed File</code> in the table, it will replace the one that is currently shown in the viewer. So naturally, you'd first select the original image, and then the processed image to correctly see the image pair that you want to inspect.</p>
 <h3>Batch Label Inspection</h3>
 <p>If you have already segmented a folder full of images and now you want to maybe inspect and edit each label image, you can use the <code>Plugins &gt; T-MIDAS &gt; Batch Label Inspection</code>, which automatically saves your changes to the existing label image once you click the <code>Save Changes and Continue</code> button (bottom right).</p>
-<p><img src="https://github.com/user-attachments/assets/0bf8c6ae-4212-449d-8183-e91b23ba740e" alt="Batch Label Inspection Widget" style="width:75%; height:auto;"></p>
+<img src="https://github.com/user-attachments/assets/0bf8c6ae-4212-449d-8183-e91b23ba740e" alt="Batch Label Inspection Widget" style="width:75%; height:auto;">
 <h3>Crop Anything</h3>
 <p>This pipeline combines the Segment Anything Model (SAM) for automatic object detection with an interactive interface for selecting and cropping multiple objects from images. To launch the widget, open <code>Plugins &gt; T-MIDAS &gt; Batch Crop Anything</code>. Click the image below to see a video demo.</p>
-<p><img src="https://github.com/user-attachments/assets/6d72c2a2-1064-4a27-b398-a9b86fcbc443" alt="Crop Anything Widget" style="width:75%; height:auto;"></p>
+<img src="https://github.com/user-attachments/assets/6d72c2a2-1064-4a27-b398-a9b86fcbc443" alt="Crop Anything Widget" style="width:75%; height:auto;">
 <h3>ROI Colocalization</h3>
 <p>This pipeline quantifies colocalization between labeled regions of interest (ROIs) across multiple image channels. It determines the extent of overlap between ROIs in a reference channel and those in one or two other channels. The output is a table of colocalization counts. Optionally, the size of reference channel ROIs, as well as the total or median size of colocalizing ROIs in the other channels, can be included. Colocalization is determined using Boolean masking. The number of colocalizing instances is determined by counting unique label IDs within the overlapping regions. Typically, the reference channel contains larger structures, while other channels contain smaller, potentially nested, structures. For example, the reference channel might contain cell bodies, with the second and third channels containing nuclei and sub-nuclear objects, respectively.</p>
-<p><img src="https://github.com/user-attachments/assets/2f9022a0-7b88-4588-a448-250f07a634d7" alt="ROI Colocalization Widget" style="width:75%; height:auto;"></p>
+<img src="https://github.com/user-attachments/assets/2f9022a0-7b88-4588-a448-250f07a634d7" alt="ROI Colocalization Widget" style="width:75%; height:auto;">
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-tmidas" is free and open source software</p>
+&quot;napari-tmidas&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/macromeer/napari-tmidas/issues">file an issue</a> along with a detailed description.</p>
 <hr />
@@ -348,7 +318,7 @@ https://github.com/napari/napari-plugin-template#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/stable/plugins/index.html
 -->
-        
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,91 +210,67 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://raw.githubusercontent.com/tlambert03/napari-ndtiffs/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-ndtiffs.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-ndtiffs"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-ndtiffs.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-ndtiffs.svg?color=green" /></a>
-<a href="https://github.com/tlambert03/napari-ndtiffs/actions"><img alt="tests" src="https://github.com/tlambert03/napari-ndtiffs/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/tlambert03/napari-ndtiffs"><img alt="codecov" src="https://codecov.io/gh/tlambert03/napari-ndtiffs/branch/main/graph/badge.svg" /></a></p>
+                                        <p><a href="https://raw.githubusercontent.com/tlambert03/napari-ndtiffs/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-ndtiffs.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-ndtiffs"><img src="https://img.shields.io/pypi/v/napari-ndtiffs.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-ndtiffs.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/tlambert03/napari-ndtiffs/actions"><img src="https://github.com/tlambert03/napari-ndtiffs/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/tlambert03/napari-ndtiffs"><img src="https://codecov.io/gh/tlambert03/napari-ndtiffs/branch/main/graph/badge.svg" alt="codecov" /></a></p>
 <p>napari plugin for nd tiff folders with optional CUDA or OpenCL-based deskewing.</p>
 <p>Built-in support for folders of (skewed) lattice light sheet tiffs.</p>
-<p><img alt="napari-ndtiffs demo" src="https://github.com/tlambert03/napari-ndtiffs/raw/main/demo.gif" /></p>
+<p><img src="https://github.com/tlambert03/napari-ndtiffs/raw/main/demo.gif" alt="napari-ndtiffs demo" /></p>
 <hr />
 <p><em>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</em></p>
 <h2>Features</h2>
 <ul>
-<li>Drag and drop a folder of tiffs onto napari window to view easily </li>
+<li>Drag and drop a folder of tiffs onto napari window to view easily
+<ul>
 <li>(currently designed to detect  lattice light sheet tiffs, but easily
-    adjustable)</li>
+adjustable)</li>
+</ul>
+</li>
 <li>If lattice <code>Settings.txt</code> file is found, will deskew automatically (only if
-  necessary)</li>
+necessary)</li>
 <li>Lazily loads dataset on demand.  quickly load preview your data.</li>
 <li>Handles <code>.zip</code> archives as well!  Just directly compress your tiff folder,
-  then drop it into napari.</li>
+then drop it into napari.</li>
 <li>All OpenCL deskewing, works on GPU as well as CPU, falls back to scipy if
-  <a href="https://documen.tician.de/pyopencl/">PyOpenCL</a> is unavailable.</li>
+<a href="https://documen.tician.de/pyopencl/">PyOpenCL</a> is unavailable.</li>
 <li>CuPy-based deskewing will work for cards with NVIDIA GPUs that support CUDA.
-  CuPy 8.x releases should work, although CuPy &gt;= 9 is recommended. If <a href="https://docs.cupy.dev/">CuPy</a>
-  is unavailable, the <a href="https://documen.tician.de/pyopencl/">PyOpenCL</a> implementation is used instead.</li>
+CuPy 8.x releases should work, although CuPy &gt;= 9 is recommended. If <a href="https://docs.cupy.dev/">CuPy</a>
+is unavailable, the <a href="https://documen.tician.de/pyopencl/">PyOpenCL</a> implementation is used instead.</li>
 </ul>
 <p>It would not be hard to support arbitrary filenaming patterns!  If you have a
 folder of tiffs with a consistent naming scheme and would like to take advantage
 of this plugin, feel free to open an issue!</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-ndtiffs</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-shell">pip install napari-ndtiffs
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-ndtiffs
+</pre></div>
 </code></pre>
-
 <p>To also install PyOpenCL (for faster deskewing):</p>
-<pre class="codehilite"><code class="language-shell">pip install napari-ndtiffs[opencl]
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-ndtiffs<span class="o">[</span>opencl<span class="o">]</span>
+</pre></div>
 </code></pre>
-
 <p>On NVIDIA GPUs with CUDA support, the <a href="https://docs.cupy.dev/">CuPy</a> implementation may be faster than
 <a href="https://documen.tician.de/pyopencl/">PyOpenCL</a>. CuPy also has experimental support for AMD GPUs via HIP/ROCm. See
 the CuPy <a href="https://docs.cupy.dev/en/stable/install.html">installation instructions</a></p>
 <h2>Usage</h2>
-<p>In most cases, just drop your folder onto napari, or use <code>viewer.open("path")</code></p>
+<p>In most cases, just drop your folder onto napari, or use <code>viewer.open(&quot;path&quot;)</code></p>
 <h3>Overriding parameters</h3>
 <p>You can control things like voxel size and deskewing angle as follows:</p>
-<pre class="codehilite"><code class="language-python">from napari_ndtiffs import parameter_override
-import napari
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_ndtiffs</span><span class="w"> </span><span class="kn">import</span> <span class="n">parameter_override</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
-viewer = napari.Viewer()
-with parameter_override(angle=45, name=&quot;my image&quot;):
-    viewer.open(&quot;path/to/folder&quot;, plugin=&quot;ndtiffs&quot;)
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">parameter_override</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my image&quot;</span><span class="p">):</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;path/to/folder&quot;</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="s2">&quot;ndtiffs&quot;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <p>Valid keys for <code>parameter_override</code> include:</p>
 <ul>
 <li><strong>dx</strong>: (<code>float</code>) the pixel size, in microns</li>
 <li><strong>dz</strong>: (<code>float</code>)the z step size, in microns</li>
-<li><strong>deskew</strong>: (<code>bool</code>) whether or not to deskew, (by default, will deskew if angle &gt; 0, or if a lattice metadata file is detected that requires deskewing) </li>
+<li><strong>deskew</strong>: (<code>bool</code>) whether or not to deskew, (by default, will deskew if angle &gt; 0, or if a lattice metadata file is detected that requires deskewing)</li>
 <li><strong>angle</strong>: (<code>float</code>) the angle of the light sheet relative to the coverslip</li>
 <li><strong>padval</strong>: (<code>float</code>) the value with which to pad the image edges when deskewing (default is 0)</li>
 <li><strong>contrast_limits</strong>: (<code>2-tuple of int</code>) (min, max) contrast_limits to use when viewing the image</li>
@@ -300,24 +280,24 @@ with parameter_override(angle=45, name=&quot;my image&quot;):
 <p>Try it out with test data: <a href="https://www.dropbox.com/s/up4ywrn2sckjunc/lls_mitosis.zip?dl=1">download sample data</a></p>
 <p>You can unzip if you like, or just drag the zip file onto the napari window.</p>
 <p>Or, from command line, use:</p>
-<pre class="codehilite"><code class="language-bash">napari path/to/lls_mitosis.zip
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari<span class="w"> </span>path/to/lls_mitosis.zip
+</pre></div>
 </code></pre>
-
 <h2>Debugging</h2>
 <p>To monitor file io and deskew activity, enter the following in the napari console:</p>
-<pre class="codehilite"><code class="language-python">import logging
-logging.getLogger('napari_ndtiffs').setLevel('DEBUG')
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;napari_ndtiffs&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">)</span>
+</pre></div>
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-ndtiffs" is free and open source software</p>
+&quot;napari-ndtiffs&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/tlambert03/napari-ndtiffs/issues">file an issue</a> along with a detailed description.</p>
-        
+
 
                                     </div>
                                 </div>

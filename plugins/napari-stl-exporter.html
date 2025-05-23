@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -206,76 +210,53 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <p><a href="https://github.com/jo-mueller/napari-stl-exporter/raw/master/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari-stl-exporter.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-stl-exporter"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-stl-exporter.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-stl-exporter.svg?color=green" /></a>
-<a href="https://github.com/jo-mueller/napari-stl-exporter/actions"><img alt="tests" src="https://github.com/jo-mueller/napari-stl-exporter/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/jo-mueller/napari-stl-exporter"><img alt="codecov" src="https://codecov.io/gh/jo-mueller/napari-stl-exporter/branch/main/graph/badge.svg?token=9zctLzazD9" /></a></p>
+                                        <p><a href="https://github.com/jo-mueller/napari-stl-exporter/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-stl-exporter.svg?color=green" alt="License" /></a>
+<a href="https://pypi.org/project/napari-stl-exporter"><img src="https://img.shields.io/pypi/v/napari-stl-exporter.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-stl-exporter.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/jo-mueller/napari-stl-exporter/actions"><img src="https://github.com/jo-mueller/napari-stl-exporter/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/jo-mueller/napari-stl-exporter"><img src="https://codecov.io/gh/jo-mueller/napari-stl-exporter/branch/main/graph/badge.svg?token=9zctLzazD9" alt="codecov" /></a></p>
 <p>This plugin allows to import and export surface data in Napari to common file formats. The generated file formats can be read by other common applications, and - in particular - allow <em>3D-printing</em>.</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-stl-exporter/raw/main/doc/model_and_printed_model.png" /></p>
+<p><img src="https://github.com/jo-mueller/napari-stl-exporter/raw/main/doc/model_and_printed_model.png" alt="" /></p>
 <h3>Supported file formats:</h3>
-<p>Currently supported file formats for export include and rely on the <a href="https://vedo.embl.es/autodocs/content/vedo/io.html#vedo.io">vedo io API</a>.
-* <em>.stl</em>: <a href="https://en.wikipedia.org/wiki/STL_%28file_format%29">Standard triangle language</a>
-* <em>.ply</em>: <a href="https://en.wikipedia.org/wiki/PLY_(file_format)">Polygon file format</a>
-* <em>.obj</em>: <a href="https://en.wikipedia.org/wiki/Wavefront_.obj_file">Wavefront object</a></p>
+<p>Currently supported file formats for export include and rely on the <a href="https://vedo.embl.es/autodocs/content/vedo/io.html#vedo.io">vedo io API</a>.</p>
+<ul>
+<li><em>.stl</em>: <a href="https://en.wikipedia.org/wiki/STL_%28file_format%29">Standard triangle language</a></li>
+<li><em>.ply</em>: <a href="https://en.wikipedia.org/wiki/PLY_(file_format)">Polygon file format</a></li>
+<li><em>.obj</em>: <a href="https://en.wikipedia.org/wiki/Wavefront_.obj_file">Wavefront object</a></li>
+</ul>
 <h3>Supported Napari layers:</h3>
-<p>Currently supported Napari layer types are:
-* <a href="https://napari.org/howtos/layers/surface.html">Surface layers</a>
-* <a href="https://napari.org/howtos/layers/labels.html">Label layers</a>: The label data is converted to surface data under the hood using the <a href="https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.marching_cubes">marching cubes algorithm</a> implemented in <a href="https://scikit-image.org/">scikit-image</a> and is then exported using <a href="https://vedo.embl.es/">Vedo</a>. Warning: This can be slow for large image data!</p>
+<p>Currently supported Napari layer types are:</p>
+<ul>
+<li><a href="https://napari.org/howtos/layers/surface.html">Surface layers</a></li>
+<li><a href="https://napari.org/howtos/layers/labels.html">Label layers</a>: The label data is converted to surface data under the hood using the <a href="https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.marching_cubes">marching cubes algorithm</a> implemented in <a href="https://scikit-image.org/">scikit-image</a> and is then exported using <a href="https://vedo.embl.es/">Vedo</a>. Warning: This can be slow for large image data!</li>
+</ul>
 <h3>Import/export</h3>
-<p><strong>Interactively:</strong> To export the data, simply save the selected layer with <code>File &gt; Save Selected Layer(s)</code> and specify the file ending to be <code>some_file.[file_ending]</code>, for supported file types, see above. Similarly, supported file types can be imported into Napari with <code>File &gt;</code></p>
+<p><strong>Interactively:</strong> To export the data, simply save the selected layer with <code>File &gt; Save Selected Layer(s)</code> and specify the file ending to be <code>some_file.[file_ending]</code>, for supported file types, see above. Similarly, supported file types can be imported into Napari with <code>File &gt; </code></p>
 <p><strong>From code</strong>: A <a href="https://napari.org/api/napari.layers.Labels.html">Napari Label layer</a> can be added to the viewer as described in the <a href="https://napari.org/gallery/add_labels.html?highlight=add_labels">napari reference</a> with this code snippet:</p>
-<pre class="codehilite"><code class="language-python">import napari
-import numpy as np
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-# Load and binarize image
-label_image = np.zeros((100, 100, 100), dtype=int)
-label_image[25:75, 25:75, 25:75] = 1
+<span class="c1"># Load and binarize image</span>
+<span class="n">label_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">label_image</span><span class="p">[</span><span class="mi">25</span><span class="p">:</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">:</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">:</span><span class="mi">75</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
-# Add data to viewer
-viewer = napari.Viewer()
-label_layer = viewer.add_labels(data, name='3D object')
+<span class="c1"># Add data to viewer</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;3D object&#39;</span><span class="p">)</span>
 
-# save the layer as 3D printable file to disc
-napari.save_layers(r'/some/path/test.stl', [label_layer])
+<span class="c1"># save the layer as 3D printable file to disc</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">save_layers</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/some/path/test.stl&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">label_layer</span><span class="p">])</span>
+</pre></div>
 </code></pre>
-
 <h3>Sample data</h3>
 <p>You can create sample label/surface data for export using the built-in functions as shown here:</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-stl-exporter/raw/main/doc/1_sample_data.png" /></p>
+<p><img src="https://github.com/jo-mueller/napari-stl-exporter/raw/main/doc/1_sample_data.png" alt="" /></p>
 <p>...or from code with</p>
-<pre class="codehilite"><code class="language-Python">import napari_stl_exporter
+<pre><code class="language-Python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_stl_exporter</span>
 
-pyramid = napari_stl_exporter.make_pyramid_surface()
+<span class="n">pyramid</span> <span class="o">=</span> <span class="n">napari_stl_exporter</span><span class="o">.</span><span class="n">make_pyramid_surface</span><span class="p">()</span>
+</pre></div>
 </code></pre>
-
 <h3>3D-printing</h3>
 <p>To actually send your object to a 3D-printer, it has to be further converted to the <em>.gcode</em> format with a Slicer program. The latter convert the 3D object to machine-relevant parameters (printing detail, motor trajectories, etc). Popular slicers are:</p>
 <ul>
@@ -283,15 +264,15 @@ pyramid = napari_stl_exporter.make_pyramid_surface()
 <li><a href="https://www.prusa3d.com/prusaslicer/">Prusa Slicer</a>: Tutorial <a href="https://help.prusa3d.com/en/article/first-print-with-prusaslicer_1753">here</a></li>
 </ul>
 <p><em>Note</em>: You can also upload the STL file to <a href="https://github.com">github.com</a> and interact with it in the browser:</p>
-<p><img alt="" src="https://github.com/jo-mueller/napari-stl-exporter/raw/main/doc/pyramid_browser_screenshot.png" /></p>
+<p><img src="https://github.com/jo-mueller/napari-stl-exporter/raw/main/doc/pyramid_browser_screenshot.png" alt="" /></p>
 <h4>Digital elevation models</h4>
 <p>DIgital elevation models (DEMs) can be printed with the napari-stl-exporter following these steps:</p>
 <ol>
 <li>Go to the <a href="https://portal.opentopography.org/raster?opentopoID=OTSDEM.032021.4326.2">open topography repository</a> and select a region of your choice, then download it as a GeoTiff file (<code>.tif</code>, intensity encodes elevation)</li>
 <li>Open the downloaded tif image use the image conversion plugin (´Plugins &gt; napari-stl-exporter &gt; 2D image to surface´) to convert the downloaded image to a surface. CHeck the <code>solidify</code> option to make it readily 3D-printable.</li>
 </ol>
-<p><img alt="" src="https://github.com/jo-mueller/napari-stl-exporter/raw/main/doc/landscape_to_surface.png" /></p>
-<ol>
+<p><img src="https://github.com/jo-mueller/napari-stl-exporter/raw/main/doc/landscape_to_surface.png" alt="" /></p>
+<ol start="3">
 <li>Export the created surface layer as <code>.stl</code> or <code>.ply</code> file. Open it in your Slicer of choice (you may have to scale it according to the size limitations of your printer) and off you go!</li>
 </ol>
 <hr />
@@ -303,21 +284,19 @@ https://github.com/napari/cookiecutter-napari-plugin#getting-started
 and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
-
 <h2>Installation</h2>
 <p>You can install <code>napari-stl-exporter</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code>pip install napari-stl-exporter
+<pre><code>pip install napari-stl-exporter
 </code></pre>
-
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-"napari-stl-exporter" is free and open source software</p>
+&quot;napari-stl-exporter&quot; is free and open source software</p>
 <h2>Issues</h2>
-<p>If you encounter any problems, please <a href="https://github.com/jo-mueller/napari-stl-exporter/issues">file an issue</a> along with a detailed description or post to image.sc and tag <code>El_Pollo_Diablo</code></p>
-        
+<p>If you encounter any problems, please <a href="https://github.com/jo-mueller/napari-stl-exporter/issues">file an issue</a> along with a detailed description or post to <a href="http://image.sc">image.sc</a> and tag <code>El_Pollo_Diablo</code></p>
+
 
                                     </div>
                                 </div>

@@ -32,11 +32,15 @@
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
     <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-      .codehilite, .codehilite pre, .codehilite code {
-        color: #333333; /* default code text color */
+      .highlight, .highlight pre, .highlight code {
+        /* default font color in code blocks */
+        color: #333333;
+        margin: 0;
       }
-      .codehilite code {
-        padding: 0;
+      pre > code { display: contents; }
+      code::before, code::after {
+        content: none !important;
+        display: none !important;
       }
     </style>
 </head>
@@ -202,43 +206,15 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        
-        <style>
-        pre {
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-        code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-        </style>
-        <!--
+                                        <!--
 #FUTURE: package logo
 -->
-
-<p><a href="https://github.com/clinicalomx/napari-prism/raw/main/LICENSE"><img alt="License MIT" src="https://img.shields.io/pypi/l/napari-prism.svg?color=green" /></a>
-<a href="https://pypi.org/project/napari-prism"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari-prism.svg?color=green" /></a>
-<a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari-prism.svg?color=green" /></a>
-<a href="https://github.com/clinicalomx/napari-prism/actions"><img alt="tests" src="https://github.com/clinicalomx/napari-prism/workflows/tests/badge.svg" /></a>
-<a href="https://codecov.io/gh/clinicalomx/napari-prism"><img alt="codecov" src="https://codecov.io/gh/clinicalomx/napari-prism/branch/main/graph/badge.svg" /></a>
-<a href="https://napari-hub.org/plugins/napari-prism"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-prism" /></a></p>
+<p><a href="https://github.com/clinicalomx/napari-prism/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-prism.svg?color=green" alt="License MIT" /></a>
+<a href="https://pypi.org/project/napari-prism"><img src="https://img.shields.io/pypi/v/napari-prism.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-prism.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/clinicalomx/napari-prism/actions"><img src="https://github.com/clinicalomx/napari-prism/workflows/tests/badge.svg" alt="tests" /></a>
+<a href="https://codecov.io/gh/clinicalomx/napari-prism"><img src="https://codecov.io/gh/clinicalomx/napari-prism/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://napari-hub.org/plugins/napari-prism"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-prism" alt="napari hub" /></a></p>
 <p><strong>NOTE: PRISM is still in heavy development.</strong>
 PRISM or napari-prism is a package and <a href="https://github.com/napari/napari">napari</a> plugin designed for interactively processing, analysing and visualising multiplxed tissue microarrays.</p>
 <p>Currently, end-to-end capabilities (i.e. starting from importing the raw image file, to basic spatial analysis of annotated cells) are available for images generated from the
@@ -254,50 +230,51 @@ package allows for usage at any stage of processing and/or analysis, given a pre
 <h2>Requirements</h2>
 <p>Install <a href="https://www.anaconda.com/docs/getting-started/miniconda/install">miniconda</a> or anaconda.</p>
 <p>Open the conda terminal and create a simple environment:</p>
-<pre class="codehilite"><code class="language-bash">conda create -n prism python=3.10 -c conda-forge
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>prism<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>-c<span class="w"> </span>conda-forge
+</pre></div>
 </code></pre>
-
 <p>Activate the environment before executing the instructions in the Installation section.</p>
-<pre class="codehilite"><code class="language-bash">conda activate prism
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>prism
+</pre></div>
 </code></pre>
-
 <h3>List of Dependencies</h3>
-<pre class="codehilite"><code>python==3.10
-spatialdata&lt;=0.2.5.post0
-spatialdata-plot&lt;=0.2.7
-napari[all]&gt;=0.4.19.post1
-napari_matplotlib&lt;2.0.2
-napari_spatialdata&lt;=0.5.3
-dask&lt;2024.12.1
-cellpose&gt;=3.0.10
-scanpy&gt;=1.10.0
-xarray&lt;=2024.7.0
-spatialdata_plot&lt;=0.2.7
+<pre><code><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">==</span><span class="mf">3.10</span>
+<span class="n">spatialdata</span><span class="o">&lt;=</span><span class="mf">0.2.5</span><span class="p">.</span><span class="n">post0</span>
+<span class="n">spatialdata</span><span class="o">-</span><span class="n">plot</span><span class="o">&lt;=</span><span class="mf">0.2.7</span>
+<span class="n">napari</span><span class="o">[</span><span class="n">all</span><span class="o">]&gt;=</span><span class="mf">0.4.19</span><span class="p">.</span><span class="n">post1</span>
+<span class="n">napari_matplotlib</span><span class="o">&lt;</span><span class="mf">2.0.2</span>
+<span class="n">napari_spatialdata</span><span class="o">&lt;=</span><span class="mf">0.5.3</span>
+<span class="n">dask</span><span class="o">&lt;</span><span class="mf">2024.12.1</span>
+<span class="n">cellpose</span><span class="o">&gt;=</span><span class="mf">3.0.10</span>
+<span class="n">scanpy</span><span class="o">&gt;=</span><span class="mf">1.10.0</span>
+<span class="n">xarray</span><span class="o">&lt;=</span><span class="mf">2024.7.0</span>
+<span class="n">spatialdata_plot</span><span class="o">&lt;=</span><span class="mf">0.2.7</span>
+</pre></div>
 </code></pre>
-
 <h2>Installation: CPU only</h2>
 <p>Install this package via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre class="codehilite"><code class="language-bash">pip install napari-prism
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-prism
+</pre></div>
 </code></pre>
-
 <p>Install the latest development version:</p>
-<pre class="codehilite"><code class="language-bash">pip install git+https://github.com/clinicalomx/napari-prism.git@main
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/clinicalomx/napari-prism.git@main
+</pre></div>
 </code></pre>
-
 <h2>Installation: GPU-accelerated</h2>
 <h3>General computations with RAPIDS and rapids-singlecell</h3>
 <p>General larger scale and/or computationally demanding functions can be accelerated with the <a href="https://rapids.ai/">NVIDIA RAPIDS suite</a>. We utilise some packages from this suite, as well as the GPU-accelerated implementation of scanpy with <a href="https://github.com/scverse/rapids_singlecell">rapids-singlecell</a>.</p>
 <ol>
-<li><a href="https://docs.rapids.ai/install/#system-req">Check and configure the system requirements from RAPIDS</a>.<ul>
+<li><a href="https://docs.rapids.ai/install/#system-req">Check and configure the system requirements from RAPIDS</a>.
+<ul>
 <li>Currently, only Linux distributions (or Windows systems with WSL2) are supported.</li>
 <li>Install the <a href="https://developer.nvidia.com/cuda-12-2-2-download-archive">CUDA12.2</a> or <a href="https://developer.nvidia.com/cuda-12-5-1-download-archive">CUDA12.5</a> toolkit.</li>
 </ul>
 </li>
 <li>Install the package together with <a href="https://rapids.ai/">RAPIDS</a> and <a href="https://github.com/scverse/rapids_singlecell">rapids-singlecell</a> via <a href="https://pypi.org/project/pip/">pip</a>:</li>
 </ol>
-<pre class="codehilite"><code class="language-bash">pip install napari-prism[gpu] --extra-index-url=https://pypi.nvidia.com
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-prism<span class="o">[</span>gpu<span class="o">]</span><span class="w"> </span>--extra-index-url<span class="o">=</span>https://pypi.nvidia.com
+</pre></div>
 </code></pre>
-
 <h3>Cell segmentation with Cellpose</h3>
 <p>To run <a href="https://github.com/MouseLand/cellpose">cellpose</a> on the GPU, install the <a href="https://pytorch.org/get-started/locally/">CUDA version of PyTorch</a>. You may need to <a href="https://github.com/MouseLand/cellpose?tab=readme-ov-file#gpu-version-cuda-on-windows-or-linux">remove any installed CPU versions of PyTorch</a>.</p>
 <h2>Getting Started</h2>
@@ -312,14 +289,14 @@ spatialdata_plot&lt;=0.2.7
 the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-prism" is free and open source software</p>
+&quot;napari-prism&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/clinicalomx/napari-prism/issues">file an issue</a> along with a detailed description.</p>
 <h2>Known Issues</h2>
-<p>Adding shapes like <code>tma_envelopes</code> may cause segmentation faults (https://github.com/napari/napari/issues/6709). A workaround is to uninstall triangle (<code>pip uninstall triangle</code>)</p>
+<p>Adding shapes like <code>tma_envelopes</code> may cause segmentation faults (<a href="https://github.com/napari/napari/issues/6709">https://github.com/napari/napari/issues/6709</a>). A workaround is to uninstall triangle (<code>pip uninstall triangle</code>)</p>
 <h2>Citation</h2>
 <p>**tba</p>
-        
+
 
                                     </div>
                                 </div>
