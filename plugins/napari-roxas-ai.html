@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -940,18 +940,48 @@ https://napari.org/stable/plugins/index.html
 -->
 
 <h2>Installation</h2>
-<p>You will need <code>github large file storage</code> to download model files. If not using a debian-based distribution, check https://git-lfs.com/, else run:</p>
-<pre><code>sudo apt install git-lfs
-</code></pre>
-<p>You then need to activate it with:</p>
-<pre><code>git lfs install --skip-repo
-</code></pre>
-<p>You can install <code>napari-roxas-ai</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-roxas-ai
-</code></pre>
-<p>To install latest development version:</p>
-<pre><code>pip install -e git+https://github.com/roxas-ai/napari-roxas-ai.git#egg=napari-roxas-ai
-</code></pre>
+<h3>Environment setup</h3>
+<p>It's recommended to create a dedicated Python environment for napari-roxas-ai:</p>
+<ol>
+<li>
+<p>Install Miniconda if you don't have it already: <a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda Installation Guide</a></p>
+</li>
+<li>
+<p>Create a new environment:
+<code>bash
+conda create -n roxas-ai python=3.12
+conda activate roxas-ai</code></p>
+</li>
+</ol>
+<h3>Installation</h3>
+<p>Install <code>napari-roxas-ai</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
+<p><code>bash
+pip install napari-roxas-ai</code></p>
+<h3>Launching the plugin</h3>
+<p>Once installed, you can launch napari with the roxas-ai plugin:</p>
+<p><code>bash
+napari</code></p>
+<h3>Verifying installation</h3>
+<p>To check if the plugin is working correctly:
+1. Go to <code>File &gt; Open Sample &gt; ROXAS AI</code> in the napari interface.
+2. The first time you open a sample, it may take some time as sample data and model weights are being downloaded. Progress will be logged in the terminal.
+3. After the downloads, a sample made of three layers should open in the viewer</p>
+<h3>GPU Support</h3>
+<p>If you want to use GPU acceleration for model inference:</p>
+<ol>
+<li>Ensure you have the proper GPU drivers and CUDA installed for your system:</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">NVIDIA CUDA Installation Guide Linux</a></li>
+<li>
+<p><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html">NVIDIA CUDA Installation Guide Windows</a></p>
+</li>
+<li>
+<p>Enable GPU support in the napari-roxas-ai settings within the napari interface.</p>
+</li>
+<li>
+<p>You may need to reinstall PyTorch with CUDA support for your specific hardware:
+   Visit the <a href="https://pytorch.org/get-started/locally/">PyTorch Installation Guide</a> to find the appropriate installation command for your setup.</p>
+</li>
+</ol>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -975,7 +1005,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>

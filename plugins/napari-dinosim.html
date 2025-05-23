@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
                                             <li class="MetadataList_textItem__KKmMN"><a
                                                     class="MetadataList_textItem__KKmMN underline"
-                                                    href="../index.html?license=oss">MIT</a></li>
+                                                    href="../index.html?license=oss">Not available</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -256,16 +256,16 @@ pre > code:last-child {
 <a href="https://codecov.io/gh/AAitorG/napari-dinoSim"><img alt="codecov" src="https://codecov.io/gh/AAitorG/napari-dinoSim/branch/main/graph/badge.svg" /></a>
 <a href="https://napari-hub.org/plugins/napari-dinosim"><img alt="napari hub" src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-dinosim" /></a></p>
 <p><img alt="DINOSim-simple" src="docs/DINOSim-simplest.png" /></p>
-<p>A <a href="https://github.com/napari/napari">napari</a> plugin for zero-shot image segmentation using DINO vision transformers.</p>
+<p>A <a href="https://github.com/napari/napari">napari</a> plugin for zero-shot image segmentation using DINOv2 vision transformers.</p>
 <hr />
 <h2>Overview</h2>
-<p><code>napari-dinoSim</code> allows users to perform zero-shot image segmentation by selecting reference points on an image. The plugin then computes similarity maps based on features extracted by DINOv2 and generates segmentation masks.</p>
-<p>For detailed information on the widget's functionality, UI elements, and usage instructions, please refer to the <a href="./docs/plugin_documentation.md">Plugin Documentation</a>. A simple <a href="./src/dinoSim_example.ipynb">example notebook</a> demonstrating how to use DINOSim via code is also available.</p>
+<p><code>napari-dinoSim</code> enables zero-shot image segmentation by selecting reference points on an image. The plugin leverages DINOv2's powerful feature extraction capabilities to compute similarity maps and generate segmentation masks.</p>
+<p>For detailed information about the widget's functionality, UI elements, and usage instructions, please refer to the <a href="./docs/plugin_documentation.md">Plugin Documentation</a>. A simple <a href="./src/dinoSim_example.ipynb">example notebook</a> demonstrating how to use DINOSim programmatically is also available.</p>
 <h2>Installation</h2>
-<p>You can install <code>napari-dinoSim</code> via <a href="https://pypi.org/project/pip/">pip</a>. For GPU support (recommended), ensure you have a compatible PyTorch version installed with CUDA or MPS support.</p>
+<p>You can install <code>napari-dinoSim</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <p><code>sh
 pip install napari-dinosim</code></p>
-<p>or from source via <a href="https://docs.conda.io/en/latest/miniconda.html">conda</a>:</p>
+<p>or from source using <a href="https://docs.conda.io/en/latest/miniconda.html">conda</a>:</p>
 <p>```bash</p>
 <h1>Clone the repository</h1>
 <p>git clone https://github.com/AAitorG/napari-dinoSim.git
@@ -274,31 +274,34 @@ cd napari-dinoSim</p>
 <p>conda env create -f environment.yml
 conda activate napari-dinosim
 ```</p>
-<h2>Open the Plugin</h2>
+<h2>Usage</h2>
 <p>To launch napari, run the following command in your terminal:</p>
 <p><code>sh
 napari</code></p>
-<p>Within the napari interface, locate the <code>DINOSim segmentation</code> plugin in the Plugins section of the top bar.</p>
-<h2>Contributing</h2>
-<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
+<p>Within the napari interface, locate and click the <code>DINOSim segmentation</code> plugin in the Plugins section of the top bar. You can then:
+1. Drag and drop your image into the napari viewer
+2. Select points on the objects you want to segment
+3. The plugin will automatically generate segmentation masks based on your selections</p>
+<p>For more detailed instructions and examples, please refer to our <a href="./docs/plugin_documentation.md">Plugin Documentation</a>.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-"napari-dinoSim" is free and open source software</p>
+"napari-dinoSim" is free and open source software.</p>
 <h2>Citation</h2>
-<p>Please note that DINOSim is based on a <a href="https://doi.org/10.1101/2025.03.09.642092">publication</a>. If you use it successfully for your research, please be so kind to cite our work:</p>
+<p>Please note that DINOSim is based on a <a href="https://doi.org/10.1101/2025.03.09.642092">publication</a>. If you use DINOSim in your research, please be so kind to cite our work:</p>
 <p><code>bibtex
 @article {Gonzalez-Marfil2025dinosim,
     title = {DINOSim: Zero-Shot Object Detection and Semantic Segmentation on Electron Microscopy Images},
     author = {Gonz{\'a}lez-Marfil, Aitor and G{\'o}mez-de-Mariscal, Estibaliz and Arganda-Carreras, Ignacio},
-    journal = {bioRxiv}
+    journal = {bioRxiv},
     publisher = {Cold Spring Harbor Laboratory},
     url = {https://www.biorxiv.org/content/early/2025/03/13/2025.03.09.642092},
     doi = {10.1101/2025.03.09.642092},
-    year = {2025},
+    year = {2025}
 }</code></p>
+<h2>Contributing</h2>
+<p>Contributions are very welcome! Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>. Please ensure the test coverage at least stays the same before submitting a pull request.</p>
 <h2>Issues</h2>
-<p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
+<p>If you encounter any problems, please <a href="https://github.com/AAitorG/napari-dinoSim/issues">file an issue</a> along with a detailed description.</p>
         
 
                                     </div>
@@ -314,7 +317,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -346,7 +349,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
                                                     <li class="MetadataList_textItem__KKmMN"><a
                                                             class="MetadataList_textItem__KKmMN underline"
-                                                            href="../index.html?license=oss">MIT</a></li>
+                                                            href="../index.html?license=oss">Not available</a></li>
                                                 </ul>
                                             </div>
                                         </div>
