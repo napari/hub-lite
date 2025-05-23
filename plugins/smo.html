@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -264,13 +245,14 @@ pre > code:last-child {
 <p>If you use this software, please cite that pre-print.</p>
 <h2>Usage</h2>
 <p>To obtain a background-corrected image, it is as straightforward as:</p>
-<p>```python
-import skimage.data
-from smo import SMO</p>
-<p>image = skimage.data.human_mitosis()
+<pre class="codehilite"><code class="language-python">import skimage.data
+from smo import SMO
+
+image = skimage.data.human_mitosis()
 smo = SMO(sigma=0, size=7, shape=(1024, 1024))
 background_corrected_image = smo.bg_corrected(image)
-```</p>
+</code></pre>
+
 <p>where we used a sample image from <code>scikit-image</code>.
 By default,
 the background correction subtracts the median value of the background distribution.
@@ -279,9 +261,13 @@ but with a median value of 0.</p>
 <p>A notebook explaining in more detail the meaning of the parameters and other possible uses for SMO is available here: <a href="https://github.com/maurosilber/SMO/blob/main/smo/examples/usage.ipynb">smo/examples/usage.ipynb</a> <a href="https://colab.research.google.com/github/maurosilber/SMO/blob/main/smo/examples/usage.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a>.</p>
 <h2>Installation</h2>
 <p>It can be installed with <code>pip</code> from PyPI:</p>
-<p><code>pip install smo</code></p>
+<pre class="codehilite"><code>pip install smo
+</code></pre>
+
 <p>or with <code>conda</code> from the conda-forge channel:</p>
-<p><code>conda install -c conda-forge smo</code></p>
+<pre class="codehilite"><code>conda install -c conda-forge smo
+</code></pre>
+
 <h2>Plugins</h2>
 <h3>Napari</h3>
 <p>A <a href="https://napari.org">napari</a> plugin is available.</p>
@@ -318,11 +304,12 @@ but with a median value of 0.</p>
 <p>Note: the ImageJ plugin does not check that saturated pixels are properly excluded.</p>
 <h2>Development</h2>
 <p>Code style is enforced via pre-commit hooks. To set up a development environment, clone the repository, optionally create a virtual environment, install the [dev] extras and the pre-commit hooks:</p>
-<p><code>git clone https://github.com/maurosilber/SMO
+<pre class="codehilite"><code>git clone https://github.com/maurosilber/SMO
 cd SMO
 conda create -n smo python pip numpy scipy
 pip install -e .[dev]
-pre-commit install</code></p>
+pre-commit install
+</code></pre>
         
 
                                     </div>

@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -265,8 +246,9 @@ algorithm<sup>1</sup>.</p>
 </ul>
 <h3>Install</h3>
 <p>The conda package includes the required pre-compiled libraries for Windows and Linux. See GPU driver requirements <a href="#gpu-requirements">below</a></p>
-<p><code>sh
-conda install -c conda-forge pycudadecon</code></p>
+<pre class="codehilite"><code class="language-sh">conda install -c conda-forge pycudadecon
+</code></pre>
+
 <p><em>macOS is not supported</em></p>
 <h3>📖   &nbsp; <a href="http://www.talleylambert.com/pycudadecon">Documentation</a></h3>
 <h3>GPU requirements</h3>
@@ -278,55 +260,89 @@ version of CUDA you'd like based on your needs, but please note that different
 versions of the CUDA toolkit have different GPU driver requirements:</p>
 <p>To specify a specific cudatoolkit version, install as follows (for instance, to
 use <code>cudatoolkit=10.2</code>)</p>
-<p><code>sh
-conda install -c conda-forge pycudadecon cudatoolkit=10.2</code></p>
-<p>| CUDA | Linux driver | Win driver |
-| ---- | ------------ | ---------- |
-| 10.2 | ≥ 440.33     | ≥ 441.22   |
-| 11.0 | ≥ 450.36.06  | ≥ 451.22   |
-| 11.1 | ≥ 455.23     | ≥ 456.38   |
-| 11.2 | ≥ 460.27.03  | ≥ 460.82   |</p>
+<pre class="codehilite"><code class="language-sh">conda install -c conda-forge pycudadecon cudatoolkit=10.2
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>CUDA</th>
+<th>Linux driver</th>
+<th>Win driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.2</td>
+<td>≥ 440.33</td>
+<td>≥ 441.22</td>
+</tr>
+<tr>
+<td>11.0</td>
+<td>≥ 450.36.06</td>
+<td>≥ 451.22</td>
+</tr>
+<tr>
+<td>11.1</td>
+<td>≥ 455.23</td>
+<td>≥ 456.38</td>
+</tr>
+<tr>
+<td>11.2</td>
+<td>≥ 460.27.03</td>
+<td>≥ 460.82</td>
+</tr>
+</tbody>
+</table>
 <p>If you run into trouble, feel free to <a href="https://github.com/tlambert03/pycudadecon/issues">open an
 issue</a> and describe your
 setup.</p>
 <h2>Usage</h2>
 <p>The <a href="https://www.talleylambert.com/pycudadecon/deconvolution.html#pycudadecon.decon"><code>pycudadecon.decon()</code></a> function is designed be able to handle most basic applications:</p>
-<p>```python
-from pycudadecon import decon</p>
-<h1>pass filenames of an image and a PSF</h1>
-<p>result = decon('/path/to/3D_image.tif', '/path/to/3D_psf.tif')</p>
-<h1>decon also accepts numpy arrays</h1>
-<p>result = decon(img_array, psf_array)</p>
-<h1>the image source can also be a sequence of arrays or paths</h1>
-<p>result = decon([img_array, '/path/to/3D_image.tif'], psf_array)</p>
-<h1>see docstrings for additional parameter options</h1>
-<p>```</p>
+<pre class="codehilite"><code class="language-python">from pycudadecon import decon
+
+# pass filenames of an image and a PSF
+result = decon('/path/to/3D_image.tif', '/path/to/3D_psf.tif')
+
+# decon also accepts numpy arrays
+result = decon(img_array, psf_array)
+
+# the image source can also be a sequence of arrays or paths
+result = decon([img_array, '/path/to/3D_image.tif'], psf_array)
+
+# see docstrings for additional parameter options
+</code></pre>
+
 <p>For finer-tuned control, you may wish to make an OTF file from your PSF using <a href="https://www.talleylambert.com/pycudadecon/otf.html#pycudadecon.make_otf"><code>pycudadecon.make_otf()</code></a>, and then use the <a href="https://www.talleylambert.com/pycudadecon/deconvolution.html#pycudadecon.RLContext"><code>pycudadecon.RLContext</code></a> context manager to setup the GPU for use with the <a href="https://www.talleylambert.com/pycudadecon/deconvolution.html#pycudadecon.rl_decon"><code>pycudadecon.rl_decon()</code></a> function.  (Note all images processed in the same context must have the same input shape).</p>
-<p>```python
-from pycudadecon import RLContext, rl_decon
+<pre class="codehilite"><code class="language-python">from pycudadecon import RLContext, rl_decon
 from glob import glob
-import tifffile</p>
-<p>image_folder = '/path/to/some_images/'
-imlist = glob(image_folder + '<em>488</em>.tif')
-otf_path = '/path/to/pregenerated_otf.tif'</p>
-<p>with tifffile.TiffFile(imlist[0]) as tf:
-    imshape = tf.series[0].shape</p>
-<p>with RLContext(imshape, otf_path, dz) as ctx:
+import tifffile
+
+image_folder = '/path/to/some_images/'
+imlist = glob(image_folder + '*488*.tif')
+otf_path = '/path/to/pregenerated_otf.tif'
+
+with tifffile.TiffFile(imlist[0]) as tf:
+    imshape = tf.series[0].shape
+
+with RLContext(imshape, otf_path, dz) as ctx:
     for impath in imlist:
         image = tifffile.imread(impath)
         result = rl_decon(image, ctx.out_shape)
         # do something with result...
-```</p>
+</code></pre>
+
 <p>If you have a 3D PSF volume, the <a href="https://www.talleylambert.com/pycudadecon/otf.html#pycudadecon.TemporaryOTF"><code>pycudadecon.TemporaryOTF</code></a> context manager facilitates temporary OTF generation...</p>
-<p><code>python
- # continuing with the variables from the previous example...
- psf_path = "/path/to/psf_3D.tif"
+<pre class="codehilite"><code class="language-python"> # continuing with the variables from the previous example...
+ psf_path = &quot;/path/to/psf_3D.tif&quot;
  with TemporaryOTF(psf) as otf:
      with RLContext(imshape, otf.path, dz) as ctx:
          for impath in imlist:
              image = tifffile.imread(impath)
              result = rl_decon(image, ctx.out_shape)
-             # do something with result...</code></p>
+             # do something with result...
+</code></pre>
+
 <p>... and that bit of code is essentially what the <a href="https://www.talleylambert.com/pycudadecon/deconvolution.html#pycudadecon.decon"><code>pycudadecon.decon()</code></a> function is doing, with a little bit of additional conveniences added in.</p>
 <p><em>Each of these functions has many options and accepts multiple keyword arguments. See the <a href="https://www.talleylambert.com/pycudadecon/index.html">documentation</a> for further information on the respective functions.</em></p>
 <p>For examples and information on affine transforms, volume rotations, and deskewing (typical of light sheet volumes acquired with stage-scanning), see the <a href="https://www.talleylambert.com/pycudadecon/affine.html">documentation on Affine Transformations</a></p>

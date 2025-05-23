@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -330,10 +311,24 @@ pre > code:last-child {
 <strong>Gplobal up labels</strong></p>
 <p>The In-ROIs masking option can be particularly useful for co-localization detection. By applying a broad reference mask to several target images, you can create more precise labels for ROIs in specified cell compartments. The following examples demonstrate the detection of mutual locations for static PSD-95 enriched sites (postsynaptic membranes) and HPCA translocation sites only in the vicinity of synapses, using <code>_dots-labels</code> for PSD95-mRFP images.</p>
 <p><em>Note: In the In-ROIs masking mode, labels of detected sites correspond to the matching labels from the input ROIs mask.</em></p>
-<p>In-ROIs masking (reference)|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_1.png" />
-:------------------:|:-------------------------:
-<strong>In-ROIs maskin (translocation)</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_2.png" />
-<strong>Masks overlay</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_overlay.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">In-ROIs masking (reference)</th>
+<th style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_1.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>In-ROIs maskin (translocation)</strong></td>
+<td style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_2.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Masks overlay</strong></td>
+<td style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/up_labels_overlay.png" /></td>
+</tr>
+</tbody>
+</table>
 <h3>Intensity masking</h3>
 <p>Extension of <strong>Up Masking</strong> widget. Detects regions with increasing (<code>masking mode</code> - <code>up</code>) or decreasing (<code>masking mode</code> - <code>down</code>) intensity in <code>-red-green</code> images. Returns a labels layer with either <code>_up-labels</code> or <code>_down-labels</code> suffix, depending on the mode.</p>
 <p><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/int_labels.png" /></p>
@@ -358,9 +353,20 @@ pre > code:last-child {
 </ul>
 <p>If the <code>save normalized</code> option is selected, an additional image will be saved. This image is normalized to the absolute intensity of the <code>AA img</code>, which results in reduced background noise amplitude.</p>
 <p><em>Note: normalized images are useful for visual control and mask building only; they are not representative for quantitative analysis.</em></p>
-<p>Raw Eapp| <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_raw.png" />
-:-:|:-:
-<strong>Normalized Eapp</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_norm.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Raw Eapp</th>
+<th style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_raw.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Normalized Eapp</strong></td>
+<td style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/fret_norm.png" /></td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2>Exo-/endo-cytosis monitoring with pH-sensitive tag</h2>
 <p>A set of widgets designed for the analysis of image series containing the pH-sensitive fluorescence protein Superecliptic pHluorin (SEP).</p>
@@ -389,9 +395,20 @@ pre > code:last-child {
 <li><code>time</code> - frame time point, adjusted according to the <code>time scale</code>.</li>
 </ul>
 <p><em>Note: the data frame will contain information for all ROIs; amplitude filtering and crop options pertain to plotting only.</em></p>
-<p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_abs.png" />
-:-------------------------:|:-------------------------:
-<strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_df.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Absolute intensity</th>
+<th style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_abs.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>ΔF/F0</strong></td>
+<td style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rois_df.png" /></td>
+</tr>
+</tbody>
+</table>
 <h3>Multiple images stat profiles</h3>
 <p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in <code>lab</code>. It can handle up to three images (<code>img 0</code>, <code>img 1</code>, and <code>img 2</code>) as inputs, depending on the selected <code>profiles num</code>.</p>
 <p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
@@ -399,9 +416,20 @@ pre > code:last-child {
 - <code>se</code> - mean +/- standard error of the mean.
 - <code>iqr</code> - median +/- interquartile range.
 - <code>ci</code> - mean +/- 95% confidence interval based on the t-distribution.</p>
-<p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_abs.png" />
-:-------------------------:|:-------------------------:
-<strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_df.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Absolute intensity</th>
+<th style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_abs.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>ΔF/F0</strong></td>
+<td style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_df.png" /></td>
+</tr>
+</tbody>
+</table>
 <h3>Multiple labels stat profiles</h3>
 <p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) for one target <code>img</code>. It can handle up to three labels (<code>lab 0</code>, <code>lab 1</code>, and <code>lab 2</code>), depending on the selected <code>profiles num</code>.</p>
 <p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
@@ -409,9 +437,20 @@ pre > code:last-child {
 - <code>se</code> - mean +/- standard error of the mean.
 - <code>iqr</code> - median +/- interquartile range.
 - <code>ci</code> - mean +/- 95% confidence interval based on the t-distribution.</p>
-<p>Absolute intensity         | <img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_lab_abs.png" />
-:-------------------------:|:-------------------------:
-<strong>ΔF/F0</strong>|<img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_lab_df.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Absolute intensity</th>
+<th style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_lab_abs.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>ΔF/F0</strong></td>
+<td style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stat_lab_df.png" /></td>
+</tr>
+</tbody>
+</table>
         
 
                                     </div>

@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -272,17 +253,18 @@ pre > code:last-child {
 <hr />
 <h2>Installation</h2>
 <p>You can install <code>waver</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install waver
+<pre class="codehilite"><code>pip install waver
 </code></pre>
+
 <h2>Usage</h2>
 <h3>Convenience Methods</h3>
 <p>The most convenient way to use waver is to use one of two convenience methods that will create and run a simulation
 for you and return the results.</p>
 <p>The first method <code>run_single_source</code> allows you to run a single simulation with a single source on one grid and 
 record the results using a detector. For example</p>
-<p>```python
-from waver.simulation import run_single_source</p>
-<p>single_sim_params = {
+<pre class="codehilite"><code class="language-python">from waver.simulation import run_single_source
+
+single_sim_params = {
     'size': (12.8e-3, 12.8e-3),
     'spacing': 100e-6,
     'duration': 80e-6,
@@ -294,14 +276,16 @@ from waver.simulation import run_single_source</p>
     'location': (6.4e-3, 6.4e-3),
     'period': 5e-6,
     'ncycles':1,
-}</p>
-<p>detected_wave, speed_grid = run_single_source(**single_sim_params)
-```</p>
+}
+
+detected_wave, speed_grid = run_single_source(**single_sim_params)
+</code></pre>
+
 <p>The second method <code>run_multiple_sources</code> allows you to run multiple simulations with multiple sources on the same
 grid and with the same detector and return the results. For example</p>
-<p>```python
-from waver.simulation import run_multiple_sources</p>
-<p>multi_sim_params = {
+<pre class="codehilite"><code class="language-python">from waver.simulation import run_multiple_sources
+
+multi_sim_params = {
     'size': (12.8e-3, 12.8e-3),
     'spacing': 100e-6,
     'duration': 80e-6,
@@ -315,27 +299,31 @@ from waver.simulation import run_multiple_sources</p>
         'period': 5e-6,
         'ncycles':1,
     }]
-}</p>
-<p>detected_wave, speed_grid = run_multiple_sources(**multi_sim_params)
-```</p>
+}
+
+detected_wave, speed_grid = run_multiple_sources(**multi_sim_params)
+</code></pre>
+
 <p>The main difference between these two methods is that <code>run_multiple_sources</code> takes a <code>sources</code> parameter which takes a list 
 of dictionaries with keys corresponding to source related keyword arguments found in <code>run_single_source</code>.</p>
 <h3>Visualization</h3>
 <p>If you want to quickly visualize the results of <code>run_multiple_sources</code>, you can use the <code>run_and_visualize</code> command which will 
 run the simulation and then launch napari with the results, as seen in <a href="./examples/2D/point_source.py">examples/2D/point_source.py</a></p>
-<p>```python
-from waver.datasets import run_and_visualize</p>
-<p>run_and_visualize(**multi_sim_params)
-```</p>
+<pre class="codehilite"><code class="language-python">from waver.datasets import run_and_visualize
+
+run_and_visualize(**multi_sim_params)
+</code></pre>
+
 <h3>Datasets</h3>
 <p>If you want to run simulations with on many different speed grids you can use the <code>generate_simulation_dataset</code> method as a convenience. The results will be saved to a <a href="https://zarr.readthedocs.io/en/stable/">zarr</a> file of your chosing. You can then use the <code>load_simulation_dataset</code> to load the dataset.</p>
-<p>```python
-from waver.datasets import generate_simulation_dataset</p>
-<h1>Define root path for simulation</h1>
-<p>path = './simulation_dataset.zarr'
-runs = 5</p>
-<h1>Define a simulation, 12.8mm, 100um spacing</h1>
-<p>dataset_sim_params = {
+<pre class="codehilite"><code class="language-python">from waver.datasets import generate_simulation_dataset
+
+# Define root path for simulation
+path = './simulation_dataset.zarr'
+runs = 5
+
+# Define a simulation, 12.8mm, 100um spacing
+dataset_sim_params = {
     'size': (12.8e-3, 12.8e-3),
     'spacing': 100e-6,
     'duration': 80e-6,
@@ -351,29 +339,36 @@ runs = 5</p>
     'temporal_downsample': 2,
     'boundary': 1,
     'edge': 1,
-}</p>
-<h1>Run and save simulation</h1>
-<p>generate_simulation_dataset(path, runs, **dataset_sim_params)
-```</p>
+}
+
+# Run and save simulation
+generate_simulation_dataset(path, runs, **dataset_sim_params)
+</code></pre>
+
 <p>The <code>generate_simulation_dataset</code> allows the <code>speed</code> to be a string that will specify a particular method of randomly generating speed values for the simulation grid.</p>
 <h3>The Simulation Object</h3>
 <p>If you'd like to understand in a little bit more detail how a simulation is defined then you might want to use the unerlying simulation object <code>Simulation</code> and manually set key objects like the <code>Source</code> and <code>Detector</code>. A full example of this is as follows</p>
-<p>```python</p>
-<h1>Create a simulation</h1>
-<p>sim = Simulation(size=size, spacing=spacing, max_speed=max_speed, time_step=time_step)</p>
-<h1>Set speed array</h1>
-<p>sim.set_speed(speed=speed, min_speed=min_speed, max_speed=max_speed)</p>
-<h1>Add source</h1>
-<p>sim.add_source(location=location, period=period, ncycles=ncycles, phase=phase)</p>
-<h1>Add detector grid</h1>
-<p>sim.add_detector(spatial_downsample=spatial_downsample,
-                    boundary=boundary, edge=edge)</p>
-<h1>Run simulation</h1>
-<p>sim.run(duration=duration, temporal_downsample=temporal_downsample, progress=progress, leave=leave)</p>
-<h1>Print simulation wave and speed data</h1>
-<p>print('wave: ', sim.detected_wave)
+<pre class="codehilite"><code class="language-python"># Create a simulation
+sim = Simulation(size=size, spacing=spacing, max_speed=max_speed, time_step=time_step)
+
+# Set speed array
+sim.set_speed(speed=speed, min_speed=min_speed, max_speed=max_speed)
+
+# Add source
+sim.add_source(location=location, period=period, ncycles=ncycles, phase=phase)
+
+# Add detector grid
+sim.add_detector(spatial_downsample=spatial_downsample,
+                    boundary=boundary, edge=edge)
+
+# Run simulation
+sim.run(duration=duration, temporal_downsample=temporal_downsample, progress=progress, leave=leave)
+
+# Print simulation wave and speed data
+print('wave: ', sim.detected_wave)
 print('speed: ', sim.grid_speed)
-```</p>
+</code></pre>
+
 <p>Note these steps are done inside the <code>run_single_source</code> method for you as a convenience.</p>
 <h2>Known Limitations</h2>
 <p>A <a href="https://en.wikipedia.org/wiki/Perfectly_matched_layer">perfectly matched layer</a> boundary has recently been added, but might not perform well under all conditions. Additional contributions would be welcome here.</p>

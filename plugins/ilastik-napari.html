@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -259,15 +240,17 @@ Designed to be similar to the pixel classification workflow in <a href="https://
 If you haven't used conda before, you can find more information in the <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/index.html">conda user guide</a>.
 You can use whichever variant you prefer, as the resulting environment should be the same, but we recommend the <a href="https://github.com/conda-forge/miniforge#mambaforge"><em>mambaforge</em></a> variant as it is usually the fastest.
 When using mambaforge, the <code>mamba</code> command usually replaces the <code>conda</code> command one would otherwise use.</p>
-<p>Once you have installed mambaforge, set up a conda environment with napari and the <em>fastfilters</em> package, and then use pip to install <em>ilastik-napari</em>:
-<code>shell
-mamba create -y -c ilastik-forge -c conda-forge -n my-napari-env napari fastfilters
+<p>Once you have installed mambaforge, set up a conda environment with napari and the <em>fastfilters</em> package, and then use pip to install <em>ilastik-napari</em>:</p>
+<pre class="codehilite"><code class="language-shell">mamba create -y -c ilastik-forge -c conda-forge -n my-napari-env napari fastfilters
 mamba activate my-napari-env
-pip install ilastik-napari</code></p>
-<p>Finally, run napari:
-<code>shell
-napari</code>
-That's it! You should be able to find the ilastik-napari plugin in the Plugins menu.</p>
+pip install ilastik-napari
+</code></pre>
+
+<p>Finally, run napari:</p>
+<pre class="codehilite"><code class="language-shell">napari
+</code></pre>
+
+<p>That's it! You should be able to find the ilastik-napari plugin in the Plugins menu.</p>
 <p>If you prefer to <strong>install napari using pip</strong> instead of conda:
 Make sure to install <code>napari[all]</code>.
 Unless you want to <a href="https://napari.org/stable/plugins/best_practices.html#don-t-include-pyside2-or-pyqt5-in-your-plugin-s-dependencies">choose a PyQt implementation other than <em>PyQt5</em></a>, in which case you should leave out the <code>[all]</code> extra.</p>
@@ -310,19 +293,24 @@ Unless you want to <a href="https://napari.org/stable/plugins/best_practices.htm
 </ol>
 <p><img alt="Example output" src="https://ilastik.org/assets/ilastik-napari/example.png" title="Example output" /></p>
 <h2>Development</h2>
-<p>Create a development environment:
-<code>mamba create -y -n ilastik-napari-dev -c ilastik-forge fastfilters setuptools-scm conda-build anaconda-client
+<p>Create a development environment:</p>
+<pre class="codehilite"><code>mamba create -y -n ilastik-napari-dev -c ilastik-forge fastfilters setuptools-scm conda-build anaconda-client
 conda activate napari-ilastik-dev
-pip install -e .</code></p>
-<p>Build conda package:
-<code>conda activate napari-ilastik-dev
+pip install -e .
+</code></pre>
+
+<p>Build conda package:</p>
+<pre class="codehilite"><code>conda activate napari-ilastik-dev
 mamba build -c ilastik-forge conda-recipe
-anaconda upload /path/to/the/new/package.tar.bz2</code></p>
-<p>Build wheel and sdist packages:
-<code>conda activate napari-ilastik-dev
+anaconda upload /path/to/the/new/package.tar.bz2
+</code></pre>
+
+<p>Build wheel and sdist packages:</p>
+<pre class="codehilite"><code>conda activate napari-ilastik-dev
 pip install build twine
 python -m build
-python -m twine upload --repository testpypi dist/*</code></p>
+python -m twine upload --repository testpypi dist/*
+</code></pre>
         
 
                                     </div>

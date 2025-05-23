@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -266,10 +247,12 @@ pre > code:last-child {
 <p>For most 2D deconvolution, optimal results are obtained with 10 iterations of the algorithm. However, if processing takes too long, acceleration using graphics processing units (GPUs) may make sense, especially for processing larger images with &gt;10 iterations or 3D images. (Note: At this time BBii-Decon is optimized for 2D deconvolution, with a 3D implementation planned in future). </p>
 <p>This plugin supports accelerated processing using the <a href="https://cupy.dev">cupy</a> library. To make use of it, please follow 
 <a href="https://docs.cupy.dev/en/stable/install.html#installing-cupy-from-conda-forge">the instructions</a> to install cupy. 
-Installation may look like this:
-<code>conda create --name cupy_p38 python=3.8
+Installation may look like this:</p>
+<pre class="codehilite"><code>conda create --name cupy_p38 python=3.8
 conda activate cupy_p38
-conda install -c conda-forge cupy cudatoolkit=10.2</code></p>
+conda install -c conda-forge cupy cudatoolkit=10.2
+</code></pre>
+
 <p>If cupy installation worked out, you will find another checkbox in the user interface. By activating it, processing 
 should become faster by factor 5-10, depending on processed image data and use GPU hardware.</p>
 <p><img alt="img.png" src="https://github.com/gdellaire/BBii-Decon/raw/main/demo/use_GPU_checkbox.png" /></p>
@@ -280,10 +263,11 @@ will show up.</p>
 <p><img alt="img.png" src="https://github.com/gdellaire/BBii-Decon/raw/main/demo/screenshot_napari.png" /></p>
 <h2>Usage from python</h2>
 <p>You can also call the function from python. There is a full working example in <a href="demo/BBii_Decon_2D_2021.ipynb">this notebook</a>.</p>
-<p>```
-from bbii_decon import bbii</p>
-<p>bbii(PSF, image, number_of_iterations = 15, tau = 1.0e-08, rho = 0.98)
-```</p>
+<pre class="codehilite"><code>from bbii_decon import bbii
+
+bbii(PSF, image, number_of_iterations = 15, tau = 1.0e-08, rho = 0.98)
+</code></pre>
+
 <h2>Citation</h2>
 <p>1) <a href="https://ieeexplore.ieee.org/abstract/document/6816842">Kathleen Fraser, Dirk V. Arnold, and Graham Dellaire (2014). Projected Barzilai-Borwein
 method with infeasible iterates for nonnegative least-squares image deblurring. In Proceedings
@@ -301,25 +285,35 @@ https://napari.org/plugins/stable/index.html
 
 <h2>Installation</h2>
 <p>You can install <code>bbii-decon</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install bbii-decon
+<pre class="codehilite"><code>pip install bbii-decon
 </code></pre>
+
 <h2>Installation for developers</h2>
 <p>Clone the github repository:</p>
-<p>```
-conda install git</p>
-<p>git clone https://github.com/gdellaire/BBii-Decon.git</p>
-<p>cd BBii-Decon</p>
-<p>pip install -e .
-```</p>
+<pre class="codehilite"><code>conda install git
+
+git clone https://github.com/gdellaire/BBii-Decon.git
+
+cd BBii-Decon
+
+pip install -e .
+</code></pre>
+
 <h2>Deployment to pypi</h2>
 <p>For deploying the plugin to the python package index (pypi), one needs a <a href="https://pypi.org/account/register/">pypi user account</a> 
 first. For deploying the plugin to pypi, one needs to install some tools:</p>
-<p><code>python -m pip install --user --upgrade setuptools wheel
-python -m pip install --user --upgrade twine</code></p>
+<pre class="codehilite"><code>python -m pip install --user --upgrade setuptools wheel
+python -m pip install --user --upgrade twine
+</code></pre>
+
 <p>The following command allows us to package the souce code as a python wheel. Make sure that the 'dist' and 'build' folders are deleted before doing this:</p>
-<p><code>python setup.py sdist bdist_wheel</code></p>
+<pre class="codehilite"><code>python setup.py sdist bdist_wheel
+</code></pre>
+
 <p>This command ships the just generated to pypi:</p>
-<p><code>python -m twine upload --repository pypi dist/*</code></p>
+<pre class="codehilite"><code>python -m twine upload --repository pypi dist/*
+</code></pre>
+
 <p><a href="https://realpython.com/pypi-publish-python-package/#publishing-to-pypi">Read more about distributing your python package via pypi</a>.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure

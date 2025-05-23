@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -274,16 +255,20 @@ pre > code:last-child {
 </ol>
 <h3>Option 2. Via PIP:</h3>
 <p>https://github.com/user-attachments/assets/b63df093-e3e1-49cb-925b-7efce36b9015</p>
-<p><code>bash
-python3 -m pip install nellie</code></p>
+<pre class="codehilite"><code class="language-bash">python3 -m pip install nellie
+</code></pre>
+
 <h4>Option 2a for NVIDIA GPU acceleration, optional (Windows, Linux):</h4>
-<p>To use GPU acceleration via NVIDIA GPUs, you also need to install cupy:
-<code>bash
-pip install cupy-cudaXXx</code>
-- replace <code>cupy-cudaXXx</code> with the <a href="https://docs.cupy.dev/en/stable/install.html#installing-cupy">appropriate version</a> for your CUDA version.
-  - i.e. <code>cupy-cuda11x</code> for CUDA 11.x or <code>cupy-cuda12x</code> for CUDA 12.x
-- if you don't have CUDA installed, <a href="https://docs.cupy.dev/en/stable/install.html">go here</a>.
-- Mac Metal GPU-acceleration coming... eventually.</p>
+<p>To use GPU acceleration via NVIDIA GPUs, you also need to install cupy:</p>
+<pre class="codehilite"><code class="language-bash">pip install cupy-cudaXXx
+</code></pre>
+
+<ul>
+<li>replace <code>cupy-cudaXXx</code> with the <a href="https://docs.cupy.dev/en/stable/install.html#installing-cupy">appropriate version</a> for your CUDA version.</li>
+<li>i.e. <code>cupy-cuda11x</code> for CUDA 11.x or <code>cupy-cuda12x</code> for CUDA 12.x</li>
+<li>if you don't have CUDA installed, <a href="https://docs.cupy.dev/en/stable/install.html">go here</a>.</li>
+<li>Mac Metal GPU-acceleration coming... eventually.</li>
+</ul>
 <h2>Usage</h2>
 <p>The sample dataset shown below is in the repo if you want to play around without, and can be downloaded <a href="https://github.com/aelefebv/nellie/tree/main/sample_data">here</a>.</p>
 <h3>General data preparation</h3>
@@ -380,14 +365,16 @@ pip install cupy-cudaXXx</code>
 <h2>Reference</h2>
 <p>If you used Nelly or found this work useful in your own research, please cite our <a href="https://arxiv.org/abs/2403.13214">arXiv preprint</a>:</p>
 <p>Lefebvre, A. E. Y. T., Sturm, G., et. al. Nellie: Automated organelle segmentation, tracking, and hierarchical feature extraction in 2D/3D live-cell microscopy, arXiv, 2024, https://arxiv.org/abs/2403.13214</p>
-<p><code>@misc{lefebvre2024nellie,
+<pre class="codehilite"><code>@misc{lefebvre2024nellie,
       title={Nellie: Automated organelle segmentation, tracking, and hierarchical feature extraction in 2D/3D live-cell microscopy}, 
       author={Austin E. Y. T. Lefebvre and Gabriel Sturm and Ting-Yu Lin and Emily Stoops and Magdalena Preciado Lopez and Benjamin Kaufmann-Malaga and Kayley Hake},
       year={2024},
       eprint={2403.13214},
       archivePrefix={arXiv},
       primaryClass={cs.CV}
-}</code></p>
+}
+</code></pre>
+
 <h2>More fun examples</h2>
 <h3>Microtubule growing ends:</h3>
 <p>https://github.com/aelefebv/nellie/assets/26515909/88578dc9-f5c5-4188-a0e2-4e37037a44a9</p>

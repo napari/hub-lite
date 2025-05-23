@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -269,10 +250,27 @@ pre > code:last-child {
 - SRRF
 - MUSICAL
 - Split channels</p>
-<p>| <strong>Super Resolution Radial Fluctuations (SRRF)</strong>  | <strong>Mean-Shift Super Resolution (MSSR)</strong> | <strong>Entropy-based Super-resolution Imaging (ESI)</strong> |
-| --- | --- | --- |
-| <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_7_SRRF_Alva_2022.png" /> | <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_2a_MSSR_Garcia_2021.png" /> | <img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_6_ESI_Alva_2022.png" /> |
-from Fig. 7 of <a href="https://onlinelibrary.wiley.com/doi/10.1111/jmi.13135">Alva et al., 2022</a> | from Fig. 2 of <a href="https://www.biorxiv.org/content/10.1101/2021.10.17.464398v2.full">García et al., 2021</a>|  from Fig. 6 of <a href="https://onlinelibrary.wiley.com/doi/10.1111/jmi.13135">Alva et al., 2022</a>|</p>
+<table>
+<thead>
+<tr>
+<th><strong>Super Resolution Radial Fluctuations (SRRF)</strong></th>
+<th><strong>Mean-Shift Super Resolution (MSSR)</strong></th>
+<th><strong>Entropy-based Super-resolution Imaging (ESI)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_7_SRRF_Alva_2022.png" /></td>
+<td><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_2a_MSSR_Garcia_2021.png" /></td>
+<td><img alt="" src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/Fig_6_ESI_Alva_2022.png" /></td>
+</tr>
+<tr>
+<td>from Fig. 7 of <a href="https://onlinelibrary.wiley.com/doi/10.1111/jmi.13135">Alva et al., 2022</a></td>
+<td>from Fig. 2 of <a href="https://www.biorxiv.org/content/10.1101/2021.10.17.464398v2.full">García et al., 2021</a></td>
+<td>from Fig. 6 of <a href="https://onlinelibrary.wiley.com/doi/10.1111/jmi.13135">Alva et al., 2022</a></td>
+</tr>
+</tbody>
+</table>
 <p>Repositories available:
 - <a href="https://github.com/biophotonics-bielefeld/ESI">ESI</a> GitHub repository
 - <a href="https://github.com/xiyuyi-at-LLNL/pysofi">PySOFI</a> GitHub repository
@@ -289,39 +287,114 @@ https://napari.org/stable/plugins/index.html
 
 <h2>Installation</h2>
 <p>First install napari viewer (if you haven't):</p>
-<pre><code>conda create -y -n napari-env -c conda-forge python=3.9
+<pre class="codehilite"><code>conda create -y -n napari-env -c conda-forge python=3.9
 conda activate napari-env
-pip install "napari[all]"
+pip install &quot;napari[all]&quot;
 </code></pre>
+
 <p>For details check: https://napari.org/stable/</p>
 <p>You can install the plugin <a href="https://github.com/LIBREhub/napari-LatAm-Workshop-2023/blob/napari-superres/docs/day3/napari-superres/napari-superres_installation_guide.pdf">graphically</a>.</p>
 <p>or install latest development version :</p>
-<pre><code>pip install git+https://github.com/RoccoDAnt/napari-superres.git
+<pre class="codehilite"><code>pip install git+https://github.com/RoccoDAnt/napari-superres.git
 </code></pre>
+
 <p>You might need to install <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git</a> first.</p>
 <hr />
 <p>Examples of use:</p>
-<p>| <strong>Original</strong>  | <strong>tMSSR</strong> |
-| --- | --- |
-| <p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/single-frame-good-exposure.png" width=100% height=100%> </p>| <p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/tmssr-mean-mag2.png" width=48% height=48%> </p>|
-| Parameters: | Amplification: 2, Order: 0, PSF FWHM: 6, <br> Interpolation: Bicubic, Statistical integration: CV*sigma |</p>
-<p>| <strong>Original</strong>  | <strong>ESI</strong> |
-| --- | --- |
-| <p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/synt.png" width=40% height=40%> </p> | <p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/ESI.png" width=50% height=50%> </p> |
-| Parameters: | image in output: 2, bins: 2, Order: 2 |</p>
-<p>| <strong>Original</strong>  | <strong>SOFI</strong> |
-| --- | --- |
-|<p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/noSOFI.png" width=100% height=100%> </p> | <p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/SOFI.png" width=100% height=100%> </p> |
-| Parameters: | Amplification factor: 2, Moment Order: 4, lambda parameter: 1.5, No. Iterations: 20, Window size: 100|</p>
-<p>| <strong>Original</strong>  | <strong>SRRF</strong> |
-| --- | --- |
-|<p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/synt.png" width=50% height=50%> </p> | <p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/SRRF.png" width=50% height=50%> </p>|
-| Parameters: | Amplification: 2, Spatial radius: 5, Symmetry Axis: 6, Start frame: 0, End frame: 48|</p>
-<p>| <strong>Original</strong>  | <strong>MUSICAL</strong> |
-| --- | --- |
-| <p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/musical_mean.png" width=70% height=100%> </p> | <p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/MUSICAL-CardioMyoblast_Mitochondria.png" width=70% height=100%> </p>|
-| Parameters: | Emission [nm]: 510 NA: 1.4, Mag: 100, Pizel size: 8000, Threshold: -0.5, Alpha: 4, Subpixels per pixel: 20|</p>
-<hr />
+<table>
+<thead>
+<tr>
+<th><strong>Original</strong></th>
+<th><strong>tMSSR</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/single-frame-good-exposure.png" width=100% height=100%> </p></td>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/tmssr-mean-mag2.png" width=48% height=48%> </p></td>
+</tr>
+<tr>
+<td>Parameters:</td>
+<td>Amplification: 2, Order: 0, PSF FWHM: 6, <br> Interpolation: Bicubic, Statistical integration: CV*sigma</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Original</strong></th>
+<th><strong>ESI</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/synt.png" width=40% height=40%> </p></td>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/ESI.png" width=50% height=50%> </p></td>
+</tr>
+<tr>
+<td>Parameters:</td>
+<td>image in output: 2, bins: 2, Order: 2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Original</strong></th>
+<th><strong>SOFI</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/noSOFI.png" width=100% height=100%> </p></td>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/SOFI.png" width=100% height=100%> </p></td>
+</tr>
+<tr>
+<td>Parameters:</td>
+<td>Amplification factor: 2, Moment Order: 4, lambda parameter: 1.5, No. Iterations: 20, Window size: 100</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Original</strong></th>
+<th><strong>SRRF</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/synt.png" width=50% height=50%> </p></td>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/SRRF.png" width=50% height=50%> </p></td>
+</tr>
+<tr>
+<td>Parameters:</td>
+<td>Amplification: 2, Spatial radius: 5, Symmetry Axis: 6, Start frame: 0, End frame: 48</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Original</strong></th>
+<th><strong>MUSICAL</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/musical_mean.png" width=70% height=100%> </p></td>
+<td><p align="center"> <img src="https://raw.githubusercontent.com/RoccoDAnt/napari-superres/main/docs/MUSICAL-CardioMyoblast_Mitochondria.png" width=70% height=100%> </p></td>
+</tr>
+<tr>
+<td>Parameters:</td>
+<td>Emission [nm]: 510 NA: 1.4, Mag: 100, Pizel size: 8000, Threshold: -0.5, Alpha: 4, Subpixels per pixel: 20</td>
+</tr>
+<tr>
+<td>----------------------------------</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>

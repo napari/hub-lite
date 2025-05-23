@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -260,18 +241,21 @@ pre > code:last-child {
 <hr />
 <h2>Installation via pip</h2>
 <p>You can install <code>napari-wsi</code> via <a href="https://github.com/pypa/pip">pip</a>:</p>
-<p><code>bash
-pip install "napari-wsi[all]&gt;=1.0"</code></p>
+<pre class="codehilite"><code class="language-bash">pip install &quot;napari-wsi[all]&gt;=1.0&quot;
+</code></pre>
+
 <p>This automatically installs all optional backends, as a shortcut for:</p>
-<p><code>bash
-pip install "napari-wsi[openslide,rasterio,wsidicom]&gt;=1.0"</code></p>
+<pre class="codehilite"><code class="language-bash">pip install &quot;napari-wsi[openslide,rasterio,wsidicom]&gt;=1.0&quot;
+</code></pre>
+
 <p>In addition, to be able to read images using the <code>openslide</code> backend, it is
 required to install the OpenSlide library itself, for example by installing the
 <a href="https://pypi.org/project/openslide-bin/">openslide-bin</a> python package (also via <a href="https://github.com/pypa/pip">pip</a>).</p>
 <h2>Installation via conda</h2>
 <p>You can also install <code>napari-wsi</code> via <a href="https://conda-forge.org/">conda</a>:</p>
-<p><code>bash
-conda install -c conda-forge "napari-wsi&gt;=1.0"</code></p>
+<pre class="codehilite"><code class="language-bash">conda install -c conda-forge &quot;napari-wsi&gt;=1.0&quot;
+</code></pre>
+
 <p>This already installs all optional dependencies, including OpenSlide.</p>
 <h1>Description</h1>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin provides a widget for reading various whole-slide image
@@ -290,37 +274,43 @@ viewer window. The file suffixes '.bif', '.ndpi', '.scn', '.svs' are registered
 with the <code>openslide</code> backend, while the suffixes '.tif' and '.tiff' are
 registered with the <code>rasterio</code> backend. These files can also be opened directly
 from the command line or from a python script:</p>
-<p><code>bash
-napari CMU-1.svs</code></p>
-<p>```python
-from napari import Viewer</p>
-<p>viewer = Viewer()
-viewer.open("CMU-1.svs", plugin="napari-wsi")
-```</p>
+<pre class="codehilite"><code class="language-bash">napari CMU-1.svs
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">from napari import Viewer
+
+viewer = Viewer()
+viewer.open(&quot;CMU-1.svs&quot;, plugin=&quot;napari-wsi&quot;)
+</code></pre>
+
 <p>It is also possible to use the different backend classes directly, in which case
 some more features are available, for example:</p>
-<p>```python
-from napari import Viewer
-from napari_wsi.backends.openslide import OpenSlideStore</p>
-<p>viewer = Viewer()</p>
-<h1>Display the image in the sRGB color space and a physical coordinate system:</h1>
-<p>store = OpenSlideStore("CMU-1.svs", color_space="sRGB")
+<pre class="codehilite"><code class="language-python">from napari import Viewer
+from napari_wsi.backends.openslide import OpenSlideStore
+
+viewer = Viewer()
+
+# Display the image in the sRGB color space and a physical coordinate system:
+store = OpenSlideStore(&quot;CMU-1.svs&quot;, color_space=&quot;sRGB&quot;)
 (layer,) = store.to_viewer(viewer, spatial_transform=True)
-assert layer.metadata["color_space"] == "sRGB"</p>
-<h1>Display a scale bar to indicate milli- or micrometers, depending on the zoom level:</h1>
-<p>viewer.scale_bar.visible = True
+assert layer.metadata[&quot;color_space&quot;] == &quot;sRGB&quot;
+
+# Display a scale bar to indicate milli- or micrometers, depending on the zoom level:
+viewer.scale_bar.visible = True
 viewer.scale_bar.colored = True
-```</p>
-<p>```python
-from napari import Viewer
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">from napari import Viewer
 from napari_wsi.backends.wsidicom import WSIDicomStore
 from requests.auth import HTTPBasicAuth
-from wsidicom import WsiDicomWebClient</p>
-<p>viewer = Viewer()
-client = WsiDicomWebClient.create_client("...", auth=HTTPBasicAuth("...", "..."))
-store = WSIDicomStore(client=client, study_uid="...", series_uids="...")
+from wsidicom import WsiDicomWebClient
+
+viewer = Viewer()
+client = WsiDicomWebClient.create_client(&quot;...&quot;, auth=HTTPBasicAuth(&quot;...&quot;, &quot;...&quot;))
+store = WSIDicomStore(client=client, study_uid=&quot;...&quot;, series_uids=&quot;...&quot;)
 store.to_viewer(viewer)
-```</p>
+</code></pre>
+
 <p>The sample images used above are part of the OpenSlide test data (see <a href="https://openslide.cs.cmu.edu/download/openslide-testdata/Aperio/">Aperio</a>
 and <a href="https://openslide.cs.cmu.edu/download/openslide-testdata/DICOM/">DICOM</a>).</p>
 <h1>Known Issues &amp; Other Notes</h1>

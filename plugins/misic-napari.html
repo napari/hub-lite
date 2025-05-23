@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -276,8 +257,9 @@ https://napari.org/#installation</p>
 <p>Install <code>misic-napari</code> through plugin manager in napari.</p>
 <p>Or</p>
 <p>You can install <code>misic-napari</code> via [pip] in the napari console:</p>
-<pre><code>pip install misic-napari
+<pre class="codehilite"><code>pip install misic-napari
 </code></pre>
+
 <h2>Tutorial</h2>
 <p>Note: 
 The image should be in the format [n,row,col] or [row,col], i.e., a single image or a stack. Hyper-stacks are not supported yet. </p>
@@ -285,23 +267,39 @@ The image should be in the format [n,row,col] or [row,col], i.e., a single image
 <p>Creates a Shapes layer with name 'cell-width' where the cell width can be hand drawn using line drawing tools in the shapes layer. This need not be precise and can be adjusted later. Click <code>get_cell_width</code> to obtain the desired mean cell width. This will be used to scale the image accordingly before segmentation.</p>
 <h4>segment</h4>
 <p>This can be used to quickly set the parameters that can be later used to segment the whole stack.</p>
-<p><code>use_roi</code>
-A square ROI of side 256 is created by default for quickly checking adjusting the segmentation parameters. The roi can be resized or moved in the <code>roi</code> shapes layer.</p>
-<p><code>light_background</code>
-True; for phase-contrast images.</p>
+<pre class="codehilite"><code>use_roi
+</code></pre>
+
+<p>A square ROI of side 256 is created by default for quickly checking adjusting the segmentation parameters. The roi can be resized or moved in the <code>roi</code> shapes layer.</p>
+<pre class="codehilite"><code>light_background
+</code></pre>
+
+<p>True; for phase-contrast images.</p>
 <p>False; for bright-field and fluorescence images.</p>
-<p><code>use_local_noise</code>
-If checked, this adds noise to image with local variance. In this case, a noise_var of around 0.1 works well. If unchecked, this adds noise with global variance of noise_var/100. Adding may help in removing false positives.</p>
-<p><code>gaussian_laplace</code>
-Useful when segmenting fluorescence images. </p>
-<p><code>adjust_scale</code>
-Fine-tuning the scale around ([0.8,1.2]) the scale obtained from cell-width determined in <code>get_cell_width</code>.</p>
-<p><code>noise_var</code>
-Amount of noise to be added to the image at the preprocessing step. This helps reduce the False Positives and, in many cases, to separate cells effectively. 
-<code>gamma</code>
-gamma correction </p>
-<p><code>sharpness_scale and sharpness_amount</code>
-Unsharp mask based sharpness with sigma = sharpness_scale and amount = sharpness_amount</p>
+<pre class="codehilite"><code>use_local_noise
+</code></pre>
+
+<p>If checked, this adds noise to image with local variance. In this case, a noise_var of around 0.1 works well. If unchecked, this adds noise with global variance of noise_var/100. Adding may help in removing false positives.</p>
+<pre class="codehilite"><code>gaussian_laplace
+</code></pre>
+
+<p>Useful when segmenting fluorescence images. </p>
+<pre class="codehilite"><code>adjust_scale
+</code></pre>
+
+<p>Fine-tuning the scale around ([0.8,1.2]) the scale obtained from cell-width determined in <code>get_cell_width</code>.</p>
+<pre class="codehilite"><code>noise_var
+</code></pre>
+
+<p>Amount of noise to be added to the image at the preprocessing step. This helps reduce the False Positives and, in many cases, to separate cells effectively. </p>
+<pre class="codehilite"><code>gamma
+</code></pre>
+
+<p>gamma correction </p>
+<pre class="codehilite"><code>sharpness_scale and sharpness_amount
+</code></pre>
+
+<p>Unsharp mask based sharpness with sigma = sharpness_scale and amount = sharpness_amount</p>
 <h3>segment_stack</h3>
 <p>Segments the entire stack using the parameters that were obtained in "segment".</p>
 <h3>save</h3>
@@ -310,7 +308,7 @@ Unsharp mask based sharpness with sigma = sharpness_scale and amount = sharpness
 <p>Distributed under the terms of the [MIT] license,
 "misic-napari" is free and open source software</p>
 <h2>Cite</h2>
-<p><code>@article {10.7554/eLife.65151,
+<pre class="codehilite"><code>@article {10.7554/eLife.65151,
 article_type = {journal},
 title = {Misic, a general deep learning-based method for the high-throughput cell segmentation of complex bacterial communities},
 author = {Panigrahi, Swapnesh and Murat, Dorothée and Le Gall, Antoine and Martineau, Eugénie and Goldlust, Kelly and Fiche, Jean-Bernard and Rombouts, Sara and Nöllmann, Marcelo and Espinosa, Leon and Mignot, Tâm},
@@ -328,7 +326,8 @@ keywords = {Deep learning, image analysis, microscopy, myxococcus xanthus, biofi
 journal = {eLife},
 issn = {2050-084X},
 publisher = {eLife Sciences Publications, Ltd},
-}</code></p>
+}
+</code></pre>
         
 
                                     </div>

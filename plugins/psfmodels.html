@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -286,13 +267,15 @@ Physical Models. Swiss Federal Institute of Technology Lausanne, EPFL Thesis no.
 <a href="https://github.com/MicroscPSF/MicroscPSF-Matlab">MATLAB</a>, and
 <a href="https://github.com/MicroscPSF/MicroscPSF-ImageJ">ImageJ/Java</a></p>
 <h2>Install</h2>
-<p><code>sh
-pip install psfmodels</code></p>
+<pre class="codehilite"><code class="language-sh">pip install psfmodels
+</code></pre>
+
 <h3>from source</h3>
-<p><code>sh
-git clone https://github.com/tlambert03/PSFmodels.git
+<pre class="codehilite"><code class="language-sh">git clone https://github.com/tlambert03/PSFmodels.git
 cd PSFmodels
-pip install -e ".[dev]"  # will compile c code via pybind11</code></p>
+pip install -e &quot;.[dev]&quot;  # will compile c code via pybind11
+</code></pre>
+
 <h2>Usage</h2>
 <p>There are two main functions in <code>psfmodels</code>: <code>vectorial_psf</code> and <code>scalar_psf</code>.
 Additionally, each version has a helper function called <code>vectorial_psf_centered</code>
@@ -307,30 +290,32 @@ from each other. All functions accept an argument <code>pz</code>, specifying th
 of the point source relative to the coverslip. See additional keyword arguments
 below</p>
 <p><em>Note, all output dimensions (<code>nx</code> and <code>nz</code>) should be odd.</em></p>
-<p>```python
-import psfmodels as psfm
+<pre class="codehilite"><code class="language-python">import psfmodels as psfm
 import matplotlib.pyplot as plt
-from matplotlib.colors import PowerNorm</p>
-<h1>generate centered psf with a point source at <code>pz</code> microns from coverslip</h1>
-<h1>shape will be (127, 127, 127)</h1>
-<p>psf = psfm.make_psf(127, 127, dxy=0.05, dz=0.05, pz=0)
+from matplotlib.colors import PowerNorm
+
+# generate centered psf with a point source at `pz` microns from coverslip
+# shape will be (127, 127, 127)
+psf = psfm.make_psf(127, 127, dxy=0.05, dz=0.05, pz=0)
 fig, (ax1, ax2) = plt.subplots(1, 2)
 ax1.imshow(psf[nz//2], norm=PowerNorm(gamma=0.4))
 ax2.imshow(psf[:, nx//2], norm=PowerNorm(gamma=0.4))
 plt.show()
-```</p>
+</code></pre>
+
 <p><img alt="Image of PSF" src="fig.png" /></p>
-<p>```python</p>
-<h1>instead of nz and dz, you can directly specify a vector of z positions</h1>
-<p>import numpy as np</p>
-<h1>generate 31 evenly spaced Z positions from -3 to 3 microns</h1>
-<p>psf = psfm.make_psf(np.linspace(-3, 3, 31), nx=127)
+<pre class="codehilite"><code class="language-python"># instead of nz and dz, you can directly specify a vector of z positions
+import numpy as np
+
+# generate 31 evenly spaced Z positions from -3 to 3 microns
+psf = psfm.make_psf(np.linspace(-3, 3, 31), nx=127)
 psf.shape  # (31, 127, 127)
-```</p>
+</code></pre>
+
 <p><strong>all</strong> PSF functions accept the following parameters. Units should be provided
 in microns unless otherwise stated. Python API may change slightly in the
 future.  See function docstrings as well.</p>
-<p><code>nx (int):       XY size of output PSF in pixels, must be odd.
+<pre class="codehilite"><code>nx (int):       XY size of output PSF in pixels, must be odd.
 dxy (float):    pixel size in sample space (microns) [default: 0.05]
 pz (float):     depth of point source relative to coverslip (in microns) [default: 0]
 ti0 (float):    working distance of the objective (microns) [default: 150.0]
@@ -342,7 +327,9 @@ ng0 (float):    coverslip refractive index, design value [default: 1.515]
 ng (float):     coverslip refractive index, experimental value [default: 1.515]
 ns (float):     sample refractive index [default: 1.47]
 wvl (float):    emission wavelength (microns) [default: 0.6]
-NA (float):     numerical aperture [default: 1.4]</code></p>
+NA (float):     numerical aperture [default: 1.4]
+</code></pre>
+
 <h2>Comparison with other models</h2>
 <p>While these models are definitely slower than the one implemented in <a href="https://doi.org/10.1364/JOSAA.34.001029">Li et al
 (2017)</a> and

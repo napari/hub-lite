@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -295,10 +276,11 @@ the following two conditions:</p>
 <h3>Use napari-aicsimageio as the Reader for All File Formats</h3>
 <p>If you want to force napari to always use this plugin as the reader for all file formats,
 try running this snippet:</p>
-<p>```python
-from napari.settings import get_settings</p>
-<p>get_settings().plugins.extension2reader = {'<em>': 'napari-aicsimageio', </em>*get_settings().plugins.extension2reader}
-```</p>
+<pre class="codehilite"><code class="language-python">from napari.settings import get_settings
+
+get_settings().plugins.extension2reader = {'*': 'napari-aicsimageio', **get_settings().plugins.extension2reader}
+</code></pre>
+
 <p>For more details, see <a href="https://github.com/AllenCellModeling/napari-aicsimageio/issues/37">#37</a>.</p>
 <h2>Examples of Features</h2>
 <h4>General Image Reading</h4>
@@ -317,15 +299,17 @@ scene content to the viewer) and a list of all scenes in the file.</p>
 <p><img alt="napari viewer with console open showing viewer.layers[0].metadata" src="https://raw.githubusercontent.com/AllenCellModeling/napari-aicsimageio/main/images/console-access.png" /></p>
 <p>You can access the <code>AICSImage</code> object used to load the image pixel data and
 image metadata using the built-in napari console:</p>
-<p><code>python
-img = viewer.layers[0].metadata["aicsimage"]
+<pre class="codehilite"><code class="language-python">img = viewer.layers[0].metadata[&quot;aicsimage&quot;]
 img.dims.order  # TCZYX
-img.channel_names  # ["Bright", "Struct", "Nuc", "Memb"]
-img.get_image_dask_data("ZYX")  # dask.array.Array</code></p>
+img.channel_names  # [&quot;Bright&quot;, &quot;Struct&quot;, &quot;Nuc&quot;, &quot;Memb&quot;]
+img.get_image_dask_data(&quot;ZYX&quot;)  # dask.array.Array
+</code></pre>
+
 <p>The napari layer metadata dictionary also stores a shorthand
 for the raw image metadata:</p>
-<p><code>python
-viewer.layers[0].metadata["raw_image_metadata"]</code></p>
+<pre class="codehilite"><code class="language-python">viewer.layers[0].metadata[&quot;raw_image_metadata&quot;]
+</code></pre>
+
 <p>The metadata is returned in whichever format is used by the underlying
 file format reader, i.e. for CZI the raw metadata is returned as
 an <code>xml.etree.ElementTree.Element</code>, for OME-TIFF the raw metadata is returned
@@ -336,8 +320,9 @@ called <code>"ome_types"</code>. For example, because the AICSImageIO
 <code>CZIReader</code> and <code>BioformatsReader</code> both support converting raw image metadata
 to OME metadata, you will see an <code>"ome_types"</code> key that stores the metadata transformed
 into the OME metadata model.</p>
-<p><code>python
-viewer.layers[0].metadata["ome_types"]  # OME object from ome-types</code></p>
+<pre class="codehilite"><code class="language-python">viewer.layers[0].metadata[&quot;ome_types&quot;]  # OME object from ome-types
+</code></pre>
+
 <h4>Mosaic Reading</h4>
 <p>When reading CZI or LIF images, if the image is a mosaic tiled image, <code>napari-aicsimageio</code>
 will return the reconstructed image:</p>

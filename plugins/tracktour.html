@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -257,8 +238,7 @@ pre > code:last-child {
 <p>tracktour is rapidly changing and its API will change without deprecation warnings.</p>
 <h2>Usage</h2>
 <p>The <code>Tracker</code> object is the interface for producing tracking solutions. Below is a toy example with explicitly defined detections.</p>
-<p>```python
-coords = [
+<pre class="codehilite"><code class="language-python">coords = [
     (0, 50.0, 50.0),
     (0, 40, 50),
     (0, 30, 57),
@@ -269,36 +249,43 @@ coords = [
     (2, 37, 53),
     (2, 28, 64),
 ]
-coords = pd.DataFrame(coords, columns=["t", "y", "x"])</p>
-<h1>initialize Tracker object</h1>
-<p>tracker = Tracker(
+coords = pd.DataFrame(coords, columns=[&quot;t&quot;, &quot;y&quot;, &quot;x&quot;])
+
+# initialize Tracker object
+tracker = Tracker(
     im_shape=(100, 100),    # size of the image detections come from. Affects cost of detections appearing/disappearing
     k_neighbours=2          # number of neighbours to consider for assignment in the next frame (default=10)
-)</p>
-<h1>solve</h1>
-<p>tracked = tracker.solve(coords)
-```</p>
+)
+# solve
+tracked = tracker.solve(coords)
+</code></pre>
+
 <p>The <code>Tracked</code> object contains a copy of the detections, potentially reindexed, and a dataframe of edges that make up the solution.
 Columns <code>u</code> and <code>v</code> in <code>tracked_edges</code> are direct indices into <code>tracked_detections</code>.</p>
-<p><code>python
-print(tracked.tracked_detections)
-print(tracked.tracked_edges)</code></p>
+<pre class="codehilite"><code class="language-python">print(tracked.tracked_detections)
+print(tracked.tracked_edges)
+</code></pre>
+
 <p>You may want to convert the solution into a networkx graph for easier manipulation.</p>
-<p><code>python
-solution_graph = tracked.as_nx_digraph()</code></p>
+<pre class="codehilite"><code class="language-python">solution_graph = tracked.as_nx_digraph()
+</code></pre>
+
 <h3>Extracting Detections</h3>
 <p>If you're starting from an image segmentation, you can use the <code>get_im_centers</code> or <code>extract_im_centers</code> functions.</p>
 <p>If your segmentation is already loaded into a numpy array, use <code>extract_im_centers</code>. The returned <code>detections</code> DataFrame is ready for use with the <code>Tracker</code>.</p>
-<p><code>python
-detections, min_t, max_t, corners = extract_im_centers(segmentation)</code></p>
+<pre class="codehilite"><code class="language-python">detections, min_t, max_t, corners = extract_im_centers(segmentation)
+</code></pre>
+
 <p>If your segmentation is in Cell Tracking Challenge format and lives in single tiffs per frame in a directory, use <code>get_im_centers</code>. This will also return
 the segmentation as a numpy array.</p>
-<p><code>python
-seg, detections, min_t, max_t, corners = get_im_centers('path/to/01_RES/')</code></p>
+<pre class="codehilite"><code class="language-python">seg, detections, min_t, max_t, corners = get_im_centers('path/to/01_RES/')
+</code></pre>
+
 <h3>CLI Tool - Cell Tracking Challenge</h3>
 <p>If you're working with Cell Tracking Challenge formatted datasets, you can use the CLI to extract detections, run tracktour, and save output in CTC format.</p>
-<p><code>sh
-$ tracktour ctc /path/to/seg/ /path/to/save/ -k 8</code></p>
+<pre class="codehilite"><code class="language-sh">$ tracktour ctc /path/to/seg/ /path/to/save/ -k 8
+</code></pre>
+
 <h2>Support</h2>
 <p>Please feel free to open issues with feature requests, bug reports, questions on usage, etc.</p>
         

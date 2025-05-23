@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -259,8 +240,9 @@ pre > code:last-child {
 <p>https://github.com/TileDB-Inc/napari-tiledb-bioimg/assets/327706/b408d634-6ad0-4160-8571-18cf8e37b4cc</p>
 <h2>Installation</h2>
 <p>[pending PyPI release!] You can install <code>napari-tiledb-bioimg</code> via [pip]:</p>
-<pre><code>pip install napari-tiledb-bioimg
+<pre class="codehilite"><code>pip install napari-tiledb-bioimg
 </code></pre>
+
 <h2>Quickstart</h2>
 <p>After <a href="https://github.com/TileDB-Inc/TileDB-BioImaging#examples">ingesting data using <code>tiledb-bioimg</code></a>, then:</p>
 <ul>
@@ -271,20 +253,25 @@ pre > code:last-child {
 <p>Remote arrays (S3, TileDB Cloud) may be loaded using either the <code>napari</code> CLI command:</p>
 </li>
 </ul>
-<p><code>napari --plugin napari-tiledb-bioimg s3://&lt;bucket&gt;/&lt;path/to/tiledb_array&gt;</code></p>
+<pre class="codehilite"><code>napari --plugin napari-tiledb-bioimg s3://&lt;bucket&gt;/&lt;path/to/tiledb_array&gt;
+</code></pre>
+
 <ul>
 <li>... or the Napari viewer load command within the Python prompt:</li>
 </ul>
-<p>```</p>
-<h1>Within a Napari-enabled Python/IPython prompt, run:</h1>
-<p>import napari
-viewer = napari.Viewer()</p>
-<p>viewer.open("tiledb://<namespace>/<array name or UUID>", plugin="napari-tiledb-bioimg")
-```</p>
+<pre class="codehilite"><code># Within a Napari-enabled Python/IPython prompt, run:
+import napari
+viewer = napari.Viewer()
+
+viewer.open(&quot;tiledb://&lt;namespace&gt;/&lt;array name or UUID&gt;&quot;, plugin=&quot;napari-tiledb-bioimg&quot;)
+</code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with tox or pytest.</p>
 <h3>Installation from git:</h3>
-<p><code>pip install git+https://github.com/TileDB-Inc/napari-tiledb-bioimg.git</code></p>
+<pre class="codehilite"><code>pip install git+https://github.com/TileDB-Inc/napari-tiledb-bioimg.git
+</code></pre>
+
 <h2>License</h2>
 <p>Distributed under the terms of the [MIT] license,
 "napari-tiledb-bioimg" is free and open source software.</p>

@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -272,51 +253,57 @@ https://napari.org/plugins/index.html
 <img alt="example 2" src="img/turing_patterns2.gif" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-turing</code> via <a href="https://pypi.org/project/pip/">pip</a> after downloading the content of</p>
-<pre><code>pip install napari-turing
+<pre class="codehilite"><code>pip install napari-turing
 </code></pre>
+
 <p>To install latest version :</p>
-<pre><code>pip install git+https://github.com/leoguignard/napari-turing.git
+<pre class="codehilite"><code>pip install git+https://github.com/leoguignard/napari-turing.git
 </code></pre>
+
 <h2>Troubleshooting</h2>
 <p>If the installation does not work just with the previous command, it might be useful to first install <a href="https://github.com/napari/napari">napari</a> for example that way:</p>
-<pre><code>conda install napari
+<pre class="codehilite"><code>conda install napari
 </code></pre>
+
 <h2>Creating a new model</h2>
 <p>To create your own model, you can use the template for models <a href="src/napari_turing/Models/ModelTemplate.py">here</a>.</p>
 <p>Note that a bit of knowledge in Python is probably necessary and it might not be completely trivial at first but you'll manage :)</p>
-<p>First you need to name the concentrations that you will use with the following <a href="src/napari_turing/Models/ModelTemplate.py#L40">line</a>:
-<code>python
-    _concentration_names = ["A", "I"]</code></p>
-<p>Then, you need to declare its variables. For example you can create a parameter named <code>mu_a</code> the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L53-L60">here in the code</a>):
-<code>python
-    mu_a = ModelParameter(
-        name="mu_a",  # Name of the parameter
-        description="Activator diffusion coefficient (10^-4)",  # Description of the parameter for napari
+<p>First you need to name the concentrations that you will use with the following <a href="src/napari_turing/Models/ModelTemplate.py#L40">line</a>:</p>
+<pre class="codehilite"><code class="language-python">    _concentration_names = [&quot;A&quot;, &quot;I&quot;]
+</code></pre>
+
+<p>Then, you need to declare its variables. For example you can create a parameter named <code>mu_a</code> the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L53-L60">here in the code</a>):</p>
+<pre class="codehilite"><code class="language-python">    mu_a = ModelParameter(
+        name=&quot;mu_a&quot;,  # Name of the parameter
+        description=&quot;Activator diffusion coefficient (10^-4)&quot;,  # Description of the parameter for napari
         value=2.8,  # Initial and default value
         min=1,  # Minimum value the parameter can take
         max=5,  # Maximum value the parameter can take
         exponent=1e-4,  # All values given to this instance of the class will but multiplied by this value
-    )</code></p>
-<p>Then you need to list the parameters that are necessary to run the model (usually all the paramaters declared previously) and the parameters that you will allow the user to tune (for example, sometimes some of the parameters are co-dependent and there is no point in being able to tune both of them). That should be done the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L86-89">here in the code</a>):
-<code>python
-    # These are the parameters that are necessary to run the equations.
+    )
+</code></pre>
+
+<p>Then you need to list the parameters that are necessary to run the model (usually all the paramaters declared previously) and the parameters that you will allow the user to tune (for example, sometimes some of the parameters are co-dependent and there is no point in being able to tune both of them). That should be done the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L86-89">here in the code</a>):</p>
+<pre class="codehilite"><code class="language-python">    # These are the parameters that are necessary to run the equations.
     _necessary_parameters = [tau, k, mu_a, mu_i]
     # These are the parameters that can be modified via napari
-    _tunable_parameters = _necessary_parameters</code></p>
-<p>If you want, you can specify what the method will return as a string, it will be displayed in the napari viewer (<a href="src/napari_turing/Models/ModelTemplate.py#L90-L98">here in the code</a>):
-<code>python
-    # This function allows to display some information about the model
+    _tunable_parameters = _necessary_parameters
+</code></pre>
+
+<p>If you want, you can specify what the method will return as a string, it will be displayed in the napari viewer (<a href="src/napari_turing/Models/ModelTemplate.py#L90-L98">here in the code</a>):</p>
+<pre class="codehilite"><code class="language-python">    # This function allows to display some information about the model
     # in napari
     def __str__(self) -&gt; str:
         return (
-            "Equations (FitzHugh-Nagumo model):\n"
-            "  Concentration of Activator (a) and Inhibitor (i)\n"
-            "    - da/dt = mu_a * diffusion(a) + a - a^3 - i + k\n"
-            "    - tau * di/dt = mu_i * diffusion(i) + a - i"
-        )</code></p>
-<p>Now that the basics are declared, you will need to declare how to initialize your concentrations the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L100-L116">here in the code</a>):
-<code>python
-    # The following allows to reset the values of the concentrations.
+            &quot;Equations (FitzHugh-Nagumo model):\n&quot;
+            &quot;  Concentration of Activator (a) and Inhibitor (i)\n&quot;
+            &quot;    - da/dt = mu_a * diffusion(a) + a - a^3 - i + k\n&quot;
+            &quot;    - tau * di/dt = mu_i * diffusion(i) + a - i&quot;
+        )
+</code></pre>
+
+<p>Now that the basics are declared, you will need to declare how to initialize your concentrations the following way (<a href="src/napari_turing/Models/ModelTemplate.py#L100-L116">here in the code</a>):</p>
+<pre class="codehilite"><code class="language-python">    # The following allows to reset the values of the concentrations.
     # The function takes the name of the concentration to initialize.
     # If no name is given or if it is None all the concentrations are
     # reinitialized.
@@ -332,38 +319,42 @@ https://napari.org/plugins/index.html
             for ci in self.concentration_names():
                 self[ci] = np.random.random((self.size, self.size)) * 2 - 1
         else:
-            self[C] = np.random.random((self.size, self.size)) * 2 - 1</code>
-In the previous example, the all concentrations are initialized the same way. If you need to have different initializations, you can do it the following way for example (<a href="src/napari_turing/Models/GrayScott.py#L68-L76">from the GrayScott model</a>):
-<code>python
-    def init_concentrations(self, C: Optional[str] = None) -&gt; None:
-        if C == "X" or C is None:
-            self["X"] = np.ones((self.size, self.size))
-        if C == "Y" or C is None:
+            self[C] = np.random.random((self.size, self.size)) * 2 - 1
+</code></pre>
+
+<p>In the previous example, the all concentrations are initialized the same way. If you need to have different initializations, you can do it the following way for example (<a href="src/napari_turing/Models/GrayScott.py#L68-L76">from the GrayScott model</a>):</p>
+<pre class="codehilite"><code class="language-python">    def init_concentrations(self, C: Optional[str] = None) -&gt; None:
+        if C == &quot;X&quot; or C is None:
+            self[&quot;X&quot;] = np.ones((self.size, self.size))
+        if C == &quot;Y&quot; or C is None:
             Y = np.zeros((self.size, self.size))
             nb_pos = 20
             pos = (np.random.random((2, nb_pos)) * self.size).astype(int)
             Y[pos[0], pos[1]] = 1
-            self["Y"] = Y</code>
-In this model, there are two concentrations, <code>X</code> and <code>Y</code> which are initialized differenty. Note that they can be accessed using <code>self["X"]</code> or <code>self.X</code>.</p>
-<p>Finally, you of course have to define the reaction equations and the diffusion equations. The way it is defined is with two functions, one for the reaction and one for the diffusion, that take as an input the name of the concentration to apply the function to and returns the new values. Then for each of your concentrations, their new values will be computed as followed:
-<code>python
-new_concentration = current_concentration + dt*(reaction + diffusion)</code></p>
-<p>Here is an example for the reaction function (<a href="src/napari_turing/Models/ModelTemplate.py#L127-L136">here in the code</a>):
-<code>python 
-    # This function defines the equations of the reactions.
+            self[&quot;Y&quot;] = Y
+</code></pre>
+
+<p>In this model, there are two concentrations, <code>X</code> and <code>Y</code> which are initialized differenty. Note that they can be accessed using <code>self["X"]</code> or <code>self.X</code>.</p>
+<p>Finally, you of course have to define the reaction equations and the diffusion equations. The way it is defined is with two functions, one for the reaction and one for the diffusion, that take as an input the name of the concentration to apply the function to and returns the new values. Then for each of your concentrations, their new values will be computed as followed:</p>
+<pre class="codehilite"><code class="language-python">new_concentration = current_concentration + dt*(reaction + diffusion)
+</code></pre>
+
+<p>Here is an example for the reaction function (<a href="src/napari_turing/Models/ModelTemplate.py#L127-L136">here in the code</a>):</p>
+<pre class="codehilite"><code class="language-python">    # This function defines the equations of the reactions.
     # It takes as an input which concentration to compute
     # (in this example we have to define how to compute A and I)
     def _reaction(self, c: str) -&gt; np.ndarray:
-        if c == "A":
+        if c == &quot;A&quot;:
             # Below is the reaction part of the equation (1)
             return self.A - self.A**3 - self.I + self.k 
-        elif c == "I":
+        elif c == &quot;I&quot;:
             # Below is the reaction part of the equation (2)
-            return (self.A - self.I) / self.tau</code>
-Of course, if you have more concentrations, you will need to define more equations.</p>
-<p>Here is an example for the reaction function (<a href="src/napari_turing/Models/ModelTemplate.py#L138-L166">here in the code</a>):
-```python
-    # This function defines the equations of the diffusion.
+            return (self.A - self.I) / self.tau
+</code></pre>
+
+<p>Of course, if you have more concentrations, you will need to define more equations.</p>
+<p>Here is an example for the reaction function (<a href="src/napari_turing/Models/ModelTemplate.py#L138-L166">here in the code</a>):</p>
+<pre class="codehilite"><code class="language-python">    # This function defines the equations of the diffusion.
     # It takes as an input which concentration to compute
     # (in this example we have to define how to compute A and I)
     # Here we compute the diffusion as follow:
@@ -373,46 +364,48 @@ Of course, if you have more concentrations, you will need to define more equatio
     # In the case of oriented diffusion the amount recieved and given to the neighbors
     # is imbalanced according to the position of the neighbor.
     def _diffusion(self, c: str) -&gt; np.ndarray:
-        if c == "A":
+        if c == &quot;A&quot;:
             arr = self.A # Define the array of concentrations to diffuse for the reageant A
             mu = self.mu_a # Define the diffusion coefficient for the reageant A
-        elif c == "I":
+        elif c == &quot;I&quot;:
             arr = self.I # Define the array of concentrations to diffuse for the reageant I
-            mu = self.mu_i # Define the diffusion coefficient for the reageant I</p>
-<pre><code>    # Computes what is recieved from neighboring cells
-    from_cell = convolve(arr, self.kernel.value, mode="constant", cval=0)
-    # Computes what is given to neighboring cells
-    to_cell = self.nb_neighbs * arr
+            mu = self.mu_i # Define the diffusion coefficient for the reageant I
 
-    # Computes the diffusion
-    out = mu * (from_cell - to_cell) / (self.dx * self.dy)
+        # Computes what is recieved from neighboring cells
+        from_cell = convolve(arr, self.kernel.value, mode=&quot;constant&quot;, cval=0)
+        # Computes what is given to neighboring cells
+        to_cell = self.nb_neighbs * arr
 
-    # In our case, the equation (2), for I specify that it has to be divided by tau
-    if c == "I":
-        out /= self.tau
-    return out
+        # Computes the diffusion
+        out = mu * (from_cell - to_cell) / (self.dx * self.dy)
+
+        # In our case, the equation (2), for I specify that it has to be divided by tau
+        if c == &quot;I&quot;:
+            out /= self.tau
+        return out
 </code></pre>
-<p>```
-The diffusion function is usually a standard one so it might not be necessary to overly change it.</p>
+
+<p>The diffusion function is usually a standard one so it might not be necessary to overly change it.</p>
 <p>You can find other model examples:
 - <a href="src/napari_turing/Models/Brusselator.py">Brusselator</a>
 - <a href="src/napari_turing/Models/GrayScott.py">GrayScott</a>
 - <a href="src/napari_turing/Models/GameOfLife.py">GameOfLife</a></p>
-<p>Once all that is done, let say you've saved your new model in the folder <a href="src/napari_turing/Models">Models</a> under the name <code>NewModel.py</code> and the model class created is name <code>NewModel</code>. Then you need to declare you model in the <a href="src/napari_turing/Models/_model_list.py"><code>_model_list.py</code></a> file. To do so you need to add the following lines in the file:
-```python
-from enum import Enum
+<p>Once all that is done, let say you've saved your new model in the folder <a href="src/napari_turing/Models">Models</a> under the name <code>NewModel.py</code> and the model class created is name <code>NewModel</code>. Then you need to declare you model in the <a href="src/napari_turing/Models/_model_list.py"><code>_model_list.py</code></a> file. To do so you need to add the following lines in the file:</p>
+<pre class="codehilite"><code class="language-python">from enum import Enum
 from .FitzHughNagumo import FitzHughNagumo
 from .Brusselator import Brusselator
 from .GrayScott import GrayScott
 from .GameOfLife import GameOfLife
-from .NewModel import NewModel ## THAT LINE HERE</p>
-<p>class AvailableModels(Enum):
+from .NewModel import NewModel ## THAT LINE HERE
+
+class AvailableModels(Enum):
     FitzHughNagumo = FitzHughNagumo
     Brusselator = Brusselator
     GrayScott = GrayScott
     GameOfLife = GameOfLife
     NewModel = NewModel ## AND THAT OTHER LINE HERE
-```</p>
+</code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome.</p>
 <h2>License</h2>

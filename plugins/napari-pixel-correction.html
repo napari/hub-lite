@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -269,14 +250,16 @@ https://napari.org/stable/plugins/index.html
 
 <h2>Installation</h2>
 <p>You can install <code>napari-pixel-correction</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-pixel-correction
+<pre class="codehilite"><code>pip install napari-pixel-correction
 </code></pre>
+
 <p>To install latest development version :</p>
-<pre><code>pip install git+https://github.com/hereariim/napari-pixel-correction.git
+<pre class="codehilite"><code>pip install git+https://github.com/hereariim/napari-pixel-correction.git
 </code></pre>
+
 <h2>How does it work</h2>
 <p>First, you need a compressed file (in .zip format) were you have all your images. For a compressed file named as <code>input.zip</code>, the compressed file should be built like :</p>
-<p><code>.
+<pre class="codehilite"><code>.
 └── input.zip
     └── repository
         ├── image
@@ -291,8 +274,10 @@ https://napari.org/stable/plugins/index.html
             ├── im_2_mask.JPG
             ├── im_3_mask.JPG
             ...
-            └── im_n_mask.JPG</code>
-In repository, each image folder should have two elements : image in RGB and the segmented mask in binary image (where no-flower class is 0 and flower class is 255)</p>
+            └── im_n_mask.JPG
+</code></pre>
+
+<p>In repository, each image folder should have two elements : image in RGB and the segmented mask in binary image (where no-flower class is 0 and flower class is 255)</p>
 <p><img alt="napari-tutorial_simple" src="https://user-images.githubusercontent.com/93375163/191527225-47ba8667-e3bd-467b-b5f3-f8f7d97617a5.gif" /></p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure

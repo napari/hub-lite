@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -260,21 +241,26 @@ This <a href="https://napari.org/stable/">napari</a> plugin was generated with <
 <h3>Installation</h3>
 <p>DMC-BrainMap is a plugin for <a href="https://napari.org/stable/">napari</a>. Hence, you first need to install napari and subsequently the DMC-BrainMap plugin via the plugin manager. To install napari, we recommend to install napari into a clean virtual environment using <em>conda</em> or <em>venv</em>. Please refer to the <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#napari-installation">napari installation guide</a> for more information and <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#napari-installation">for information on installing napari as a bundled app</a>.  </p>
 <h4>Step 1: Setup the virtual environment (Python 3.10)</h4>
-<p><code>conda create -y -n napari-env -c conda-forge python=3.10
-conda activate napari-env</code></p>
+<pre class="codehilite"><code>conda create -y -n napari-env -c conda-forge python=3.10
+conda activate napari-env
+</code></pre>
+
 <h4>Step 2: Install napari</h4>
-<p><code>python -m pip install "napari[all]"</code></p>
+<pre class="codehilite"><code>python -m pip install &quot;napari[all]&quot;
+</code></pre>
+
 <h4>Step 3: Install napari-dmc-brainmap</h4>
 <p>You can install <code>napari-dmc-brainmap</code> via the napari plugin manager or via <a href="https://pypi.org/project/napari-dmc-brainmap/">pip</a>:</p>
-<pre><code>pip install napari-dmc-brainmap
+<pre class="codehilite"><code>pip install napari-dmc-brainmap
 </code></pre>
+
 <h3>Usage</h3>
 <p>Please refer to the Wiki pages for detailed instructions and a short tutorial on how to use DMC-BrainMap. When working with DMC-BrainMap on your own data, please keep the following points in mind:
 - DMC-BrainMap requires single-channel 16-bit .tif/.tiff images to work (in principle 8-bit also work)
 - DMC-BrainMap requires that your data is organized by animals in separate folders (you can pool data later down the lane)
 - DMC-BrainMap uses 5 channel labels (<code>dapi</code>, <code>green</code>, <code>n3</code>, <code>cy3</code>, <code>cy5</code>) corresponding to blue, green, orange, red and far red channels. <em>However, these are only labels, you can assign them as you please. Hence, you can use DMC-BrainMap also for non-fluorescence data given you converted your images to single-channel 16-bit .tif/.tiff images</em>. Please contact us if you need to use more than 5 channels.
-- It is essential that you structure your data in the following way (hierarchical organization, same name for images in different channels, channel labels are selected by you), <strong>otherwise DMC-BrainMap won't work</strong>:
-<code>animal_id-001
+- It is essential that you structure your data in the following way (hierarchical organization, same name for images in different channels, channel labels are selected by you), <strong>otherwise DMC-BrainMap won't work</strong>:</p>
+<pre class="codehilite"><code>animal_id-001
 │
 └───stitched
 │   │
@@ -293,7 +279,9 @@ conda activate napari-env</code></p>
 │       │   ...
 │   
 animal_id-2
-│   ...</code></p>
+│   ...
+</code></pre>
+
 <h2>Documentation</h2>
 <p>Documentation on DMC-BrainMap's source code can be found on the project's <a href="https://napari-dmc-brainmap.readthedocs.io/en/latest/#">Read the Docs page</a>.</p>
 <h2>Seeking help or contributing</h2>
@@ -302,11 +290,12 @@ animal_id-2
 <p>Distributed under the terms of the <a href="https://github.com/teamdigitale/licenses/blob/master/BSD-3-Clause">BSD-3</a> license,
 "napari-dmc-brainmap" is free and open source software</p>
 <h2>Citing DMC-BrainMap</h2>
-<p>If you use DMC-BrainMap in your scientific work, please cite:
-<code>Jung, F., Cao, X., Heymans, L., Carlén, M. (2025) "DMC-BrainMap - an open-source, end-to-end tool for multi-feature brain mapping across species", bioRxiv, https://doi.org/10.1101/2025.02.19.639009</code></p>
+<p>If you use DMC-BrainMap in your scientific work, please cite:</p>
+<pre class="codehilite"><code>Jung, F., Cao, X., Heymans, L., Carlén, M. (2025) &quot;DMC-BrainMap - an open-source, end-to-end tool for multi-feature brain mapping across species&quot;, bioRxiv, https://doi.org/10.1101/2025.02.19.639009
+</code></pre>
+
 <p>BibTeX:</p>
-<p><code>bibtex
-@article{Jung2025x,
+<pre class="codehilite"><code class="language-bibtex">@article{Jung2025x,
    author = {Felix Jung and Xiao Cao and Loran Heymans and Marie Carlen},
    doi = {10.1101/2025.02.19.639009},
    journal = {bioRxiv},
@@ -314,7 +303,8 @@ animal_id-2
    title = {DMC-BrainMap - an open-source, end-to-end tool for multi-feature brain mapping across species},
    url = {http://biorxiv.org/lookup/doi/10.1101/2025.02.19.639009},
    year = {2025},
-}</code></p>
+}
+</code></pre>
         
 
                                     </div>

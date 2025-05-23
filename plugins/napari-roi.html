@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -261,21 +242,40 @@ pre > code:last-child {
 <p>Select regions of interest (ROIs) using napari</p>
 <h2>Installation</h2>
 <p>You can install napari-roi via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-roi
+<pre class="codehilite"><code>pip install napari-roi
 </code></pre>
+
 <p>Alternatively, you can install napari-roi via <a href="https://conda.io/">conda</a>:</p>
-<pre><code>conda install -c conda-forge napari-roi
+<pre class="codehilite"><code>conda install -c conda-forge napari-roi
 </code></pre>
+
 <h2>Usage</h2>
 <p>The <em>napari-roi</em> plugin can be opened from within napari (<code>napari -&gt; napari-roi: regions of interest</code>) and operates on napari <em>Shapes</em> layers.</p>
 <p>ROIs can be added to any napari <em>Shapes</em> layer, either by drawing a standard napari shape (e.g. rectangle), or by adding a rectangular ROI of specified size using the <code>Add ROI</code> functionality in the <em>napari-roi</em> widget. Each ROI is associated with a name, a position (X/Y origin), and a size (width/height). The location of the X/Y origin of all ROIs can be chosen in the <em>napari-roi</em> widget. Note that any shape supported by napari (e.g. ellipse, rectangle, polygon, line, path) can serve as an ROI; for non-rectangular shapes, <em>napari-roi</em> computes rectangular bounding boxes aligned with the napari coordinate system to determine their positions and sizes. ROIs can be edited or deleted by modifying the corresponding shapes in napari, or by editing the corresponding row in the <em>napari-roi</em> widget.</p>
 <p>All ROIs in the current <em>Shapes</em> layer can be saved to a comma-separated values (CSV) file using the <code>Save</code> functionality in the <em>napari-roi</em> widget. When the <code>Autosave</code> option is checked, the file is automatically updated on every ROI change. Note that the selected file is specific to the current <em>Shapes</em> layer; ROIs from different <em>Shapes</em> layers cannot be saved to the same file. ROIs can be loaded from a previously saved file and added to the current <em>Shapes</em> layer by opening the file in the <em>napari-roi</em> widget.</p>
 <p>CSV files saved using <em>napari-roi</em> adhere to the following format:</p>
-<p>| Columns | Description |
-| --- | --- |
-| <code>Name</code> | ROI name |
-| <code>X</code>, <code>Y</code> | Position (X/Y origin) |
-| <code>W</code>, <code>H</code> | Size (width/height) |</p>
+<table>
+<thead>
+<tr>
+<th>Columns</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td>ROI name</td>
+</tr>
+<tr>
+<td><code>X</code>, <code>Y</code></td>
+<td>Position (X/Y origin)</td>
+</tr>
+<tr>
+<td><code>W</code>, <code>H</code></td>
+<td>Size (width/height)</td>
+</tr>
+</tbody>
+</table>
 <h2>Authors</h2>
 <p>Created and maintained by <a href="mailto:jonas@windhager.io">Jonas Windhager</a> until February 2023.</p>
 <p>Maintained by <a href="mailto:milad.adibi@uzh.ch">Milad Adibi</a> from February 2023.</p>

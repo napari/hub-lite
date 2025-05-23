@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -265,15 +246,18 @@ pre > code:last-child {
 <h2>Installation</h2>
 <p>We suggest you create a fresh conda environment to avoid conflicts with your existing package.
 To do this, you need to:</p>
-<pre><code>conda create -n fatemap python=3.11
+<pre class="codehilite"><code>conda create -n fatemap python=3.11
 conda activate fatemap
 </code></pre>
+
 <p>And then, you can install <code>in-silico-fate-mapping</code> via <a href="https://pypi.org/project/pip/">pip</a> and other additional useful packages:</p>
-<pre><code>pip install napari-ome-zarr napari[all] in-silico-fate-mapping
+<pre class="codehilite"><code>pip install napari-ome-zarr napari[all] in-silico-fate-mapping
 </code></pre>
+
 <p>To install the latest development version :</p>
-<pre><code>pip install git+https://github.com/royerlab/in-silico-fate-mapping.git
+<pre class="codehilite"><code>pip install git+https://github.com/royerlab/in-silico-fate-mapping.git
 </code></pre>
+
 <h2>IO file format</h2>
 <p>This plugin does not depend on a specific file format, the only requirement is using a <code>Track</code> layer from napari.</p>
 <p>Despite this, we ship a reader and writer interface. It supports <code>.csv</code> files with the following reader <code>track_id, t, (z), y, x</code>, <code>z</code> is optional.
@@ -283,44 +267,56 @@ Such that each tracklet has a unique <code>track_id</code> and it's composed of 
 <h2>Usage Example</h2>
 <h3>Minimal example</h3>
 <p>Minimal example using a track file following the convention described above.</p>
-<p>```python3
-import napari
+<pre class="codehilite"><code class="language-python3">import napari
 import pandas as pd
-from in_silico_fate_mapping.fate_mapping import FateMapping</p>
-<p>tracks = pd.read_csv("tracks.csv")</p>
-<p>fate_map = FateMapping(radius=5, n_samples=25, bind_to_existing=False, sigma=1)
-fate_map.data = tracks[["track_id", "t", "z", "y", "x"]]</p>
-<p>source = tracks[tracks["t"] == 0].sample(n=1)</p>
-<p>tracks = fate_map(source[["t", "z", "y", "x"]])</p>
-<p>napari.view_tracks(tracks)
+from in_silico_fate_mapping.fate_mapping import FateMapping
+
+tracks = pd.read_csv(&quot;tracks.csv&quot;)
+
+fate_map = FateMapping(radius=5, n_samples=25, bind_to_existing=False, sigma=1)
+fate_map.data = tracks[[&quot;track_id&quot;, &quot;t&quot;, &quot;z&quot;, &quot;y&quot;, &quot;x&quot;]]
+
+source = tracks[tracks[&quot;t&quot;] == 0].sample(n=1)
+
+tracks = fate_map(source[[&quot;t&quot;, &quot;z&quot;, &quot;y&quot;, &quot;x&quot;]])
+
+napari.view_tracks(tracks)
 napari.run()
-```</p>
+</code></pre>
+
 <h3>Zebrahub example</h3>
 <p>Zebrafish embryo tail example. This example requires the package <code>napari-ome-zarr</code>.</p>
-<p>```python3
-import napari
+<pre class="codehilite"><code class="language-python3">import napari
 import pandas as pd
-from in_silico_fate_mapping import FateMappingWidget</p>
-<p>image_path = "http://public.czbiohub.org/royerlab/zebrahub/imaging/single-objective/ZSNS001_tail.ome.zarr"
-tracks_path = "http://public.czbiohub.org/royerlab/zebrahub/imaging/single-objective/ZSNS001_tail_tracks.csv"</p>
-<p>viewer = napari.Viewer()
-viewer.window.add_dock_widget(FateMappingWidget(viewer))</p>
-<p>viewer.open(image_path, plugin="napari-ome-zarr")</p>
-<p>tracks = pd.read_csv(tracks_path)
-viewer.add_tracks(tracks[["track_id", "t", "z", "y", "x"]])
-viewer.add_points(name="Markers", ndim=4)</p>
-<p>napari.run()
-```</p>
+from in_silico_fate_mapping import FateMappingWidget
+
+image_path = &quot;http://public.czbiohub.org/royerlab/zebrahub/imaging/single-objective/ZSNS001_tail.ome.zarr&quot;
+tracks_path = &quot;http://public.czbiohub.org/royerlab/zebrahub/imaging/single-objective/ZSNS001_tail_tracks.csv&quot;
+
+viewer = napari.Viewer()
+viewer.window.add_dock_widget(FateMappingWidget(viewer))
+
+viewer.open(image_path, plugin=&quot;napari-ome-zarr&quot;)
+
+tracks = pd.read_csv(tracks_path)
+viewer.add_tracks(tracks[[&quot;track_id&quot;, &quot;t&quot;, &quot;z&quot;, &quot;y&quot;, &quot;x&quot;]])
+viewer.add_points(name=&quot;Markers&quot;, ndim=4)
+
+napari.run()
+</code></pre>
+
 <h2>Citing</h2>
 <p>If used please cite:</p>
-<p><code>@article{lange2023zebrahub,
+<pre class="codehilite"><code>@article{lange2023zebrahub,
   title={Zebrahub-Multimodal Zebrafish Developmental Atlas Reveals the State Transition Dynamics of Late Vertebrate Pluripotent Axial Progenitors},
   author={Lange, Merlin and Granados, Alejandro and VijayKumar, Shruthi and Bragantini, Jordao and Ancheta, Sarah and Santhosh, Sreejith and Borja, Michael and Kobayashi, Hirofumi and McGeever, Erin and Solak, Ahmet Can and others},
   journal={bioRxiv},
   pages={2023--03},
   year={2023},
   publisher={Cold Spring Harbor Laboratory}
-}</code></p>
+}
+</code></pre>
+
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/royerlab/in-silico-fate-mapping/issues">file an issue</a> along with a detailed description.</p>
         

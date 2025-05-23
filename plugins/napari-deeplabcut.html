@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -267,15 +248,18 @@ pre > code:last-child {
 <p>If you installed DeepLabCut[gui], this plugin is already installed. However, you can also use this as a stand-alone keypoint annotator without using DeepLabCut. Instructions below!</p>
 <p>Start by installing PySide6 with <code>pip install "pyside6==6.4.2"</code>; this is the library we now use to build GUIs.</p>
 <p>You can then install <code>napari-deeplabcut</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-deeplabcut
+<pre class="codehilite"><code>pip install napari-deeplabcut
 </code></pre>
+
 <p>Alternatively, to install the latest development version, run:</p>
-<pre><code>pip install git+https://github.com/DeepLabCut/napari-deeplabcut.git
+<pre class="codehilite"><code>pip install git+https://github.com/DeepLabCut/napari-deeplabcut.git
 </code></pre>
+
 <h2>Usage</h2>
 <p>To use the plugin, please run:</p>
-<pre><code>napari
+<pre class="codehilite"><code>napari
 </code></pre>
+
 <p>Then, activate the plugin in Plugins &gt; napari-deeplabcut: Keypoint controls.</p>
 <p>All accepted files (config.yaml, images, h5 data files) can be loaded
 either by dropping them directly onto the canvas or via the File menu.</p>
@@ -353,32 +337,33 @@ Note that masks can be reloaded and edited at a later stage by dropping the <cod
 </li>
 </ol>
 <h3>Workflow flowchart</h3>
-<p><code>``mermaid
-%%{init: {"flowchart": {"htmlLabels": false}} }%%
+<pre class="codehilite"><code class="language-mermaid">%%{init: {&quot;flowchart&quot;: {&quot;htmlLabels&quot;: false}} }%%
 graph TD
   id1[What stage of labeling?]
   id2[deeplabcut.label_frames]
   id3[deeplabcut.refine_labels]
-  id4[Add labels to, or modify in, \n</code>CollectedData...<code>layer and save that layer]
-  id5[Modify labels in</code>machinelabels<code>layer and save \n which will create a</code>CollectedData...<code>file]
+  id4[Add labels to, or modify in, \n `CollectedData...` layer and save that layer]
+  id5[Modify labels in `machinelabels` layer and save \n which will create a `CollectedData...` file]
   id6[Have you refined some labels from the most recent iteration and saved already?]
-  id7["All extracted frames are already saved in</code>CollectedData...<code>.
-1. Hide or trash all</code>machinelabels<code>layers.
-2. Then modify in and save</code>CollectedData<code>"]
-  id8["
-1. hide or trash all</code>machinelabels<code>layers except for the most recent.
-2. Select most recent</code>machinelabels<code>and hit</code>e<code>to show edges.
-3. Modify only in</code>machinelabels<code>and skip frames with labels without edges shown.
-4. Save</code>machinelabels<code>layer, which will add data to</code>CollectedData<code>.
-    - If you need to revisit this video later, ignore</code>machinelabels<code>and work only in</code>CollectedData`"]</p>
-<p>id1 --&gt;|I need to manually label new frames \n or fix my labels|id2
+  id7[&quot;All extracted frames are already saved in `CollectedData...`.
+1. Hide or trash all `machinelabels` layers.
+2. Then modify in and save `CollectedData`&quot;]
+  id8[&quot;
+1. hide or trash all `machinelabels` layers except for the most recent.
+2. Select most recent `machinelabels` and hit `e` to show edges.
+3. Modify only in `machinelabels` and skip frames with labels without edges shown.
+4. Save `machinelabels` layer, which will add data to `CollectedData`.
+    - If you need to revisit this video later, ignore `machinelabels` and work only in `CollectedData`&quot;]
+
+  id1 --&gt;|I need to manually label new frames \n or fix my labels|id2
   id1 ----&gt;|I need to refine outlier frames \nfrom analyzed videos|id3
   id2 --&gt;id4
-  id3 --&gt;|I only have a <code>machinelabels...</code> file|id5
-  id3 ----&gt;|I have both <code>machinelabels</code> and <code>CollectedData</code> files|id6
+  id3 --&gt;|I only have a `machinelabels...` file|id5
+  id3 ----&gt;|I have both `machinelabels` and `CollectedData` files|id6
   id6 --&gt;|yes|id7
   id6 ----&gt;|no, I just extracted outliers|id8
-```</p>
+</code></pre>
+
 <h3>Labeling multiple image folders</h3>
 <p>Labeling multiple image folders has to be done in sequence; i.e., only one image folder can be opened at a time.
 After labeling the images of a particular folder is done and the associated <em>Points layer</em> has been saved, <em>all</em> layers should be removed from the layers list (lower left pane on the GUI) by selecting them and clicking on the trashcan icon.

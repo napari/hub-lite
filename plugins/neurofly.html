@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -255,28 +236,115 @@ pre > code:last-child {
 <p>Press shortcut 'd' to automatically extend segments.</p>
 <p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/autonomous.gif" width="640"></p>
 <h2>Installation</h2>
-<p>Install the latest version
-<code>pip install --upgrade git+https://github.com/beanli161514/neurofly.git</code>
-or
-<code>pip install neurofly</code></p>
+<p>Install the latest version</p>
+<pre class="codehilite"><code>pip install --upgrade git+https://github.com/beanli161514/neurofly.git
+</code></pre>
+
+<p>or</p>
+<pre class="codehilite"><code>pip install neurofly
+</code></pre>
+
 <p>You can also install from <a href="https://www.napari-hub.org/plugins/neurofly">napari hub</a>, using their plugin manager with GUI.</p>
 <h2>Dataset</h2>
 <p>We provide several expert-proofread reconstruction results for testing, model training, and evaluation. <a href="https://zenodo.org/records/13328867">Zenodo Link</a></p>
 <h3>Content of samples</h3>
-<p>| name           | size  | species | label type  | imaging |
-|----------------|-------|---------|-------------|---------|
-| rm009_labeled  | 629MB | macaque | skeleton    | VISoR   |
-| mouse_labeled  | 260MB | mouse   | skeleton    | VISoR   |
-| z002_labeled   | 204MB | mouse   | skeleton    | VISoR   |
-| fmost_labeled  | 370MB | mouse   | skeleton    | fMOST   |
-| RM009_noisy_1  | 65MB  | macaque | morphology  | VISoR   |
-| RM009_noisy_2  | 65MB  | macaque | morphology  | VISoR   |
-| fmost_test     | 65MB  | mouse   | morphology  | fMOST   |
-| z002_dendrites | 768MB | mouse   | morphology  | VISoR   |
-| RM009_arbor_1  | 288MB | macaque | morphology  | VISoR   |
-| RM009_axons_1  | 600MB | macaque | morphology  | VISoR   |
-| RM009_axons_2  | 600MB | macaque | morphology  | VISoR   |
-| z002           | 8.92G | mouse   | morphology* | VISoR   |</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>size</th>
+<th>species</th>
+<th>label type</th>
+<th>imaging</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rm009_labeled</td>
+<td>629MB</td>
+<td>macaque</td>
+<td>skeleton</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>mouse_labeled</td>
+<td>260MB</td>
+<td>mouse</td>
+<td>skeleton</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>z002_labeled</td>
+<td>204MB</td>
+<td>mouse</td>
+<td>skeleton</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>fmost_labeled</td>
+<td>370MB</td>
+<td>mouse</td>
+<td>skeleton</td>
+<td>fMOST</td>
+</tr>
+<tr>
+<td>RM009_noisy_1</td>
+<td>65MB</td>
+<td>macaque</td>
+<td>morphology</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>RM009_noisy_2</td>
+<td>65MB</td>
+<td>macaque</td>
+<td>morphology</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>fmost_test</td>
+<td>65MB</td>
+<td>mouse</td>
+<td>morphology</td>
+<td>fMOST</td>
+</tr>
+<tr>
+<td>z002_dendrites</td>
+<td>768MB</td>
+<td>mouse</td>
+<td>morphology</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>RM009_arbor_1</td>
+<td>288MB</td>
+<td>macaque</td>
+<td>morphology</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>RM009_axons_1</td>
+<td>600MB</td>
+<td>macaque</td>
+<td>morphology</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>RM009_axons_2</td>
+<td>600MB</td>
+<td>macaque</td>
+<td>morphology</td>
+<td>VISoR</td>
+</tr>
+<tr>
+<td>z002</td>
+<td>8.92G</td>
+<td>mouse</td>
+<td>morphology*</td>
+<td>VISoR</td>
+</tr>
+</tbody>
+</table>
 <p>$*$ annotation in progress</p>
 <h3>Label format</h3>
 <p>Morphology labels are graphs saved in SQLite database with 3 tables:
@@ -296,9 +364,11 @@ or
 <p><img src="https://github.com/beanli161514/neurofly/raw/main/assets/menu.png" width="320"></p>
 <h3>Segmentation</h3>
 <p>NeuroFly supports whole brain image saved in hierarchical data structures(ims, h5, and zarr) in <a href="https://imaris.oxinst.com/support/imaris-file-format">Imaris File Format</a> and small image volumes saved in single-channel tiff format. Here we use a mouse brain in our dataset named z002.zarr.zip as example.</p>
-<p>This brain is sparsely labeled, which means only a tiny puny part of neurons are lighted and imaged. To extract these foreground singals, you can use the provided command line interface 'seg'. We provide a default weight trained on images captured by VISoR and fMOST.
-<code>seg -i z002.zarr.zip -vis -d z002.db</code>
-or use the graphical interface</p>
+<p>This brain is sparsely labeled, which means only a tiny puny part of neurons are lighted and imaged. To extract these foreground singals, you can use the provided command line interface 'seg'. We provide a default weight trained on images captured by VISoR and fMOST.</p>
+<pre class="codehilite"><code>seg -i z002.zarr.zip -vis -d z002.db
+</code></pre>
+
+<p>or use the graphical interface</p>
 <p><img align src="https://github.com/beanli161514/neurofly/raw/main/assets/neuron_seger.png" width="200"></p>
 <p>This process may take about 10 hours depending on your you hardware configuration. When finished, you should see the extracted segments and a database file named z002.db in your working dictionary.</p>
 <p>An image block with severe contamination and the segmentation result</p>

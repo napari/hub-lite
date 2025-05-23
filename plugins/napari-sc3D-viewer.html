@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -281,18 +262,20 @@ While we tried to make the installation and usage as easy as possible, please ke
 </ul>
 <p>Installing <a href="https://github.com/napari/napari">napari</a> and the <a href="https://github.com/GuignardLab/napari-sc3D-viewer">napari-sc3d-viewer</a> plugin can be done either through command line or using an interface.</p>
 <p>If you have decided to use command line, as <a href="https://github.com/napari/napari">napari</a> developers do, we strongly recommend to install the viewer in an environement such as a conda environment <code>conda</code> for example:</p>
-<p><code>shell
-conda create -n sc3D python=3.10
-conda activate sc3D</code></p>
+<pre class="codehilite"><code class="language-shell">conda create -n sc3D python=3.10
+conda activate sc3D
+</code></pre>
+
 <h3>Installing napari</h3>
 <p>The first step is to <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">install napari</a> on your computer. The previous link should explain how to do so. There you can find either the installation via terminal or directly by <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#install-as-a-bundled-app">downloading the binary</a>.</p>
 <h4>Quick trouble shooting</h4>
 <p>Installing <a href="https://github.com/napari/napari">napari</a> can sometimes be difficult. If you try to install <a href="https://github.com/napari/napari">napari</a> via the command line and it gets stuck "resolving the environment" you can try to install it the following way:</p>
-<p><code>shell
-conda create -n sc3D python=3.10
+<pre class="codehilite"><code class="language-shell">conda create -n sc3D python=3.10
 conda activate sc3D
 conda install pyqt pip
-pip install napari</code></p>
+pip install napari
+</code></pre>
+
 <h3>Installing napari-sc3D-viewer</h3>
 <p>Once <a href="https://github.com/napari/napari">napari</a> is installed, you can install <code>napari-sc3D-viewer</code>.
 As for <a href="https://github.com/napari/napari">napari</a>, <a href="https://github.com/GuignardLab/napari-sc3D-viewer">napari-sc3D-viewer</a> can be installed either through an interface or via the terminal.</p>
@@ -300,34 +283,42 @@ As for <a href="https://github.com/napari/napari">napari</a>, <a href="https://g
 <p>To install <a href="https://github.com/GuignardLab/napari-sc3D-viewer">napari-sc3D-viewer</a> with a visual interface, you should use the <a href="https://napari.org/stable/plugins/find_and_install_plugin.html">napari's plugin manager</a> look for the plugin there and install it as explained in the previous link.</p>
 <h4>Installation via the terminal</h4>
 <p>Another way is to install <code>napari-sc3D-viewer</code> via <a href="https://pypi.org/project/pip/">pip</a> or via <a href="https://conda.io">conda</a>:</p>
-<p><code>shell
-conda install napari-sc3d-viewer</code></p>
+<pre class="codehilite"><code class="language-shell">conda install napari-sc3d-viewer
+</code></pre>
+
 <p>or</p>
-<p><code>shell
-pip install napari-sc3d-viewer</code></p>
+<pre class="codehilite"><code class="language-shell">pip install napari-sc3d-viewer
+</code></pre>
+
 <p>Finally, to install latest development version :</p>
-<p><code>shell
-pip install git+https://github.com/GuignardLab/napari-sc3D-viewer.git</code></p>
+<pre class="codehilite"><code class="language-shell">pip install git+https://github.com/GuignardLab/napari-sc3D-viewer.git
+</code></pre>
+
 <h4>Installation of the surface computation module</h4>
 <p>To install the surface computation enabled version it is necessary to use Python 3.9 (until <a href="https://vtk.org/">VTK</a> is ported to Python 3.10) and you can run one of the following commands:</p>
-<p><code>shell
-pip install '.[pyvista]'</code></p>
+<pre class="codehilite"><code class="language-shell">pip install '.[pyvista]'
+</code></pre>
+
 <p>from the correct folder or</p>
-<p><code>shell
-pip install 'napari-sc3D-viewer[pyvista]'</code></p>
+<pre class="codehilite"><code class="language-shell">pip install 'napari-sc3D-viewer[pyvista]'
+</code></pre>
+
 <p>or</p>
-<p><code>shell
-conda install 'napari-sc3D-viewer[pyvista]'</code></p>
+<pre class="codehilite"><code class="language-shell">conda install 'napari-sc3D-viewer[pyvista]'
+</code></pre>
+
 <p>to install directly from pip or</p>
-<p><code>shell
-pip install 'napari-sc3D-viewer[pyvista] @ git+https://github.com/GuignardLab/napari-sc3D-viewer.git'</code></p>
+<pre class="codehilite"><code class="language-shell">pip install 'napari-sc3D-viewer[pyvista] @ git+https://github.com/GuignardLab/napari-sc3D-viewer.git'
+</code></pre>
+
 <p>to install the latest version</p>
 <h2>Usage</h2>
 <p><code>napari-sc3D-viewer</code> allows users to easily visualise and navigate 3D spatial single-cell transcriptomics using napari.</p>
 <h3>Starting the plugin</h3>
 <p>First, you need to start <a href="https://github.com/napari/napari">napari</a>, for example, one can start it from a terminal just by typing:</p>
-<p><code>shell
-napari</code></p>
+<pre class="codehilite"><code class="language-shell">napari
+</code></pre>
+
 <p>in the correct environment.</p>
 <p>Then, one can follow the following steps to browse the dataset.</p>
 <p>To open the plugin you can click on the "Load spatial single cell" from the <code>Plugins -&gt; napari-sc3d-viewer</code> menu:
@@ -336,12 +327,13 @@ napari</code></p>
 <h3>Loading and opening a dataset</h3>
 <p>The expected dataset is a <a href="https://scanpy.readthedocs.io/en/latest/index.html">scanpy</a>/<a href="https://anndata.readthedocs.io/en/latest/">anndata</a> h5ad file together with an optional json file that maps cluster id numbers to actual tissue/cluster name.</p>
 <p>The json file should look like that:</p>
-<p><code>json
-{
-    "1": "Endoderm",
-    "2": "Heart",
-    "10": "Anterior neuroectoderm"
-}</code></p>
+<pre class="codehilite"><code class="language-json">{
+    &quot;1&quot;: &quot;Endoderm&quot;,
+    &quot;2&quot;: &quot;Heart&quot;,
+    &quot;10&quot;: &quot;Anterior neuroectoderm&quot;
+}
+</code></pre>
+
 <p>If no json file or a wrong json file is given, the original cluster id numbers are used.</p>
 <p>The h5ad file should be informed in (1) and the json file in (2).
 <img alt="loading image" src="https://raw.githubusercontent.com/GuignardLab/napari-sc3D-viewer/main/images/1.loading.png" /></p>

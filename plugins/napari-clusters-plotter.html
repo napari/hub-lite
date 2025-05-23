@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -408,30 +389,41 @@ Select <code>UMAP_0</code> and <code>UMAP_1</code> as X- and Y-axis and the <cod
 <p>Create a new environment, for example, like this:</p>
 </li>
 </ul>
-<p><code>mamba create --name ncp-env python=3.9</code></p>
+<pre class="codehilite"><code>mamba create --name ncp-env python=3.9
+</code></pre>
+
 <ul>
 <li>Activate the new environment via conda:</li>
 </ul>
-<p><code>mamba activate ncp-env</code></p>
+<pre class="codehilite"><code>mamba activate ncp-env
+</code></pre>
+
 <ul>
 <li>Install <a href="https://github.com/napari/napari">napari</a>, e.g. via <a href="https://docs.conda.io/projects/conda/en/latest/">conda</a>:</li>
 </ul>
-<p><code>mamba install -c conda-forge napari</code></p>
+<pre class="codehilite"><code>mamba install -c conda-forge napari
+</code></pre>
+
 <p>Afterwards, you can install <code>napari-clusters-plotter</code>, e.g. via <a href="https://docs.conda.io/projects/conda/en/latest/">conda</a>:</p>
-<p><code>mamba install -c conda-forge napari-clusters-plotter</code></p>
+<pre class="codehilite"><code>mamba install -c conda-forge napari-clusters-plotter
+</code></pre>
+
 <h2>Troubleshooting installation</h2>
 <ul>
 <li><code>Error: Could not build wheels for hdbscan which use PEP 517 and cannot be installed directly</code></li>
 </ul>
 <p>This can happen if you used pip for the installation. To solve this error, install hdbscan via conda before installing the plugin:</p>
-<p><code>mamba install -c conda-forge hdbscan</code></p>
+<pre class="codehilite"><code>mamba install -c conda-forge hdbscan
+</code></pre>
+
 <ul>
 <li><code>ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject</code></li>
 </ul>
-<p>Similar to the above-described error, this error can occur when importing hdbscan through pip or in the wrong order. This can be fixed by installing packages separately through conda and in the following order:
-<code>bash
-mamba install -c conda-forge napari hdbscan
-pip install napari-clusters-plotter</code></p>
+<p>Similar to the above-described error, this error can occur when importing hdbscan through pip or in the wrong order. This can be fixed by installing packages separately through conda and in the following order:</p>
+<pre class="codehilite"><code class="language-bash">mamba install -c conda-forge napari hdbscan
+pip install napari-clusters-plotter
+</code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://docs.pytest.org/en/7.0.x/">pytest</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>

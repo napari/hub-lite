@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -295,36 +276,42 @@ pre > code:last-child {
 </ul>
 <p><code>napari.layers.Tracks</code> are intrinsically 4D and thus not supported.</p>
 <p><strong>Unstacking example usage:</strong></p>
-<p>```python
-from napari_timelapse_processor import TimelapseConverter
-import numpy as np</p>
-<p>image_4d = np.random.rand(10, 32, 32, 32)  # 10 timepoints of 32x32x32 data
+<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import TimelapseConverter
+import numpy as np
+
+image_4d = np.random.rand(10, 32, 32, 32)  # 10 timepoints of 32x32x32 data
 converter = TimelapseConverter()
 list_of_images = converter.unstack(image_4d, layertype='napari.types.ImageData')
-```</p>
+</code></pre>
+
 <p><strong>Stacking example usage:</strong></p>
-<p>```python
-from napari_timelapse_processor import TimelapseConverter
-import numpy as np</p>
-<p>random_points = [np.random.rand(10, 3)  for _ in range(10)]  # 10 timepoints of 10 random 3D points
-converter = TimelapseConverter()</p>
-<h1>stack the points into a single 4D layer</h1>
-<p>stacked_points = converter.stack(random_points, layertype='napari.types.PointsData')
-```</p>
+<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import TimelapseConverter
+import numpy as np
+
+random_points = [np.random.rand(10, 3)  for _ in range(10)]  # 10 timepoints of 10 random 3D points
+converter = TimelapseConverter()
+
+# stack the points into a single 4D layer
+stacked_points = converter.stack(random_points, layertype='napari.types.PointsData')
+</code></pre>
+
 <p>The <code>TimeLapseConverter</code> class also supports (un)stacking the <code>napari.layers.Layer</code> type (and its above-listed subclasses). Importantly, <code>features</code> that are associated with the respective layer are also (un)stacked.</p>
 <p><strong>Layer example usage</strong></p>
-<p>```python
-from napari_timelapse_processor import TimelapseConverter
+<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import TimelapseConverter
 import numpy as np
 from napari.layers import Points
-import pandas as pd</p>
-<p>random_points = [np.random.rand(10, 3)  for _ in range(10)]  # 10 timepoints of 10 random 3D points
-random_features = [pd.DataFrame(np.random.rand(10)) for _ in range(10)]  # 10 timepoints of 10 random feature values</p>
-<h1>create a list of 10 Points layers</h1>
-<p>points = [Points(random_points[i], properties=random_features[i]) for i in range(10)]</p>
-<p>converter = TimelapseConverter()
+import pandas as pd
+
+random_points = [np.random.rand(10, 3)  for _ in range(10)]  # 10 timepoints of 10 random 3D points
+random_features = [pd.DataFrame(np.random.rand(10)) for _ in range(10)]  # 10 timepoints of 10 random feature values
+
+# create a list of 10 Points layers
+points = [Points(random_points[i], properties=random_features[i]) for i in range(10)]
+
+converter = TimelapseConverter()
 stacked_points = converter.stack(points, layertype='napari.layers.Points')
-```</p>
+</code></pre>
+
 <h2>frame_by_frame</h2>
 <p>The frame-by-frame functionality provides a decorator that will inspect the decorated function for <code>TimelapseConverter</code>-compatible arguments and, if a 4D value is passed as argument, will automatically (un)stack the data before and after the function call. This allows for a more intuitive API when working with timelapse data. Currently supported type annotations are:</p>
 <ul>
@@ -342,29 +329,34 @@ stacked_points = converter.stack(points, layertype='napari.layers.Points')
 </ul>
 <p>Additionally, the <code>frame_by_frame</code> supports parallelization with <a href="https://distributed.dask.org/en/latest/">dask.distributed</a>. To use it, simply pass the <code>use_dask=True</code> argument to the decorated function, even if the function itself does not require this argument. The decorater will then automatically parallelize the function call over the time-axis and remove the <code>use_dask</code> argument when calling the function.</p>
 <p><strong>Example interactive code usage:</strong> If you want to use the <code>frame_by_frame</code> functionality in, say, a Jupyter notebook, use it like this:</p>
-<p>```python</p>
-<p>from napari_timelapse_processor import frame_by_frame
-import numpy as np</p>
-<p>def my_function(image: 'napari.types.ImageData') -&gt; 'napari.types.ImageData':
-    return 2 * image</p>
-<p>image_4d = np.random.rand(10, 32, 32, 32)  # 10 timepoints of 32x32x32 data</p>
-<p>image_4d_processed = frame_by_frame(my_function)(image_4d)  # without dask
-image_4d_processed = frame_by_frame(my_function)(image_4d, use_dask=True)  # with dask
-```</p>
-<p><strong>Example napari code</strong> If you want to use the <code>frame_by_frame</code> functionality in a napari plugin, use it like this:</p>
-<p>```python
-from napari_timelapse_processor import frame_by_frame</p>
-<p>@frame_by_frame
+<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import frame_by_frame
+import numpy as np
+
 def my_function(image: 'napari.types.ImageData') -&gt; 'napari.types.ImageData':
     return 2 * image
-```</p>
+
+image_4d = np.random.rand(10, 32, 32, 32)  # 10 timepoints of 32x32x32 data
+
+image_4d_processed = frame_by_frame(my_function)(image_4d)  # without dask
+image_4d_processed = frame_by_frame(my_function)(image_4d, use_dask=True)  # with dask
+</code></pre>
+
+<p><strong>Example napari code</strong> If you want to use the <code>frame_by_frame</code> functionality in a napari plugin, use it like this:</p>
+<pre class="codehilite"><code class="language-python">from napari_timelapse_processor import frame_by_frame
+
+@frame_by_frame
+def my_function(image: 'napari.types.ImageData') -&gt; 'napari.types.ImageData':
+    return 2 * image
+</code></pre>
+
 <p><strong>Hint:</strong> The <code>frame_by_frame</code> functionality runs under the assumption that input napari-data (e.g., an Image, a Surface, Points, etc) are <em>always</em> arguments and any other parameters are <em>always</em> keyword arguments. If this is not the case, the decorator will not work as intended.</p>
-<p>```python</p>
-<h1>This works</h1>
-<p>frame_by_frame(my_function)(image_4d, some_parameter=2, use_dask=True)</p>
-<h1>This does not work</h1>
-<p>frame_by_frame(my_function)(image=image_4d, some_parameter=2, use_dask=True)
-```</p>
+<pre class="codehilite"><code class="language-python"># This works
+frame_by_frame(my_function)(image_4d, some_parameter=2, use_dask=True)
+
+# This does not work
+frame_by_frame(my_function)(image=image_4d, some_parameter=2, use_dask=True)
+</code></pre>
+
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <!--
@@ -377,8 +369,9 @@ https://napari.org/stable/plugins/index.html
 
 <h2>Installation</h2>
 <p>You can install <code>napari-timelapse-processor</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-timelapse-processor
+<pre class="codehilite"><code>pip install napari-timelapse-processor
 </code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>

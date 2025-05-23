@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -284,11 +265,13 @@ https://napari.org/stable/plugins/index.html
 </ul>
 <h2>Installation</h2>
 <p>You can install <code>napari-meshio</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-meshio
+<pre class="codehilite"><code>pip install napari-meshio
 </code></pre>
+
 <p>To install latest development version :</p>
-<pre><code>pip install git+https://github.com/GenevieveBuckley/napari-meshio.git
+<pre class="codehilite"><code>pip install git+https://github.com/GenevieveBuckley/napari-meshio.git
 </code></pre>
+
 <h2>How to use napari-meshio</h2>
 <h3>Read surface data from file</h3>
 <p>Drag and drop the file onto the napari viewer.</p>
@@ -297,22 +280,24 @@ https://napari.org/stable/plugins/index.html
 <p>Launch the napari viewer, then open one of the sample datasets (eg: the <a href="http://graphics.stanford.edu/data/3Dscanrep/">Stanford bunny</a>) from the file menu:</p>
 <p><code>File</code> &gt; <code>Open Sample</code> &gt; <code>napari-meshio</code> &gt; <code>bunny</code></p>
 <p>Or, open sample data from python with:</p>
-<p>```python
-import napari</p>
-<p>viewer = napari.Viewer(ndisplay=3)
+<pre class="codehilite"><code class="language-python">import napari
+
+viewer = napari.Viewer(ndisplay=3)
 viewer.open_sample('napari-meshio', 'bunny')
-```</p>
+</code></pre>
+
 <h3>Save surface data</h3>
 <p>To save a surface layer, click the layer name to select it, and then choose save from the file menu:</p>
 <p><code>File</code> &gt; <code>Save selected layer(s)</code></p>
 <p>You can also use keyboard shortcuts to save the selected surface layer:
 - Windows/Linux: <code>Control</code> + <code>S</code>
 - Mac: <code>⌘</code> + <code>S</code></p>
-<p>Or, save surface layers from python with:
-<code>python
-filename = "bunny.stl"
-viewer.layers['bunny'].save(filename)</code>
-<em>Note: this code example assumes you have the Stanford bunny example dataset loaded.</em></p>
+<p>Or, save surface layers from python with:</p>
+<pre class="codehilite"><code class="language-python">filename = &quot;bunny.stl&quot;
+viewer.layers['bunny'].save(filename)
+</code></pre>
+
+<p><em>Note: this code example assumes you have the Stanford bunny example dataset loaded.</em></p>
 <p>A <a href="#supported-mesh-file-formats">wide variety of surface mesh file formats are supported</a> by
 <a href="https://github.com/nschloe/meshio">meshio</a>.
 If no file extension is provided when saving a surface layer,

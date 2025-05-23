@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -258,15 +239,19 @@ pre > code:last-child {
 <hr />
 <h2>Usage</h2>
 <p>Read the <a href="https://merge-stardist-masks.readthedocs.io/en/latest/napari-plugin.html">tutorial</a> and download pre-trained models from our <a href="https://doi.org/10.5281/zenodo.7704410">Zenodo repository</a>.</p>
-<p>In PowerShell, when you do not have sufficient GPU support, run napari without CUDA support, i.e.,:
-<code>$env:CUDA_VISIBLE_DEVICES=-1; napari</code></p>
+<p>In PowerShell, when you do not have sufficient GPU support, run napari without CUDA support, i.e.,:</p>
+<pre class="codehilite"><code>$env:CUDA_VISIBLE_DEVICES=-1; napari
+</code></pre>
+
 <h2>Installation</h2>
 <p>You can install <code>napari-merge-stardist-masks</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-merge-stardist-masks
+<pre class="codehilite"><code>pip install napari-merge-stardist-masks
 </code></pre>
+
 <p>To install latest development version :</p>
-<pre><code>pip install git+https://github.com/gatoniel/napari-merge-stardist-masks.git
+<pre class="codehilite"><code>pip install git+https://github.com/gatoniel/napari-merge-stardist-masks.git
 </code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -276,8 +261,7 @@ the coverage at least stays the same before you submit a pull request.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/gatoniel/napari-merge-stardist-masks/issues">file an issue</a> along with a detailed description.</p>
 <h2>How to cite</h2>
-<p><code>bibtex
-@article{https://doi.org/10.1111/mmi.15064,
+<pre class="codehilite"><code class="language-bibtex">@article{https://doi.org/10.1111/mmi.15064,
 author = {Jelli, Eric and Ohmura, Takuya and Netter, Niklas and Abt, Martin and Jiménez-Siebert, Eva and Neuhaus, Konstantin and Rode, Daniel K. H. and Nadell, Carey D. and Drescher, Knut},
 title = {Single-cell segmentation in bacterial biofilms with an optimized deep learning method enables tracking of cell lineages and measurements of growth rates},
 journal = {Molecular Microbiology},
@@ -289,7 +273,9 @@ doi = {https://doi.org/10.1111/mmi.15064},
 url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/mmi.15064},
 eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1111/mmi.15064},
 abstract = {Abstract Bacteria often grow into matrix-encased three-dimensional (3D) biofilm communities, which can be imaged at cellular resolution using confocal microscopy. From these 3D images, measurements of single-cell properties with high spatiotemporal resolution are required to investigate cellular heterogeneity and dynamical processes inside biofilms. However, the required measurements rely on the automated segmentation of bacterial cells in 3D images, which is a technical challenge. To improve the accuracy of single-cell segmentation in 3D biofilms, we first evaluated recent classical and deep learning segmentation algorithms. We then extended StarDist, a state-of-the-art deep learning algorithm, by optimizing the post-processing for bacteria, which resulted in the most accurate segmentation results for biofilms among all investigated algorithms. To generate the large 3D training dataset required for deep learning, we developed an iterative process of automated segmentation followed by semi-manual correction, resulting in &gt;18,000 annotated Vibrio cholerae cells in 3D images. We demonstrate that this large training dataset and the neural network with optimized post-processing yield accurate segmentation results for biofilms of different species and on biofilm images from different microscopes. Finally, we used the accurate single-cell segmentation results to track cell lineages in biofilms and to perform spatiotemporal measurements of single-cell growth rates during biofilm development.}
-}</code></p>
+}
+</code></pre>
+
 <h2>Credits</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
         

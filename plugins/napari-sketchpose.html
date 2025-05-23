@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -259,10 +240,9 @@ use of transfer learning with little data, by not needing to draw entire cells, 
 <p>If you use this plugin please cite the <a href="https://hal.science/hal-04330824">paper</a>: </p>
 <p>Clément Cazorla, Nathanaël Munier, Renaud Morin, Pierre Weiss. Sketchpose: Learning to Segment
 Cells with Partial Annotations. 2023. ffhal-04330824f</p>
-<p>```bibtex
-@unpublished{cazorla:hal-04330824,
+<pre class="codehilite"><code class="language-bibtex">@unpublished{cazorla:hal-04330824,
       TITLE = {{Sketchpose: Learning to Segment Cells with Partial Annotations}},
-      AUTHOR = {Cazorla, Cl{\'e}ment and Munier, Nathana{\"e}l and Morin, Renaud and Weiss, Pierre},
+      AUTHOR = {Cazorla, Cl{\'e}ment and Munier, Nathana{\&quot;e}l and Morin, Renaud and Weiss, Pierre},
       URL = {https://hal.science/hal-04330824},
       NOTE = {working paper or preprint},
       YEAR = {2023},
@@ -271,8 +251,9 @@ Cells with Partial Annotations. 2023. ffhal-04330824f</p>
       PDF = {https://hal.science/hal-04330824/file/sketchpose_hal.pdf},
       HAL_ID = {hal-04330824},
       HAL_VERSION = {v1},
-    }</p>
-<p>```</p>
+    }
+</code></pre>
+
 <p><img alt="" src="https://bitbucket.org/koopa31/napari-sketchpose/raw/b691817e9e20a3c1c2bc69277579f6fb9b26354e/images/frugalpose.gif" />
 Image Credit: Eduard Muzhevskyi</p>
 <hr />
@@ -287,14 +268,16 @@ https://napari.org/stable/plugins/index.html
 
 <h2>Installation</h2>
 <p>First, we advise you to create a conda environment in Python 3.10, in which you will run Napari:</p>
-<pre><code>conda create -n sketchpose_env python=3.10
+<pre class="codehilite"><code>conda create -n sketchpose_env python=3.10
 conda activate sketchpose_env
 conda install pip
-python -m pip install "napari[all]" --upgrade
+python -m pip install &quot;napari[all]&quot; --upgrade
 </code></pre>
+
 <p>You can install <code>napari_sketchpose</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari_sketchpose
+<pre class="codehilite"><code>pip install napari_sketchpose
 </code></pre>
+
 <p>WARNING:</p>
 <p>For Windows users, CUDA version of PyTorch may not be installed properly. When the plugin starts for the first time, it checks whether
 CUDA version is installed. If not, it tries to install it using light-the-torch library. If this does not work, you should re-install 

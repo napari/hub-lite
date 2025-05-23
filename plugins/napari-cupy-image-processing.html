@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -268,21 +249,28 @@ Therefore, just click the menu <code>Tools &gt; Utilities &gt; Assistant (na)</c
 <p>You can also call operations from python, e.g. as shown in this <a href="https://github.com/haesleinhuepf/napari-cupy-image-processing/raw/main/docs/demo.ipynb">demo notebook</a>.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-cupy-image-processing</code> using conda:</p>
-<pre><code>mamba install -c conda-forge cupy cudatoolkit=11.2 napari-cupy-image-processing
+<pre class="codehilite"><code>mamba install -c conda-forge cupy cudatoolkit=11.2 napari-cupy-image-processing
 </code></pre>
+
 <h2>Troubleshooting installation</h2>
 <p>In case of issues, follow the <a href="https://docs.cupy.dev/en/stable/install.html#installing-cupy-from-conda-forge">instructions for installing cupy</a>. </p>
-<p>A more detailed example for installation (change 11.2 to your desired CUDA version):
-<code>mamba create --name cupy_p39 python=3.9 
-conda activate cupy_p39</code>
-And then:
-<code>mamba install -c conda-forge cupy cudatoolkit=11.2 napari-cupy-image-processing</code></p>
+<p>A more detailed example for installation (change 11.2 to your desired CUDA version):</p>
+<pre class="codehilite"><code>mamba create --name cupy_p39 python=3.9 
+conda activate cupy_p39
+</code></pre>
+
+<p>And then:</p>
+<pre class="codehilite"><code>mamba install -c conda-forge cupy cudatoolkit=11.2 napari-cupy-image-processing
+</code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Adding <a href="https://docs.cupy.dev/en/stable/reference/ndimage.html">cupy ndimage</a> functions is quite easy as you can see in the 
 <a href="https://github.com/haesleinhuepf/napari-cupy-image-processing/blob/main/napari_cupy_image_processing/_cupy_image_processing.py#L48">implementation of the current operations</a>. 
 If you need another function in napari, just send a PR. Please make sure the tests pass locally before submitting a PR.</p>
-<p><code>pip install pytest-cov pytest-qt
-pytest --cov=napari_cupy_image_processing</code></p>
+<pre class="codehilite"><code>pip install pytest-cov pytest-qt
+pytest --cov=napari_cupy_image_processing
+</code></pre>
+
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,

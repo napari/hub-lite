@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -292,19 +273,72 @@ For the training of the model, an <a href="https://github.com/haesleinhuepf/apoc
 <p>Under <code>Analyze Image</code>, you can extract features from your image and label image by selecting them and clicking on the <code>Run</code> button.<br />
 <img alt="" src="img/plugin/analyzeimage.png" />
 The extracted features are a combination of the two libraries <a href="https://github.com/haesleinhuepf/napari-skimage-regionprops">napari-skimage-regionprops</a> and <a href="https://github.com/haesleinhuepf/napari-simpleitk-image-processing">napari-simpleitk-image-processing</a>. They can be devided into size-, shape-, and intensity-based parameters: </p>
-<p>| <strong>size</strong> | <strong>shape</strong>                 | <strong>intensity</strong><br />
-|----------|---------------------------|-------------------|
-|<img alt="" src="img/plugin/size.png" />       |<img alt="" src="img/plugin/shape.png" />                  |<img alt="" src="img/plugin/intensity.png" />      |
-| area      | aspect ratio                  | maximum intensity     |
-|           | perimeter                     | mean intensity        |
-|           | major-axis-length             | minimum intensity     |
-|           | minor-axis-length             | median                |
-|           | circularity                   | sum                   |
-|           | solidity                      | variance              |
-|           | eccentricity                  |                       |
-|           | roundness                     |                       |
-|           | perimeter-on-border           |                       |
-|           | perimeter-on-border-ratio     |                       |</p>
+<table>
+<thead>
+<tr>
+<th><strong>size</strong></th>
+<th><strong>shape</strong></th>
+<th><strong>intensity</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="" src="img/plugin/size.png" /></td>
+<td><img alt="" src="img/plugin/shape.png" /></td>
+<td><img alt="" src="img/plugin/intensity.png" /></td>
+</tr>
+<tr>
+<td>area</td>
+<td>aspect ratio</td>
+<td>maximum intensity</td>
+</tr>
+<tr>
+<td></td>
+<td>perimeter</td>
+<td>mean intensity</td>
+</tr>
+<tr>
+<td></td>
+<td>major-axis-length</td>
+<td>minimum intensity</td>
+</tr>
+<tr>
+<td></td>
+<td>minor-axis-length</td>
+<td>median</td>
+</tr>
+<tr>
+<td></td>
+<td>circularity</td>
+<td>sum</td>
+</tr>
+<tr>
+<td></td>
+<td>solidity</td>
+<td>variance</td>
+</tr>
+<tr>
+<td></td>
+<td>eccentricity</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>roundness</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>perimeter-on-border</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>perimeter-on-border-ratio</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>You can find a glossary with an explanation of these features <a href="https://focalplane.biologists.com/2023/05/03/feature-extraction-in-napari/">in this blog post</a>
 Some of the guanine crystals are not correctly segmented because of overlay or interference patterns. This problem is addressed with the help of a classification step demonstrated next</p>
 <h3>4. Classify Objects</h3>
@@ -321,11 +355,13 @@ The result is a label image with only the predicted (blue) labels which are rela
 <img alt="" src="img/plugin/analyzedeluxe.png" /></p>
 <h2>Installation</h2>
 <p>You can install <code>guanine-crystal-analysis</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install guanine-crystal-analysis
+<pre class="codehilite"><code>pip install guanine-crystal-analysis
 </code></pre>
+
 <p>To install latest development version :</p>
-<pre><code>pip install git+https://github.com/biopo/guanine-crystal-analysis.git
+<pre class="codehilite"><code>pip install git+https://github.com/biopo/guanine-crystal-analysis.git
 </code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>

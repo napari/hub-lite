@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -282,31 +263,37 @@ https://napari.org/stable/plugins/index.html
 <p>Open an Anaconda prompt as admin to create a new environment using <a href="https://docs.conda.io/en/latest/">conda</a>. We advice to use python 3.10 and conda 23.10.0, to get conda-libmamba-solver as default solver.</p>
 </li>
 </ol>
-<p><code>bash
-conda create --name cut_detector python=3.10 conda=23.10.0
-conda activate cut_detector</code></p>
+<pre class="codehilite"><code class="language-bash">conda create --name cut_detector python=3.10 conda=23.10.0
+conda activate cut_detector
+</code></pre>
+
 <h3>Package installation</h3>
 <p>Once in a dedicated environment, our package can be installed via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<p><code>bash
-pip install cut_detector</code></p>
+<pre class="codehilite"><code class="language-bash">pip install cut_detector
+</code></pre>
+
 <p>Alternatively, you can clone the github repo to access to playground scripts.</p>
-<p><code>bash
-git clone https://github.com/15bonte/cut-detector.git
+<pre class="codehilite"><code class="language-bash">git clone https://github.com/15bonte/cut-detector.git
 cd cut-detector
-pip install -e .</code></p>
+pip install -e .
+</code></pre>
+
 <h3>GPU</h3>
 <p>We highly recommend to use GPU to speed up segmentation. To use your NVIDIA GPU, the first step is to download the dedicated driver from <a href="https://www.nvidia.com/Download/index.aspx?lang=en-us">NVIDIA</a>.</p>
 <p>Next we need to remove the CPU version of torch:</p>
-<p><code>bash
-pip uninstall torch</code></p>
+<pre class="codehilite"><code class="language-bash">pip uninstall torch
+</code></pre>
+
 <p>The GPU version of torch to be installed can be found <a href="https://pytorch.org/get-started/locally/">here</a>. You may choose the CUDA version supported by your GPU, and install it with conda. This package has been developed with the version 11.6, installed with this command:</p>
-<p><code>bash
-conda install pytorch==1.12.1 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia</code></p>
+<pre class="codehilite"><code class="language-bash">conda install pytorch==1.12.1 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia
+</code></pre>
+
 <h2>Update</h2>
 <p>To update cut-detector to the latest version, open an Anaconda prompt and use the following commands:</p>
-<p><code>bash
-conda activate cut_detector
-pip install cut-detector --upgrade</code></p>
+<pre class="codehilite"><code class="language-bash">conda activate cut_detector
+pip install cut-detector --upgrade
+</code></pre>
+
 <h2>Definitions</h2>
 <p>Each detected cell division is labeled with one of the following categories:</p>
 <ul>

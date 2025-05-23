@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -248,8 +229,9 @@ pre > code:last-child {
     padding-bottom: 0;
 }
         </style>
-        <pre><code># napari-svetlana
+        <pre class="codehilite"><code># napari-svetlana
 </code></pre>
+
 <p><a href="https://bitbucket.org/koopa31/napari_svetlana/src/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/napari_svetlana.svg?color=green" /></a>
 <a href="https://pypi.org/project/napari_svetlana"><img alt="PyPI" src="https://img.shields.io/pypi/v/napari_svetlana.svg?color=green" /></a>
 <a href="https://python.org"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/napari_svetlana.svg?color=green" /></a>
@@ -269,8 +251,7 @@ recommend the use of <a href="https://www.cellpose.org">Cellpose</a> for the seg
 accepted by Svetlana (labels masks). </p>
 <p>If you use this plugin please cite the <a href="https://www.nature.com/articles/s41598-024-60916-8">paper</a>: </p>
 <p>Cazorla, C., Weiss, P., &amp; Morin, R. (2024). Svetlana: a Supervised Segmentation Classifier for Napari.</p>
-<p>```bibtex
-@article{cazorla2024svetlana,
+<pre class="codehilite"><code class="language-bibtex">@article{cazorla2024svetlana,
   title={Svetlana a supervised segmentation classifier for Napari},
   author={Cazorla, Cl{\'e}ment and Morin, Renaud and Weiss, Pierre},
   journal={Scientific Reports},
@@ -279,8 +260,9 @@ accepted by Svetlana (labels masks). </p>
   pages={11604},
   year={2024},
   publisher={Nature Publishing Group UK London}
-}</p>
-<p>```</p>
+}
+</code></pre>
+
 <p><img alt="" src="https://bitbucket.org/koopa31/napari_svetlana/raw/bca8788111b38d97bd172c7caac87cc488ace699/images/Videogif.gif" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -294,21 +276,24 @@ https://napari.org/plugins/stable/index.html
 
 <h2>Installation</h2>
 <p>First install Napari in a Python 3.9 Conda environment following these instructions :</p>
-<p><code>bash
-conda create -n svetlana_env python=3.9
+<pre class="codehilite"><code class="language-bash">conda create -n svetlana_env python=3.9
 conda activate svetlana_env
 conda install pip
-python -m pip install "napari[all]"==0.4.17</code></p>
-<p>Then, you can install <code>napari_svetlana</code> via <a href="https://pypi.org/project/napari-svetlana/">pip</a>, or directly from the Napari plugin manager (see Napari documentation):
-<code>bash
-pip install napari_svetlana</code>
-WARNING:</p>
+python -m pip install &quot;napari[all]&quot;==0.4.17
+</code></pre>
+
+<p>Then, you can install <code>napari_svetlana</code> via <a href="https://pypi.org/project/napari-svetlana/">pip</a>, or directly from the Napari plugin manager (see Napari documentation):</p>
+<pre class="codehilite"><code class="language-bash">pip install napari_svetlana
+</code></pre>
+
+<p>WARNING:</p>
 <p>If you have a Cuda compatible GPU on your computer, some computations may be accelerated
 using <a href="https://pypi.org/project/cupy/">Cupy</a>. Unfortunately, Cupy needs Cudatoolkit to be installed. This library can only be installed via 
-Conda while the plugin is a pip plugin, so it must be installed manually for the moment:
-<code>bash
-conda install cudatoolkit=11.5</code>
-Also note that the library (<a href="https://pypi.org/project/cucim/">Cucim</a>) that we use to improve these performances, computing morphological operations on GPU
+Conda while the plugin is a pip plugin, so it must be installed manually for the moment:</p>
+<pre class="codehilite"><code class="language-bash">conda install cudatoolkit=11.5 
+</code></pre>
+
+<p>Also note that the library (<a href="https://pypi.org/project/cucim/">Cucim</a>) that we use to improve these performances, computing morphological operations on GPU
 is unfortunately only available for Linux systems. Hence, if you are a Windows user, this installation is not necessary.</p>
 <h2>Tutorial</h2>
 <p>Many advanced features are available in Svetlana, such as data augmentation or contextual information reduction, to optimize the performance of your classifier. Thus, we strongly encourage you to

@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -338,11 +319,17 @@ pre > code:last-child {
 <h2>Installation</h2>
 <p>You can install <code>devbio-napari</code> via conda/mamba. If you have never used conda before, please <a href="https://biapol.github.io/blog/mara_lampert/getting_started_with_mambaforge_and_python/readme.html">read this guide first</a>.<br />
 Start by creating an environment using mamba.</p>
-<p><code>mamba create --name devbio-napari-env napari=0.4.19 python=3.9 devbio-napari pyqt -c conda-forge -c pytorch</code></p>
+<pre class="codehilite"><code>mamba create --name devbio-napari-env napari=0.4.19 python=3.9 devbio-napari pyqt -c conda-forge -c pytorch
+</code></pre>
+
 <p>Afterwards, activate the environment like this:</p>
-<p><code>mamba activate devbio-napari-env</code></p>
+<pre class="codehilite"><code>mamba activate devbio-napari-env
+</code></pre>
+
 <p>Afterwards, run this command from the command line</p>
-<p><code>naparia</code></p>
+<pre class="codehilite"><code>naparia
+</code></pre>
+
 <p>This window should open. It shows the <a href="https://www.napari-hub.org/plugins/napari-assistant">Assistant</a> graphical user interface. 
 Read more about how to use it in its <a href="https://www.napari-hub.org/plugins/napari-assistant">documentation</a>.</p>
 <p><img alt="img.png" src="https://github.com/haesleinhuepf/devbio-napari/raw/master/docs/screenshot.png" /></p>
@@ -356,19 +343,27 @@ Read more about how to use it in its <a href="https://www.napari-hub.org/plugins
 <li><a href="https://www.microsoft.com/en-us/p/opencl-and-opengl-compatibility-pack/9nqpsl29bfff">Microsoft Windows OpenCL support</a></li>
 </ul>
 <p>Sometimes, mac-users need to install this:</p>
-<pre><code>conda install -c conda-forge ocl_icd_wrapper_apple
+<pre class="codehilite"><code>conda install -c conda-forge ocl_icd_wrapper_apple
 </code></pre>
+
 <p>Sometimes, linux users need to install this:</p>
-<pre><code>conda install -c conda-forge ocl-icd-system
+<pre class="codehilite"><code>conda install -c conda-forge ocl-icd-system
 </code></pre>
+
 <p>In case installation didn't work in the first attempt, you may have to call this command line to reset the napari configuration:</p>
-<p><code>napari --reset</code></p>
+<pre class="codehilite"><code>napari --reset
+</code></pre>
+
 <h2>Troubleshooting: pytorch</h2>
 <p>In case pytorch-related plugins fail, install pytorch as explained on <a href="https://pytorch.org/get-started/locally/">its website</a>. Consider replacing <code>conda</code> with <code>mamba</code> in given instructions.</p>
-<p>For example if you have an NVidia GPU at hand, install pytorch like this:
-<code>mamba install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia</code>
-Or if not:
-<code>mamba install pytorch torchvision torchaudio cpuonly -c pytorch</code></p>
+<p>For example if you have an NVidia GPU at hand, install pytorch like this:</p>
+<pre class="codehilite"><code>mamba install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+</code></pre>
+
+<p>Or if not:</p>
+<pre class="codehilite"><code>mamba install pytorch torchvision torchaudio cpuonly -c pytorch
+</code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. 
 If you want to <a href="https://github.com/haesleinhuepf/devbio-napari/pulls">suggest a new napari plugin</a> to become part of this distribution, please make sure it interoperates nicely with the other plugins. 

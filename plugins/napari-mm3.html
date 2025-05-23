@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -270,17 +251,25 @@ https://napari.org/plugins/stable/index.html
 <p>https://github.com/junlabucsd/napari-mm3/assets/40699438/1b3e6121-f5e1-475f-aca3-c6ed1b5bab3a</p>
 <h2>Installation</h2>
 <p>We describe installation with mamba, a faster version of conda which we recommend. Installation with conda is the exact same, except replace <code>mamba</code> with <code>conda</code> Run the following command:</p>
-<p><code>mamba create -n napari-mm3 -c conda-forge conda-build tensorflow napari</code> 
-Now, you need to install our code (please let us know if this causes problems -- it has been a pain point in the past). To do so, clone the repository:</p>
-<p><code>git clone https://github.com/junlabucsd/napari-mm3.git</code></p>
-<p>Then, run the following commands from within your conda environment:
-<code>cd napari-mm3
-pip install -e .</code>
-This supplies you with the latest, most recent version of our code.</p>
+<pre class="codehilite"><code>mamba create -n napari-mm3 -c conda-forge conda-build tensorflow napari
+</code></pre>
+
+<p>Now, you need to install our code (please let us know if this causes problems -- it has been a pain point in the past). To do so, clone the repository:</p>
+<pre class="codehilite"><code>git clone https://github.com/junlabucsd/napari-mm3.git
+</code></pre>
+
+<p>Then, run the following commands from within your conda environment:</p>
+<pre class="codehilite"><code>cd napari-mm3
+pip install -e .
+</code></pre>
+
+<p>This supplies you with the latest, most recent version of our code.</p>
 <p>If you would like to have a more stable version, simply run <code>pip install napari-mm3</code>. In general, we recommend going off of the github version.</p>
-<p>napari-MM3 can use the <a href="https://pypi.org/project/python-bioformats/">python-bioformats</a> library to import various image file formats. It can be installed with pip:
-<code>pip install python-bioformats</code>
-If your raw images are in the .nd2 format, they will be read in with the nd2reader package. In this case, Bio-Formats is not required.</p>
+<p>napari-MM3 can use the <a href="https://pypi.org/project/python-bioformats/">python-bioformats</a> library to import various image file formats. It can be installed with pip:</p>
+<pre class="codehilite"><code>pip install python-bioformats
+</code></pre>
+
+<p>If your raw images are in the .nd2 format, they will be read in with the nd2reader package. In this case, Bio-Formats is not required.</p>
 <p>NOTES:
 Not running the conda command above and trying to install things in a different way may lead to difficult issues with PyQt5. We recommend following the above commands to simplify the situation.
 Using <code>pip -e .</code> instead of <code>mamba develop .</code> is a deliberate choice, the former did not seem to register the plugin with napari.</p>

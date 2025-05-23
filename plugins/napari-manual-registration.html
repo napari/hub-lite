@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -259,9 +240,20 @@ pre > code:last-child {
 <p><code>napari-manual-registration</code> is a <a href="https://github.com/napari/napari">napari</a> plugin that is part of the <a href="https://github.com/GuignardLab/tapenade">Tapenade</a> project. Tapenade is a tool for the analysis of dense 3D tissues acquired with deep imaging microscopy. It is designed to be user-friendly and to provide a comprehensive analysis of the data.</p>
 <p>If you use this plugin for your research, please <a href="https://github.com/GuignardLab/tapenade/blob/main/README.md#how-to-cite">cite us</a>.</p>
 <h2>Overview</h2>
-<p>A. Registration by annotating salient landmarks|B. Registration by selecting explicit transformation parameters
---|--
-<img src="imgs/napari_registration_demo2_3.gif" width="100%" />|<img src="imgs/napari_registration_demo_3.gif" width="94%" /></p>
+<table>
+<thead>
+<tr>
+<th>A. Registration by annotating salient landmarks</th>
+<th>B. Registration by selecting explicit transformation parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="imgs/napari_registration_demo2_3.gif" width="100%" /></td>
+<td><img src="imgs/napari_registration_demo_3.gif" width="94%" /></td>
+</tr>
+</tbody>
+</table>
 <p>While working with large and dense 3D and 3D+time gastruloid datasets, we found that being able to visualise and interact with the data dynamically greatly helped processing it.
 During the pre-processing stage, dynamical exploration and interaction led to faster tuning of the parameters by allowing direct visual feedback, and gave key biophysical insight during the analysis stage. </p>
 <p>When using our automatic registration tool to spatially register two views of the same organoid, we were sometimes faced with the issue that the tool would not converge to the true registration transformation. This happens when the initial position and orientation of the floating view are too far from their target values. We thus designed a Napari plugin to quickly find a transformation that can be used to initialize our registration tool close to the optimal transformation. From two images loaded in Napari representing two views of the same organoid, the plugin allows the user to </p>
@@ -278,11 +270,13 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 <p>The plugin obviously requires <a href="https://github.com/napari/napari">napari</a> to run. If you don't have it yet, follow the instructions <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">here</a>.</p>
 <p>The simplest way to install <code>napari-manual-registration</code> is via the <a href="https://github.com/napari/napari">napari</a> plugin manager. Open Napari, go to <code>Plugins &gt; Install/Uninstall Packages...</code> and search for <code>napari-manual-registration</code>. Click on the install button and you are ready to go!</p>
 <p>You can also install <code>napari-manual-registration</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-manual-registration
+<pre class="codehilite"><code>pip install napari-manual-registration
 </code></pre>
+
 <p>To install latest development version :</p>
-<pre><code>pip install git+https://github.com/jules-vanaret/napari-manual-registration.git
+<pre class="codehilite"><code>pip install git+https://github.com/jules-vanaret/napari-manual-registration.git
 </code></pre>
+
 <h2>Usage</h2>
 <p>The plugin provides two methods to register two views of the same object. The first method consists in manually drawing landmarks in both views, from which the optimal transformation is found automatically using principal component analysis. The second one consists in selecting manually each transformation parameter (rotation and translation) while observing the result in real-time, either in 2D or 3D (the user can switch between 2D and 3D at any time).</p>
 <blockquote>

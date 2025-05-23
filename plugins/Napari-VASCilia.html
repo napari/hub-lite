@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -332,24 +313,25 @@ create a folder, called raw_data folder and put the downloaded dataset inside th
 </ul>
 <h2>Instructions for Cloning the Repository [You can do either Option A or Option B]:</h2>
 <h2>Option A: Cloning the Repository:</h2>
-<p><code>sh
-git clone https://github.com/ucsdmanorlab/Napari-VASCilia.git
+<pre class="codehilite"><code class="language-sh">git clone https://github.com/ucsdmanorlab/Napari-VASCilia.git
 cd Napari-VASCilia
 conda create -y -n napari-VASCilia -c conda-forge python=3.10    
 conda activate napari-VASCilia    
 pip install -r requirements.txt
 pip install -e .
-napari</code></p>
+napari  
+</code></pre>
+
 <h2>Option B: Installing via PyPI:</h2>
-<p>```sh
-conda create -y -n napari-VASCilia -c conda-forge python=3.10  <br />
-conda activate napari-VASCilia </p>
-<h1>Download the requirements.txt file from this repository and ensure you have it in your working directory.</h1>
-<p>pip install -r requirements.txt
+<pre class="codehilite"><code class="language-sh">conda create -y -n napari-VASCilia -c conda-forge python=3.10    
+conda activate napari-VASCilia 
+# Download the requirements.txt file from this repository and ensure you have it in your working directory. 
+pip install -r requirements.txt
 pip install Napari-VASCilia
-napari<br />
-```
-Post-installation:<br />
+napari  
+</code></pre>
+
+<p>Post-installation:<br />
 1. Activate the plugin through Plugins -&gt; VASCilia UI (Napari-VASCilia).
 2. This will generate the config.json file at C:/Users/Username/.napari-vascilia/config.json. Update the paths in config.json as needed.
 config.json will be generated upon running the plugin for the first time.</p>
@@ -361,27 +343,28 @@ config.json will be generated upon running the plugin for the first time.</p>
 </li>
 </ul>
 <p>Please update the /.../ portion according to your paths:</p>
-<p><code>sh
-{
-    "rootfolder": "C:/Users/.../processed_data/",
-    "wsl_executable": "C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2",
-    "model": "C:/Users/.../models/seg_model/stereocilia_v7/",
-    "model_output_path": "C:/Users/.../models/new_seg_model/stereocilia_v8/",
-    "model_region_prediction": "C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth",
-    "model_celltype_identification": "C:/Users/.../models/cell_type_identification_model/",
-    "ZFT_trim_model": "C:/Users/.../models/ZFT_trim_model/",
-    "rotation_correction_model": "C:/Users/.../models/rotation_correction_model/",
-    "green_channel": 0,
-    "red_channel": 1,
-    "blue_channel": -1,
-    "signal_intensity_channel": 0,
-    "flag_to_resize": false,
-    "flag_to_pad": false,
-    "resize_dimension": 1200,
-    "pad_dimension": 1500,
-    "button_width": 100,
-    "button_height": 35
-}</code></p>
+<pre class="codehilite"><code class="language-sh">{
+    &quot;rootfolder&quot;: &quot;C:/Users/.../processed_data/&quot;,
+    &quot;wsl_executable&quot;: &quot;C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2&quot;,
+    &quot;model&quot;: &quot;C:/Users/.../models/seg_model/stereocilia_v7/&quot;,
+    &quot;model_output_path&quot;: &quot;C:/Users/.../models/new_seg_model/stereocilia_v8/&quot;,
+    &quot;model_region_prediction&quot;: &quot;C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth&quot;,
+    &quot;model_celltype_identification&quot;: &quot;C:/Users/.../models/cell_type_identification_model/&quot;,
+    &quot;ZFT_trim_model&quot;: &quot;C:/Users/.../models/ZFT_trim_model/&quot;,
+    &quot;rotation_correction_model&quot;: &quot;C:/Users/.../models/rotation_correction_model/&quot;,
+    &quot;green_channel&quot;: 0,
+    &quot;red_channel&quot;: 1,
+    &quot;blue_channel&quot;: -1,
+    &quot;signal_intensity_channel&quot;: 0,
+    &quot;flag_to_resize&quot;: false,
+    &quot;flag_to_pad&quot;: false,
+    &quot;resize_dimension&quot;: 1200,
+    &quot;pad_dimension&quot;: 1500,
+    &quot;button_width&quot;: 100,
+    &quot;button_height&quot;: 35
+}
+</code></pre>
+
 <p>Congratulations :) &#127881;, now you can enjoy working with the plugin. </p>
 <h2>Unique about VASCilia :</h2>
 <p>VASCilia saves all the intermediate results and the variables inside a pickle file while the user is using it in a very effiecint way. That allows a super fast uploading for the analysis if the user or their supervisor wants to keep working or review the analysis steps.<br />
@@ -461,10 +444,13 @@ We are still working on the documentation, so this gihub will be continiuosly up
 <h3>If You Installed the Package via pip</h3>
 <ol>
 <li>Download the file from the link above.</li>
-<li>Locate the installation directory for the package. You can find the installation path by running the following Python code: 
-<code>python
-import napari_vascilia
-print(napari_vascilia.__file__)</code></li>
+<li>Locate the installation directory for the package. You can find the installation path by running the following Python code: </li>
+</ol>
+<pre class="codehilite"><code class="language-python">import napari_vascilia
+print(napari_vascilia.__file__)
+</code></pre>
+
+<ol>
 <li>Place the downloaded file in the following directory: <package_installation_path>/src/napari_vascilia/core/<br />
 Note: All other features of the package will function as expected without this file. This file is exclusively for batch processing of multiple files.</li>
 </ol>

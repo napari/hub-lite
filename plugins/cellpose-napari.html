@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -270,7 +251,7 @@ pre > code:last-child {
 <p>For support with the plugin, please open an <a href="https://github.com/MouseLand/cellpose-napari/issues">issue</a>. For support with cellpose, please open an <a href="https://github.com/MouseLand/cellpose/issues">issue</a> on the cellpose repo. </p>
 <p>If you use this plugin please cite the <a href="https://www.nature.com/articles/s41592-020-01018-x">paper</a>:
 ::</p>
-<pre><code>  @article{stringer2021cellpose,
+<pre class="codehilite"><code>  @article{stringer2021cellpose,
   title={Cellpose: a generalist algorithm for cellular segmentation},
   author={Stringer, Carsen and Wang, Tim and Michaelos, Michalis and Pachitariu, Marius},
   journal={Nature Methods},
@@ -281,12 +262,14 @@ pre > code:last-child {
   publisher={Nature Publishing Group}
   }
 </code></pre>
+
 <p><img alt="cellpose-napari_plugin" src="https://cellpose-napari.readthedocs.io/en/latest/_images/napari_main_demo_fast_small.gif?raw=true" title="cellpose-napari" /></p>
 <h2>Installation</h2>
 <p>Install an <a href="https://www.anaconda.com/download/">Anaconda</a> distribution of Python -- Choose <strong>Python 3</strong> and your operating system. Note you might need to use an anaconda prompt if you did not add anaconda to the path.</p>
 <p>Install <code>napari</code> with pip: <code>pip install napari[all]</code>. Then install <code>cellpose-napari</code> via [pip]:</p>
-<pre><code>pip install cellpose-napari
+<pre class="codehilite"><code>pip install cellpose-napari
 </code></pre>
+
 <p>Or install the plugin inside napari in the plugin window.</p>
 <p>If install fails in your base environment, create a new environment:
 1. Download the <a href="https://github.com/MouseLand/cellpose-napari/blob/master/environment.yml?raw=true"><code>environment.yml</code></a> file from the repository. You can do this by cloning the repository, or copy-pasting the text from the file into a text document on your local computer.
@@ -296,33 +279,36 @@ pre > code:last-child {
 5. You should see <code>(cellpose_napari)</code> on the left side of the terminal line. </p>
 <p>If you have <strong>issues</strong> with cellpose installation, see the <a href="https://cellpose.readthedocs.io/en/latest/installation.html">cellpose docs</a> for more details, and then if the suggestions fail, open an issue.</p>
 <h3>Upgrading software</h3>
-<p>You can upgrade the plugin with
-~~~
-pip install cellpose-napari --upgrade
-~~~</p>
-<p>and you can upgrade cellpose with
-~~~
-pip install cellpose --upgrade
-~~~</p>
+<p>You can upgrade the plugin with</p>
+<pre class="codehilite"><code>pip install cellpose-napari --upgrade
+</code></pre>
+
+<p>and you can upgrade cellpose with</p>
+<pre class="codehilite"><code>pip install cellpose --upgrade
+</code></pre>
+
 <h3>GPU version (CUDA) on Windows or Linux</h3>
 <p>If you plan on running many images, you may want to install a GPU version of <em>torch</em> (if it isn't already installed).</p>
-<p>Before installing the GPU version, remove the CPU version:
-~~~
-pip uninstall torch
-~~~</p>
+<p>Before installing the GPU version, remove the CPU version:</p>
+<pre class="codehilite"><code>pip uninstall torch
+</code></pre>
+
 <p>Follow the instructions <a href="https://pytorch.org/get-started/locally/">here</a> to determine what version to install. The Anaconda install is recommended along with CUDA version 10.2. For instance this command will install the 10.2 version on Linux and Windows (note the <code>torchvision</code> and <code>torchaudio</code> commands are removed because cellpose doesn't require them):</p>
-<p>~~~
-conda install pytorch cudatoolkit=10.2 -c pytorch
-~~~~</p>
-<p>When upgrading GPU Cellpose in the future, you will want to ignore dependencies (to ensure that the pip version of torch does not install):
-~~~
-pip install --no-deps cellpose --upgrade
+<pre class="codehilite"><code>conda install pytorch cudatoolkit=10.2 -c pytorch
+~~~~
+
+When upgrading GPU Cellpose in the future, you will want to ignore dependencies (to ensure that the pip version of torch does not install):
+</code></pre>
+
+<p>pip install --no-deps cellpose --upgrade
 ~~~</p>
 <h3>Installation of github version</h3>
 <p>Follow steps from above to install the dependencies. In the github repository, run <code>pip install -e .</code> and the github version will be installed. If you want to go back to the pip version of cellpose-napari, then say <code>pip install cellpose-napari</code>.</p>
 <h2>Running the software</h2>
-<p>Open napari with the cellpose-napari dock widget open
-<code>napari -w cellpose-napari</code></p>
+<p>Open napari with the cellpose-napari dock widget open</p>
+<pre class="codehilite"><code>napari -w cellpose-napari
+</code></pre>
+
 <p>There is sample data in the File menu, or get started with your own images!</p>
 <h3>Detailed usage <a href="https://cellpose-napari.readthedocs.io/">documentation</a>.</h3>
 <h2>Contributing</h2>

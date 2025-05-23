@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -288,17 +269,82 @@ pre > code:last-child {
 <p>To be able to use interactive processing of meshes in napari, this plugin provides a bridge to the vedo library. It allows to transfer meshes between napari and vedo and to use the interactive processing capabilities of vedo in napari. </p>
 <h2>I/O</h2>
 <p>The plugin allows to export and import meshes and point layers. The following are supported:</p>
-<p>| napari layer type | File Format | Import | Export | Features |
-|:------------------:|:-----------:|:------:|:------:|:--------:|
-| Surface | .vtp | ✓ | ✓ |  ✓ |
-| Surface | .vtk | ✓ | ✓ |  ✗ |
-| Surface | .obj | ✓ | ✓ |  ✗ |
-| Surface | .stl | ✓ | ✓ |  ✗ |
-| Surface | .ply | ✓ | ✓ |  ✗ |
-| Points | .vtp | ✓ | ✓ |  ✓ |
-| Points | .vtk | ✓ | ✓ |  ✗ |
-| Points | .ply | ✓ | ✓ |  ✗ |
-| Points | .obj | ✓ | ✓ |  ✗ |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">napari layer type</th>
+<th style="text-align: center;">File Format</th>
+<th style="text-align: center;">Import</th>
+<th style="text-align: center;">Export</th>
+<th style="text-align: center;">Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Surface</td>
+<td style="text-align: center;">.vtp</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: center;">Surface</td>
+<td style="text-align: center;">.vtk</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: center;">Surface</td>
+<td style="text-align: center;">.obj</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: center;">Surface</td>
+<td style="text-align: center;">.stl</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: center;">Surface</td>
+<td style="text-align: center;">.ply</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: center;">Points</td>
+<td style="text-align: center;">.vtp</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: center;">Points</td>
+<td style="text-align: center;">.vtk</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: center;">Points</td>
+<td style="text-align: center;">.ply</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: center;">Points</td>
+<td style="text-align: center;">.obj</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+</tbody>
+</table>
 <h2>Interactive mesh cutting</h2>
 <p>To interactively cut meshes in the napari-vedo MeshCutter, install the plugin (see below) and open the plugin it from the napari plugins menu (<code>Plugins &gt; Mesh Cutter (napari-vedo-bridge)</code>). </p>
 <p>To cut meshes you can use the following cutters:
@@ -352,8 +398,9 @@ https://napari.org/stable/plugins/index.html
 
 <h2>Installation</h2>
 <p>You can install <code>napari-vedo-bridge</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-vedo-bridge
+<pre class="codehilite"><code>pip install napari-vedo-bridge
 </code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>

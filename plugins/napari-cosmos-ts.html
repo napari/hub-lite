@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -260,43 +241,58 @@ pre > code:last-child {
 </ul>
 <h2>Install</h2>
 <p>If you are unfamiliar with how to create a python environment or pip install a package, see the <a href="#install-for-beginners">detailed installation instructions below</a>.</p>
-<p>Requires <a href="https://github.com/napari/napari">napari</a>.
-<code>shell
-pip install "napari[all]"</code>
-Install latest release version:
-<code>shell
-pip install napari-cosmos-ts</code>
-Or install latest development version:
-<code>shell
-pip install napari-cosmos-ts@git+https://github.com/marcel-goldschen-ohm/napari-cosmos-ts</code>
-To upgrade a previously installed version, simply add the <code>--upgrade</code> flag to the above install commands.</p>
+<p>Requires <a href="https://github.com/napari/napari">napari</a>.</p>
+<pre class="codehilite"><code class="language-shell">pip install &quot;napari[all]&quot;
+</code></pre>
+
+<p>Install latest release version:</p>
+<pre class="codehilite"><code class="language-shell">pip install napari-cosmos-ts
+</code></pre>
+
+<p>Or install latest development version:</p>
+<pre class="codehilite"><code class="language-shell">pip install napari-cosmos-ts@git+https://github.com/marcel-goldschen-ohm/napari-cosmos-ts
+</code></pre>
+
+<p>To upgrade a previously installed version, simply add the <code>--upgrade</code> flag to the above install commands.</p>
 <h2>Run</h2>
-<p>Launch the <code>napari</code> viewer. In a command shell or terminal <em>where you have activated the virtual environment where you installed napari-cosmos-ts</em> run the following command:
-<code>shell
-napari</code>
-Launch the <code>napari-cosmos-ts</code> plugin: From the napari viewer <code>Plugins menu</code> select <code>Colocalization Single-Molecule Time Series (napari-cosmos-ts)</code>. This should bring up the napari-cosmos-ts docked widget within the viewer.</p>
+<p>Launch the <code>napari</code> viewer. In a command shell or terminal <em>where you have activated the virtual environment where you installed napari-cosmos-ts</em> run the following command:</p>
+<pre class="codehilite"><code class="language-shell">napari
+</code></pre>
+
+<p>Launch the <code>napari-cosmos-ts</code> plugin: From the napari viewer <code>Plugins menu</code> select <code>Colocalization Single-Molecule Time Series (napari-cosmos-ts)</code>. This should bring up the napari-cosmos-ts docked widget within the viewer.</p>
 <h2>Documentation</h2>
 <p>:construction:</p>
 <h2>Install for Beginners</h2>
 <ol>
 <li>Install the <code>conda</code> package manager. Simplest is to download <a href="https://docs.conda.io/en/main/miniconda.html">Miniconda</a> and run the installer.</li>
-<li>Create a virtual python environment named <code>napari-env</code> (or name it whatever you want) in which to install <a href="https://napari.org/stable/">napari</a> and this plugin. In a command shell or terminal run the following command:
-<code>shell
-conda create --name napari-env python</code></li>
-<li>Activate your virtual environment. <em>!!! Note you will have to do this every time you open a new command shell or terminal.</em> In a command shell or terminal run the following command:
-<code>shell
-conda activate napari-env</code></li>
-<li>Install <code>napari</code> into your virtual environment. In a command shell or terminal <em>where you have activated your virtual environment</em> run the following command:
-<code>shell
-pip install "napari[all]"</code></li>
-<li>Install <code>napari-cosmos-ts</code> into your virtual environment. In a command shell or terminal <em>where you have activated your virtual environment</em> run the following command:
-<code>shell
-pip install napari-cosmos-ts</code>
-Or for the latest version of <code>napari-cosmos-ts</code>:
-<code>shell
-pip install napari-cosmos-ts@git+https://github.com/marcel-goldschen-ohm/napari-cosmos-ts</code>
-<em>!!! Remember, every time you open a new command shell or terminal you will need to activate the virtual environment where you installed napari-cosmos-ts before <a href="#run">running the app</a>.</em></li>
+<li>Create a virtual python environment named <code>napari-env</code> (or name it whatever you want) in which to install <a href="https://napari.org/stable/">napari</a> and this plugin. In a command shell or terminal run the following command:</li>
 </ol>
+<pre class="codehilite"><code class="language-shell">conda create --name napari-env python
+</code></pre>
+
+<ol>
+<li>Activate your virtual environment. <em>!!! Note you will have to do this every time you open a new command shell or terminal.</em> In a command shell or terminal run the following command:</li>
+</ol>
+<pre class="codehilite"><code class="language-shell">conda activate napari-env
+</code></pre>
+
+<ol>
+<li>Install <code>napari</code> into your virtual environment. In a command shell or terminal <em>where you have activated your virtual environment</em> run the following command:</li>
+</ol>
+<pre class="codehilite"><code class="language-shell">pip install &quot;napari[all]&quot;
+</code></pre>
+
+<ol>
+<li>Install <code>napari-cosmos-ts</code> into your virtual environment. In a command shell or terminal <em>where you have activated your virtual environment</em> run the following command:</li>
+</ol>
+<pre class="codehilite"><code class="language-shell">pip install napari-cosmos-ts
+</code></pre>
+
+<p>Or for the latest version of <code>napari-cosmos-ts</code>:</p>
+<pre class="codehilite"><code class="language-shell">pip install napari-cosmos-ts@git+https://github.com/marcel-goldschen-ohm/napari-cosmos-ts
+</code></pre>
+
+<p><em>!!! Remember, every time you open a new command shell or terminal you will need to activate the virtual environment where you installed napari-cosmos-ts before <a href="#run">running the app</a>.</em></p>
         
 
                                     </div>

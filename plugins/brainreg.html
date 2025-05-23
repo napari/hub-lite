@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -282,21 +263,25 @@ The resulting transform from template to standard space is then applied to the a
 <p><img alt="An illustrated overview of the registration process" src="https://user-images.githubusercontent.com/13147259/143553945-a046e918-7614-4211-814c-fc840bb0159d.png" /></p>
 <h2>Installation</h2>
 <p>To install both the command line tool and the napari plugin, run</p>
-<p><code>bash
-pip install brainreg[napari]</code></p>
+<pre class="codehilite"><code class="language-bash">pip install brainreg[napari]
+</code></pre>
+
 <p>in your desired Python environment.
 To only install the command line tool with no GUI (e.g. to run brainreg on an HPC cluster), just run:</p>
-<p><code>bash
-pip install brainreg</code></p>
+<pre class="codehilite"><code class="language-bash">pip install brainreg
+</code></pre>
+
 <h3>Installing on macOS</h3>
 <p>If you are using macOS, please run</p>
-<p><code>bash
-conda install -c conda-forge niftyreg</code></p>
+<pre class="codehilite"><code class="language-bash">conda install -c conda-forge niftyreg
+</code></pre>
+
 <p>in your environment before installing, to ensure all dependencies are installed.</p>
 <h2>Command line usage</h2>
 <h3>Basic usage</h3>
-<p><code>bash
-brainreg /path/to/raw/data /path/to/output/directory -v 5 2 2 --orientation psl</code></p>
+<pre class="codehilite"><code class="language-bash">brainreg /path/to/raw/data /path/to/output/directory -v 5 2 2 --orientation psl
+</code></pre>
+
 <p>Full command-line arguments are available with <code>brainreg -h</code>, but please
 <a href="mailto:code@adamltyson.com?subject=brainreg">get in touch</a> if you have any questions.</p>
 <h3>Mandatory arguments</h3>
@@ -308,16 +293,18 @@ brainreg /path/to/raw/data /path/to/output/directory -v 5 2 2 --orientation psl<
 <h3>Atlas</h3>
 <p>By default, brainreg will use the 25um version of the <a href="https://mouse.brain-map.org/">Allen Mouse Brain Atlas</a>.
 To use another atlas (e.g. for another species, or another resolution), you must use the <code>--atlas</code> flag, followed by the string describing the atlas, e.g.:</p>
-<p><code>bash
---atlas allen_mouse_50um</code></p>
+<pre class="codehilite"><code class="language-bash">--atlas allen_mouse_50um
+</code></pre>
+
 <p>To find out which atlases are available, once brainreg is installed, please run <code>brainglobe list</code>.
 The name of the resulting atlases is the string to pass with the <code>--atlas</code> flag.</p>
 <h3>Input data orientation</h3>
 <p>If your data does not match the BrainGlobe default orientation (the origin voxel is the most anterior, superior, left-most voxel), then you must specify the orientation by using the <code>--orientation</code> flag.
 What follows must be a string in the <a href="https://github.com/brainglobe/brainglobe-space">brainglobe-space</a> "initials" form, to describe the origin voxel.</p>
 <p>If the origin of your data (first, top left voxel) is the most anterior, superior, left part of the brain, then the orientation string would be "asl" (anterior, superior, left), and you would use:</p>
-<p><code>bash
---orientation asl</code></p>
+<pre class="codehilite"><code class="language-bash">--orientation asl
+</code></pre>
+
 <h3>Registration options</h3>
 <p>To change how the actual registration performs, see <a href="https://brainglobe.info/documentation/brainreg/user-guide/parameters.html">registration parameters</a></p>
 <h3>Additional options</h3>

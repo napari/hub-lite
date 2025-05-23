@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -266,15 +247,100 @@ For detailed demo of the plugin see these <a href="https://www.youtube.com/watch
 <p>If you use this plugin for your research, please <a href="http://conference.scipy.org/proceedings/scipy2021/varun_kapoor.html">cite us</a>.</p>
 <h2>Examples</h2>
 <p>VollSeg comes with different options to combine CARE based denoising with UNET, StarDist and segmentation in a region of interest (ROI). We present some examples which are represent optimal combination of these different modes for segmenting different cell types. We summarize this in the table below:</p>
-<p>| Example Image | Description | Training Data | Trained Model | GT image | Optimal combination | Notebook Code | Model Prediction | Metrics |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| <img alt="Raw Ascadian Embryo" src="images/Ascadian_raw.png" /> | Light sheet fused from four angles 3D single channel | <a href="https://figshare.com/articles/dataset/Astec-half-Pm1_Cut_at_2-cell_stage_half_Phallusia_mammillata_embryo_live_SPIM_imaging_stages_6-16_/11309570?backTo=/s/765d4361d1b073beedd5">Training Data ~320 GB</a> | <a href="https://zenodo.org/record/6337699">UNET model</a> | <img alt="GT Ascadian Embryo" src="images/Ascadian_GT.png" /> | UNET model, slice_merge = False | <a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_VollSeg_Ascadian_Embryo.ipynb">Colab Notebook</a> | <img alt="Prediction Ascadian Embryo" src="images/Ascadian_pred.png" /> | <img alt="Metrics Ascadian Embryo" src="images/Metrics_Ascadian.png" /> |
-| <img alt="Raw Carcinoma" src="images/Carcinoma_raw.png" /> | Confocal microscopy 3D single channel 8 bit | <a href="https://zenodo.org/record/5904082#.Yi8-BnrMJD8">Training Data</a> | <a href="https://zenodo.org/record/5910645/">Denoising Model</a> and <a href="https://zenodo.org/record/6354077/">StarDist Model</a> | <img alt="GT Carcinoma" src="images/Carcinoma_GT.png" /> | StarDist model + Denoising Model, dounet = False | <a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_VollSeg_Mamary_gland.ipynb">Colab Notebook</a> | <img alt="Prediction Carcinoma Cells" src="images/Carcinoma_pred.png" /> | <img alt="Metrics Carcinoma Cells" src="images/Metrics_carcinoma.png" /> |
-| <img alt="Raw Xenopus Tissue" src="images/Xenopus_tissue_raw.png" /> | LaserScanningConfocalMicroscopy 2D single channel | <a href="https://zenodo.org/record/6076614#.YjBaNnrMJD8">Dataset</a> | <a href="https://zenodo.org/record/6060378/">UNET Model</a> | <img alt="GT Xenopus Tissue" src="images/Xenopus_tissue_GT.png" /> | UNET model | <a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_VollSeg_tissue_segmentation.ipynb">Colab Notebook</a> | <img alt="Prediction Xenopus Tissue" src="images/Xenopus_tissue_pred.png" /> | No Metrics |
-| <img alt="Raw Microtubule Kymograph" src="images/microtubule_kymo_raw.png" /> | TIRF + MultiKymograph Fiji tool 2D single channel | <a href="https://zenodo.org/record/6355705/files/Microtubule_edgedetector_training.zip">Training Dataset</a> | <a href="https://zenodo.org/record/6355705/">UNET Model</a> | <img alt="GT Microtubule Kymograph" src="images/microtubule_kymo_GT.png" /> | UNET model | <a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_Microtubule_kymo_segmentation.ipynb">Colab Notebook</a> | <img alt="Prediction Microtubule Kymograph" src="images/microtubule_kymo_pred.png" /> | No Metrics |
-| <img alt="Raw Lung Xray" src="images/lung_xray_raw.png" /> | XRay of Lung 2D single channel | <a href="https://www.kaggle.com/nikhilpandey360/lung-segmentation-from-chest-x-ray-dataset">Training Dataset</a> | <a href="https://zenodo.org/record/6060177/">UNET Model</a> | <img alt="GT Lung Xray" src="images/lung_xray_GT.png" /> | UNET model | <a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_Microtubule_kymo_segmentation.ipynb">Colab Notebook</a> | <img alt="Prediction Lung Xray" src="images/lung_xray_pred.png" /> | <img alt="Metrics Lung Xray" src="images/Metrics_lung_xray.png" /> |
-| <img alt="Raw Nuclei Mask" src="images/nuclei_mask_raw.png" /> | LaserScanningConfocalMicroscopy 2D single channel | <a href="https://zenodo.org/record/6359349/">Test Dataset</a> | Private | <img alt="GT Nuclei Mask" src="images/nuclei_mask_GT.png" /> | UNET model | <a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_Microtubule_kymo_segmentation.ipynb">Colab Notebook</a> | <img alt="Prediction Nuclei Mask" src="images/nuclei_mask_pred.png" /> | No Metrics |
-| <img alt="Raw Nuclei" src="images/nuclei_raw.png" /> | LaserScanningConfocalMicroscopy 3D single channel | <a href="https://zenodo.org/record/6359295/">Test Dataset</a> | Private | <img alt="GT Nuclei" src="images/nuclei_GT.png" /> | UNET model + StarDist model + ROI model | <a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_VollSeg_star_roi.ipynb">Colab Notebook</a> | <img alt="Prediction Nuclei" src="images/nuclei_pred.png" /> | <img alt="Metrics Nuclei" src="images/Metrics_nuclei.png" /> |</p>
+<table>
+<thead>
+<tr>
+<th>Example Image</th>
+<th>Description</th>
+<th>Training Data</th>
+<th>Trained Model</th>
+<th>GT image</th>
+<th>Optimal combination</th>
+<th>Notebook Code</th>
+<th>Model Prediction</th>
+<th>Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Raw Ascadian Embryo" src="images/Ascadian_raw.png" /></td>
+<td>Light sheet fused from four angles 3D single channel</td>
+<td><a href="https://figshare.com/articles/dataset/Astec-half-Pm1_Cut_at_2-cell_stage_half_Phallusia_mammillata_embryo_live_SPIM_imaging_stages_6-16_/11309570?backTo=/s/765d4361d1b073beedd5">Training Data ~320 GB</a></td>
+<td><a href="https://zenodo.org/record/6337699">UNET model</a></td>
+<td><img alt="GT Ascadian Embryo" src="images/Ascadian_GT.png" /></td>
+<td>UNET model, slice_merge = False</td>
+<td><a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_VollSeg_Ascadian_Embryo.ipynb">Colab Notebook</a></td>
+<td><img alt="Prediction Ascadian Embryo" src="images/Ascadian_pred.png" /></td>
+<td><img alt="Metrics Ascadian Embryo" src="images/Metrics_Ascadian.png" /></td>
+</tr>
+<tr>
+<td><img alt="Raw Carcinoma" src="images/Carcinoma_raw.png" /></td>
+<td>Confocal microscopy 3D single channel 8 bit</td>
+<td><a href="https://zenodo.org/record/5904082#.Yi8-BnrMJD8">Training Data</a></td>
+<td><a href="https://zenodo.org/record/5910645/">Denoising Model</a> and <a href="https://zenodo.org/record/6354077/">StarDist Model</a></td>
+<td><img alt="GT Carcinoma" src="images/Carcinoma_GT.png" /></td>
+<td>StarDist model + Denoising Model, dounet = False</td>
+<td><a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_VollSeg_Mamary_gland.ipynb">Colab Notebook</a></td>
+<td><img alt="Prediction Carcinoma Cells" src="images/Carcinoma_pred.png" /></td>
+<td><img alt="Metrics Carcinoma Cells" src="images/Metrics_carcinoma.png" /></td>
+</tr>
+<tr>
+<td><img alt="Raw Xenopus Tissue" src="images/Xenopus_tissue_raw.png" /></td>
+<td>LaserScanningConfocalMicroscopy 2D single channel</td>
+<td><a href="https://zenodo.org/record/6076614#.YjBaNnrMJD8">Dataset</a></td>
+<td><a href="https://zenodo.org/record/6060378/">UNET Model</a></td>
+<td><img alt="GT Xenopus Tissue" src="images/Xenopus_tissue_GT.png" /></td>
+<td>UNET model</td>
+<td><a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_VollSeg_tissue_segmentation.ipynb">Colab Notebook</a></td>
+<td><img alt="Prediction Xenopus Tissue" src="images/Xenopus_tissue_pred.png" /></td>
+<td>No Metrics</td>
+</tr>
+<tr>
+<td><img alt="Raw Microtubule Kymograph" src="images/microtubule_kymo_raw.png" /></td>
+<td>TIRF + MultiKymograph Fiji tool 2D single channel</td>
+<td><a href="https://zenodo.org/record/6355705/files/Microtubule_edgedetector_training.zip">Training Dataset</a></td>
+<td><a href="https://zenodo.org/record/6355705/">UNET Model</a></td>
+<td><img alt="GT Microtubule Kymograph" src="images/microtubule_kymo_GT.png" /></td>
+<td>UNET model</td>
+<td><a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_Microtubule_kymo_segmentation.ipynb">Colab Notebook</a></td>
+<td><img alt="Prediction Microtubule Kymograph" src="images/microtubule_kymo_pred.png" /></td>
+<td>No Metrics</td>
+</tr>
+<tr>
+<td><img alt="Raw Lung Xray" src="images/lung_xray_raw.png" /></td>
+<td>XRay of Lung 2D single channel</td>
+<td><a href="https://www.kaggle.com/nikhilpandey360/lung-segmentation-from-chest-x-ray-dataset">Training Dataset</a></td>
+<td><a href="https://zenodo.org/record/6060177/">UNET Model</a></td>
+<td><img alt="GT Lung Xray" src="images/lung_xray_GT.png" /></td>
+<td>UNET model</td>
+<td><a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_Microtubule_kymo_segmentation.ipynb">Colab Notebook</a></td>
+<td><img alt="Prediction Lung Xray" src="images/lung_xray_pred.png" /></td>
+<td><img alt="Metrics Lung Xray" src="images/Metrics_lung_xray.png" /></td>
+</tr>
+<tr>
+<td><img alt="Raw Nuclei Mask" src="images/nuclei_mask_raw.png" /></td>
+<td>LaserScanningConfocalMicroscopy 2D single channel</td>
+<td><a href="https://zenodo.org/record/6359349/">Test Dataset</a></td>
+<td>Private</td>
+<td><img alt="GT Nuclei Mask" src="images/nuclei_mask_GT.png" /></td>
+<td>UNET model</td>
+<td><a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_Microtubule_kymo_segmentation.ipynb">Colab Notebook</a></td>
+<td><img alt="Prediction Nuclei Mask" src="images/nuclei_mask_pred.png" /></td>
+<td>No Metrics</td>
+</tr>
+<tr>
+<td><img alt="Raw Nuclei" src="images/nuclei_raw.png" /></td>
+<td>LaserScanningConfocalMicroscopy 3D single channel</td>
+<td><a href="https://zenodo.org/record/6359295/">Test Dataset</a></td>
+<td>Private</td>
+<td><img alt="GT Nuclei" src="images/nuclei_GT.png" /></td>
+<td>UNET model + StarDist model + ROI model</td>
+<td><a href="https://github.com/kapoorlab/VollSeg/blob/main/examples/Predict/Colab_VollSeg_star_roi.ipynb">Colab Notebook</a></td>
+<td><img alt="Prediction Nuclei" src="images/nuclei_pred.png" /></td>
+<td><img alt="Metrics Nuclei" src="images/Metrics_nuclei.png" /></td>
+</tr>
+</tbody>
+</table>
 <h2>Troubleshooting &amp; Support</h2>
 <ul>
 <li>The <a href="https://forum.image.sc/tag/vollseg">image.sc forum</a> is the best place to start getting help and support. Make sure to use the tag <code>vollseg</code>, since we are monitoring all questions with this tag.</li>

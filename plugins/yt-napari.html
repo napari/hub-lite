@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -271,21 +252,25 @@ pre > code:last-child {
 <h3>1. (optional) install <code>yt</code> and <code>napari</code></h3>
 <p>If you skip this step, the installation in the following section will only install the minimal package requirements for <code>yt</code> or <code>napari</code>, in which case you will likely need to manually install some packages. So if you are new to either package, or if you are installing in a clean environment, it may be simpler to  install these packages first.</p>
 <p>For <code>napari</code>,</p>
-<pre><code>pip install napari[all]
+<pre class="codehilite"><code>pip install napari[all]
 </code></pre>
+
 <p>will install <code>napari</code> with the default <code>Qt</code> backend (see <a href="https://napari.org/tutorials/fundamentals/installation#choosing-a-different-qt-backend">here</a> for how to choose between <code>PyQt5</code> or <code>PySide2</code>).</p>
 <p>For <code>yt</code>, you will need <code>yt&gt;=4.0.1</code> and any of the optional dependencies for your particular workflow. If you know that you'll need more than the base <code>yt</code> install, you can install the full suite of dependent packages with</p>
-<pre><code>pip install yt[full]
+<pre class="codehilite"><code>pip install yt[full]
 </code></pre>
+
 <p>See the <a href="https://yt-project.org/doc/installing.html#leveraging-optional-yt-runtime-dependencies"><code>yt</code> documentation</a> for more information. If you're not sure which packages you'll need but don't want the full yt installation, you can proceed to the next step and then install any packages as needed (you will receive error messages when a required package is missing).</p>
 <h3>2. install <code>yt-napari</code></h3>
 <p>You can install the <code>yt-napari</code> plugin with:</p>
-<pre><code>pip install yt-napari
+<pre class="codehilite"><code>pip install yt-napari
 </code></pre>
+
 <p>If you are missing either <code>yt</code> or <code>napari</code> (or they need to be updated), the above installation will fetch and run a minimal installation for both.</p>
 <p>To install the latest development version of the plugin instead, use:</p>
-<pre><code>pip install git+https://github.com/data-exp-lab/yt-napari.git
+<pre class="codehilite"><code>pip install git+https://github.com/data-exp-lab/yt-napari.git
 </code></pre>
+
 <p>Note that if you are working off the development version, be sure to use the latest documentation
 for reference: https://yt-napari.readthedocs.io/en/latest/</p>
 <h2>Quick Start</h2>
@@ -297,31 +282,36 @@ for reference: https://yt-napari.readthedocs.io/en/latest/</p>
 </ol>
 <h3>jupyter notebook interaction</h3>
 <p><code>yt-napari</code> provides a helper class, <code>yt_napari.viewer.Scene</code> that assists in properly aligning new yt selections in the napari viewer when working in a Jupyter notebook.</p>
-<p>```python
-import napari
+<pre class="codehilite"><code class="language-python">import napari
 import yt
 from yt_napari.viewer import Scene
-from napari.utils import nbscreenshot</p>
-<p>viewer = napari.Viewer()
-ds = yt.load("IsolatedGalaxy/galaxy0030/galaxy0030")
-yt_scene = Scene()</p>
-<p>left_edge = ds.domain_center - ds.arr([40, 40, 40], 'kpc')
+from napari.utils import nbscreenshot
+
+viewer = napari.Viewer()
+ds = yt.load(&quot;IsolatedGalaxy/galaxy0030/galaxy0030&quot;)
+yt_scene = Scene()
+
+left_edge = ds.domain_center - ds.arr([40, 40, 40], 'kpc')
 right_edge = ds.domain_center + ds.arr([40, 40, 40], 'kpc')
-res = (600, 600, 600)</p>
-<p>yt_scene.add_region(viewer,
+res = (600, 600, 600)
+
+yt_scene.add_region(viewer,
                     ds,
-                    ("enzo", "Temperature"),
+                    (&quot;enzo&quot;, &quot;Temperature&quot;),
                     left_edge=left_edge,
                     right_edge=right_edge,
-                    resolution=res)</p>
-<p>yt_scene.add_region(viewer,
+                    resolution=res)
+
+yt_scene.add_region(viewer,
                     ds,
-                    ("enzo", "Density"),
+                    (&quot;enzo&quot;, &quot;Density&quot;),
                     left_edge=left_edge,
                     right_edge=right_edge,
-                    resolution=res)</p>
-<p>nbscreenshot(viewer)
-```</p>
+                    resolution=res)
+
+nbscreenshot(viewer)
+</code></pre>
+
 <p><img alt="Loading a subset of a yt dataset in napari from a Jupyter notebook" src="./assets/images/readme_ex_001.png" /></p>
 <p><code>yt_scene.add_to_viewer</code> accepts any of the keyword arguments allowed by <code>viewer.add_image</code>. See the full documentation (<a href="https://yt-napari.readthedocs.io/en/stable/">yt-napari.readthedocs.io</a>) for more examples, including additional helper methods for linking layer appearance.</p>
 <p>Additionally, with <code>yt_napari</code>&gt;= v0.2.0, you can use the <code>yt_napari.timeseries</code> module to help sample and load in selections from across datasets.</p>
@@ -337,19 +327,20 @@ Then add a slice or region to sample for each matched dataset file (note: be car
 <p><img alt="Loading timeseries selections from the napari viewer" src="./assets/images/readme_ex_004_gui_timeseries.gif" /></p>
 <h4>using a json file and schema</h4>
 <p><code>yt-napari</code> also provides the ability to load json that contain specifications for loading a file. Properly formatted files can be loaded from the napari GUI as you would load any image file (<code>File-&gt;Open</code>). The json file describes the selection process for a dataset as described by a json-schema. The following json file results in similar layers as the above examples:</p>
-<p><code>json
-{"$schema": "https://raw.githubusercontent.com/data-exp-lab/yt-napari/main/src/yt_napari/schemas/yt-napari_0.0.1.json",
- "datasets": [{"filename": "IsolatedGalaxy/galaxy0030/galaxy0030",
-               "selections": {"regions": [{
-                                "fields": [{"field_name": "Temperature", "field_type": "enzo", "take_log": true},
-                                           {"field_name": "Density", "field_type": "enzo", "take_log": true}],
-                                "left_edge": [460.0, 460.0, 460.0],
-                                "right_edge": [560.0, 560.0, 560.0],
-                                "resolution": [600, 600, 600]
+<pre class="codehilite"><code class="language-json">{&quot;$schema&quot;: &quot;https://raw.githubusercontent.com/data-exp-lab/yt-napari/main/src/yt_napari/schemas/yt-napari_0.0.1.json&quot;,
+ &quot;datasets&quot;: [{&quot;filename&quot;: &quot;IsolatedGalaxy/galaxy0030/galaxy0030&quot;,
+               &quot;selections&quot;: {&quot;regions&quot;: [{
+                                &quot;fields&quot;: [{&quot;field_name&quot;: &quot;Temperature&quot;, &quot;field_type&quot;: &quot;enzo&quot;, &quot;take_log&quot;: true},
+                                           {&quot;field_name&quot;: &quot;Density&quot;, &quot;field_type&quot;: &quot;enzo&quot;, &quot;take_log&quot;: true}],
+                                &quot;left_edge&quot;: [460.0, 460.0, 460.0],
+                                &quot;right_edge&quot;: [560.0, 560.0, 560.0],
+                                &quot;resolution&quot;: [600, 600, 600]
                               }]},
-               "edge_units": "kpc"
+               &quot;edge_units&quot;: &quot;kpc&quot;
              }]
-}</code></p>
+}
+</code></pre>
+
 <p>To help in filling out a json file, it is recommended that you use an editor capable of parsing a json schema and displaying hints. For example, in vscode, you will see field suggestions after specifying the <code>yt-napari</code> schema:</p>
 <p><img alt="interactive json completion for yt-napari" src="./assets/images/readme_ex_002_json.png" /></p>
 <p>See the full documentation at <a href="https://yt-napari.readthedocs.io/en/stable/">yt-napari.readthedocs.io</a> for a complete specification.</p>
@@ -357,58 +348,71 @@ Then add a slice or region to sample for each matched dataset file (note: be car
 <p>Contributions are very welcome! Development follows a fork and pull request workflow. To get started, you'll need a development installation and a testing environment.</p>
 <h3>development environment</h3>
 <p>To start developing, fork the repository and clone your fork to get a local copy. You can then install in development mode with</p>
-<pre><code>pip install -e .
+<pre class="codehilite"><code>pip install -e .
 </code></pre>
+
 <h3>tests and style checks</h3>
 <p>Both bug fixes and new features will need to pass the existing test suite and style checks. While both will be run automatically when you submit a pull request, it is helpful to run the test suites locally and run style checks throughout development. For testing, you can use <a href="https://tox.readthedocs.io/en/latest/">tox</a> to test different python versions on your platform.</p>
-<pre><code>pip install tox
+<pre class="codehilite"><code>pip install tox
 </code></pre>
+
 <p>And then from the top level of the <code>yt-napari</code> directory, run</p>
-<pre><code>tox
+<pre class="codehilite"><code>tox
 </code></pre>
+
 <p>Tox will then run a series of tests in isolated environments. In addition to checking the terminal output for test results, the tox run will generate a test coverage report: a <code>coverage.xml</code> file and a <code>htmlcov</code> folder -- to view the results, open <code>htmlcov/index.html</code> in a browser.</p>
 <p>If you prefer a lighter weight test, you can also use <code>pytest</code> directly and rely on the Github CI to test different python versions and systems. To do so, first install <code>pytest</code> and some related plugins:</p>
-<pre><code>pip install pytest pytest-qt pytest-cov
+<pre class="codehilite"><code>pip install pytest pytest-qt pytest-cov
 </code></pre>
+
 <p>Now, to run the tests:</p>
-<pre><code>pytest -v --cov=yt_napari --cov-report=html
+<pre class="codehilite"><code>pytest -v --cov=yt_napari --cov-report=html
 </code></pre>
+
 <p>In addition to telling you whether or not the tests pass, the above command will write out a code coverage report to the <code>htmlcov</code> directory. You can open up <code>htmlcov/index.html</code> in a browser and check out the lines of code that were missed by existing tests.</p>
 <p>For style checks, you can use <a href="https://pre-commit.com/">pre-commit</a> to run checks as you develop. To set up <code>pre-commit</code>:</p>
-<pre><code>pip install pre-commit
+<pre class="codehilite"><code>pip install pre-commit
 pre-commit install
 </code></pre>
+
 <p>after which, every time you run <code>git commit</code>, some automatic style adjustments and checks will run. The same style checks will run when you submit a pull request, but it's often easier to catch them early.</p>
 <p>After submitting a pull request, the <code>pre-commit.ci</code> bot will run the style checks. If style checks fail, you can have the bot attempt to auto-fix the failures by adding the following in a comment on it's own:</p>
-<pre><code>pre-commit.ci autofix
+<pre class="codehilite"><code>pre-commit.ci autofix
 </code></pre>
+
 <p>The bot will then commit changes to your pull request after which you will want to run <code>git pull</code> locally to update your local version of the branch before making further changes to the branch.</p>
 <h3>building documentation locally</h3>
 <p>Documentation can be built using <code>sphinx</code> in two steps. First, update the api mapping with</p>
-<pre><code>sphinx-apidoc -f -o docs/source src/yt_napari/
+<pre class="codehilite"><code>sphinx-apidoc -f -o docs/source src/yt_napari/
 </code></pre>
+
 <p>This will update the <code>rst</code> files in <code>docs/source/</code> with the latest docstrings in <code>yt_napari</code>. Next, build the html documentation with</p>
-<pre><code>make html
+<pre class="codehilite"><code>make html
 </code></pre>
+
 <h3>updating the pydantic models and schema</h3>
 <p>The schema versioning follows a <code>major.minor.micro</code> versioning pattern that matches the yt-napari versioning. Each yt-napari release should have an accompanying updated schema file, even if the  contents of the schema file have not changed. On-disk schema are stored in  <code>src/yt_napari/schemas/</code>, with copies in the documentation at <code>docs/_static</code>.</p>
 <p>There are a number of utilities to help automate the management of schema in <code>repo_utilities/</code>. The easiest way to use these utitities is with <code>taskipy</code> from the command line. To list available scripts:</p>
-<p><code>commandline
-task --list</code></p>
+<pre class="codehilite"><code class="language-commandline">task --list
+</code></pre>
+
 <p>Before a release, run</p>
-<p><code>commandline
-task validate_release vX.X.X</code></p>
+<pre class="codehilite"><code class="language-commandline">task validate_release vX.X.X
+</code></pre>
+
 <p>where <code>vX.X.X</code> is the version of the upcoming release. This script will run through some checks that ensure:
 * the on-disk schema matches the schema generated by the pydantic model
 * the schema files in the documentation match the schema files in the package</p>
 <p>If any of the checks fail, you will be advised to update the schema using <code>update_schema_docs</code>. If you
 run without providing a version:</p>
-<p><code>commandline
-task update_schema_docs</code></p>
+<pre class="codehilite"><code class="language-commandline">task update_schema_docs
+</code></pre>
+
 <p>It will simply copy over the existing on-disk schema files to the documentation. If you run with a version:</p>
-<p><code>commandline
-task update_schema_docs -v vX.X.X</code>
-It will write a schema file for the current pydantic model, overwriting any on-disk schema files for
+<pre class="codehilite"><code class="language-commandline">task update_schema_docs -v vX.X.X
+</code></pre>
+
+<p>It will write a schema file for the current pydantic model, overwriting any on-disk schema files for
 the provided version.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,

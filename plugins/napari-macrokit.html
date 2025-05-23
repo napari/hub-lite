@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -264,100 +245,120 @@ pre > code:last-child {
 <p>This napari plugin aims at making image analysis reproducible with arbitrary input/output types.</p>
 <h2>Usage</h2>
 <p>Create a macro object, decorate functions with <code>record</code> method and run!</p>
-<p>```python
-from napari_macrokit import get_macro</p>
-<p>macro = get_macro("my-plugin-specifier")  # get macro object</p>
-<h1>define a function</h1>
-<p>@macro.record
+<pre class="codehilite"><code class="language-python">from napari_macrokit import get_macro
+
+macro = get_macro(&quot;my-plugin-specifier&quot;)  # get macro object
+
+# define a function
+@macro.record
 def add(a: float, b: float) -&gt; float:
-    return a + b</p>
-<h1>run</h1>
-<p>result = add(3.2, 5.4)
-add(result, 1.0)</p>
-<p>macro</p>
-<h1>Out:</h1>
-<h1>&gt;&gt;&gt; float0 = add(3.2, 5.4)</h1>
-<h1>&gt;&gt;&gt; float1 = add(float0, 1.0)</h1>
-<p>```</p>
+    return a + b
+
+# run
+result = add(3.2, 5.4)
+add(result, 1.0)
+
+macro
+
+# Out:
+# &gt;&gt;&gt; float0 = add(3.2, 5.4)
+# &gt;&gt;&gt; float1 = add(float0, 1.0)
+</code></pre>
+
 <h2>Record GUI Operations</h2>
 <p>You can use recordable functions in your widgets to keep tracks of GUI operations.
 More simply, you can double-decorate functions with <code>record</code> and <code>magicgui</code>.</p>
-<p>```python
-import numpy as np
+<pre class="codehilite"><code class="language-python">import numpy as np
 from magicgui import magicgui
 import napari
 from napari.types import ImageData
-from napari_macrokit import get_macro</p>
-<p>macro = get_macro("my-plugin-specifier")  # get macro object</p>
-<h1>define recordable magicgui</h1>
-<p>@magicgui
+from napari_macrokit import get_macro
+
+macro = get_macro(&quot;my-plugin-specifier&quot;)  # get macro object
+
+# define recordable magicgui
+@magicgui
 @macro.record
 def add(image: ImageData, b: float) -&gt; ImageData:
-    return image + b</p>
-<p>viewer = napari.Viewer()  # launch a viewer
+    return image + b
+
+viewer = napari.Viewer()  # launch a viewer
 viewer.add_image(np.random.random((100, 100)))  # image data
 viewer.window.add_dock_widget(add)  # add magicgui to the viewer
-```</p>
+</code></pre>
+
 <p>Running add twice in GUI and you'll find macro updated like below.</p>
-<p>```python
-macro</p>
-<h1>Out</h1>
-<h1>&gt;&gt;&gt; image0 = add(viewer.layers['Image'].data, 0.06)</h1>
-<h1>&gt;&gt;&gt; image1 = add(image0, 0.12)</h1>
-<p>```</p>
+<pre class="codehilite"><code class="language-python">macro
+# Out
+# &gt;&gt;&gt; image0 = add(viewer.layers['Image'].data, 0.06)
+# &gt;&gt;&gt; image1 = add(image0, 0.12)
+</code></pre>
+
 <h2>Combining Plugins</h2>
 <p>Suppose you have two modules that use <code>napari-macrokit</code>.</p>
-<p>```python</p>
-<h1>napari_module_0.py</h1>
-<p>from napari.types import ImageData
+<pre class="codehilite"><code class="language-python"># napari_module_0.py
+
+from napari.types import ImageData
 from scipy import ndimage as ndi
-from napari_macrokit import get_macro</p>
-<p>macro = get_macro("napari-module-0")</p>
-<p>@macro.record
+from napari_macrokit import get_macro
+
+macro = get_macro(&quot;napari-module-0&quot;)
+
+@macro.record
 def gaussian_filter(image: ImageData, sigma: float) -&gt; ImageData:
-    return ndi.gaussian_filter(image, sigma=sigma)</p>
-<p>@macro.record
+    return ndi.gaussian_filter(image, sigma=sigma)
+
+@macro.record
 def threshold(image: ImageData, value: float) -&gt; ImageData:
     return image &gt; value
-```</p>
-<p>```python</p>
-<h1>napari_module_1.py</h1>
-<p>from napari.types import ImageData
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># napari_module_1.py
+
+from napari.types import ImageData
 import numpy as np
 from napari_macrokit import get_macro
-macro = get_macro("napari-module-1")</p>
-<p>@macro.record
+macro = get_macro(&quot;napari-module-1&quot;)
+
+@macro.record
 def estimate_background(image: ImageData) -&gt; float:
-    return np.percentile(image, 10.0)</p>
-<p>```</p>
+    return np.percentile(image, 10.0)
+</code></pre>
+
 <p>You can use functions from both modules to build an analysis workflow by collecting existing macro objects with <code>collect_macro</code> function. All the recordable actions in the modules will also be recorded to the returned macro object.</p>
-<p>```python
-import numpy as np
+<pre class="codehilite"><code class="language-python">import numpy as np
 from napari_macrokit import collect_macro
 from napari_module_0 import gaussian_filter, threshold
-from napari_module_1 import estimate_background</p>
-<h1>global_macro will record all the macro available at this point</h1>
-<p>global_macro = collect_macro()</p>
-<h1>start image analysis!</h1>
-<p>image = np.random.random((100, 100))</p>
-<p>out = gaussian_filter(image, 2.0)
+from napari_module_1 import estimate_background
+
+# global_macro will record all the macro available at this point
+global_macro = collect_macro()
+
+# start image analysis!
+image = np.random.random((100, 100))
+
+out = gaussian_filter(image, 2.0)
 thresh = estimate_background(out)
-binary = threshold(out, thresh)</p>
-<p>macro</p>
-<h1>Out</h1>
-<h1>&gt;&gt;&gt; image0 = gaussian_filter(arr0, 2.0)</h1>
-<h1>&gt;&gt;&gt; float0 = estimate_background(image0)</h1>
-<h1>&gt;&gt;&gt; image1 = threshold(image1, float0)</h1>
-<p>```</p>
+binary = threshold(out, thresh)
+
+macro
+# Out
+# &gt;&gt;&gt; image0 = gaussian_filter(arr0, 2.0)
+# &gt;&gt;&gt; float0 = estimate_background(image0)
+# &gt;&gt;&gt; image1 = threshold(image1, float0)
+</code></pre>
+
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-macrokit</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-macrokit
+<pre class="codehilite"><code>pip install napari-macrokit
 </code></pre>
+
 <p>To install latest development version :</p>
-<pre><code>pip install git+https://github.com/hanjinliu/napari-macrokit.git
+<pre class="codehilite"><code>pip install git+https://github.com/hanjinliu/napari-macrokit.git
 </code></pre>
+
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>

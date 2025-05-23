@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -273,13 +254,15 @@ package allows for usage at any stage of processing and/or analysis, given a pre
 <h2>Requirements</h2>
 <p>Install <a href="https://www.anaconda.com/docs/getting-started/miniconda/install">miniconda</a> or anaconda.</p>
 <p>Open the conda terminal and create a simple environment:</p>
-<p><code>bash
-conda create -n prism python=3.10 -c conda-forge</code></p>
+<pre class="codehilite"><code class="language-bash">conda create -n prism python=3.10 -c conda-forge
+</code></pre>
+
 <p>Activate the environment before executing the instructions in the Installation section.</p>
-<p><code>bash
-conda activate prism</code></p>
+<pre class="codehilite"><code class="language-bash">conda activate prism
+</code></pre>
+
 <h3>List of Dependencies</h3>
-<p><code>python==3.10
+<pre class="codehilite"><code>python==3.10
 spatialdata&lt;=0.2.5.post0
 spatialdata-plot&lt;=0.2.7
 napari[all]&gt;=0.4.19.post1
@@ -289,14 +272,18 @@ dask&lt;2024.12.1
 cellpose&gt;=3.0.10
 scanpy&gt;=1.10.0
 xarray&lt;=2024.7.0
-spatialdata_plot&lt;=0.2.7</code></p>
+spatialdata_plot&lt;=0.2.7
+</code></pre>
+
 <h2>Installation: CPU only</h2>
 <p>Install this package via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<p><code>bash
-pip install napari-prism</code></p>
+<pre class="codehilite"><code class="language-bash">pip install napari-prism
+</code></pre>
+
 <p>Install the latest development version:</p>
-<p><code>bash
-pip install git+https://github.com/clinicalomx/napari-prism.git@main</code></p>
+<pre class="codehilite"><code class="language-bash">pip install git+https://github.com/clinicalomx/napari-prism.git@main
+</code></pre>
+
 <h2>Installation: GPU-accelerated</h2>
 <h3>General computations with RAPIDS and rapids-singlecell</h3>
 <p>General larger scale and/or computationally demanding functions can be accelerated with the <a href="https://rapids.ai/">NVIDIA RAPIDS suite</a>. We utilise some packages from this suite, as well as the GPU-accelerated implementation of scanpy with <a href="https://github.com/scverse/rapids_singlecell">rapids-singlecell</a>.</p>
@@ -308,8 +295,9 @@ pip install git+https://github.com/clinicalomx/napari-prism.git@main</code></p>
 </li>
 <li>Install the package together with <a href="https://rapids.ai/">RAPIDS</a> and <a href="https://github.com/scverse/rapids_singlecell">rapids-singlecell</a> via <a href="https://pypi.org/project/pip/">pip</a>:</li>
 </ol>
-<p><code>bash
-pip install napari-prism[gpu] --extra-index-url=https://pypi.nvidia.com</code></p>
+<pre class="codehilite"><code class="language-bash">pip install napari-prism[gpu] --extra-index-url=https://pypi.nvidia.com
+</code></pre>
+
 <h3>Cell segmentation with Cellpose</h3>
 <p>To run <a href="https://github.com/MouseLand/cellpose">cellpose</a> on the GPU, install the <a href="https://pytorch.org/get-started/locally/">CUDA version of PyTorch</a>. You may need to <a href="https://github.com/MouseLand/cellpose?tab=readme-ov-file#gpu-version-cuda-on-windows-or-linux">remove any installed CPU versions of PyTorch</a>.</p>
 <h2>Getting Started</h2>

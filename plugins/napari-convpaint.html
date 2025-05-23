@@ -27,37 +27,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
         rel="stylesheet" />
-        <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
-        <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-        <link href="../static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
+    <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
+    <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
+    <link href="../static/css/pygments.css" rel="stylesheet" />
     <style>
-        body pre {
-            background-color: #f6f8fa !important;
-            border: 1px solid #e1e4e8 !important;
-            border-radius: 6px !important;
-            padding: 16px !important;
-            overflow: auto !important;
-            font-size: 95% !important;
-            line-height: 1.45 !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-        }
-    
-        body code {
-            padding: 0.2em 0.4em !important;
-            margin: 0 !important;
-            font-size: 95% !important;
-            background-color: #f6f8fa !important;
-            border-radius: 6px !important;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
-            color: black !important; 
-        }
-        /* Remove margin and padding from the last child to avoid extra space */
-        pre > code:last-child { 
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+      .codehilite, .codehilite pre, .codehilite code {
+        color: #333333; /* default code text color */
+      }
+      .codehilite code {
+        padding: 0;
+      }
     </style>
-
 </head>
 
 <body>
@@ -264,11 +245,13 @@ This napari plugin can be used to segment objects or structures in images based 
 <p><img alt="overview conv-paint" src="/images/network_github.png" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-convpaint</code> via <a href="https://pypi.org/project/pip/">pip</a></p>
-<pre><code>pip install napari-convpaint
+<pre class="codehilite"><code>pip install napari-convpaint
 </code></pre>
+
 <p>To install latest development version :</p>
-<pre><code>pip install git+https://github.com/guiwitz/napari-convpaint.git
+<pre class="codehilite"><code>pip install git+https://github.com/guiwitz/napari-convpaint.git
 </code></pre>
+
 <h2>Example use case: Tracking shark body parts in a movie</h2>
 <p>These are the scribble annotations provided for training:
 <img alt="" src="./images/shark_annot.png" /></p>
@@ -278,13 +261,15 @@ This napari plugin can be used to segment objects or structures in images based 
 <p>Check out the documentation or the paper for more usecases!</p>
 <h2>API</h2>
 <p>You can now use the API in a fashion very similar to the napari plugin. The ConvpaintModel class combines a feature extractor and a classifier model, and holds all the parameters defining the model. Initialize a ConvpaintModel object, train its classifier and use it to segment an image:</p>
-<p><code>Python
-cp_model = ConvpaintModel("dino") # alternatively use vgg, cellpose or gaussian
+<pre class="codehilite"><code class="language-Python">cp_model = ConvpaintModel(&quot;dino&quot;) # alternatively use vgg, cellpose or gaussian
 cp_model.train(image, annotations)
-segmentation = cp_model.segment(image)</code></p>
+segmentation = cp_model.segment(image)
+</code></pre>
+
 <p>There are many other options, such as predicting all class probabilities (see below) and we will update the documentation and notebook examples soon. In the meantime feel free to test it yourself.</p>
-<p><code>Python
-probas = cp_model.predict_probas(image)</code></p>
+<pre class="codehilite"><code class="language-Python">probas = cp_model.predict_probas(image)
+</code></pre>
+
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
 "napari-convpaint" is free and open source software</p>
@@ -299,8 +284,8 @@ the coverage at least stays the same before you submit a pull request.</p>
 <sup>2</sup><a href="https://www.pertzlab.net/">Pertz Lab</a>, Institute of Cell Biology, University of Bern </p>
 <h2>Cite Convpaint</h2>
 <p>If you find Convpaint useful in your research, please consider citing our work. Please also cite any Feature Extractor you have used in Convpaint, such as <a href="https://github.com/ilastik/ilastik-napari">ilastik</a>, <a href="https://cellpose.readthedocs.io/en/latest/">cellpose</a> or <a href="https://github.com/facebookresearch/dinov2">DINOv2</a>.</p>
-<p>Convpaint:
-<code>@article {Hinderling2024,
+<p>Convpaint:</p>
+<pre class="codehilite"><code>@article {Hinderling2024,
     author = {Hinderling, Lucien and Witz, Guillaume and Schwob, Roman and Stojiljković, Ana and Dobrzyński, Maciej and Vladymyrov, Mykhailo and Frei, Joël and Grädel, Benjamin and Frismantiene, Agne and Pertz, Olivier},
     title = {Convpaint - Interactive pixel classification using pretrained neural networks},
     elocation-id = {2024.09.12.610926},
@@ -308,9 +293,11 @@ the coverage at least stays the same before you submit a pull request.</p>
     journal = {bioRxiv},
     publisher = {Cold Spring Harbor Laboratory},
     year = {2024},
-}</code>
-Suggested citations for feature extractors:
-<code>@article {Berg2019,
+}
+</code></pre>
+
+<p>Suggested citations for feature extractors:</p>
+<pre class="codehilite"><code>@article {Berg2019,
     author = {Berg, Stuart and Kutra, Dominik and Kroeger, Thorben and Straehle, Christoph N. and Kausler, Bernhard X. and Haubold, Carsten and Schiegg, Martin and Ales, Janez and Beier, Thorsten and Rudy, Markus and Eren, Kemal and Cervantes, Jaime I. and Xu, Buote and Beuttenmueller, Fynn and Wolny, Adrian and Zhang, Chong and Koethe, Ullrich and Hamprecht, Fred A. and Kreshuk, Anna},
     title = {ilastik: interactive machine learning for (bio)image analysis.},
     issn = {1548-7105},
@@ -320,8 +307,10 @@ Suggested citations for feature extractors:
     publisher = {Springer Nature},
     year = {2019},
     journal = {Nature Methods},
-}</code>
-<code>@article {Stringer2021,
+}
+</code></pre>
+
+<pre class="codehilite"><code>@article {Stringer2021,
     author = {Stringer, Carsen and Wang, Tim and Michaelos, Michalis and Pachitariu Marius},
     title = {Cellpose: a generalist algorithm for cellular segmentation.},
     elocation-id = {s41592-020-01018-x},
@@ -329,9 +318,10 @@ Suggested citations for feature extractors:
     journal = {Nature Methods},
     publisher = {Springer Nature},
     year = {2021},
-}</code>
-```
-@article {oquab2024dinov2learningrobustvisual,
+}
+</code></pre>
+
+<pre class="codehilite"><code>@article {oquab2024dinov2learningrobustvisual,
       title={DINOv2: Learning Robust Visual Features without Supervision}, 
       author={Maxime Oquab and Timothée Darcet and Théo Moutakanni and Huy Vo and Marc Szafraniec and Vasil Khalidov and Pierre Fernandez and Daniel Haziza and Francisco Massa and Alaaeldin El-Nouby and Mahmoud Assran and Nicolas Ballas and Wojciech Galuba and Russell Howes and Po-Yao Huang and Shang-Wen Li and Ishan Misra and Michael Rabbat and Vasu Sharma and Gabriel Synnaeve and Hu Xu and Hervé Jegou and Julien Mairal and Patrick Labatut and Armand Joulin and Piotr Bojanowski},
       year={2024},
@@ -339,8 +329,8 @@ Suggested citations for feature extractors:
       archivePrefix={arXiv},
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2304.07193}
-}</p>
-<p>```</p>
+}
+</code></pre>
         
 
                                     </div>
