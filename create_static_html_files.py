@@ -47,10 +47,10 @@ def create_small_html(df_plugins, build_dir):
         print(display_name, name, plugin_name)
 
         summary = row["summary"]
-        authors = [row["author"]] 
+        authors = [row["author"]]
         release_date = row["created_at"]
         last_updated = row["modified_at"]
-        
+
         plugin_type = []
         if row['contributions_readers_0_command'] != 'N/A':
             plugin_type.append("reader")
@@ -276,29 +276,28 @@ def generate_plugin_html(row, template, plugin_dir):
     savefile_types_html = generate_save_extensions_html(row)
     requirements_html = generate_requirements_html(row)
     python_versions_html = generate_python_versions_html(row)
-    home_html = generate_home_html(row['home_pypi'],row['home_github'], row['home_other'])
+    home_html = generate_home_html(row['home_pypi'], row['home_github'], row['home_other'])
 
     # Replace NaN with 'Not available' and ensure all data are strings, except Markdown field
     row_data = {col: (str(row[col]) if not pd.isna(row[col]) else 'Not available') for col in row.index}
 
-    row_data['open_extension'] = openfile_types_html  
-    row_data['save_extension'] = savefile_types_html 
-    row_data['plugin_types'] = plugin_types_html  
+    row_data['open_extension'] = openfile_types_html
+    row_data['save_extension'] = savefile_types_html
+    row_data['plugin_types'] = plugin_types_html
     row_data['requirements'] = requirements_html
     row_data['python_versions'] = python_versions_html
     row_data['os'] = get_os_html(row)
-    row_data['package_metadata_description'] = html_description  
-    row_data['home_link'] = home_html 
+    row_data['package_metadata_description'] = html_description
+    row_data['home_link'] = home_html
 
     # Create a new Template with the row data
     filled_template = Template(template).safe_substitute(row_data)
 
     # Save the HTML file for each plugin
-    os.makedirs(plugin_dir, exist_ok= True)
+    os.makedirs(plugin_dir, exist_ok=True)
     file_name = f"{row['name']}.html"
     with open(f'{plugin_dir}/{file_name}', 'w') as file:
         file.write(filled_template)
-
 
 
 if __name__ == "__main__":
@@ -307,7 +306,7 @@ if __name__ == "__main__":
     static_dir = f"{build_dir}/static"
     plugin_dir = f"{build_dir}/plugins"
     template_dir = f"{build_dir}/templates"
-        
+
     # Load your DataFrame
     df_plugins = pd.read_csv(f'{data_dir}/final_plugins.csv')
 
@@ -327,7 +326,7 @@ if __name__ == "__main__":
 
     create_small_html(df_plugins, build_dir)
 
-    # Read the list of available plugins 
+    # Read the list of available plugins
     with open(f'{build_dir}/plugins_list.html', 'r') as file:
         element_html = file.read()
 
