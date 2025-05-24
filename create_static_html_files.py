@@ -1,13 +1,62 @@
 import sys
-import requests
 import json
 import os
 import pandas as pd
-import re
 
 from string import Template
-import markdown
-from markdown.extensions.toc import TocExtension
+
+from markdown_it import MarkdownIt
+from markdown_it.common.utils import escapeHtml
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name, guess_lexer
+from pygments.formatters import HtmlFormatter
+
+
+def _highlight_code(code, lang_name, lang_attrs):
+    """Highlight a block of code using Pygments.
+    This is the signature markdown-it uses to call the highlight function.
+    Args:
+        code (str): The code to highlight.
+        name (str): The language of the code.
+        lang_attrs (dict): Additional attributes for the code block.
+            (ignored here because I don't know how to use them)
+    """
+    try:
+        lexer = get_lexer_by_name(lang_name)
+    except Exception:
+        lang_name and print(f"Lexer for {lang_name} not found, using guess_lexer")
+        lexer = guess_lexer(code)
+
+    formatter = HtmlFormatter()
+    return highlight(code, lexer, formatter)
+
+
+def _code_block_plugin(md):
+    """Plugin to render code blocks (with indentation) the same as fenced code blocks.
+    So we can use the same highlight function for both.
+    """
+
+    def _render_code_block(tokens, idx, options, env):
+        """Render a code block with indentation.
+
+        This function was mostly just copied from the default code block renderer.
+        https://github.com/executablebooks/markdown-it-py
+            /blob/36a9d146af52265420de634cc2e25d1d40cfcdb7/markdown_it/renderer.py#L224
+        """
+        token = tokens[idx]
+
+        return (
+            "<pre"
+            + md.renderer.renderAttrs(token)
+            + "><code>"
+            + _highlight_code(escapeHtml(token.content), "", {})
+            + "</code></pre>\n"
+        )
+
+    md.renderer.rules["code_block"] = _render_code_block
+
+
+md = MarkdownIt("gfm-like", {"highlight": _highlight_code}).use(_code_block_plugin)
 
 
 def create_small_html(df_plugins, build_dir):
@@ -24,10 +73,10 @@ def create_small_html(df_plugins, build_dir):
         print(display_name, name, plugin_name)
 
         summary = row["summary"]
-        authors = [row["author"]] 
+        authors = [row["author"]]
         release_date = row["created_at"]
         last_updated = row["modified_at"]
-        
+
         plugin_type = []
         if row['contributions_readers_0_command'] != 'N/A':
             plugin_type.append("reader")
@@ -232,9 +281,8 @@ def generate_home_html(home_pypi, home_github, home_other):
 
     return html_content
 
+
 def generate_plugin_html(row, template, plugin_dir):
-
-
     # Convert Markdown in 'package_metadata_description' to HTML
     if not pd.isna(row['package_metadata_description']):
         # Remove the first Markdown header
@@ -244,72 +292,38 @@ def generate_plugin_html(row, template, plugin_dir):
             no_first_header = '\n'.join(lines[1:])
         else:
             no_first_header = '\n'.join(lines)
-        
-        html_description = markdown.markdown(no_first_header)
 
-        # Add the CSS styles for the code block
-        html_description = f'''
-        <style>
-        pre {{
-   background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}}
-
-        code {{
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 6px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}}
-/* Remove margin and padding from the last child to avoid extra space */
-pre > code:last-child {{
-    margin-bottom: 0;
-    padding-bottom: 0;
-}}
-        </style>
-        {html_description}
-        '''
-
+        html_description = md.render(no_first_header)
     else:
         html_description = 'Not available'
 
-    
     plugin_types_html = generate_plugin_types_html(row)
     openfile_types_html = generate_open_extensions_html(row)
     savefile_types_html = generate_save_extensions_html(row)
     requirements_html = generate_requirements_html(row)
     python_versions_html = generate_python_versions_html(row)
-    home_html = generate_home_html(row['home_pypi'],row['home_github'], row['home_other'])
+    home_html = generate_home_html(row['home_pypi'], row['home_github'], row['home_other'])
 
     # Replace NaN with 'Not available' and ensure all data are strings, except Markdown field
     row_data = {col: (str(row[col]) if not pd.isna(row[col]) else 'Not available') for col in row.index}
 
-    row_data['open_extension'] = openfile_types_html  
-    row_data['save_extension'] = savefile_types_html 
-    row_data['plugin_types'] = plugin_types_html  
+    row_data['open_extension'] = openfile_types_html
+    row_data['save_extension'] = savefile_types_html
+    row_data['plugin_types'] = plugin_types_html
     row_data['requirements'] = requirements_html
     row_data['python_versions'] = python_versions_html
     row_data['os'] = get_os_html(row)
-    row_data['package_metadata_description'] = html_description  
-    row_data['home_link'] = home_html 
+    row_data['package_metadata_description'] = html_description
+    row_data['home_link'] = home_html
 
     # Create a new Template with the row data
     filled_template = Template(template).safe_substitute(row_data)
 
     # Save the HTML file for each plugin
-    os.makedirs(plugin_dir, exist_ok= True)
+    os.makedirs(plugin_dir, exist_ok=True)
     file_name = f"{row['name']}.html"
     with open(f'{plugin_dir}/{file_name}', 'w') as file:
         file.write(filled_template)
-
 
 
 if __name__ == "__main__":
@@ -318,7 +332,7 @@ if __name__ == "__main__":
     static_dir = f"{build_dir}/static"
     plugin_dir = f"{build_dir}/plugins"
     template_dir = f"{build_dir}/templates"
-        
+
     # Load your DataFrame
     df_plugins = pd.read_csv(f'{data_dir}/final_plugins.csv')
 
@@ -338,7 +352,7 @@ if __name__ == "__main__":
 
     create_small_html(df_plugins, build_dir)
 
-    # Read the list of available plugins 
+    # Read the list of available plugins
     with open(f'{build_dir}/plugins_list.html', 'r') as file:
         element_html = file.read()
 
