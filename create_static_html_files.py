@@ -6,6 +6,7 @@ import pandas as pd
 from string import Template
 
 from markdown_it import MarkdownIt
+from markdown_it.common.utils import escapeHtml
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.formatters import HtmlFormatter
@@ -30,7 +31,32 @@ def _highlight_code(code, lang_name, lang_attrs):
     return highlight(code, lexer, formatter)
 
 
-md = MarkdownIt("gfm-like", {"highlight": _highlight_code})
+def _code_block_plugin(md):
+    """Plugin to render code blocks (with indentation) the same as fenced code blocks.
+    So we can use the same highlight function for both.
+    """
+
+    def _render_code_block(tokens, idx, options, env):
+        """Render a code block with indentation.
+
+        This function was mostly just copied from the default code block renderer.
+        https://github.com/executablebooks/markdown-it-py
+            /blob/36a9d146af52265420de634cc2e25d1d40cfcdb7/markdown_it/renderer.py#L224
+        """
+        token = tokens[idx]
+
+        return (
+            "<pre"
+            + md.renderer.renderAttrs(token)
+            + "><code>"
+            + _highlight_code(escapeHtml(token.content), "", {})
+            + "</code></pre>\n"
+        )
+
+    md.renderer.rules["code_block"] = _render_code_block
+
+
+md = MarkdownIt("gfm-like", {"highlight": _highlight_code}).use(_code_block_plugin)
 
 
 def create_small_html(df_plugins, build_dir):
