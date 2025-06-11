@@ -1,0 +1,174 @@
+# .github/workflows/pr-preview.yml
+name: PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  build-preview:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.13' # Specify the Python version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Fetch data and build HTML
+        run: |
+          make all
+  
+      # Create preview directory structure
+      - name: Prepare preview directory
+        run: |
+          mkdir -p preview/pr-${{ github.event.number }}
+          cp -r dist/* preview/pr-${{ github.event.number }}/
+          # Alternative if your build outputs to a different directory:
+          # cp -r build/* preview/pr-${{ github.event.number }}/
+          # cp -r _site/* preview/pr-${{ github.event.number }}/
+          
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Update gh-pages with preview
+        run: |
+          # Copy existing gh-pages content
+          if [ -d "gh-pages" ]; then
+            cp -r gh-pages/* preview/ 2>/dev/null || true
+            cp -r gh-pages/.* preview/ 2>/dev/null || true
+          fi
+          
+          # Ensure the PR preview directory exists and copy new content
+          mkdir -p preview/pr-${{ github.event.number }}
+          cp -r dist/* preview/pr-${{ github.event.number }}/
+          
+          # Create or update index page with links to all previews
+          echo "# PR Previews" > preview/index.md
+          echo "" >> preview/index.md
+          for dir in preview/pr-*/; do
+            if [ -d "$dir" ]; then
+              pr_num=$(basename "$dir" | sed 's/pr-//')
+              echo "- [PR #$pr_num Preview](./pr-$pr_num/)" >> preview/index.md
+            fi
+          done
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./preview
+          force_orphan: true
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const repoName = context.repo.repo;
+            const owner = context.repo.owner;
+            const previewUrl = `https://${owner}.github.io/${repoName}/pr-${prNumber}/`;
+            
+            // Check if preview comment already exists
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            
+            const botComment = comments.data.find(comment => 
+              comment.user.type === 'Bot' && comment.body.includes('🚀 Preview deployed!')
+            );
+            
+            const commentBody = `🚀 Preview deployed! 
+
+            <!-- preview-comment -->
+            
+            **Preview URL:** ${previewUrl}
+
+            This preview will be updated automatically when you push new commits to this PR.`;
+            
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: commentBody
+              });
+            }
+
+  cleanup-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Remove PR preview
+        run: |
+          if [ -d "pr-${{ github.event.number }}" ]; then
+            rm -rf pr-${{ github.event.number }}
+            
+            # Update index page
+            echo "# PR Previews" > index.md
+            echo "" >> index.md
+            for dir in pr-*/; do
+              if [ -d "$dir" ]; then
+                pr_num=$(basename "$dir" | sed 's/pr-//')
+                echo "- [PR #$pr_num Preview](./pr-$pr_num/)" >> index.md
+              fi
+            done
+            
+            # Commit changes
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add .
+            git commit -m "Remove preview for PR #${{ github.event.number }}" || exit 0
+            git push
+          fi
+          
+      - name: Comment on closed PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: '🧹 Preview cleaned up! The preview site has been removed.'
+            });
