@@ -6,6 +6,7 @@ import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from typing import Optional
+from urllib.parse import urljoin
 
 import requests
 import pandas as pd
@@ -135,7 +136,7 @@ def flatten_and_merge(original, additional, parent_key='') -> None:
 # --- API Fetch Functions ---
 def fetch_conda(plugin_name: str):
     """ Fetches Conda info and creates an HTML file for it """
-    response = requests.get(API_CONDA_BASE_URL + plugin_name)
+    response = requests.get(urljoin(API_CONDA_BASE_URL, plugin_name))
     if response.status_code != 200:
         print(f"Failed to fetch Conda info for {plugin_name}")
         return None
@@ -153,7 +154,7 @@ def fetch_plugin(url: str):
     
 def fetch_manifest(plugin_name: str):
     """ Fetches the manifest data for a given plugin """
-    response = requests.get(API_MANIFEST_BASE_URL + plugin_name)
+    response = requests.get(urljoin(API_MANIFEST_BASE_URL, plugin_name))
     if response.status_code == 200:
         return response.json()
     else:
