@@ -68,9 +68,9 @@ def create_small_html(df_plugins, build_dir):
 
         display_name = row['display_name'] if row['display_name'] != 'N/A' else 'Unknown'
         name = row['name'] if row['name'] != 'N/A' else 'unknown'
-        plugin_name = name.replace("-", "_")
+        normalized_name = row['normalized_name'] if row['normalized_name'] != 'N/A' else 'unknown'
 
-        print(display_name, name, plugin_name)
+        print(display_name, name, normalized_name)
 
         summary = row["summary"]
         authors = [row["author"]]
@@ -88,7 +88,7 @@ def create_small_html(df_plugins, build_dir):
             plugin_type.append("sample_data")
         plugin_type = ', '.join(plugin_type) if plugin_type else "N/A"
 
-        html_content += f'<a class="col-span-2 screen-1425:col-span-3 searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100" data-testid="pluginSearchResult" href="./plugins/{name}.html" data-plugin-id="{index}">\n'
+        html_content += f'<a class="col-span-2 screen-1425:col-span-3 searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100" data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
         html_content += '    <article class="grid gap-x-sds-xl screen-495:gap-x-12 screen-600:grid-cols-2 screen-1425:grid-cols-napari-3" data-testid="searchResult">\n'
         html_content += '        <div class="col-span-2 screen-495:col-span-1 screen-1425:col-span-2 flex flex-col justify-between">\n'
         html_content += f'            <div>\n                <h3 class="font-bold text-lg" data-testid="searchResultDisplayName">{display_name}</h3>\n'
@@ -321,8 +321,7 @@ def generate_plugin_html(row, template, plugin_dir):
 
     # Save the HTML file for each plugin
     os.makedirs(plugin_dir, exist_ok=True)
-    file_name = f"{row['name']}.html"
-    with open(f'{plugin_dir}/{file_name}', 'w') as file:
+    with open(f'{plugin_dir}/{row['html_filename']}', 'w') as file:
         file.write(filled_template)
 
 
@@ -342,7 +341,7 @@ if __name__ == "__main__":
     # Reset index to ensure it starts from 0 and is continuous after sorting
     df_plugins.reset_index(drop=True, inplace=True)
     df_plugins['plugin_id'] = df_plugins.index
-    df_plugins['html_filename'] = df_plugins['name'].apply(lambda x: f"{x.replace(' ', '_').lower()}.html")
+    df_plugins['html_filename'] = df_plugins['normalized_name'].apply(lambda x: f"{x}.html")
 
     # Generate plugins_manifest.json
     plugins_manifest = df_plugins[['plugin_id', 'html_filename']].to_dict(orient='records')
