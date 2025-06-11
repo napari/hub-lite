@@ -168,13 +168,13 @@ def fetch_plugin(url: str):
         logger.info(f"Successfully fetched data.")
         return response.json()  # Assuming JSON response
     except requests.exceptions.HTTPError as e:
-        logger.error(f"HTTP error occurred for plugin `{plugin_name}`: {e}")
+        logger.error(f"HTTP error occurred: {e}")
     except requests.exceptions.ConnectionError as e:
-        logger.error(f"Connection error occurred while fetching `{plugin_name}`: {e}")
+        logger.error(f"Connection error occurred: {e}")
     except requests.exceptions.Timeout as e:
-        logger.error(f"Timeout error while fetching `{plugin_name}`: {e}")
+        logger.error(f"Timeout error: {e}")
     except requests.exceptions.RequestException as e:
-        logger.error(f"An error occurred while fetching `{plugin_name}`: {e}")
+        logger.error(f"An error occurred: {e}")
     return None
     
 def fetch_manifest(plugin_name: str):
