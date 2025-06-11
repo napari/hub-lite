@@ -321,7 +321,7 @@ def generate_plugin_html(row, template, plugin_dir):
 
     # Save the HTML file for each plugin
     os.makedirs(plugin_dir, exist_ok=True)
-    with open(f'{plugin_dir}/{row['html_filename']}', 'w') as file:
+    with open(f'{plugin_dir}/{row["html_filename"]}', 'w') as file:
         file.write(filled_template)
 
 
