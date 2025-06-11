@@ -46,7 +46,7 @@ PLUGIN_PAGE_COLUMNS = [
 ]
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 DEFAULT_TIMEOUT = 10  # Timeout for requests in seconds
