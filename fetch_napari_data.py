@@ -15,6 +15,34 @@ API_SUMMARY_URL = 'https://npe2api.vercel.app/api/extended_summary'
 API_CONDA_BASE_URL = 'https://npe2api.vercel.app/api/conda/'
 API_MANIFEST_BASE_URL = 'https://npe2api.vercel.app/api/manifest/'
 
+# Define columns needed for the plugin html page
+PLUGIN_PAGE_COLUMNS = [
+    'normalized_name',
+    'name',
+    'display_name',
+    'version',
+    'created_at',
+    'modified_at',
+    'author',
+    'package_metadata_author_email',
+    'license',
+    'home',
+    'package_metadata_home_page',
+    'summary',
+    'package_metadata_requires_python',
+    'package_metadata_requires_dist',
+    'package_metadata_description',
+    'package_metadata_classifier',
+    'package_metadata_project_url',
+    'contributions_readers_0_command',
+    'contributions_writers_0_command',
+    'contributions_widgets_0_command',
+    'contributions_sample_data_0_command',
+    'contributions_readers_0_filename_patterns',
+    'contributions_writers_0_filename_extensions',
+    'contributions_writers_1_filename_extensions'
+]
+
 
 # --- Helper Functions ---
 def extract_author_names(email: Optional[str]) -> str:
@@ -187,8 +215,7 @@ def build_plugins_dataframe() -> pd.DataFrame:
     with ThreadPoolExecutor() as executor:
         executor.map(process_plugin, summary_df)
 
-    df = pd.DataFrame(all_plugin_data)
-    return df
+    return pd.DataFrame(all_plugin_data)
 
 
 if __name__ == "__main__":
@@ -211,35 +238,8 @@ if __name__ == "__main__":
     # Save the cleaned DataFrame to a CSV file
     df_plugins.to_csv(f'{data_dir}/cleaned_napari_plugins.csv')
 
-    # Define columns needed for the plugin html page
-    plugin_page_columns = [
-        'normalized_name',
-        'name',
-        'display_name',
-        'version',
-        'created_at',
-        'modified_at',
-        'author', 
-        'package_metadata_author_email',
-        'license', 
-        'home',
-        'package_metadata_home_page', 
-        'summary',
-        'package_metadata_requires_python', 
-        'package_metadata_requires_dist',
-        'package_metadata_description',
-        'package_metadata_classifier',
-        'package_metadata_project_url',
-        'contributions_readers_0_command', 
-        'contributions_writers_0_command', 
-        'contributions_widgets_0_command',
-        'contributions_sample_data_0_command',
-        'contributions_readers_0_filename_patterns', 
-        'contributions_writers_0_filename_extensions',
-        'contributions_writers_1_filename_extensions'
-    ]
     # Modify in place the DataFrame to keep only the columns needed for the plugin html page
-    df_plugins = df_plugins[plugin_page_columns]
+    df_plugins = df_plugins[PLUGIN_PAGE_COLUMNS]
 
     # Convert and format 'created_at' and 'modified_at' columns
     df_plugins['created_at'] = pd.to_datetime(df_plugins['created_at'], format='mixed').dt.date
