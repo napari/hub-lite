@@ -4,16 +4,21 @@ This script fetches plugin data, flattens nested structures, and saves the clean
 """
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 import pandas as pd
 
-from concurrent.futures import ThreadPoolExecutor
+
+API_SUMMARY_URL = 'https://npe2api.vercel.app/api/extended_summary'
+API_CONDA_BASE_URL = 'https://npe2api.vercel.app/api/conda/'
+API_MANIFEST_BASE_URL = 'https://npe2api.vercel.app/api/manifest/'
+
 
 # --- Helper Functions ---
 def extract_author_name(email) -> str:
     """
-    Extracts and cleans author names from an email field.
+    Extract and clean author names from an email field.
 
     This function processes a string containing one or more authors, each possibly formatted as
     'Name <email>' or just an email address. It removes any surrounding quotation marks and extracts
@@ -40,18 +45,23 @@ def extract_author_name(email) -> str:
     # Return the list of clean author names
     return ', '.join(clean_authors)
 
-def classify_website(home_url: str) -> str:
+def classify_url(url: str) -> str:
     """
-    Classify package source code home URL in a dataframe to a string identifying the package repository name.
+    Classify package source code URL in a dataframe to a string identifying the package repository name.
      
     Currently, this categorizes a URL to be 'pypi', 'github', or 'other'.
     """
-    if pd.notnull(home_url):
-        if 'pypi.org' in home_url:
-            return 'pypi'
-        elif 'github.com' in home_url:
-            return 'github'
+    categories = {
+        'pypi.org': 'pypi',
+        'github.com': 'github',
+    }
+
+    if pd.notnull(url):
+        for keyword, category in categories.items():
+            if keyword in url:
+                return category
     return 'other'
+
 
 def flatten_and_merge(original, additional, parent_key='') -> None:
     """
@@ -89,8 +99,7 @@ def flatten_and_merge(original, additional, parent_key='') -> None:
 # --- API Fetch Functions ---
 def fetch_conda(plugin_name: str):
     """ Fetches Conda info and creates an HTML file for it """
-    conda_url = f'https://npe2api.vercel.app/api/conda/{plugin_name}'
-    response = requests.get(conda_url)
+    response = requests.get(API_CONDA_BASE_URL + plugin_name)
     if response.status_code != 200:
         print(f"Failed to fetch Conda info for {plugin_name}")
         return None
@@ -108,13 +117,28 @@ def fetch_plugin(url: str):
     
 def fetch_manifest(plugin_name: str):
     """ Fetches the manifest data for a given plugin """
-    url = f'https://npe2api.vercel.app/api/manifest/{plugin_name}'
-    response = requests.get(url)
+    response = requests.get(API_MANIFEST_BASE_URL + plugin_name)
     if response.status_code == 200:
         return response.json()
     else:
-        print(f"Failed to fetch MANIFEST info for {plugin_name}")
+        print(f'Failed to fetch MANIFEST info for {plugin_name}')
         return None
+
+def get_plugin_summary(url: str) -> pd.DataFrame:
+    """
+    Fetches the plugin summary from the given URL and returns it as a DataFrame.
+    If no summary is retrieved, an empty DataFrame is returned.
+
+    Args:
+        url (str): The API URL to fetch the plugin summary.
+
+    Returns:
+        pd.DataFrame: The plugin summary as a pandas DataFrame, or an empty DataFrame if none is retrieved.
+    """
+    plugin_summary = fetch_plugin(url)
+
+    return pd.DataFrame() if not plugin_summary else plugin_summary
+
 
 # --- Main Data Processing Function ---
 def build_plugins_dataframe() -> pd.DataFrame:
@@ -133,11 +157,7 @@ def build_plugins_dataframe() -> pd.DataFrame:
     pd.DataFrame
         A DataFrame containing the enriched and flattened plugin data. Returns an empty DataFrame if no data is fetched.
     """
-    summary_url = 'https://npe2api.vercel.app/api/extended_summary'
-    plugin_summary = fetch_plugin(summary_url)
-
-    if not plugin_summary:
-        return pd.DataFrame()
+    summary_df = get_plugin_summary(API_SUMMARY_URL)
 
     all_plugin_data = []
 
@@ -158,7 +178,7 @@ def build_plugins_dataframe() -> pd.DataFrame:
         all_plugin_data.append(plugin_data)
 
     with ThreadPoolExecutor() as executor:
-        executor.map(process_plugin, plugin_summary)
+        executor.map(process_plugin, summary_df)
 
     df = pd.DataFrame(all_plugin_data)
     return df
@@ -219,7 +239,7 @@ if __name__ == "__main__":
     df_plugins['modified_at'] = pd.to_datetime(df_plugins['modified_at'], format='mixed').dt.date
 
     # Set a temporary helper column 'home_type' by classifying the 'home' URL to a common package repository name, like 'pypi', 'github', or 'other'
-    df_plugins['home_type'] = df_plugins['home'].apply(classify_website)
+    df_plugins['home_type'] = df_plugins['home'].apply(classify_url)
     # Using the 'home_type' column, create new colums for 'pypi', 'github', and 'other'
     df_plugins['home_pypi'] = df_plugins['home'].where(df_plugins['home_type'] == 'pypi', '')
     df_plugins['home_github'] = df_plugins['home'].where(df_plugins['home_type'] == 'github', '')
