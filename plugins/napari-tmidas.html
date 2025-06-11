@@ -37,6 +37,7 @@
         color: #333333;
         margin: 0;
       }
+      /* get rid of some additional spacing I can't explain */
       pre > code { display: contents; }
       code::before, code::after {
         content: none !important;
@@ -75,7 +76,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -184,7 +185,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqt5</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">napari-ome-zarr</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision</li><li class="MetadataList_textItem__KKmMN">timm</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqt5</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">napari-ome-zarr</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision</li><li class="MetadataList_textItem__KKmMN">timm</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">cmake</li><li class="MetadataList_textItem__KKmMN">nd2</li><li class="MetadataList_textItem__KKmMN">pylibCZIrw</li><li class="MetadataList_textItem__KKmMN">readlif</li><li class="MetadataList_textItem__KKmMN">tiffslide</li><li class="MetadataList_textItem__KKmMN">hydra-core</li><li class="MetadataList_textItem__KKmMN">eva-decord</li><li class="MetadataList_textItem__KKmMN">acquifer-napari</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -243,32 +244,40 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <h2>Features</h2>
 <p>Currently, napari-tmidas provides pipelines as widgets for batch image conversion / cropping / processing, ROI colocalization and label inspection (cf. <a href="#usage">Usage</a> below).</p>
 <h2>Installation</h2>
+<p>(Video installation guides: <a href="https://www.youtube.com/@macromeer/videos">https://www.youtube.com/@macromeer/videos</a>)</p>
 <p>First, install Napari in a virtual environment:</p>
-<pre><code>mamba create -y -n napari-tmidas -c conda-forge python=3.11 tqdm
-mamba activate napari-tmidas
-python -m pip install &quot;napari[all]&quot;
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">tmidas</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">python</span><span class="o">=</span><span class="mf">3.11</span>
+<span class="n">mamba</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">tmidas</span>
+<span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">napari</span><span class="o">[</span><span class="n">all</span><span class="o">]&amp;</span><span class="n">quot</span><span class="p">;</span>
+</pre></div>
 </code></pre>
 <p>Now you can install <code>napari-tmidas</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code>pip install napari-tmidas
+<pre><code><div class="highlight"><pre><span></span>pip install napari-tmidas
+</pre></div>
 </code></pre>
-<p>It is recommended to install the latest development version:</p>
-<pre><code>pip install git+https://github.com/macromeer/napari-tmidas.git
+<p>It is recommended though to install the <strong>latest development version</strong>. Please also execute this command from time to time in the activated environment to benefit from newly added features:</p>
+<pre><code><div class="highlight"><pre><span></span>pip install git+https://github.com/macromeer/napari-tmidas.git
+</pre></div>
 </code></pre>
-<h3>Dependencies</h3>
-<p>To use the Batch Microscopy Image Conversion pipeline, we need some libraries to read microscopy formats:</p>
-<pre><code>pip install nd2 readlif tiffslide pylibCZIrw acquifer-napari
+<p>To use the Batch Crop Anything pipeline, we need to install <strong>Segment Anything 2</strong> (2D/3D):</p>
+<pre><code><div class="highlight"><pre><span></span><span class="nt">cd</span><span class="w"> </span><span class="o">/</span><span class="nt">opt</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nt">if</span><span class="w"> </span><span class="nt">the</span><span class="w"> </span><span class="nt">folder</span><span class="w"> </span><span class="nt">does</span><span class="w"> </span><span class="nt">not</span><span class="w"> </span><span class="nt">exist</span><span class="o">:</span><span class="w"> </span><span class="nt">mkdir</span><span class="w"> </span><span class="o">/</span><span class="nt">opt</span><span class="w"> </span><span class="o">&amp;</span><span class="nt">amp</span><span class="o">;&amp;</span><span class="nt">amp</span><span class="o">;</span><span class="w"> </span><span class="nt">cd</span><span class="w"> </span><span class="o">/</span><span class="nt">opt</span>
+<span class="nt">git</span><span class="w"> </span><span class="nt">clone</span><span class="w"> </span><span class="nt">https</span><span class="o">://</span><span class="nt">github</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">facebookresearch</span><span class="o">/</span><span class="nt">sam2</span><span class="p">.</span><span class="nc">git</span><span class="w"> </span><span class="o">&amp;</span><span class="nt">amp</span><span class="o">;&amp;</span><span class="nt">amp</span><span class="o">;</span><span class="w"> </span><span class="nt">cd</span><span class="w"> </span><span class="nt">sam2</span>
+<span class="nt">pip</span><span class="w"> </span><span class="nt">install</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="o">.</span>
+<span class="nt">curl</span><span class="w"> </span><span class="nt">-L</span><span class="w"> </span><span class="nt">https</span><span class="o">://</span><span class="nt">dl</span><span class="p">.</span><span class="nc">fbaipublicfiles</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">segment_anything_2</span><span class="o">/</span><span class="nt">092824</span><span class="o">/</span><span class="nt">sam2</span><span class="p">.</span><span class="nc">1_hiera_large</span><span class="p">.</span><span class="nc">pt</span><span class="w"> </span><span class="nt">-o</span><span class="w"> </span><span class="nt">checkpoints</span><span class="o">/</span><span class="nt">sam2</span><span class="p">.</span><span class="nc">1_hiera_large</span><span class="p">.</span><span class="nc">pt</span>
+<span class="nt">mamba</span><span class="w"> </span><span class="nt">install</span><span class="w"> </span><span class="nt">-c</span><span class="w"> </span><span class="nt">conda-forge</span><span class="w"> </span><span class="nt">ffmpeg</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nt">we</span><span class="w"> </span><span class="nt">also</span><span class="w"> </span><span class="nt">need</span><span class="w"> </span><span class="nt">ffmpeg</span>
+</pre></div>
 </code></pre>
-<p>For the Batch Crop Anything pipeline, we need to install MobileSAM and its dependencies:</p>
-<pre><code>pip install git+https://github.com/ChaoningZhang/MobileSAM.git
+<p>If you want to batch compress image data using <a href="https://github.com/facebook/zstd">Zstandard</a>, use the package manager of your operating system to install it:</p>
+<p><s>sudo apt-get install zstd</s>    # Pre-installed on Linux :man_shrugging:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="n">brew</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">zstd</span><span class="w">            </span><span class="err">#</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">macOS</span><span class="w"> </span><span class="p">(</span><span class="n">requires</span><span class="w"> </span><span class="o">[</span><span class="n">Homebrew</span><span class="o">]</span><span class="p">(</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">brew</span><span class="p">.</span><span class="n">sh</span><span class="o">/</span><span class="p">)</span>
+<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">zstandard</span><span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="n">Windows</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">Python</span><span class="w"> </span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span><span class="w"> </span><span class="mf">3.7</span>
+</pre></div>
 </code></pre>
-<p>If you want to batch compress images using <a href="https://github.com/facebook/zstd">Zstandard</a>, use the package manager of your operating system to install it:</p>
-<pre><code>sudo apt-get install zstd    # for Linux
-brew install zstd            # for macOS
-choco install zstandard      # for Windows
-</code></pre>
+<p>And you are done!</p>
 <h2>Usage</h2>
 <p>To use the plugin, start napari in the activated virtual environment with this terminal command:</p>
-<pre><code>mamba run -n napari-tmidas napari
+<pre><code><div class="highlight"><pre><span></span>mamba run -n napari-tmidas napari
+</pre></div>
 </code></pre>
 <p>You can then find the installed plugin in the Plugins tab.</p>
 <h3>Microscopy Image Conversion</h3>
@@ -292,11 +301,18 @@ choco install zstandard      # for Windows
 </ol>
 <img src="https://github.com/user-attachments/assets/cfe84828-c1cc-4196-9a53-5dfb82d5bfce" alt="Image Processing Widget" style="width:75%; height:auto;">
 <p>Note that whenever you click on an <code>Original File</code> or <code>Processed File</code> in the table, it will replace the one that is currently shown in the viewer. So naturally, you'd first select the original image, and then the processed image to correctly see the image pair that you want to inspect.</p>
+<h4>Processing Function Credits</h4>
+<p>The image processing capabilities are powered by several excellent open-source tools:</p>
+<ul>
+<li><a href="https://github.com/MouseLand/cellpose">Cellpose 4</a>: Advanced cell segmentation</li>
+<li><a href="https://github.com/weigertlab/trackastra">Trackastra</a>: Cell tracking and analysis</li>
+<li><a href="https://github.com/CAREamics/careamics">CAREamics</a>: Content-aware image restoration and enhancement</li>
+</ul>
 <h3>Batch Label Inspection</h3>
 <p>If you have already segmented a folder full of images and now you want to maybe inspect and edit each label image, you can use the <code>Plugins &gt; T-MIDAS &gt; Batch Label Inspection</code>, which automatically saves your changes to the existing label image once you click the <code>Save Changes and Continue</code> button (bottom right).</p>
 <img src="https://github.com/user-attachments/assets/0bf8c6ae-4212-449d-8183-e91b23ba740e" alt="Batch Label Inspection Widget" style="width:75%; height:auto;">
 <h3>Crop Anything</h3>
-<p>This pipeline combines the Segment Anything Model (SAM) for automatic object detection with an interactive interface for selecting and cropping multiple objects from images. To launch the widget, open <code>Plugins &gt; T-MIDAS &gt; Batch Crop Anything</code>. Click the image below to see a video demo.</p>
+<p>This pipeline combines the Segment Anything Model (SAM) for automatic object detection with an interactive interface for selecting and cropping multiple objects from images. To launch the widget, open <code>Plugins &gt; T-MIDAS &gt; Batch Crop Anything</code>. Cropping works like this: Enter 2D view and go to the first z slice where the object to be cropped is appearing. Activate/select the points layer and click on the object. Terminal shows progress. You can then proceed to select another object (always do this in 2D mode)</p>
 <img src="https://github.com/user-attachments/assets/6d72c2a2-1064-4a27-b398-a9b86fcbc443" alt="Crop Anything Widget" style="width:75%; height:auto;">
 <h3>ROI Colocalization</h3>
 <p>This pipeline quantifies colocalization between labeled regions of interest (ROIs) across multiple image channels. It determines the extent of overlap between ROIs in a reference channel and those in one or two other channels. The output is a table of colocalization counts. Optionally, the size of reference channel ROIs, as well as the total or median size of colocalizing ROIs in the other channels, can be included. Colocalization is determined using Boolean masking. The number of colocalizing instances is determined by counting unique label IDs within the overlapping regions. Typically, the reference channel contains larger structures, while other channels contain smaller, potentially nested, structures. For example, the reference channel might contain cell bodies, with the second and third channels containing nuclei and sub-nuclear objects, respectively.</p>
@@ -333,7 +349,7 @@ https://napari.org/stable/plugins/index.html
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -467,7 +483,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqt5</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">napari-ome-zarr</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision</li><li class="MetadataList_textItem__KKmMN">timm</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqt5</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">napari-ome-zarr</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">torchvision</li><li class="MetadataList_textItem__KKmMN">timm</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">cmake</li><li class="MetadataList_textItem__KKmMN">nd2</li><li class="MetadataList_textItem__KKmMN">pylibCZIrw</li><li class="MetadataList_textItem__KKmMN">readlif</li><li class="MetadataList_textItem__KKmMN">tiffslide</li><li class="MetadataList_textItem__KKmMN">hydra-core</li><li class="MetadataList_textItem__KKmMN">eva-decord</li><li class="MetadataList_textItem__KKmMN">acquifer-napari</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>

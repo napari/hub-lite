@@ -9,9 +9,9 @@
     <meta
         content="domb-napari, Borys Olifirov, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="napari plugin for analyzing fluorescence-labeled proteins redistribution" name="description" />
-    <meta content="napari plugin for analyzing fluorescence-labeled proteins redistribution" property="og:description" />
-    <meta content="napari plugin for analyzing fluorescence-labeled proteins redistribution." name="twitter:description" />
+    <meta content="napari plugin for analyzing the redistribution of fluorescence-labeled proteins" name="description" />
+    <meta content="napari plugin for analyzing the redistribution of fluorescence-labeled proteins" property="og:description" />
+    <meta content="napari plugin for analyzing the redistribution of fluorescence-labeled proteins." name="twitter:description" />
     <meta content="domb-napari - napari Plugin - Borys Olifirov" property="og:title" />
     <meta content="domb-napari - napari Plugin - Borys Olifirov" name="twitter:title" />
     <meta content="article" property="og:type" />
@@ -37,6 +37,7 @@
         color: #333333;
         margin: 0;
       }
+      /* get rid of some additional spacing I can't explain */
       pre > code { display: contents; }
       code::before, code::after {
         content: none !important;
@@ -75,7 +76,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.4.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -157,7 +158,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li><li class="MetadataList_textItem__KKmMN">dipy</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li><li class="MetadataList_textItem__KKmMN">dipy</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">pybaselines</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -180,7 +181,7 @@
     </div>
                                                                 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">napari plugin for analyzing fluorescence-labeled proteins redistribution</h2>
+                                    <h2 class="text-lg">napari plugin for analyzing the redistribution of fluorescence-labeled proteins</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -210,7 +211,8 @@
 <p><a href="https://stand-with-ukraine.pp.ua"><img src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg" alt="Stand With Ukraine" /></a></p>
 <p><a href="https://napari-hub.org/plugins/domb-napari"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/domb-napari" alt="napari hub" /></a>
 <img src="https://img.shields.io/pypi/v/domb-napari" alt="PyPI - Version" />
-<img src="https://img.shields.io/pypi/l/domb-napari" alt="PyPI - License" /></p>
+<img src="https://img.shields.io/pypi/l/domb-napari" alt="PyPI - License" />
+<a href="https://doi.org/10.5281/zenodo.14843770"><img src="https://zenodo.org/badge/722100876.svg" alt="DOI" /></a></p>
 <!-- ![Website](https://img.shields.io/website?up_message=domb.bio%2Fnapari&up_color=%2323038C93&url=https%3A%2F%2Fdomb.bio%2Fnapari%2F) -->
 <p><strong>napari Toolkit of Department of Molecular Biophysics <br /> Bogomoletz Institute of Physiology of NAS of Ukraine, Kyiv,  Ukraine</strong></p>
 <p>This plugin offers widgets specifically designed to analyze the redistribution of fluorescence-labeled proteins in widefield epifluorescence time-lapse acquisitions. It is particularly useful for studying various phenomena, including:</p>
@@ -222,18 +224,16 @@
 <p><img src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/translocation.gif" alt="" />
 <strong>Hippocalcin (neuronal calcium sensor) redistributes in dendritic branches upon NMDA application</strong></p>
 <hr />
-<h2>Detection of fluorescence redistributions</h2>
-<p>A set of widgets designed for preprocessing multispectral image stacks and detecting redistributions in fluorescence intensity. These widgets specifically analyze differential &quot;red-green&quot; image series to identify changes in fluorescence intensity.</p>
-<p>Inspired by <a href="https://pubmed.ncbi.nlm.nih.gov/20704590/">Dovgan et al., 2010</a> and <a href="https://www.sciencedirect.com/science/article/pii/S0969996119301974?via%3Dihub">Osypenko et al., 2019</a>.</p>
-<h3>Dual-view stack registration</h3>
-<p>Registration of four-channel image stacks, including two excitation wavelengths and two emission pathbands, acquired with a dual-view beam splitter. This setup detects different spectral pathbands using distinct sides of the CCD matrix.</p>
+<h2>Preprocessing</h2>
+<h3>Dual-view Stack Registration</h3>
+<p>Registration of four-channel image stacks, including two excitation wavelengths and two emission pathbands, acquired with a dual-view beam splitter. This setup detects different spectral pathbands using distinct sides of the camera matrix.</p>
 <ul>
 <li><code>offset img</code> - input for a four-channel time-lapse image stack.</li>
 <li><code>reference img</code> - an optional four-channel reference image (e.g., fluorescence beads image), used for offset estimation if <code>use reference img</code> is selected.</li>
 <li><code>input crop</code> - number of pixels that will be deleted from each side of input stack frames to discard misalignment artifacts from the dual-view system.</li>
 <li><code>output crop</code> - number of pixels that will be deleted from each side of output stack frames to discard registration artifacts.</li>
 </ul>
-<h3>Multichannel stack preprocessing</h3>
+<h3>Multichannel Stack Preprocessing</h3>
 <ul>
 <li><code>stack order</code> -  represents the order of axes in the input data array: T (time), C (color), X, and Y (image dimensions). If the input image stack has four dimensions (time, channel, x-axis, y-axis), channels will be split into individual three-dimensional images (time, x-axis, y-axis), each labeled with the <code>_ch%index%</code> suffix.</li>
 <li><code>median filter</code> - provides frame-by-frame image smoothing with a kernel of size specified in <code>median kernel</code>.</li>
@@ -242,7 +242,11 @@
 <li>Image stacks can be cropped according to start and stop indexes specified in <code>frames range</code> if <code>drop frames</code> is selected.</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/stack_preprocessing.png" alt="" /></p>
-<h3>Red-green series</h3>
+<hr />
+<h2>Detection of Fluorescence Redistribution</h2>
+<p>A set of widgets designed for preprocessing multispectral image stacks and detecting redistributions in fluorescence intensity. These widgets specifically analyze differential &quot;red-green&quot; image series to identify changes in fluorescence intensity.</p>
+<p>Inspired by <a href="https://pubmed.ncbi.nlm.nih.gov/20704590/">Dovgan et al., 2010</a> and <a href="https://www.sciencedirect.com/science/article/pii/S0969996119301974?via%3Dihub">Osypenko et al., 2019</a>.</p>
+<h3>Red-Green Series</h3>
 <p>Primary method for detecting fluorescence-labeled targets redistribution. This widget returns a series of differential images, each representing the intensity difference between the current frame and the previous one, output image labeled with the <code>_red-green</code> suffix.</p>
 <p>Parameters:</p>
 <ul>
@@ -253,9 +257,11 @@
 <p><code>normalize by int</code>  function normalizes the differential images relative to the absolute intensity of the input image stack, which helps to reduce background noise amplitude.</p>
 <p>If <code>save MIP</code> is selected, the maximal intensity projection (MIP) of the differential image stack will be saved with the <code>_red-green-MIP</code> suffix.</p>
 <p><img src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rg_series.png" alt="" /></p>
+<h3>ΔF/F Series</h3>
+<p><em>In progress.</em></p>
 <hr />
 <h2>Masking</h2>
-<h3>Dots patterns masking</h3>
+<h3>Dots Pattern Masking</h3>
 <p>Creates labels for bright dot elements on an image, such as pre- and postsynaptic fluorescence markers (e.g., Bassoon/Synaptobrevin for presynapses, PSD-95/Homer for postsynapses, etc.). It returns a labels layer with the <code>_dots-labels</code> suffix.</p>
 <p>The widget detects the location on the MIP (Maximum Intensity Projection) of the input time series image and applies simple round masks to each detected dot. Watershed segmentation is then used to prevent the merging of overlapping masks.</p>
 <p>Parameters:</p>
@@ -267,7 +273,7 @@
 </ul>
 <p><img src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/dots_masking.png" alt="" />
 <strong>Hippocalcin (green) and PSD95 (magents) in dendritic branches</strong></p>
-<h3>Up masking</h3>
+<h3>Up Masking</h3>
 <p>Generates labels for regions with high intensity based on raw or -red-green images. Returns a labels layer with the <code>_up-labels</code> suffix.</p>
 <p>The widget provides two detection modes:</p>
 <ul>
@@ -307,23 +313,82 @@
 </tr>
 </tbody>
 </table>
-<h3>Intensity masking</h3>
+<h3>Intensity Masking</h3>
 <p>Extension of <strong>Up Masking</strong> widget. Detects regions with increasing (<code>masking mode</code> - <code>up</code>) or decreasing (<code>masking mode</code> - <code>down</code>) intensity in <code>-red-green</code> images. Returns a labels layer with either <code>_up-labels</code> or <code>_down-labels</code> suffix, depending on the mode.</p>
 <p><img src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/int_labels.png" alt="" /></p>
 <hr />
-<h2>FRET detection</h2>
-<p>Widgets for detection and analysis of Förster resonance energy transfer multispectral image stacks.</p>
-<p>Based on <a href="https://pubmed.ncbi.nlm.nih.gov/15189889/">Zal and Gascoigne, 2004</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/16815904/">Chen et al., 2006</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/37014867/">Kamino et al., 2023</a>.</p>
-<h3>E-FRET estimation</h3>
-<p>E-FRET estimation with 3-cube approach.</p>
-<p>This method utilizes default values for <code>a</code> and <code>d</code> coefficients and the <code>G</code>-factor, optimized for the pair EYFP and ECFP in our experimental setup:</p>
+<h2>3-cube E-FRET Approach</h2>
+<p>Widgets for detection and analysis of Förster resonance energy transfer on multispectral image stacks.</p>
+<p>Based on notation and approaches from <a href="https://pubmed.ncbi.nlm.nih.gov/15189889/">Zal and Gascoigne, 2004</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/16815904/">Chen et al., 2006</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/37014867/">Kamino et al., 2023</a>.</p>
+<h3>E-FRET Crosstalk Estimation</h3>
+<p><em>In progress.</em></p>
+<p>Estimation of the crosstalk/bleedthrough of fluorescence between the donor and acceptor’s spectral channels.</p>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>F_c = I_{DA} - a (I_{AA} - c I_{DD}) - d (I_{DD} - b I_{AA})
+</pre></div>
+</code></pre>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>F_c = I_{DA} - a I_{AA} - d I_{DD} \; \text{if} \; b \approx c \approx 0
+</pre></div>
+</code></pre>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>a = \frac{I_{DA(A)}}{I_{AA(A)}}
+</pre></div>
+</code></pre>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>b = \frac{I_{DD(A)}}{I_{AA(A)}}
+</pre></div>
+</code></pre>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>c = \frac{I_{AA(D)}} {I_{DD(D)}}
+</pre></div>
+</code></pre>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>d = \frac{I_{DA(D)}} {I_{DD(D)}}
+</pre></div>
+</code></pre>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>b \approx c \approx 0
+</pre></div>
+</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><code>DD img</code> - donor emission channel image acquired with the donor excitation wavelength.</li>
+<li><code>DA img</code> - donor emission channel image acquired with the acceptor excitation wavelength.</li>
+<li><code>AD img</code> - acceptor emission channel image acquired with the donor excitation wavelength.</li>
+<li><code>AA img</code> - acceptor emission channel image acquired with the acceptor excitation wavelength.</li>
+<li><code>mask</code> - .</li>
+<li><code>presented_fluorophore</code> - .</li>
+<li><code>saving_path</code> - .</li>
+</ul>
+<h3>E-FRET G-factor Estimation</h3>
+<p><em>In progress.</em></p>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>G = \frac{(I_{DA} - a I_{AA} - d I_{DD}) - (I_{DA}^{post} - a I_{AA}^{post} - d I_{DD}^{post})}{I_{DD}^{post} - I_{DD}} = \frac{F_c - F_{c}^{post}}{I_{DD}^{post} - I_{DD}} = \frac{\Delta F_c}{\Delta I_{DD}}
+</pre></div>
+</code></pre>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>\Delta F_c = G \cdot \Delta I_{DD}
+</pre></div>
+</code></pre>
+<h3>E-FRET Estimation</h3>
+<p>Estimation of the E-FRET with 3-cube approach.</p>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>E_{app} = \frac{R}{R+G}
+</pre></div>
+</code></pre>
+<pre><code class="language-math"><div class="highlight"><pre><span></span>R = \frac{F_c}{I_{DD}}
+</pre></div>
+</code></pre>
+<p><strong>ECFP and EYFP Setup:</strong></p>
 <ul>
 <li>Microscope Olympus IX71</li>
+<li>Camera PCO Sensicam QE</li>
 <li>Cube Chroma 69008</li>
 <li>Dual-view system with Chroma 505DCXR beam splitter</li>
 <li>Donor excitation wavelength 435 nm</li>
 <li>Acceptor excitation wavelength 505 nm</li>
 </ul>
+<p><strong>TagBFP and mBaoJin Setup:</strong></p>
+<ul>
+<li>Microscope Olympus IX71</li>
+<li>Camera PCO Sensicam QE</li>
+<li>Cube Chroma 69002</li>
+<li>Dual-view system with Chroma 505DCXR beam splitter</li>
+<li>Donor excitation wavelength 405 nm</li>
+<li>Acceptor excitation wavelength 495 nm</li>
+</ul>
+<p>This method utilizes default values of <code>a</code> and <code>d</code> coefficients and the <code>G</code>-factor for TagBFP and mBaoJin pair.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>DD img</code> - donor emission channel image acquired with the donor excitation wavelength.</li>
@@ -348,7 +413,7 @@
 </tbody>
 </table>
 <hr />
-<h2>Exo-/endo-cytosis monitoring with pH-sensitive tag</h2>
+<h2>Exo/Endo-cytosis Monitoring with pH-Sensitive Tag</h2>
 <p>A set of widgets designed for the analysis of image series containing the pH-sensitive fluorescence protein Superecliptic pHluorin (SEP).</p>
 <p>Insipred by <a href="https://pubmed.ncbi.nlm.nih.gov/28474392/">Fujii et al., 2017</a> and <a href="https://www.nature.com/articles/s41596-020-0371-z">Sposini et al., 2020</a>.</p>
 <h3>SEP image preprocessing</h3>
@@ -356,13 +421,13 @@
 <p>If <code>calc surface img</code> is selected, an additional total fluorescence image with subtracted intracellular intensity will be saved as the cell surface fluorescence fraction (suffix <code>_surface</code>). The input image should be a 3-dimensional single-channel time-lapse.</p>
 <p>The <code>calc projections</code> option allows obtaining individual pH series projections (pixel-wise series MIP - pixel-wise series average) for the detection of individual exo/endocytosis events.</p>
 <hr />
-<h2>Intensty profiles building and data frame saving</h2>
-<h3>ROIs profiles</h3>
+<h2>Plotting and Data Frame Saving</h2>
+<h3>ROIs Profiles</h3>
 <p>This widget builds a plot with mean intensity profiles for each Region of Interest (ROI) in labels. It uses either absolute intensity (if <code>absolute intensity</code> is selected) or relative intensities (ΔF/F0).</p>
 <ul>
 <li><code>time scale</code> - sets the number of seconds between frames for x-axis scaling.</li>
-<li><code>ΔF win</code> - the baseline intensity for ΔF/F0 profiles is estimated as the mean intensity of the specified number of initial profile points.</li>
-<li><code>ΔF amplitude lim</code> - allows filtering of ROIs by minimum and maximum ΔF/F0 amplitudes. Note: Amplitude filtering works with ΔF/F0 profiles only.</li>
+<li><code>values mod</code> - the mode of output profile calculation. Options are <code>ΔF/F0</code> (relative intensity changes), <code>ΔF</code> (absolute intensity changes), or <code>abs</code> (absolute intensity value)</li>
+<li><code>ΔF win</code> - if selected <code>use_simple_baseline</code>, the baseline intensity for ΔF/F0 profiles is estimated as the mean intensity of the specified number of initial profile points. Othervise, this paramater specify half-size of the moving median baseline estimator (<code>noisy_median</code> from <code>pybaselines</code> package).</li>
 <li><code>profiles crop</code> - if selected, only a specified range of intensity profile indexes will be plotted, corresponding to the start and stop indexes from <code>profiles range</code>.</li>
 </ul>
 <p>Additionally, you can save ROI intensity profiles as .csv files using the <code>save data frame</code> option and specifying the <code>saving path</code>. The output data frames named %img_name%_lab_prof.csv will include the following columns:</p>
@@ -389,14 +454,14 @@
 </tr>
 </tbody>
 </table>
-<h3>Multiple images stat profiles</h3>
-<p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) specified in <code>lab</code>. It can handle up to three images (<code>img 0</code>, <code>img 1</code>, and <code>img 2</code>) as inputs, depending on the selected <code>profiles num</code>.</p>
-<p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
-<p>The <code>stat method</code> allows for the estimation of intensity and associated errors through the following methods:</p>
+<h3>Multiple Images Stat Profiles</h3>
+<p>This widget builds a plot displaying the average intensity of all Regions of Interest (ROIs) specified in <code>lab</code>. It can handle up to three images (<code>img 0</code>, <code>img 1</code>, and <code>img 2</code>) as inputs, depending on the selected <code>profiles num</code>.</p>
+<p><code>time scale</code>, <code>values mod</code>, and <code>ΔF win</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
+<p>The <code>stat method</code> allows estimation of intensity and associated errors using the following methods:</p>
 <ul>
-<li><code>se</code> - mean +/- standard error of the mean.</li>
-<li><code>iqr</code> - median +/- interquartile range.</li>
-<li><code>ci</code> - mean +/- 95% confidence interval based on the t-distribution.</li>
+<li><code>se</code> - mean ± standard error of the mean.</li>
+<li><code>iqr</code> - median ± interquartile range.</li>
+<li><code>ci</code> - mean ± 95% confidence interval (t-distribution).</li>
 </ul>
 <table>
 <thead>
@@ -412,10 +477,10 @@
 </tr>
 </tbody>
 </table>
-<h3>Multiple labels stat profiles</h3>
+<h3>Multiple Labels Stat Profiles</h3>
 <p>This widget builds a plot displaying the averaged intensity of all Regions of Interest (ROI) for one target <code>img</code>. It can handle up to three labels (<code>lab 0</code>, <code>lab 1</code>, and <code>lab 2</code>), depending on the selected <code>profiles num</code>.</p>
-<p><code>time scale</code>, <code>ΔF win</code>, and <code>absolute intensity</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
-<p>The <code>stat method</code> allows for the estimation of intensity and associated errors through the following methods:</p>
+<p><code>time scale</code>, <code>values mod</code>, and <code>ΔF win</code> parameters are identical as described in the <strong>ROIs profiles</strong> widget.</p>
+<p>The <code>stat method</code> allows estimation of intensity and associated errors using the following methods:</p>
 <ul>
 <li><code>se</code> - mean +/- standard error of the mean.</li>
 <li><code>iqr</code> - median +/- interquartile range.</li>
@@ -435,6 +500,48 @@
 </tr>
 </tbody>
 </table>
+<h3>Save Data Frame</h3>
+<p>This widget allows saving the data frame with the following columns:</p>
+<ul>
+<li><code>id</code> - unique image ID, the name of the input <code>napari.Image</code> object.</li>
+<li><code>lab_id</code> - unique label ID, the name of the input <code>napari.Labels</code> object.</li>
+<li><code>roi</code> - ROI number, consecutively numbered starting from 1.</li>
+<li><code>dist</code> - average distance in px to the ROI from the frame, (if <code>save ROIs distances in data frame</code> option is selected).</li>
+<li><code>index</code> - frame index.</li>
+<li><code>time</code> - frame time point, adjusted according to the <code>time scale</code>.</li>
+<li><code>abs_int</code> - absolute intensity value.</li>
+<li><code>dF_int</code> - absolute intensity changes (ΔF).</li>
+<li><code>dF/F0_int</code> - relative intensity changes (ΔF/F0).</li>
+</ul>
+<hr />
+<h2>How to Cite</h2>
+<p>If you use this plugin in your work, please cite the following paper:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="nv">@article</span><span class="err">{</span><span class="n">Olifirov2025</span><span class="p">,</span>
+<span class="w">  </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="k">Local</span><span class="w"> </span><span class="n">Iontophoretic</span><span class="w"> </span><span class="n">Application</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Pharmacological</span><span class="w"> </span><span class="n">Induction</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">Long</span><span class="o">-</span><span class="n">Term</span><span class="w"> </span><span class="n">Synaptic</span><span class="w"> </span><span class="n">Depression</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">15</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ISSN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">2331</span><span class="o">-</span><span class="mi">8325</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">dx</span><span class="p">.</span><span class="n">doi</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.21769</span><span class="o">/</span><span class="n">BioProtoc</span><span class="mf">.5338</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">DOI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mf">10.21769</span><span class="o">/</span><span class="n">bioprotoc</span><span class="mf">.5338</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">1373</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">journal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">BIO</span><span class="o">-</span><span class="n">PROTOCOL</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">publisher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Bio</span><span class="o">-</span><span class="n">Protocol</span><span class="p">,</span><span class="w">  </span><span class="n">LLC</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Olifirov</span><span class="p">,</span><span class="w">  </span><span class="n">Borys</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Fedchenko</span><span class="p">,</span><span class="w">  </span><span class="n">Oleksandra</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Dovgan</span><span class="p">,</span><span class="w">  </span><span class="n">Alexandr</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Babets</span><span class="p">,</span><span class="w">  </span><span class="n">Daria</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Krotov</span><span class="p">,</span><span class="w">  </span><span class="n">Volodymyr</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Cherkas</span><span class="p">,</span><span class="w">  </span><span class="n">Volodymyr</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Belan</span><span class="p">,</span><span class="w">  </span><span class="n">Pavel</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="nf">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">2025</span><span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
+</code></pre>
+<p>or zenodo:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="nv">@misc</span><span class="err">{</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.14843770</span><span class="p">,</span>
+<span class="w">  </span><span class="n">doi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">ZENODO</span><span class="mf">.14843770</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">zenodo</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">doi</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.14843770</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">wisstock</span><span class="p">,</span><span class="w">  </span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">wisstock</span><span class="o">/</span><span class="n">domb</span><span class="o">-</span><span class="nl">napari</span><span class="p">:</span><span class="w"> </span><span class="n">Zenodo</span><span class="w"> </span><span class="k">release</span><span class="w"> </span><span class="n">v0</span><span class="mf">.3.0</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">publisher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Zenodo</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="nf">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">2025</span><span class="err">}</span><span class="p">,</span>
+<span class="w">  </span><span class="n">copyright</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">MIT</span><span class="w"> </span><span class="n">License</span><span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
+</code></pre>
 
 
                                     </div>
@@ -450,7 +557,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.4.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -557,7 +664,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li><li class="MetadataList_textItem__KKmMN">dipy</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li><li class="MetadataList_textItem__KKmMN">dipy</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">pybaselines</li></ul>
                                             </div>
                                         </div>
                                     </div>

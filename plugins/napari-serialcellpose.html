@@ -37,6 +37,7 @@
         color: #333333;
         margin: 0;
       }
+      /* get rid of some additional spacing I can't explain */
       pre > code { display: contents; }
       code::before, code::after {
         content: none !important;
@@ -217,22 +218,26 @@
 <p>The main goal of this plugin is to simplify the classical image processing pipeline of image segmentation followed by region analysis via Cellpose. It allows to quickly get a quantification of a set of images without the need for any scripting.</p>
 <h2>Installation</h2>
 <p>In order to use this plugin, whe highly recommend to create a specific environment and to install the required software in it. You can create a conda environment using:</p>
-<pre><code>conda create -n serialcellpose python=3.8.5 napari -c conda-forge
+<pre><code><div class="highlight"><pre><span></span>conda create -n serialcellpose python=3.8.5 napari -c conda-forge
+</pre></div>
 </code></pre>
 <p>Then activate it and install the plugin:</p>
-<pre><code>conda activate serialcellpose
+<pre><code><div class="highlight"><pre><span></span>conda activate serialcellpose
 pip install napari-serialcellpose
+</pre></div>
 </code></pre>
 <h3>Potential issue with PyTorch</h3>
 <p>Cellpose and therefore the plugin and napari can crash without warning in some cases with <code>torch==1.12.0</code>. This can be fixed by reverting to an earlier version using:</p>
-<pre><code>pip install torch==1.11.0
+<pre><code><div class="highlight"><pre><span></span>pip install torch==1.11.0
+</pre></div>
 </code></pre>
 <h3>GPU</h3>
 <p>In order to use a GPU:</p>
 <ol>
 <li>
 <p>Uninstall the PyTorch version that gets installed by default with Cellpose:</p>
-<pre><code> pip uninstall torch
+<pre><code><div class="highlight"><pre><span></span> pip uninstall torch
+</pre></div>
 </code></pre>
 </li>
 <li>
@@ -240,14 +245,16 @@ pip install napari-serialcellpose
 </li>
 <li>
 <p>Re-install a GPU version of PyTorch via conda using a command that you can find <a href="https://pytorch.org/get-started/locally/">here</a> (this takes care of the cuda toolkit, cudnn etc. so <strong>no need to install manually anything more than the driver</strong>). The command will look like this:</p>
-<pre><code> conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
+<pre><code><div class="highlight"><pre><span></span><span class="w"> </span><span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">pytorch</span><span class="w"> </span><span class="n">torchvision</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">11.3</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">pytorch</span>
+</pre></div>
 </code></pre>
 </li>
 </ol>
 <h3>Plugin Updates</h3>
 <p>To update the plugin, you only need to activate the existing environment and install the new version:</p>
-<pre><code>conda activate serialcellpose
+<pre><code><div class="highlight"><pre><span></span>conda activate serialcellpose
 pip install napari-serialcellpose -U
+</pre></div>
 </code></pre>
 <h2>Usage: segmentation</h2>
 <p>The main interface is shown below. The sequence of events should be the following:</p>

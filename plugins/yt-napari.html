@@ -37,6 +37,7 @@
         color: #333333;
         margin: 0;
       }
+      /* get rid of some additional spacing I can't explain */
       pre > code { display: contents; }
       code::before, code::after {
         content: none !important;
@@ -229,20 +230,24 @@
 <h3>1. (optional) install <code>yt</code> and <code>napari</code></h3>
 <p>If you skip this step, the installation in the following section will only install the minimal package requirements for <code>yt</code> or <code>napari</code>, in which case you will likely need to manually install some packages. So if you are new to either package, or if you are installing in a clean environment, it may be simpler to  install these packages first.</p>
 <p>For <code>napari</code>,</p>
-<pre><code>pip install napari[all]
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">napari</span><span class="o">[</span><span class="n">all</span><span class="o">]</span>
+</pre></div>
 </code></pre>
 <p>will install <code>napari</code> with the default <code>Qt</code> backend (see <a href="https://napari.org/tutorials/fundamentals/installation#choosing-a-different-qt-backend">here</a> for how to choose between <code>PyQt5</code> or <code>PySide2</code>).</p>
 <p>For <code>yt</code>, you will need <code>yt&gt;=4.0.1</code> and any of the optional dependencies for your particular workflow. If you know that you'll need more than the base <code>yt</code> install, you can install the full suite of dependent packages with</p>
-<pre><code>pip install yt[full]
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">yt</span><span class="o">[</span><span class="n">full</span><span class="o">]</span>
+</pre></div>
 </code></pre>
 <p>See the <a href="https://yt-project.org/doc/installing.html#leveraging-optional-yt-runtime-dependencies"><code>yt</code> documentation</a> for more information. If you're not sure which packages you'll need but don't want the full yt installation, you can proceed to the next step and then install any packages as needed (you will receive error messages when a required package is missing).</p>
 <h3>2. install <code>yt-napari</code></h3>
 <p>You can install the <code>yt-napari</code> plugin with:</p>
-<pre><code>pip install yt-napari
+<pre><code><div class="highlight"><pre><span></span>pip install yt-napari
+</pre></div>
 </code></pre>
 <p>If you are missing either <code>yt</code> or <code>napari</code> (or they need to be updated), the above installation will fetch and run a minimal installation for both.</p>
 <p>To install the latest development version of the plugin instead, use:</p>
-<pre><code>pip install git+https://github.com/data-exp-lab/yt-napari.git
+<pre><code><div class="highlight"><pre><span></span>pip install git+https://github.com/data-exp-lab/yt-napari.git
+</pre></div>
 </code></pre>
 <p>Note that if you are working off the development version, be sure to use the latest documentation
 for reference: <a href="https://yt-napari.readthedocs.io/en/latest/">https://yt-napari.readthedocs.io/en/latest/</a></p>
@@ -321,38 +326,47 @@ Then add a slice or region to sample for each matched dataset file (note: be car
 <p>Contributions are very welcome! Development follows a fork and pull request workflow. To get started, you'll need a development installation and a testing environment.</p>
 <h3>development environment</h3>
 <p>To start developing, fork the repository and clone your fork to get a local copy. You can then install in development mode with</p>
-<pre><code>pip install -e .
+<pre><code><div class="highlight"><pre><span></span>pip install -e .
+</pre></div>
 </code></pre>
 <h3>tests and style checks</h3>
 <p>Both bug fixes and new features will need to pass the existing test suite and style checks. While both will be run automatically when you submit a pull request, it is helpful to run the test suites locally and run style checks throughout development. For testing, you can use <a href="https://tox.readthedocs.io/en/latest/">tox</a> to test different python versions on your platform.</p>
-<pre><code>pip install tox
+<pre><code><div class="highlight"><pre><span></span>pip install tox
+</pre></div>
 </code></pre>
 <p>And then from the top level of the <code>yt-napari</code> directory, run</p>
-<pre><code>tox
+<pre><code><div class="highlight"><pre><span></span>tox
+</pre></div>
 </code></pre>
 <p>Tox will then run a series of tests in isolated environments. In addition to checking the terminal output for test results, the tox run will generate a test coverage report: a <code>coverage.xml</code> file and a <code>htmlcov</code> folder -- to view the results, open <code>htmlcov/index.html</code> in a browser.</p>
 <p>If you prefer a lighter weight test, you can also use <code>pytest</code> directly and rely on the Github CI to test different python versions and systems. To do so, first install <code>pytest</code> and some related plugins:</p>
-<pre><code>pip install pytest pytest-qt pytest-cov
+<pre><code><div class="highlight"><pre><span></span>pip install pytest pytest-qt pytest-cov
+</pre></div>
 </code></pre>
 <p>Now, to run the tests:</p>
-<pre><code>pytest -v --cov=yt_napari --cov-report=html
+<pre><code><div class="highlight"><pre><span></span>pytest -v --cov=yt_napari --cov-report=html
+</pre></div>
 </code></pre>
 <p>In addition to telling you whether or not the tests pass, the above command will write out a code coverage report to the <code>htmlcov</code> directory. You can open up <code>htmlcov/index.html</code> in a browser and check out the lines of code that were missed by existing tests.</p>
 <p>For style checks, you can use <a href="https://pre-commit.com/">pre-commit</a> to run checks as you develop. To set up <code>pre-commit</code>:</p>
-<pre><code>pip install pre-commit
+<pre><code><div class="highlight"><pre><span></span>pip install pre-commit
 pre-commit install
+</pre></div>
 </code></pre>
 <p>after which, every time you run <code>git commit</code>, some automatic style adjustments and checks will run. The same style checks will run when you submit a pull request, but it's often easier to catch them early.</p>
 <p>After submitting a pull request, the <code>pre-commit.ci</code> bot will run the style checks. If style checks fail, you can have the bot attempt to auto-fix the failures by adding the following in a comment on it's own:</p>
-<pre><code>pre-commit.ci autofix
+<pre><code><div class="highlight"><pre><span></span>pre-commit.ci autofix
+</pre></div>
 </code></pre>
 <p>The bot will then commit changes to your pull request after which you will want to run <code>git pull</code> locally to update your local version of the branch before making further changes to the branch.</p>
 <h3>building documentation locally</h3>
 <p>Documentation can be built using <code>sphinx</code> in two steps. First, update the api mapping with</p>
-<pre><code>sphinx-apidoc -f -o docs/source src/yt_napari/
+<pre><code><div class="highlight"><pre><span></span>sphinx-apidoc -f -o docs/source src/yt_napari/
+</pre></div>
 </code></pre>
 <p>This will update the <code>rst</code> files in <code>docs/source/</code> with the latest docstrings in <code>yt_napari</code>. Next, build the html documentation with</p>
-<pre><code>make html
+<pre><code><div class="highlight"><pre><span></span>make html
+</pre></div>
 </code></pre>
 <h3>updating the pydantic models and schema</h3>
 <p>The schema versioning follows a <code>major.minor.micro</code> versioning pattern that matches the yt-napari versioning. Each yt-napari release should have an accompanying updated schema file, even if the  contents of the schema file have not changed. On-disk schema are stored in  <code>src/yt_napari/schemas/</code>, with copies in the documentation at <code>docs/_static</code>.</p>
