@@ -5,6 +5,7 @@ This script fetches plugin data, flattens nested structures, and saves the clean
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
+from typing import Optional
 
 import requests
 import pandas as pd
@@ -16,15 +17,24 @@ API_MANIFEST_BASE_URL = 'https://npe2api.vercel.app/api/manifest/'
 
 
 # --- Helper Functions ---
-def extract_author_name(email) -> str:
+def extract_author_names(email: Optional[str]) -> str:
     """
     Extract and clean author names from an email field.
 
-    This function processes a string containing one or more authors, each possibly formatted as
-    'Name <email>' or just an email address. It removes any surrounding quotation marks and extracts
-    only the author names, returning a comma-separated string of clean names.
+    This function handles a string containing one or more authors, each potentially formatted as:
+    - 'Name <email>'
+    - 'email' only
+    - Names with surrounding quotation marks
+
+    It removes email addresses, cleans up the names, and returns a comma-separated string of author names.
+
+    Args:
+        email (Optional[str]): A string containing author information.
+
+    Returns:
+        str: A comma-separated string of cleaned author names, or an empty string if the input is invalid.
     """
-    if not isinstance(email, str):
+    if not isinstance(email, str) or not email.strip():
         return ''
 
     # Split the string by comma to process multiple authors
@@ -32,17 +42,16 @@ def extract_author_name(email) -> str:
     clean_authors = []
 
     for author in authors:
-        # Use regex to find name patterns before the email
-        match = re.match(r'(.*)<.*?>', author)
+        # Match a pattern with a name and an email (e.g., 'Name <email>')
+        match = re.match(r'(.*?)\s*<.*?>', author.strip())
 
         if match:
-            # Remove surrounding quotation marks using strip
-            clean_author = match.group(1).replace('"', '').strip()
-            clean_authors.append(clean_author)
+            # Extract and clean the author name
+            clean_authors.append(match.group(1).replace('"', '').strip())
         else:
+            # If no match, clean and add the raw string
             clean_authors.append(author.replace('"', '').strip())
 
-    # Return the list of clean author names
     return ', '.join(clean_authors)
 
 def classify_url(url: str) -> str:
@@ -61,7 +70,6 @@ def classify_url(url: str) -> str:
             if keyword in url:
                 return category
     return 'other'
-
 
 def flatten_and_merge(original, additional, parent_key='') -> None:
     """
@@ -138,7 +146,6 @@ def get_plugin_summary(url: str) -> pd.DataFrame:
     plugin_summary = fetch_plugin(url)
 
     return pd.DataFrame() if not plugin_summary else plugin_summary
-
 
 # --- Main Data Processing Function ---
 def build_plugins_dataframe() -> pd.DataFrame:
@@ -253,7 +260,7 @@ if __name__ == "__main__":
         # Check if 'author' is NaN or contains quotation marks
         if pd.isna(row['author']) or '"' in str(row['author']):
             # Update 'author' using the extracted name from 'package_metadata_author_email'
-            df_plugins.at[index, 'author'] = extract_author_name(row['package_metadata_author_email'])
+            df_plugins.at[index, 'author'] = extract_author_names(row['package_metadata_author_email'])
 
         if pd.isna(row['license']):
             pass 
