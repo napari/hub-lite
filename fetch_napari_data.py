@@ -140,61 +140,39 @@ def flatten_and_merge(original, additional, parent_key='') -> None:
             original.setdefault(new_key, value)
 
 # --- API Fetch Functions ---
-def fetch_conda(plugin_name: str):
-    """ Fetches Conda info and creates an HTML file for it """
-    url = urljoin(API_CONDA_BASE_URL, plugin_name)
-    logger.info(f"Fetching data for plugin: {plugin_name} from URL: {url}")
+def fetch(url: str):
+    """ Fetches data from the given URL and returns it as a JSON object """
     try:
         response = requests.get(url, timeout=DEFAULT_TIMEOUT)
         response.raise_for_status()  # Raises HTTPError for bad responses (4xx, 5xx)
-        logger.info(f"Successfully fetched data for plugin: {plugin_name}")
-        return response.json()  # Assuming JSON response
-    except requests.exceptions.HTTPError as e:
-        logger.error(f"HTTP error occurred for plugin `{plugin_name}`: {e}")
-    except requests.exceptions.ConnectionError as e:
-        logger.error(f"Connection error occurred while fetching `{plugin_name}`: {e}")
-    except requests.exceptions.Timeout as e:
-        logger.error(f"Timeout error while fetching `{plugin_name}`: {e}")
-    except requests.exceptions.RequestException as e:
-        logger.error(f"An error occurred while fetching `{plugin_name}`: {e}")
-    return None
-
-def fetch_plugin(url: str):
-    """ Fetches plugin summary from the given URL """
-    logger.info(f"Fetching data from URL: {url}")
-    try:
-        response = requests.get(url, timeout=DEFAULT_TIMEOUT)
-        response.raise_for_status()  # Raises HTTPError for bad responses (4xx, 5xx)
-        logger.info(f"Successfully fetched data.")
+        logger.info(f"Successfully fetched data: {url}")
         return response.json()  # Assuming JSON response
     except requests.exceptions.HTTPError as e:
         logger.error(f"HTTP error occurred: {e}")
     except requests.exceptions.ConnectionError as e:
         logger.error(f"Connection error occurred: {e}")
     except requests.exceptions.Timeout as e:
-        logger.error(f"Timeout error: {e}")
+        logger.error(f"Timeout error occurred: {e}")
     except requests.exceptions.RequestException as e:
         logger.error(f"An error occurred: {e}")
     return None
+
+def fetch_conda(plugin_name: str):
+    """ Fetches Conda info and creates an HTML file for it """
+    url = urljoin(API_CONDA_BASE_URL, plugin_name)
+    logger.info(f"Fetching data for plugin: {plugin_name} from URL: {url}")
+    return fetch(url)
+    
+def fetch_plugin(url: str):
+    """ Fetches plugin summary from the given URL """
+    logger.info(f"Fetching data from URL: {url}")
+    return fetch(url)
     
 def fetch_manifest(plugin_name: str):
     """ Fetches the manifest data for a given plugin """
     url = urljoin(API_MANIFEST_BASE_URL, plugin_name)
     logger.info(f"Fetching data for manifest for: {plugin_name} from URL: {url}")
-    try:
-        response = requests.get(url, timeout=DEFAULT_TIMEOUT)
-        response.raise_for_status()  # Raises HTTPError for bad responses (4xx, 5xx)
-        logger.info(f"Successfully fetched data for plugin: {plugin_name}")
-        return response.json()  # Assuming JSON response
-    except requests.exceptions.HTTPError as e:
-        logger.error(f"HTTP error occurred for plugin `{plugin_name}`: {e}")
-    except requests.exceptions.ConnectionError as e:
-        logger.error(f"Connection error occurred while fetching `{plugin_name}`: {e}")
-    except requests.exceptions.Timeout as e:
-        logger.error(f"Timeout error while fetching `{plugin_name}`: {e}")
-    except requests.exceptions.RequestException as e:
-        logger.error(f"An error occurred while fetching `{plugin_name}`: {e}")
-    return None
+    return fetch(url)
 
 def get_plugin_summary(url: str) -> pd.DataFrame:
     """
