@@ -133,7 +133,7 @@ def build_plugins_dataframe() -> pd.DataFrame:
     pd.DataFrame
         A DataFrame containing the enriched and flattened plugin data. Returns an empty DataFrame if no data is fetched.
     """
-    summary_url = 'https://npe2api.vercel.app/api/summary'
+    summary_url = 'https://npe2api.vercel.app/api/extended_summary'
     plugin_summary = fetch_plugin(summary_url)
 
     if not plugin_summary:
@@ -143,11 +143,11 @@ def build_plugins_dataframe() -> pd.DataFrame:
 
     def process_plugin(plugin):
         plugin_data = plugin.copy()
-        plugin_name = plugin.get('name')
+        plugin_normalized_name = plugin.get('normalized_name')
 
         # Fetch and flatten Conda info and Manifest
-        conda_info = fetch_conda(plugin_name)
-        manifest_info = fetch_manifest(plugin_name)
+        conda_info = fetch_conda(plugin_normalized_name)
+        manifest_info = fetch_manifest(plugin_normalized_name)
 
         if conda_info:
             flatten_and_merge(plugin_data, conda_info)
@@ -186,11 +186,12 @@ if __name__ == "__main__":
 
     # Define columns needed for the plugin html page
     plugin_page_columns = [
+        'normalized_name',
+        'name',
         'display_name',
         'version',
         'created_at',
         'modified_at',
-        'name',
         'author', 
         'package_metadata_author_email',
         'license', 
