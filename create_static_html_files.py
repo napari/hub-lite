@@ -1,30 +1,38 @@
-import sys
 import json
+import logging
 import os
-import pandas as pd
-
+import sys
 from string import Template
 
+import pandas as pd
 from markdown_it import MarkdownIt
 from markdown_it.common.utils import escapeHtml
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.formatters import HtmlFormatter
 
+MISSING_LEXERS = ['angular2', 'bitex', 'commandline', 'math', 'mermaid', '{important}', '{note}', '{warning}']
+
+# Configure logging
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def _highlight_code(code, lang_name, lang_attrs):
     """Highlight a block of code using Pygments.
     This is the signature markdown-it uses to call the highlight function.
     Args:
         code (str): The code to highlight.
-        name (str): The language of the code.
+        lang_name (str): The language of the code.
         lang_attrs (dict): Additional attributes for the code block.
             (ignored here because I don't know how to use them)
     """
     try:
         lexer = get_lexer_by_name(lang_name)
-    except Exception:
-        lang_name and print(f"Lexer for {lang_name} not found, using guess_lexer")
+    except Exception as e:
+        if lang_name in MISSING_LEXERS:
+            logger.warning(f"Lexer {lang_name} is missing. Using guess_lexer: {e}")
+        else:
+            logger.error(f"Unknown error. Using guess_lexer: {e}")
         lexer = guess_lexer(code)
 
     formatter = HtmlFormatter()
@@ -69,8 +77,6 @@ def create_small_html(df_plugins, build_dir):
         display_name = row['display_name'] if row['display_name'] != 'N/A' else 'Unknown'
         name = row['name'] if row['name'] != 'N/A' else 'unknown'
         normalized_name = row['normalized_name'] if row['normalized_name'] != 'N/A' else 'unknown'
-
-        print(display_name, name, normalized_name)
 
         summary = row["summary"]
         authors = [row["author"]]
