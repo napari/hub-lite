@@ -1,8 +1,8 @@
 name: Fetch Data, Build HTML & Deploy
 
 on:
-#  schedule:
-#    - cron: '0 5 * * *' # Runs at 05:00 UTC every day
+  schedule:
+    - cron: '0 5 * * *' # Runs at 05:00 UTC every day
   # You can also trigger this workflow manually
   workflow_dispatch:
 
@@ -14,12 +14,20 @@ jobs:
 
     steps:
     - name: Check out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.9' # Specify the Python version
+        python-version: '3.13'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
 
     - name: Install dependencies
       run: |
@@ -27,8 +35,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Fetch data and build HTML
-      run: |
-        make all
+      run: make all
 
     - name: Deploy build to gh pages
       uses: JamesIves/github-pages-deploy-action@v4
