@@ -78,8 +78,6 @@ def create_small_html(df_plugins, build_dir):
         name = row['name'] if row['name'] != 'N/A' else 'unknown'
         normalized_name = row['normalized_name'] if row['normalized_name'] != 'N/A' else 'unknown'
 
-        logger.info(f'{display_name=} {name=} {normalized_name=}')
-
         summary = row["summary"]
         authors = [row["author"]]
         release_date = row["created_at"]
