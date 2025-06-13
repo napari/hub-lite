@@ -1,0 +1,29 @@
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.11.13
+  hooks:
+    # Run the linter.
+    - id: ruff-check
+    # Run the formatter.
+    - id: ruff-format
+- repo: https://github.com/python-jsonschema/check-jsonschema
+  rev: 0.33.0
+  hooks:
+    - id: check-github-workflows
+      args: ["--verbose"]
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: "v5.0.0"
+  hooks:
+    - id: check-added-large-files
+    - id: check-case-conflict
+    - id: check-merge-conflict
+    - id: check-symlinks
+    - id: check-yaml
+    - id: debug-statements
+    - id: end-of-file-fixer
+    - id: mixed-line-ending
+    - id: name-tests-test
+      args: ["--pytest-test-first"]
+    - id: requirements-txt-fixer
+    - id: trailing-whitespace
+      exclude: .*\.md
