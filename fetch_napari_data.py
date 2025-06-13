@@ -148,7 +148,10 @@ def fetch(url: str):
         logger.info(f"Successfully fetched data: {url}")
         return response.json()  # Assuming JSON response
     except requests.exceptions.HTTPError as e:
-        logger.error(f"HTTP error occurred: {e}")
+        if e.response.status_code == 404:
+            logger.error(f"HTTP error occurred: {e}")
+        elif e.response.status_code == 500:
+            raise
     except requests.exceptions.ConnectionError as e:
         logger.error(f"Connection error occurred: {e}")
     except requests.exceptions.Timeout as e:
@@ -161,8 +164,16 @@ def fetch_conda(plugin_name: str):
     """ Fetches Conda info and creates an HTML file for it """
     url = urljoin(API_CONDA_BASE_URL, plugin_name)
     logger.info(f"Fetching data for plugin: {plugin_name} from URL: {url}")
-    return fetch(url)
-    
+
+    try:
+        response = fetch(url)
+        return response
+    except Exception as e:
+        # Record the 500 error for missing conda-forge package
+        with open("conda_500_errors.log", "w") as log_file:
+            log_file.write(f"{plugin_name}, URL: {url}\n")
+        return None
+
 def fetch_plugin(url: str):
     """ Fetches plugin summary from the given URL """
     logger.info(f"Fetching data from URL: {url}")
