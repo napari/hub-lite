@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import logging
 import os
@@ -8,8 +10,8 @@ import pandas as pd
 from markdown_it import MarkdownIt
 from markdown_it.common.utils import escapeHtml
 from pygments import highlight
-from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.formatters import HtmlFormatter
+from pygments.lexers import get_lexer_by_name, guess_lexer
 
 MISSING_LEXERS = [
     "angular2",
@@ -405,11 +407,11 @@ if __name__ == "__main__":
     create_small_html(df_plugins, build_dir)
 
     # Read the list of available plugins
-    with open(f"{build_dir}/plugins_list.html", "r") as file:
+    with open(f"{build_dir}/plugins_list.html") as file:
         element_html = file.read()
 
     # Read the individual plugin HTML template
-    with open(f"{template_dir}/each_plugin_template.html", "r") as file:
+    with open(f"{template_dir}/each_plugin_template.html") as file:
         template = file.read()
 
     # Apply the function to each row in the DataFrame

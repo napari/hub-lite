@@ -3,16 +3,17 @@
 This script fetches plugin data, flattens nested structures, and saves the cleaned data to CSV files.
 """
 
+from __future__ import annotations
+
 import logging
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
-from typing import Optional
+from typing import list
 from urllib.parse import urljoin
 
-import requests
 import pandas as pd
-
+import requests
 
 API_SUMMARY_URL = "https://npe2api.vercel.app/api/extended_summary"
 API_CONDA_MAP_URL = "https://npe2api.vercel.app/api/conda"
@@ -57,7 +58,7 @@ DEFAULT_TIMEOUT = 10  # Timeout for requests in seconds
 
 
 # --- Helper Functions ---
-def extract_author_names(email: Optional[str]) -> str:
+def extract_author_names(email: str | list[str]) -> str:
     """
     Extract and clean author names from an email field.
 
@@ -199,7 +200,7 @@ def get_plugin_summary(url: str) -> pd.DataFrame:
     """
     plugin_summary = fetch_plugin(url)
 
-    return pd.DataFrame() if not plugin_summary else plugin_summary
+    return plugin_summary if plugin_summary else pd.DataFrame()
 
 
 # --- Main Data Processing Function ---
@@ -312,12 +313,11 @@ if __name__ == "__main__":
 
         if pd.isna(row["license"]):
             pass
-        else:
-            # Check for specific license strings to shorten the license information
-            if "BSD 3-Clause" in str(row["license"]):
-                df_plugins.at[index, "license"] = "BSD 3-Clause"
-            elif "MIT License" in str(row["license"]):
-                df_plugins.at[index, "license"] = "MIT"
+        # Check for specific license strings to shorten the license information
+        elif "BSD 3-Clause" in str(row["license"]):
+            df_plugins.at[index, "license"] = "BSD 3-Clause"
+        elif "MIT License" in str(row["license"]):
+            df_plugins.at[index, "license"] = "MIT"
 
         # Fill home_pypi
         if not row["home_pypi"]:
