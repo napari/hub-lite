@@ -14,6 +14,7 @@ import pandas as pd
 
 
 API_SUMMARY_URL = 'https://npe2api.vercel.app/api/extended_summary'
+API_CONDA_MAP_URL = 'https://npe2api.vercel.app/api/conda'
 API_CONDA_BASE_URL = 'https://npe2api.vercel.app/api/conda/'
 API_MANIFEST_BASE_URL = 'https://npe2api.vercel.app/api/manifest/'
 
@@ -207,6 +208,7 @@ def build_plugins_dataframe() -> pd.DataFrame:
         A DataFrame containing the enriched and flattened plugin data. Returns an empty DataFrame if no data is fetched.
     """
     summary_df = get_plugin_summary(API_SUMMARY_URL)
+    conda_name_map = fetch(API_CONDA_MAP_URL)
 
     all_plugin_data = []
 
@@ -215,7 +217,7 @@ def build_plugins_dataframe() -> pd.DataFrame:
         plugin_normalized_name = plugin.get('normalized_name')
 
         # Fetch and flatten Conda info and Manifest
-        conda_info = fetch_conda(plugin_normalized_name)
+        conda_info = fetch_conda(plugin_normalized_name) if conda_name_map[plugin_normalized_name] is not None else {}
         manifest_info = fetch_manifest(plugin_normalized_name)
 
         if conda_info:
