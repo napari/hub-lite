@@ -9,7 +9,6 @@ import logging
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
-from typing import list
 from urllib.parse import urljoin
 
 import pandas as pd
