@@ -1,5 +1,8 @@
 # Napari Hub Lite
 
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/napari/hub-lite/main.svg)](https://results.pre-commit.ci/latest/github/napari/hub-lite/main)
+
+
 ### Author: Yunha Lee
 
 ### Disclaimer
