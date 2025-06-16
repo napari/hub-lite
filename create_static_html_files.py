@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import json
 import logging
 import os
@@ -165,7 +166,11 @@ def generate_open_extensions_html(row):
     if not pd.isna(row.get("contributions_readers_0_filename_patterns")) and row.get(
         "contributions_readers_0_filename_patterns"
     ):
-        filename_patterns = eval(row.get("contributions_readers_0_filename_patterns"))
+        # We use ast.literal_eval to safely evaluate the string representation
+        # of the list; this is safer than using eval.
+        filename_patterns = ast.literal_eval(
+            row.get("contributions_readers_0_filename_patterns")
+        )
 
         if filename_patterns:
             open_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
@@ -182,10 +187,14 @@ def generate_save_extensions_html(row):
     # Gather file extensions from both columns
     file_extensions = []
     if not pd.isna(row.get("contributions_writers_0_filename_extensions")):
-        file_extensions += eval(row.get("contributions_writers_0_filename_extensions"))
+        file_extensions += ast.literal_eval(
+            row.get("contributions_writers_0_filename_extensions")
+        )
 
     if not pd.isna(row.get("contributions_writers_1_filename_extensions")):
-        file_extensions += eval(row.get("contributions_writers_1_filename_extensions"))
+        file_extensions += ast.literal_eval(
+            row.get("contributions_writers_1_filename_extensions")
+        )
 
     if file_extensions:
         save_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
@@ -202,7 +211,7 @@ def generate_requirements_html(row):
     if not pd.isna(row.get("package_metadata_requires_dist")) and row.get(
         "package_metadata_requires_dist"
     ):
-        requirements = eval(row.get("package_metadata_requires_dist"))
+        requirements = ast.literal_eval(row.get("package_metadata_requires_dist"))
 
         if requirements:
             requirements_html = (
