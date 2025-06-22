@@ -17,6 +17,7 @@ import requests
 API_SUMMARY_URL = "https://npe2api.vercel.app/api/extended_summary"
 API_CONDA_MAP_URL = "https://npe2api.vercel.app/api/conda"
 API_CONDA_BASE_URL = "https://npe2api.vercel.app/api/conda/"
+API_PYPI_BASE_URL = "https://npe2api.vercel.app/api/pypi/"
 API_MANIFEST_BASE_URL = "https://npe2api.vercel.app/api/manifest/"
 
 # Define columns needed for the plugin html page
@@ -202,6 +203,25 @@ def get_plugin_summary(url: str) -> pd.DataFrame:
     return plugin_summary if plugin_summary else pd.DataFrame()
 
 
+def get_version_release_date(pypi_info: dict, release: str) -> str:
+    """
+    Extracts the release date of the given version from the PyPI plugin information.
+
+    Args:
+        pypi_info (dict): The plugin information fetched from PyPI.
+        release (str): Release version to look for.
+
+    Returns:
+        str: The release date of given version, or an empty string if not found.
+    """
+    release_info = pypi_info.get("releases", {}).get(release, {})
+    if release_info:
+        # we don't mind which release artifact we look at, as we only want the date
+        release_datetime = release_info[0].get("upload_time")
+        return release_datetime
+    return ""
+
+
 # --- Main Data Processing Function ---
 def build_plugins_dataframe() -> pd.DataFrame:
     """
@@ -235,9 +255,35 @@ def build_plugins_dataframe() -> pd.DataFrame:
             else {}
         )
         manifest_info = fetch_manifest(plugin_normalized_name)
+        # need pypi info to get the initial and latest release date
+        pypi_info = fetch(urljoin(API_PYPI_BASE_URL, plugin_normalized_name))
 
         if conda_info:
-            flatten_and_merge(plugin_data, conda_info)
+            # we only want a limited set of conda info
+            conda_info = {
+                "conda_name": conda_info["name"],
+                "conda_html_url": conda_info["html_url"],
+                # TODO: this should come from project_url not conda info
+                "home": conda_info["home"],
+            }
+            plugin_data.update(conda_info)
+
+        if pypi_info:
+            # releases are sorted in descending order
+            plugin_first_release = plugin_data["pypi_versions"][-1]
+            plugin_latest_release = plugin_data["pypi_versions"][0]
+            initial_release_date = get_version_release_date(
+                pypi_info, plugin_first_release
+            )
+            last_updated_date = get_version_release_date(
+                pypi_info, plugin_latest_release
+            )
+            plugin_data.update(
+                {
+                    "created_at": initial_release_date,
+                    "modified_at": last_updated_date,
+                }
+            )
 
         if manifest_info:
             flatten_and_merge(plugin_data, manifest_info)
