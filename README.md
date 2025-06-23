@@ -3,52 +3,47 @@
 [![Fetch Data, Build HTML & Deploy](https://github.com/napari/hub-lite/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/napari/hub-lite/actions/workflows/build_and_deploy.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/napari/hub-lite/main.svg)](https://results.pre-commit.ci/latest/github/napari/hub-lite/main)
 
-### Author: Yunha Lee
+This implementation of the napari hub is developed and managed by the napari team. It is based on an original implementation by Yunha Lee.
 
-### Disclaimer
-This is an experiment to see how much of napari-hub functionality can be achieved in a github page. 
-
-### Introduction
-Napari Hub Lite seeks to demonstrate how much of the dynamic content and user experience of the original napari hub can be emulated in a github page. This project is particularly focused on the use of napari plugin data to create a simplified, yet functional, representation of the napari hub's capabilities. 
+The website is deployed daily using GitHub pages and contains plugin information served by [npe2api](https://github.com/napari/npe2api). This GitHub repository contains the Python scripts, javascript, HTML
+templates and CSS templates required to build the web pages.
 
 ![](./static/images/napari_hub_lite_snapshot.png)
 
-### Prerequisites
-Before proceeding with the setup and usage of Napari Hub Lite, ensure you have the following prerequisites installed:
+The `fetch_napari_data.py` script queries [npe2api](https://github.com/napari/npe2api) for plugin information including PyPI/conda info and individual plugin manifests.
+
+The `create_static_html_files.py` script uses this data to generate HTML files for each individual plugin page as well as for the plugin listing on the website's homepage.
+
+The `entire_text_search.js` file filters the plugin list to plugins matching the query in the search box. 
+
+The `build_and_deploy.yml` workflow builds the website using the above scripts and deploys it to GitHub pages.
+
+## Local Development
+
+Ensure you have the following prerequisites installed:
+
 - Python 3.x
-- Flask (for running the search functionality)
 - Other dependencies listed in `requirements.txt`
 
-### Getting Started
+### Building the Website
 
-1. **Fetch Napari Plugin Data**  
-   The napari plugin data is sourced from the following API endpoint: [https://npe2api.vercel.app/api/](https://npe2api.vercel.app/api/). To fetch, clean, and preprocess this data, execute the command:
-   ```
-   python fetch_napari_data.py
-   ```
+To build the website locally use:
 
-2. **Create static htmls**  
-This will create static_index.html and individual plugins htmls under the plugins folder:
-```
-python create_static_html_files.py
-```
-Note that github pages uses index.html and html files under the plugins folder.  
+```sh
+# this deletes the `_build` directory and everything inside it
+make clean
 
-Alternatively, if you want to run a local server using python flask:
-First, you need to uncomment out the last blocks in create_static_html_files.py to generate /static/plugins/ directory. 
-Then, do this: 
-```
-python search_results.py
+# this runs the required Python scripts and populates the `_build` directory
+make all
 ```
 
+### Serving the Website Locally
 
-### Implementation Details
-To ensure the visual and functional fidelity of the site with respect to the original napari hub, I have used their CSS and HTML codes to the maximum extent possible. This approach allows me to closely mimic the user experience and interface design of the original platform.
+To serve the website locally in your browser use:
+
+```sh
+make serve-local
+```
 
 ### Acknowledgments
-This project makes extensive use of the design and html code resources from the original napari hub, which should be credited to the creators and maintainers of the original napari hub. 
-
-
----
-
-This project is an exploratory initiative and is not officially associated with the napari hub. 
+This project makes extensive use of the design and html resources from the original [napari hub](https://github.com/chanzuckerberg/napari-hub/). All resources are used with permission. 
