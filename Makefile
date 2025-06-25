@@ -13,7 +13,7 @@ define check-venv
 			echo "Please activate a virtual environment first (venv or conda)."; \
 			exit 1; \
 		else \
-			echo "Virtual environment is activated...hopefully it's the right one!"; \
+			echo "Virtual environment is activated."; \
 		fi \
 	else \
 		echo "Running in GitHub Actions — skipping virtual environment check."; \
