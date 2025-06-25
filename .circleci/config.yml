@@ -7,7 +7,7 @@ executors:
     working_directory: ~/project
 
 jobs:
-  build:
+  build-site:
     executor: python-executor
     steps:
       - checkout
@@ -73,7 +73,7 @@ workflows:
   # Workflow for pull requests - builds with artifacts
   pr-build:
     jobs:
-      - build:
+      - build-site:
           filters:
             branches:
               ignore: main
