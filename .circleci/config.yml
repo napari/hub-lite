@@ -1,0 +1,87 @@
+version: 2.1
+
+executors:
+  python-executor:
+    docker:
+      - image: cimg/python:3.11
+    working_directory: ~/project
+
+jobs:
+  build-site:
+    executor: python-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: |
+            python -m venv .venv
+            . .venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+      - save_cache:
+          paths:
+            - .venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Build static site
+          command: |
+            . .venv/bin/activate
+            make all
+      - store_artifacts:
+          path: _build
+          destination: build-artifacts
+
+      # Optionally persist for deployment jobs
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - _build
+
+  # Job for basic build (for regular commits to msin)
+  build-basic:
+    executor: python-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: |
+            python -m venv .venv
+            . .venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+      - save_cache:
+          paths:
+            - .venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Build static site
+          command: |
+            . .venv/bin/activate
+            make all
+
+workflows:
+  version: 2
+
+  # Workflow for pull requests - builds with artifacts
+  pr-build:
+    jobs:
+      - build-site:
+          filters:
+            branches:
+              ignore: main
+
+  # Workflow for main branch - basic build only
+  main-build:
+    jobs:
+      - build-basic:
+          filters:
+            branches:
+              only: main
