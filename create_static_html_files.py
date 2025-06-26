@@ -313,7 +313,7 @@ def generate_home_html(plugin_name, home_pypi, home_github, home_other):
     html_content = f'''
    <div class="flex items-center" style="gap: 10px; ; align-items: center;"">
         <a class="underline flex" href="{home_pypi}" rel="noreferrer" target="_blank">
-        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span>{plugin_name}</span>
+        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{plugin_name}</span>
     </a>
     '''
 
@@ -325,7 +325,7 @@ def generate_home_html(plugin_name, home_pypi, home_github, home_other):
             github_user_repo = "/".join([user, repo])
         html_content += f'''
         <a class="underline flex" href="{home_github}" rel="noreferrer" target="_blank">
-            <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" /><span>{github_user_repo}</span>
+            <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{github_user_repo}</span>
         </a>
         '''
 
