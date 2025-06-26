@@ -4,6 +4,7 @@ import ast
 import json
 import logging
 import os
+import re
 import sys
 from string import Template
 
@@ -299,20 +300,32 @@ def get_os_html(classifiers):
     return default_os_html
 
 
-def generate_home_html(home_pypi, home_github, home_other):
+def extract_github_info(url):
+    match = re.search(r"github\.com/([^/]+)/([^/]+)", url)
+    if match:
+        user, repo = match.group(1), match.group(2).rstrip(".git")
+        return user, repo
+    return None, None
+
+
+def generate_home_html(plugin_name, home_pypi, home_github, home_other):
     # Start with the PyPI link, which is always present
     html_content = f'''
-   <div class="flex items-center" style="gap: 10px; ; align-items: center;"">
-        <a href="{home_pypi}" rel="noreferrer" target="_blank">
-        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" />
+   <div class="flex items-center" style="gap: 20px; ; align-items: center;"">
+        <a class="underline flex" href="{home_pypi}" rel="noreferrer" target="_blank">
+        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{plugin_name}</span>
     </a>
     '''
 
     # Conditionally add the GitHub link
     if home_github and str(home_github).lower() not in ["n/a", "none", "nan", ""]:
+        github_user_repo = ""
+        user, repo = extract_github_info(home_github)
+        if user is not None and repo is not None:
+            github_user_repo = "/".join([user, repo])
         html_content += f'''
-        <a href="{home_github}" rel="noreferrer" target="_blank">
-            <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" />
+        <a class="underline flex" href="{home_github}" rel="noreferrer" target="_blank">
+            <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{github_user_repo}</span>
         </a>
         '''
 
@@ -358,7 +371,7 @@ def generate_plugin_html(row, template, plugin_dir):
     requirements_html = generate_requirements_html(row)
     python_versions_html = generate_python_versions_html(row)
     home_html = generate_home_html(
-        row["home_pypi"], row["home_github"], row["home_other"]
+        row["name"], row["home_pypi"], row["home_github"], row["home_other"]
     )
 
     # Replace NaN with 'Not available' and ensure all data are strings, except Markdown field
