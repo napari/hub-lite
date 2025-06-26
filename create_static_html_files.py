@@ -311,7 +311,7 @@ def extract_github_info(url):
 def generate_home_html(plugin_name, home_pypi, home_github, home_other):
     # Start with the PyPI link, which is always present
     html_content = f'''
-   <div class="flex items-center" style="gap: 10px; ; align-items: center;"">
+   <div class="flex items-center" style="gap: 20px; ; align-items: center;"">
         <a class="underline flex" href="{home_pypi}" rel="noreferrer" target="_blank">
         <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{plugin_name}</span>
     </a>
