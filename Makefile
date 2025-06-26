@@ -34,7 +34,7 @@ $(BUILDDIR):
 	cp -r ./templates $(BUILDDIR)/templates
 	cp -r ./static/images $(BUILDDIR)/static/images
 	cp -r ./static/css $(BUILDDIR)/static/css
-	cp ./entire_text_search.js $(BUILDDIR)/entire_text_search.js
+	cp -r ./static/js $(BUILDDIR)/static/js
 	cp ./index.html $(BUILDDIR)/index.html
 
 fetch-data: $(FETCH_DATA_COMPLETE)
