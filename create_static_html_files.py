@@ -16,7 +16,6 @@ from pygments.formatters import HtmlFormatter
 from pygments.lexers import (
     PythonLexer,
     get_lexer_by_name,
-    guess_lexer,
 )
 
 FALLBACK_LEXER = PythonLexer()
@@ -58,8 +57,8 @@ def _highlight_code(code, lang_name, lang_attrs):
     except Exception as e:
         # Captures the case that someone introduces a lexer name
         # not available in Pygments or in our list of missing lexers
-        logger.error(f"Unknown error. Using guess_lexer: {e}")
-        lexer = guess_lexer(code)
+        logger.error(f"Unknown error. Using fallback lexer: {e}")
+        lexer = FALLBACK_LEXER
 
     formatter = HtmlFormatter()
     return highlight(code, lexer, formatter)
