@@ -15,42 +15,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="./static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="./static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
-    <link href="./static/css/all_plugins_styles.css" rel="stylesheet" type="./css" />
+    <!-- Refactored style without Tailwind (WIP) -->
+    <link href="./static/css/styles/main.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
     <div class="flex flex-col min-h-screen">
-        <div class="flex items-center justify-center w-full p-4 bg-hub-primary-200 text-center">
-            <div class="Markdown_markdown__QZ95j">
-                <p>Welcome to the new, community-maintained version of the napari hub! If you notice any errors with your plugin's information, please open an issue on the
-                    <a href="https://github.com/napari/hub-lite" rel="noreferrer" target="_blank">GitHub repo</a>.</p>
-            </div>
-        </div>
-        <div class="screen-600:hidden"></div>
+        <section aria-label="Announcement" class="announcement-section">
+            <p class="announcement-text">
+            Welcome to the new, community-maintained version of the napari hub!
+            If you notice any errors with your plugin's information, please
+            <a href="https://github.com/napari/hub-lite" rel="noreferrer" target="_blank" class="announcement-link">
+                open an issue on the GitHub repo
+            </a>.
+            </p>
+        </section>
         <header
             class="bg-hub-primary-400 p-sds-xl screen-495:p-12 grid justify-center gap-x-sds-xl screen-495:gap-x-12 grid-cols-2 screen-875:grid-cols-napari-3 screen-1150:grid-cols-napari-3 screen-1425:grid-cols-napari-5">
-            <div class="hidden screen-1425:block">
-                <nav class="flex flex-col"><a class="whitespace-nowrap" data-testid="appBarHome"
-                        href="./index.html">napari
-                        <strong>hub</strong></a>
-                    <div class="flex flex-col"><a class="mt-sds-l" href="./index.html">Plugins</a></div>
-                </nav>
-            </div>
-            <div class="screen-1425:hidden">
-                <nav class="mb-6 flex"><a class="whitespace-nowrap" data-testid="appBarHome" href="./index.html">napari
-                        <strong>hub</strong></a>
-                    <div class="flex"><a class="ml-sds-xl" href="./index.html">Plugins</a></div>
-                </nav>
-            </div>
+            <nav class="col-span-2 flex items-center justify-between mb-6 screen-1425:col-span-1 screen-1425:mb-0">
+                <a class="whitespace-nowrap font-bold text-lg flex items-center" data-testid="appBarHome" href="./index.html">
+                    napari <strong class="ml-1">hub</strong>
+                </a>
+                <div class="flex gap-sds-xl">
+                    <a class="font-semibold" href="./index.html">Plugins</a>
+                </div>
+            </nav>
             <h1
-                class="font-bold col-span-full mb-6 screen-495:mb-12 screen-1425:col-start-2 screen-1425:col-span-3 AppBarLanding_heading__ozOI5">
-                Discover, install, and share napari plugins</h1>
+                class="font-bold col-span-full mb-6 screen-495:mb-12 screen-1425:col-start-2 screen-1425:col-span-3 AppBarLanding_heading__ozOI5 text-2xl screen-495:text-4xl">
+                Discover, install, and share napari plugins
+            </h1>
             <div
                 class="grid grid-cols-[min-content,1fr] gap-sds-xl screen-655:gap-12 col-span-2 screen-875:col-span-3 screen-1425:col-start-2 items-center">
-                <svg aria-hidden="true" class="AppBarLanding_logo__S9wtg" fill="none" height="198" viewbox="0 0 226 198"
+                <svg aria-hidden="true" class="AppBarLanding_logo__S9wtg" fill="none" height="198" viewBox="0 0 226 198"
                     width="226" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="126.469" cy="98.7158" fill="white" r="45.6721" stroke="#D2EFFF" stroke-width="4.80759">
-                    </circle>
+                    <circle cx="126.469" cy="98.7158" fill="white" r="45.6721" stroke="#D2EFFF" stroke-width="4.80759"></circle>
                     <path clip-rule="evenodd"
                         d="M130.13 83C130.916 82.1168 131.393 80.9531 131.393 79.6779C131.393 76.9164 129.154 74.6779 126.393 74.6779C123.631 74.6779 121.393 76.9164 121.393 79.6779C121.393 80.9531 121.87 82.1168 122.656 83H110.393V95.0565C109.545 94.3945 108.478 94 107.319 94C104.557 94 102.319 96.2386 102.319 99C102.319 101.761 104.557 104 107.319 104C108.478 104 109.545 103.606 110.393 102.944V115.051H122.402C121.769 114.213 121.393 113.169 121.393 112.038C121.393 109.277 123.631 107.038 126.393 107.038C129.154 107.038 131.393 109.277 131.393 112.038C131.393 113.169 131.017 114.213 130.384 115.051H142.443V102.991C141.606 103.624 140.562 104 139.431 104C136.669 104 134.431 101.761 134.431 99C134.431 96.2386 136.669 94 139.431 94C140.562 94 141.606 94.3757 142.443 95.0092V83H130.13Z"
                         fill="black" fill-rule="evenodd"></path>
@@ -65,27 +63,23 @@
                     <path d="M126.393 50.6399L126.393 26.602" stroke="#D2EFFF" stroke-width="2"></path>
                     <path d="M126.393 170.83L126.393 146.792" stroke="#D2EFFF" stroke-width="2"></path>
                     <path d="M167.702 123.074L188.519 135.093" stroke="#D2EFFF" stroke-width="2"></path>
-                    <circle cx="209.418" cy="50.6399" fill="white" r="13.5253" stroke="#D2EFFF" stroke-width="5">
-                    </circle>
+                    <circle cx="209.418" cy="50.6399" fill="white" r="13.5253" stroke="#D2EFFF" stroke-width="5"></circle>
                     <circle cx="209.393" cy="50.8323" fill="black" r="5"></circle>
                     <path clip-rule="evenodd"
                         d="M219.968 62.6589C217.143 65.1523 213.432 66.6652 209.368 66.6652C205.303 66.6652 201.593 65.1523 198.768 62.6589C201.593 60.1655 205.303 58.6526 209.368 58.6526C213.432 58.6526 217.143 60.1655 219.968 62.6589Z"
                         fill="black" fill-rule="evenodd"></path>
-                    <circle cx="209.418" cy="146.792" fill="white" r="13.5253" stroke="#D2EFFF" stroke-width="5">
-                    </circle>
+                    <circle cx="209.418" cy="146.792" fill="white" r="13.5253" stroke="#D2EFFF" stroke-width="5"></circle>
                     <circle cx="209.393" cy="146.984" fill="black" r="5"></circle>
                     <path clip-rule="evenodd"
                         d="M219.968 158.811C217.143 161.304 213.432 162.817 209.368 162.817C205.303 162.817 201.593 161.304 198.768 158.811C201.593 156.317 205.303 154.804 209.368 154.804C213.432 154.804 217.143 156.317 219.968 158.811Z"
                         fill="black" fill-rule="evenodd"></path>
-                    <circle cx="43.0251" cy="50.6399" fill="white" r="13.5253" stroke="#D2EFFF" stroke-width="5">
-                    </circle>
+                    <circle cx="43.0251" cy="50.6399" fill="white" r="13.5253" stroke="#D2EFFF" stroke-width="5"></circle>
                     <path d="M115.393 168.7L126.724 180.032L138.056 168.7" stroke="#D2EFFF" stroke-width="5"></path>
                 </svg>
                 <ul class="list-disc font-semibold space-y-sds-l AppBarLanding_list__1ICnl ml-sds-xl">
                     <li>Discover plugins that solve your image analysis challenges</li>
                     <li>Learn how to install into napari</li>
-                    <li class="hidden screen-725:block">Share your image analysis tools with napari’s growing
-                        community</li>
+                    <li class="hidden screen-725:block">Share your image analysis tools with napari’s growing community</li>
                 </ul>
             </div>
             <div class="col-span-2 screen-725:hidden">
@@ -95,25 +89,25 @@
             </div>
         </header>
         <main class="flex flex-col flex-grow">
-            <div class="flex flex-col">
+            <section class="flex flex-col"></section>
                 <div
                     class="bg-hub-primary-200 p-6 screen-495:p-12 gap-x-sds-xl screen-495:gap-x-12 grid justify-center grid-cols-2 screen-875:grid-cols-napari-3 screen-1150:grid-cols-napari-5">
                     <div
                         class="col-span-2 screen-875:col-span-3 screen-875:col-start-1 screen-1150:col-start-2 screen-1150:col-span-3">
                         <div class="flex items-end mb-6 justify-between screen-495:justify-start screen-495:gap-3">
                             <h2
-                                class="font-semibold text-[24px] leading-[36px] screen-495:text-[35px] screen-495:leading-[43.8px]">
-                                Plugins</h2>
+                                class="font-semibold text-2xl leading-9 screen-495:text-[2.2rem] screen-495:leading-[2.7rem]">
+                                Plugins
+                            </h2>
                         </div>
-                        <div class="flex flex-auto items-center border-b-2 border-black text-xl"
-                            data-testid="searchBarForm">
+                        <form class="flex flex-auto items-center border-b-2 border-black text-xl"
+                            data-testid="searchBarForm" onsubmit="event.preventDefault(); searchFunction();">
                             <input type="text" id="searchBox" name="query"
                                 class="flex flex-auto border-none outline-none bg-transparent placeholder-gray-500 text-sds-body-s screen-495:text-sds-body-m w-0"
-                                placeholder="Search for a plugin by keyword or author" oninput="searchFunction()">
-                            <!-- Adjusted button to not be disabled and removed unnecessary attributes for client-side handling -->
+                                placeholder="Search for a plugin by keyword or author" autocomplete="off" aria-label="Search plugins" oninput="searchFunction()">
                             <button aria-label="Submit search query"
                                 class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge p-3 css-1uhezh1"
-                                data-testid="submitQueryButton" type="button" onclick="searchFunction()">
+                                data-testid="submitQueryButton" type="submit">
                                 <svg class="h-5 w-5 h-[1.375rem] w-[1.375rem]" fill="none" height="16"
                                     viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -121,55 +115,58 @@
                                         stroke="black" stroke-width="2"></path>
                                 </svg>
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
-
                 <div
                     class="p-sds-xl screen-495:p-12 grid justify-center gap-x-sds-xl screen-495:gap-x-12 grid-cols-2 screen-875:grid-cols-napari-3 screen-1150:grid-cols-napari-3 screen-1425:grid-cols-napari-5">
                     <div
                         class="w-full col-span-2 row-start-1 screen-875:col-span-3 screen-1150:col-start-1 screen-1425:col-start-2">
                         <section class="col-span-2 screen-1425:col-span-3 space-y-sds-xl">
-                            <div class="flex justify-between">
-                                <h2 class="flex items-center font-bold text-xl">Browse plugins:
-                                    <span id="pluginCount"><!-- insert number here --></span>
+                            <div class="flex justify-between items-center">
+                                <h2 class="flex items-center font-bold text-xl">
+                                    Browse plugins:
+                                    <span id="pluginCount" class="ml-2 text-base font-normal text-gray-700"><!-- insert number here --></span>
                                 </h2>
+                                <button id="resetSearchBtn" class="hidden ml-4 px-3 py-1 bg-hub-primary-200 border border-gray-300 rounded text-sm font-medium hover:bg-hub-primary-100 transition" onclick="resetSearch()">Reset</button>
                             </div>
                             <div class="grid justify-center gap-x-sds-xl screen-495:gap-x-12 grid-cols-2"
                                 id="pluginContainer">
-                                <!-- insert plugins_list.html will be managed by JavaScript -->
+                                <!-- Plugins will be rendered here by JavaScript -->
                             </div>
                         </section>
                     </div>
                 </div>
-            </div>
+            </section>
         </main>
-        <div
+        <footer
             class="grid grid-cols-2 screen-655:grid-cols-[1fr,min-content] screen-1150:grid-cols-[1fr,max-content,min-content] gap-sds-l bg-hub-primary-400 p-sds-xl screen-495:px-12">
             <div
                 class="w-full flex-1 flex flex-row items-center justify-start mb-6 screen-655:mb-0 screen-655:mr-12 flex-wrap col-span-2 gap-y-2">
                 <a class="whitespace-nowrap font-semibold text-sds-body-s flex flex-row items-center mr-sds-xl last:mr-0"
-                    href="https://github.com/napari/hub-lite" rel="noreferrer" target="_blank"><svg
-                        class="inline-block mr-0.5 h-3 w-3" fill="none" height="14" viewbox="0 0 14 14" width="14"
+                    href="https://github.com/napari/hub-lite" rel="noreferrer" target="_blank" aria-label="GitHub repository">
+                    <svg class="inline-block mr-0.5 h-3 w-3" fill="none" height="14" viewBox="0 0 14 14" width="14"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M7 0.173252C3.1325 0.173252 0 3.3075 0 7.17325C0 10.2667 2.0055 12.8899 4.78625 13.8145C5.13625 13.8804 5.26458 13.664 5.26458 13.4779C5.26458 13.3117 5.25875 12.8713 5.25583 12.2879C3.30867 12.7103 2.898 11.3488 2.898 11.3488C2.5795 10.5408 2.11925 10.325 2.11925 10.325C1.48517 9.891 2.16825 9.89975 2.16825 9.89975C2.87117 9.94875 3.24042 10.6208 3.24042 10.6208C3.86458 11.6912 4.879 11.382 5.27917 11.2029C5.34217 10.7503 5.52242 10.4417 5.7225 10.2667C4.16792 10.0917 2.534 9.48967 2.534 6.8075C2.534 6.04334 2.80525 5.41917 3.25442 4.92917C3.17567 4.75242 2.93942 4.04075 3.31567 3.0765C3.31567 3.0765 3.90192 2.88867 5.24067 3.794C5.80067 3.63825 6.39567 3.56125 6.99067 3.55775C7.58567 3.56125 8.18067 3.63825 8.74067 3.794C10.0707 2.88867 10.6569 3.0765 10.6569 3.0765C11.0332 4.04075 10.7969 4.75242 10.7269 4.92917C11.1732 5.41917 11.4444 6.04334 11.4444 6.8075C11.4444 9.49667 9.80817 10.0888 8.25067 10.2608C8.49567 10.4708 8.72317 10.9002 8.72317 11.5558C8.72317 12.4927 8.71442 13.2452 8.71442 13.4727C8.71442 13.6564 8.83692 13.8752 9.19567 13.8052C11.9962 12.887 14 10.262 14 7.17325C14 3.3075 10.8657 0.173252 7 0.173252Z"
                             fill="black"></path>
-                    </svg>GitHub repo</a>
+                    </svg>
+                    GitHub repo
+                </a>
             </div>
             <div
-                class="flex flex-row justify-end row-start-3 col-start-2 screen-655:row-start-2 screen-655:col-start-2 screen-1150:row-start-1 screen-1150:col-start-3">
+                class="flex flex-row justify-end row-start-3 col-start-2 screen-655:row-start-2 screen-655:col-start-2 screen-1150:row-start-1 screen-1150:col-start-3 items-center gap-x-2">
                 <span
-                class="text-sds-body-xxs row-start-2 col-span-2 justify-self-end self-center screen-655:col-span-1 screen-655:whitespace-nowrap screen-1150:row-start-1 screen-1150:col-start-2">
-                Website by the
-                <a class="underline" href= "https://napari.org/stable/community/team.html">napari team</a>,
-                original design by
-                <a class="underline" href="https://chanzuckerberg.com" rel="noreferrer" target="_blank">CZI</a>.
+                    class="text-sds-body-xxs row-start-2 col-span-2 justify-self-end self-center screen-655:col-span-1 screen-655:whitespace-nowrap screen-1150:row-start-1 screen-1150:col-start-2">
+                    Website by the
+                    <a class="underline" href="https://napari.org/stable/community/team.html" target="_blank" rel="noreferrer">napari team</a>,
+                    original design by
+                    <a class="underline" href="https://chanzuckerberg.com" rel="noreferrer" target="_blank">CZI</a>.
                 </span>
-                <a class="mr-sds-s" href="https://napari.org" rel="noreferrer" target="_blank"><svg
-                        class="w-[1.625rem] h-[1.625rem] screen-495:w-[2.375rem] screen-495:h-[2.375rem]" fill="none"
-                        style="margin-left: 3px;"
-                        height="30" viewbox="0 0 30 30" width="30" xmlns="http://www.w3.org/2000/svg">
+                <a class="mr-sds-s" href="https://napari.org" rel="noreferrer" target="_blank" aria-label="Go to napari main website">
+                    <svg class="w-[1.625rem] h-[1.625rem] screen-495:w-[2.375rem] screen-495:h-[2.375rem]" fill="none"
+                        style="margin-left: 3px;" height="30" viewBox="0 0 30 30" width="30"
+                        xmlns="http://www.w3.org/2000/svg">
                         <title>Go to napari main website.</title>
                         <path
                             d="M27.8387 0H2.16127C0.967636 0 0 0.967636 0 2.16127V27.8387C0 29.0324 0.967636 30 2.16127 30H27.8387C29.0324 30 30 29.0324 30 27.8387V2.16127C30 0.967636 29.0324 0 27.8387 0Z"
@@ -187,8 +184,8 @@
                             d="M9.21149 4.83535C10.0328 4.53405 10.8513 4.74409 11.0946 4.80783C11.6453 4.93454 12.1384 5.24019 12.4969 5.67697C12.8199 6.07533 13.0212 6.69098 13.2211 7.95558C13.3124 8.5437 13.295 8.56978 13.366 9.07823C13.5529 10.3472 13.6644 11.1062 14.0077 11.816C14.548 12.9314 15.4563 13.521 15.9329 13.8267C17.2366 14.6726 18.5403 14.7885 19.2646 14.8537C19.9624 14.9053 20.663 14.9053 21.3607 14.8537C22.4718 14.7711 22.9121 14.6045 23.6712 14.8117C24.0058 14.9015 24.549 15.0579 24.9546 15.536C25.2443 15.8851 25.337 16.2603 25.5109 17.0324C25.625 17.5246 25.6967 18.0257 25.7253 18.5302C25.7571 19.169 25.7904 19.86 25.5543 20.6697C25.3157 21.4363 24.906 22.1387 24.3563 22.7238C23.7531 23.3969 23.027 23.9485 22.2168 24.3491C21.736 24.5834 21.2327 24.7683 20.7146 24.901C19.9602 25.1106 19.1857 25.2397 18.4042 25.2863C17.7992 25.3373 17.1911 25.3373 16.5862 25.2863C16.2975 25.2698 16.0109 25.2267 15.7301 25.1574C15.1926 24.9997 14.6912 24.7384 14.254 24.3882C13.5654 23.8599 12.9908 23.1976 12.5649 22.4413C12.4201 22.1806 12.1811 21.5476 11.7088 20.2801C11.2916 19.1603 11.2323 18.943 10.9845 18.3969C10.7451 17.8345 10.451 17.297 10.1067 16.7919C9.68854 16.2019 9.20233 15.6632 8.65814 15.1869C8.19314 14.7639 8.16417 14.8044 7.35442 14.0961C6.64751 13.4761 6.43168 13.2342 6.25205 13.0053C5.96697 12.6629 5.73947 12.2764 5.57846 11.8609C5.45202 11.5217 5.37825 11.1651 5.35973 10.8035C5.35202 10.4734 5.39004 10.1439 5.47272 9.82425C5.62675 9.05475 5.88556 8.31001 6.24191 7.61082C6.46342 7.13752 6.75173 6.69847 7.09802 6.3071C7.32105 6.06667 7.56328 5.84479 7.82231 5.64366C8.03967 5.47474 8.26863 5.3213 8.50748 5.18446C8.73275 5.05002 8.96813 4.93329 9.21149 4.83535V4.83535Z"
                             fill="url(#paint1_linear)"></path>
                         <defs>
-                            <radialgradient cx="0" cy="0" gradienttransform="translate(15 15) scale(28.521)"
-                                gradientunits="userSpaceOnUse" id="paint0_radial" r="1">
+                            <radialGradient cx="0" cy="0" gradientTransform="translate(15 15) scale(28.521)"
+                                gradientUnits="userSpaceOnUse" id="paint0_radial" r="1">
                                 <stop stop-color="#746B7F"></stop>
                                 <stop offset="0.12" stop-color="#615B6F"></stop>
                                 <stop offset="0.26" stop-color="#514C60"></stop>
@@ -199,8 +196,8 @@
                                 <stop offset="0.67" stop-color="#87829E"></stop>
                                 <stop offset="0.74" stop-color="#A9A2C3"></stop>
                                 <stop offset="0.78" stop-color="#BCB5D9"></stop>
-                            </radialgradient>
-                            <lineargradient gradientunits="userSpaceOnUse" id="paint1_linear" x1="5.54949" x2="23.9884"
+                            </radialGradient>
+                            <linearGradient gradientUnits="userSpaceOnUse" id="paint1_linear" x1="5.54949" x2="23.9884"
                                 y1="7.79624" y2="23.7393">
                                 <stop offset="0.05" stop-color="#448491"></stop>
                                 <stop offset="0.15" stop-color="#4A7986"></stop>
@@ -211,14 +208,15 @@
                                 <stop offset="0.82" stop-color="#7099A3"></stop>
                                 <stop offset="0.94" stop-color="#87BDC4"></stop>
                                 <stop offset="1" stop-color="#94D1D6"></stop>
-                            </lineargradient>
+                            </linearGradient>
                         </defs>
-                    </svg></a>
+                    </svg>
+                </a>
             </div>
+        </footer>
 
     </div>
 
     <script src="static/js/entire_text_search.js"></script>
 </body>
-
 </html>
