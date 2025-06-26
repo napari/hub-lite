@@ -14,10 +14,12 @@ from markdown_it.common.utils import escapeHtml
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import (
+    PythonLexer,
     get_lexer_by_name,
     guess_lexer,
 )
 
+FALLBACK_LEXER = PythonLexer()
 MISSING_LEXERS = [
     "",
     "angular2",
@@ -47,18 +49,16 @@ def _highlight_code(code, lang_name, lang_attrs):
         lang_attrs (dict): Additional attributes for the code block.
             (ignored here because I don't know how to use them)
     """
-
     try:
         if lang_name in MISSING_LEXERS:
-            lexer = guess_lexer(code)
-            return highlight(code, lexer, HtmlFormatter())
+            # Use fallback lexer
+            return highlight(code, FALLBACK_LEXER, HtmlFormatter())
         else:
             lexer = get_lexer_by_name(lang_name)
     except Exception as e:
-        if lang_name in MISSING_LEXERS:
-            logger.warning(f"Lexer {lang_name} is missing. Using guess_lexer: {e}")
-        else:
-            logger.error(f"Unknown error. Using guess_lexer: {e}")
+        # Captures the case that someone introduces a lexer name
+        # not available in Pygments or in our list of missing lexers
+        logger.error(f"Unknown error. Using guess_lexer: {e}")
         lexer = guess_lexer(code)
 
     formatter = HtmlFormatter()
