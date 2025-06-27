@@ -305,6 +305,10 @@ if __name__ == "__main__":
     # Create and populate a raw DataFrame with plugin data
     df_plugins = build_plugins_dataframe()
 
+    # Save raw dataframe as a csv. Useful for debugging since dataframe df_plugins
+    # is being modified in place in the following code.
+    df_plugins.to_csv(f"{data_dir}/raw_napari_plugins.csv")
+
     # Clean raw DataFrame by removing columns that are mostly empty, keep columns that have at least 20 non-missing values
     df_plugins.dropna(axis=1, thresh=20, inplace=True)
 
