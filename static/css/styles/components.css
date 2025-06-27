@@ -143,3 +143,132 @@
     text-decoration: underline;
     font-weight: 600;
 }
+
+/* Footer */
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem; /* gap-sds-l equivalent */
+    background-color: var(--napari-light-blue);
+    padding: 3rem; /* p-sds-xl equivalent */
+}
+
+.footer-links {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    grid-column: span 2;
+    gap: 0.5rem 0; /* gap-y-2 */
+}
+
+.github-link {
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.875rem; /* text-sds-body-s equivalent */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 3rem; /* mr-sds-xl equivalent */
+    color: black;
+    text-decoration: none;
+}
+
+.github-link:last-child {
+    margin-right: 0;
+}
+
+.github-icon {
+    display: inline-block;
+    margin-right: 0.125rem;
+    height: 0.75rem;
+    width: 0.75rem;
+}
+
+.footer-credits {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    grid-row-start: 3;
+    grid-column-start: 2;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.credits-text {
+    font-size: 0.75rem; /* text-sds-body-xxs equivalent */
+    grid-row-start: 2;
+    grid-column: span 2;
+    justify-self: end;
+    align-self: center;
+    color: black;
+}
+
+.credits-link {
+    text-decoration: underline;
+    color: black;
+}
+
+.napari-link {
+    margin-right: 1rem; /* mr-sds-s equivalent */
+}
+
+.napari-logo {
+    width: 1.625rem;
+    height: 1.625rem;
+    margin-left: 3px;
+}
+
+/* Footer - Responsive breakpoints */
+@media (min-width: 655px) {
+    .footer {
+        grid-template-columns: 1fr min-content;
+    }
+
+    .footer-links {
+        margin-bottom: 0;
+        margin-right: 3rem;
+    }
+
+    .footer-credits {
+        grid-row-start: 2;
+        grid-column-start: 2;
+    }
+
+    .credits-text {
+        grid-column: span 1;
+        white-space: nowrap;
+    }
+}
+
+@media (min-width: 495px) {
+    .footer {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+
+    .napari-logo {
+        width: 2.375rem;
+        height: 2.375rem;
+    }
+}
+
+@media (min-width: 1150px) {
+    .footer {
+        grid-template-columns: 1fr max-content min-content;
+    }
+
+    .footer-credits {
+        grid-row-start: 1;
+        grid-column-start: 3;
+    }
+
+    .credits-text {
+        grid-row-start: 1;
+        grid-column-start: 2;
+    }
+}
