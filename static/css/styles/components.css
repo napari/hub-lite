@@ -1,13 +1,13 @@
 /* components.css - Reusable UI component styles */
 
-/*region Basics*/
-
 /* Layout */
 .page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
+
+/*region Basics*/
 
 /* Buttons */
 .btn {
@@ -120,7 +120,7 @@ code::after {
 
 /*region Announcements */
 .announcement-section {
-    display: flex;
+    fixed-height: 80px;
     align-items: stretch;
     justify-content: center;
     width: 100%;
@@ -161,6 +161,7 @@ code::after {
 }
 
 .site-nav {
+    height: 60px;
     display: flex;
     align-items: center;
     color: black;
@@ -201,17 +202,11 @@ code::after {
 
 /*region Main Page Content Styles */
 .main-content {
-    display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    align-items: stretch;
-    justify-content: center; /* centers vertically */
-    min-height: 110vh;       /* adjust as needed */
-}
-
-.main-content {
     flex: 1;
-    padding: var(--spacing-xl);
+    /*flex-grow: 1;*/
+    /*align-items: stretch;*/
+    /*padding: var(--spacing-xl);*/
 }
 
 .content-grid {
@@ -225,11 +220,13 @@ code::after {
 
 /*region Hero Section*/
 .hero {
+    height: 25vh; /* half viewport height */
     display: flex;
+    align-items: center;
     justify-content: center;
     background-color: var(--primary-light);
     gap: var(--sds-xl);
-    grid-template-columns: repeat(2, 1fr);
+    /*grid-template-columns: repeat(2, 1fr); */
     color: black;
 }
 
@@ -287,7 +284,7 @@ code::after {
     display: grid;
     justify-content: center;
     gap: var(--sds-xl);
-    grid-template-columns: repeat(2, 1fr);
+    /*grid-template-columns: repeat(2, 1fr);*/
 }
 
 .search-container {
@@ -596,6 +593,8 @@ code::after {
 
 /*region Footer*/
 .site-footer {
+    height: 80px;
+    margin-top: auto; /* Pushes footer to bottom of page */
     background-color: var(--primary-light);
     padding: var(--spacing-lg) var(--spacing-xl);
     color: black;
