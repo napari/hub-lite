@@ -22,11 +22,9 @@
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
     <meta content="#009bf2" name="msapplication-TileColor" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
@@ -230,23 +228,23 @@
 <h3>1. (optional) install <code>yt</code> and <code>napari</code></h3>
 <p>If you skip this step, the installation in the following section will only install the minimal package requirements for <code>yt</code> or <code>napari</code>, in which case you will likely need to manually install some packages. So if you are new to either package, or if you are installing in a clean environment, it may be simpler to  install these packages first.</p>
 <p>For <code>napari</code>,</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">napari</span><span class="o">[</span><span class="n">all</span><span class="o">]</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="p">[</span><span class="nb">all</span><span class="p">]</span>
 </pre></div>
 </code></pre>
 <p>will install <code>napari</code> with the default <code>Qt</code> backend (see <a href="https://napari.org/tutorials/fundamentals/installation#choosing-a-different-qt-backend">here</a> for how to choose between <code>PyQt5</code> or <code>PySide2</code>).</p>
 <p>For <code>yt</code>, you will need <code>yt&gt;=4.0.1</code> and any of the optional dependencies for your particular workflow. If you know that you'll need more than the base <code>yt</code> install, you can install the full suite of dependent packages with</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">yt</span><span class="o">[</span><span class="n">full</span><span class="o">]</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">yt</span><span class="p">[</span><span class="n">full</span><span class="p">]</span>
 </pre></div>
 </code></pre>
 <p>See the <a href="https://yt-project.org/doc/installing.html#leveraging-optional-yt-runtime-dependencies"><code>yt</code> documentation</a> for more information. If you're not sure which packages you'll need but don't want the full yt installation, you can proceed to the next step and then install any packages as needed (you will receive error messages when a required package is missing).</p>
 <h3>2. install <code>yt-napari</code></h3>
 <p>You can install the <code>yt-napari</code> plugin with:</p>
-<pre><code><div class="highlight"><pre><span></span>pip install yt-napari
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">yt</span><span class="o">-</span><span class="n">napari</span>
 </pre></div>
 </code></pre>
 <p>If you are missing either <code>yt</code> or <code>napari</code> (or they need to be updated), the above installation will fetch and run a minimal installation for both.</p>
 <p>To install the latest development version of the plugin instead, use:</p>
-<pre><code><div class="highlight"><pre><span></span>pip install git+https://github.com/data-exp-lab/yt-napari.git
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">data</span><span class="o">-</span><span class="n">exp</span><span class="o">-</span><span class="n">lab</span><span class="o">/</span><span class="n">yt</span><span class="o">-</span><span class="n">napari</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </code></pre>
 <p>Note that if you are working off the development version, be sure to use the latest documentation
@@ -326,56 +324,56 @@ Then add a slice or region to sample for each matched dataset file (note: be car
 <p>Contributions are very welcome! Development follows a fork and pull request workflow. To get started, you'll need a development installation and a testing environment.</p>
 <h3>development environment</h3>
 <p>To start developing, fork the repository and clone your fork to get a local copy. You can then install in development mode with</p>
-<pre><code><div class="highlight"><pre><span></span>pip install -e .
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
 </pre></div>
 </code></pre>
 <h3>tests and style checks</h3>
 <p>Both bug fixes and new features will need to pass the existing test suite and style checks. While both will be run automatically when you submit a pull request, it is helpful to run the test suites locally and run style checks throughout development. For testing, you can use <a href="https://tox.readthedocs.io/en/latest/">tox</a> to test different python versions on your platform.</p>
-<pre><code><div class="highlight"><pre><span></span>pip install tox
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">tox</span>
 </pre></div>
 </code></pre>
 <p>And then from the top level of the <code>yt-napari</code> directory, run</p>
-<pre><code><div class="highlight"><pre><span></span>tox
+<pre><code><div class="highlight"><pre><span></span><span class="n">tox</span>
 </pre></div>
 </code></pre>
 <p>Tox will then run a series of tests in isolated environments. In addition to checking the terminal output for test results, the tox run will generate a test coverage report: a <code>coverage.xml</code> file and a <code>htmlcov</code> folder -- to view the results, open <code>htmlcov/index.html</code> in a browser.</p>
 <p>If you prefer a lighter weight test, you can also use <code>pytest</code> directly and rely on the Github CI to test different python versions and systems. To do so, first install <code>pytest</code> and some related plugins:</p>
-<pre><code><div class="highlight"><pre><span></span>pip install pytest pytest-qt pytest-cov
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span> <span class="n">pytest</span><span class="o">-</span><span class="n">qt</span> <span class="n">pytest</span><span class="o">-</span><span class="n">cov</span>
 </pre></div>
 </code></pre>
 <p>Now, to run the tests:</p>
-<pre><code><div class="highlight"><pre><span></span>pytest -v --cov=yt_napari --cov-report=html
+<pre><code><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">-</span><span class="n">v</span> <span class="o">--</span><span class="n">cov</span><span class="o">=</span><span class="n">yt_napari</span> <span class="o">--</span><span class="n">cov</span><span class="o">-</span><span class="n">report</span><span class="o">=</span><span class="n">html</span>
 </pre></div>
 </code></pre>
 <p>In addition to telling you whether or not the tests pass, the above command will write out a code coverage report to the <code>htmlcov</code> directory. You can open up <code>htmlcov/index.html</code> in a browser and check out the lines of code that were missed by existing tests.</p>
 <p>For style checks, you can use <a href="https://pre-commit.com/">pre-commit</a> to run checks as you develop. To set up <code>pre-commit</code>:</p>
-<pre><code><div class="highlight"><pre><span></span>pip install pre-commit
-pre-commit install
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pre</span><span class="o">-</span><span class="n">commit</span>
+<span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">install</span>
 </pre></div>
 </code></pre>
 <p>after which, every time you run <code>git commit</code>, some automatic style adjustments and checks will run. The same style checks will run when you submit a pull request, but it's often easier to catch them early.</p>
 <p>After submitting a pull request, the <code>pre-commit.ci</code> bot will run the style checks. If style checks fail, you can have the bot attempt to auto-fix the failures by adding the following in a comment on it's own:</p>
-<pre><code><div class="highlight"><pre><span></span>pre-commit.ci autofix
+<pre><code><div class="highlight"><pre><span></span><span class="n">pre</span><span class="o">-</span><span class="n">commit</span><span class="o">.</span><span class="n">ci</span> <span class="n">autofix</span>
 </pre></div>
 </code></pre>
 <p>The bot will then commit changes to your pull request after which you will want to run <code>git pull</code> locally to update your local version of the branch before making further changes to the branch.</p>
 <h3>building documentation locally</h3>
 <p>Documentation can be built using <code>sphinx</code> in two steps. First, update the api mapping with</p>
-<pre><code><div class="highlight"><pre><span></span>sphinx-apidoc -f -o docs/source src/yt_napari/
+<pre><code><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">f</span> <span class="o">-</span><span class="n">o</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span> <span class="n">src</span><span class="o">/</span><span class="n">yt_napari</span><span class="o">/</span>
 </pre></div>
 </code></pre>
 <p>This will update the <code>rst</code> files in <code>docs/source/</code> with the latest docstrings in <code>yt_napari</code>. Next, build the html documentation with</p>
-<pre><code><div class="highlight"><pre><span></span>make html
+<pre><code><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">html</span>
 </pre></div>
 </code></pre>
 <h3>updating the pydantic models and schema</h3>
 <p>The schema versioning follows a <code>major.minor.micro</code> versioning pattern that matches the yt-napari versioning. Each yt-napari release should have an accompanying updated schema file, even if the  contents of the schema file have not changed. On-disk schema are stored in  <code>src/yt_napari/schemas/</code>, with copies in the documentation at <code>docs/_static</code>.</p>
 <p>There are a number of utilities to help automate the management of schema in <code>repo_utilities/</code>. The easiest way to use these utitities is with <code>taskipy</code> from the command line. To list available scripts:</p>
-<pre><code class="language-commandline"><div class="highlight"><pre><span></span>task --list
+<pre><code class="language-commandline"><div class="highlight"><pre><span></span><span class="n">task</span> <span class="o">--</span><span class="nb">list</span>
 </pre></div>
 </code></pre>
 <p>Before a release, run</p>
-<pre><code class="language-commandline"><div class="highlight"><pre><span></span>task validate_release vX.X.X
+<pre><code class="language-commandline"><div class="highlight"><pre><span></span><span class="n">task</span> <span class="n">validate_release</span> <span class="n">vX</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">X</span>
 </pre></div>
 </code></pre>
 <p>where <code>vX.X.X</code> is the version of the upcoming release. This script will run through some checks that ensure:</p>
@@ -385,11 +383,11 @@ pre-commit install
 </ul>
 <p>If any of the checks fail, you will be advised to update the schema using <code>update_schema_docs</code>. If you
 run without providing a version:</p>
-<pre><code class="language-commandline"><div class="highlight"><pre><span></span>task update_schema_docs
+<pre><code class="language-commandline"><div class="highlight"><pre><span></span><span class="n">task</span> <span class="n">update_schema_docs</span>
 </pre></div>
 </code></pre>
 <p>It will simply copy over the existing on-disk schema files to the documentation. If you run with a version:</p>
-<pre><code class="language-commandline"><div class="highlight"><pre><span></span>task update_schema_docs -v vX.X.X
+<pre><code class="language-commandline"><div class="highlight"><pre><span></span><span class="n">task</span> <span class="n">update_schema_docs</span> <span class="o">-</span><span class="n">v</span> <span class="n">vX</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">X</span>
 </pre></div>
 </code></pre>
 <p>It will write a schema file for the current pydantic model, overwriting any on-disk schema files for
@@ -415,7 +413,7 @@ https://napari.org/plugins/stable/index.html
                                     </div>
                                 </div>
                                 <!-- The project data section -->
-<div id="pluginMetadata">
+    <div id="pluginMetadata">
                                 <div
                                     class="screen-1425:hidden space-y-sds-xl screen-875:space-y-0 screen-1425:space-y-sds-xl grid screen-875:grid-cols-3 screen-1425:grid-cols-1">
                                     <div class="space-y-sds-xl">
@@ -538,7 +536,7 @@ https://napari.org/plugins/stable/index.html
                                     </div>
                                 </div>
                                     <!-- Project data goes here -->
-</div>
+    </div>
                             </div>
                         </article>
                     </div>
@@ -618,3 +616,5 @@ https://napari.org/plugins/stable/index.html
             </div>
     </div>
 </body>
+
+</html>

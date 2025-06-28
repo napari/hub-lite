@@ -22,11 +22,9 @@
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
     <meta content="#009bf2" name="msapplication-TileColor" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
@@ -375,15 +373,15 @@
 <h2>Installation</h2>
 <p>You can install <code>devbio-napari</code> via conda/mamba. If you have never used conda before, please <a href="https://biapol.github.io/blog/mara_lampert/getting_started_with_mambaforge_and_python/readme.html">read this guide first</a>.<br />
 Start by creating an environment using mamba.</p>
-<pre><code><div class="highlight"><pre><span></span>mamba create --name devbio-napari-env napari=0.4.19 python=3.9 devbio-napari pyqt -c conda-forge -c pytorch
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">devbio</span><span class="o">-</span><span class="n">napari</span><span class="o">-</span><span class="n">env</span> <span class="n">napari</span><span class="o">=</span><span class="mf">0.4.19</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span> <span class="n">devbio</span><span class="o">-</span><span class="n">napari</span> <span class="n">pyqt</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">c</span> <span class="n">pytorch</span>
 </pre></div>
 </code></pre>
 <p>Afterwards, activate the environment like this:</p>
-<pre><code><div class="highlight"><pre><span></span>mamba activate devbio-napari-env
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">activate</span> <span class="n">devbio</span><span class="o">-</span><span class="n">napari</span><span class="o">-</span><span class="n">env</span>
 </pre></div>
 </code></pre>
 <p>Afterwards, run this command from the command line</p>
-<pre><code><div class="highlight"><pre><span></span>naparia
+<pre><code><div class="highlight"><pre><span></span><span class="n">naparia</span>
 </pre></div>
 </code></pre>
 <p>This window should open. It shows the <a href="https://www.napari-hub.org/plugins/napari-assistant">Assistant</a> graphical user interface.
@@ -399,25 +397,25 @@ Read more about how to use it in its <a href="https://www.napari-hub.org/plugins
 <li><a href="https://www.microsoft.com/en-us/p/opencl-and-opengl-compatibility-pack/9nqpsl29bfff">Microsoft Windows OpenCL support</a></li>
 </ul>
 <p>Sometimes, mac-users need to install this:</p>
-<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge ocl_icd_wrapper_apple
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">ocl_icd_wrapper_apple</span>
 </pre></div>
 </code></pre>
 <p>Sometimes, linux users need to install this:</p>
-<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge ocl-icd-system
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">ocl</span><span class="o">-</span><span class="n">icd</span><span class="o">-</span><span class="n">system</span>
 </pre></div>
 </code></pre>
 <p>In case installation didn't work in the first attempt, you may have to call this command line to reset the napari configuration:</p>
-<pre><code><div class="highlight"><pre><span></span>napari --reset
+<pre><code><div class="highlight"><pre><span></span><span class="n">napari</span> <span class="o">--</span><span class="n">reset</span>
 </pre></div>
 </code></pre>
 <h2>Troubleshooting: pytorch</h2>
 <p>In case pytorch-related plugins fail, install pytorch as explained on <a href="https://pytorch.org/get-started/locally/">its website</a>. Consider replacing <code>conda</code> with <code>mamba</code> in given instructions.</p>
 <p>For example if you have an NVidia GPU at hand, install pytorch like this:</p>
-<pre><code><div class="highlight"><pre><span></span>mamba install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="n">pytorch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="n">pytorch</span><span class="o">-</span><span class="n">cuda</span><span class="o">=</span><span class="mf">11.7</span> <span class="o">-</span><span class="n">c</span> <span class="n">pytorch</span> <span class="o">-</span><span class="n">c</span> <span class="n">nvidia</span>
 </pre></div>
 </code></pre>
 <p>Or if not:</p>
-<pre><code><div class="highlight"><pre><span></span>mamba install pytorch torchvision torchaudio cpuonly -c pytorch
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="n">pytorch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="n">cpuonly</span> <span class="o">-</span><span class="n">c</span> <span class="n">pytorch</span>
 </pre></div>
 </code></pre>
 <h2>Contributing</h2>
@@ -436,7 +434,7 @@ It is recommended to provide example data as well so that end-users can try out 
                                     </div>
                                 </div>
                                 <!-- The project data section -->
-<div id="pluginMetadata">
+    <div id="pluginMetadata">
                                 <div
                                     class="screen-1425:hidden space-y-sds-xl screen-875:space-y-0 screen-1425:space-y-sds-xl grid screen-875:grid-cols-3 screen-1425:grid-cols-1">
                                     <div class="space-y-sds-xl">
@@ -559,7 +557,7 @@ It is recommended to provide example data as well so that end-users can try out 
                                     </div>
                                 </div>
                                     <!-- Project data goes here -->
-</div>
+    </div>
                             </div>
                         </article>
                     </div>
@@ -639,3 +637,5 @@ It is recommended to provide example data as well so that end-users can try out 
             </div>
     </div>
 </body>
+
+</html>

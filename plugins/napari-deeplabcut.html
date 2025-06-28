@@ -22,11 +22,9 @@
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
     <meta content="#009bf2" name="msapplication-TileColor" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
@@ -226,16 +224,16 @@
 <p>If you installed DeepLabCut[gui], this plugin is already installed. However, you can also use this as a stand-alone keypoint annotator without using DeepLabCut. Instructions below!</p>
 <p>Start by installing PySide6 with <code>pip install &quot;pyside6==6.4.2&quot;</code>; this is the library we now use to build GUIs.</p>
 <p>You can then install <code>napari-deeplabcut</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span>pip install napari-deeplabcut
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">deeplabcut</span>
 </pre></div>
 </code></pre>
 <p>Alternatively, to install the latest development version, run:</p>
-<pre><code><div class="highlight"><pre><span></span>pip install git+https://github.com/DeepLabCut/napari-deeplabcut.git
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">DeepLabCut</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">deeplabcut</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </code></pre>
 <h2>Usage</h2>
 <p>To use the plugin, please run:</p>
-<pre><code><div class="highlight"><pre><span></span>napari
+<pre><code><div class="highlight"><pre><span></span><span class="n">napari</span>
 </pre></div>
 </code></pre>
 <p>Then, activate the plugin in Plugins &gt; napari-deeplabcut: Keypoint controls.</p>
@@ -317,31 +315,31 @@ Note that masks can be reloaded and edited at a later stage by dropping the <cod
 </li>
 </ol>
 <h3>Workflow flowchart</h3>
-<pre><code class="language-mermaid"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="err">{</span><span class="n">init</span><span class="o">:</span><span class="w"> </span><span class="err">{</span><span class="s2">&quot;flowchart&quot;</span><span class="o">:</span><span class="w"> </span><span class="err">{</span><span class="s2">&quot;htmlLabels&quot;</span><span class="o">:</span><span class="w"> </span><span class="no">false</span><span class="err">}}</span><span class="w"> </span><span class="err">}</span><span class="o">%%</span>
-<span class="n">graph</span><span class="w"> </span><span class="n">TD</span>
-<span class="w">  </span><span class="n">id1</span><span class="err">[</span><span class="n">What</span><span class="w"> </span><span class="n">stage</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">labeling</span><span class="nv">?</span><span class="err">]</span>
-<span class="w">  </span><span class="n">id2</span><span class="err">[</span><span class="n">deeplabcut</span><span class="p">.</span><span class="n">label_frames</span><span class="err">]</span>
-<span class="w">  </span><span class="n">id3</span><span class="err">[</span><span class="n">deeplabcut</span><span class="p">.</span><span class="n">refine_labels</span><span class="err">]</span>
-<span class="w">  </span><span class="n">id4</span><span class="err">[</span><span class="k">Add</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="k">to</span><span class="p">,</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">modify</span><span class="w"> </span><span class="k">in</span><span class="p">,</span><span class="w"> </span><span class="err">\</span><span class="n">n</span><span class="w"> </span><span class="n n-Quoted">`CollectedData...`</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">save</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">layer</span><span class="err">]</span>
-<span class="w">  </span><span class="n">id5</span><span class="err">[</span><span class="k">Modify</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n n-Quoted">`machinelabels`</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">save</span><span class="w"> </span><span class="err">\</span><span class="n">n</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`CollectedData...`</span><span class="w"> </span><span class="k">file</span><span class="err">]</span>
-<span class="w">  </span><span class="n">id6</span><span class="err">[</span><span class="n">Have</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">refined</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">most</span><span class="w"> </span><span class="n">recent</span><span class="w"> </span><span class="n">iteration</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">already</span><span class="nv">?</span><span class="err">]</span>
-<span class="w">  </span><span class="n">id7</span><span class="err">[</span><span class="s2">&quot;All extracted frames are already saved in `CollectedData...`.</span>
-<span class="s2">1. Hide or trash all `machinelabels` layers.</span>
-<span class="s2">2. Then modify in and save `CollectedData`&quot;</span><span class="err">]</span>
-<span class="w">  </span><span class="n">id8</span><span class="err">[</span><span class="s2">&quot;</span>
-<span class="s2">1. hide or trash all `machinelabels` layers except for the most recent.</span>
-<span class="s2">2. Select most recent `machinelabels` and hit `e` to show edges.</span>
-<span class="s2">3. Modify only in `machinelabels` and skip frames with labels without edges shown.</span>
-<span class="s2">4. Save `machinelabels` layer, which will add data to `CollectedData`.</span>
-<span class="s2">	- If you need to revisit this video later, ignore `machinelabels` and work only in `CollectedData`&quot;</span><span class="err">]</span>
+<pre><code class="language-mermaid"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="p">{</span><span class="n">init</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;flowchart&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;htmlLabels&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">}}</span> <span class="p">}</span><span class="o">%%</span>
+<span class="n">graph</span> <span class="n">TD</span>
+  <span class="n">id1</span><span class="p">[</span><span class="n">What</span> <span class="n">stage</span> <span class="n">of</span> <span class="n">labeling</span><span class="err">?</span><span class="p">]</span>
+  <span class="n">id2</span><span class="p">[</span><span class="n">deeplabcut</span><span class="o">.</span><span class="n">label_frames</span><span class="p">]</span>
+  <span class="n">id3</span><span class="p">[</span><span class="n">deeplabcut</span><span class="o">.</span><span class="n">refine_labels</span><span class="p">]</span>
+  <span class="n">id4</span><span class="p">[</span><span class="n">Add</span> <span class="n">labels</span> <span class="n">to</span><span class="p">,</span> <span class="ow">or</span> <span class="n">modify</span> <span class="ow">in</span><span class="p">,</span> \<span class="n">n</span> <span class="err">`</span><span class="n">CollectedData</span><span class="o">...</span><span class="err">`</span> <span class="n">layer</span> <span class="ow">and</span> <span class="n">save</span> <span class="n">that</span> <span class="n">layer</span><span class="p">]</span>
+  <span class="n">id5</span><span class="p">[</span><span class="n">Modify</span> <span class="n">labels</span> <span class="ow">in</span> <span class="err">`</span><span class="n">machinelabels</span><span class="err">`</span> <span class="n">layer</span> <span class="ow">and</span> <span class="n">save</span> \<span class="n">n</span> <span class="n">which</span> <span class="n">will</span> <span class="n">create</span> <span class="n">a</span> <span class="err">`</span><span class="n">CollectedData</span><span class="o">...</span><span class="err">`</span> <span class="n">file</span><span class="p">]</span>
+  <span class="n">id6</span><span class="p">[</span><span class="n">Have</span> <span class="n">you</span> <span class="n">refined</span> <span class="n">some</span> <span class="n">labels</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">iteration</span> <span class="ow">and</span> <span class="n">saved</span> <span class="n">already</span><span class="err">?</span><span class="p">]</span>
+  <span class="n">id7</span><span class="p">[</span><span class="s2">&quot;All extracted frames are already saved in `CollectedData...`.</span>
+<span class="mf">1.</span> <span class="n">Hide</span> <span class="ow">or</span> <span class="n">trash</span> <span class="nb">all</span> <span class="err">`</span><span class="n">machinelabels</span><span class="err">`</span> <span class="n">layers</span><span class="o">.</span>
+<span class="mf">2.</span> <span class="n">Then</span> <span class="n">modify</span> <span class="ow">in</span> <span class="ow">and</span> <span class="n">save</span> <span class="err">`</span><span class="n">CollectedData</span><span class="err">`</span><span class="s2">&quot;]</span>
+  <span class="n">id8</span><span class="p">[</span><span class="s2">&quot;</span>
+<span class="mf">1.</span> <span class="n">hide</span> <span class="ow">or</span> <span class="n">trash</span> <span class="nb">all</span> <span class="err">`</span><span class="n">machinelabels</span><span class="err">`</span> <span class="n">layers</span> <span class="k">except</span> <span class="k">for</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span><span class="o">.</span>
+<span class="mf">2.</span> <span class="n">Select</span> <span class="n">most</span> <span class="n">recent</span> <span class="err">`</span><span class="n">machinelabels</span><span class="err">`</span> <span class="ow">and</span> <span class="n">hit</span> <span class="err">`</span><span class="n">e</span><span class="err">`</span> <span class="n">to</span> <span class="n">show</span> <span class="n">edges</span><span class="o">.</span>
+<span class="mf">3.</span> <span class="n">Modify</span> <span class="n">only</span> <span class="ow">in</span> <span class="err">`</span><span class="n">machinelabels</span><span class="err">`</span> <span class="ow">and</span> <span class="n">skip</span> <span class="n">frames</span> <span class="k">with</span> <span class="n">labels</span> <span class="n">without</span> <span class="n">edges</span> <span class="n">shown</span><span class="o">.</span>
+<span class="mf">4.</span> <span class="n">Save</span> <span class="err">`</span><span class="n">machinelabels</span><span class="err">`</span> <span class="n">layer</span><span class="p">,</span> <span class="n">which</span> <span class="n">will</span> <span class="n">add</span> <span class="n">data</span> <span class="n">to</span> <span class="err">`</span><span class="n">CollectedData</span><span class="err">`</span><span class="o">.</span>
+	<span class="o">-</span> <span class="n">If</span> <span class="n">you</span> <span class="n">need</span> <span class="n">to</span> <span class="n">revisit</span> <span class="n">this</span> <span class="n">video</span> <span class="n">later</span><span class="p">,</span> <span class="n">ignore</span> <span class="err">`</span><span class="n">machinelabels</span><span class="err">`</span> <span class="ow">and</span> <span class="n">work</span> <span class="n">only</span> <span class="ow">in</span> <span class="err">`</span><span class="n">CollectedData</span><span class="err">`</span><span class="s2">&quot;]</span>
 
-<span class="w">  </span><span class="n">id1</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">I</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">manually</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">frames</span><span class="w"> </span><span class="err">\</span><span class="n">n</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">fix</span><span class="w"> </span><span class="n">my</span><span class="w"> </span><span class="n">labels</span><span class="o">|</span><span class="n">id2</span>
-<span class="w">  </span><span class="n">id1</span><span class="w"> </span><span class="o">----&gt;|</span><span class="n">I</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">refine</span><span class="w"> </span><span class="n">outlier</span><span class="w"> </span><span class="n">frames</span><span class="w"> </span><span class="err">\</span><span class="n">nfrom</span><span class="w"> </span><span class="n">analyzed</span><span class="w"> </span><span class="n">videos</span><span class="o">|</span><span class="n">id3</span>
-<span class="w">  </span><span class="n">id2</span><span class="w"> </span><span class="o">--&gt;</span><span class="n">id4</span>
-<span class="w">  </span><span class="n">id3</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">I</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`machinelabels...`</span><span class="w"> </span><span class="k">file</span><span class="o">|</span><span class="n">id5</span>
-<span class="w">  </span><span class="n">id3</span><span class="w"> </span><span class="o">----&gt;|</span><span class="n">I</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="n n-Quoted">`machinelabels`</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n n-Quoted">`CollectedData`</span><span class="w"> </span><span class="n">files</span><span class="o">|</span><span class="n">id6</span>
-<span class="w">  </span><span class="n">id6</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">yes</span><span class="o">|</span><span class="n">id7</span>
-<span class="w">  </span><span class="n">id6</span><span class="w"> </span><span class="o">----&gt;|</span><span class="k">no</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">just</span><span class="w"> </span><span class="n">extracted</span><span class="w"> </span><span class="n">outliers</span><span class="o">|</span><span class="n">id8</span>
+  <span class="n">id1</span> <span class="o">--&gt;|</span><span class="n">I</span> <span class="n">need</span> <span class="n">to</span> <span class="n">manually</span> <span class="n">label</span> <span class="n">new</span> <span class="n">frames</span> \<span class="n">n</span> <span class="ow">or</span> <span class="n">fix</span> <span class="n">my</span> <span class="n">labels</span><span class="o">|</span><span class="n">id2</span>
+  <span class="n">id1</span> <span class="o">----&gt;|</span><span class="n">I</span> <span class="n">need</span> <span class="n">to</span> <span class="n">refine</span> <span class="n">outlier</span> <span class="n">frames</span> \<span class="n">nfrom</span> <span class="n">analyzed</span> <span class="n">videos</span><span class="o">|</span><span class="n">id3</span>
+  <span class="n">id2</span> <span class="o">--&gt;</span><span class="n">id4</span>
+  <span class="n">id3</span> <span class="o">--&gt;|</span><span class="n">I</span> <span class="n">only</span> <span class="n">have</span> <span class="n">a</span> <span class="err">`</span><span class="n">machinelabels</span><span class="o">...</span><span class="err">`</span> <span class="n">file</span><span class="o">|</span><span class="n">id5</span>
+  <span class="n">id3</span> <span class="o">----&gt;|</span><span class="n">I</span> <span class="n">have</span> <span class="n">both</span> <span class="err">`</span><span class="n">machinelabels</span><span class="err">`</span> <span class="ow">and</span> <span class="err">`</span><span class="n">CollectedData</span><span class="err">`</span> <span class="n">files</span><span class="o">|</span><span class="n">id6</span>
+  <span class="n">id6</span> <span class="o">--&gt;|</span><span class="n">yes</span><span class="o">|</span><span class="n">id7</span>
+  <span class="n">id6</span> <span class="o">----&gt;|</span><span class="n">no</span><span class="p">,</span> <span class="n">I</span> <span class="n">just</span> <span class="n">extracted</span> <span class="n">outliers</span><span class="o">|</span><span class="n">id8</span>
 </pre></div>
 </code></pre>
 <h3>Labeling multiple image folders</h3>
@@ -376,7 +374,7 @@ https://napari.org/plugins/stable/index.html
                                     </div>
                                 </div>
                                 <!-- The project data section -->
-<div id="pluginMetadata">
+    <div id="pluginMetadata">
                                 <div
                                     class="screen-1425:hidden space-y-sds-xl screen-875:space-y-0 screen-1425:space-y-sds-xl grid screen-875:grid-cols-3 screen-1425:grid-cols-1">
                                     <div class="space-y-sds-xl">
@@ -499,7 +497,7 @@ https://napari.org/plugins/stable/index.html
                                     </div>
                                 </div>
                                     <!-- Project data goes here -->
-</div>
+    </div>
                             </div>
                         </article>
                     </div>
@@ -579,3 +577,5 @@ https://napari.org/plugins/stable/index.html
             </div>
     </div>
 </body>
+
+</html>

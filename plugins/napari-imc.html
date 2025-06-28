@@ -22,11 +22,9 @@
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
     <meta content="#009bf2" name="msapplication-TileColor" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
@@ -221,17 +219,17 @@
 <p>Load panoramas and multi-channel acquisitions co-registered within the machine's coordinate system from Fluidigm TXT/MCD files</p>
 <h2>Installation</h2>
 <p>You can install napari-imc via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span>pip install napari-imc
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">imc</span>
 </pre></div>
 </code></pre>
 <p>Alternatively, you can install napari-imc via <a href="https://conda.io/">conda</a>:</p>
-<pre><code><div class="highlight"><pre><span></span>conda install -c conda-forge napari-imc
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">napari</span><span class="o">-</span><span class="n">imc</span>
 </pre></div>
 </code></pre>
 <p>For example, to install napari and napari-imc in a fresh conda environment using pip:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">imc</span><span class="w"> </span><span class="n">python</span><span class="o">=</span><span class="mf">3.9</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">imc</span>
-<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">napari</span><span class="o">[</span><span class="n">all</span><span class="o">]&amp;</span><span class="n">quot</span><span class="p">;</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">imc</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">napari</span><span class="o">-</span><span class="n">imc</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span><span class="o">-</span><span class="n">imc</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">napari</span><span class="p">[</span><span class="nb">all</span><span class="p">]</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span> <span class="n">napari</span><span class="o">-</span><span class="n">imc</span>
 </pre></div>
 </code></pre>
 <h2>Usage</h2>
@@ -243,14 +241,14 @@
 <blockquote>
 <p>Windhager J, Bodenmiller B, Eling N (2021). An end-to-end workflow for multiplexed image processing and analysis. bioRxiv. doi: <a href="https://doi.org/10.1101/2021.11.12.468357">https://doi.org/10.1101/2021.11.12.468357</a>.</p>
 </blockquote>
-<pre><code><div class="highlight"><pre><span></span><span class="nv">@article</span><span class="err">{</span><span class="n">Windhager2021</span><span class="p">,</span>
-<span class="w">  </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Windhager</span><span class="p">,</span><span class="w"> </span><span class="n">Jonas</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Bodenmiller</span><span class="p">,</span><span class="w"> </span><span class="n">Bernd</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Eling</span><span class="p">,</span><span class="w"> </span><span class="n">Nils</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">An</span><span class="w"> </span><span class="k">end</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="k">end</span><span class="w"> </span><span class="n">workflow</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">multiplexed</span><span class="w"> </span><span class="nc">image</span><span class="w"> </span><span class="n">processing</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">analysis</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="nf">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">2021</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">doi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mf">10.1101</span><span class="o">/</span><span class="mf">2021.11.12.468357</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">biorxiv</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">early</span><span class="o">/</span><span class="mi">2021</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">13</span><span class="o">/</span><span class="mf">2021.11.12.468357</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">journal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">bioRxiv</span><span class="err">}</span>
-<span class="err">}</span>
+<pre><code><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">Windhager2021</span><span class="p">,</span>
+  <span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">Windhager</span><span class="p">,</span> <span class="n">Jonas</span> <span class="ow">and</span> <span class="n">Bodenmiller</span><span class="p">,</span> <span class="n">Bernd</span> <span class="ow">and</span> <span class="n">Eling</span><span class="p">,</span> <span class="n">Nils</span><span class="p">},</span>
+  <span class="n">title</span> <span class="o">=</span> <span class="p">{</span><span class="n">An</span> <span class="n">end</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">end</span> <span class="n">workflow</span> <span class="k">for</span> <span class="n">multiplexed</span> <span class="n">image</span> <span class="n">processing</span> <span class="ow">and</span> <span class="n">analysis</span><span class="p">},</span>
+  <span class="n">year</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2021</span><span class="p">},</span>
+  <span class="n">doi</span> <span class="o">=</span> <span class="p">{</span><span class="mf">10.1101</span><span class="o">/</span><span class="mf">2021.11.12.468357</span><span class="p">},</span>
+  <span class="n">URL</span> <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">biorxiv</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">early</span><span class="o">/</span><span class="mi">2021</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">13</span><span class="o">/</span><span class="mf">2021.11.12.468357</span><span class="p">},</span>
+  <span class="n">journal</span> <span class="o">=</span> <span class="p">{</span><span class="n">bioRxiv</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </code></pre>
 <h2>Contributing</h2>
@@ -264,7 +262,7 @@
                                     </div>
                                 </div>
                                 <!-- The project data section -->
-<div id="pluginMetadata">
+    <div id="pluginMetadata">
                                 <div
                                     class="screen-1425:hidden space-y-sds-xl screen-875:space-y-0 screen-1425:space-y-sds-xl grid screen-875:grid-cols-3 screen-1425:grid-cols-1">
                                     <div class="space-y-sds-xl">
@@ -387,7 +385,7 @@
                                     </div>
                                 </div>
                                     <!-- Project data goes here -->
-</div>
+    </div>
                             </div>
                         </article>
                     </div>
@@ -467,3 +465,5 @@
             </div>
     </div>
 </body>
+
+</html>

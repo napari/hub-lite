@@ -22,11 +22,9 @@
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
     <meta content="#009bf2" name="msapplication-TileColor" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
@@ -227,26 +225,26 @@ Therefore, just click the menu <code>Tools &gt; Utilities &gt; Assistant (na)</c
 <p>You can also call operations from python, e.g. as shown in this <a href="https://github.com/haesleinhuepf/napari-cupy-image-processing/raw/main/docs/demo.ipynb">demo notebook</a>.</p>
 <h2>Installation</h2>
 <p>You can install <code>napari-cupy-image-processing</code> using conda:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cupy</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">11.2</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">cupy</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">processing</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">cupy</span> <span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">11.2</span> <span class="n">napari</span><span class="o">-</span><span class="n">cupy</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">processing</span>
 </pre></div>
 </code></pre>
 <h2>Troubleshooting installation</h2>
 <p>In case of issues, follow the <a href="https://docs.cupy.dev/en/stable/install.html#installing-cupy-from-conda-forge">instructions for installing cupy</a>.</p>
 <p>A more detailed example for installation (change 11.2 to your desired CUDA version):</p>
-<pre><code><div class="highlight"><pre><span></span>mamba create --name cupy_p39 python=3.9 
-conda activate cupy_p39
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">cupy_p39</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span> 
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">cupy_p39</span>
 </pre></div>
 </code></pre>
 <p>And then:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cupy</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">11.2</span><span class="w"> </span><span class="n">napari</span><span class="o">-</span><span class="n">cupy</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">processing</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">cupy</span> <span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">11.2</span> <span class="n">napari</span><span class="o">-</span><span class="n">cupy</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">processing</span>
 </pre></div>
 </code></pre>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Adding <a href="https://docs.cupy.dev/en/stable/reference/ndimage.html">cupy ndimage</a> functions is quite easy as you can see in the
 <a href="https://github.com/haesleinhuepf/napari-cupy-image-processing/blob/main/napari_cupy_image_processing/_cupy_image_processing.py#L48">implementation of the current operations</a>.
 If you need another function in napari, just send a PR. Please make sure the tests pass locally before submitting a PR.</p>
-<pre><code><div class="highlight"><pre><span></span>pip install pytest-cov pytest-qt
-pytest --cov=napari_cupy_image_processing
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span><span class="o">-</span><span class="n">cov</span> <span class="n">pytest</span><span class="o">-</span><span class="n">qt</span>
+<span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span><span class="o">=</span><span class="n">napari_cupy_image_processing</span>
 </pre></div>
 </code></pre>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using with <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
@@ -260,7 +258,7 @@ pytest --cov=napari_cupy_image_processing
                                     </div>
                                 </div>
                                 <!-- The project data section -->
-<div id="pluginMetadata">
+    <div id="pluginMetadata">
                                 <div
                                     class="screen-1425:hidden space-y-sds-xl screen-875:space-y-0 screen-1425:space-y-sds-xl grid screen-875:grid-cols-3 screen-1425:grid-cols-1">
                                     <div class="space-y-sds-xl">
@@ -383,7 +381,7 @@ pytest --cov=napari_cupy_image_processing
                                     </div>
                                 </div>
                                     <!-- Project data goes here -->
-</div>
+    </div>
                             </div>
                         </article>
                     </div>
@@ -463,3 +461,5 @@ pytest --cov=napari_cupy_image_processing
             </div>
     </div>
 </body>
+
+</html>

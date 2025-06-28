@@ -22,11 +22,9 @@
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
     <meta content="#009bf2" name="msapplication-TileColor" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
@@ -220,19 +218,19 @@
 <h3>Containers</h3>
 <h4>Docker</h4>
 <h5>Pull docker</h5>
-<pre><code><div class="highlight"><pre><span></span>sudo docker pull hoanguyen93/mousechd-napari
+<pre><code><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">docker</span> <span class="n">pull</span> <span class="n">hoanguyen93</span><span class="o">/</span><span class="n">mousechd</span><span class="o">-</span><span class="n">napari</span>
 </pre></div>
 </code></pre>
 <h5>Run MouseCHD Plugin</h5>
 <ul>
 <li>
 <p>Run plugin with local resources:</p>
-<pre><code><div class="highlight"><pre><span></span>sudo docker run --gpus all -v &lt;path/to/home/on/host&gt;:&lt;path/to/home/on/host&gt; -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari
+<pre><code><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">gpus</span> <span class="nb">all</span> <span class="o">-</span><span class="n">v</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">on</span><span class="o">/</span><span class="n">host</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">on</span><span class="o">/</span><span class="n">host</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">p</span> <span class="mi">9876</span><span class="p">:</span><span class="mi">9876</span> <span class="o">-</span><span class="n">p</span> <span class="mi">6006</span><span class="p">:</span><span class="mi">6006</span> <span class="n">hoanguyen93</span><span class="o">/</span><span class="n">mousechd</span><span class="o">-</span><span class="n">napari</span>
 </pre></div>
 </code></pre>
   <details>
   <summary>Example:</summary>
-<pre><code><div class="highlight"><pre><span></span>sudo docker run --gpus all -v /home/hnguyent:/home/hnguyent -it --rm -p 9876:9876 -p 6006:6006 hoanguyen93/mousechd-napari
+<pre><code><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">gpus</span> <span class="nb">all</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">hnguyent</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">hnguyent</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">p</span> <span class="mi">9876</span><span class="p">:</span><span class="mi">9876</span> <span class="o">-</span><span class="n">p</span> <span class="mi">6006</span><span class="p">:</span><span class="mi">6006</span> <span class="n">hoanguyen93</span><span class="o">/</span><span class="n">mousechd</span><span class="o">-</span><span class="n">napari</span>
 </pre></div>
 </code></pre>
   </details>
@@ -259,11 +257,11 @@
 <li>Download Apptainer image <code>mousechd-napari.sif</code> from (Zenodo)[<a href="https://zenodo.org/records/14652180">https://zenodo.org/records/14652180</a>] or simply: <code>wget https://zenodo.org/records/14652180/files/mousechd-napari.sif</code></li>
 <li>Run the plugin:</li>
 </ul>
-<pre><code><div class="highlight"><pre><span></span><span class="nv">apptainer</span><span class="w"> </span><span class="k">exec</span><span class="w"> </span>\
-<span class="w">    </span><span class="o">--</span><span class="nv">nv</span><span class="w"> </span>\
-<span class="w">    </span><span class="o">--</span><span class="nv">bind</span><span class="w"> </span><span class="o">/</span><span class="nv">tmp</span><span class="o">/</span>.<span class="nv">X11</span><span class="o">-</span><span class="nv">unix</span>:<span class="o">/</span><span class="nv">tmp</span><span class="o">/</span>.<span class="nv">X11</span><span class="o">-</span><span class="nv">unix</span><span class="w"> </span>\
-<span class="w">    </span><span class="o">--</span><span class="nv">env</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span><span class="mh">$D</span><span class="nv">ISPLAY</span><span class="w"> </span>\
-<span class="w">    </span><span class="o">&lt;</span><span class="nv">path</span><span class="o">/</span><span class="nv">to</span><span class="o">/</span><span class="nv">mousechd</span><span class="o">-</span><span class="nv">napari</span>.<span class="nv">sif</span><span class="o">&gt;</span><span class="w"> </span><span class="nv">napari</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">apptainer</span> <span class="n">exec</span> \
+    <span class="o">--</span><span class="n">nv</span> \
+    <span class="o">--</span><span class="n">bind</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span> \
+    <span class="o">--</span><span class="n">env</span> <span class="n">DISPLAY</span><span class="o">=</span><span class="err">$</span><span class="n">DISPLAY</span> \
+    <span class="o">&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">mousechd</span><span class="o">-</span><span class="n">napari</span><span class="o">.</span><span class="n">sif</span><span class="o">&gt;</span> <span class="n">napari</span>
 </pre></div>
 </code></pre>
 <h3>From code</h3>
@@ -281,7 +279,7 @@ napari
                                     </div>
                                 </div>
                                 <!-- The project data section -->
-<div id="pluginMetadata">
+    <div id="pluginMetadata">
                                 <div
                                     class="screen-1425:hidden space-y-sds-xl screen-875:space-y-0 screen-1425:space-y-sds-xl grid screen-875:grid-cols-3 screen-1425:grid-cols-1">
                                     <div class="space-y-sds-xl">
@@ -404,7 +402,7 @@ napari
                                     </div>
                                 </div>
                                     <!-- Project data goes here -->
-</div>
+    </div>
                             </div>
                         </article>
                     </div>
@@ -484,3 +482,5 @@ napari
             </div>
     </div>
 </body>
+
+</html>

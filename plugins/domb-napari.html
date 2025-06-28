@@ -22,11 +22,9 @@
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
     <meta content="#009bf2" name="msapplication-TileColor" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
@@ -323,25 +321,25 @@
 <h3>E-FRET Crosstalk Estimation</h3>
 <p><em>In progress.</em></p>
 <p>Estimation of the crosstalk/bleedthrough of fluorescence between the donor and acceptor’s spectral channels.</p>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>F_c = I_{DA} - a (I_{AA} - c I_{DD}) - d (I_{DD} - b I_{AA})
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">F_c</span> <span class="o">=</span> <span class="n">I_</span><span class="p">{</span><span class="n">DA</span><span class="p">}</span> <span class="o">-</span> <span class="n">a</span> <span class="p">(</span><span class="n">I_</span><span class="p">{</span><span class="n">AA</span><span class="p">}</span> <span class="o">-</span> <span class="n">c</span> <span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">})</span> <span class="o">-</span> <span class="n">d</span> <span class="p">(</span><span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}</span> <span class="o">-</span> <span class="n">b</span> <span class="n">I_</span><span class="p">{</span><span class="n">AA</span><span class="p">})</span>
 </pre></div>
 </code></pre>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>F_c = I_{DA} - a I_{AA} - d I_{DD} \; \text{if} \; b \approx c \approx 0
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">F_c</span> <span class="o">=</span> <span class="n">I_</span><span class="p">{</span><span class="n">DA</span><span class="p">}</span> <span class="o">-</span> <span class="n">a</span> <span class="n">I_</span><span class="p">{</span><span class="n">AA</span><span class="p">}</span> <span class="o">-</span> <span class="n">d</span> <span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}</span> \<span class="p">;</span> \<span class="n">text</span><span class="p">{</span><span class="k">if</span><span class="p">}</span> \<span class="p">;</span> <span class="n">b</span> \<span class="n">approx</span> <span class="n">c</span> \<span class="n">approx</span> <span class="mi">0</span>
 </pre></div>
 </code></pre>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>a = \frac{I_{DA(A)}}{I_{AA(A)}}
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="n">I_</span><span class="p">{</span><span class="n">DA</span><span class="p">(</span><span class="n">A</span><span class="p">)}}{</span><span class="n">I_</span><span class="p">{</span><span class="n">AA</span><span class="p">(</span><span class="n">A</span><span class="p">)}}</span>
 </pre></div>
 </code></pre>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>b = \frac{I_{DD(A)}}{I_{AA(A)}}
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">(</span><span class="n">A</span><span class="p">)}}{</span><span class="n">I_</span><span class="p">{</span><span class="n">AA</span><span class="p">(</span><span class="n">A</span><span class="p">)}}</span>
 </pre></div>
 </code></pre>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>c = \frac{I_{AA(D)}} {I_{DD(D)}}
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="n">I_</span><span class="p">{</span><span class="n">AA</span><span class="p">(</span><span class="n">D</span><span class="p">)}}</span> <span class="p">{</span><span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">(</span><span class="n">D</span><span class="p">)}}</span>
 </pre></div>
 </code></pre>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>d = \frac{I_{DA(D)}} {I_{DD(D)}}
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="n">I_</span><span class="p">{</span><span class="n">DA</span><span class="p">(</span><span class="n">D</span><span class="p">)}}</span> <span class="p">{</span><span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">(</span><span class="n">D</span><span class="p">)}}</span>
 </pre></div>
 </code></pre>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>b \approx c \approx 0
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">b</span> \<span class="n">approx</span> <span class="n">c</span> \<span class="n">approx</span> <span class="mi">0</span>
 </pre></div>
 </code></pre>
 <p>Parameters:</p>
@@ -356,18 +354,18 @@
 </ul>
 <h3>E-FRET G-factor Estimation</h3>
 <p><em>In progress.</em></p>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>G = \frac{(I_{DA} - a I_{AA} - d I_{DD}) - (I_{DA}^{post} - a I_{AA}^{post} - d I_{DD}^{post})}{I_{DD}^{post} - I_{DD}} = \frac{F_c - F_{c}^{post}}{I_{DD}^{post} - I_{DD}} = \frac{\Delta F_c}{\Delta I_{DD}}
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{(</span><span class="n">I_</span><span class="p">{</span><span class="n">DA</span><span class="p">}</span> <span class="o">-</span> <span class="n">a</span> <span class="n">I_</span><span class="p">{</span><span class="n">AA</span><span class="p">}</span> <span class="o">-</span> <span class="n">d</span> <span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">})</span> <span class="o">-</span> <span class="p">(</span><span class="n">I_</span><span class="p">{</span><span class="n">DA</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="n">post</span><span class="p">}</span> <span class="o">-</span> <span class="n">a</span> <span class="n">I_</span><span class="p">{</span><span class="n">AA</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="n">post</span><span class="p">}</span> <span class="o">-</span> <span class="n">d</span> <span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="n">post</span><span class="p">})}{</span><span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="n">post</span><span class="p">}</span> <span class="o">-</span> <span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}}</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="n">F_c</span> <span class="o">-</span> <span class="n">F_</span><span class="p">{</span><span class="n">c</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="n">post</span><span class="p">}}{</span><span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="n">post</span><span class="p">}</span> <span class="o">-</span> <span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}}</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span>\<span class="n">Delta</span> <span class="n">F_c</span><span class="p">}{</span>\<span class="n">Delta</span> <span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}}</span>
 </pre></div>
 </code></pre>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>\Delta F_c = G \cdot \Delta I_{DD}
+<pre><code class="language-math"><div class="highlight"><pre><span></span>\<span class="n">Delta</span> <span class="n">F_c</span> <span class="o">=</span> <span class="n">G</span> \<span class="n">cdot</span> \<span class="n">Delta</span> <span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}</span>
 </pre></div>
 </code></pre>
 <h3>E-FRET Estimation</h3>
 <p>Estimation of the E-FRET with 3-cube approach.</p>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>E_{app} = \frac{R}{R+G}
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">E_</span><span class="p">{</span><span class="n">app</span><span class="p">}</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="n">R</span><span class="p">}{</span><span class="n">R</span><span class="o">+</span><span class="n">G</span><span class="p">}</span>
 </pre></div>
 </code></pre>
-<pre><code class="language-math"><div class="highlight"><pre><span></span>R = \frac{F_c}{I_{DD}}
+<pre><code class="language-math"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="n">F_c</span><span class="p">}{</span><span class="n">I_</span><span class="p">{</span><span class="n">DD</span><span class="p">}}</span>
 </pre></div>
 </code></pre>
 <p><strong>ECFP and EYFP Setup:</strong></p>
@@ -516,30 +514,30 @@
 <hr />
 <h2>How to Cite</h2>
 <p>If you use this plugin in your work, please cite the following paper:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="nv">@article</span><span class="err">{</span><span class="n">Olifirov2025</span><span class="p">,</span>
-<span class="w">  </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="k">Local</span><span class="w"> </span><span class="n">Iontophoretic</span><span class="w"> </span><span class="n">Application</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Pharmacological</span><span class="w"> </span><span class="n">Induction</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">Long</span><span class="o">-</span><span class="n">Term</span><span class="w"> </span><span class="n">Synaptic</span><span class="w"> </span><span class="n">Depression</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">15</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">ISSN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">2331</span><span class="o">-</span><span class="mi">8325</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">dx</span><span class="p">.</span><span class="n">doi</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.21769</span><span class="o">/</span><span class="n">BioProtoc</span><span class="mf">.5338</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">DOI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mf">10.21769</span><span class="o">/</span><span class="n">bioprotoc</span><span class="mf">.5338</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">1373</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">journal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">BIO</span><span class="o">-</span><span class="n">PROTOCOL</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">publisher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Bio</span><span class="o">-</span><span class="n">Protocol</span><span class="p">,</span><span class="w">  </span><span class="n">LLC</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Olifirov</span><span class="p">,</span><span class="w">  </span><span class="n">Borys</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Fedchenko</span><span class="p">,</span><span class="w">  </span><span class="n">Oleksandra</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Dovgan</span><span class="p">,</span><span class="w">  </span><span class="n">Alexandr</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Babets</span><span class="p">,</span><span class="w">  </span><span class="n">Daria</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Krotov</span><span class="p">,</span><span class="w">  </span><span class="n">Volodymyr</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Cherkas</span><span class="p">,</span><span class="w">  </span><span class="n">Volodymyr</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Belan</span><span class="p">,</span><span class="w">  </span><span class="n">Pavel</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="nf">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">2025</span><span class="err">}</span>
-<span class="err">}</span>
+<pre><code><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">Olifirov2025</span><span class="p">,</span>
+  <span class="n">title</span> <span class="o">=</span> <span class="p">{</span><span class="n">Local</span> <span class="n">Iontophoretic</span> <span class="n">Application</span> <span class="k">for</span> <span class="n">Pharmacological</span> <span class="n">Induction</span> <span class="n">of</span> <span class="n">Long</span><span class="o">-</span><span class="n">Term</span> <span class="n">Synaptic</span> <span class="n">Depression</span><span class="p">},</span>
+  <span class="n">volume</span> <span class="o">=</span> <span class="p">{</span><span class="mi">15</span><span class="p">},</span>
+  <span class="n">ISSN</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2331</span><span class="o">-</span><span class="mi">8325</span><span class="p">},</span>
+  <span class="n">url</span> <span class="o">=</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">dx</span><span class="o">.</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.21769</span><span class="o">/</span><span class="n">BioProtoc</span><span class="mf">.5338</span><span class="p">},</span>
+  <span class="n">DOI</span> <span class="o">=</span> <span class="p">{</span><span class="mf">10.21769</span><span class="o">/</span><span class="n">bioprotoc</span><span class="mf">.5338</span><span class="p">},</span>
+  <span class="n">number</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1373</span><span class="p">},</span>
+  <span class="n">journal</span> <span class="o">=</span> <span class="p">{</span><span class="n">BIO</span><span class="o">-</span><span class="n">PROTOCOL</span><span class="p">},</span>
+  <span class="n">publisher</span> <span class="o">=</span> <span class="p">{</span><span class="n">Bio</span><span class="o">-</span><span class="n">Protocol</span><span class="p">,</span>  <span class="n">LLC</span><span class="p">},</span>
+  <span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">Olifirov</span><span class="p">,</span>  <span class="n">Borys</span> <span class="ow">and</span> <span class="n">Fedchenko</span><span class="p">,</span>  <span class="n">Oleksandra</span> <span class="ow">and</span> <span class="n">Dovgan</span><span class="p">,</span>  <span class="n">Alexandr</span> <span class="ow">and</span> <span class="n">Babets</span><span class="p">,</span>  <span class="n">Daria</span> <span class="ow">and</span> <span class="n">Krotov</span><span class="p">,</span>  <span class="n">Volodymyr</span> <span class="ow">and</span> <span class="n">Cherkas</span><span class="p">,</span>  <span class="n">Volodymyr</span> <span class="ow">and</span> <span class="n">Belan</span><span class="p">,</span>  <span class="n">Pavel</span><span class="p">},</span>
+  <span class="n">year</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2025</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </code></pre>
 <p>or zenodo:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="nv">@misc</span><span class="err">{</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.14843770</span><span class="p">,</span>
-<span class="w">  </span><span class="n">doi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">ZENODO</span><span class="mf">.14843770</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">zenodo</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">doi</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.14843770</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">wisstock</span><span class="p">,</span><span class="w">  </span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">wisstock</span><span class="o">/</span><span class="n">domb</span><span class="o">-</span><span class="nl">napari</span><span class="p">:</span><span class="w"> </span><span class="n">Zenodo</span><span class="w"> </span><span class="k">release</span><span class="w"> </span><span class="n">v0</span><span class="mf">.3.0</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">publisher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">Zenodo</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="nf">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="mi">2025</span><span class="err">}</span><span class="p">,</span>
-<span class="w">  </span><span class="n">copyright</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">MIT</span><span class="w"> </span><span class="n">License</span><span class="err">}</span>
-<span class="err">}</span>
+<pre><code><div class="highlight"><pre><span></span><span class="nd">@misc</span><span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.14843770</span><span class="p">,</span>
+  <span class="n">doi</span> <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">ZENODO</span><span class="mf">.14843770</span><span class="p">},</span>
+  <span class="n">url</span> <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">zenodo</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">doi</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.14843770</span><span class="p">},</span>
+  <span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">wisstock</span><span class="p">,</span>  <span class="p">},</span>
+  <span class="n">title</span> <span class="o">=</span> <span class="p">{</span><span class="n">wisstock</span><span class="o">/</span><span class="n">domb</span><span class="o">-</span><span class="n">napari</span><span class="p">:</span> <span class="n">Zenodo</span> <span class="n">release</span> <span class="n">v0</span><span class="mf">.3.0</span><span class="p">},</span>
+  <span class="n">publisher</span> <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
+  <span class="n">year</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2025</span><span class="p">},</span>
+  <span class="n">copyright</span> <span class="o">=</span> <span class="p">{</span><span class="n">MIT</span> <span class="n">License</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </code></pre>
 
@@ -547,7 +545,7 @@
                                     </div>
                                 </div>
                                 <!-- The project data section -->
-<div id="pluginMetadata">
+    <div id="pluginMetadata">
                                 <div
                                     class="screen-1425:hidden space-y-sds-xl screen-875:space-y-0 screen-1425:space-y-sds-xl grid screen-875:grid-cols-3 screen-1425:grid-cols-1">
                                     <div class="space-y-sds-xl">
@@ -670,7 +668,7 @@
                                     </div>
                                 </div>
                                     <!-- Project data goes here -->
-</div>
+    </div>
                             </div>
                         </article>
                     </div>
@@ -750,3 +748,5 @@
             </div>
     </div>
 </body>
+
+</html>

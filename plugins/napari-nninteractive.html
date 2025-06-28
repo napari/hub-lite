@@ -22,11 +22,9 @@
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
     <meta content="#009bf2" name="msapplication-TileColor" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=JetBrains+Mono&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link as="style" href="../static/css/8ebdfa69bbc45988.css" rel="preload" />
     <link data-n-g="" href="../static/css/8ebdfa69bbc45988.css" rel="stylesheet" /><noscript data-n-css=""></noscript>
     <link href="../static/css/all_plugins_styles.css" rel="stylesheet" />
@@ -444,15 +442,15 @@ Extensive benchmarking demonstrates that nnInteractive far surpasses existing me
 <p>You need a Linux or Windows computer with a Nvidia GPU. 10GB of VRAM is recommended. Small objects should work with &lt;6GB.</p>
 <h5>1. Create a virtual environment:</h5>
 <p>nnInteractive supports Python 3.10+ and works with Conda, pip, or any other virtual environment. Here’s an example using Conda:</p>
-<pre><code><div class="highlight"><pre><span></span>conda create -n nnInteractive python=3.12
-conda activate nnInteractive
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">nnInteractive</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.12</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">nnInteractive</span>
 </pre></div>
 </code></pre>
 <h5>2. Install the correct PyTorch for your system</h5>
 <p>Go to the <a href="https://pytorch.org/get-started/locally/">PyTorch homepage</a> and pick the right configuration.
 Note that since recently PyTorch needs to be installed via pip. This is fine to do within your conda environment.</p>
 <p>For Ubuntu with a Nvidia GPU, pick 'stable', 'Linux', 'Pip', 'Python', 'CUDA12.6' (if all drivers are up to date, otherwise use and older version):</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip3</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">torch</span><span class="w"> </span><span class="n">torchvision</span><span class="w"> </span><span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">cu126</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">cu126</span>
 </pre></div>
 </code></pre>
 <h5>3. Install this repository + dependencies via</h5>
@@ -472,15 +470,15 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 Afterward, Drag and drop your images into napari.</p>
 <p>*<strong>Note if getting asked which plugin to use for opening .nii.gz files use napari-nifti.</strong></p>
 <p>a) Start napari, then Plugins -&gt; nnInteractive.</p>
-<pre><code><div class="highlight"><pre><span></span>napari
+<pre><code><div class="highlight"><pre><span></span><span class="n">napari</span>
 </pre></div>
 </code></pre>
 <p>b) Run this to start napari with the plugin already started.</p>
-<pre><code><div class="highlight"><pre><span></span>napari -w napari-nninteractive
+<pre><code><div class="highlight"><pre><span></span><span class="n">napari</span> <span class="o">-</span><span class="n">w</span> <span class="n">napari</span><span class="o">-</span><span class="n">nninteractive</span>
 </pre></div>
 </code></pre>
 <p>c) Run this to start napari with the plugin and open an image directly</p>
-<pre><code><div class="highlight"><pre><span></span>napari demo_data/liver_145_0000.nii.gz -w napari-nninteractive
+<pre><code><div class="highlight"><pre><span></span><span class="n">napari</span> <span class="n">demo_data</span><span class="o">/</span><span class="n">liver_145_0000</span><span class="o">.</span><span class="n">nii</span><span class="o">.</span><span class="n">gz</span> <span class="o">-</span><span class="n">w</span> <span class="n">napari</span><span class="o">-</span><span class="n">nninteractive</span>
 </pre></div>
 </code></pre>
 <h1>How to use</h1>
@@ -510,7 +508,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                     </div>
                                 </div>
                                 <!-- The project data section -->
-<div id="pluginMetadata">
+    <div id="pluginMetadata">
                                 <div
                                     class="screen-1425:hidden space-y-sds-xl screen-875:space-y-0 screen-1425:space-y-sds-xl grid screen-875:grid-cols-3 screen-1425:grid-cols-1">
                                     <div class="space-y-sds-xl">
@@ -834,7 +832,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                     </div>
                                 </div>
                                     <!-- Project data goes here -->
-</div>
+    </div>
                             </div>
                         </article>
                     </div>
@@ -914,3 +912,5 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
             </div>
     </div>
 </body>
+
+</html>
