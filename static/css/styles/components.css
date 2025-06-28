@@ -220,49 +220,69 @@ code::after {
 
 /*region Hero Section*/
 .hero {
-    height: 25vh; /* half viewport height */
+    min-height: 30vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem;
     background-color: var(--primary-light);
-    gap: var(--sds-xl);
-    /*grid-template-columns: repeat(2, 1fr); */
-    color: black;
-}
-
-.hero-heading {
-    font-weight: bold;
-    grid-column: span 2;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    line-height: 2rem;
 }
 
 .hero-content {
-    display: grid;
-    grid-template-columns: min-content 1fr;
-    gap: var(--sds-xl);
-    grid-column: span 2;
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
     align-items: center;
+    gap: 3rem;
 }
 
-.hero-logo {
-    width: 226px;
-    height: 198px;
+.hero-heading {
+    flex: 1;
+    font-weight: bold;
+    font-size: 3.0rem;
+    line-height: 1.2;
+    text-align: center;
+    margin: 0;
+    color: black;
 }
 
-.feature-list {
-    list-style-type: disc;
-    font-weight: 600;
-    margin-left: var(--sds-xl);
+.hero-image {
+    flex: 0 0 350px;
+    display: flex;
+    justify-content: center;
 }
 
-.feature-list li {
-    margin-bottom: var(--sds-l);
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
-.feature-list li:last-child {
-    margin-bottom: 0;
+.hero-list {
+    flex: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hero-list li {
+    background: rgba(255,255,255,0.1);
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    color: black;
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+}
+
+.hero-list li::before {
+    content: "✓";
+    color: #4ade80;
+    font-weight: bold;
+    margin-right: 0.5rem;
 }
 
 .mobile-features {
@@ -280,32 +300,19 @@ code::after {
 /*region Search Section */
 .search-section {
     background-color: var(--napari-light-blue);
-    padding: 1.5rem;
-    display: grid;
-    justify-content: center;
-    gap: var(--sds-xl);
-    /*grid-template-columns: repeat(2, 1fr);*/
-}
-
-.search-container {
-    grid-column: span 2;
-}
-
-.search-content {
-    width: 100%;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-header {
-    display: flex;
-    align-items: flex-end;
-    margin-bottom: 1.5rem;
     justify-content: space-between;
 }
 
 .plugins-title {
     font-weight: 600;
-    font-size: 1.5rem;
-    line-height: 2.25rem;
+    font-size: 1.0rem;
+    line-height: 1.5rem;
 }
 
 .search-form {
