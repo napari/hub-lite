@@ -88,54 +88,49 @@
 
         <section class="search-section">
             <div class="search-header">
-                        <h2 class="plugins-title">Plugins</h2>
-                    </div>
+                <h2 class="plugins-title">Plugins</h2>
+            </div>
             <form class="search-form" data-testid="searchBarForm" onsubmit="event.preventDefault(); searchFunction();">
-                        <input
-                            type="text"
-                            id="searchBox"
-                            name="query"
-                            class="search-input"
-                            placeholder="Search for a plugin by keyword or author"
-                            autocomplete="off"
-                            aria-label="Search plugins"
-                            oninput="searchFunction()"
+                <input
+                    type="text"
+                    id="searchBox"
+                    name="query"
+                    class="search-input"
+                    placeholder="Search for a plugin by keyword or author"
+                    autocomplete="off"
+                    aria-label="Search plugins"
+                    oninput="searchFunction()"
+                >
+                <button
+                    aria-label="Submit search query"
+                    class="search-button"
+                    data-testid="submitQueryButton"
+                    type="submit"
+                >
+                    <svg class="search-icon" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.32004 7.68001L0.746704 15.2533M10.6667 9.60001C13.0134 9.60001 14.9334 7.68001 14.9334 5.33335C14.9334 2.98668 13.0134 1.06668 10.6667 1.06668C8.32004 1.06668 6.40004 2.98668 6.40004 5.33335C6.40004 7.68001 8.32004 9.60001 10.6667 9.60001Z"
+                            stroke="black"
+                            stroke-width="2"
                         >
-                        <button
-                            aria-label="Submit search query"
-                            class="search-button"
-                            data-testid="submitQueryButton"
-                            type="submit"
-                        >
-                            <svg class="search-icon" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8.32004 7.68001L0.746704 15.2533M10.6667 9.60001C13.0134 9.60001 14.9334 7.68001 14.9334 5.33335C14.9334 2.98668 13.0134 1.06668 10.6667 1.06668C8.32004 1.06668 6.40004 2.98668 6.40004 5.33335C6.40004 7.68001 8.32004 9.60001 10.6667 9.60001Z"
-                                    stroke="black"
-                                    stroke-width="2"
-                                >
-                                </path>
-                            </svg>
-                        </button>
-                    </form>
+                        </path>
+                    </svg>
+                </button>
+            </form>
         </section>
+
+        <section class="results-section">
+            <div class="results-count">
+                <span id="pluginCount" class="plugin-count"><!-- insert number here --></span>
+                plugins available
+            </div>
+        </section>
+
 
         <section class="plugins-section">
             <div class="plugins-container">
                 <div class="plugins-content">
                     <section class="plugins-list-section">
-                        <div class="plugins-list-header">
-                            <h2 class="browse-title">
-                                Browse plugins:
-                                <span id="pluginCount" class="plugin-count"><!-- insert number here --></span>
-                            </h2>
-                            <button
-                                id="resetSearchBtn"
-                                class="reset-button hidden"
-                                onclick="resetSearch()"
-                            >
-                                Reset
-                            </button>
-                        </div>
                         <div class="plugins-grid" id="pluginContainer">
                             <!-- Plugins will be rendered here by JavaScript -->
                         </div>

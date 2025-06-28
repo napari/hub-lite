@@ -6,6 +6,7 @@ import logging
 import os
 import re
 import sys
+import typing
 from string import Template
 
 import pandas as pd
@@ -92,7 +93,8 @@ def _code_block_plugin(md):
 md = MarkdownIt("gfm-like", {"highlight": _highlight_code}).use(_code_block_plugin)
 
 
-def create_small_html(df_plugins, build_dir):
+def compose_plugins_list_html_file(df_plugins, build_dir) -> None:
+    """Compose programmatically an html file containing all plugins"""
     html_content = "<html>\n<body>\n"
     for index, row in df_plugins.iterrows():
         # Fill NaN values with 'N/A' for the current row
@@ -111,7 +113,7 @@ def create_small_html(df_plugins, build_dir):
         release_date = row["created_at"]
         last_updated = row["modified_at"]
 
-        plugin_type = []
+        plugin_type: typing.Any = []
         if row["contributions_readers_0_command"] != "N/A":
             plugin_type.append("reader")
         if row["contributions_writers_0_command"] != "N/A":
@@ -364,6 +366,7 @@ def generate_home_html(plugin_name, home_pypi, home_github, home_other):
 
 
 def generate_plugin_html(row, template, plugin_dir):
+    """Generate an html file for each individual plugin's detail page"""
     # Convert Markdown in 'package_metadata_description' to HTML
     if not pd.isna(row["package_metadata_description"]):
         # Remove the first Markdown header
@@ -441,15 +444,15 @@ if __name__ == "__main__":
     with open(manifest_path, "w") as f:
         json.dump(plugins_manifest, f, indent=4)
 
-    """WHAT NOW BROWN COW"""
-
-    create_small_html(df_plugins, build_dir)
+    """MAKING HTML FILES"""
+    # Create plugins_list.html
+    compose_plugins_list_html_file(df_plugins, build_dir)
 
     # Read the list of available plugins
     with open(f"{build_dir}/plugins_list.html") as file:
         element_html = file.read()
 
-    # Read the individual plugin HTML template
+    # Read the template used to generate individual plugin html files
     with open(f"{template_dir}/each_plugin_template.html") as file:
         template = file.read()
 
@@ -457,3 +460,6 @@ if __name__ == "__main__":
     df_plugins.apply(
         lambda row: generate_plugin_html(row, template, plugin_dir), axis=1
     )
+
+    # Write a csv to capture state of dataframe
+    df_plugins.to_csv(f"{data_dir}/post_create_static_html_files.csv")
