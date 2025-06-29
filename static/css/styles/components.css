@@ -331,13 +331,71 @@ code::after {
     background-color: lightgrey;
 }
 
-.result-styling {
+/* Container for the 3 lists */
+.result-item-lists {
     display: flex;
-    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    text-align: left;
+    margin-top: 15px;
 }
-/*.search-result-display-name*/
-/*.search-result-name*/
-/*.search-result-summary*/
+
+/* Individual list styling */
+.result-text-list {
+    flex: 1;                    /* Equal width distribution */
+    min-width: 0;              /* Allows shrinking below content size */
+}
+
+.result-text-list h4 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+    padding-bottom: 5px;
+}
+
+.result-text-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.result-text-list li {
+    padding: 5px 0;
+    font-size: 0.9rem;
+    font-weight: 400;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.result-text-list li:before {
+    content: "→ ";             /* Custom bullet */
+    margin-right: 5px;
+    opacity: 0.8;
+}
+
+/* Mobile responsive - stack lists vertically */
+@media (max-width: 768px) {
+    .item-lists {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+
+.search-result-display-name h3 {
+    font-size: var(--text-lg);
+    font-weight: bold;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-color);
+}
+
+.search-result-name {
+
+}
+
+.search-result-summary {
+
+}
 
 .metadata-group {
     background-color: transparent;
