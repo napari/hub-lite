@@ -124,24 +124,27 @@ def compose_plugins_list_html_file(df_plugins, build_dir) -> None:
             plugin_type.append("sample_data")
         plugin_type = ", ".join(plugin_type) if plugin_type else "N/A"
 
-        html_content += '<article class="search-result" data-testid="searchResult">\n'
-        html_content += f'    <a class="plugin-search-result" data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
+        html_content += '  <article class="search-result" data-testid="searchResult">\n'
+        html_content += f'     <a class="plugin-search-result" data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
         html_content += '        <div class="result-styling">\n'
-        html_content += f'            <div class="result-header">\n                <h3 class="search-result-display-name" data-testid="searchResultDisplayName">{display_name}</h3>\n'
-        html_content += f'                <span class="search-result-name" data-testid="searchResultName">{name}</span>\n'
-        html_content += f'                <p class="search-result-summary" data-testid="searchResultSummary">{summary}</p>\n            </div>\n'
-        html_content += '            <ul class="metadata-list">\n'
+        html_content += '            <div class="result-header">\n'
+        html_content += f'               <h3 class="search-result-display-name" data-testid="searchResultDisplayName">{display_name}</h3>\n'
+        html_content += f'               <span class="search-result-name" data-testid="searchResultName">{name}</span>\n'
+        html_content += f'               <p class="search-result-summary" data-testid="searchResultSummary">{summary}</p>\n'
+        html_content += "             </div>\n"
+        html_content += '             <ul class="metadata-list">\n'
         for author in authors:
-            html_content += f'                <li class="metadata-item" data-testid="searchResultAuthor">{author}</li>\n'
-        html_content += "            </ul>\n        </div>\n"
-        html_content += '        <ul class="metadata-group">\n'
-        html_content += f'            <li class="metadata-item" data-label="First released" data-testid="searchResultMetadata" data-value="{release_date}">\n'
-        html_content += f'                <h4 class="inline whitespace-nowrap">First released<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{release_date}</span>\n            </li>\n'
-        html_content += f'            <li class="metadata-item" data-label="Last updated" data-testid="searchResultMetadata" data-value="{last_updated}">\n'
-        html_content += f'                <h4 class="inline whitespace-nowrap">Last updated<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{last_updated}</span>\n            </li>\n'
-        html_content += f'            <li class="metadata-item" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
-        html_content += f'                <h4 class="inline whitespace-nowrap">Plugin type<!-- -->: </h4><span class="ml-sds-xxs font-bold">{plugin_type}</span>\n            </li>\n        </ul>\n'
-        html_content += "            </div></a>\n</article>\n"
+            html_content += f'               <li class="metadata-item" data-testid="searchResultAuthor">{author}</li>\n'
+        html_content += "             </ul>\n"
+        html_content += '             <ul class="metadata-group">\n'
+        html_content += f'                <li class="metadata-item" data-label="First released" data-testid="searchResultMetadata" data-value="{release_date}">\n'
+        html_content += f'                   <h4 class="inline whitespace-nowrap">First released<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{release_date}</span>\n            </li>\n'
+        html_content += f'                <li class="metadata-item" data-label="Last updated" data-testid="searchResultMetadata" data-value="{last_updated}">\n'
+        html_content += f'                   <h4 class="inline whitespace-nowrap">Last updated<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{last_updated}</span>\n            </li>\n'
+        html_content += f'                <li class="metadata-item" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
+        html_content += f'                   <h4 class="inline whitespace-nowrap">Plugin type<!-- -->: </h4><span class="ml-sds-xxs font-bold">{plugin_type}</span>\n            </li>\n'
+        html_content += "              </ul>\n"
+        html_content += "          </div></a>\n</article>\n"
 
     html_content += "</body>\n</html>"
 
