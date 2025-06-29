@@ -124,24 +124,26 @@ def compose_plugins_list_html_file(df_plugins, build_dir) -> None:
             plugin_type.append("sample_data")
         plugin_type = ", ".join(plugin_type) if plugin_type else "N/A"
 
-        html_content += f'<a class="col-span-2 screen-1425:col-span-3 searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100" data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
-        html_content += '    <article class="grid gap-x-sds-xl screen-495:gap-x-12 screen-600:grid-cols-2 screen-1425:grid-cols-napari-3" data-testid="searchResult">\n'
-        html_content += '        <div class="col-span-2 screen-495:col-span-1 screen-1425:col-span-2 flex flex-col justify-between">\n'
-        html_content += f'            <div>\n                <h3 class="font-bold text-lg" data-testid="searchResultDisplayName">{display_name}</h3>\n'
-        html_content += f'                <span class="mt-sds-m screen-495:mt-3 text-[0.6875rem]" data-testid="searchResultName">{name}</span>\n'
-        html_content += f'                <p class="mt-3" data-testid="searchResultSummary">{summary}</p>\n            </div>\n'
-        html_content += '            <ul class="mt-3 text-xs">\n'
+        html_content += f'<a class="plugin-search-result" data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
+        html_content += (
+            '    <article class="search-result" data-testid="searchResult">\n'
+        )
+        html_content += '        <div class="result-styling">\n'
+        html_content += f'            <div>\n                <h3 class="search-result-display-name" data-testid="searchResultDisplayName">{display_name}</h3>\n'
+        html_content += f'                <span class="search-result-name" data-testid="searchResultName">{name}</span>\n'
+        html_content += f'                <p class="search-result-summary" data-testid="searchResultSummary">{summary}</p>\n            </div>\n'
+        html_content += '            <ul class="metadata-list">\n'
         for author in authors:
-            html_content += f'                <li class="my-sds-s font-bold PluginSearchResult_linkItem__Vvs7H" data-testid="searchResultAuthor">{author}</li>\n'
+            html_content += f'                <li class="metadata-item" data-testid="searchResultAuthor">{author}</li>\n'
         html_content += "            </ul>\n        </div>\n"
-        html_content += '        <ul class="mt-sds-l screen-600:m-0 space-y-1 text-sm col-span-2 screen-495:col-span-1">\n'
-        html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="First released" data-testid="searchResultMetadata" data-value="{release_date}">\n'
+        html_content += '        <ul class="metadata-group">\n'
+        html_content += f'            <li class="metadata-item" data-label="First released" data-testid="searchResultMetadata" data-value="{release_date}">\n'
         html_content += f'                <h4 class="inline whitespace-nowrap">First released<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{release_date}</span>\n            </li>\n'
-        html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Last updated" data-testid="searchResultMetadata" data-value="{last_updated}">\n'
+        html_content += f'            <li class="metadata-item" data-label="Last updated" data-testid="searchResultMetadata" data-value="{last_updated}">\n'
         html_content += f'                <h4 class="inline whitespace-nowrap">Last updated<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{last_updated}</span>\n            </li>\n'
-        html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
+        html_content += f'            <li class="metadata-item" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
         html_content += f'                <h4 class="inline whitespace-nowrap">Plugin type<!-- -->: </h4><span class="ml-sds-xxs font-bold">{plugin_type}</span>\n            </li>\n        </ul>\n'
-        html_content += '        <div class="mt-sds-xl text-xs flex flex-col gap-sds-s col-span-2 screen-1425:col-span-3">\n        </div>\n    </article>\n</a>\n'
+        html_content += '        <div class="">\n        </div>\n    </article>\n</a>\n'
 
     html_content += "</body>\n</html>"
 
@@ -164,9 +166,9 @@ def generate_plugin_types_html(row):
         plugin_type.append("sample_data")
 
     if plugin_type:
-        plugin_types_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+        plugin_types_html = '<ul class="metadata-list">'
         for pt in plugin_type:
-            plugin_types_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
+            plugin_types_html += f'<li class="metadata-item"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
         plugin_types_html += "</ul>"
 
     return plugin_types_html
@@ -185,9 +187,9 @@ def generate_open_extensions_html(row):
         )
 
         if filename_patterns:
-            open_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+            open_extensions_html = '<ul class="metadata-list">'
             for pattern in filename_patterns:
-                open_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions={pattern}">{pattern}</a></li>'
+                open_extensions_html += f'<li class="metadata-item"><a href="../index.html?readerFileExtensions={pattern}">{pattern}</a></li>'
             open_extensions_html += "</ul>"
 
     return open_extensions_html
@@ -209,9 +211,9 @@ def generate_save_extensions_html(row):
         )
 
     if file_extensions:
-        save_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+        save_extensions_html = '<ul class="metadata-list">'
         for ext in file_extensions:
-            save_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions={ext}">{ext}</a></li>'
+            save_extensions_html += f'<li class="metadata-item" href="../index.html?writerFileExtensions={ext}">{ext}</a></li>'
         save_extensions_html += "</ul>"
 
     return save_extensions_html
@@ -226,13 +228,9 @@ def generate_requirements_html(row):
         requirements = ast.literal_eval(row.get("package_metadata_requires_dist"))
 
         if requirements:
-            requirements_html = (
-                '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
-            )
+            requirements_html = '<ul class="metadata-list">'
             for req in requirements:
-                requirements_html += (
-                    f'<li class="MetadataList_textItem__KKmMN">{req}</li>'
-                )
+                requirements_html += f'<li class="metadata-item">{req}</li>'
             requirements_html += "</ul>"
 
     return requirements_html
@@ -280,9 +278,9 @@ def generate_python_versions_html(
         versions = [f"3.{v}" for v in range(min_minor, max_minor + 1)]
 
         # Construct HTML list items for each version
-        python_versions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+        python_versions_html = '<ul class="metadata-list">'
         for version in versions:
-            python_versions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python={version}">{version}</a></li>'
+            python_versions_html += f'<li class="metadata-item"><a href="../index.html?python={version}">{version}</a></li>'
         python_versions_html += "</ul>"
 
     return python_versions_html
@@ -291,9 +289,9 @@ def generate_python_versions_html(
 def get_os_html(package_metadata_classifier):
     # Default message if no operating system info is found
     default_os_html = (
-        '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
-        '<li class="flex justify-between items-center"><span '
-        'class="text-napari-gray font-normal lowercase">Information not '
+        '<ul class="metadata-list">'
+        '<li class="metadata-item"><span '
+        ">Information not "
         "submitted</span></li>"
         "</ul>"
     )
@@ -326,8 +324,8 @@ def extract_github_info(url):
 def generate_home_html(plugin_name, home_pypi, home_github, home_other):
     # Start with the PyPI link, which is always present
     html_content = f'''
-   <div class="flex items-center" style="gap: 20px; ; align-items: center;"">
-        <a class="underline flex" href="{home_pypi}" rel="noreferrer" target="_blank">
+   <div>
+        <a href="{home_pypi}" rel="noreferrer" target="_blank">
         <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{plugin_name}</span>
     </a>
     '''
@@ -339,7 +337,7 @@ def generate_home_html(plugin_name, home_pypi, home_github, home_other):
         if user is not None and repo is not None:
             github_user_repo = "/".join([user, repo])
         html_content += f'''
-        <a class="underline flex" href="{home_github}" rel="noreferrer" target="_blank">
+        <a href="{home_github}" rel="noreferrer" target="_blank">
             <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{github_user_repo}</span>
         </a>
         '''
