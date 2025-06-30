@@ -356,13 +356,16 @@ if __name__ == "__main__":
                 row["package_metadata_author_email"]
             )
 
+        # For license metadata, we subsitute a short phrase, truncate the text,
+        # or add a sensible default if the text is unavailable.
         if pd.isna(row["license"]):
-            pass
-        # Check for specific license strings to shorten the license information
+            df_plugins.at[index, "license"] = "Unavailable"
         elif "BSD 3-Clause" in str(row["license"]):
             df_plugins.at[index, "license"] = "BSD 3-Clause"
         elif "MIT License" in str(row["license"]):
             df_plugins.at[index, "license"] = "MIT"
+        elif '"' in str(row["license"]):
+            df_plugins.at[index, "license"] = f"{row['license'][:30]}..."
 
         # Fill home_pypi
         if not row["home_pypi"]:
