@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadPlugins();
 
     async function loadPlugins() {
+        // load the plugins_list.html file
         const response = await fetch('plugins_list.html');
         const html = await response.text();
         document.getElementById('pluginContainer').innerHTML = html;
@@ -9,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updatePluginCount() {
+        // Update the count of plugins to display by applying a filter based on the search query
+
         // Select all <a> tags within the pluginContainer
         const allPlugins = document.getElementById('pluginContainer').querySelectorAll('a');
 
@@ -20,12 +23,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.getElementById('searchBox').addEventListener('keydown', function(event) {
+        // Set the trigger for the search event to be the Enter key
         if (event.key === 'Enter') { // Check if the Enter key was pressed
             searchFunction(event.target.value);
         }
     });
 
     async function searchFunction(searchText) {
+        // Takes the search text for the query and returns the matching results
+        // and update the count of visible plugins
+
         // Fetch the initial list to maintain the structure
         const response = await fetch('plugins_list.html');
         const html = await response.text();

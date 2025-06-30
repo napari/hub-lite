@@ -171,7 +171,9 @@ def generate_plugin_types_html(row):
     if plugin_type:
         plugin_types_html = '<ul class="metadata-list">'
         for pt in plugin_type:
-            plugin_types_html += f'<li class="metadata-list-item"><a href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
+            plugin_types_html += (
+                f'<li class="metadata-list-item">{pt.capitalize()}</li>'
+            )
         plugin_types_html += "</ul>"
 
     return plugin_types_html
@@ -192,7 +194,7 @@ def generate_open_extensions_html(row):
         if filename_patterns:
             open_extensions_html = '<ul class="metadata-list">'
             for pattern in filename_patterns:
-                open_extensions_html += f'<li class="metadata-item"><a href="../index.html?readerFileExtensions={pattern}">{pattern}</a></li>'
+                open_extensions_html += f'<li class="metadata-item">{pattern}</li>'
             open_extensions_html += "</ul>"
 
     return open_extensions_html
@@ -283,7 +285,7 @@ def generate_python_versions_html(
         # Construct HTML list items for each version
         python_versions_html = '<ul class="metadata-list">'
         for version in versions:
-            python_versions_html += f'<li class="metadata-list"><a href="../index.html?python={version}">{version}</a></li>'
+            python_versions_html += f'<li class="metadata-list">{version}</li>'
         python_versions_html += "</ul>"
 
     return python_versions_html
