@@ -1,8 +1,9 @@
 BUILDDIR := ./_build
 FETCH_DATA_COMPLETE := $(BUILDDIR)/data/.complete
 CREATE_HTML_COMPLETE := $(BUILDDIR)/plugins/.complete
+DEV_CSS_LOAD_COMPLETE := $(BUILDDIR)/static/css/.complete
 
-.PHONY: all clean prep fetch-data create-html serve-local
+.PHONY: all clean prep fetch-data create-html dev-cssload serve-local
 
 all: prep fetch-data create-html
 
@@ -56,6 +57,12 @@ $(CREATE_HTML_COMPLETE): $(FETCH_DATA_COMPLETE)
 	python ./create_static_html_files.py $(BUILDDIR)
 	@touch $(CREATE_HTML_COMPLETE)
 	@echo "HTML files created in $(BUILDDIR)/plugins"
+
+dev-cssload:
+	@echo "Reloading CSS changes"
+	cp -r ./static/css $(BUILDDIR)/static/css
+	@touch $(DEV_CSS_LOAD_COMPLETE)
+	echo "CSS reload complete"
 
 serve-local: $(CREATE_HTML_COMPLETE)
 	@echo "Starting server..."
