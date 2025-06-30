@@ -1,14 +1,16 @@
-name: Fetch Data, Build HTML & Deploy
+name: Build and deploy site
 
 on:
   schedule:
-    - cron: '0 5 * * *' # Runs at 05:00 UTC every day
+    # Run 4x per day, offset to 20 min after hour to avoid peak GitHub load
+    - cron: '20 2,8,14,20 * * *'  # 2:20 AM, 8:20 AM, 2:20 PM, 8:20 PM UTC
   # You can also trigger this workflow manually
   workflow_dispatch:
 
 jobs:
   run-scripts:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write
 
