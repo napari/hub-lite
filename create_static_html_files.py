@@ -171,7 +171,7 @@ def generate_plugin_types_html(row):
     if plugin_type:
         plugin_types_html = '<ul class="metadata-list">'
         for pt in plugin_type:
-            plugin_types_html += f'<li class="metadata-item"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
+            plugin_types_html += f'<li class="metadata-list-item"><a href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
         plugin_types_html += "</ul>"
 
     return plugin_types_html
@@ -283,7 +283,7 @@ def generate_python_versions_html(
         # Construct HTML list items for each version
         python_versions_html = '<ul class="metadata-list">'
         for version in versions:
-            python_versions_html += f'<li class="metadata-item"><a href="../index.html?python={version}">{version}</a></li>'
+            python_versions_html += f'<li class="metadata-list"><a href="../index.html?python={version}">{version}</a></li>'
         python_versions_html += "</ul>"
 
     return python_versions_html
@@ -293,7 +293,7 @@ def get_os_html(package_metadata_classifier):
     # Default message if no operating system info is found
     default_os_html = (
         '<ul class="metadata-list">'
-        '<li class="metadata-item"><span '
+        '<li class="metadata-list"><span '
         ">Information not "
         "submitted</span></li>"
         "</ul>"
@@ -308,9 +308,7 @@ def get_os_html(package_metadata_classifier):
         if "Operating System ::" in item:
             os = item.split("Operating System :: ")[1].strip("' \"")
             os_html = (
-                '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
-                f'<li class="MetadataList_textItem__KKmMN">{os}</li>'
-                "</ul>"
+                f'<ul class="metadata-list"><li class="metadata-list">{os}</li></ul>'
             )
             break
     return os_html
