@@ -286,7 +286,7 @@ def generate_python_versions_html(
     return python_versions_html
 
 
-def get_os_html(classifiers):
+def get_os_html(package_metadata_classifier):
     # Default message if no operating system info is found
     default_os_html = (
         '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
@@ -296,17 +296,21 @@ def get_os_html(classifiers):
         "</ul>"
     )
 
-    # # Search for the operating system classifier
-    # os_classifier = next((c for c in classifiers if c.startswith('Operating System ::')), None)
-    # if os_classifier:
-    #     operating_system = os_classifier.split('::')[-1].strip()
-    #     os_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">' \
-    #               f'<li class="MetadataList_textItem__KKmMN">{operating_system}</li>' \
-    #               '</ul>'
-    # else:
-    #     os_html = default_os_html
+    # Split the package_metadata_classifier into a list for easier searching
+    classifier_items = package_metadata_classifier.strip("]").split(",")
 
-    return default_os_html
+    # Compose html from classifier or use the default
+    os_html = default_os_html
+    for item in classifier_items:
+        if "Operating System ::" in item:
+            os = item.split("Operating System :: ")[1].strip("' \"")
+            os_html = (
+                '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
+                f'<li class="MetadataList_textItem__KKmMN">{os}</li>'
+                "</ul>"
+            )
+            break
+    return os_html
 
 
 def extract_github_info(url):
@@ -394,7 +398,7 @@ def generate_plugin_html(row, template, plugin_dir):
     row_data["plugin_types"] = plugin_types_html
     row_data["requirements"] = requirements_html
     row_data["python_versions"] = python_versions_html
-    row_data["os"] = get_os_html(row)
+    row_data["os"] = get_os_html(row["package_metadata_classifier"])
     row_data["package_metadata_description"] = html_description
     row_data["home_link"] = home_html
 
