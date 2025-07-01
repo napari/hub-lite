@@ -124,10 +124,8 @@ def compose_plugins_list_html_file(df_plugins, build_dir) -> None:
             plugin_type.append("sample_data")
         plugin_type = ", ".join(plugin_type) if plugin_type else "N/A"
 
-        html_content += (
-            '  <article class="plugin-metadata-section" data-testid="searchResult">\n'
-        )
         html_content += f'     <a data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
+        html_content += '      <article class="plugin-metadata-section" data-testid="searchResult">\n'
         html_content += '        <div class="plugin-metadata-grid">\n'
         html_content += '            <div class="plugin-metadata-group">\n'
         html_content += f'               <h3 class="plugin-metadata-item" data-testid="searchResultDisplayName">{display_name}</h3>\n'
@@ -146,7 +144,7 @@ def compose_plugins_list_html_file(df_plugins, build_dir) -> None:
         html_content += f'                <li class="plugin-metadata-item" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
         html_content += f'                   <h4 class="inline whitespace-nowrap">Plugin type<!-- -->: </h4><span class="ml-sds-xxs font-bold">{plugin_type}</span>\n            </li>\n'
         html_content += "              </ul>\n</div>\n"
-        html_content += "          </div></a>\n</article>\n"
+        html_content += "          </div></article>\n</a>\n"
 
     html_content += "</body>\n</html>"
 

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function loadPlugins() {
         // load the plugins_list.html file
+        console.log("Loading plugins");
         const response = await fetch('plugins_list.html');
         const html = await response.text();
         document.getElementById('pluginContainer').innerHTML = html;
@@ -10,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updatePluginCount() {
+        console.log("Enter updatePluginCount")
         // Update the count of plugins to display by applying a filter based on the search query
 
         // Select all <a> tags within the pluginContainer
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.getElementById('searchBox').addEventListener('keydown', function(event) {
+        console.log("get searchbox enter envent")
         // Set the trigger for the search event to be the Enter key
         if (event.key === 'Enter') { // Check if the Enter key was pressed
             searchFunction(event.target.value);
@@ -30,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     async function searchFunction(searchText) {
+        console.log("enter searchFunction");
         // Takes the search text for the query and returns the matching results
         // and update the count of visible plugins
 
@@ -72,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        console.log("Call updatePluginCount")
         updatePluginCount(); // This might need adjustment to count only visible plugins
     }
 });
