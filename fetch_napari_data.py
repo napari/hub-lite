@@ -9,6 +9,7 @@ import logging
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from urllib.parse import urljoin
 
 import pandas as pd
@@ -300,7 +301,8 @@ if __name__ == "__main__":
     # Get path to target build directory and data directory from command line arguments
     # or set default
     build_dir = sys.argv[1] if len(sys.argv) > 1 else "."
-    data_dir = f"{build_dir}/data"
+    # Set data directory and create if needed
+    (data_dir := Path(f"{build_dir}/data")).mkdir(exist_ok=True)
 
     # Create and populate a raw DataFrame with plugin data
     df_plugins = build_plugins_dataframe()
