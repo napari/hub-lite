@@ -6,6 +6,7 @@ import logging
 import os
 import re
 import sys
+import typing
 from string import Template
 
 import pandas as pd
@@ -92,7 +93,8 @@ def _code_block_plugin(md):
 md = MarkdownIt("gfm-like", {"highlight": _highlight_code}).use(_code_block_plugin)
 
 
-def create_small_html(df_plugins, build_dir):
+def compose_plugins_list_html_file(df_plugins, build_dir) -> None:
+    """Compose programmatically an html file containing all plugins"""
     html_content = "<html>\n<body>\n"
     for index, row in df_plugins.iterrows():
         # Fill NaN values with 'N/A' for the current row
@@ -111,7 +113,7 @@ def create_small_html(df_plugins, build_dir):
         release_date = row["created_at"]
         last_updated = row["modified_at"]
 
-        plugin_type = []
+        plugin_type: typing.Any = []
         if row["contributions_readers_0_command"] != "N/A":
             plugin_type.append("reader")
         if row["contributions_writers_0_command"] != "N/A":
@@ -122,24 +124,27 @@ def create_small_html(df_plugins, build_dir):
             plugin_type.append("sample_data")
         plugin_type = ", ".join(plugin_type) if plugin_type else "N/A"
 
-        html_content += f'<a class="col-span-2 screen-1425:col-span-3 searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100" data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
-        html_content += '    <article class="grid gap-x-sds-xl screen-495:gap-x-12 screen-600:grid-cols-2 screen-1425:grid-cols-napari-3" data-testid="searchResult">\n'
-        html_content += '        <div class="col-span-2 screen-495:col-span-1 screen-1425:col-span-2 flex flex-col justify-between">\n'
-        html_content += f'            <div>\n                <h3 class="font-bold text-lg" data-testid="searchResultDisplayName">{display_name}</h3>\n'
-        html_content += f'                <span class="mt-sds-m screen-495:mt-3 text-[0.6875rem]" data-testid="searchResultName">{name}</span>\n'
-        html_content += f'                <p class="mt-3" data-testid="searchResultSummary">{summary}</p>\n            </div>\n'
-        html_content += '            <ul class="mt-3 text-xs">\n'
+        html_content += f'     <a data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
+        html_content += '      <article class="plugin-metadata-section" data-testid="searchResult">\n'
+        html_content += '        <div class="plugin-metadata-grid">\n'
+        html_content += '            <div class="plugin-metadata-group">\n'
+        html_content += f'               <h3 class="plugin-metadata-item" data-testid="searchResultDisplayName">{display_name}</h3>\n'
+        html_content += f'               <span class="plugin-metadata-item" data-testid="searchResultName">{name}</span>\n'
+        html_content += f'               <p class="plugin-metadata-item" data-testid="searchResultSummary">{summary}</p>\n'
+        html_content += "             </div>\n"
+        html_content += '             <div class="plugin-metadata-group"><ul>\n'
         for author in authors:
-            html_content += f'                <li class="my-sds-s font-bold PluginSearchResult_linkItem__Vvs7H" data-testid="searchResultAuthor">{author}</li>\n'
-        html_content += "            </ul>\n        </div>\n"
-        html_content += '        <ul class="mt-sds-l screen-600:m-0 space-y-1 text-sm col-span-2 screen-495:col-span-1">\n'
-        html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="First released" data-testid="searchResultMetadata" data-value="{release_date}">\n'
-        html_content += f'                <h4 class="inline whitespace-nowrap">First released<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{release_date}</span>\n            </li>\n'
-        html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Last updated" data-testid="searchResultMetadata" data-value="{last_updated}">\n'
-        html_content += f'                <h4 class="inline whitespace-nowrap">Last updated<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{last_updated}</span>\n            </li>\n'
-        html_content += f'            <li class="grid grid-cols-[auto,1fr]" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
-        html_content += f'                <h4 class="inline whitespace-nowrap">Plugin type<!-- -->: </h4><span class="ml-sds-xxs font-bold">{plugin_type}</span>\n            </li>\n        </ul>\n'
-        html_content += '        <div class="mt-sds-xl text-xs flex flex-col gap-sds-s col-span-2 screen-1425:col-span-3">\n        </div>\n    </article>\n</a>\n'
+            html_content += f'               <li class="plugin-metadata-item" data-testid="searchResultAuthor">{author}</li>\n'
+        html_content += "             </ul>\n</div>\n"
+        html_content += '             <div class="plugin-metadata-group"><ul>\n'
+        html_content += f'                <li class="plugin-metadata-item" data-label="First released" data-testid="searchResultMetadata" data-value="{release_date}">\n'
+        html_content += f'                   <h4 class="inline whitespace-nowrap">First released<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{release_date}</span>\n            </li>\n'
+        html_content += f'                <li class="plugin-metadata-item" data-label="Last updated" data-testid="searchResultMetadata" data-value="{last_updated}">\n'
+        html_content += f'                   <h4 class="inline whitespace-nowrap">Last updated<!-- -->: </h4>\n                <span class="ml-sds-xxs font-bold">{last_updated}</span>\n            </li>\n'
+        html_content += f'                <li class="plugin-metadata-item" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{plugin_type}">\n'
+        html_content += f'                   <h4 class="inline whitespace-nowrap">Plugin type<!-- -->: </h4><span class="ml-sds-xxs font-bold">{plugin_type}</span>\n            </li>\n'
+        html_content += "              </ul>\n</div>\n"
+        html_content += "          </div></article>\n</a>\n"
 
     html_content += "</body>\n</html>"
 
@@ -162,9 +167,11 @@ def generate_plugin_types_html(row):
         plugin_type.append("sample_data")
 
     if plugin_type:
-        plugin_types_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+        plugin_types_html = '<ul class="metadata-list">'
         for pt in plugin_type:
-            plugin_types_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
+            plugin_types_html += (
+                f'<li class="metadata-list-item">{pt.capitalize()}</li>'
+            )
         plugin_types_html += "</ul>"
 
     return plugin_types_html
@@ -183,9 +190,9 @@ def generate_open_extensions_html(row):
         )
 
         if filename_patterns:
-            open_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+            open_extensions_html = '<ul class="metadata-list">'
             for pattern in filename_patterns:
-                open_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions={pattern}">{pattern}</a></li>'
+                open_extensions_html += f'<li class="metadata-item">{pattern}</li>'
             open_extensions_html += "</ul>"
 
     return open_extensions_html
@@ -207,9 +214,9 @@ def generate_save_extensions_html(row):
         )
 
     if file_extensions:
-        save_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+        save_extensions_html = '<ul class="metadata-list">'
         for ext in file_extensions:
-            save_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions={ext}">{ext}</a></li>'
+            save_extensions_html += f'<li class="metadata-item" href="../index.html?writerFileExtensions={ext}">{ext}</a></li>'
         save_extensions_html += "</ul>"
 
     return save_extensions_html
@@ -224,13 +231,9 @@ def generate_requirements_html(row):
         requirements = ast.literal_eval(row.get("package_metadata_requires_dist"))
 
         if requirements:
-            requirements_html = (
-                '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
-            )
+            requirements_html = '<ul class="metadata-list">'
             for req in requirements:
-                requirements_html += (
-                    f'<li class="MetadataList_textItem__KKmMN">{req}</li>'
-                )
+                requirements_html += f'<li class="metadata-item">{req}</li>'
             requirements_html += "</ul>"
 
     return requirements_html
@@ -278,9 +281,9 @@ def generate_python_versions_html(
         versions = [f"3.{v}" for v in range(min_minor, max_minor + 1)]
 
         # Construct HTML list items for each version
-        python_versions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+        python_versions_html = '<ul class="metadata-list">'
         for version in versions:
-            python_versions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python={version}">{version}</a></li>'
+            python_versions_html += f'<li class="metadata-list">{version}</li>'
         python_versions_html += "</ul>"
 
     return python_versions_html
@@ -289,9 +292,9 @@ def generate_python_versions_html(
 def get_os_html(package_metadata_classifier):
     # Default message if no operating system info is found
     default_os_html = (
-        '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
-        '<li class="flex justify-between items-center"><span '
-        'class="text-napari-gray font-normal lowercase">Information not '
+        '<ul class="metadata-list">'
+        '<li class="metadata-list"><span '
+        ">Information not "
         "submitted</span></li>"
         "</ul>"
     )
@@ -305,9 +308,7 @@ def get_os_html(package_metadata_classifier):
         if "Operating System ::" in item:
             os = item.split("Operating System :: ")[1].strip("' \"")
             os_html = (
-                '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
-                f'<li class="MetadataList_textItem__KKmMN">{os}</li>'
-                "</ul>"
+                f'<ul class="metadata-list"><li class="metadata-list">{os}</li></ul>'
             )
             break
     return os_html
@@ -324,8 +325,8 @@ def extract_github_info(url):
 def generate_home_html(plugin_name, home_pypi, home_github, home_other):
     # Start with the PyPI link, which is always present
     html_content = f'''
-   <div class="flex items-center" style="gap: 20px; ; align-items: center;"">
-        <a class="underline flex" href="{home_pypi}" rel="noreferrer" target="_blank">
+   <div>
+        <a href="{home_pypi}" rel="noreferrer" target="_blank">
         <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{plugin_name}</span>
     </a>
     '''
@@ -337,7 +338,7 @@ def generate_home_html(plugin_name, home_pypi, home_github, home_other):
         if user is not None and repo is not None:
             github_user_repo = "/".join([user, repo])
         html_content += f'''
-        <a class="underline flex" href="{home_github}" rel="noreferrer" target="_blank">
+        <a href="{home_github}" rel="noreferrer" target="_blank">
             <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">{github_user_repo}</span>
         </a>
         '''
@@ -364,6 +365,7 @@ def generate_home_html(plugin_name, home_pypi, home_github, home_other):
 
 
 def generate_plugin_html(row, template, plugin_dir):
+    """Generate an html file for each individual plugin's detail page"""
     # Convert Markdown in 'package_metadata_description' to HTML
     if not pd.isna(row["package_metadata_description"]):
         # Remove the first Markdown header
@@ -418,20 +420,22 @@ if __name__ == "__main__":
     plugin_dir = f"{build_dir}/plugins"
     template_dir = f"{build_dir}/templates"
 
-    # Load your DataFrame
+    """READ AND SORT PLUGINS DATA"""
+    # Load a dataframe of all plugins from the csv generated by `fetch_napari_data.py`
     df_plugins = pd.read_csv(f"{data_dir}/final_plugins.csv")
-
-    # Sort the DataFrame by 'modified_at' in descending order
+    # Sort by "modified at" date so most recently updated plugins are first
     df_plugins = df_plugins.sort_values(by="modified_at", ascending=False)
-
-    # Reset index to ensure it starts from 0 and is continuous after sorting
+    # Reset the index to ensure it starts from 0 and is continuous after sorting
     df_plugins.reset_index(drop=True, inplace=True)
+
+    """CREATING THE MANIFEST"""
+    # Create a column for "plugin_id" from the recently sorted index
     df_plugins["plugin_id"] = df_plugins.index
+    # Create a column for "html_filename" which will be used to write an individual plugin page
     df_plugins["html_filename"] = df_plugins["normalized_name"].apply(
         lambda x: f"{x}.html"
     )
-
-    # Generate plugins_manifest.json
+    # Generate a helper manifest of all plugins with entries for each id and corresponding html filename
     plugins_manifest = df_plugins[["plugin_id", "html_filename"]].to_dict(
         orient="records"
     )
@@ -439,13 +443,15 @@ if __name__ == "__main__":
     with open(manifest_path, "w") as f:
         json.dump(plugins_manifest, f, indent=4)
 
-    create_small_html(df_plugins, build_dir)
+    """MAKING HTML FILES"""
+    # Create plugins_list.html
+    compose_plugins_list_html_file(df_plugins, build_dir)
 
     # Read the list of available plugins
     with open(f"{build_dir}/plugins_list.html") as file:
         element_html = file.read()
 
-    # Read the individual plugin HTML template
+    # Read the template used to generate individual plugin html files
     with open(f"{template_dir}/each_plugin_template.html") as file:
         template = file.read()
 
@@ -453,3 +459,6 @@ if __name__ == "__main__":
     df_plugins.apply(
         lambda row: generate_plugin_html(row, template, plugin_dir), axis=1
     )
+
+    # Write a csv to capture state of dataframe
+    df_plugins.to_csv(f"{data_dir}/post_create_static_html_files.csv")

@@ -8,11 +8,16 @@ from __future__ import annotations
 import logging
 import re
 import sys
-from concurrent.futures import ThreadPoolExecutor
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from functools import lru_cache
+from pathlib import Path
 from urllib.parse import urljoin
 
 import pandas as pd
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 API_SUMMARY_URL = "https://npe2api.vercel.app/api/extended_summary"
 API_CONDA_MAP_URL = "https://npe2api.vercel.app/api/conda"
@@ -54,7 +59,63 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-DEFAULT_TIMEOUT = 10  # Timeout for requests in seconds
+DEFAULT_TIMEOUT = 30  # Increased timeout for requests
+MAX_WORKERS = 25  # Number of concurrent threads, balanced for the connection pool size, reduce if warnings are frequent
+CHUNK_SIZE = 50  # Process plugins in chunks
+
+
+class APIClient:
+    """HTTP client with connection pooling and retry logic.
+
+    For resource conservation, exponential backoff is used for retries.
+    """
+
+    def __init__(self, max_retries=3, backoff_factor=0.3):
+        self.session = requests.Session()
+
+        # Configure retry strategy
+        retry_strategy = Retry(
+            total=max_retries,
+            backoff_factor=backoff_factor,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["GET"],
+        )
+
+        # Use the requests adapter to enable retries and tie it to the session
+        adapter = HTTPAdapter(
+            max_retries=retry_strategy,
+            pool_connections=50,
+            pool_maxsize=100,
+        )
+        self.session.mount("http://", adapter)
+        self.session.mount("https://", adapter)
+
+    def get(self, url: str, timeout: int = DEFAULT_TIMEOUT) -> dict | None:
+        """Fetch JSON data from URL with retries and connection pooling."""
+        try:
+            response = self.session.get(url, timeout=timeout)
+            response.raise_for_status()
+            logger.info(f"Successfully fetched data: {url}")
+            return response.json()
+        except requests.exceptions.HTTPError as e:
+            logger.error(f"HTTP error occurred for {url}: {e}")
+        except requests.exceptions.ConnectionError as e:
+            logger.error(f"Connection error occurred for {url}: {e}")
+        except requests.exceptions.Timeout as e:
+            logger.error(f"Timeout error occurred for {url}: {e}")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Request error occurred for {url}: {e}")
+        except Exception as e:
+            logger.error(f"Unexpected error occurred for {url}: {e}")
+        return None
+
+    def close(self):
+        """Close the requests session."""
+        self.session.close()
+
+
+# Create a global API client instance to use for all API requests
+api_client = APIClient()
 
 
 # --- Helper Functions ---
@@ -96,11 +157,15 @@ def extract_author_names(email: str | list[str]) -> str:
     return ", ".join(clean_authors)
 
 
+@lru_cache(maxsize=1000)
 def classify_url(url: str) -> str:
     """
     Classify package source code URL in a dataframe to a string identifying the package repository name.
 
     Currently, this categorizes a URL to be 'pypi', 'github', or 'other'.
+
+    Use lru_cache since the same URL patterns may be processed multiple times when handling the dataframe.
+    Caching prevents redundant string matching operations for frequently occurring URLs, improving efficiency.
     """
     categories = {
         "pypi.org": "pypi",
@@ -149,58 +214,46 @@ def flatten_and_merge(original, additional, parent_key="") -> None:
 
 
 # --- API Fetch Functions ---
-def fetch(url: str):
-    """Fetches data from the given URL and returns it as a JSON object"""
-    try:
-        response = requests.get(url, timeout=DEFAULT_TIMEOUT)
-        response.raise_for_status()  # Raises HTTPError for bad responses (4xx, 5xx)
-        logger.info(f"Successfully fetched data: {url}")
-        return response.json()  # Assuming JSON response
-    except requests.exceptions.HTTPError as e:
-        logger.error(f"HTTP error occurred: {e}")
-    except requests.exceptions.ConnectionError as e:
-        logger.error(f"Connection error occurred: {e}")
-    except requests.exceptions.Timeout as e:
-        logger.error(f"Timeout error occurred: {e}")
-    except requests.exceptions.RequestException as e:
-        logger.error(f"An error occurred: {e}")
-    return None
-
-
 def fetch_conda(plugin_name: str):
     """Fetches Conda info and creates an HTML file for it"""
     url = urljoin(API_CONDA_BASE_URL, plugin_name)
-    logger.info(f"Fetching data for plugin: {plugin_name} from URL: {url}")
-    return fetch(url)
+    logger.info(f"Fetching conda data for plugin: {plugin_name}")
+    return api_client.get(url)
 
 
 def fetch_plugin(url: str):
     """Fetches plugin summary from the given URL"""
-    logger.info(f"Fetching data from URL: {url}")
-    return fetch(url)
+    logger.info(f"Fetching plugin data from: {url}")
+    return api_client.get(url)
 
 
 def fetch_manifest(plugin_name: str):
     """Fetches the manifest data for a given plugin"""
     url = urljoin(API_MANIFEST_BASE_URL, plugin_name)
-    logger.info(f"Fetching data for manifest for: {plugin_name} from URL: {url}")
-    return fetch(url)
+    logger.info(f"Fetching manifest for: {plugin_name}")
+    return api_client.get(url)
 
 
-def get_plugin_summary(url: str) -> pd.DataFrame:
+def fetch_pypi(plugin_name: str):
+    """Fetches PyPI data for a given plugin"""
+    url = urljoin(API_PYPI_BASE_URL, plugin_name)
+    logger.info(f"Fetching PyPI data for: {plugin_name}")
+    return api_client.get(url)
+
+
+def get_plugin_summary(url: str) -> list:
     """
-    Fetches the plugin summary from the given URL and returns it as a DataFrame.
-    If no summary is retrieved, an empty DataFrame is returned.
+    Fetches the plugin summary from the given URL and returns it as a list.
+    If no summary is retrieved, an empty list is returned.
 
     Args:
         url (str): The API URL to fetch the plugin summary.
 
     Returns:
-        pd.DataFrame: The plugin summary as a pandas DataFrame, or an empty DataFrame if none is retrieved.
+        list: The plugin summary as a list, or an empty list if none is retrieved.
     """
     plugin_summary = fetch_plugin(url)
-
-    return plugin_summary if plugin_summary else pd.DataFrame()
+    return plugin_summary if plugin_summary else []
 
 
 def get_version_release_date(pypi_info: dict, release: str) -> str:
@@ -214,12 +267,82 @@ def get_version_release_date(pypi_info: dict, release: str) -> str:
     Returns:
         str: The release date of given version, or an empty string if not found.
     """
-    release_info = pypi_info.get("releases", {}).get(release, {})
-    if release_info:
+    release_info = pypi_info.get("releases", {}).get(release, [])
+    if release_info and len(release_info) > 0:
         # we don't mind which release artifact we look at, as we only want the date
-        release_datetime = release_info[0].get("upload_time")
+        release_datetime = release_info[0].get("upload_time", "")
         return release_datetime
     return ""
+
+
+def process_plugin(plugin: dict, conda_name_map: dict) -> dict:
+    """Process a single plugin and fetch its additional data."""
+    plugin_data = plugin.copy()
+    plugin_normalized_name = plugin.get("normalized_name")
+
+    # Return and don't fetch data if there is no normalized name
+    if not plugin_normalized_name:
+        return plugin_data
+
+    # Fetch all data concurrently for this plugin
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = {}
+
+        # Submit conda fetch if needed
+        if (
+            plugin_normalized_name in conda_name_map
+            and conda_name_map[plugin_normalized_name] is not None
+        ):
+            futures["conda"] = executor.submit(fetch_conda, plugin_normalized_name)
+
+        # Always fetch manifest and pypi
+        futures["manifest"] = executor.submit(fetch_manifest, plugin_normalized_name)
+        futures["pypi"] = executor.submit(fetch_pypi, plugin_normalized_name)
+
+        # Collect results
+        results = {}
+        for key, future in futures.items():
+            try:
+                results[key] = future.result()
+            except Exception as e:
+                logger.error(f"Error fetching {key} for {plugin_normalized_name}: {e}")
+                results[key] = None
+
+    # Process conda info
+    if "conda" in results and results["conda"]:
+        conda_info = {
+            "conda_name": results["conda"].get("name"),
+            "conda_html_url": results["conda"].get("html_url"),
+            "home": results["conda"].get("home"),
+        }
+        plugin_data.update(conda_info)
+
+    # Process pypi info
+    if results.get("pypi"):
+        pypi_info = results["pypi"]
+        # Get release dates
+        pypi_versions = plugin_data.get("pypi_versions", [])
+        if pypi_versions:
+            plugin_first_release = pypi_versions[-1]
+            plugin_latest_release = pypi_versions[0]
+            initial_release_date = get_version_release_date(
+                pypi_info, plugin_first_release
+            )
+            last_updated_date = get_version_release_date(
+                pypi_info, plugin_latest_release
+            )
+            plugin_data.update(
+                {
+                    "created_at": initial_release_date,
+                    "modified_at": last_updated_date,
+                }
+            )
+
+    # Process manifest info
+    if results.get("manifest"):
+        flatten_and_merge(plugin_data, results["manifest"])
+
+    return plugin_data
 
 
 # --- Main Data Processing Function ---
@@ -239,105 +362,85 @@ def build_plugins_dataframe() -> pd.DataFrame:
     pd.DataFrame
         A DataFrame containing the enriched and flattened plugin data. Returns an empty DataFrame if no data is fetched.
     """
-    summary_df = get_plugin_summary(API_SUMMARY_URL)
-    conda_name_map = fetch(API_CONDA_MAP_URL)
+    print("Fetching plugin summary...")
+    summary_list = get_plugin_summary(API_SUMMARY_URL)
+    if not summary_list:
+        logger.error("Failed to fetch plugin summary")
+        return pd.DataFrame()
+
+    print(f"Found {len(summary_list)} plugins")
+
+    print("Fetching conda name map...")
+    conda_name_map = fetch_plugin(API_CONDA_MAP_URL) or {}
 
     all_plugin_data = []
 
-    def process_plugin(plugin):
-        plugin_data = plugin.copy()
-        plugin_normalized_name = plugin.get("normalized_name")
+    print("Processing plugins...")
+    # Process plugins in chunks for better progress reporting
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        # Submit all tasks
+        future_to_plugin = {
+            executor.submit(process_plugin, plugin, conda_name_map): plugin
+            for plugin in summary_list
+        }
 
-        # Fetch and flatten Conda info and Manifest
-        conda_info = (
-            fetch_conda(plugin_normalized_name)
-            if conda_name_map[plugin_normalized_name] is not None
-            else {}
-        )
-        manifest_info = fetch_manifest(plugin_normalized_name)
-        # need pypi info to get the initial and latest release date
-        pypi_info = fetch(urljoin(API_PYPI_BASE_URL, plugin_normalized_name))
+        # Process completed tasks
+        completed = 0
+        for future in as_completed(future_to_plugin):
+            try:
+                plugin_data = future.result()
+                all_plugin_data.append(plugin_data)
+                completed += 1
+                if completed % 10 == 0:
+                    print(f"Processed {completed}/{len(summary_list)} plugins...")
+            except Exception as e:
+                plugin = future_to_plugin[future]
+                logger.error(
+                    f"Error processing plugin {plugin.get('normalized_name', 'unknown')}: {e}"
+                )
 
-        if conda_info:
-            # we only want a limited set of conda info
-            conda_info = {
-                "conda_name": conda_info["name"],
-                "conda_html_url": conda_info["html_url"],
-                # TODO: this should come from project_url not conda info
-                "home": conda_info["home"],
-            }
-            plugin_data.update(conda_info)
-
-        if pypi_info:
-            # releases are sorted in descending order
-            plugin_first_release = plugin_data["pypi_versions"][-1]
-            plugin_latest_release = plugin_data["pypi_versions"][0]
-            initial_release_date = get_version_release_date(
-                pypi_info, plugin_first_release
-            )
-            last_updated_date = get_version_release_date(
-                pypi_info, plugin_latest_release
-            )
-            plugin_data.update(
-                {
-                    "created_at": initial_release_date,
-                    "modified_at": last_updated_date,
-                }
-            )
-
-        if manifest_info:
-            flatten_and_merge(plugin_data, manifest_info)
-
-        all_plugin_data.append(plugin_data)
-
-    with ThreadPoolExecutor() as executor:
-        executor.map(process_plugin, summary_df)
-
+    print(f"Successfully processed {len(all_plugin_data)} plugins")
     return pd.DataFrame(all_plugin_data)
 
 
-if __name__ == "__main__":
-    # Get path to target build directory and data directory from command line arguments
-    # or set default
-    build_dir = sys.argv[1] if len(sys.argv) > 1 else "."
-    data_dir = f"{build_dir}/data"
+def optimize_dataframe_cleaning(df_plugins: pd.DataFrame) -> pd.DataFrame:
+    """Optimize DataFrame cleaning operations using vectorized operations."""
 
-    # Create and populate a raw DataFrame with plugin data
-    df_plugins = build_plugins_dataframe()
+    # Vectorized author extraction
+    def extract_author_vectorized(series):
+        return series.apply(lambda x: extract_author_names(x) if pd.notna(x) else "")
 
-    # Save raw dataframe as a csv. Useful for debugging since dataframe df_plugins
-    # is being modified in place in the following code.
-    df_plugins.to_csv(f"{data_dir}/raw_napari_plugins.csv")
-
-    # Clean raw DataFrame by removing columns that are mostly empty, keep columns that have at least 20 non-missing values
-    df_plugins.dropna(axis=1, thresh=20, inplace=True)
-
-    # Create a dictionary of column names and their count of values
-    column_counts = {
-        column: df_plugins[column].count() for column in df_plugins.columns
-    }
-    # Create a sorted dictionary
-    sorted_column_counts = sorted(
-        column_counts.items(), key=lambda item: item[1], reverse=True
+    # Update author column using vectorized operations
+    mask_author = df_plugins["author"].isna() | df_plugins["author"].str.contains(
+        '"', na=False
+    )
+    df_plugins.loc[mask_author, "author"] = extract_author_vectorized(
+        df_plugins.loc[mask_author, "package_metadata_author_email"]
     )
 
-    # Save the cleaned DataFrame to a CSV file
-    df_plugins.to_csv(f"{data_dir}/cleaned_napari_plugins.csv")
+    # Vectorized license processing
+    df_plugins["license"] = df_plugins["license"].fillna("Unavailable")
 
-    # Modify in place the DataFrame to keep only the columns needed for the plugin html page
-    df_plugins = df_plugins[PLUGIN_PAGE_COLUMNS]
+    # Apply license replacements using vectorized string operations
+    license_replacements = {
+        "BSD 3-Clause": lambda s: s.str.contains("BSD 3-Clause", na=False),
+        "MIT": lambda s: s.str.contains("MIT License", na=False),
+    }
 
-    # Convert and format 'created_at' and 'modified_at' columns
-    df_plugins["created_at"] = pd.to_datetime(
-        df_plugins["created_at"], format="mixed"
-    ).dt.date
-    df_plugins["modified_at"] = pd.to_datetime(
-        df_plugins["modified_at"], format="mixed"
-    ).dt.date
+    for replacement, condition in license_replacements.items():
+        mask = condition(df_plugins["license"])
+        df_plugins.loc[mask, "license"] = replacement
 
-    # Set a temporary helper column 'home_type' by classifying the 'home' URL to a common package repository name, like 'pypi', 'github', or 'other'
+    # Truncate long licenses with quotes
+    mask_quotes = df_plugins["license"].str.contains('"', na=False)
+    df_plugins.loc[mask_quotes, "license"] = (
+        df_plugins.loc[mask_quotes, "license"].str[:30] + "..."
+    )
+
+    # Set home_type using vectorized operations
     df_plugins["home_type"] = df_plugins["home"].apply(classify_url)
-    # Using the 'home_type' column, create new colums for 'pypi', 'github', and 'other'
+
+    # Create home columns using vectorized operations
     df_plugins["home_pypi"] = df_plugins["home"].where(
         df_plugins["home_type"] == "pypi", ""
     )
@@ -348,34 +451,75 @@ if __name__ == "__main__":
         df_plugins["home_type"] == "other", ""
     )
 
-    # Delete the temporary 'home_type' column as it is no longer needed
+    # Fill empty home_pypi values
+    mask_empty_pypi = df_plugins["home_pypi"] == ""
+    df_plugins.loc[mask_empty_pypi, "home_pypi"] = (
+        "https://pypi.org/project/" + df_plugins.loc[mask_empty_pypi, "name"]
+    )
+
+    # Drop temporary column
     df_plugins.drop("home_type", axis=1, inplace=True)
 
-    # Perform row-wise cleaning of the DataFrame for author, license, and home_pypi fields
-    for index, row in df_plugins.iterrows():
-        # Check if 'author' is NaN or contains quotation marks
-        if pd.isna(row["author"]) or '"' in str(row["author"]):
-            # Update 'author' using the extracted name from 'package_metadata_author_email'
-            df_plugins.at[index, "author"] = extract_author_names(
-                row["package_metadata_author_email"]
-            )
+    return df_plugins
 
-        # For license metadata, we subsitute a short phrase, truncate the text,
-        # or add a sensible default if the text is unavailable.
-        if pd.isna(row["license"]):
-            df_plugins.at[index, "license"] = "Unavailable"
-        elif "BSD 3-Clause" in str(row["license"]):
-            df_plugins.at[index, "license"] = "BSD 3-Clause"
-        elif "MIT License" in str(row["license"]):
-            df_plugins.at[index, "license"] = "MIT"
-        elif '"' in str(row["license"]):
-            df_plugins.at[index, "license"] = f"{row['license'][:30]}..."
 
-        # Fill home_pypi
-        if not row["home_pypi"]:
-            df_plugins.at[index, "home_pypi"] = (
-                f"https://pypi.org/project/{row['name']}"
-            )
+if __name__ == "__main__":
+    start_time = time.time()
 
-    # Save the final DataFrame of plugin page information to a CSV file
-    df_plugins.to_csv(f"{data_dir}/final_plugins.csv")
+    # Get path to target build directory and data directory from command line arguments
+    # or set default
+    build_dir = sys.argv[1] if len(sys.argv) > 1 else "."
+    # Set data directory and create if needed
+    (data_dir := Path(f"{build_dir}/data")).mkdir(exist_ok=True)
+
+    try:
+        # Create and populate a raw DataFrame with plugin data
+        df_plugins = build_plugins_dataframe()
+
+        # Save raw dataframe as a csv. Useful for debugging since dataframe df_plugins
+        # is being modified in place in the following code.
+        df_plugins.to_csv(f"{data_dir}/raw_napari_plugins.csv")
+
+        # Clean raw DataFrame by removing columns that are mostly empty, keep columns that have at least 20 non-missing values
+        df_plugins.dropna(axis=1, thresh=20, inplace=True)
+
+        # Create a dictionary of column names and their count of values
+        column_counts = {
+            column: df_plugins[column].count() for column in df_plugins.columns
+        }
+        # Create a sorted dictionary
+        sorted_column_counts = sorted(
+            column_counts.items(), key=lambda item: item[1], reverse=True
+        )
+
+        # Save the cleaned DataFrame to a CSV file
+        df_plugins.to_csv(f"{data_dir}/cleaned_napari_plugins.csv")
+
+        # Modify in place the DataFrame to keep only the columns needed for the plugin html page
+        # Filter to keep only columns that exist
+        existing_columns = [
+            col for col in PLUGIN_PAGE_COLUMNS if col in df_plugins.columns
+        ]
+        df_plugins = df_plugins[existing_columns]
+
+        # Convert and format 'created_at' and 'modified_at' columns
+        df_plugins["created_at"] = pd.to_datetime(
+            df_plugins["created_at"], format="mixed"
+        ).dt.date
+        df_plugins["modified_at"] = pd.to_datetime(
+            df_plugins["modified_at"], format="mixed"
+        ).dt.date
+
+        # Use optimized cleaning function
+        df_plugins = optimize_dataframe_cleaning(df_plugins)
+
+        # Save the final DataFrame of plugin page information to a CSV file
+        df_plugins.to_csv(f"{data_dir}/final_plugins.csv")
+
+        elapsed_time = time.time() - start_time
+        print(f"Total execution time: {elapsed_time:.2f} seconds")
+        print(f"Processed {len(df_plugins)} plugins successfully")
+
+    finally:
+        # Clean up
+        api_client.close()
