@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import logging
 import re
+import string
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urljoin
@@ -19,6 +20,8 @@ API_CONDA_MAP_URL = "https://npe2api.vercel.app/api/conda"
 API_CONDA_BASE_URL = "https://npe2api.vercel.app/api/conda/"
 API_PYPI_BASE_URL = "https://npe2api.vercel.app/api/pypi/"
 API_MANIFEST_BASE_URL = "https://npe2api.vercel.app/api/manifest/"
+HOME_PYPI_REGEX = r"(.*)(pypi.org)(/)(project)(/)(.*)"
+HOME_GITHUB_REGEX = r"(http(s)?)(:(//)?)(.*)(github.com)(/)?(.+)(/)(.+)(\.git)?$"
 
 # Define columns needed for the plugin html page
 PLUGIN_PAGE_COLUMNS = [
@@ -31,7 +34,9 @@ PLUGIN_PAGE_COLUMNS = [
     "author",
     "package_metadata_author_email",
     "license",
-    "home",
+    "home_github",
+    "home_pypi",
+    "home_other",
     "package_metadata_home_page",
     "summary",
     "package_metadata_requires_python",
@@ -112,6 +117,56 @@ def classify_url(url: str) -> str:
             if keyword in url:
                 return category
     return "other"
+
+
+def expand_proj_url(plugin_data: dict) -> None:
+    """
+    Expands the project URL in the plugin data dictionary.
+
+    This function checks if the 'project_url' key exists in
+    the plugin data and extracts homepage and github repository URLs,
+    if present.
+
+    Parameters
+    ----------
+    plugin_data : dict
+        The dictionary containing plugin data.
+
+    Returns
+    -------
+    None
+        The function modifies the `plugin_data` dictionary in place.
+    """
+    urls = plugin_data.get("project_url", [])
+    # old metadata spec just used 'home_page' key so we try grabbing that
+    if not urls and "home_page" in plugin_data:
+        urls = f"homepage, {plugin_data['home_page']}"
+
+    plugin_data["home_github"] = ""
+    plugin_data["home_other"] = ""
+    for url_info in urls:
+        label, url = url_info.split(", ")
+        plugin_data[normalize_label(label)] = url
+        if re.match(HOME_GITHUB_REGEX, url):
+            # if url matches github repository links,
+            # we present it with the github icon
+            # otherwise we present the homepage label
+            # as some other url
+            plugin_data["home_github"] = url
+        elif label == "homepage":
+            plugin_data["home_other"] = url
+    del plugin_data["project_url"]
+
+
+def normalize_label(label: str) -> str:
+    """Normalize project URL label.
+
+    Code reproduced from:
+    https://packaging.python.org/en/latest/specifications/well-known-project-urls/#label-normalization
+    """
+    chars_to_remove = string.punctuation + string.whitespace
+    removal_map = str.maketrans("", "", chars_to_remove)
+    return label.translate(removal_map).lower()
 
 
 def flatten_and_merge(original, additional, parent_key="") -> None:
@@ -258,13 +313,15 @@ def build_plugins_dataframe() -> pd.DataFrame:
         # need pypi info to get the initial and latest release date
         pypi_info = fetch(urljoin(API_PYPI_BASE_URL, plugin_normalized_name))
 
+        expand_proj_url(plugin_data)
+        if plugin_data["name"] == "affinder":
+            print("HEY")
+
         if conda_info:
             # we only want a limited set of conda info
             conda_info = {
                 "conda_name": conda_info["name"],
                 "conda_html_url": conda_info["html_url"],
-                # TODO: this should come from project_url not conda info
-                "home": conda_info["home"],
             }
             plugin_data.update(conda_info)
 
@@ -278,10 +335,14 @@ def build_plugins_dataframe() -> pd.DataFrame:
             last_updated_date = get_version_release_date(
                 pypi_info, plugin_latest_release
             )
+
+            # grab pypi project link
+            home_pypi = pypi_info["info"].get("package_url", "")
             plugin_data.update(
                 {
                     "created_at": initial_release_date,
                     "modified_at": last_updated_date,
+                    "home_pypi": home_pypi,
                 }
             )
 
@@ -292,6 +353,8 @@ def build_plugins_dataframe() -> pd.DataFrame:
 
     with ThreadPoolExecutor() as executor:
         executor.map(process_plugin, summary_df)
+    # for plugin in summary_df:
+    #     process_plugin(plugin)
 
     return pd.DataFrame(all_plugin_data)
 
@@ -335,23 +398,7 @@ if __name__ == "__main__":
         df_plugins["modified_at"], format="mixed"
     ).dt.date
 
-    # Set a temporary helper column 'home_type' by classifying the 'home' URL to a common package repository name, like 'pypi', 'github', or 'other'
-    df_plugins["home_type"] = df_plugins["home"].apply(classify_url)
-    # Using the 'home_type' column, create new colums for 'pypi', 'github', and 'other'
-    df_plugins["home_pypi"] = df_plugins["home"].where(
-        df_plugins["home_type"] == "pypi", ""
-    )
-    df_plugins["home_github"] = df_plugins["home"].where(
-        df_plugins["home_type"] == "github", ""
-    )
-    df_plugins["home_other"] = df_plugins["home"].where(
-        df_plugins["home_type"] == "other", ""
-    )
-
-    # Delete the temporary 'home_type' column as it is no longer needed
-    df_plugins.drop("home_type", axis=1, inplace=True)
-
-    # Perform row-wise cleaning of the DataFrame for author, license, and home_pypi fields
+    # Perform row-wise cleaning of the DataFrame for author and license fields
     for index, row in df_plugins.iterrows():
         # Check if 'author' is NaN or contains quotation marks
         if pd.isna(row["author"]) or '"' in str(row["author"]):
@@ -370,12 +417,6 @@ if __name__ == "__main__":
             df_plugins.at[index, "license"] = "MIT"
         elif '"' in str(row["license"]):
             df_plugins.at[index, "license"] = f"{row['license'][:30]}..."
-
-        # Fill home_pypi
-        if not row["home_pypi"]:
-            df_plugins.at[index, "home_pypi"] = (
-                f"https://pypi.org/project/{row['name']}"
-            )
 
     # Save the final DataFrame of plugin page information to a CSV file
     df_plugins.to_csv(f"{data_dir}/final_plugins.csv")
