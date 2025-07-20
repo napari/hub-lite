@@ -314,8 +314,6 @@ def build_plugins_dataframe() -> pd.DataFrame:
         pypi_info = fetch(urljoin(API_PYPI_BASE_URL, plugin_normalized_name))
 
         expand_proj_url(plugin_data)
-        if plugin_data["name"] == "affinder":
-            print("HEY")
 
         if conda_info:
             # we only want a limited set of conda info
@@ -353,8 +351,6 @@ def build_plugins_dataframe() -> pd.DataFrame:
 
     with ThreadPoolExecutor() as executor:
         executor.map(process_plugin, summary_df)
-    # for plugin in summary_df:
-    #     process_plugin(plugin)
 
     return pd.DataFrame(all_plugin_data)
 
