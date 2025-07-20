@@ -138,7 +138,8 @@ def expand_proj_url(plugin_data: dict) -> None:
         The function modifies the `plugin_data` dictionary in place.
     """
     urls = plugin_data.get("project_url", [])
-    # old metadata spec just used 'home_page' key so we try grabbing that
+
+    # If urls do not exist, we try using the 'home_page' key (like in the old metadata spec).
     if not urls and "home_page" in plugin_data:
         urls = f"homepage, {plugin_data['home_page']}"
 
@@ -148,9 +149,9 @@ def expand_proj_url(plugin_data: dict) -> None:
         label, url = url_info.split(", ")
         plugin_data[normalize_label(label)] = url
         if re.match(HOME_GITHUB_REGEX, url):
-            # if url matches github repository links,
-            # we present it with the github icon
-            # otherwise we present the homepage label
+            # If url matches github repository link structure,
+            # we display the github icon.
+            # Otherwise, display the homepage label
             # as some other url
             plugin_data["home_github"] = url
         elif label == "homepage":
