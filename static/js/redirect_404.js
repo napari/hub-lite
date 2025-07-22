@@ -17,7 +17,7 @@
       const newPath = path.slice(0, path.lastIndexOf('/') + 1) + normalized + '.html';
 
       console.log(newPath);
-      fetch(checkPath, { method: 'HEAD' })
+      fetch(newPath, { method: 'HEAD' })
         .then(response => {
             if (response.ok) {
             console.log("Exists!");
