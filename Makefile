@@ -36,6 +36,7 @@ $(BUILDDIR):
 	cp -r ./static/css $(BUILDDIR)/static/css
 	cp -r ./static/js $(BUILDDIR)/static/js
 	cp ./index.html $(BUILDDIR)/index.html
+	cp ./404.html $(BUILDDIR)/404.html
 
 fetch-data: $(FETCH_DATA_COMPLETE)
 
