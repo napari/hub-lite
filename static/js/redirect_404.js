@@ -20,10 +20,7 @@
       fetch(newPath, { method: 'HEAD' })
         .then(response => {
             if (response.ok) {
-            console.log("Exists!");
-            window.location.replace(newPath);
-            } else {
-            console.log("Does not exist!");
+              window.location.replace(newPath);
             }
         });
 
