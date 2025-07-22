@@ -2,7 +2,7 @@
 // and adding the required '.html' extension
 (function() {
     const path = window.location.pathname;
-    const isPlugin = path.startsWith('/plugins/');
+    const isPlugin = path.includes('/plugins/');
     console.log(isPlugin, path);
     if (isPlugin) {
       // Extract plugin name (last part after last '/')
