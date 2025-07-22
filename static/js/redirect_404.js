@@ -15,7 +15,18 @@
 
       const normalized = normalizeName(pluginName);
       const newPath = path.slice(0, path.lastIndexOf('/') + 1) + normalized + '.html';
-      window.location.replace(newPath);
+
+      console.log(newPath);
+      fetch(checkPath, { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+            console.log("Exists!");
+            window.location.replace(newPath);
+            } else {
+            console.log("Does not exist!");
+            }
+        });
+
     }
 
     function normalizeName(name) {
