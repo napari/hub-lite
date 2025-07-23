@@ -1,4 +1,4 @@
-# Napari Hub Lite - [napari.org/hub-lite](napari.org/hub-lite)
+# Napari Hub Lite - [napari.org/hub-lite](napari-hub.org)
 
 [![Fetch Data, Build HTML & Deploy](https://github.com/napari/hub-lite/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/napari/hub-lite/actions/workflows/build_and_deploy.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/napari/hub-lite/main.svg)](https://results.pre-commit.ci/latest/github/napari/hub-lite/main)
