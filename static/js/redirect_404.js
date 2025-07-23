@@ -16,7 +16,7 @@
       const normalized = normalizeName(pluginName);
       const newPath = path.slice(0, path.lastIndexOf('/') + 1) + normalized + '.html';
 
-      console.log(newPath);
+      // if the normalized path is a valid page, redirect to it
       fetch(newPath, { method: 'HEAD' })
         .then(response => {
             if (response.ok) {
