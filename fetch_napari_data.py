@@ -141,7 +141,7 @@ def expand_proj_url(plugin_data: dict) -> None:
 
     # If urls do not exist, we try using the 'home_page' key (like in the old metadata spec).
     if not urls and "home_page" in plugin_data:
-        urls = f"homepage, {plugin_data['home_page']}"
+        urls = [f"homepage, {plugin_data['home_page']}"]
 
     plugin_data["home_github"] = ""
     plugin_data["home_other"] = ""
