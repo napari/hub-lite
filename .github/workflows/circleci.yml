@@ -12,6 +12,7 @@ jobs:
     name: Run CircleCI artifacts redirector
     steps:
       - name: GitHub Action step
+        id: redirector
         uses:
           scientific-python/circleci-artifacts-redirector-action@839631420e45a08af893032e5a5e8843bf47e8ff  # v1.2.0
         with:
@@ -24,4 +25,4 @@ jobs:
       - name: Check the URL
         if: github.event.status != 'pending'
         run: |
-          curl --fail ${{ steps.step1.outputs.url }} | grep $GITHUB_SHA
+          curl --fail ${{ steps.redirector.outputs.url }} | grep $GITHUB_SHA
