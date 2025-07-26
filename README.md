@@ -46,4 +46,5 @@ make serve-local
 ```
 
 ### Acknowledgments
+
 This project makes extensive use of the design and html resources from the original [napari hub](https://github.com/chanzuckerberg/napari-hub/). All resources are used with permission. 
