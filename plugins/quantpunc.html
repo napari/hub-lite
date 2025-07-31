@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.1.post1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-07-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-07-31</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -212,7 +212,8 @@
                                         <p><a href="https://pypi.org/project/quantpunc"><img src="https://img.shields.io/pypi/v/quantpunc.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/quantpunc.svg?color=green" alt="Python Version" /></a>
 <a href="https://github.com/tehahn/quantpunc/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/quantpunc.svg?color=green" alt="License BSD-3" /></a></p>
-<p>QuantPunc is a Napari plugin for puncta analysis and quantification in 2D microscopy images. You can also find QuantPunc on <a href="https://napari-hub.org/plugins/quantpunc.html">Napari hub</a>.</p>
+<p>QuantPunc is a Napari plugin for puncta analysis and quantification in 2D microscopy images. A brief overview of QuantPunc's workflow can be found below.</p>
+<p>A comprehensive guide to QuantPunc can be found at <a href="https://tehahn.github.io/quantpunc/">https://tehahn.github.io/quantpunc/</a>.</p>
 <p>QuantPunc is currently in beta. Please report any problems to the <a href="https://github.com/tehahn/quantpunc/issues">issues page</a>.</p>
 <h2>Features</h2>
 <ol>
@@ -233,8 +234,60 @@
 <pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">quantpunc</span>
 </pre></div>
 </code></pre>
+<h2>Puncta Quantification and Workflow</h2>
+<p>Here’s an ideal, high-level workflow for puncta segmentation and quantification. This is the recommended way of using QuantPunc. However, QuantPunc’s widgets are modularly designed so that they can be used as standalone tools. If this is your first time working with these tools, you can access the more in-depth guide mentioned above <a href="https://tehahn.github.io/quantpunc/">here</a>.</p>
+<h3>1. Preprocessing (optional but recommended)</h3>
+<p>QuantPunc uses wavelet denoising and adaptive histogram equalization to enhance edge information and contrast in your image. If you feel that your image has sufficient contrast and minimal noise, feel free to skip this step.</p>
+<p><img 
+src="https://raw.githubusercontent.com/tehahn/quantpunc/refs/heads/main/demo_imgs/preprocessing_example.gif" 
+alt="" 
+width="1000"
+style="border-radius: 10px; max-width: 100%;"></p>
+<h3>2. Automated labeling</h3>
+<p>There are two automated labeling methods. One of them uses <a href="https://scikit-image.org/docs/0.25.x/auto_examples/features_detection/plot_blob.html">skimage’s blob detection</a> algorithms and the other uses a random forest classifier with features inspired by <a href="https://www.ilastik.org/">ilastik</a>. You also have the option to only segment puncta within ROIs. You can provide your own ROIs or create them using a labels layer in Napari.</p>
+<h3>Random forest classifier (RFC)</h3>
+<p>You can use Napari to create annotations or provide your own. After annotating your puncta and specifying your integer labels, you can then train the RFC. Click on <em>Label puncta</em> to segment your puncta.</p>
+<p><img 
+src="https://raw.githubusercontent.com/tehahn/quantpunc/refs/heads/main/demo_imgs/rfc_example.gif" 
+alt="" 
+width="1000"
+style="border-radius: 10px; max-width: 100%;"></p>
+<h3>Skimage blob detection</h3>
+<p>Select your favorite blob detection algorithm from the <em>Method</em> dropdown menu. After parameterizing it, click on <em>Label puncta</em>.</p>
+<p><img 
+src="https://raw.githubusercontent.com/tehahn/quantpunc/refs/heads/main/demo_imgs/skimage_blob_example.gif" 
+alt="" 
+width="1000"
+style="border-radius: 10px; max-width: 100%;"></p>
+<h3>3. Manual labeling</h3>
+<p>You can remove any puncta labels you don’t want from automated segmentation by using Napari’s layer control toolbar. You also have the option to do a full manual segmentation using a labels layer and quantify your annotations after.</p>
+<h3>4. Watershed segmentation (optional)</h3>
+<p>If your puncta exhibits lots of clumping, you can use the watershed tool to perform instance segmentation on your puncta labels layer. You can choose either to use a distance transform or Sobel filter to generate the elevation map.</p>
+<p><img 
+src="https://raw.githubusercontent.com/tehahn/quantpunc/refs/heads/main/demo_imgs/watershed_example.gif"
+alt="" 
+width="1000"
+style="border-radius: 10px; max-width: 100%;"></p>
+<h3>Seed point generation</h3>
+<p>You can either provide your own seed points or generate them using skimage’s blob counting algorithms with a low min and max sigma.</p>
+<h3>5. Puncta counting</h3>
+<p>After you have a segmentation you’re happy with, select the image you want to quantify and click <em>Count puncta</em>. Make sure that your puncta labels layer is named after the image you’re quantifying with “_puncta” as its suffix, e.g., “your_img_puncta”.</p>
+<p><img 
+src="https://raw.githubusercontent.com/tehahn/quantpunc/refs/heads/main/demo_imgs/counts_example.gif" 
+alt="" 
+height="750"
+style="border-radius: 10px; max-width: 100%;"></p>
+<h3>6. Colocalization analysis (optional)</h3>
+<p>Colocalization is measured using the intersection over union (IoU), aka the Jaccard Index. Select two puncta labels layers and click on <em>Compute IoU</em>.</p>
+<p><img 
+src="https://raw.githubusercontent.com/tehahn/quantpunc/refs/heads/main/demo_imgs/coloc_example.gif" 
+alt="" 
+height="750"
+style="border-radius: 10px; max-width: 100%;"></p>
+<h3>7. Displaying stats and saving</h3>
+<p>Click on any of the tabs in the table widget to view different summaries of the puncta you’ve quantified. To export the tables as a csv for the layer you’ve selected, click on <em>Save selected data</em>. If you want to save the data for all the images you’ve quantified click on <em>Save all data</em>.</p>
 <h2>Contributing</h2>
-<p>Contributions are very, very welcome. QuantPunc allows you to implement your own automated puncta labeler. If you're interested in making it available to everyone else or have any other improvements, feel free to send a pull request!</p>
+<p>Contributions are very, very welcome. QuantPunc allows you to implement your own automated puncta labeler. Look in the Github repo at <a href="https://github.com/tehahn/quantpunc/blob/main/src/quantpunc/quantification/abstract_puncta_labeler.py">abstract_puncta_labeler</a> to see what methods need to be implemented and <a href="https://github.com/tehahn/quantpunc/blob/main/src/quantpunc/quantification/default_puncta_labelers.py">default_puncta_labelers</a> for examples. If you're interested in making it available to everyone else or have any other improvements, feel free to send a pull request!</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
 QuantPunc is free and open source software</p>
@@ -255,7 +308,7 @@ QuantPunc is free and open source software</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.1.post1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -265,7 +318,7 @@ QuantPunc is free and open source software</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-07-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-07-31</li>
                                                 </ul>
                                             </div>
                                         </div>
