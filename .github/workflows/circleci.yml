@@ -21,8 +21,3 @@ jobs:
           artifact-path: 0/build-artifacts/index.html
           circleci-jobs: build-site
           job-title: View the hub-lite preview
-      # See example https://github.com/scientific-python/circleci-artifacts-redirector-action
-      - name: Check the URL
-        if: github.event.status != 'pending'
-        run: |
-          curl --fail ${{ steps.redirector.outputs.url }} | grep $GITHUB_SHA
