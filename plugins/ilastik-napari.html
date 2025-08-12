@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.4</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2024-04-17</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-08-12</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari >=0.4.13</li><li class="MetadataList_textItem__KKmMN">numpy >=1.20</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">sparse</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.4.13</li><li class="MetadataList_textItem__KKmMN">numpy>=1.20</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">sparse</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -217,8 +217,8 @@ If you haven't used conda before, you can find more information in the <a href="
 You can use whichever variant you prefer, as the resulting environment should be the same, but we recommend the <a href="https://github.com/conda-forge/miniforge#mambaforge"><em>mambaforge</em></a> variant as it is usually the fastest.
 When using mambaforge, the <code>mamba</code> command usually replaces the <code>conda</code> command one would otherwise use.</p>
 <p>Once you have installed mambaforge, set up a conda environment with napari and the <em>fastfilters</em> package, and then use pip to install <em>ilastik-napari</em>:</p>
-<pre><code class="language-shell"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-c<span class="w"> </span>ilastik-forge<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-n<span class="w"> </span>my-napari-env<span class="w"> </span>napari<span class="w"> </span>fastfilters
-mamba<span class="w"> </span>activate<span class="w"> </span>my-napari-env
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-c<span class="w"> </span>ilastik-forge<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-n<span class="w"> </span>my-napari-env<span class="w"> </span>napari<span class="w"> </span><span class="nv">pyqt</span><span class="o">=</span><span class="m">5</span>.51<span class="w"> </span>fastfilters<span class="w"> </span>sparse<span class="w"> </span>qtpy<span class="w"> </span>scikit-learn
+conda<span class="w"> </span>activate<span class="w"> </span>my-napari-env
 pip<span class="w"> </span>install<span class="w"> </span>ilastik-napari
 </pre></div>
 </code></pre>
@@ -272,14 +272,14 @@ Unless you want to <a href="https://napari.org/stable/plugins/best_practices.htm
 </ol>
 <h2>Development</h2>
 <p>Create a development environment:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">-</span><span class="n">y</span> <span class="o">-</span><span class="n">n</span> <span class="n">ilastik</span><span class="o">-</span><span class="n">napari</span><span class="o">-</span><span class="n">dev</span> <span class="o">-</span><span class="n">c</span> <span class="n">ilastik</span><span class="o">-</span><span class="n">forge</span> <span class="n">fastfilters</span> <span class="n">setuptools</span><span class="o">-</span><span class="n">scm</span> <span class="n">conda</span><span class="o">-</span><span class="n">build</span> <span class="n">anaconda</span><span class="o">-</span><span class="n">client</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">y</span> <span class="o">-</span><span class="n">n</span> <span class="n">ilastik</span><span class="o">-</span><span class="n">napari</span><span class="o">-</span><span class="n">dev</span> <span class="o">-</span><span class="n">c</span> <span class="n">ilastik</span><span class="o">-</span><span class="n">forge</span> <span class="n">fastfilters</span> <span class="n">pyqt</span><span class="o">=</span><span class="mf">5.51</span> <span class="n">fastfilters</span> <span class="n">sparse</span> <span class="n">qtpy</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">setuptools</span><span class="o">-</span><span class="n">scm</span> <span class="n">conda</span><span class="o">-</span><span class="n">build</span> <span class="n">anaconda</span><span class="o">-</span><span class="n">client</span>
 <span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span><span class="o">-</span><span class="n">ilastik</span><span class="o">-</span><span class="n">dev</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
 </pre></div>
 </code></pre>
 <p>Build conda package:</p>
 <pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span><span class="o">-</span><span class="n">ilastik</span><span class="o">-</span><span class="n">dev</span>
-<span class="n">mamba</span> <span class="n">build</span> <span class="o">-</span><span class="n">c</span> <span class="n">ilastik</span><span class="o">-</span><span class="n">forge</span> <span class="n">conda</span><span class="o">-</span><span class="n">recipe</span>
+<span class="n">conda</span> <span class="n">build</span> <span class="o">-</span><span class="n">c</span> <span class="n">ilastik</span><span class="o">-</span><span class="n">forge</span> <span class="n">conda</span><span class="o">-</span><span class="n">recipe</span>
 <span class="n">anaconda</span> <span class="n">upload</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">the</span><span class="o">/</span><span class="n">new</span><span class="o">/</span><span class="n">package</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">bz2</span>
 </pre></div>
 </code></pre>
@@ -305,7 +305,7 @@ Unless you want to <a href="https://napari.org/stable/plugins/best_practices.htm
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -315,7 +315,7 @@ Unless you want to <a href="https://napari.org/stable/plugins/best_practices.htm
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2024-04-17</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-08-12</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -412,7 +412,7 @@ Unless you want to <a href="https://napari.org/stable/plugins/best_practices.htm
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari >=0.4.13</li><li class="MetadataList_textItem__KKmMN">numpy >=1.20</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">sparse</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.4.13</li><li class="MetadataList_textItem__KKmMN">numpy>=1.20</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">sparse</li></ul>
                                             </div>
                                         </div>
                                     </div>
