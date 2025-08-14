@@ -297,8 +297,12 @@ def get_os_html(package_metadata_classifier):
     )
 
     # Split the package_metadata_classifier into a list for easier searching
-    if package_metadata_classifier and str(package_metadata_classifier) not in ["n/a", "none",
-                                                                                "nan", ""]:
+    if package_metadata_classifier and str(package_metadata_classifier) not in [
+        "n/a",
+        "none",
+        "nan",
+        "",
+    ]:
         classifier_items = package_metadata_classifier.strip("[]").split(",")
     else:
         classifier_items = []
