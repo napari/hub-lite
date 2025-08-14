@@ -297,7 +297,15 @@ def get_os_html(package_metadata_classifier):
     )
 
     # Split the package_metadata_classifier into a list for easier searching
-    classifier_items = package_metadata_classifier.strip("]").split(",")
+    if package_metadata_classifier and str(package_metadata_classifier) not in [
+        "n/a",
+        "none",
+        "nan",
+        "",
+    ]:
+        classifier_items = package_metadata_classifier.strip("[]").split(",")
+    else:
+        classifier_items = []
 
     # Compose html from classifier or use the default
     os_html = default_os_html
@@ -314,11 +322,10 @@ def get_os_html(package_metadata_classifier):
 
 
 def extract_github_info(url):
-    match = re.search(r"github\.com/([^/]+)/([^/]+)", url)
-    if match:
-        user, repo = match.group(1), match.group(2).rstrip(".git")
-        return user, repo
-    return None, None
+    match = re.search(r"github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)(?:\.git)?", url)
+    user = match.group("user") if match else None
+    repo = match.group("repo") if match else None
+    return user, repo
 
 
 def generate_home_html(plugin_name, home_pypi, home_github, home_other):

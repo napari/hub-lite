@@ -21,7 +21,7 @@ API_CONDA_BASE_URL = "https://npe2api.vercel.app/api/conda/"
 API_PYPI_BASE_URL = "https://npe2api.vercel.app/api/pypi/"
 API_MANIFEST_BASE_URL = "https://npe2api.vercel.app/api/manifest/"
 HOME_PYPI_REGEX = r"(.*)(pypi.org)(/)(project)(/)(.*)"
-HOME_GITHUB_REGEX = r"(http(s)?)(:(//)?)(.*)(github.com)(/)?(.+)(/)(.+)(\.git)?$"
+HOME_GITHUB_REGEX = r"https?://github\.com/[^/]+/[^/]+(?:\.git)?/?$"
 
 # Define columns needed for the plugin html page
 PLUGIN_PAGE_COLUMNS = [
