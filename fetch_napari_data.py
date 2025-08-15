@@ -3,6 +3,7 @@
 This script fetches plugin data, flattens nested structures, and saves the cleaned data to CSV
 files.
 """
+
 import dataclasses
 import json
 import logging
@@ -127,12 +128,10 @@ def get_license(package_metadata: dict) -> str:
 
 def get_authors_and_emails(package_metadata: dict) -> str:
     authors = [
-        author.strip()
-        for author in (package_metadata["author"] or "").split(",")
+        author.strip() for author in (package_metadata["author"] or "").split(",")
     ]
     emails = [
-        email.strip()
-        for email in (package_metadata["author_email"] or "").split(",")
+        email.strip() for email in (package_metadata["author_email"] or "").split(",")
     ]
     if not authors:
         authors = extract_author_names(emails)
@@ -290,12 +289,8 @@ def get_plugin_page_data_from_api(plugin_summary_data):
     # releases are sorted in descending order
     plugin_first_release = plugin_summary_data["pypi_versions"][-1]
     plugin_latest_release = plugin_summary_data["pypi_versions"][0]
-    initial_release_date = get_version_release_date(
-        pypi_info, plugin_first_release
-    )
-    last_updated_date = get_version_release_date(
-        pypi_info, plugin_latest_release
-    )
+    initial_release_date = get_version_release_date(pypi_info, plugin_first_release)
+    last_updated_date = get_version_release_date(pypi_info, plugin_latest_release)
     authors, emails = get_authors_and_emails(package_metadata)
     package_license = get_license(package_metadata)
     home_pypi = pypi_info.get(
@@ -305,26 +300,26 @@ def get_plugin_page_data_from_api(plugin_summary_data):
     home_github, home_other = get_project_home_url(plugin_summary_data)
 
     contributions = manifest_info.get("contributions", {})
-    reader_patterns = list(set(
-        ext
-        for reader in contributions["readers"] or []
-        for ext in reader["filename_patterns"]
-    ))
+    reader_patterns = list(
+        set(
+            ext
+            for reader in contributions["readers"] or []
+            for ext in reader["filename_patterns"]
+        )
+    )
 
-    writer_extensions = list(set(
-        ext
-        for writer in contributions["writers"] or []
-        for ext in writer["filename_extensions"]
-    ))
+    writer_extensions = list(
+        set(
+            ext
+            for writer in contributions["writers"] or []
+            for ext in writer["filename_extensions"]
+        )
+    )
 
-    widgets = [
-        widget["display_name"]
-        for widget in contributions["widgets"] or []
-    ]
+    widgets = [widget["display_name"] for widget in contributions["widgets"] or []]
 
     sample_data = [
-        sample["display_name"]
-        for sample in contributions["sample_data"] or []
+        sample["display_name"] for sample in contributions["sample_data"] or []
     ]
 
     return PluginPageData(
@@ -341,18 +336,10 @@ def get_plugin_page_data_from_api(plugin_summary_data):
         home_github=home_github,
         home_other=home_other,
         summary=plugin_summary_data.get("summary", ""),
-        package_metadata_requires_python=package_metadata.get(
-            "requires_python", ""
-        ),
-        package_metadata_requires_dist=package_metadata.get(
-            "requires_dist", []
-        ),
-        package_metadata_description=package_metadata.get(
-            "description", ""
-        ),
-        package_metadata_classifiers=package_metadata.get(
-            "classifiers", []
-        ),
+        package_metadata_requires_python=package_metadata.get("requires_python", ""),
+        package_metadata_requires_dist=package_metadata.get("requires_dist", []),
+        package_metadata_description=package_metadata.get("description", ""),
+        package_metadata_classifiers=package_metadata.get("classifiers", []),
         contributions_readers_filename_patterns=reader_patterns,
         contributions_writers_filename_extensions=writer_extensions,
         contributions_widgets=widgets,

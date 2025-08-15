@@ -21,6 +21,7 @@ from pygments.lexers import (
 @dataclasses.dataclass
 class PluginPageData:
     """Data needed for the plugin html page"""
+
     normalized_name: str
     name: str
     display_name: str
@@ -157,12 +158,14 @@ def create_plugins_list_html(plugins: list[PluginPageData], build_dir: str):
 
 def get_plugin_types(plugin: PluginPageData):
     return [
-        ptype for condition, ptype in [
+        ptype
+        for condition, ptype in [
             (plugin.contributions_readers_filename_patterns, "reader"),
             (plugin.contributions_writers_filename_extensions, "writer"),
             (plugin.contributions_widgets, "widget"),
             (plugin.contributions_sample_data, "sample_data"),
-        ] if condition
+        ]
+        if condition
     ]
 
 
@@ -216,9 +219,7 @@ def generate_requirements_html(plugin: PluginPageData):
             '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
         )
         for req in requirements:
-            requirements_html += (
-                f'<li class="MetadataList_textItem__KKmMN">{req}</li>'
-            )
+            requirements_html += f'<li class="MetadataList_textItem__KKmMN">{req}</li>'
         requirements_html += "</ul>"
 
     return requirements_html
@@ -399,9 +400,7 @@ if __name__ == "__main__":
     template_dir = f"{build_dir}/templates"
 
     with open(f"{data_dir}/plugin_page_data.json") as file:
-        plugins_data = [
-            PluginPageData(**plugin) for plugin in json.load(file)
-        ]
+        plugins_data = [PluginPageData(**plugin) for plugin in json.load(file)]
 
     create_plugins_list_html(plugins_data, build_dir)
 
@@ -411,8 +410,4 @@ if __name__ == "__main__":
 
     # Generate individual plugin pages
     for plugin in plugins_data:
-        create_plugin_page_html(
-            plugin,
-            template,
-            plugin_dir
-        )
+        create_plugin_page_html(plugin, template, plugin_dir)
