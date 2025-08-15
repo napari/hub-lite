@@ -16,38 +16,14 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+from create_static_html_files import PluginPageData, get_plugin_types
+
 API_SUMMARY_URL = "https://npe2api.vercel.app/api/extended_summary"
 API_PYPI_BASE_URL = "https://npe2api.vercel.app/api/pypi/"
 API_MANIFEST_BASE_URL = "https://npe2api.vercel.app/api/manifest/"
 
 HOME_PYPI_REGEX = r"(.*)(pypi.org)(/)(project)(/)(.*)"
 HOME_GITHUB_REGEX = r"https?://github\.com/[^/]+/[^/]+(?:\.git)?/?$"
-
-
-@dataclasses.dataclass
-class PluginPageData:
-    """Data needed for the plugin html page"""
-    normalized_name: str
-    name: str
-    display_name: str
-    version: str
-    created_at: str
-    modified_at: str
-    author: str | None
-    author_email: str | None
-    license: str
-    home_github: str | None
-    home_other: str | None
-    home_pypi: str | None
-    summary: str
-    package_metadata_requires_python: str
-    package_metadata_requires_dist: list[str]
-    package_metadata_description: str
-    package_metadata_classifiers: list[str]
-    contributions_readers_filename_patterns: list[str]
-    contributions_writers_filename_extensions: list[str]
-    contributions_widgets: list[str]
-    contributions_sample_data: list[str]
 
 
 # Configure logging
@@ -133,28 +109,37 @@ api_client = APIClient()
 
 
 # --- Helper Functions ---
-def get_license(manifest: dict) -> str:
+def get_license(package_metadata: dict) -> str:
     """For license metadata, we subsitute a short phrase, truncate the text,
     or add a sensible default if the text is unavailable.
     """
-    package_license = manifest.get("license", "Unavailable")
+    package_license = package_metadata["license"] or "Unavailable"
     if "BSD 3-Clause" in package_license:
         return "BSD 3-Clause"
     elif "MIT License" in package_license:
         return "MIT"
-    else:
+    elif "Apache" in package_license:
+        return "Apache"
+    elif len(package_license) > 30:
         return f"{package_license[:30]}..."
+    return package_license
 
 
-def get_author_and_email(manifest: dict) -> str:
-    author = manifest.get("author", "")
-    if not author:
-        author_email = manifest.get("author_email", "")
-        author = extract_author_names(manifest.get("author_email", ""))
-    return author or None, author_email or None
+def get_authors_and_emails(package_metadata: dict) -> str:
+    authors = [
+        author.strip()
+        for author in (package_metadata["author"] or "").split(",")
+    ]
+    emails = [
+        email.strip()
+        for email in (package_metadata["author_email"] or "").split(",")
+    ]
+    if not authors:
+        authors = extract_author_names(emails)
+    return authors or [], emails or []
 
 
-def extract_author_names(email: str | list[str]) -> str:
+def extract_author_names(emails: list[str]) -> list[str]:
     """
     Extract and clean author names from an email field.
 
@@ -173,25 +158,19 @@ def extract_author_names(email: str | list[str]) -> str:
         str: A comma-separated string of cleaned author names, or an empty string if the input is
         invalid.
     """
-    if not isinstance(email, str) or not email.strip():
-        return ""
-
-    # Split the string by comma to process multiple authors
-    authors = email.split(",")
-    clean_authors = []
-
-    for author in authors:
+    authors = []
+    for email in emails:
         # Match a pattern with a name and an email (e.g., 'Name <email>')
-        match = re.match(r"(.*?)\s*<.*?>", author.strip())
+        match = re.match(r"(.*?)\s*<.*?>", email.strip())
 
         if match:
             # Extract and clean the author name
-            clean_authors.append(match.group(1).replace('"', "").strip())
+            authors.append(match.group(1).replace('"', "").strip())
         else:
             # If no match, clean and add the raw string
-            clean_authors.append(author.replace('"', "").strip())
+            authors.append(email.replace('"', "").strip())
 
-    return ", ".join(clean_authors)
+    return authors
 
 
 def get_project_home_url(plugin_data: dict) -> tuple[str | None, str | None]:
@@ -245,7 +224,7 @@ def normalize_label(label: str) -> str:
     return label.translate(removal_map).lower()
 
 
-def get_version_release_date(pypi_info: dict, release: str) -> str:
+def get_version_release_date(pypi_info: dict, release: str) -> str | None:
     """
     Extracts the release date of the given version from the PyPI plugin information.
 
@@ -258,10 +237,8 @@ def get_version_release_date(pypi_info: dict, release: str) -> str:
     """
     release_info = pypi_info.get("releases", {}).get(release, {})
     if release_info:
-        # we don't mind which release artifact we look at, as we only want the date
-        release_datetime = release_info[0].get("upload_time")
-        return release_datetime
-    return ""
+        release_timestamp = release_info[0].get("upload_time")
+        return release_timestamp.split("T")[0]
 
 
 # --- Main Data Processing Function ---
@@ -301,6 +278,8 @@ def get_plugin_page_data_from_api(plugin_summary_data):
 
     # some PyPI info is not included in the manifest
     pypi_info = api_client.fetch_pypi_info(plugin_normalized_name)
+    # this is much of the same as what's in the pypi_info
+    package_metadata = manifest_info.get("package_metadata", {})
 
     # conda_info is not currently used
 
@@ -317,12 +296,13 @@ def get_plugin_page_data_from_api(plugin_summary_data):
     last_updated_date = get_version_release_date(
         pypi_info, plugin_latest_release
     )
-    author, author_email = get_author_and_email(manifest_info)
-    package_license = get_license(manifest_info)
+    authors, emails = get_authors_and_emails(package_metadata)
+    package_license = get_license(package_metadata)
+    home_pypi = pypi_info.get(
+        "home_page",
+        f"https://pypi.org/project/{plugin_normalized_name}/",
+    )
     home_github, home_other = get_project_home_url(plugin_summary_data)
-    home_pypi = pypi_info.get("home_page", "")
-# this is much the same as what's in the pypi_info
-    package_metadata = manifest_info.get("package_metadata", {})
 
     contributions = manifest_info.get("contributions", {})
     reader_patterns = list(set(
@@ -354,12 +334,12 @@ def get_plugin_page_data_from_api(plugin_summary_data):
         version=plugin_latest_release,
         created_at=initial_release_date,
         modified_at=last_updated_date,
-        author=author,
-        author_email=author_email,
+        authors=authors,
+        author_emails=emails,
         license=package_license,
+        home_pypi=home_pypi,
         home_github=home_github,
         home_other=home_other,
-        home_pypi=home_pypi,
         summary=plugin_summary_data.get("summary", ""),
         package_metadata_requires_python=package_metadata.get(
             "requires_python", ""
@@ -378,6 +358,31 @@ def get_plugin_page_data_from_api(plugin_summary_data):
         contributions_widgets=widgets,
         contributions_sample_data=sample_data,
     )
+
+
+def create_search_index(plugins: list[PluginPageData], data_dir: str):
+    search_index = [
+        {
+            "name": plugin.name,
+            "display_name": plugin.display_name,
+            "normalized_name": plugin.normalized_name,
+            "summary": plugin.summary,
+            "authors": plugin.authors,
+            "author_emails": plugin.author_emails,
+            "filename_patterns": plugin.contributions_readers_filename_patterns,
+            "filename_extensions": plugin.contributions_writers_filename_extensions,
+            "widgets": plugin.contributions_widgets,
+            "sample_data": plugin.contributions_sample_data,
+            "contributions": get_plugin_types(plugin),
+        }
+        for plugin in plugins
+    ]
+
+    # newline-delimited JSON format for search index
+    # allows for efficient streaming and parsing
+    with open(f"{data_dir}/search_index.ndjson", "w") as file:
+        for entry in search_index:
+            file.write(json.dumps(entry) + "\n")
 
 
 if __name__ == "__main__":
@@ -400,3 +405,5 @@ if __name__ == "__main__":
             indent=2,
             ensure_ascii=False,
         )
+
+    create_search_index(plugins, data_dir)

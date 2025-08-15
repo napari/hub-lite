@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import ast
+import dataclasses
 import json
 import logging
 import os
@@ -8,7 +8,6 @@ import re
 import sys
 from string import Template
 
-import pandas as pd
 from markdown_it import MarkdownIt
 from markdown_it.common.utils import escapeHtml
 from pygments import highlight
@@ -17,6 +16,33 @@ from pygments.lexers import (
     PythonLexer,
     get_lexer_by_name,
 )
+
+
+@dataclasses.dataclass
+class PluginPageData:
+    """Data needed for the plugin html page"""
+    normalized_name: str
+    name: str
+    display_name: str
+    version: str
+    created_at: str | None
+    modified_at: str | None
+    authors: list[str]
+    author_emails: list[str]
+    license: str
+    home_pypi: str
+    home_github: str | None
+    home_other: str | None
+    summary: str
+    package_metadata_requires_python: str | None
+    package_metadata_requires_dist: list[str]
+    package_metadata_description: str
+    package_metadata_classifiers: list[str]
+    contributions_readers_filename_patterns: list[str]
+    contributions_writers_filename_extensions: list[str]
+    contributions_widgets: list[str]
+    contributions_sample_data: list[str]
+
 
 FALLBACK_LEXER = PythonLexer()
 MISSING_LEXERS = [
@@ -92,35 +118,17 @@ def _code_block_plugin(md):
 md = MarkdownIt("gfm-like", {"highlight": _highlight_code}).use(_code_block_plugin)
 
 
-def create_small_html(df_plugins, build_dir):
+def create_plugins_list_html(plugins: list[PluginPageData], build_dir: str):
     html_content = "<html>\n<body>\n"
-    for index, row in df_plugins.iterrows():
-        # Fill NaN values with 'N/A' for the current row
-        row = row.fillna("N/A")
-
-        display_name = (
-            row["display_name"] if row["display_name"] != "N/A" else "Unknown"
-        )
-        name = row["name"] if row["name"] != "N/A" else "unknown"
-        normalized_name = (
-            row["normalized_name"] if row["normalized_name"] != "N/A" else "unknown"
-        )
-
-        summary = row["summary"]
-        authors = [row["author"]]
-        release_date = row["created_at"]
-        last_updated = row["modified_at"]
-
-        plugin_type = []
-        if row["contributions_readers_0_command"] != "N/A":
-            plugin_type.append("reader")
-        if row["contributions_writers_0_command"] != "N/A":
-            plugin_type.append("writer")
-        if row["contributions_widgets_0_command"] != "N/A":
-            plugin_type.append("widget")
-        if row["contributions_sample_data_0_command"] != "N/A":
-            plugin_type.append("sample_data")
-        plugin_type = ", ".join(plugin_type) if plugin_type else "N/A"
+    for index, plugin in enumerate(plugins):
+        display_name = plugin.display_name
+        name = plugin.name
+        normalized_name = plugin.normalized_name
+        summary = plugin.summary
+        authors = plugin.authors
+        release_date = plugin.created_at or "Unknown"
+        last_updated = plugin.modified_at or "Unknown"
+        plugin_type = ", ".join(get_plugin_types(plugin)) or "Unknown"
 
         html_content += f'<a class="col-span-2 screen-1425:col-span-3 searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100" data-testid="pluginSearchResult" href="./plugins/{normalized_name}.html" data-plugin-id="{index}">\n'
         html_content += '    <article class="grid gap-x-sds-xl screen-495:gap-x-12 screen-600:grid-cols-2 screen-1425:grid-cols-napari-3" data-testid="searchResult">\n'
@@ -147,65 +155,49 @@ def create_small_html(df_plugins, build_dir):
         file.write(html_content)
 
 
-def generate_plugin_types_html(row):
+def get_plugin_types(plugin: PluginPageData):
+    return [
+        ptype for condition, ptype in [
+            (plugin.contributions_readers_filename_patterns, "reader"),
+            (plugin.contributions_writers_filename_extensions, "writer"),
+            (plugin.contributions_widgets, "widget"),
+            (plugin.contributions_sample_data, "sample_data"),
+        ] if condition
+    ]
+
+
+def generate_plugin_types_html(plugin: PluginPageData):
     plugin_types_html = ""
 
-    # Determine plugin type based on non-NA status of certain columns
-    plugin_type = []
-    if not pd.isna(row.get("contributions_readers_0_command")):
-        plugin_type.append("reader")
-    if not pd.isna(row.get("contributions_writers_0_command")):
-        plugin_type.append("writer")
-    if not pd.isna(row.get("contributions_widgets_0_command")):
-        plugin_type.append("widget")
-    if not pd.isna(row.get("contributions_sample_data_0_command")):
-        plugin_type.append("sample_data")
+    plugin_types = get_plugin_types(plugin)
 
-    if plugin_type:
+    if plugin_types:
         plugin_types_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
-        for pt in plugin_type:
+        for pt in plugin_types:
             plugin_types_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType={pt}">{pt.capitalize()}</a></li>'
         plugin_types_html += "</ul>"
 
     return plugin_types_html
 
 
-def generate_open_extensions_html(row):
+def generate_open_extensions_html(plugin: PluginPageData):
     open_extensions_html = ""
 
-    if not pd.isna(row.get("contributions_readers_0_filename_patterns")) and row.get(
-        "contributions_readers_0_filename_patterns"
-    ):
-        # We use ast.literal_eval to safely evaluate the string representation
-        # of the list; this is safer than using eval.
-        filename_patterns = ast.literal_eval(
-            row.get("contributions_readers_0_filename_patterns")
-        )
-
-        if filename_patterns:
-            open_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
-            for pattern in filename_patterns:
-                open_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions={pattern}">{pattern}</a></li>'
-            open_extensions_html += "</ul>"
+    filename_patterns = plugin.contributions_readers_filename_patterns
+    if filename_patterns:
+        open_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+        for pattern in filename_patterns:
+            open_extensions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions={pattern}">{pattern}</a></li>'
+        open_extensions_html += "</ul>"
 
     return open_extensions_html
 
 
-def generate_save_extensions_html(row):
+def generate_save_extensions_html(plugin: PluginPageData):
     save_extensions_html = ""
 
     # Gather file extensions from both columns
-    file_extensions = []
-    if not pd.isna(row.get("contributions_writers_0_filename_extensions")):
-        file_extensions += ast.literal_eval(
-            row.get("contributions_writers_0_filename_extensions")
-        )
-
-    if not pd.isna(row.get("contributions_writers_1_filename_extensions")):
-        file_extensions += ast.literal_eval(
-            row.get("contributions_writers_1_filename_extensions")
-        )
-
+    file_extensions = plugin.contributions_writers_filename_extensions
     if file_extensions:
         save_extensions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
         for ext in file_extensions:
@@ -215,23 +207,19 @@ def generate_save_extensions_html(row):
     return save_extensions_html
 
 
-def generate_requirements_html(row):
+def generate_requirements_html(plugin: PluginPageData):
     requirements_html = ""
 
-    if not pd.isna(row.get("package_metadata_requires_dist")) and row.get(
-        "package_metadata_requires_dist"
-    ):
-        requirements = ast.literal_eval(row.get("package_metadata_requires_dist"))
-
-        if requirements:
-            requirements_html = (
-                '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
+    requirements = plugin.package_metadata_requires_dist
+    if requirements:
+        requirements_html = (
+            '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
+        )
+        for req in requirements:
+            requirements_html += (
+                f'<li class="MetadataList_textItem__KKmMN">{req}</li>'
             )
-            for req in requirements:
-                requirements_html += (
-                    f'<li class="MetadataList_textItem__KKmMN">{req}</li>'
-                )
-            requirements_html += "</ul>"
+        requirements_html += "</ul>"
 
     return requirements_html
 
@@ -255,38 +243,36 @@ def parse_version_specifier(specifier, default_min_version="3.6"):
 
 
 def generate_python_versions_html(
-    row, max_supported_version="3.11", default_min_version="3.6"
+    plugin: PluginPageData,
+    max_supported_version="3.11",
+    default_min_version="3.6",
 ):
-    python_versions_html = ""
+    requirement = plugin.package_metadata_requires_python or ""
+    min_version, max_version = parse_version_specifier(requirement)
 
-    if not pd.isna(row.get("package_metadata_requires_python")) and row.get(
-        "package_metadata_requires_python"
-    ):
-        requirement = row.get("package_metadata_requires_python")
-        min_version, max_version = parse_version_specifier(requirement)
+    # Use the given maximum version if no upper bound is specified
+    max_version = max_version if max_version else max_supported_version
+    min_minor = (
+        int(min_version.split(".")[1])
+        if min_version
+        else int(default_min_version.split(".")[1])
+    )
+    max_minor = int(max_version.split(".")[1])
 
-        # Use the given maximum version if no upper bound is specified
-        max_version = max_version if max_version else max_supported_version
-        min_minor = (
-            int(min_version.split(".")[1])
-            if min_version
-            else int(default_min_version.split(".")[1])
-        )
-        max_minor = int(max_version.split(".")[1])
+    # Generate a list of versions from min_version to max_version
+    versions = [f"3.{v}" for v in range(min_minor, max_minor + 1)]
 
-        # Generate a list of versions from min_version to max_version
-        versions = [f"3.{v}" for v in range(min_minor, max_minor + 1)]
-
-        # Construct HTML list items for each version
-        python_versions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
-        for version in versions:
-            python_versions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python={version}">{version}</a></li>'
-        python_versions_html += "</ul>"
+    # Construct HTML list items for each version
+    python_versions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+    for version in versions:
+        python_versions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python={version}">{version}</a></li>'
+    python_versions_html += "</ul>"
 
     return python_versions_html
 
 
-def get_os_html(package_metadata_classifier):
+def generate_os_html(plugin: PluginPageData):
+    package_metadata_classifiers = plugin.package_metadata_classifiers
     # Default message if no operating system info is found
     default_os_html = (
         '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">'
@@ -296,20 +282,9 @@ def get_os_html(package_metadata_classifier):
         "</ul>"
     )
 
-    # Split the package_metadata_classifier into a list for easier searching
-    if package_metadata_classifier and str(package_metadata_classifier) not in [
-        "n/a",
-        "none",
-        "nan",
-        "",
-    ]:
-        classifier_items = package_metadata_classifier.strip("[]").split(",")
-    else:
-        classifier_items = []
-
     # Compose html from classifier or use the default
     os_html = default_os_html
-    for item in classifier_items:
+    for item in package_metadata_classifiers:
         if "Operating System ::" in item:
             os = item.split("Operating System :: ")[1].strip("' \"")
             os_html = (
@@ -328,7 +303,12 @@ def extract_github_info(url):
     return user, repo
 
 
-def generate_home_html(plugin_name, home_pypi, home_github, home_other):
+def generate_home_html(plugin: PluginPageData):
+    plugin_name = plugin.name
+    home_pypi = plugin.home_pypi
+    home_github = plugin.home_github
+    home_other = plugin.home_other
+
     # Start with the PyPI link, which is always present
     html_content = f'''
    <div class="flex items-center" style="gap: 20px; ; align-items: center;"">
@@ -370,51 +350,44 @@ def generate_home_html(plugin_name, home_pypi, home_github, home_other):
     return html_content
 
 
-def generate_plugin_html(row, template, plugin_dir):
-    # Convert Markdown in 'package_metadata_description' to HTML
-    if not pd.isna(row["package_metadata_description"]):
-        # Remove the first Markdown header
-        # Split the content into lines, drop the first line if it's a header, and rejoin
-        lines = row["package_metadata_description"].split("\n")
+def create_plugin_page_html(plugin: PluginPageData, template, plugin_dir):
+    # package_metadata_description is the README content (we assume markdown)
+    if plugin.package_metadata_description:
+        # remove the first line if it's a markdown header
+        lines = plugin.package_metadata_description.split("\n")
         if lines and lines[0].startswith("#"):
             no_first_header = "\n".join(lines[1:])
         else:
             no_first_header = "\n".join(lines)
-
         html_description = md.render(no_first_header)
     else:
-        html_description = "Not available"
+        html_description = "No description available"
 
-    plugin_types_html = generate_plugin_types_html(row)
-    openfile_types_html = generate_open_extensions_html(row)
-    savefile_types_html = generate_save_extensions_html(row)
-    requirements_html = generate_requirements_html(row)
-    python_versions_html = generate_python_versions_html(row)
-    home_html = generate_home_html(
-        row["name"], row["home_pypi"], row["home_github"], row["home_other"]
-    )
+    plugin_types_html = generate_plugin_types_html(plugin)
+    openfile_types_html = generate_open_extensions_html(plugin)
+    savefile_types_html = generate_save_extensions_html(plugin)
+    requirements_html = generate_requirements_html(plugin)
+    python_versions_html = generate_python_versions_html(plugin)
+    os_html = generate_os_html(plugin)
+    home_html = generate_home_html(plugin)
 
-    # Replace NaN with 'Not available' and ensure all data are strings, except Markdown field
-    row_data = {
-        col: (str(row[col]) if not pd.isna(row[col]) else "Not available")
-        for col in row.index
-    }
-
-    row_data["open_extension"] = openfile_types_html
-    row_data["save_extension"] = savefile_types_html
-    row_data["plugin_types"] = plugin_types_html
-    row_data["requirements"] = requirements_html
-    row_data["python_versions"] = python_versions_html
-    row_data["os"] = get_os_html(row["package_metadata_classifier"])
-    row_data["package_metadata_description"] = html_description
-    row_data["home_link"] = home_html
+    template_data = dataclasses.asdict(plugin)
+    template_data["authors"] = ", ".join(plugin.authors)
+    template_data["open_extension"] = openfile_types_html
+    template_data["save_extension"] = savefile_types_html
+    template_data["plugin_types"] = plugin_types_html
+    template_data["requirements"] = requirements_html
+    template_data["python_versions"] = python_versions_html
+    template_data["os"] = os_html
+    template_data["package_metadata_description"] = html_description
+    template_data["home_link"] = home_html
 
     # Create a new Template with the row data
-    filled_template = Template(template).safe_substitute(row_data)
+    filled_template = Template(template).safe_substitute(template_data)
 
     # Save the HTML file for each plugin
     os.makedirs(plugin_dir, exist_ok=True)
-    with open(f"{plugin_dir}/{row['html_filename']}", "w") as file:
+    with open(f"{plugin_dir}/{plugin.normalized_name}.html", "w") as file:
         file.write(filled_template)
 
 
@@ -425,38 +398,21 @@ if __name__ == "__main__":
     plugin_dir = f"{build_dir}/plugins"
     template_dir = f"{build_dir}/templates"
 
-    # Load your DataFrame
-    df_plugins = pd.read_csv(f"{data_dir}/final_plugins.csv")
+    with open(f"{data_dir}/plugin_page_data.json") as file:
+        plugins_data = [
+            PluginPageData(**plugin) for plugin in json.load(file)
+        ]
 
-    # Sort the DataFrame by 'modified_at' in descending order
-    df_plugins = df_plugins.sort_values(by="modified_at", ascending=False)
-
-    # Reset index to ensure it starts from 0 and is continuous after sorting
-    df_plugins.reset_index(drop=True, inplace=True)
-    df_plugins["plugin_id"] = df_plugins.index
-    df_plugins["html_filename"] = df_plugins["normalized_name"].apply(
-        lambda x: f"{x}.html"
-    )
-
-    # Generate plugins_manifest.json
-    plugins_manifest = df_plugins[["plugin_id", "html_filename"]].to_dict(
-        orient="records"
-    )
-    manifest_path = f"{build_dir}/plugins_manifest.json"
-    with open(manifest_path, "w") as f:
-        json.dump(plugins_manifest, f, indent=4)
-
-    create_small_html(df_plugins, build_dir)
-
-    # Read the list of available plugins
-    with open(f"{build_dir}/plugins_list.html") as file:
-        element_html = file.read()
+    create_plugins_list_html(plugins_data, build_dir)
 
     # Read the individual plugin HTML template
     with open(f"{template_dir}/each_plugin_template.html") as file:
         template = file.read()
 
-    # Apply the function to each row in the DataFrame
-    df_plugins.apply(
-        lambda row: generate_plugin_html(row, template, plugin_dir), axis=1
-    )
+    # Generate individual plugin pages
+    for plugin in plugins_data:
+        create_plugin_page_html(
+            plugin,
+            template,
+            plugin_dir
+        )
