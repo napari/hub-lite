@@ -13,6 +13,8 @@ from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urljoin
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 API_SUMMARY_URL = "https://npe2api.vercel.app/api/extended_summary"
 API_PYPI_BASE_URL = "https://npe2api.vercel.app/api/pypi/"
@@ -54,41 +56,80 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-DEFAULT_TIMEOUT = 10  # Timeout for requests in seconds
+# Increased timeout for requests
+DEFAULT_TIMEOUT = 30
+# Number of concurrent threads, balanced for the connection pool size, reduce warnings are frequent
+MAX_WORKERS = 100
 
 
-# --- API Fetch Functions ---
-def fetch(url: str):
-    """Fetches data from the given URL and returns it as a JSON object"""
-    try:
-        response = requests.get(url, timeout=DEFAULT_TIMEOUT)
-        response.raise_for_status()  # Raises HTTPError for bad responses (4xx, 5xx)
-        logger.info(f"Successfully fetched data: {url}")
-        return response.json()  # Assuming JSON response
-    except requests.exceptions.HTTPError as e:
-        logger.error(f"HTTP error occurred: {e}")
-    except requests.exceptions.ConnectionError as e:
-        logger.error(f"Connection error occurred: {e}")
-    except requests.exceptions.Timeout as e:
-        logger.error(f"Timeout error occurred: {e}")
-    except requests.exceptions.RequestException as e:
-        logger.error(f"An error occurred: {e}")
-    except ValueError as e:
-        logger.error(f"Error parsing JSON response: {e}")
+class APIClient:
+    """HTTP client with connection pooling and retry logic.
+
+    For resource conservation, exponential backoff is used for retries.
+    """
+
+    def __init__(self, max_retries=3, backoff_factor=0.3):
+        self.session = requests.Session()
+
+        # Configure retry strategy
+        retry_strategy = Retry(
+            total=max_retries,
+            backoff_factor=backoff_factor,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["GET"],
+        )
+
+        # Use the requests adapter to enable retries and tie it to the session
+        adapter = HTTPAdapter(
+            max_retries=retry_strategy,
+            pool_connections=50,
+            pool_maxsize=100,
+        )
+        self.session.mount("http://", adapter)
+        self.session.mount("https://", adapter)
+
+    def get(self, url: str, timeout: int = DEFAULT_TIMEOUT) -> dict | None:
+        """Fetch JSON data from URL with retries and connection pooling."""
+        try:
+            response = self.session.get(url, timeout=timeout)
+            response.raise_for_status()
+            logger.info(f"Successfully fetched data: {url}")
+            return response.json()
+        except requests.exceptions.HTTPError as e:
+            logger.error(f"HTTP error occurred for {url}: {e}")
+        except requests.exceptions.ConnectionError as e:
+            logger.error(f"Connection error occurred for {url}: {e}")
+        except requests.exceptions.Timeout as e:
+            logger.error(f"Timeout error occurred for {url}: {e}")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Request error occurred for {url}: {e}")
+        except Exception as e:
+            logger.error(f"Unexpected error occurred for {url}: {e}")
+
+    def fetch_summary(self):
+        """Fetches the summary data for all plugins"""
+        logger.info(f"Fetching summary data from URL: {API_SUMMARY_URL}")
+        return self.get(API_SUMMARY_URL)
+
+    def fetch_manifest(self, plugin_name: str):
+        """Fetches the manifest data for a given plugin"""
+        url = urljoin(API_MANIFEST_BASE_URL, plugin_name)
+        logger.info(f"Fetching data for manifest for: {plugin_name} from URL: {url}")
+        return self.get(url)
+
+    def fetch_pypi_info(self, plugin_normalized_name: str):
+        """Fetches PyPI information for a given plugin (expects normalized pluginname)."""
+        url = urljoin(API_PYPI_BASE_URL, plugin_normalized_name)
+        logger.info(f"Fetching PyPI info for: {plugin_normalized_name} from URL: {url}")
+        return self.get(url)
+
+    def close(self):
+        """Close the requests session."""
+        self.session.close()
 
 
-def fetch_manifest(plugin_name: str):
-    """Fetches the manifest data for a given plugin"""
-    url = urljoin(API_MANIFEST_BASE_URL, plugin_name)
-    logger.info(f"Fetching data for manifest for: {plugin_name} from URL: {url}")
-    return fetch(url)
-
-
-def fetch_pypi_info(plugin_normalized_name: str):
-    """Fetches PyPI information for a given plugin (expects normalized pluginname)."""
-    url = urljoin(API_PYPI_BASE_URL, plugin_normalized_name)
-    logger.info(f"Fetching PyPI info for: {plugin_normalized_name} from URL: {url}")
-    return fetch(url)
+# Create a global API client instance to use for all API requests
+api_client = APIClient()
 
 
 # --- Helper Functions ---
@@ -239,9 +280,9 @@ def build_plugins_list() -> list[PluginPageData]:
     -------
     A list of PluginPageData objects containing the processed plugin data.
     """
-    extended_summary = fetch(API_SUMMARY_URL)
+    extended_summary = api_client.fetch_summary()
 
-    with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         all_plugin_data = executor.map(
             get_plugin_page_data_from_api,
             extended_summary,
@@ -256,10 +297,10 @@ def build_plugins_list() -> list[PluginPageData]:
 
 def get_plugin_page_data_from_api(plugin_summary_data):
     plugin_normalized_name = plugin_summary_data.get("normalized_name")
-    manifest_info = fetch_manifest(plugin_normalized_name)
+    manifest_info = api_client.fetch_manifest(plugin_normalized_name)
 
     # some PyPI info is not included in the manifest
-    pypi_info = fetch_pypi_info(plugin_normalized_name)
+    pypi_info = api_client.fetch_pypi_info(plugin_normalized_name)
 
     # conda_info is not currently used
 
@@ -346,7 +387,10 @@ if __name__ == "__main__":
     data_dir = f"{build_dir}/data"
 
     # Create and populate a list of all plugins with the data needed for their HTML pages
-    plugins = build_plugins_list()
+    try:
+        plugins = build_plugins_list()
+    finally:
+        api_client.close()
 
     # Save the final list of plugin page information and a "search index" JSON file
     with open(f"{data_dir}/plugin_page_data.json", "w", encoding="utf-8") as f:
