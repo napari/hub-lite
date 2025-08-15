@@ -82,6 +82,7 @@ class APIClient:
             logger.error(f"Request error occurred for {url}: {e}")
         except Exception as e:
             logger.error(f"Unexpected error occurred for {url}: {e}")
+        return None
 
     def fetch_summary(self):
         """Fetches the summary data for all plugins"""
@@ -126,7 +127,7 @@ def get_license(package_metadata: dict) -> str:
     return package_license
 
 
-def get_authors_and_emails(package_metadata: dict) -> str:
+def get_authors_and_emails(package_metadata: dict) -> tuple[list[str], list[str]]:
     authors = [
         author.strip() for author in (package_metadata["author"] or "").split(",")
     ]
@@ -238,6 +239,7 @@ def get_version_release_date(pypi_info: dict, release: str) -> str | None:
     if release_info:
         release_timestamp = release_info[0].get("upload_time")
         return release_timestamp.split("T")[0]
+    return None
 
 
 # --- Main Data Processing Function ---
@@ -264,9 +266,12 @@ def build_plugins_list() -> list[PluginPageData]:
             extended_summary,
         )
 
+    def key(p: PluginPageData) -> str:
+        return p.modified_at or ""
+
     return sorted(
         all_plugin_data,
-        key=lambda p: p.modified_at,
+        key=key,
         reverse=True,
     )
 
