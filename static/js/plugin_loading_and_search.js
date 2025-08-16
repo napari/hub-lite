@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   loadPlugins();
 
   async function loadPlugins() {
-    const searchBox = document.getElementById("searchBox");
-    searchBox.disabled = true;
     const pluginContainer = document.getElementById("pluginContainer");
     pluginContainer.insertBefore(
       makeSpinner("Loading plugins..."),
@@ -14,8 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const response = await fetch("plugins_list.html");
     const html = await response.text();
     pluginContainer.innerHTML = html;
-    searchBox.disabled = false;
     updatePluginCount();
+
+    // attach search listener after plugins are loaded
+    attachSearchListener();
   }
 
   function updatePluginCount() {
@@ -34,14 +34,21 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let searchTimeout;
-  document
-    .getElementById("searchBox")
-    .addEventListener("input", function (event) {
+
+  function attachSearchListener() {
+    const searchBox = document.getElementById("searchBox");
+    searchBox.addEventListener("input", function (event) {
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(() => {
         handleSearch(event.target.value);
       }, 300);
     });
+
+    // trigger search if user already typed something
+    if (searchBox.value.trim()) {
+      handleSearch(searchBox.value);
+    }
+  }
 
   function makeSpinner(text) {
     const container = document.createElement("div");
@@ -59,6 +66,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // cancel previous search
     if (currentSearchAbortController) {
       currentSearchAbortController.abort();
+    }
+
+    // if search is empty, show all plugins
+    if (!searchText.trim()) {
+      const pluginContainer = document.getElementById("pluginContainer");
+      const existingSpinner =
+        pluginContainer.querySelector(".spinner-container");
+      if (existingSpinner) {
+        pluginContainer.removeChild(existingSpinner);
+      }
+      for (const plugin of pluginContainer.children) {
+        plugin.style.display = "block";
+      }
+      updatePluginCount();
+      return;
     }
 
     // create new controller for this search
@@ -83,10 +105,14 @@ document.addEventListener("DOMContentLoaded", function () {
       plugin.style.display = "none";
     }
 
-    pluginContainer.insertBefore(
-      makeSpinner("Searching plugins..."),
-      pluginContainer.firstChild,
-    );
+    // remove any existing spinner first
+    const existingSpinner = pluginContainer.querySelector(".spinner-container");
+    if (existingSpinner) {
+      pluginContainer.removeChild(existingSpinner);
+    }
+
+    const spinner = makeSpinner("Searching plugins...");
+    pluginContainer.insertBefore(spinner, pluginContainer.firstChild);
 
     updatePluginCount();
 
@@ -135,9 +161,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // only remove spinner if this search completed (wasn't aborted)
-    if (!signal.aborted) {
-      pluginContainer.removeChild(pluginContainer.firstChild);
+    // remove the spinner from this search if still there
+    if (pluginContainer.contains(spinner)) {
+      pluginContainer.removeChild(spinner);
     }
   }
 });
