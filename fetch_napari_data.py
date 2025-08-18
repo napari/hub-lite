@@ -130,10 +130,7 @@ def get_license(package_metadata: dict) -> str:
 def get_authors_and_emails(package_metadata: dict) -> tuple[list[str], list[str]]:
     authors = []
     if package_metadata.get("author"):
-        authors = [
-            author.strip()
-            for author in package_metadata["author"].split(",")
-        ]
+        authors = [author.strip() for author in package_metadata["author"].split(",")]
 
     emails = []
     if package_metadata.get("author_email"):
