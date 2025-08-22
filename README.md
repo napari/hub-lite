@@ -14,7 +14,7 @@ The `fetch_napari_data.py` script queries [npe2api](https://github.com/napari/np
 
 The `create_static_html_files.py` script uses this data to generate HTML files for each individual plugin page as well as for the plugin listing on the website's homepage.
 
-The `entire_text_search.js` file filters the plugin list to plugins matching the query in the search box. 
+The `plugin_loading_and_search.js` script contains functions for loading the main plugin list and searching.
 
 The `build_and_deploy.yml` workflow builds the website using the above scripts and deploys it to GitHub pages.
 
