@@ -35,6 +35,7 @@ class PluginPageData:
     home_github: str | None
     home_other: str | None
     summary: str
+    categories: list[str]
     package_metadata_requires_python: str | None
     package_metadata_requires_dist: list[str]
     package_metadata_description: str
