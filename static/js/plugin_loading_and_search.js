@@ -71,10 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // if search is empty, show all plugins
     if (!searchText.trim()) {
       const pluginContainer = document.getElementById("pluginContainer");
+      const searchBoxContainer = document.getElementById("searchBoxContainer");
       const existingSpinner =
-        pluginContainer.querySelector(".spinner-container");
+        searchBoxContainer.querySelector(".spinner-container");
       if (existingSpinner) {
-        pluginContainer.removeChild(existingSpinner);
+        searchBoxContainer.removeChild(existingSpinner);
       }
       for (const plugin of pluginContainer.children) {
         plugin.style.display = "block";
@@ -106,13 +107,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // remove any existing spinner first
-    const existingSpinner = pluginContainer.querySelector(".spinner-container");
+    const searchBoxContainer = document.getElementById("searchBoxContainer");
+    const searchIcon = document.getElementById("searchIcon");
+    const existingSpinner = searchBoxContainer.querySelector(".spinner-container");
     if (existingSpinner) {
-      pluginContainer.removeChild(existingSpinner);
+      searchBoxContainer.removeChild(existingSpinner);
     }
 
     const spinner = makeSpinner("Searching plugins...");
-    pluginContainer.insertBefore(spinner, pluginContainer.firstChild);
+    searchBoxContainer.insertBefore(spinner, searchIcon);
 
     updatePluginCount();
 
@@ -125,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const reader = streaming_response.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
-    let index = 1; // Start from 1 to skip the spinner
+    let index = 0;
 
     while (true) {
       if (signal.aborted) return; // Check if aborted
@@ -162,8 +165,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // remove the spinner from this search if still there
-    if (pluginContainer.contains(spinner)) {
-      pluginContainer.removeChild(spinner);
+    if (searchBoxContainer.contains(spinner)) {
+      searchBoxContainer.removeChild(spinner);
     }
   }
 });
