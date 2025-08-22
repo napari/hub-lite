@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let searchTimeout;
+  const TIMEOUT_DURATION = 500; // debounce timeout in ms
 
   function attachSearchListener() {
     const searchBox = document.getElementById("searchBox");
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(() => {
         handleSearch(event.target.value);
-      }, 300);
+      }, TIMEOUT_DURATION);
     });
 
     // trigger search if user already typed something
