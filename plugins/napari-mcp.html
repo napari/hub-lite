@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-09-16</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-09-19</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -216,65 +216,40 @@
 <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10+-blue.svg" alt="Python 3.10+" /></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a></p>
 <p>MCP server for remote control of napari viewers via Model Context Protocol (MCP). Perfect for AI-assisted analysis with Claude Desktop.</p>
-<h2>🚀 Quick Start</h2>
-<h3>Option 1: Install from PyPI (Recommended)</h3>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Install the package</span>
-pip<span class="w"> </span>install<span class="w"> </span>napari-mcp
-
-<span class="c1"># Run the server</span>
-napari-mcp
-</pre></div>
-</code></pre>
-<h3>Option 2: Install from GitHub (Latest)</h3>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Install directly from GitHub</span>
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/royerlab/napari-mcp.git
-
-<span class="c1"># Run the server</span>
-napari-mcp
-</pre></div>
-</code></pre>
-<h3>Option 3: Development Install</h3>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Clone and install</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/royerlab/napari-mcp.git
-<span class="nb">cd</span><span class="w"> </span>napari-mcp
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-
-<span class="c1"># Run the server</span>
-napari-mcp
-</pre></div>
-</code></pre>
-<p><strong>Claude Desktop config (After Installation):</strong></p>
-<pre><code class="language-json"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;napari&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;napari-mcp&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</code></pre>
-<p><strong>Alternative config (GitHub install):</strong></p>
+<h2>🚀 Quick Start (Two Setup Methods)</h2>
+<h3>Method 1: Add MCP JSON Configuration (Recommended)</h3>
+<p>Add this to your MCP client configuration. Clients will auto-launch the server.</p>
 <pre><code class="language-json"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;napari&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uv&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;run&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--with&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;git+https://github.com/royerlab/napari-mcp.git&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;napari-mcp&quot;</span>
-<span class="w">      </span><span class="p">]</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--with&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;napari-mcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;napari-mcp&quot;</span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </code></pre>
-<p><strong>Why this approach?</strong></p>
+<p>See the MCP JSON format standard: <a href="https://gofastmcp.com/integrations/mcp-json-configuration">MCP JSON Configuration</a>.</p>
+<h3>Method 2: Napari Plugin Bridge (External Viewer)</h3>
+<ol>
+<li>Install: <code>pip install napari-mcp</code></li>
+<li>Open napari → Plugins → MCP Server Control</li>
+<li>Click “Start Server” (default port 9999)</li>
+<li>Keep the same MCP JSON config as above so your AI app auto-starts and proxies to this external viewer</li>
+</ol>
+<h3>Development Install</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Clone and install</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/royerlab/napari-mcp.git
+<span class="nb">cd</span><span class="w"> </span>napari-mcp
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+<p><strong>Claude Desktop config:</strong> use the MCP JSON in Method 1 above.</p>
+<p><strong>Why uv run?</strong></p>
 <ul>
-<li>✅ <strong>Zero Installation</strong> - No pip install, no virtual environments</li>
-<li>✅ <strong>Single File</strong> - Easy to share, version, and deploy</li>
-<li>✅ <strong>Auto Dependencies</strong> - uv handles all dependencies automatically</li>
-<li>✅ <strong>Direct GitHub Execution</strong> - Run latest version directly from repo without downloading</li>
-<li>✅ <strong>Always Up-to-Date</strong> - GitHub URL ensures you get the latest version</li>
-<li>✅ <strong>Reproducible</strong> - Same dependencies every time</li>
+<li>✅ <strong>Zero install</strong> - No virtualenv or pip install required</li>
+<li>✅ <strong>Always up-to-date</strong> - Pulls the latest published version</li>
+<li>✅ <strong>Reproducible</strong> - uv caches and pins environments per command</li>
 </ul>
 <h2>🤖 Multi-LLM Support</h2>
 <p>Works with multiple AI assistants and IDEs:</p>
@@ -317,18 +292,8 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/royer
 <span class="nb">cd</span><span class="w"> </span>napari-mcp
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 
-<span class="c1"># Run</span>
-napari-mcp
-</pre></div>
-</code></pre>
-<p>Claude Desktop config for installed version:</p>
-<pre><code class="language-json"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;napari&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;napari-mcp&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="c1"># Run (optional for debugging only)</span>
+napari-mcp<span class="w"> </span>--help
 </pre></div>
 </code></pre>
 <h3>Development Installation</h3>
@@ -349,6 +314,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <h3>Session Information</h3>
 <ul>
 <li><code>session_information()</code> - Get comprehensive session info including viewer state, layers, system details</li>
+<li><code>detect_viewers()</code> - Detect available local/external viewers</li>
 </ul>
 <h3>Layer Management</h3>
 <ul>
@@ -376,6 +342,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li><code>screenshot(canvas_only?)</code> - Capture PNG image as base64</li>
 <li><code>execute_code(code)</code> - Run Python with access to viewer, napari, numpy</li>
 <li><code>install_packages(packages, ...)</code> - Install Python packages dynamically</li>
+<li><code>read_output(output_id, start?, end?)</code> - Retrieve full/stdout/stderr from previous calls</li>
 </ul>
 <h2>⚠️ <strong>IMPORTANT SECURITY WARNING</strong></h2>
 <p><strong>This server includes powerful tools that allow arbitrary code execution:</strong></p>
@@ -428,14 +395,14 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </pre></div>
 </code></pre>
 <h2>🧪 Testing</h2>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Run basic tests (fast, no GUI)</span>
-./run_tests.sh
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Fast suite (skips GUI)</span>
+pytest<span class="w"> </span>-q<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;not realgui&quot;</span>
 
-<span class="c1"># Run with real GUI tests (requires display)</span>
-./run_realgui_tests.sh
-
-<span class="c1"># Run with coverage</span>
+<span class="c1"># Full suite with coverage (skips GUI)</span>
 pytest<span class="w"> </span>--cov<span class="o">=</span>src<span class="w"> </span>--cov-report<span class="o">=</span>html<span class="w"> </span>tests/<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;not realgui&quot;</span>
+
+<span class="c1"># Include GUI tests (requires a display)</span>
+pytest<span class="w"> </span>-m<span class="w"> </span>realgui
 </pre></div>
 </code></pre>
 <h2>🤝 Contributing</h2>
@@ -462,6 +429,7 @@ pre-commit<span class="w"> </span>install
 <li><strong>Napari Integration</strong>: Manages viewer lifecycle and operations</li>
 <li><strong>Qt Event Loop</strong>: Asynchronous GUI event processing</li>
 <li><strong>Tool Layer</strong>: Exposes napari functionality as MCP tools</li>
+<li><strong>External Bridge (optional)</strong>: Auto-detects and proxies to an existing napari viewer started from the plugin widget</li>
 </ul>
 <p>Key design decisions:</p>
 <ul>
@@ -472,7 +440,7 @@ pre-commit<span class="w"> </span>install
 </ul>
 <h2>📚 Resources</h2>
 <ul>
-<li><strong><a href="QUICKSTART.md">QUICKSTART.md</a></strong> - Get running in 2 minutes</li>
+<li><strong><a href="docs/getting-started/quickstart.md">Quick Start</a></strong> - Get running in 2 minutes</li>
 <li><strong><a href="LLM_INTEGRATIONS.md">LLM_INTEGRATIONS.md</a></strong> - Complete guide for Claude Desktop, Claude Code, Cursor, ChatGPT</li>
 <li><strong><a href="https://modelcontextprotocol.io/">Model Context Protocol</a></strong> - MCP specification</li>
 <li><strong><a href="https://github.com/jlowin/fastmcp">FastMCP</a></strong> - Python MCP framework</li>
@@ -483,7 +451,7 @@ pre-commit<span class="w"> </span>install
 <p>MIT License - see <a href="LICENSE">LICENSE</a> file for details.</p>
 <h2>🙏 Acknowledgments</h2>
 <ul>
-<li><a href="https://napari.org/team/">napari team</a> for the excellent imaging platform</li>
+<li><a href="https://napari.org/">napari team</a> for the excellent imaging platform</li>
 <li><a href="https://github.com/jlowin/fastmcp">FastMCP</a> for the MCP framework</li>
 <li><a href="https://www.anthropic.com/">Anthropic</a> for Claude and MCP development</li>
 <li><a href="https://astral.sh/">astral-sh</a> for uv dependency management</li>
@@ -505,7 +473,7 @@ pre-commit<span class="w"> </span>install
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -515,7 +483,7 @@ pre-commit<span class="w"> </span>install
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-09-16</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-09-19</li>
                                                 </ul>
                                             </div>
                                         </div>
