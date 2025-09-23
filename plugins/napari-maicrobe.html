@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-08-01</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-09-23</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -177,8 +177,8 @@
         <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">napari-mAIcrobe</span>
     </a>
     
-        <a class="underline flex" href="https://github.com/HenriquesLab/napari-mAIcrobe" rel="noreferrer" target="_blank">
-            <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">HenriquesLab/napari-mAIcrobe</span>
+        <a class="underline flex" href="https://github.com/HenriquesLab/mAIcrobe" rel="noreferrer" target="_blank">
+            <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">HenriquesLab/mAIcrobe</span>
         </a>
         </div>
 
@@ -210,34 +210,186 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p>ADD BADGES # TODO</p>
-<p>mAIcrobe napari plugin</p>
-<hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
+                                        <p><a href="https://github.com/HenriquesLab/mAIcrobe/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-mAIcrobe.svg?color=green" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-mAIcrobe"><img src="https://img.shields.io/pypi/v/napari-mAIcrobe.svg?color=green" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-mAIcrobe.svg?color=green" alt="Python Version" /></a>
+<a href="https://github.com/HenriquesLab/mAIcrobe/actions/workflows/test_oncall.yml"><img src="https://github.com/HenriquesLab/mAIcrobe/actions/workflows/test_oncall.yml/badge.svg" alt="tests" /></a>
+<a href="https://napari-hub.org/plugins/napari-mAIcrobe"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-mAIcrobe" alt="napari hub" /></a></p>
+<h1>mAIcrobe</h1>
+<img src="docs/logowhitebg.png" align="right" width="200" style="margin-left: 20px;"/>
+<p><strong>mAIcrobe: a napari plugin for microbial image analysis.</strong></p>
+<p>mAIcrobe is a comprehensive napari plugin that facilitates image analysis workflows of bacterial cells. Combining state-of-the-art segmentation approaches, morphological analysis and adaptable classification models into a napari-plugin, mAIcrobe aims to deliver a user-friendly interface that helps inexperienced users perform image analysis tasks regardless of the bacterial species and microscopy modality.</p>
+<h2>✨ Why mAIcrobe?</h2>
+<h3>🔬 <strong>For Microbiologists</strong></h3>
+<ul>
+<li><strong>Automated Cell Segmentation</strong>: StarDist2D, Cellpose, and custom U-Net models</li>
+<li><strong>Deep learning classification</strong>: 6 pre-trained CNN models for <em>S. aureus</em> cell cycle determination plus support for custom models</li>
+<li><strong>Morphological Analysis</strong>: Comprehensive measurements using scikit-image regionprops</li>
+<li><strong>Interactive Filtering</strong>: Real-time cell selection based on computed statistics</li>
+</ul>
+<h3>📊 <strong>For Quantitative Research</strong></h3>
+<ul>
+<li><strong>Colocalization Analysis</strong>: Multi-channel fluorescence quantification</li>
+<li><strong>Automated Reports</strong>: HTML reports with visualizations and statistics</li>
+<li><strong>Data Export</strong>: CSV export for downstream statistical analysis</li>
+</ul>
+<h2>🚀 Installation</h2>
+<p><strong>Standard Installation:</strong></p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-mAIcrobe
+</pre></div>
+</code></pre>
+<p><strong>Development Installation:</strong></p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/HenriquesLab/mAIcrobe.git
+<span class="nb">cd</span><span class="w"> </span>mAIcrobe
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+<p><strong>🎯 <a href="docs/tutorials/basic-workflow.md">Complete Tutorial →</a></strong></p>
+<h2>🏆 Key Features</h2>
+<h3>🎨 <strong>Cell Segmentation</strong></h3>
+<ul>
+<li><strong>Thresholding</strong>: Isodata and Local Average methods with watershed</li>
+<li><strong>StarDist2D</strong>: custom models</li>
+<li><strong>Cellpose</strong>: cyto3 model</li>
+<li><strong>Custom U-Net Models</strong>: custom models</li>
+</ul>
+<h3>🧠 <strong>Single cell Classification</strong></h3>
+<ul>
+<li><strong>Pre-trained Models</strong>: 6 specialized models for cell cycle determination in <em>S. aureus</em>:
+<ul>
+<li>DNA+Membrane (Epifluorescence &amp; SIM)</li>
+<li>DNA-only (Epifluorescence &amp; SIM)</li>
+<li>Membrane-only (Epifluorescence &amp; SIM)</li>
+</ul>
+</li>
+<li><strong>Custom Model Support</strong>: Load your own TensorFlow models</li>
+</ul>
+<h3>📊 <strong>Comprehensive Morphometry</strong></h3>
+<ul>
+<li><strong>Shape Analysis</strong>: Area, perimeter, eccentricity</li>
+<li><strong>Intensity Measurements</strong>: Fluorescence statistics</li>
+<li><strong>Custom Measurements</strong>: Septum detection</li>
+</ul>
+<h2>📖 Documentation</h2>
+<table>
+<thead>
+<tr>
+<th>Guide</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="docs/user-guide/getting-started.md">🚀 Getting Started</a></strong></td>
+<td>Installation to first analysis</td>
+</tr>
+<tr>
+<td><strong><a href="docs/user-guide/segmentation-guide.md">🔬 Segmentation Guide</a></strong></td>
+<td>Choose the right segmentation method</td>
+</tr>
+<tr>
+<td><strong><a href="docs/user-guide/cell-analysis.md">📊 Cell Analysis</a></strong></td>
+<td>Complete analysis workflows</td>
+</tr>
+<tr>
+<td><strong><a href="docs/user-guide/cell-classification.md">🧠 Cell Classification Guide</a></strong></td>
+<td>Cell cycle classification setup</td>
+</tr>
+<tr>
+<td><strong><a href="docs/api/api-reference.md">⚙️ API Reference</a></strong></td>
+<td>Programmatic usage</td>
+</tr>
+</tbody>
+</table>
+<h2>🎯 Analysis Workflow</h2>
+<h3>📄 <strong>Single Image Analysis</strong></h3>
+<ol>
+<li><strong>Load Images</strong>: Phase contrast and/or fluorescence</li>
+<li><strong>Segment Cells</strong>: Choose segmentation algorithm and parameters</li>
+<li><strong>Analyze Cells</strong>: Extract morphological and intensity features and choose classification model</li>
+<li><strong>Filter Results</strong>: Interactive filtering of cell populations</li>
+<li><strong>Generate Report</strong>: Create comprehensive analysis report</li>
+</ol>
+<h2>🧪 Sample Data</h2>
+<p>The plugin includes test datasets for method validation:</p>
+<ul>
+<li><strong>Phase Contrast</strong>: <em>S. aureus</em> cells in exponential growth</li>
+<li><strong>Membrane Stain</strong>: NileRed fluorescence imaging</li>
+<li><strong>DNA Stain</strong>: Hoechst nuclear labeling</li>
+</ul>
+<p>Access via napari: <code>File &gt; Open Sample &gt; napari-mAIcrobe</code></p>
+<h2>🏃‍♀️ Example Analysis</h2>
+<p><strong>Input Data:</strong></p>
+<ul>
+<li>Phase contrast image</li>
+<li>Membrane fluorescence</li>
+<li>DNA fluorescence</li>
+</ul>
+<p><strong>Analysis Pipeline:</strong></p>
+<ol>
+<li><strong>Segmentation</strong>: Isodata or CellPose's cyto3 identifies individual cells in the phase contrast image</li>
+<li><strong>Morphology</strong>: Calculate morphological and intensity measurements</li>
+<li><strong>Classification</strong>: Cell cycle phase determination using pre-trained CNN model</li>
+<li><strong>Quality Control</strong>: Interactive filtering of analysis results. Select subpopulations based on size, intensity, or classification</li>
+<li><strong>Report Generation</strong>: HTML output</li>
+</ol>
+<h2>📚 Available Jupyter Notebooks</h2>
+<p>Explore advanced functionality with included notebooks:</p>
+<ul>
+<li><strong><a href="notebooks/napari_mAIcrobe_cellcyclemodel.ipynb">Cell Cycle Model Training</a></strong>: Train custom classification models</li>
+<li><strong><a href="notebooks/StarDistSegmentationTraining.ipynb">StarDist Segmentation</a></strong>: Retrain a StarDist segmentation model</li>
+</ul>
+<h2>🤝 Community</h2>
+<ul>
+<li><strong>🐛 <a href="https://github.com/HenriquesLab/mAIcrobe/issues">Issues</a></strong> - Report bugs, request features</li>
+<li><strong>📚 <a href="https://napari-hub.org/plugins/napari-mAIcrobe">napari hub</a></strong> - Plugin ecosystem</li>
+</ul>
+<h2>🏗️ Contributing</h2>
+<p>We welcome contributions! Whether it's:</p>
+<ul>
+<li>🐛 Bug reports and fixes</li>
+<li>✨ New segmentation algorithms</li>
+<li>📖 Documentation improvements</li>
+<li>🧪 Additional test datasets</li>
+<li>🤖 New AI models for classification</li>
+</ul>
+<p><strong>Quick contributor setup:</strong></p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/HenriquesLab/mAIcrobe.git
+<span class="nb">cd</span><span class="w"> </span>mAIcrobe
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>testing<span class="o">]</span>
+pre-commit<span class="w"> </span>install
+</pre></div>
+</code></pre>
+<p><strong>Testing:</strong></p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Run tests</span>
+pytest<span class="w"> </span>-v
 
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-<h2>Installation</h2>
-<p>You can install <code>mAIcrobe</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">mAIcrobe</span>
+<span class="c1"># Run tests with coverage</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>napari_mAIcrobe
+
+<span class="c1"># Run tests across Python versions</span>
+tox
 </pre></div>
 </code></pre>
-<p>To install latest development version :</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">HenriquesLab</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">mAIcrobe</span><span class="o">.</span><span class="n">git</span>
-</pre></div>
-</code></pre>
-<h2>Contributing</h2>
-<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
-<h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-&quot;napari-mAIcrobe&quot; is free and open source software</p>
-<h2>Issues</h2>
-<p>If you encounter any problems, please <a href="https://github.com/HenriquesLab/napari-mAIcrobe/issues">file an issue</a> along with a detailed description.</p>
+<p><strong><a href="CONTRIBUTING.md">📋 Full Contributing Guide →</a></strong></p>
+<h2>📜 License</h2>
+<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license, mAIcrobe is free and open source software.</p>
+<h2>🙏 Acknowledgments</h2>
+<p>mAIcrobe is developed in the <a href="https://henriqueslab.org">Henriques</a> and <a href="https://www.itqb.unl.pt/research/biology/bacterial-cell-biology">Pinho</a> Labs with contributions from the napari and scientific Python communities.</p>
+<p><strong>Built with:</strong></p>
+<ul>
+<li><a href="https://napari.org/">napari</a> - Multi-dimensional image viewer</li>
+<li><a href="https://tensorflow.org/">TensorFlow</a> - Machine learning framework</li>
+<li><a href="https://github.com/stardist/stardist">StarDist</a> - Object detection with star-convex shapes</li>
+<li><a href="https://github.com/MouseLand/cellpose">Cellpose</a> - Generalist cell segmentation</li>
+<li><a href="https://scikit-image.org/">scikit-image</a> - Image processing library</li>
+</ul>
+<hr />
+<div align="center">
+<p><strong>🔬 From the <a href="https://henriqueslab.org">Henriques</a> and <a href="https://www.itqb.unl.pt/research/biology/bacterial-cell-biology">Pinho</a> Labs</strong></p>
+<p><em>&quot;Advancing microbiology through AI-powered image analysis.&quot;</em></p>
+<p><strong><a href="docs/user-guide/getting-started.md">🚀 Get Started →</a></strong> | <strong><a href="docs/user-guide/segmentation-guide.md">📚 Learn More →</a></strong> | <strong><a href="docs/api/api-reference.md">⚙️ API Docs →</a></strong></p>
+</div>
 
 
                                     </div>
@@ -253,7 +405,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -263,7 +415,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-08-01</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-09-23</li>
                                                 </ul>
                                             </div>
                                         </div>
