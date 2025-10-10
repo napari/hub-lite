@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.5.4</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.5.5</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-08-28</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-10-10</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari==0.6.4</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari==0.6.*</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -216,45 +216,53 @@
 <a href="https://github.com/pnewstein/napari-3d-counter/actions"><img src="https://github.com/pnewstein/napari-3d-counter/workflows/tests/badge.svg" alt="tests" /></a>
 <a href="https://codecov.io/gh/pnewstein/napari-3d-counter"><img src="https://codecov.io/gh/pnewstein/napari-3d-counter/branch/main/graph/badge.svg" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/napari-3d-counter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-3d-counter" alt="napari hub" /></a></p>
-<p>A simple plugin for counting objects in 3D images</p>
+<p>A plugin for manually counting objects in 3D images</p>
 <p><img src="https://github.com/pnewstein/napari-3d-counter/assets/30813691/9d524c31-f23b-4b34-bcb6-ec3bb415cdae" alt="small" /></p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
+<h2>Prerequisites</h2>
+<p>It is recommended to use conda to install Napari-3D-Counter and napari.
+Installation instructions for the miniconda distribution of conda can be found here:</p>
+<p><a href="https://www.anaconda.com/docs/getting-started/miniconda/install">https://www.anaconda.com/docs/getting-started/miniconda/install</a></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-3d-counter</code> via conda</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">napari</span><span class="o">-</span><span class="mi">3</span><span class="n">d</span><span class="o">-</span><span class="n">counter</span> <span class="n">pyqt</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">n3dc</span><span class="o">-</span><span class="n">env</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">y</span> <span class="n">napari</span> <span class="n">napari</span><span class="o">-</span><span class="mi">3</span><span class="n">d</span><span class="o">-</span><span class="n">counter</span> <span class="n">pyqt</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">n3dc</span><span class="o">-</span><span class="n">env</span>
 </pre></div>
 </code></pre>
 <p>or pip</p>
 <pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="mi">3</span><span class="n">d</span><span class="o">-</span><span class="n">counter</span>
 </pre></div>
 </code></pre>
-<p>To install latest development version:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pnewstein</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="mi">3</span><span class="n">d</span><span class="o">-</span><span class="n">counter</span><span class="o">.</span><span class="n">git</span>
-</pre></div>
-</code></pre>
 <h2>Count3D Usage</h2>
-<p>First launch napari with the <code>napari</code> command or interactively through ipython</p>
-<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Veiwer</span><span class="p">()</span>
-</pre></div>
-</code></pre>
-<p>Count3D can be launched from the plugin menu of napari, or through the command palette (ctrl shift P)</p>
+<ol>
+<li>First launch napari with the <code>napari</code> command.</li>
+<li>Count3D can be launched from the plugin menu of napari, or through the
+command palette (Ctrl+Shift+P). Select Count3D.</li>
+</ol>
+<p>This will spawn several <a href="https://napari.org/stable/howtos/layers/points.html">Points Layers</a>:</p>
+<h5>Point adder</h5>
+<p>This layer acts as the interface for napari-3d-counter. Any points added to
+this layer are dispatched into the appropriate data layer labeled by the GUI.
+<em>Any other actions to this layer has no effects</em></p>
+<h5>Cell Type N</h5>
+<p>These are the data layers. The points actually live in these layers,
+and you can edit the style or delete individual points here.</p>
+<h5>out of slice</h5>
+<p>This contains the x and y of all points in all layers. This may be
+useful to keep track of what regions of the data have been annotated.</p>
 <h3>Adding a cell</h3>
-<p>You can add a cell of the currently selected cell type by clicking on the viewer.</p>
+<p>You can add a cell of the currently selected cell type by clicking on the
+viewer. The counter on the current cell type's button (on the right side of the
+screen) will be incremented.</p>
+<details>
+<summary>Troubleshooting</summary>
 <ul>
 <li>Ensure that <code>Point adder</code> layer is selected</li>
 <li>Ensure that <code>Add points</code> tool is selected</li>
 <li>Click on the viewer where you would like the point to be added</li>
 </ul>
-<p>The counter on the current cell type's button will be incremented</p>
+</details>
 <p><a href="https://github.com/pnewstein/napari-3d-counter/assets/30813691/745d495e-1d18-43dd-aa5e-e9ecd835cdae">https://github.com/pnewstein/napari-3d-counter/assets/30813691/745d495e-1d18-43dd-aa5e-e9ecd835cdae</a></p>
 <h3>Changing cell type</h3>
 <p>You can change the currently selected cell type by clicking on that cell type's
@@ -271,6 +279,10 @@ cell type</p>
 like to remove. Then select the <code>select points</code> tool to select the points to
 delete, then use <code>Delete selected points</code> to delete those points</p>
 <p>This change will be reflected in the counts.</p>
+<blockquote>
+<p><em>Important</em>
+Ensure that the corect napari cell type layer is selected</p>
+</blockquote>
 <p><a href="https://github.com/pnewstein/napari-3d-counter/assets/30813691/d0787cba-9b23-46d5-9cd3-21a4ad73460a">https://github.com/pnewstein/napari-3d-counter/assets/30813691/d0787cba-9b23-46d5-9cd3-21a4ad73460a</a></p>
 <h3>Change appearance of a cell type</h3>
 <p>Changes to the name or edge color of a points layer will be reflected in the
@@ -279,6 +291,10 @@ previously added points, as well as the GUI. Features that are editable in this 
 - edge color
 - symbol
 - size</p>
+<blockquote>
+<p><em>Important</em>
+Ensure that the corect napari cell type layer is selected</p>
+</blockquote>
 <p><a href="https://github.com/pnewstein/napari-3d-counter/assets/30813691/6c495270-d4c4-473e-9091-8d2e0f8e2764">https://github.com/pnewstein/napari-3d-counter/assets/30813691/6c495270-d4c4-473e-9091-8d2e0f8e2764</a></p>
 <h3>Save configuration</h3>
 <p>Use the <code>Make launch_cell_count.py</code> button to create a python script that will
@@ -318,7 +334,17 @@ csv file</p>
 </pre></div>
 </code></pre>
 <h2>Auxiliary plugins</h2>
+<h3>Ingress Points</h3>
+<p><img src="https://github.com/user-attachments/assets/2b0dc92b-ae14-40e0-8670-0d99f36b3468" alt="Ingress Points" /></p>
+<p>This plugin takes a points layer and adds the points to the selected cell type
+layer. This can be useful if you want to manually count cells after cell identification.</p>
+<h3>Split on Shapes</h3>
+<p><img src="https://github.com/user-attachments/assets/0d3c12fc-1347-4226-a9b9-9e34dd50577a" alt="Split on Shapes" /></p>
+<p>This plugin can be used to subset a cell type into several groups based on their
+x-y location. Simply draw a shape that surrounds your cells (perhaps in a
+segment) and run this plugin to get a list of cells of each type in each shape.</p>
 <h3>Reconstruct Selected</h3>
+<p><img src="https://github.com/user-attachments/assets/2f629b5a-d976-4add-8c5b-af4fc7e45729" alt="Reconstruct Selected" /></p>
 <p>One use case of Napari 3D Counter is to visualize a subset of labeled cells.
 For example, automated process label your cells of interest as well as a set of
 off-target cells, and you would like to visualize only your cells of interest.
@@ -327,13 +353,6 @@ interest, and some other process to create labels (perhaps
 <a href="https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes">nsbatwm</a>)
 and using Reconstruct Selected to create a new image layer of those labels
 which have been counted as a particular cell type.</p>
-<h3>Ingress Points</h3>
-<p>This plugin takes a points layer and adds the points to the selected cell_type
-layer. This can be useful if you want to manually count cells after cell identification.</p>
-<h3>Split on Shapes</h3>
-<p>This plugin can be used to subset a cell type into several groups based on their
-x-y location. Simply draw a shape that surrounds your cells (perhaps in a
-segment) and run this plugin to get a list of cells of each type in each shape.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -357,7 +376,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.5.4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.5.5</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -367,7 +386,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-08-28</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-10-10</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -464,7 +483,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari==0.6.4</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari==0.6.*</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
