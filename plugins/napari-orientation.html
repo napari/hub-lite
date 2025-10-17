@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-10-13</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-10-17</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -216,7 +216,7 @@
 <a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
 <p>A napari plugin to analyse local orientation in images.</p>
 <h2>Installation</h2>
-<p>You can install the plugin from the napari GUI interface by going to <code>Plugins/Install\Uninstall Plugins</code> and selecting <code>napari-orientation</code> .
+<p>You can install the plugin from the napari GUI interface by going to <code>Plugins/Install\Uninstall Plugins</code> and selecting <code>napari-orientation</code>.
 Alternatively, you can install the plugin from the napari conda environment via <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">orientation</span>
 </pre></div>
@@ -225,6 +225,28 @@ Alternatively, you can install the plugin from the napari conda environment via 
 <p>You can access all the functionalities of the plugin from the menu <code>Plugins\Orientation Analysis</code>.</p>
 <p>All the analyses work only on single-channel 2D images and on single-channel 2D time series.
 In this last case the analysis can be restricted to single frames.</p>
+<p>The only parameter available is the sigma smoothing, in pixels, which controls the strength of the gaussian filter applied to the gradient of the image before computing the orientation vector pixelwise.</p>
+<h3>Compute orientation metrics</h3>
+<p>This GUI gives access to most of the functionalities. You can compute several metrics and display them as images.</p>
+<h4>Display Colored Orientation</h4>
+<p>It computes an image where each pixel is colored differently according to the orientation angle estimated at that position.</p>
+<p><img src="docs/example_colored_orientation.png" alt="Example colored orientation" /></p>
+<h4>Display Coherence</h4>
+<p>It computes an image where the value of each pixel represents the coherence estimated at that position.</p>
+<p><img src="docs/example_coherence.png" alt="Example coherence" /></p>
+<h4>Display Curvature</h4>
+<p>It computes an image where the value of each pixel represents the curvature estimated at that position.</p>
+<p><img src="docs/example_curvature.png" alt="Example coherence" /></p>
+<h4>Display Angle</h4>
+<p>It computes an image where the value of each pixel represents the angle, in degrees, estimated at that position.</p>
+<p><img src="docs/example_angle.png" alt="Example coherence" /></p>
+<h4>Compute statistics</h4>
+<p>Estimate the average value for the following metrics: Energy, Coherence, Correlation length, Curvature. The curvature is the only metric in physical units, and therefore the determination of its values relies on the accuracy of the pixel size provided for the image.</p>
+<p><img src="docs/example_statistics.png" alt="Example statistics" /></p>
+<h3>Generate vector-coded images</h3>
+<p>It generates a vector layer displaying the orientation field estimated locally, over a grid with spacing defined by the user.</p>
+<p><img src="docs/example_vectors.png" alt="Example vectors" /></p>
+<p>This is a separate widget because it currently only works on single frames.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -233,8 +255,10 @@ the coverage at least stays the same before you submit a pull request.</p>
 &quot;napari-orientation&quot; is free and open source software</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please file an issue along with a detailed description.</p>
-<hr />
+<h2>Credits</h2>
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a> (None).</p>
+<p>This work was inspired by the plugin <a href="https://github.com/Biomedical-Imaging-Group/OrientationJ">OrientationJ</a> for ImageJ, that was partially converted by the same developers into a <a href="https://github.com/EPFL-Center-for-Imaging/napari-orientationpy">plugin for napari</a>.</p>
+<p>napari-orientation focuses on the computation of several metrics, some of them proposed in this <a href="https://doi.org/10.1038/s41467-019-13702-4">article</a></p>
 <!--
 Don't miss the full getting started guide to set up your new package:
 https://github.com/napari/napari-plugin-template#getting-started
@@ -257,7 +281,7 @@ https://napari.org/stable/plugins/index.html
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -267,7 +291,7 @@ https://napari.org/stable/plugins/index.html
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-10-13</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-10-17</li>
                                                 </ul>
                                             </div>
                                         </div>

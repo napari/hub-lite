@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.19</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.20</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-10-16</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-10-17</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">pyqt5</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">qbi-radon</li><li class="MetadataList_textItem__KKmMN">pyopengl ==3.1.6</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">pyqt5</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">qbi-radon</li><li class="MetadataList_textItem__KKmMN">pyopengl==3.1.6</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -354,23 +354,61 @@ Leave unchecked to keep <strong>32-bit float</strong> output.</p>
 </ol>
 <p><img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/refs/heads/nhattm/napari-tomodl/figures/reconstruct_button.png" alt="plot" /></p>
 <p>A new layer will appear on top of the projections stack with the reconstructed volume.</p>
-<h2>💻 Installation</h2>
-<p>Follow these steps in <span style="color:red;"><strong>Napari’s Python console</strong></span>.</p>
-<h3><strong>1. Install PyTorch</strong></h3>
-<h4>GPU (CUDA-compatible GPU)</h4>
-<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pytorch</span><span class="o">==</span><span class="mf">2.5.0</span> <span class="n">pytorch</span><span class="o">-</span><span class="n">cuda</span><span class="o">=</span><span class="mf">12.1</span> <span class="o">-</span><span class="n">c</span> <span class="n">pytorch</span> <span class="o">-</span><span class="n">c</span> <span class="n">nvidia</span>
+<h2>💻 Installation Guide</h2>
+<h3>1️⃣ Install <strong>napari</strong> as a bundled app</h3>
+<p>Please visit the official napari documentation and follow the instructions here:<br />
+👉 <a href="https://napari.org/stable/tutorials/fundamentals/installation_bundle_conda.html">Napari Installation Guide (bundled app)</a></p>
+<p>You can also directly download the installer for your operating system:</p>
+<ul>
+<li><strong>Windows (.exe):</strong><br />
+<a href="https://github.com/napari/napari/releases/download/v0.6.4/napari-0.6.4-Windows-x86_64.exe">napari-0.6.4-Windows-x86_64.exe</a></li>
+<li><strong>Ubuntu (.sh):</strong><br />
+<a href="https://github.com/napari/napari/releases/download/v0.6.4/napari-0.6.4-Linux-x86_64.sh">napari-0.6.4-Linux-x86_64.sh</a></li>
+</ul>
+<hr />
+<h3>2️⃣ Install <strong>PyTorch</strong> inside Napari’s bundled environment</h3>
+<blockquote>
+<p><strong>💡 Tip:</strong> Make sure napari is closed before installing PyTorch.</p>
+</blockquote>
+<hr />
+<h4>🪟 <strong>For Windows users</strong></h4>
+<p>Open <strong>Command Prompt</strong> (not PowerShell).</p>
+<p>🔹 For GPU (choose suitable CUDA or PyTorch version)</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="s2">&quot;%LOCALAPPDATA%\napari-0.6.4\envs\napari-0.6.4\Scripts\conda.exe&quot;</span><span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">12</span>.1<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>--override-channels
 </pre></div>
 </code></pre>
-<h4>CPU-only (no GPU)</h4>
-<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pytorch</span><span class="o">==</span><span class="mf">2.5.0</span> <span class="n">cpuonly</span> <span class="o">-</span><span class="n">c</span> <span class="n">pytorch</span>
+<p>🔹 For CPU only</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="s2">&quot;%LOCALAPPDATA%\napari-0.6.4\envs\napari-0.6.4\Scripts\conda.exe&quot;</span><span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>cpuonly<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>--override-channels
 </pre></div>
 </code></pre>
-<h3><strong>2. Install the napari-tomodl plugin</strong></h3>
-<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">tomodl</span>
+<hr />
+<h4>🐧 For Linux users</h4>
+<p>Open a <strong>terminal</strong>, then run the following:</p>
+<p>🔹 For GPU (choose suitable CUDA or PyTorch version)</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>~/.local/napari-0.6.4/bin/conda<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">12</span>.1<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>--override-channels
+</pre></div>
+</code></pre>
+<p>🔹 For CPU only</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>~/.local/napari-0.6.4/bin/conda<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>cpuonly<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>--override-channels
+</pre></div>
+</code></pre>
+<hr />
+<h3>3️⃣ Install our plugin — <strong>napari-tomodl</strong></h3>
+<h2>Our plugin is available on the <a href="https://napari-hub.org/plugins/napari-tomodl.html">napari-hub</a>.</h2>
+<p>🔹 Option 1: Install directly from napari</p>
+<ol>
+<li>Open <strong>napari</strong>.</li>
+<li>Go to <strong>Plugins → Install/Uninstall Plugins</strong>.</li>
+<li>Search for <strong>napari-tomodl</strong> and click <strong>Install</strong>.</li>
+</ol>
+<hr />
+<p>🔹 Option 2: Install via pip (from Napari Console)
+Open napari’s <strong>Python Console</strong> and type:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-tomodl
 </pre></div>
 </code></pre>
 <blockquote>
-<p>Tip: After installing PyTorch, restart Napari to ensure it detects the new environment. 😊</p>
+<p>After installation, <strong>restart napari</strong> to apply the changes. 😊</p>
 </blockquote>
 <h2>🤝 Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
@@ -395,7 +433,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.19</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.20</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -405,7 +443,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-10-16</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-10-17</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -502,7 +540,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">pyqt5</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">qbi-radon</li><li class="MetadataList_textItem__KKmMN">pyopengl ==3.1.6</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">pyqt5</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">qbi-radon</li><li class="MetadataList_textItem__KKmMN">pyopengl==3.1.6</li></ul>
                                             </div>
                                         </div>
                                     </div>
