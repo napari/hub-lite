@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.20</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.22</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-10-17</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-10-20</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -290,7 +290,7 @@ Select smoothing strength (only applies to <strong>TOMODL</strong> methods). Can
 </ol>
 <hr />
 <h3>🔹 Advanced Mode</h3>
-<p><img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/refs/heads/nhattm/napari-tomodl/figures/advanced_model.png" alt="plot" /></p>
+<p><img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/52d849b3a488d28d6fcaef3c199dad167ade45b3/napari-tomodl/figures/advanced_mode.png" alt="plot" /></p>
 <ol start="9">
 <li>
 <p><strong>Manual axis alignment</strong><br />
@@ -317,7 +317,7 @@ Constrain the reconstructed object inside a circular region.</p>
 Choose the filter to apply when using FBP methods.</p>
 </li>
 <li>
-<p><strong>Reconstruct full volume</strong></p>
+<p><strong>Full volume</strong></p>
 <ul>
 <li>Enabled → reconstruct the whole volume.</li>
 <li>Disabled → reconstruct only a subset of slices along the detector axis (faster for testing).</li>
@@ -332,7 +332,7 @@ Number of slices processed simultaneously:</p>
 </ul>
 </li>
 <li>
-<p><strong>Reconstruct only slices</strong></p>
+<p><strong>One Slice</strong></p>
 <ul>
 <li>Enabled → reconstruct only a single slice at the specified index.</li>
 <li>Disabled → reconstruct from index 0 up to the chosen slice index in the <strong># of slices to reconstruct</strong> field.</li>
@@ -367,31 +367,59 @@ Leave unchecked to keep <strong>32-bit float</strong> output.</p>
 </ul>
 <hr />
 <h3>2️⃣ Install <strong>PyTorch</strong> inside Napari’s bundled environment</h3>
+<p>This guide provides detailed instructions for installing <strong>PyTorch</strong> within the Napari bundled environment. Follow the steps carefully to ensure compatibility and a smooth installation process.</p>
 <blockquote>
-<p><strong>💡 Tip:</strong> Make sure napari is closed before installing PyTorch.</p>
+<p><strong>💡 Tip:</strong> Ensure Napari is closed before proceeding with the installation to avoid conflicts.
+Before installing PyTorch, verify your system's CUDA version if you plan to use GPU support. This ensures compatibility with the PyTorch version and CUDA toolkit.</p>
 </blockquote>
-<hr />
-<h4>🪟 <strong>For Windows users</strong></h4>
-<p>Open <strong>Command Prompt</strong> (not PowerShell).</p>
-<p>🔹 For GPU (choose suitable CUDA or PyTorch version)</p>
+<p><strong>Check CUDA Version</strong>:</p>
+<ul>
+<li>Open a <strong>Command Prompt</strong> (Windows) or <strong>terminal</strong> (Linux).</li>
+<li>Run the following command:<pre><code class="language-bash"><div class="highlight"><pre><span></span>nvidia-smi
+</pre></div>
+</code></pre>
+</li>
+<li>Choose a <code>pytorch-cuda</code> version that is <strong>less than or equal to</strong> your CUDA version. Supported versions include 11.8, 12.1, or 12.4.</li>
+<li>For more details on compatible PyTorch versions, visit the <a href="https://pytorch.org/get-started/previous-versions">PyTorch Previous Versions page</a>.</li>
+</ul>
+<h4>🪟 <strong>For Windows Users</strong></h4>
+<ol>
+<li>
+<p>Open <strong>Command Prompt</strong> (do <strong>not</strong> use PowerShell, as it may cause path resolution issues).</p>
+</li>
+<li>
+<p>Run the appropriate command based on your hardware setup:</p>
+<h4>🔹 For GPU Support</h4>
+<p>Ensure your CUDA version matches the <code>pytorch-cuda</code> version specified (e.g., 12.1). Replace <code>2.5.0</code> and <code>12.1</code> with versions compatible with your system if needed.</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="s2">&quot;%LOCALAPPDATA%\napari-0.6.4\envs\napari-0.6.4\Scripts\conda.exe&quot;</span><span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">12</span>.1<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>--override-channels
 </pre></div>
 </code></pre>
-<p>🔹 For CPU only</p>
+<h4>🔹 For CPU Only</h4>
+<p>If you do not have a compatible NVIDIA GPU or prefer to use CPU, run:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="s2">&quot;%LOCALAPPDATA%\napari-0.6.4\envs\napari-0.6.4\Scripts\conda.exe&quot;</span><span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>cpuonly<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>--override-channels
 </pre></div>
 </code></pre>
-<hr />
-<h4>🐧 For Linux users</h4>
-<p>Open a <strong>terminal</strong>, then run the following:</p>
-<p>🔹 For GPU (choose suitable CUDA or PyTorch version)</p>
+</li>
+</ol>
+<h4>🐧 <strong>For Linux Users</strong></h4>
+<ol>
+<li>
+<p>Open a <strong>terminal</strong>.</p>
+</li>
+<li>
+<p>Run the appropriate command based on your hardware setup:</p>
+<h4>🔹 For GPU Support</h4>
+<p>Ensure your CUDA version matches the <code>pytorch-cuda</code> version specified (e.g., 12.1). Replace <code>2.5.0</code> and <code>12.1</code> with versions compatible with your system if needed.</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>~/.local/napari-0.6.4/bin/conda<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">12</span>.1<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>--override-channels
 </pre></div>
 </code></pre>
-<p>🔹 For CPU only</p>
+<h4>🔹 For CPU Only</h4>
+<p>If you do not have a compatible NVIDIA GPU or prefer to use CPU, run:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>~/.local/napari-0.6.4/bin/conda<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>cpuonly<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>--override-channels
 </pre></div>
 </code></pre>
+</li>
+</ol>
 <hr />
 <h3>3️⃣ Install our plugin — <strong>napari-tomodl</strong></h3>
 <h2>Our plugin is available on the <a href="https://napari-hub.org/plugins/napari-tomodl.html">napari-hub</a>.</h2>
@@ -433,7 +461,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.20</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.22</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -443,7 +471,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-10-17</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-10-20</li>
                                                 </ul>
                                             </div>
                                         </div>
