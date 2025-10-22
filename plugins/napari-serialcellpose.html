@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.4.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-07-22</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-10-22</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">cellpose<4</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari-skimage-regionprops</li><li class="MetadataList_textItem__KKmMN">bioio</li><li class="MetadataList_textItem__KKmMN">bioio-tifffile</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">cellpose</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">bioio</li><li class="MetadataList_textItem__KKmMN">bioio-tifffile</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">cellpose<4; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +221,7 @@
 <p>The main goal of this plugin is to simplify the classical image processing pipeline of image segmentation followed by region analysis via Cellpose. It allows to quickly get a quantification of a set of images without the need for any scripting.</p>
 <h2>Installation</h2>
 <p>In order to use this plugin, whe highly recommend to create a specific environment and to install the required software in it. You can create a conda environment using:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">serialcellpose</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.8.5</span> <span class="n">napari</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">serialcellpose</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.12</span> <span class="n">napari</span> <span class="n">pyqt</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
 </pre></div>
 </code></pre>
 <p>Then activate it and install the plugin:</p>
@@ -229,11 +229,19 @@
 <span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">serialcellpose</span>
 </pre></div>
 </code></pre>
-<h3>Potential issue with PyTorch</h3>
-<p>Cellpose and therefore the plugin and napari can crash without warning in some cases with <code>torch==1.12.0</code>. This can be fixed by reverting to an earlier version using:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span><span class="o">==</span><span class="mf">1.11.0</span>
+<p>Alternatively, you can install the plugin via the napari plugin manager.</p>
+<h2>Note on versions</h2>
+<p>Versions older than 0.3.0 depend on the aicsimageio importer which is not supported anymore and which will likely lead to errors when trying to run the plugin. Version 0.3.0 moved to the <a href="https://github.com/bioio-devs/bioio">bioio</a> importer and some improvements were made to the data handling but the core functionality is the same. <strong>Version 0.3.0 is the last version that only supports pre-SAM Cellpose models i.e. Cellpose=4.0</strong>. By default you will get the latest version of the plugin. If you want an earlier version, you can pick versions in the napari plugin manger or directly via pip e.g.:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">serialcellpose</span><span class="o">==</span><span class="mf">0.3.0</span> 
 </pre></div>
 </code></pre>
+<p>For some time, the plugin will support both older Cellpose versions (CP&lt;4.0) and newer versions (CP&gt;=4.0). By default Cellpose4 gets installed with the plugin but you can revert to Cellpose3 if needed:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">cellpose</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="mi">4</span>
+</pre></div>
+</code></pre>
+<p>This might be of interest if you trained specific models or have workflows relying on Cellpose3 models such as cyto2.</p>
+<h3>PyTorch and GPU</h3>
+<p>Recent versions of PyTorch should detect whether a GPU is available or not and install the appropriate version. This includes acceleration on M-series macs via mps. One Linux and Windows, you can force GPU installation in case the above does not work (see below).</p>
 <h3>GPU</h3>
 <p>In order to use a GPU:</p>
 <ol>
@@ -247,8 +255,8 @@
 <p>Make sure your have up-to-date drivers for your NVIDIA card installed.</p>
 </li>
 <li>
-<p>Re-install a GPU version of PyTorch via conda using a command that you can find <a href="https://pytorch.org/get-started/locally/">here</a> (this takes care of the cuda toolkit, cudnn etc. so <strong>no need to install manually anything more than the driver</strong>). The command will look like this:</p>
-<pre><code><div class="highlight"><pre><span></span> <span class="n">conda</span> <span class="n">install</span> <span class="n">pytorch</span> <span class="n">torchvision</span> <span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">11.3</span> <span class="o">-</span><span class="n">c</span> <span class="n">pytorch</span>
+<p>Re-install a GPU version of PyTorch via conda using:</p>
+<pre><code><div class="highlight"><pre><span></span> <span class="n">conda</span> <span class="n">install</span> <span class="n">pytorch</span><span class="o">-</span><span class="n">gpu</span> <span class="n">torchvision</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
 </pre></div>
 </code></pre>
 </li>
@@ -262,7 +270,7 @@
 <h2>Usage: segmentation</h2>
 <p>The main interface is shown below. The sequence of events should be the following:</p>
 <ol>
-<li>Select a folder containing images. The list of files within that folder will appear in the area above. You can also just drag and drop a folder or an image in that area. When selecting an image, it gets displayed in the viewer. Images are opened via <a href="https://allencellmodeling.github.io/aicsimageio/">aicsimageio</a>. You can use grayscale images, RGB images or multi-channel images. In the latter case, <strong>make sure each channel opens as a separate layer when you open them using the napari-aicsimagio importer</strong>.</li>
+<li>Select a folder containing images. The list of files within that folder will appear in the area above. You can also just drag and drop a folder or an image in that area. When selecting an image, it gets displayed in the viewer. Images are opened via <a href="https://github.com/bioio-devs/bioio">bioio</a> but not all bioio plugins come pre-installed (only bioio-tifffile and bioio-imageio) so check the <a href="https://github.com/bioio-devs/bioio?tab=readme-ov-file#plug-in-registry">plugin list</a> to open other file formats. You can use grayscale images, RGB images or multi-channel images. In the latter case, <strong>make sure each channel opens as a separate layer when you open them</strong>.</li>
 <li>If you want to save the segmentation and tables with properties, select a folder that will contain the output.</li>
 <li>Select the type of cellpose model.</li>
 <li>If you use a custom model, select its location.</li>
@@ -279,7 +287,7 @@
 <img src="https://github.com/guiwitz/napari-serialcellpose/raw/main/illustrations/napari_serialcellpose_gui1b.png" alt="image" width="500">
 <h3>Properties</h3>
 <ol start="10">
-<li>After segmentation, properties of the objects can automatically be computed. You can select which properties should be computed in the Options tab. As defined in <code>napari-skimage-regionprops</code> properties are grouped by types. If you want to measure intensity properties such as mean intensity, you have to specify which channel (<code>Analysis channel</code>) you want to perform the measurement on.</li>
+<li>After segmentation, properties of the objects can automatically be computed. You can select which properties should be computed in the Options tab. Properties are those from the <code>regionprops_table</code> function of scikit-image. If you want to measure intensity properties such as mean intensity, you have to specify which channel (<code>Analysis channel</code>) you want to perform the measurement on.</li>
 </ol>
 <h3>Output</h3>
 <p>The results of the analysis are saved in the folder chosen in #2. The segmentation mask is saved with the same name as the original image with the suffix <code>_mask.tif</code>. A table with properties is saved in the subfolder <code>tables</code> also with the same name as the image with the suffix <code>props.csv</code>. If you run the plugin on multiple files in a folder, a <code>summary.csv</code> file is also generated which compiles all the data.</p>
@@ -315,7 +323,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.4.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -325,7 +333,7 @@
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-07-22</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-10-22</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -422,7 +430,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">cellpose<4</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari-skimage-regionprops</li><li class="MetadataList_textItem__KKmMN">bioio</li><li class="MetadataList_textItem__KKmMN">bioio-tifffile</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">cellpose</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">bioio</li><li class="MetadataList_textItem__KKmMN">bioio-tifffile</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">cellpose<4; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
