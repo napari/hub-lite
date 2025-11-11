@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.4.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.5.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-06-03</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-11-11</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                         <p class="font-bold whitespace-nowrap">License<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
                                             <li class="MetadataList_textItem__KKmMN">
-                                                MIT
+                                                Unavailable
                                             </li>
                                         </ul>
                                     </div>
@@ -144,7 +144,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li><li class="MetadataList_textItem__KKmMN">dipy</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">pybaselines</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">dipy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">pybaselines</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +221,7 @@
 <p>This plugin offers widgets specifically designed to analyze the redistribution of fluorescence-labeled proteins in widefield epifluorescence time-lapse acquisitions. It is particularly useful for studying various phenomena, including:</p>
 <ul>
 <li>Calcium-dependent translocation of neuronal calcium sensors.</li>
-<li>Synaptic receptor traffic during long-term plasticity induction.</li>
+<li>Synaptic receptor traffic.</li>
 <li>Membrane protein tracking.</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/translocation.gif" alt="" />
@@ -260,7 +260,7 @@
 <p><code>normalize by int</code>  function normalizes the differential images relative to the absolute intensity of the input image stack, which helps to reduce background noise amplitude.</p>
 <p>If <code>save MIP</code> is selected, the maximal intensity projection (MIP) of the differential image stack will be saved with the <code>_red-green-MIP</code> suffix.</p>
 <p><img src="https://raw.githubusercontent.com/wisstock/domb-napari/master/images/rg_series.png" alt="" /></p>
-<h3>ΔF/F Series</h3>
+<h3>ΔF &amp; ΔF/F Series</h3>
 <p><em>In progress.</em></p>
 <hr />
 <h2>Masking</h2>
@@ -427,22 +427,13 @@
 <h2>Plotting and Data Frame Saving</h2>
 <h3>ROIs Profiles</h3>
 <p>This widget builds a plot with mean intensity profiles for each Region of Interest (ROI) in labels. It uses either absolute intensity (if <code>absolute intensity</code> is selected) or relative intensities (ΔF/F0).</p>
+<p>Parameters:</p>
 <ul>
 <li><code>time scale</code> - sets the number of seconds between frames for x-axis scaling.</li>
 <li><code>values mod</code> - the mode of output profile calculation. Options are <code>ΔF/F0</code> (relative intensity changes), <code>ΔF</code> (absolute intensity changes), or <code>abs</code> (absolute intensity value)</li>
-<li><code>ΔF win</code> - if selected <code>use_simple_baseline</code>, the baseline intensity for ΔF/F0 profiles is estimated as the mean intensity of the specified number of initial profile points. Othervise, this paramater specify half-size of the moving median baseline estimator (<code>noisy_median</code> from <code>pybaselines</code> package).</li>
+<li><code>ΔF win</code>: if the <code>use_simple_baseline</code> option is selected, the baseline intensity is estimated as the mean intensity of the specified number of initial profile points. Otherwise, this parameter specifies the window half-size of the moving median baseline estimator (<code>noisy_median</code> from the <code>pybaselines</code> package).</li>
 <li><code>profiles crop</code> - if selected, only a specified range of intensity profile indexes will be plotted, corresponding to the start and stop indexes from <code>profiles range</code>.</li>
 </ul>
-<p>Additionally, you can save ROI intensity profiles as .csv files using the <code>save data frame</code> option and specifying the <code>saving path</code>. The output data frames named %img_name%_lab_prof.csv will include the following columns:</p>
-<ul>
-<li><code>id</code> - unique image ID, the name of the input <code>napari.Image</code> object.</li>
-<li><code>roi</code> - ROI number, consecutively numbered starting from 1.</li>
-<li><code>int</code> - ROI mean intensity, either raw or ΔF/F0, according to the selected intensity option.</li>
-<li><code>dist</code> - average distance in px to the ROI from the frame, (if <code>save ROIs distances in data frame</code> option is selected).</li>
-<li><code>index</code> - frame index.</li>
-<li><code>time</code> - frame time point, adjusted according to the <code>time scale</code>.</li>
-</ul>
-<p><em>Note: the data frame will contain information for all ROIs; amplitude filtering and crop options pertain to plotting only.</em></p>
 <table>
 <thead>
 <tr>
@@ -504,7 +495,20 @@
 </tbody>
 </table>
 <h3>Save Data Frame</h3>
-<p>This widget allows saving the data frame with the following columns:</p>
+<p>This widget enables you to save the data frame in CSV format.
+This is particularly useful for exporting results after examining them with the <strong>ROIs Profiles</strong> widget.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>img</code> - input for a single channel time series image stack.</li>
+<li><code>lab</code> - input for a labels layer with ROIs.</li>
+<li><code>stim position</code> - input for a points layer with stimulation electrode position, should contain a single point only.</li>
+<li><code>time scale</code> - sets the number of seconds between frames for frames indexes scaling.</li>
+<li><code>ΔF win</code>: if the <code>use_simple_baseline</code> option is selected, the baseline intensity is estimated as the mean intensity of the specified number of initial profile points. Otherwise, this parameter specifies the window half-size of the moving median baseline estimator (<code>noisy_median</code> from the <code>pybaselines</code> package).</li>
+<li><code>save ROIs distances</code> - if selected, the average distance in pixels from the ROI to the frame will be saved in the data frame.</li>
+<li><code>custom stim position</code> - if selected, a custom stimulation electrode position from <code>stim position</code> layer will be used for distance calculations.</li>
+<li><code>saving path</code> - path to save the data frame.</li>
+</ul>
+<p>The output data contains the following columns:</p>
 <ul>
 <li><code>id</code> - unique image ID, the name of the input <code>napari.Image</code> object.</li>
 <li><code>lab_id</code> - unique label ID, the name of the input <code>napari.Labels</code> object.</li>
@@ -560,7 +564,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.4.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.5.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -570,7 +574,7 @@
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-06-03</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-11-11</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -591,7 +595,7 @@
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
                                                     <li class="MetadataList_textItem__KKmMN">
-                                                            MIT
+                                                            Unavailable
                                                     </li>
                                                 </ul>
                                             </div>
@@ -648,7 +652,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -667,7 +671,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">domb</li><li class="MetadataList_textItem__KKmMN">dipy</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">pybaselines</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">dipy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">pybaselines</li></ul>
                                             </div>
                                         </div>
                                     </div>
