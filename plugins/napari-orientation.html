@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-10-17</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-11-11</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
 <h2>Installation</h2>
 <p>You can install the plugin from the napari GUI interface by going to <code>Plugins/Install\Uninstall Plugins</code> and selecting <code>napari-orientation</code>.
 Alternatively, you can install the plugin from the napari conda environment via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">orientation</span>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>pip install napari-orientation
 </pre></div>
 </code></pre>
 <h2>Usage</h2>
@@ -228,6 +228,16 @@ In this last case the analysis can be restricted to single frames.</p>
 <p>The only parameter available is the sigma smoothing, in pixels, which controls the strength of the gaussian filter applied to the gradient of the image before computing the orientation vector pixelwise.</p>
 <h3>Compute orientation metrics</h3>
 <p>This GUI gives access to most of the functionalities. You can compute several metrics and display them as images.</p>
+<p>Definitions:</p>
+<ul>
+<li><strong>Orientation vector</strong>: unitary vector describing the average orientation of the gradient of the intensity around a point in the image. Computationally this is obtained by determining the first eigenvector (i.e. largest eigenvalue) of the structure tensor matrix.</li>
+<li><strong>Orientation field</strong>: mapping of the orientation vectors at each point in the image.</li>
+<li><strong>Angle field</strong>: mapping of the orientation angle at each point in the image</li>
+<li><strong>Energy</strong>: sum of the tensor eigenvalues.</li>
+<li><strong>Coherence</strong>: ratio between the difference and the sum of the maximum and minimum tensor eigenvalues.</li>
+<li><strong>Curvature</strong>: rate of change in the local orientation in the direction perpendicular to that orientation.</li>
+<li><strong>Correlation length</strong>: distance where the radial autocorrelation of the angle field drops below 0.5</li>
+</ul>
 <h4>Display Colored Orientation</h4>
 <p>It computes an image where each pixel is colored differently according to the orientation angle estimated at that position.</p>
 <p><img src="docs/example_colored_orientation.png" alt="Example colored orientation" /></p>
@@ -241,7 +251,8 @@ In this last case the analysis can be restricted to single frames.</p>
 <p>It computes an image where the value of each pixel represents the angle, in degrees, estimated at that position.</p>
 <p><img src="docs/example_angle.png" alt="Example coherence" /></p>
 <h4>Compute statistics</h4>
-<p>Estimate the average value for the following metrics: Energy, Coherence, Correlation length, Curvature. The curvature is the only metric in physical units, and therefore the determination of its values relies on the accuracy of the pixel size provided for the image.</p>
+<p>Estimate the average value for the following metrics: Energy, Coherence, Correlation length, Curvature.</p>
+<p>Note that Correlation length and Curvature metrics are both provided in physical units, and therefore their determination relies on the accuracy of the pixel size provided for the image. Using the napari-bioformats to open the images should guarantee that the pixel size stored in the file metadata is properly read by the plugin. In any case it always possible to adjust the pixel size from the interface.</p>
 <p><img src="docs/example_statistics.png" alt="Example statistics" /></p>
 <h3>Generate vector-coded images</h3>
 <p>It generates a vector layer displaying the orientation field estimated locally, over a grid with spacing defined by the user.</p>
@@ -281,7 +292,7 @@ https://napari.org/stable/plugins/index.html
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -291,7 +302,7 @@ https://napari.org/stable/plugins/index.html
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-10-17</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-11-11</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -388,7 +399,7 @@ https://napari.org/stable/plugins/index.html
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
                                             </div>
                                         </div>
                                     </div>
