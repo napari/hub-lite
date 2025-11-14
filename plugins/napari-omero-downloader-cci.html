@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-09-04</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-11-14</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -218,45 +218,97 @@
 <a href="https://napari-hub.org/plugins/napari-omero-downloader-cci"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-omero-downloader-cci" alt="napari hub" /></a>
 <a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a>
 <a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
-<p>A plugin that allows napari to connect to the Omero CCI server to visualize and download image data</p>
+<p>A plugin that allows napari to connect to the Omero CCI server to visualize and download image data.</p>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a> (None).</p>
 <h2>Installation</h2>
 <h3>First napari installation</h3>
-<p>First install miniconda from conda forge: [<a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a>].</p>
-<p>Recommanded, create an environment for napari, bundling both napari and omero</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">napari</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">napari</span> <span class="n">omero</span><span class="o">-</span><span class="n">py</span> <span class="n">pyqt</span> <span class="o">--</span><span class="n">yes</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span>
-<span class="n">napari</span>
+<p>First install miniconda from conda forge: [<a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a>]. This is mandatory!</p>
+<p>Recommanded, create an environment for napari, bundling both napari and omero.</p>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>napari<span class="w"> </span>omero-py<span class="w"> </span>pyqt<span class="w"> </span>--yes
+conda<span class="w"> </span>activate<span class="w"> </span>napari
+napari
 </pre></div>
 </code></pre>
-<h3>Already python installed napari</h3>
+<p>Or you can download from <a href="https://github.com/CCI-GU-Sweden/napari-omero-downloader-cci/tree/main/scripts">my github repo</a> the install_napari_omero (bat for window, sh for Mac/Linux). This will also install the plugin!</p>
+<h3>Already python and napari installed</h3>
 <p>In this case, activate your environment and install Omero:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">omero</span><span class="o">-</span><span class="n">py</span> <span class="o">--</span><span class="n">yes</span>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>omero-py<span class="w"> </span>--yes
 </pre></div>
 </code></pre>
 <h3>Plugin installation</h3>
-<p>You can install <code>napari-omero-downloader-cci</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">omero</span><span class="o">-</span><span class="n">downloader</span><span class="o">-</span><span class="n">cci</span>
+<p>You can install the plugin through the napari plugin manager: Plugins -&gt; Install/Uninstall Plugins.. -&gt; search for 'omero'.</p>
+<p><img src="https://raw.githubusercontent.com/CCI-GU-Sweden/napari-omero-downloader-cci/main/assets/napari_omero.png" alt="napari plugin" /></p>
+<p>The plugin is named Omero Downloader CCI.</p>
+<p>Or you can install <code>napari-omero-downloader-cci</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-omero-downloader-cci
 </pre></div>
 </code></pre>
 <p>To install latest development version :</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">CCI</span><span class="o">-</span><span class="n">GU</span><span class="o">-</span><span class="n">Sweden</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">omero</span><span class="o">-</span><span class="n">downloader</span><span class="o">-</span><span class="n">cci</span><span class="o">.</span><span class="n">git</span>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/CCI-GU-Sweden/napari-omero-downloader-cci.git
 </pre></div>
 </code></pre>
-<p>—or, during development—</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+<p>— or, during development —</p>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </code></pre>
 <h2>Running the plugin after Installation</h2>
-<p>You will need to open the conda-forge program, then:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span>
-<span class="n">napari</span>
+<p>The easy step: download from <a href="https://github.com/CCI-GU-Sweden/napari-omero-downloader-cci/tree/main/scripts">my github repo</a> the start_napari (bat for window, sh for Mac/Linux) and run it. It should open python, activate the env then run napari (can take 10-30 seconds the first time!)</p>
+<p>Otherwise, open the conda-forge CLI, then:</p>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>napari
+napari
 </pre></div>
 </code></pre>
 <p>The plug will be in the plugin tab.</p>
+<p><img src="https://raw.githubusercontent.com/CCI-GU-Sweden/napari-omero-downloader-cci/main/assets/plugin.png" alt="plugin" /></p>
+<h2>Plugin</h2>
+<p>The plugin requires that you have access to Omero with the following features:</p>
+<ul>
+<li>CLI enable</li>
+<li>OAuth enable (2FA token)</li>
+</ul>
+<h3>Why this plugin?</h3>
+<p>Another solution outside of this plugin is available: omero.insight (<a href="https://www.openmicroscopy.org/omero/downloads/">openmicroscopy website</a>), as well as a FiJi plugin.</p>
+<p>However, they do not fullfill the prerequiste at the CCI: A simple tool to quickly visualize and download data while being secure with 2FA.</p>
+<h3>Login</h3>
+<p>In 'Options...', indicate the omero server address and port. The default is the one for the CCI at the University of Gothenburg.</p>
+<p><img src="https://raw.githubusercontent.com/CCI-GU-Sweden/napari-omero-downloader-cci/main/assets/options.png" alt="options" /></p>
+<p>Click on the link, login on Omero and grab a key. This key is valid only for a certain amount of time and for this session. Generating a new key, or closing your session (via the 'Disconnect') will invalidate the key.</p>
+<p>Enter the key in the field and click on 'Connect'.</p>
+<p><img src="https://raw.githubusercontent.com/CCI-GU-Sweden/napari-omero-downloader-cci/main/assets/login.png" alt="login" /></p>
+<p>The square next to the connect button is indicating the connection status:</p>
+<ul>
+<li>Red: not connected</li>
+<li>Yellow: busy</li>
+<li>Green: ready</li>
+</ul>
+<h3>Groups and users</h3>
+<p>If you are part of multiple group, you can change group with the drop down menu. If your Omero administrator allows it, you can also see the data of other people in the same group. If data are being imported on the Omero server, you may need to refresh the visualization to be able to see them.</p>
+<h3>Queuing data for download</h3>
+<p>The data will be organized as a hierachical tree. Project -&gt; Database -&gt; Image.</p>
+<p>Clicking on the arrow allow you to reveal the contained data.</p>
+<p>Double click to add the element in the 'Download Queue'. Double clicking on a project will queue the whole project. Same for a dataset. However, double clicking on one image will download only this image.</p>
+<p>There is a color on the 'OMERO Data' as well:</p>
+<ul>
+<li>Green: will download all the child of the element</li>
+<li>Yellow: will partially download the child of the element</li>
+</ul>
+<p>You can remove an element by double clicking on it in the 'Download queue'.</p>
+<p><img src="https://raw.githubusercontent.com/CCI-GU-Sweden/napari-omero-downloader-cci/main/assets/tree.png" alt="trees" /></p>
+<h3>Data Visualization</h3>
+<p>It is possible to visualize the selected data (in the 'OMERO Data' tree) by clicking on the 'Visualize' button. This will download and display only one plane (first time point, middle of stack in case of multi-dimensional image). It is possible to scroll the data, but keep in mind that this is streamed from the Omero server. Do not expect high performance specially if the image is large!</p>
+<p><img src="https://raw.githubusercontent.com/CCI-GU-Sweden/napari-omero-downloader-cci/main/assets/visualize.png" alt="visualize" /></p>
+<h3>Data Downloading</h3>
+<p>To download the data that are queued, select a directory to save them (with the 'Browse...' button) then it the 'Download' button.</p>
+<p>The data will be organized in a similar way that they are on the Omero server. If you have a key-value pair called 'Folder' associated to an image, the image will be nested on level deeper, in this folder.</p>
+<p>In option, if download attachement and key-value pair is enable, these files will also be downloaded alongside the image.</p>
+<p><img src="https://raw.githubusercontent.com/CCI-GU-Sweden/napari-omero-downloader-cci/main/assets/progressbar.png" alt="progressbar" /></p>
+<p><img src="https://raw.githubusercontent.com/CCI-GU-Sweden/napari-omero-downloader-cci/main/assets/folder.png" alt="folder" /></p>
+<h3>Data deletion</h3>
+<p>This napari plugin is <strong>NOT</strong> allowed to delete data on the Omero server. If you need to delete data, you should do it via <a href="http://Omero.web">Omero.web</a>.</p>
 <h2>Warning about standalone napari</h2>
 <p>A standalone version of napari is available, and the plugin will be available on the napari hub. However, installation through the standalone app is not recommanded, since it relies on pip which does not distribute system ready dependancy for Ice.</p>
+<p>You are welcome to write a protocol/procedure on how to install omero and ice with pip.</p>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -280,7 +332,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -290,7 +342,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-09-04</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-11-14</li>
                                                 </ul>
                                             </div>
                                         </div>
