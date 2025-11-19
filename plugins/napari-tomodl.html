@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.25</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.26</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-11-08</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-11-18</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -358,68 +358,47 @@ Leave unchecked to keep <strong>32-bit float</strong> output.</p>
 </ol>
 <p><img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/refs/heads/nhattm/napari-tomodl/figures/reconstruct_button.png" alt="plot" /></p>
 <p>A new layer will appear on top of the projections stack with the reconstructed volume.</p>
-<h2>💻 Installation Guide</h2>
-<h3>1️⃣ Install <strong>napari</strong> as a bundled app</h3>
-<p>Please visit the official napari documentation and follow the instructions here:<br />
-👉 <a href="https://napari.org/stable/tutorials/fundamentals/installation_bundle_conda.html">Napari Installation Guide (bundled app)</a></p>
-<p>You can also directly download the installer for your operating system:</p>
-<ul>
-<li><strong>Windows (.exe):</strong><br />
-<a href="https://github.com/napari/napari/releases/download/v0.6.4/napari-0.6.4-Windows-x86_64.exe">napari-0.6.4-Windows-x86_64.exe</a></li>
-<li><strong>Ubuntu (.sh):</strong><br />
-<a href="https://github.com/napari/napari/releases/download/v0.6.4/napari-0.6.4-Linux-x86_64.sh">napari-0.6.4-Linux-x86_64.sh</a></li>
-</ul>
-<hr />
-<h3>2️⃣ Install <strong>PyTorch</strong> inside Napari’s bundled environment</h3>
-<p>This guide provides detailed instructions for installing <strong>PyTorch</strong> within the Napari bundled environment. Follow the steps carefully to ensure compatibility and a smooth installation process.</p>
+<h2>💻 Installation Guide <em>(No Code — Highly Recommended)</em></h2>
+<h3>🧩 <strong>Step 1: Install Napari (Bundled App)</strong></h3>
 <blockquote>
-<p><strong>💡 Tip:</strong> Ensure Napari is closed before proceeding with the installation to avoid conflicts.
-Before installing PyTorch, verify your system's CUDA version if you plan to use GPU support. This ensures compatibility with the PyTorch version and CUDA toolkit.</p>
+<p>💡 <em>Skip this step if you already installed Napari via <code>pip</code>.</em></p>
 </blockquote>
-<p><strong>Check CUDA Version</strong>:</p>
+<p>You can directly download the official Napari <strong>bundled installer</strong> for your operating system:</p>
 <ul>
-<li>Open a <strong>Command Prompt</strong> (Windows) or <strong>terminal</strong> (Linux).</li>
-<li>Run the following command:<pre><code class="language-bash"><div class="highlight"><pre><span></span>nvidia-smi
-</pre></div>
-</code></pre>
+<li>
+<p>🪟 <strong>Windows (.exe):</strong>
+👉 <a href="https://github.com/napari/napari/releases/download/v0.6.5/napari-0.6.5-Windows-x86_64.exe">napari-0.6.5-Windows-x86_64.exe</a></p>
 </li>
-<li>Choose a <code>pytorch-cuda</code> version that is <strong>less than or equal to</strong> your CUDA version. Supported versions include 11.8, 12.1, or 12.4.</li>
-<li>For more details on compatible PyTorch versions, visit the <a href="https://pytorch.org/get-started/previous-versions">PyTorch Previous Versions page</a>.</li>
+<li>
+<p>🐧 <strong>Ubuntu (.sh):</strong>
+👉 <a href="https://github.com/napari/napari/releases/download/v0.6.5/napari-0.6.5-Linux-x86_64.sh">napari-0.6.5-Linux-x86_64.sh</a></p>
+</li>
 </ul>
-<h4>🪟 <strong>For Windows Users</strong></h4>
+<p>📘 <strong>Official Guide:</strong>
+Follow the Napari documentation for detailed installation steps:
+🔗 <a href="https://napari.org/0.6.5/tutorials/fundamentals/installation_bundle_conda.html">Napari Installation Guide (Bundled App)</a></p>
+<hr />
+<h3>⚙️ <strong>Step 2: Install PyTorch Inside Napari’s Bundled Environment</strong></h3>
+<blockquote>
+<p>💡 <em>Skip this step if PyTorch is already installed in your Napari environment.</em></p>
+</blockquote>
+<p>This step ensures <strong>PyTorch</strong> is properly installed within Napari’s internal Conda environment for full compatibility.</p>
+<h4>🪟 <strong>Windows Users</strong></h4>
 <ol>
-<li>
-<p>Open <strong>Command Prompt</strong> (do <strong>not</strong> use PowerShell, as it may cause path resolution issues).</p>
-</li>
-<li>
-<p>Run the appropriate command based on your hardware setup:</p>
-<h4>🔹 For GPU Support</h4>
-<p>Ensure your CUDA version matches the <code>pytorch-cuda</code> version specified (e.g., 12.1). Replace <code>2.5.0</code> and <code>12.1</code> with versions compatible with your system if needed.</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="s2">&quot;%LOCALAPPDATA%\napari-0.6.4\envs\napari-0.6.4\Scripts\conda.exe&quot;</span><span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">12</span>.1<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>--override-channels
-</pre></div>
-</code></pre>
-<h4>🔹 For CPU Only</h4>
-<p>If you do not have a compatible NVIDIA GPU or prefer to use CPU, run:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="s2">&quot;%LOCALAPPDATA%\napari-0.6.4\envs\napari-0.6.4\Scripts\conda.exe&quot;</span><span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>cpuonly<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>--override-channels
-</pre></div>
-</code></pre>
-</li>
+<li>Download the installer:
+🔗 <a href="https://github.com/obandomarcos/ToMoDL/releases/download/v.0.2.25/install_torch2napari_windows.bat">install_torch2napari_windows.bat</a></li>
+<li>Double-click the <code>.bat</code> file to run it.
+<em>(It will automatically detect Napari’s environment and install PyTorch.)</em></li>
 </ol>
-<h4>🐧 <strong>For Linux Users</strong></h4>
+<h4>🐧 <strong>Linux Users</strong></h4>
 <ol>
 <li>
-<p>Open a <strong>terminal</strong>.</p>
+<p>Download the installer:
+🔗 <a href="https://github.com/obandomarcos/ToMoDL/releases/download/v.0.2.25/install_torch2napari_linux.sh">install_torch2napari_linux.sh</a></p>
 </li>
 <li>
-<p>Run the appropriate command based on your hardware setup:</p>
-<h4>🔹 For GPU Support</h4>
-<p>Ensure your CUDA version matches the <code>pytorch-cuda</code> version specified (e.g., 12.1). Replace <code>2.5.0</code> and <code>12.1</code> with versions compatible with your system if needed.</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>~/.local/napari-0.6.4/bin/conda<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">12</span>.1<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>--override-channels
-</pre></div>
-</code></pre>
-<h4>🔹 For CPU Only</h4>
-<p>If you do not have a compatible NVIDIA GPU or prefer to use CPU, run:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>~/.local/napari-0.6.4/bin/conda<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">pytorch</span><span class="o">==</span><span class="m">2</span>.5.0<span class="w"> </span>cpuonly<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>--override-channels
+<p>Run it in your terminal:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>bash<span class="w"> </span>install_torch2napari_linux.sh
 </pre></div>
 </code></pre>
 </li>
@@ -465,7 +444,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.25</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.26</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -475,7 +454,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-11-08</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-11-18</li>
                                                 </ul>
                                             </div>
                                         </div>
