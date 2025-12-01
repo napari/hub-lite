@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -384,6 +384,7 @@
         
         <span class="c1"># Create runner once - reusable for all batches</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">runner</span> <span class="o">=</span> <span class="n">BatchRunner</span><span class="p">(</span>
+            <span class="n">on_start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_batch_start</span><span class="p">,</span>
             <span class="n">on_item_complete</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_item_complete</span><span class="p">,</span>
             <span class="n">on_complete</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_batch_complete</span><span class="p">,</span>
             <span class="n">on_error</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_item_error</span><span class="p">,</span>
@@ -393,6 +394,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_run_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_batch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cancel_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">cancel</span><span class="p">)</span>
     
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_batch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when batch starts with total item count.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_progress_bar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_progress_bar</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+    
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_item_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Called after each item completes.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_progress_bar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -401,7 +407,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Result </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_batch_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_progress_bar</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Complete!&quot;</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">error_count</span>
+        <span class="k">if</span> <span class="n">errors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_progress_bar</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Done with </span><span class="si">{</span><span class="n">errors</span><span class="si">}</span><span class="s2"> errors&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_progress_bar</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Complete!&quot;</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_item_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">exception</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_progress_bar</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error on </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -411,7 +421,6 @@
     
     <span class="k">def</span><span class="w"> </span><span class="nf">run_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Triggered by &#39;Run&#39; button - just one line!&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_progress_bar</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
             <span class="n">process_image</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span>
@@ -501,6 +510,7 @@
 <pre><code class="language-python"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BatchRunner</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">on_start</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">on_item_complete</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">,</span> <span class="n">BatchContext</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">on_complete</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">on_error</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">BatchContext</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -517,7 +527,7 @@
         <span class="n">log_header</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">patterns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
         <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>  <span class="c1"># Passed to func!</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
@@ -527,6 +537,9 @@
     
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">was_cancelled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="o">...</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">error_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># Errors in current/last batch</span>
 </pre></div>
 </code></pre>
 <h2>Contributing</h2>
@@ -553,7 +566,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-11-15</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-12-01</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Open extension<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.tiff">*.ome.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.parquet">*.ome.parquet</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.parquet">*.parquet</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.pq">*.pq</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.tif">*.ome.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tiff">*.tiff</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tiff">*.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.tif">*.ome.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.parquet">*.parquet</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.parquet">*.ome.parquet</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.pq">*.pq</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.tiff">*.ome.tiff</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -276,6 +276,10 @@ When Qt is not available (e.g., in headless or purely programmatic contexts), th
 <li>defaults to <code>&quot;image&quot;</code> if the variable is not set.</li>
 </ul>
 </li>
+<li>
+<p>✅ <strong>Grid view for multi-row OME-Parquet</strong>
+When a Parquet file contains multiple OME-Arrow rows, each row is loaded as its own layer and the viewer is switched to napari’s grid mode. Set <code>NAPARI_OME_ARROW_PARQUET_COLUMN</code> to pick which image column to visualize.</p>
+</li>
 </ul>
 <hr />
 <p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a> (None).</p>
@@ -313,6 +317,11 @@ When Qt is not available (e.g., in headless or purely programmatic contexts), th
 
 <span class="c1"># Load as labels (segmentation)</span>
 <span class="nv">NAPARI_OME_ARROW_LAYER_TYPE</span><span class="o">=</span>labels<span class="w"> </span>napari<span class="w"> </span>my_labels.ome.parquet
+
+<span class="c1"># Pick a specific column in a multi-row OME-Parquet and show in grid mode</span>
+<span class="nv">NAPARI_OME_ARROW_LAYER_TYPE</span><span class="o">=</span>image<span class="w"> </span><span class="se">\\</span>
+<span class="nv">NAPARI_OME_ARROW_PARQUET_COLUMN</span><span class="o">=</span>Image_FileName_OrigDNA_OMEArrow_ORIG<span class="w"> </span><span class="se">\\</span>
+napari<span class="w"> </span>tests/data/cytodataframe/BR00117006.ome.parquet
 </pre></div>
 </code></pre>
 <h2>Contributing</h2>
@@ -337,7 +346,7 @@ Please reference our <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> guide.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -347,7 +356,7 @@ Please reference our <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> guide.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-11-15</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-12-01</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -401,7 +410,7 @@ Please reference our <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> guide.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Open
                                                     extension<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.tiff">*.ome.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.parquet">*.ome.parquet</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.parquet">*.parquet</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.pq">*.pq</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.tif">*.ome.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tiff">*.tiff</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tiff">*.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.tif">*.ome.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.parquet">*.parquet</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.parquet">*.ome.parquet</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.pq">*.pq</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.tiff">*.ome.tiff</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
