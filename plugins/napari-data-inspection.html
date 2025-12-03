@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-09-22</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-12-03</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p>A napari plugin for fast, high-throughput inspection of 2D/3D segmentation datasets.<br />
+                                        <p>A napari plugin for fast, high-throughput inspection of 2D/3D segmentation datasets.
 Select one or more images and/or labels layers; files are paired and loaded automatically so you can browse entire datasets without manual effort.</p>
 <h2>Features</h2>
 <ul>
@@ -341,6 +341,18 @@ The following Extensions and Backends are available.</p>
     <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">meta</span>
 </pre></div>
 </code></pre>
+<h3>Torch Dataset Inspection</h3>
+<ul>
+<li>Rapid inspection of PyTorch datasets in Napari by browsing images and corresponding labels directly from any torch.utils.data.Dataset</li>
+</ul>
+<pre><code class="language-py"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari_data_inspection.dataset_inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetInspectionWidget</span><span class="p">,</span> <span class="n">run_dataset_inspection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="c1"># Example: inspect a PyTorch dataset</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">MyCustomDataset</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># any torch Dataset</span>
+<span class="n">run_dataset_inspection</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">channel_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rescale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bg_class</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</code></pre>
 <h1>Acknowledgments</h1>
 <p align="left">
   <img src="https://github.com/MIC-DKFZ/napari-data-inspection/raw/main/imgs/Logos/HI_Logo.png" width="150"> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -365,7 +377,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -375,7 +387,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-09-22</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-12-03</li>
                                                 </ul>
                                             </div>
                                         </div>
