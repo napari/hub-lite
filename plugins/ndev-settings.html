@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.4.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-11-26</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-12-03</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -99,8 +99,7 @@
                                         <p class="font-bold whitespace-nowrap">License<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
                                             <li class="MetadataList_textItem__KKmMN">
-                                                Copyright (c) 2025, Tim Monko
-...
+                                                Unavailable
                                             </li>
                                         </ul>
                                     </div>
@@ -157,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">magic-class</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">appdirs</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">magic-class</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">napari[pyqt6]; extra == "all"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -305,6 +304,52 @@ https://napari.org/stable/plugins/index.html
 <span class="c1"># Access settings from external libraries (if installed)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">Reader</span><span class="o">.</span><span class="n">preferred_reader</span><span class="p">)</span>  <span class="c1"># From ndevio</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">Export</span><span class="o">.</span><span class="n">compression_level</span><span class="p">)</span>  <span class="c1"># From ndevio</span>
+
+<span class="c1"># Modify and save settings</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">Canvas</span><span class="o">.</span><span class="n">canvas_scale</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># Persists across sessions</span>
+
+<span class="c1"># Reset to defaults</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">reset_to_default</span><span class="p">(</span><span class="s2">&quot;canvas_scale&quot;</span><span class="p">)</span>  <span class="c1"># Reset single setting</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">reset_to_default</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;Canvas&quot;</span><span class="p">)</span>  <span class="c1"># Reset entire group</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">reset_to_default</span><span class="p">()</span>  <span class="c1"># Reset all settings</span>
+</pre></div>
+</code></pre>
+<h2>Performance Note: npe1 Plugin Compatibility</h2>
+<p>If you have many legacy npe1 plugins installed (e.g., <code>napari-assistant</code>, <code>napari-segment-blobs-and-things-with-membranes</code>, <code>napari-simpleitk-image-processing</code>), you may experience slow widget loading times (10+ seconds) the first time you open the settings plugin widget in a napari session. This is a known issue in napari's npe1 compatibility layer, not specific to ndev-settings. The npe1 adapter iterates through all plugin widgets and performs expensive metadata lookups for each legacy plugin.</p>
+<p><strong>Workaround</strong>: If you don't need npe1 runtime behavior plugins, you can disable the adapter in napari:</p>
+<ol>
+<li>Go to <code>File</code> -&gt; <code>Preferences</code> -&gt; <code>Plugins</code></li>
+<li>Uncheck &quot;Use npe2 adapter&quot;</li>
+<li>Restart napari</li>
+</ol>
+<p>This dramatically improves widget loading times since only pure npe2 plugins are discovered.</p>
+<h2>How Settings Persistence Works</h2>
+<p>Settings are automatically cached to improve startup performance:</p>
+<ol>
+<li><strong>First load</strong>: Settings are discovered from all installed packages via entry points, merged together, and saved to a user config file</li>
+<li><strong>Subsequent loads</strong>: Settings are loaded directly from the cached file (much faster)</li>
+<li><strong>Package changes</strong>: When packages are installed/removed, settings are re-discovered and merged while preserving your customizations</li>
+</ol>
+<p><strong>Storage location</strong>: Settings are stored in a platform-appropriate config directory:</p>
+<ul>
+<li><strong>Windows</strong>: <code>%LOCALAPPDATA%\ndev-settings\settings.yaml</code></li>
+<li><strong>macOS</strong>: <code>~/Library/Application Support/ndev-settings/settings.yaml</code></li>
+<li><strong>Linux</strong>: <code>~/.config/ndev-settings/settings.yaml</code></li>
+</ul>
+<p><strong>Clearing the cache</strong>: To force re-discovery of settings (e.g., after manual edits to package YAML files):</p>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ndev_settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_settings</span>
+<span class="n">clear_settings</span><span class="p">()</span>  <span class="c1"># Deletes cached settings, next load will re-discover</span>
+</pre></div>
+</code></pre>
+<h2>Pre-commit hook</h2>
+<p>You can use the <code>reset-settings-values</code> pre-commit hook to reset all settings values
+to their defaults before committing. To do so, add the following to your
+<code>.pre-commit-config.yaml</code>:</p>
+<pre><code class="language-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w">   </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/ndev-kit/ndev-settings</span>
+<span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v0.3.0</span>
+<span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reset-settings-values</span>
 </pre></div>
 </code></pre>
 <h2>Contributing</h2>
@@ -330,7 +375,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.4.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -340,7 +385,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-11-26</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-12-03</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -361,8 +406,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
                                                     <li class="MetadataList_textItem__KKmMN">
-                                                            Copyright (c) 2025, Tim Monko
-...
+                                                            Unavailable
                                                     </li>
                                                 </ul>
                                             </div>
@@ -438,7 +482,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">magic-class</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">appdirs</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">magic-class</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">napari[pyqt6]; extra == "all"</li></ul>
                                             </div>
                                         </div>
                                     </div>
