@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.15.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.16.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-12-03</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-12-08</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -206,8 +206,12 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><a href="https://liphy-annuaire.univ-grenoble-alpes.fr/pages_personnelles/aurelie_dupont/quantifret/index_quantifret.html">Home Page</a></p>
-<p><strong>QuanTI-FRET</strong> is a Python tool that performs QuanTI-FRET calibration and
+                                        <p><a href="https://liphy-annuaire.univ-grenoble-alpes.fr/pages_personnelles/aurelie_dupont/quantifret/index_quantifret.html">Home</a> |
+<a href="https://liphy.gricad-pages.univ-grenoble-alpes.fr/quanti-fret/">Documentation</a> |
+<a href="https://gricad-gitlab.univ-grenoble-alpes.fr/liphy/quanti-fret">Source</a> |
+<a href="https://pypi.org/project/quanti-fret/">PyPI</a> |
+<a href="https://napari-hub.org/plugins/quanti-fret.html">Napari</a></p>
+<p><code>quanti-fret</code> is a Python tool that performs <strong>QuanTI-FRET</strong> calibration and
 analysis from 3-channel movies</p>
 <ol>
 <li><a href="#description">Description</a></li>
@@ -219,26 +223,27 @@ analysis from 3-channel movies</p>
 <li><a href="#for-developpers">For developpers</a></li>
 </ol>
 <h2>Description</h2>
-<p>The QuanTI-FRET method proposes calibrating the instrument and the FRET pair to
-simply calculate absolute FRET probabilities from triplet of images acquired
-under the same conditions and with the same FRET pair. All the photophysical
-and instrumental factors are included in this calibration, leaving the
-variability of the results to biological origins.</p>
-<p>This module provide all the tools to perform the calibration, and then the
-quantitative FRET measurement of your experiments, using only your triplet
-images.</p>
-<p>This module can be used:</p>
+<p>The <strong>QuanTI-FRET</strong> method proposes calibrating the instrument and the FRET pair
+to simply calculate absolute FRET probabilities from a triplet of images
+acquired under the same conditions and with the same FRET pair. All the
+photophysical and instrumental factors are included in this calibration, leaving
+the variability of the results to biological origins.</p>
+<p>The <code>quanti-fret</code> package provides all the tools to perform first the
+calibration, and then to make quantitative FRET measurement of your experiments,
+using only your triplet images.</p>
+<p>It can be used:</p>
 <ul>
-<li>as a Napari Plugin</li>
-<li>as a Standalone GUI app</li>
-<li>as a CLI app</li>
-<li>imported inside your code</li>
+<li>As a <a href="https://napari.org">Napari</a> plugin</li>
+<li>With the Standalone GUI app</li>
+<li>On the terminal with a CLI (Command Line Interface) app</li>
 </ul>
 <h2>Napari Plugin</h2>
-<p><strong>QuanTI-FRET</strong> was designed to be integrated into the Napari tool as a plugin.</p>
+<p><strong>QuanTI-FRET</strong> was designed to be integrated into the
+<a href="https://napari.org">Napari</a> tool as a plugin.</p>
 <h3>Installation</h3>
-<p><strong>QuanTI-FRET</strong> is available in the <a href="https://napari-hub.org/plugins/quanti-fret.html">Napari Hub</a>
-under the name <code>quanti-fret</code>.</p>
+<p><strong>QuanTI-FRET</strong> is available in the
+<a href="https://napari-hub.org/plugins/quanti-fret.html">Napari Hub</a> under the name
+<code>quanti-fret</code>.</p>
 <p>To install it:</p>
 <ul>
 <li>Have a look <a href="https://napari.org/stable/tutorials/fundamentals/installation.html#napari-installation">here</a>
@@ -262,7 +267,7 @@ conda<span class="w"> </span>install<span class="w"> </span>pip
 </pre></div>
 </code></pre>
 <h5>With Pyenv</h5>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>pyenv<span class="w"> </span>virtualenv<span class="w"> </span><span class="o">[</span>PYTHON_VERSION&gt;<span class="o">=</span><span class="m">3</span>.12<span class="o">]</span><span class="w"> </span>quantifret
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pyenv<span class="w"> </span>virtualenv<span class="w"> </span><span class="o">[</span>PYTHON_VERSION&gt;<span class="o">=</span><span class="m">3</span>.10<span class="o">]</span><span class="w"> </span>quantifret
 pyenv<span class="w"> </span>activate<span class="w"> </span>quantifret
 pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
 </pre></div>
@@ -270,9 +275,9 @@ pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="
 <h4>Install <code>Qt</code></h4>
 <p>If you want to use the GUI application, you need to install <code>Qt</code>.</p>
 <p>It is not in the defaults dependencies as the <code>quanti_fret</code> modules also comes
-up with CLI app, or can be imported directly inside your Python code. So we
+up with a CLI app, or can be imported directly inside your Python code. So we
 don't want to penalize all the users by forcing a <code>Qt</code> dependency.</p>
-<p><strong>QuanTI-FRET</strong> supports <code>Qt5</code> and <code>Qt6</code> using either <code>PyQt</code> or <code>PySide</code></p>
+<p><code>quanti-fret</code> supports <code>Qt5</code> and <code>Qt6</code> using either <code>PyQt</code> or <code>PySide</code></p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="o">[</span>pyqt6<span class="w"> </span><span class="p">|</span><span class="w"> </span>pyqt5<span class="w"> </span><span class="p">|</span><span class="w"> </span>pyside6<span class="w"> </span><span class="p">|</span><span class="w"> </span>pyside5<span class="o">]</span><span class="w"> </span><span class="c1"># Choose one package</span>
 </pre></div>
 </code></pre>
@@ -314,55 +319,13 @@ quanti-fret-run<span class="w"> </span>generate_config<span class="w"> </span>fr
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>quanti-fret-run<span class="w"> </span>cli<span class="w"> </span>fret<span class="w"> </span>path/to/new/fret.ini
 </pre></div>
 </code></pre>
-<h2>Python Module</h2>
-<p>Finally, you can integrate the <strong>QuanTI-FRET</strong> module inside your own code.</p>
-<h3>Installation</h3>
-<p>Do all the steps of <a href="#standalone-gui-app">the standalone GUI app installation</a>
-except for the <strong>Qt</strong> part</p>
-<h3>Getting Started</h3>
-<h4>Generate your config files</h4>
-<p>You first need to generate one config file for the calibration phase, and one
-for the fret phase:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>quanti-fret-run<span class="w"> </span>generate_config<span class="w"> </span>calibration<span class="w"> </span>path/to/new/calibration.ini
-quanti-fret-run<span class="w"> </span>generate_config<span class="w"> </span>fret<span class="w"> </span>path/to/new/fret.ini
-</pre></div>
-</code></pre>
-<p>You then need to modify them to fit your requirements (see the
-<a href="#documentation">documentation</a>)</p>
-<h4>Run the calibration</h4>
-<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quanti_fret.run</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtfRunner</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quanti_fret.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalibrationIOPhaseManager</span> <span class="n">IOManager</span>
-
-<span class="n">iopm_cali</span> <span class="o">=</span> <span class="n">CalibrationIOPhaseManager</span><span class="p">(</span><span class="n">load_series</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">iopm_fret</span> <span class="o">=</span> <span class="n">FretIOPhaseManager</span><span class="p">(</span><span class="n">load_series</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">iom</span> <span class="o">=</span> <span class="n">IOManager</span><span class="p">(</span><span class="n">iopm_cali</span><span class="p">,</span> <span class="n">iopm_fret</span><span class="p">)</span>
-
-<span class="n">iopm_cali</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;path/to/new/calibration.ini&#39;</span><span class="p">)</span>
-
-<span class="n">runner</span> <span class="o">=</span> <span class="n">QtfRunner</span><span class="p">(</span><span class="n">iom</span><span class="p">)</span>
-<span class="n">runner</span><span class="o">.</span><span class="n">run_calibration</span><span class="p">()</span>
-</pre></div>
-</code></pre>
-<h4>Run the fret</h4>
-<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quanti_fret.run</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtfRunner</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quanti_fret.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalibrationIOPhaseManager</span> <span class="n">IOManager</span>
-
-<span class="n">iopm_cali</span> <span class="o">=</span> <span class="n">CalibrationIOPhaseManager</span><span class="p">(</span><span class="n">load_series</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">iopm_fret</span> <span class="o">=</span> <span class="n">FretIOPhaseManager</span><span class="p">(</span><span class="n">load_series</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">iom</span> <span class="o">=</span> <span class="n">IOManager</span><span class="p">(</span><span class="n">iopm_cali</span><span class="p">,</span> <span class="n">iopm_fret</span><span class="p">)</span>
-
-<span class="n">iopm_fret</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;path/to/new/fret.ini&#39;</span><span class="p">)</span>
-
-<span class="n">runner</span> <span class="o">=</span> <span class="n">QtfRunner</span><span class="p">(</span><span class="n">iom</span><span class="p">)</span>
-<span class="n">runner</span><span class="o">.</span><span class="n">run_fret</span><span class="p">()</span>
-</pre></div>
-</code></pre>
 <h2>Documentation</h2>
-<p>Coming soon...</p>
+<p>You can find the online documentation
+<a href="https://liphy.gricad-pages.univ-grenoble-alpes.fr/quanti-fret/">here</a></p>
 <h2>For developpers</h2>
 <p>Here are some indications dedicated to the developpers</p>
 <h3>Poetry</h3>
-<p>We are using poetry as a build system.</p>
+<p><code>quanti-fret</code> is using poetry as a build system.</p>
 <p>To install it, go to their <a href="https://python-poetry.org/docs/">doc page</a></p>
 <h3>Clone the project</h3>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://gricad-gitlab.univ-grenoble-alpes.fr/liphy/quanti-fret.git
@@ -394,7 +357,7 @@ mypy<span class="w"> </span>.
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.15.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.16.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -404,7 +367,7 @@ mypy<span class="w"> </span>.
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-12-03</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-12-08</li>
                                                 </ul>
                                             </div>
                                         </div>

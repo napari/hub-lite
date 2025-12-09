@@ -12,12 +12,12 @@
     <meta content="A napari plugin to segment and classify cells." name="description" />
     <meta content="A napari plugin to segment and classify cells." property="og:description" />
     <meta content="A napari plugin to segment and classify cells.." name="twitter:description" />
-    <meta content="TUM.ai + Helmholtz - napari Plugin - TUM.ai" property="og:title" />
-    <meta content="TUM.ai + Helmholtz - napari Plugin - TUM.ai" name="twitter:title" />
+    <meta content="TUM.ai Neurogenesis Toolkit - napari Plugin - TUM.ai" property="og:title" />
+    <meta content="TUM.ai Neurogenesis Toolkit - napari Plugin - TUM.ai" name="twitter:title" />
     <meta content="article" property="og:type" />
     <meta content="../plugins/neurogenesis-napari.html" property="og:url" />
     <meta content="@napari_imaging" name="twitter:site" />
-    <title>TUM.ai + Helmholtz - napari Plugin - TUM.ai</title>
+    <title>TUM.ai Neurogenesis Toolkit - napari Plugin - TUM.ai</title>
 
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.0a1.post4</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.0a2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-10-08</li>
+                                            <li class="MetadataList_textItem__KKmMN">2025-12-07</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@
                         <article
                             class="w-full col-span-2 row-start-1 screen-875:col-span-3 screen-1150:col-start-1 screen-1425:col-start-2">
                                 <div class="container" style="display: flex; flex-direction: column;">
-                                    <h1 class="font-bold text-4xl" style="margin-bottom: 20px;" >TUM.ai + Helmholtz</h1>
+                                    <h1 class="font-bold text-4xl" style="margin-bottom: 20px;" >TUM.ai Neurogenesis Toolkit</h1>
                                 </div>
 
                                 
@@ -210,11 +210,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><a href="LICENSE"><img src="https://img.shields.io/pypi/l/neurogenesis-napari.svg?color=green" alt="License MIT" /></a>
+                                        <p><a href="https://github.com/tum-ai/neurogenesis_napari/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/neurogenesis-napari.svg?color=green" alt="License MIT" /></a>
 <a href="https://pypi.org/project/neurogenesis-napari"><img src="https://img.shields.io/pypi/v/neurogenesis-napari.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/neurogenesis-napari.svg?color=green" alt="Python Version" /></a>
 <a href="https://napari-hub.org/plugins/neurogenesis-napari"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/neurogenesis-napari" alt="napari hub" /></a></p>
-<p>This plugin provides one-click color normalization, denoising, Cellpose-based nuclear segmentation and cell classification.</p>
+<p>A napari plugin for automated nuclear segmentation and neural cell type classification in neurogenesis research. Supports classification of astrocytes, neurons, oligodendrocyte precursor cells (OPCs), and dead cells from multi-channel fluorescence microscopy images.</p>
 <h2>Key Features</h2>
 <table>
 <thead>
@@ -255,21 +255,21 @@
 <ol>
 <li>Open napari</li>
 <li>Go to <code>Plugins</code> → <code>Install/Uninstall Plugins</code></li>
-<li>Search for <strong>&quot;TumAI Histology Toolkit&quot;</strong></li>
+<li>Search for &quot;<a href="http://TUM.ai">TUM.ai</a> Neurogenesis Toolkit&quot;</li>
 <li>Click Install</li>
 </ol>
 <h3>Basic Usage</h3>
 <ol>
-<li><strong>Load your images</strong> into napari</li>
-<li><strong>Select the appropriate widget</strong> from the <code>Plugins</code> menu</li>
-<li><strong>Choose your image layers</strong> from the dropdown menus</li>
-<li><strong>Click the action button</strong> to process</li>
+<li>Load your images into napari</li>
+<li>Select the appropriate widget from the <code>Plugins</code> menu</li>
+<li>Choose your image layers from the dropdown menus</li>
+<li>Click the action button to process</li>
 </ol>
-<p>The plugin will automatically download required AI models on first use.</p>
+<p>Model weights are automatically downloaded on first use.</p>
 <hr />
 <h2>Widget Documentation</h2>
 <h3>Normalize + Denoise</h3>
-<p><strong>Purpose</strong>: Standardizes color variations and reduces noise in bright-field images.</p>
+<p>Standardizes color variations and reduces noise in bright-field microscopy images.</p>
 <h4>Usage</h4>
 <ol>
 <li>Load a bright-field image into napari</li>
@@ -279,81 +279,108 @@
 </ol>
 <h4>What it does</h4>
 <ul>
-<li><strong>Color Normalization</strong>: Adjusts colors against an internal reference to standardize appearance across different images/scanners</li>
-<li><strong>Denoising</strong>: Removes noise while preserving important cellular structures</li>
+<li><strong>Color Normalization</strong>: Histogram matching against an internal reference to standardize appearance across different acquisitions</li>
+<li><strong>Denoising</strong>: Removes noise while preserving cellular structures using Cellpose</li>
 <li><strong>Output</strong>: Creates a new layer named <code>{original_name}_denoised</code></li>
 </ul>
 <hr />
 <h3>Segment</h3>
-<p><strong>Purpose</strong>: Detects and segments individual cell nuclei using Cellpose.</p>
+<p>Detects and segments individual cell nuclei from DAPI-stained images using Cellpose.</p>
 <h4>Usage</h4>
 <ol>
-<li>Load a nuclear staining image (DAPI) into napari</li>
+<li>Load a DAPI/nuclear staining image into napari</li>
 <li>Open <code>Plugins</code> → <code>Segment</code></li>
-<li>Select your nuclear image from the <strong>DAPI</strong> dropdown</li>
+<li>Select your DAPI image from the <strong>DAPI</strong> dropdown</li>
 <li>Optionally adjust:
 <ul>
-<li><strong>GPU</strong>: Enable for faster processing</li>
+<li><strong>GPU</strong>: Enable for faster processing (if CUDA available)</li>
 <li><strong>Model</strong>: Choose Cellpose model (<code>cyto3</code> default)</li>
 </ul>
 </li>
-<li>Click <strong>&quot;Segment Nuclei&quot;</strong></li>
+<li>Click <strong>&quot;Segment&quot;</strong></li>
 </ol>
 <h4>What it does</h4>
 <ul>
 <li><strong>Segmentation</strong>: Uses Cellpose to identify individual nuclei</li>
 <li><strong>Creates 3 new layers</strong>:
 <ul>
-<li><code>{name}_masks</code>: Segmentation masks</li>
-<li><code>{name}_centroids</code>: Center points of each detected cell</li>
-<li><code>{name}_bboxes</code>: Bounding boxes around each cell</li>
+<li><code>{name}_masks</code>: Segmentation masks for each nucleus</li>
+<li><code>{name}_centroids</code>: Center points of detected nuclei</li>
+<li><code>{name}_bboxes</code>: Bounding boxes (polygons) around each nucleus</li>
 </ul>
 </li>
 </ul>
 <hr />
 <h3>Segment + Classify</h3>
-<p><strong>Purpose</strong>: Complete pipeline that segments nuclei AND classifies cell types in multi-channel images.</p>
+<p>End-to-end pipeline that segments nuclei and classifies neural cell types in multi-channel fluorescence images.</p>
 <h4>Usage</h4>
 <ol>
 <li>Load a <strong>4-channel image</strong> into napari as separate layers:
 <ul>
-<li><strong>DAPI</strong>: Nuclear staining</li>
-<li><strong>Tuj1</strong>: β-III-tubulin</li>
+<li><strong>DAPI</strong>: Nuclear staining (DAPI/Hoechst)</li>
+<li><strong>Tuj1</strong>: β-III-tubulin (neuronal marker)</li>
 <li><strong>RFP</strong>: Red fluorescent protein marker</li>
 <li><strong>BF</strong>: Bright-field</li>
 </ul>
 </li>
 <li>Open <code>Plugins</code> → <code>Segment and Classify</code></li>
 <li>Select each channel from the respective dropdowns</li>
-<li>Choose <strong>Reuse cached</strong>:
+<li>Choose <strong>Reuse cached segmentation</strong>:
 <ul>
-<li><strong>True</strong>: Reuse previous segmentation (faster) from the segment widget</li>
+<li><strong>True</strong> (default): Reuse previous segmentation if available (faster)</li>
 <li><strong>False</strong>: Perform fresh segmentation</li>
 </ul>
 </li>
 <li>Click <strong>&quot;Segment + Classify&quot;</strong></li>
 </ol>
-<h4>What it does</h4>
+<h4>How it works</h4>
 <ol>
-<li><strong>Segmentation</strong>: Does segmentation same as the segment widget above</li>
-<li><strong>Feature extraction</strong>: Uses a Variational Autoencoder (VAE) to extract features</li>
-<li><strong>Classification</strong>: Nearest-centroid classifier assigns cell types</li>
+<li><strong>Segmentation</strong>: Cellpose-based nuclear segmentation on DAPI channel</li>
+<li><strong>Feature extraction</strong>: Variational Autoencoder (VAE) extracts features from 4-channel patches around each nucleus</li>
+<li><strong>Classification</strong>: Nearest-centroid classifier assigns cell types based on learned centroids</li>
 </ol>
 <h4>Output</h4>
-<p>Creates colored polygons for detected cells based on type:</p>
+<p>Creates colored polygon overlays for each detected cell:</p>
 <ul>
-<li><strong>🟣 Astrocytes</strong> (magenta polygons)</li>
-<li><strong>⚫ Dead Cells</strong> (gray polygons)</li>
-<li><strong>🔵 Neurons</strong> (cyan polygons)</li>
-<li><strong>🟢 OPCs</strong> (lime polygons)</li>
+<li>Astrocytes (magenta)</li>
+<li>Neurons (cyan)</li>
+<li>OPCs - Oligodendrocyte Precursor Cells (lime)</li>
+<li>Dead Cells (gray)</li>
 </ul>
-<p>The classification results can be edited.</p>
+<p>The classification results can be manually corrected through an interactive interface. Select any cell and use keyboard shortcuts to reassign its type: Shift+A (Astrocyte), Shift+N (Neuron), Shift+O (OPC), Shift+D (Dead Cell).</p>
 <hr />
+<hr />
+<h2>Technical Details</h2>
 <h3>Supported Image Formats</h3>
 <ul>
-<li><code>.czi</code> (via napari-czifile2)</li>
+<li><code>.czi</code> (Zeiss microscopy files, via napari-czifile2)</li>
+<li><code>.tiff</code>, <code>.tif</code></li>
 <li><code>.png</code>, <code>.jpg</code></li>
 </ul>
+<h3>Cell Classification Model</h3>
+<ul>
+<li><strong>Feature extraction</strong>: Variational Autoencoder (VAE) with 2304-dimensional latent space</li>
+<li><strong>Classifier</strong>: Scikit-learn Nearest Centroid</li>
+<li><strong>Input</strong>: 224×224 pixel patches from 4 channels (DAPI, BF, Tuj1, RFP)</li>
+<li><strong>Output</strong>: 4 cell type classes</li>
+</ul>
+<h3>Requirements</h3>
+<ul>
+<li>Python ≥ 3.10</li>
+<li>CUDA-capable GPU (optional, for faster processing)</li>
+<li>Model weights are automatically downloaded on first use via Hugging Face Hub</li>
+</ul>
+<hr />
+<h2>Citation</h2>
+<p>If you use this plugin in your research, please cite:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="n">TUM</span><span class="o">.</span><span class="n">ai</span> <span class="n">Neurogenesis</span> <span class="n">Napari</span> <span class="n">Plugin</span>
+<span class="n">Technical</span> <span class="n">University</span> <span class="n">of</span> <span class="n">Munich</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">tum</span><span class="o">-</span><span class="n">ai</span><span class="o">/</span><span class="n">neurogenesis_napari</span>
+</pre></div>
+</code></pre>
+<hr />
+<h2>License</h2>
+<p>MIT License - see <a href="LICENSE">LICENSE</a> file for details.</p>
 
 
                                     </div>
@@ -369,7 +396,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.0a1.post4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.0a2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -379,7 +406,7 @@
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-10-08</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2025-12-07</li>
                                                 </ul>
                                             </div>
                                         </div>
