@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.4</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-12-25</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-01-18</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">napari_video</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">numcodecs</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">napari_video</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">numcodecs</li><li class="MetadataList_textItem__KKmMN">opencv-contrib-python</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -293,36 +293,41 @@ https://napari.org/stable/plugins/index.html
 <li>
 <p><strong>Opening Videos</strong>:</p>
 <ul>
-<li>Click <code>Open Video</code> to select video files</li>
-<li>Supported formats: MP4, AVI, MOV, MKV, WMV, FLV, WebM</li>
-<li>Video loads with frame-by-frame navigation</li>
+<li>Click <code>Open Video</code> to select MP4, AVI, MOV, MKV, WMV, FLV, or WebM files</li>
+<li>Frames load through a cached reader that keeps recently viewed frames ready for scrubbing</li>
 </ul>
 </li>
 <li>
-<p><strong>Navigation</strong>:</p>
+<p><strong>Navigation &amp; Frame Tools</strong>:</p>
 <ul>
-<li>Use napari's time slider to navigate frames</li>
-<li>Frame counter shows current position: &quot;Frame: X/Y&quot;</li>
-<li><strong>Keyboard shortcuts</strong>: Q (previous annotation), W (next annotation)</li>
-<li>Click navigation buttons to jump to nearest annotations</li>
-<li>Video performance optimized with LRU cache and parallel prefetching</li>
+<li>Use napari's time slider; the widget shows <code>Frame: current/total</code> alongside live cache usage</li>
+<li>Jump between annotated frames with the <code>Prev (Q)</code> and <code>Next (W)</code> buttons or keyboard shortcuts</li>
+<li>Nearby frames are prefetched in the background to keep playback smooth during review</li>
 </ul>
 </li>
 <li>
-<p><strong>Frame-Aware Annotation</strong>:</p>
+<p><strong>Annotating Frames</strong>:</p>
 <ul>
-<li>Navigate to target frame before annotating</li>
-<li>Create bounding boxes with napari's rectangle tool</li>
-<li>Each annotation automatically records the current frame number</li>
-<li>Annotations only visible on their respective frames</li>
+<li>Draw rectangles after selecting a class; each shape stores its frame index automatically</li>
+<li>Bounding boxes are only visible on the frame where they were created</li>
+<li>Class management matches the image workflow, and <code>class.yaml</code> is written in YOLO <code>names:</code> format</li>
 </ul>
 </li>
 <li>
-<p><strong>Class and Export</strong>:</p>
+<p><strong>Automatic Tracking</strong>:</p>
 <ul>
-<li>Class management identical to image annotation</li>
-<li>Extended YOLO format: <code>class_id frame x_center y_center width height</code></li>
-<li>Saves to <code>video_name.txt</code> + <code>class.yaml</code> in video directory</li>
+<li>Use <code>Start</code> to launch trackers for the boxes in the current frame and <code>Stop</code> to halt processing</li>
+<li>Keep <code>Track all bounding boxes</code> enabled to follow every box, or disable it to track only selected shapes</li>
+<li>Choose between the default OpenCV <code>CSRT</code> tracker and the experimental <code>TrackerVit</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Saving &amp; Exports</strong>:</p>
+<ul>
+<li><code>Save Annotations</code> writes per-frame YOLO files (<code>imgNNN.txt</code>) in a video-specific folder next to the source</li>
+<li>Annotated frames are saved once as <code>imgNNN.png</code> so you can review what was labeled later</li>
+<li>Enable <code>Enable crop on save</code> to export fixed-size crops plus matching YOLO labels under <code>crops/</code></li>
+<li>Existing exports are reused when present so repeated saves only write new annotations</li>
 </ul>
 </li>
 </ol>
@@ -387,9 +392,9 @@ https://napari.org/stable/plugins/index.html
 </tr>
 <tr>
 <td>Bbox (Video)</td>
-<td><code>video.txt</code></td>
+<td><code>imgNNN.txt</code> per frame (+ optional <code>crops/*.txt</code>)</td>
 <td><code>class.yaml</code></td>
-<td>Extended YOLO with frame</td>
+<td>YOLO normalized (per frame/crop)</td>
 </tr>
 <tr>
 <td>Classification</td>
@@ -422,7 +427,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.4</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -432,7 +437,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-12-25</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-01-18</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -529,7 +534,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">napari_video</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">numcodecs</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pyyaml</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">napari_video</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">numcodecs</li><li class="MetadataList_textItem__KKmMN">opencv-contrib-python</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
