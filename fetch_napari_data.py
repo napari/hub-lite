@@ -304,7 +304,7 @@ def get_plugin_page_data_from_api(plugin_summary_data):
     initial_release_date = get_version_release_date(pypi_info, plugin_first_release)
     last_updated_date = get_version_release_date(pypi_info, plugin_latest_release)
     authors, emails = get_authors_and_emails(package_metadata)
-    package_license = get_license(package_metadata)
+    package_license = get_license(plugin_summary_data)
     home_pypi = pypi_info.get(
         "home_page",
         f"https://pypi.org/project/{plugin_normalized_name}/",
