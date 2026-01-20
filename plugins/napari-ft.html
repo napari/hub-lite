@@ -9,9 +9,9 @@
     <meta
         content="napari-ft, jules-vanaret, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="A simple plugin to explore images fourier tranforms" name="description" />
-    <meta content="A simple plugin to explore images fourier tranforms" property="og:description" />
-    <meta content="A simple plugin to explore images fourier tranforms." name="twitter:description" />
+    <meta content="A simple plugin to interact with images Fourier transforms" name="description" />
+    <meta content="A simple plugin to interact with images Fourier transforms" property="og:description" />
+    <meta content="A simple plugin to interact with images Fourier transforms." name="twitter:description" />
     <meta content="Explore fourier transform - napari Plugin - jules-vanaret" property="og:title" />
     <meta content="Explore fourier transform - napari Plugin - jules-vanaret" name="twitter:title" />
     <meta content="article" property="og:type" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-01-19</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-01-20</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@
     </div>
 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">A simple plugin to explore images fourier tranforms</h2>
+                                    <h2 class="text-lg">A simple plugin to interact with images Fourier transforms</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -223,22 +223,36 @@
 <ul>
 <li>Select a 2D image from the napari viewer</li>
 <li>View its FFT-shifted Fourier transform (log magnitude) in the widget</li>
-<li>Interactively draw rectangular boxes on the Fourier transform by clicking and dragging</li>
-<li>Apply inverse Fourier transform with frequency masking (keeping only frequencies inside the boxes)</li>
-<li>See real-time updates of the filtered image as you draw new boxes</li>
-<li>Reset all boxes with a single button click</li>
+<li>Interactively draw rectangular or circular regions on the Fourier transform
+<ul>
+<li><strong>Left-click and drag</strong>: Create inclusion regions (frequencies to keep)</li>
+<li><strong>Right-click and drag</strong>: Create exclusion regions (frequencies to remove)</li>
+<li><strong>Middle-click and drag</strong>: Pan the view</li>
+<li><strong>Mouse wheel</strong>: Zoom in/out</li>
 </ul>
-<p>The filtered image automatically updates while you're drawing boxes, providing immediate visual feedback of your frequency selection.</p>
+</li>
+<li>Toggle between rectangle and circle shape modes</li>
+<li>Apply inverse Fourier transform with frequency masking</li>
+<li>See real-time updates of the filtered image as you draw new regions</li>
+<li>Reset boxes or view independently</li>
+</ul>
+<p>The filtered image automatically updates as you draw, providing immediate visual feedback. The widget tracks changes to the source image data and scale, keeping everything synchronized.</p>
 <h3>How to Use</h3>
 <ol>
 <li>Load a 2D image into napari viewer</li>
 <li>Open the widget: <code>Plugins -&gt; napari-ft -&gt; Fourier Transform Filter</code></li>
 <li>Select your image from the dropdown menu</li>
 <li>The FFT-shifted Fourier transform appears in the widget</li>
-<li>Click and drag on the Fourier transform to draw boxes around frequencies you want to keep</li>
-<li>Click &quot;Apply Filter&quot; to create the filtered image (appears in viewer)</li>
-<li>Draw additional boxes - the filtered image updates automatically in real-time</li>
-<li>Click &quot;Reset Boxes&quot; to clear all boxes and start over</li>
+<li>Draw regions on the Fourier transform:
+<ul>
+<li>Left-click and drag to select frequencies to keep</li>
+<li>Right-click and drag to exclude specific frequencies</li>
+<li>Use &quot;Shape&quot; button to toggle between rectangles and circles</li>
+</ul>
+</li>
+<li>The filtered image appears automatically and updates in real-time</li>
+<li>Use mouse wheel to zoom, middle-click to pan</li>
+<li>Click &quot;Reset Boxes&quot; to clear all regions or &quot;Reset View&quot; to reset zoom/pan</li>
 </ol>
 <h2>Installation</h2>
 <p>You can install <code>napari-ft</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
@@ -278,7 +292,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -288,7 +302,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-01-19</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-01-20</li>
                                                 </ul>
                                             </div>
                                         </div>
