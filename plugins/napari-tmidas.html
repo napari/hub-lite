@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-01-28</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-02-03</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -292,36 +292,49 @@ napari
 </table>
 <h3>Core Workflows</h3>
 <ul>
-<li><strong><a href="docs/basic_processing.md#file-conversion">Image Conversion</a></strong> - Multi-format microscopy file conversion</li>
+<li><strong><a href="docs/file_conversion.md">File Conversion</a></strong> - Multi-format microscopy file conversion (LIF, ND2, CZI, NDPI, Acquifer)</li>
 <li><strong><a href="docs/basic_processing.md">Batch Processing</a></strong> - Label operations, filters, channel splitting</li>
 <li><strong><a href="docs/grid_view_overlay.md">Quality Control</a></strong> - Visual QC with grid overlay</li>
 <li><strong><a href="docs/regionprops_analysis.md">Quantification</a></strong> - Extract measurements from labels</li>
-<li><strong><a href="docs/advanced_processing.md#colocalization">Colocalization</a></strong> - Multi-channel ROI analysis</li>
+<li><strong><a href="docs/advanced_processing.md#colocalization-analysis">Colocalization</a></strong> - Multi-channel ROI analysis</li>
 </ul>
 <h3>Advanced Features</h3>
 <ul>
-<li><a href="docs/advanced_processing.md#sam2">SAM2 Crop Anything</a> - Interactive object cropping</li>
+<li><a href="docs/crop_anything.md">Batch Crop Anything</a> - Interactive object cropping with SAM2</li>
+<li><a href="docs/batch_label_inspection.md">Batch Label Inspection</a> - Manual label verification and editing</li>
 <li><a href="docs/advanced_processing.md">Advanced Filters</a> - SciPy/scikit-image filters</li>
-<li><a href="docs/basic_processing.md#label-inspection">Batch Label Inspection</a> - Manual correction workflow</li>
 </ul>
-<h2>💻 Installation Options</h2>
-<p><strong>Recommended (latest features):</strong></p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/MercaderLabAnatomy/napari-tmidas.git
+<h2>💻 Installation</h2>
+<h3>Step 1: Install napari</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>napari-tmidas<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+mamba<span class="w"> </span>activate<span class="w"> </span>napari-tmidas
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&quot;</span>
 </pre></div>
 </code></pre>
-<p><strong>Stable release:</strong></p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-tmidas
-</pre></div>
-</code></pre>
-<p><strong>With deep learning (optional):</strong></p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;napari-tmidas[deep-learning]&#39;</span><span class="w">  </span><span class="c1"># Includes SAM2</span>
-pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;napari-tmidas[all]&#39;</span><span class="w">            </span><span class="c1"># Everything</span>
-</pre></div>
-</code></pre>
-<p><strong>Additional setup for SAM2:</strong></p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>ffmpeg<span class="w">  </span><span class="c1"># Required for video processing</span>
-</pre></div>
-</code></pre>
+<h3>Step 2: Install napari-tmidas</h3>
+<table>
+<thead>
+<tr>
+<th>Your Needs</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Just process &amp; convert images</strong></td>
+<td><code>pip install napari-tmidas</code></td>
+</tr>
+<tr>
+<td><strong>Need AI features</strong> (SAM2, Cellpose, Spotiflow, etc.)</td>
+<td><code>pip install 'napari-tmidas[deep-learning]'</code></td>
+</tr>
+<tr>
+<td><strong>Want the latest dev features</strong></td>
+<td><code>pip install git+https://github.com/MercaderLabAnatomy/napari-tmidas.git</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended for most users:</strong> <code>pip install 'napari-tmidas[deep-learning]'</code></p>
 <h2>🖼️ Screenshots</h2>
 <details>
 <summary><b>File Conversion Widget</b></summary>
@@ -374,7 +387,7 @@ tox
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -384,7 +397,7 @@ tox
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-01-28</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-02-03</li>
                                                 </ul>
                                             </div>
                                         </div>
