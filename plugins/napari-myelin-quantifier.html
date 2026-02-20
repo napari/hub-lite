@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-02-12</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-02-20</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,42 +213,147 @@
                                         <p><a href="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-myelin-quantifier.svg?color=green" alt="License MIT" /></a>
 <a href="https://pypi.org/project/napari-myelin-quantifier"><img src="https://img.shields.io/pypi/v/napari-myelin-quantifier.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-myelin-quantifier.svg?color=green" alt="Python Version" /></a>
-<a href="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/actions"><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/workflows/tests/badge.svg" alt="tests" /></a>
-<a href="https://codecov.io/gh/wulinteousa2-hash/napari-myelin-quantifier"><img src="https://codecov.io/gh/wulinteousa2-hash/napari-myelin-quantifier/branch/main/graph/badge.svg" alt="codecov" /></a>
-<a href="https://napari-hub.org/plugins/napari-myelin-quantifier"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-myelin-quantifier" alt="napari hub" /></a>
-<a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a>
-<a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
-<p>Myelinated Axon Quantification with Label Tracking</p>
+<a href="https://napari-hub.org/plugins/napari-myelin-quantifier"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-myelin-quantifier" alt="napari hub" /></a></p>
 <hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a> (None).</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/napari-plugin-template#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
+<h2>Overview</h2>
+<p><code>napari-myelin-quantifier</code> is a napari plugin for quantitative analysis of 2D cross-sectional myelinated axons from binary segmentation masks.</p>
+<p>The plugin identifies individual myelin rings, assigns a unique <code>ring_id</code> to each structure, and exports morphometric measurements for downstream analysis.</p>
+<p>It enables reproducible extraction of:</p>
+<ul>
+<li>Axon diameter</li>
+<li>Fiber diameter</li>
+<li>Myelin thickness</li>
+<li>g-ratio</li>
+</ul>
+<hr />
 <h2>Installation</h2>
-<p>You can install <code>napari-myelin-quantifier</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">myelin</span><span class="o">-</span><span class="n">quantifier</span>
+<p>Install via pip:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-myelin-quantifier
 </pre></div>
 </code></pre>
-<p>If napari is not already installed, you can install <code>napari-myelin-quantifier</code> with napari and Qt via:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;napari-myelin-quantifier[all]&quot;</span>
+<p>If napari is not installed:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari-myelin-quantifier[all]&quot;</span>
 </pre></div>
 </code></pre>
-<p>To install latest development version :</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">wulinteousa2</span><span class="o">-</span><span class="nb">hash</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">myelin</span><span class="o">-</span><span class="n">quantifier</span><span class="o">.</span><span class="n">git</span>
+<p>Development version:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/wulinteousa2-hash/napari-myelin-quantifier.git
 </pre></div>
 </code></pre>
-<h2>Contributing</h2>
-<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
-<h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
-&quot;napari-myelin-quantifier&quot; is free and open source software</p>
-<h2>Issues</h2>
-<p>If you encounter any problems, please <a href="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/issues">file an issue</a> along with a detailed description.</p>
+<h2>Input Requirements</h2>
+<p>The plugin requires a binary mask layer:</p>
+<ul>
+<li>Myelin = foreground (1 / True)</li>
+<li>Background = 0 / False</li>
+<li>Recommended: clean segmentation without holes or broken rings</li>
+</ul>
+<p>Example Binary Mask</p>
+<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/1_mask.PNG" alt="Binary Mask" /></p>
+<h2>Ring Detection and Labeling</h2>
+<p>Each connected myelin ring is:</p>
+<ul>
+<li>
+<p>Assigned a unique <code>ring_id</code></p>
+</li>
+<li>
+<p>Spatially localized using centroid coordinates</p>
+</li>
+<li>
+<p>Evaluated for ring topology using Euler characteristic</p>
+</li>
+</ul>
+<p>Example Labeled Output</p>
+<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/2_multiROI_connected_components.PNG" alt="MultiROI" /></p>
+<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/3_result_labels.PNG" alt="MultiROI_ring_ID" /></p>
+<h2>Topological Validation (Euler Characteristic)</h2>
+<p>The Euler number ensures valid ring topology:</p>
+<ul>
+<li>
+<p>Euler = 0 → valid ring (one hole)</p>
+</li>
+<li>
+<p>Euler ≠ 0 → solid object or fragmented structure</p>
+</li>
+</ul>
+<p>This prevents non-myelinated artifacts from being included in analysis.</p>
+<p>Topology Illustration</p>
+<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/4_2D_euler_number_0.PNG" alt="Euler = 0 and  ≠ 0 " /></p>
+<h2>Quantitative Output (CSV)</h2>
+<p>For each ring, the plugin exports:</p>
+<p><code>ring_id</code></p>
+<p><code>centroid_x, centroid_y</code></p>
+<p><code>bbox_x0, bbox_y0, bbox_x1, bbox_y1</code></p>
+<p><code>ring_area_px</code></p>
+<p><code>lumen_area_px</code></p>
+<p><code>filled_area_px</code></p>
+<p><code>euler</code></p>
+<p><code>touches_border</code></p>
+<p>Example:</p>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">ring_id</span><span class="p">,</span><span class="n">centroid_x</span><span class="p">,</span><span class="n">centroid_y</span><span class="p">,</span><span class="n">bbox_x0</span><span class="p">,</span><span class="n">bbox_y0</span><span class="p">,</span><span class="n">bbox_x1</span><span class="p">,</span><span class="n">bbox_y1</span><span class="p">,</span><span class="n">ring_area_px</span><span class="p">,</span><span class="n">lumen_area_px</span><span class="p">,</span><span class="n">filled_area_px</span><span class="p">,</span><span class="n">euler</span><span class="p">,</span><span class="n">touches_border</span>
+<span class="mi">1</span><span class="p">,</span><span class="mf">873.8658</span><span class="p">,</span><span class="mf">34.4421</span><span class="p">,</span><span class="mi">857</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">890</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">380</span><span class="p">,</span><span class="mi">556</span><span class="p">,</span><span class="mi">936</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">False</span>
+</pre></div>
+</code></pre>
+<h2>Derived Morphometric Parameters</h2>
+<p>Assuming approximately circular cross-sections:</p>
+<h3>Axon diameter:</h3>
+<pre><code class="language-Code"><div class="highlight"><pre><span></span><span class="n">d_axon</span> <span class="o">=</span> <span class="mi">2</span> <span class="err">×</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">lumen_area</span> <span class="o">/</span> <span class="n">π</span><span class="p">)</span>
+</pre></div>
+</code></pre>
+<h3>Fiber diameter:</h3>
+<pre><code class="language-Code"><div class="highlight"><pre><span></span><span class="n">d_fiber</span> <span class="o">=</span> <span class="mi">2</span> <span class="err">×</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">filled_area</span> <span class="o">/</span> <span class="n">π</span><span class="p">)</span>
+</pre></div>
+</code></pre>
+<h3>Myelin thickness:</h3>
+<pre><code class="language-Code"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">d_fiber</span> <span class="err">−</span> <span class="n">d_axon</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</code></pre>
+<h3>g-ratio:</h3>
+<pre><code class="language-Code"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">d_axon</span> <span class="o">/</span> <span class="n">d_fiber</span>
+</pre></div>
+</code></pre>
+<p>Note: These are geometric approximations. For highly irregular axons, area-based statistics may be preferable.</p>
+<h2>Typical Workflow</h2>
+<ol>
+<li>
+<p>Load binary mask into napari.</p>
+</li>
+<li>
+<p>Open:</p>
+</li>
+</ol>
+<ul>
+<li>Plugins → Myelin Quantifier</li>
+</ul>
+<ol start="3">
+<li>Adjust filtering parameters:</li>
+</ol>
+<ul>
+<li>
+<p>Minimum ring area</p>
+</li>
+<li>
+<p>Minimum lumen area</p>
+</li>
+<li>
+<p>Exclude border objects (recommended)</p>
+</li>
+</ul>
+<ol start="4">
+<li>
+<p>Run quantification.</p>
+</li>
+<li>
+<p>Export CSV.</p>
+</li>
+<li>
+<p>Perform statistical analysis in Python, R, or Excel.</p>
+</li>
+</ol>
+<p>Interface</p>
+<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/interface.PNG" alt="Interface " /></p>
+<p>Contributing</p>
+<p>Contributions are welcome. Please ensure tests pass before submitting pull requests.</p>
+<p>License</p>
+<p>MIT License.</p>
 
 
                                     </div>
@@ -264,7 +369,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -274,7 +379,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-02-12</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-02-20</li>
                                                 </ul>
                                             </div>
                                         </div>
