@@ -9,9 +9,9 @@
     <meta
         content="napari-mask-curator, Yaohua Li, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="A simple plugin for select best mask for every single cell or nuclei" name="description" />
-    <meta content="A simple plugin for select best mask for every single cell or nuclei" property="og:description" />
-    <meta content="A simple plugin for select best mask for every single cell or nuclei." name="twitter:description" />
+    <meta content="Manual curation in napari: quickly pick the best cell/nuclei masks from segmentation outputs (Cellpose/Baysor/parameter sweeps), with new IDs, undo, overlap pruning, compact save, and fast logging." name="description" />
+    <meta content="Manual curation in napari: quickly pick the best cell/nuclei masks from segmentation outputs (Cellpose/Baysor/parameter sweeps), with new IDs, undo, overlap pruning, compact save, and fast logging." property="og:description" />
+    <meta content="Manual curation in napari: quickly pick the best cell/nuclei masks from segmentation outputs (Cellpose/Baysor/parameter sweeps), with new IDs, undo, overlap pruning, compact save, and fast logging.." name="twitter:description" />
     <meta content="Mask Curator - napari Plugin - Yaohua Li" property="og:title" />
     <meta content="Mask Curator - napari Plugin - Yaohua Li" name="twitter:title" />
     <meta content="article" property="og:type" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -180,7 +180,7 @@
     </div>
 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">A simple plugin for select best mask for every single cell or nuclei</h2>
+                                    <h2 class="text-lg">Manual curation in napari: quickly pick the best cell/nuclei masks from segmentation outputs (Cellpose/Baysor/parameter sweeps), with new IDs, undo, overlap pruning, compact save, and fast logging.</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -207,41 +207,90 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><a href="https://github.com/yaohualee1215/napari-mask-curatornapari-mask-curator/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-mask-curatornapari-mask-curator.svg?color=green" alt="License BSD-3" /></a>
-<a href="https://pypi.org/project/napari-mask-curatornapari-mask-curator"><img src="https://img.shields.io/pypi/v/napari-mask-curatornapari-mask-curator.svg?color=green" alt="PyPI" /></a>
-<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-mask-curatornapari-mask-curator.svg?color=green" alt="Python Version" /></a>
-<a href="https://github.com/yaohualee1215/napari-mask-curatornapari-mask-curator/actions"><img src="https://github.com/yaohualee1215/napari-mask-curatornapari-mask-curator/workflows/tests/badge.svg" alt="tests" /></a>
-<a href="https://codecov.io/gh/yaohualee1215/napari-mask-curatornapari-mask-curator"><img src="https://codecov.io/gh/yaohualee1215/napari-mask-curatornapari-mask-curator/branch/main/graph/badge.svg" alt="codecov" /></a>
-<a href="https://napari-hub.org/plugins/napari-mask-curatornapari-mask-curator"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-mask-curatornapari-mask-curator" alt="napari hub" /></a>
-<a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a>
-<a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
-<p>A simple plugin for select best mask for every single cell or nuclei</p>
-<hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a> (None).</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/napari-plugin-template#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
+                                        <p>A napari dock widget for <strong>manual curation of segmentation masks</strong>.
+It is designed for workflows where you generate multiple candidate masks (e.g., Cellpose/Baysor/parameter sweeps),
+and then <strong>quickly pick the best instance per cell/nucleus</strong> inside napari with full traceability.</p>
+<h2>Key features</h2>
+<ul>
+<li><strong>Follow → Work</strong>: create a working copy <code>*.mask__work</code> from your selected mask layer, so the original stays untouched.</li>
+<li><strong>Collect (Always NEW ID)</strong>: click an object in <code>__work</code> to copy it into <code>manual_best</code> with a <strong>new unique label ID</strong>.</li>
+<li><strong>Undo (U / Alt-U)</strong>: revert the last collect and restore the <strong>exact pre-click state</strong>.</li>
+<li><strong>Overlap prune (P / Alt-P)</strong>: remove candidate objects in <code>__work</code> that overlap too much with <code>manual_best</code> (avoid duplicates).</li>
+<li><strong>Compact save (S / Alt-S)</strong>: before saving, relabel <code>manual_best</code> to <strong>consecutive IDs (1..N)</strong>.</li>
+<li><strong>Fast logging</strong>: JSONL + TSV logs of every action (for methods papers / traceability).</li>
+<li><strong>Blink</strong>: toggle selected layer visibility at 0.5s to compare masks quickly.</li>
+</ul>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>Python:</strong> 3.10–3.13 (tested on 3.11)</li>
+<li><strong>napari:</strong> 0.6.x (tested on 0.6.6)</li>
+</ul>
+<h2>What input masks should look like</h2>
+<ul>
+<li>Input mask should be a <strong>Labels</strong> layer.</li>
+<li>The layer name is expected to contain <strong><code>.mask</code></strong> (example: <code>d290_cp0_fl0.2.mask</code>).
+<ul>
+<li>This is how the plugin identifies which layers are “candidate masks”.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Tip: if your mask is a LZW-compressed TIFF and napari fails to open it, install <code>imagecodecs</code>:</p>
+<p><code>conda install -c conda-forge imagecodecs</code></p>
+</blockquote>
+<h2>Typical workflow</h2>
+<ol>
+<li><strong>Open napari</strong></li>
+<li>Load:
+<ul>
+<li>A background image (optional), e.g. DAPI</li>
+<li>A candidate mask Labels layer, e.g. <code>d290_cp0_fl0.2.mask</code></li>
+</ul>
+</li>
+<li>Open the panel: <strong>Plugins → Mask Curator → Mask Curation</strong></li>
+<li>Select your <code>*.mask</code> layer and click <strong>Follow → Work + Prune</strong>
+<ul>
+<li>Creates <code>*.mask__work</code></li>
+<li>Creates/uses <code>manual_best</code></li>
+</ul>
+</li>
+<li>Click <strong>Collect: OFF (A)</strong> to switch it to <strong>Collect: ON</strong></li>
+<li><strong>Left-click</strong> objects in <code>__work</code> to collect into <code>manual_best</code></li>
+<li>If you mis-click, press <strong>Undo</strong> (or <strong>U / Alt-U</strong>)</li>
+<li>Press <strong>Prune Now</strong> (or <strong>P / Alt-P</strong>) to prune overlaps</li>
+<li>Press <strong>Save manual_best</strong> (or <strong>S / Alt-S</strong>) to export final curated masks with compact IDs.</li>
+</ol>
+<h2>Hotkeys</h2>
+<ul>
+<li><strong>Alt-A</strong>: Toggle Collect ON/OFF</li>
+<li><strong>Alt-U</strong>: Undo last collect</li>
+<li><strong>Alt-P</strong>: Prune Now</li>
+<li><strong>Alt-R</strong>: Reset Work</li>
+<li><strong>Alt-S</strong>: Save manual_best</li>
+</ul>
+<p>(Buttons are also provided for all actions.)</p>
+<h2>Parameters (panel)</h2>
+<ul>
+<li><strong>Overlap prune thr</strong>: candidates are removed if overlap ratio <strong>≥ thr</strong></li>
+<li><strong>ROI pad(px)</strong>: padding around object bbox used for fast local updates</li>
+</ul>
+<h2>Outputs</h2>
+<p>When saving, the plugin writes:</p>
+<ul>
+<li><code>manual_best_ID_uint32.tif</code> — curated Labels with compact consecutive IDs (1..N)</li>
+<li><code>manual_best_black_uint8.tif</code> — binary mask (0/255)</li>
+<li><code>manual_best_id_map_old_to_new.tsv</code> — mapping from pre-save IDs to compact IDs</li>
+</ul>
+<p>Logs (traceability):</p>
+<ul>
+<li><code>curation_logs/curation_&lt;timestamp&gt;.jsonl</code></li>
+<li><code>curation_logs/curation_&lt;timestamp&gt;.tsv</code></li>
+</ul>
 <h2>Installation</h2>
-<p>You can install <code>napari-mask-curatornapari-mask-curator</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">mask</span><span class="o">-</span><span class="n">curatornapari</span><span class="o">-</span><span class="n">mask</span><span class="o">-</span><span class="n">curator</span>
+<h3>From PyPI</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-mask-curator
 </pre></div>
 </code></pre>
-<p>If napari is not already installed, you can install <code>napari-mask-curatornapari-mask-curator</code> with napari and Qt via:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;napari-mask-curatornapari-mask-curator[all]&quot;</span>
-</pre></div>
-</code></pre>
-<h2>Contributing</h2>
-<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
-<h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-&quot;napari-mask-curatornapari-mask-curator&quot; is free and open source software</p>
-<h2>Issues</h2>
-<p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
 
 
                                     </div>
@@ -257,7 +306,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.1</li>
                                                 </ul>
                                             </div>
                                         </div>
