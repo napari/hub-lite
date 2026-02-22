@@ -4,20 +4,20 @@
 
 <head>
     <meta charset="utf-8" />
-    <link href="../plugins/napari-itk-io.html" rel="canonical" />
+    <link href="../plugins/napari-manual-labels-editor.html" rel="canonical" />
     <meta content="width=device-width,initial-scale=1" name="viewport" />
     <meta
-        content="napari-itk-io, Matt McCormick, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
+        content="napari-manual-labels-editor, Yaohua Li, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="File IO with itk for napari" name="description" />
-    <meta content="File IO with itk for napari" property="og:description" />
-    <meta content="File IO with itk for napari." name="twitter:description" />
-    <meta content="napari-itk-io - napari Plugin - Matt McCormick" property="og:title" />
-    <meta content="napari-itk-io - napari Plugin - Matt McCormick" name="twitter:title" />
+    <meta content="Manual fine-tuning toolkit for napari Labels: compute stats, assign new IDs, delete/merge labels, relabel to 1..N, and save LZW BigTIFF safely." name="description" />
+    <meta content="Manual fine-tuning toolkit for napari Labels: compute stats, assign new IDs, delete/merge labels, relabel to 1..N, and save LZW BigTIFF safely." property="og:description" />
+    <meta content="Manual fine-tuning toolkit for napari Labels: compute stats, assign new IDs, delete/merge labels, relabel to 1..N, and save LZW BigTIFF safely.." name="twitter:description" />
+    <meta content="Manual Labels Editor - napari Plugin - Yaohua Li" property="og:title" />
+    <meta content="Manual Labels Editor - napari Plugin - Yaohua Li" name="twitter:title" />
     <meta content="article" property="og:type" />
-    <meta content="../plugins/napari-itk-io.html" property="og:url" />
+    <meta content="../plugins/napari-manual-labels-editor.html" property="og:url" />
     <meta content="@napari_imaging" name="twitter:site" />
-    <title>napari-itk-io - napari Plugin - Matt McCormick</title>
+    <title>Manual Labels Editor - napari Plugin - Yaohua Li</title>
 
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.4.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2024-11-13</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-02-22</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">First released<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2021-04-28</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-02-22</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -99,7 +99,8 @@
                                         <p class="font-bold whitespace-nowrap">License<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
                                             <li class="MetadataList_textItem__KKmMN">
-                                                Apache
+                                                Copyright (c) 2026, Yaohua Li
+...
                                             </li>
                                         </ul>
                                     </div>
@@ -112,19 +113,19 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Plugin type<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=reader">Reader</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=writer">Writer</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=widget">Widget</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Open extension<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mgz">*.mgz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.gipl.gz">*.gipl.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mha">*.mha</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.h5">*.h5</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.hdr">*.hdr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.jpg">*.jpg</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.bmp">*.bmp</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mhd">*.mhd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.gipl">*.gipl</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.pic">*.pic</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.dcm">*.dcm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nia">*.nia</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nhdr">*.nhdr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mgh">*.mgh</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nrrd">*.nrrd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tiff">*.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mgh.gz">*.mgh.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nii">*.nii</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mrc">*.mrc</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.hdf5">*.hdf5</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mnc.gz">*.mnc.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mnc">*.mnc</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.vtk">*.vtk</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nii.gz">*.nii.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.png">*.png</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mnc2">*.mnc2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.jpeg">*.jpeg</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.dicom">*.dicom</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.lsm">*.lsm</a></li></ul>
+                                        
                                     </div>
                                 </div>
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Save extension<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.tif">.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.h5">.h5</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mha">.mha</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.dcm">.dcm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mnc">.mnc</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.tiff">.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mrc">.mrc</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.hdf5">.hdf5</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nia">.nia</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.lsm">.lsm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mhd">.mhd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.gipl.gz">.gipl.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.pic">.pic</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.jpg">.jpg</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nii">.nii</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nhdr">.nhdr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.bmp">.bmp</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mnc2">.mnc2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.jpeg">.jpeg</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nii.gz">.nii.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.vtk">.vtk</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mgh">.mgh</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.dicom">.dicom</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mnc.gz">.mnc.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mgz">.mgz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nrrd">.nrrd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.hdr">.hdr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mgh.gz">.mgh.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.gipl">.gipl</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.png">.png</a></li></ul>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +145,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -156,7 +157,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine>=0.2.0</li><li class="MetadataList_textItem__KKmMN">itk-io>=5.2.0</li><li class="MetadataList_textItem__KKmMN">itk-napari-conversion</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -168,27 +169,23 @@
                         <article
                             class="w-full col-span-2 row-start-1 screen-875:col-span-3 screen-1150:col-start-1 screen-1425:col-start-2">
                                 <div class="container" style="display: flex; flex-direction: column;">
-                                    <h1 class="font-bold text-4xl" style="margin-bottom: 20px;" >napari-itk-io</h1>
+                                    <h1 class="font-bold text-4xl" style="margin-bottom: 20px;" >Manual Labels Editor</h1>
                                 </div>
 
                                 
    <div class="flex items-center" style="gap: 20px; ; align-items: center;"">
-        <a class="underline flex" href="https://pypi.org/project/napari-itk-io/" rel="noreferrer" target="_blank">
-        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">napari-itk-io</span>
+        <a class="underline flex" href="https://pypi.org/project/napari-manual-labels-editor/" rel="noreferrer" target="_blank">
+        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">napari-manual-labels-editor</span>
     </a>
-    
-        <a class="underline flex" href="https://github.com/InsightSoftwareConsortium/napari-itk-io" rel="noreferrer" target="_blank">
-            <img src="../static/images/GitHub_Invertocat_Logo.svg.png" alt="GitHub" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">InsightSoftwareConsortium/napari-itk-io</span>
-        </a>
-        </div>
+    </div>
 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">File IO with itk for napari</h2>
+                                    <h2 class="text-lg">Manual fine-tuning toolkit for napari Labels: compute stats, assign new IDs, delete/merge labels, relabel to 1..N, and save LZW BigTIFF safely.</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
                                         <span class="text-[11px] screen-495:text-[14px]
-                                          font-semibold">Matt McCormick</span>
+                                          font-semibold">Yaohua Li</span>
                                     </li>
                             </ul>
                             <div class="screen-1425:hidden mt-sds-xl mb-sds-xxl"><a
@@ -210,53 +207,123 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><a href="https://github.com/InsightSoftwareConsortium/napari-itk-io/raw/master/LICENSE"><img src="https://img.shields.io/pypi/l/napari-itk-io.svg?color=green" alt="License" /></a>
-<a href="https://pypi.org/project/napari-itk-io"><img src="https://img.shields.io/pypi/v/napari-itk-io.svg?color=green" alt="PyPI" /></a>
-<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-itk-io.svg?color=green" alt="Python Version" /></a>
-<a href="https://github.com/InsightSoftwareConsortium/napari-itk-io/actions"><img src="https://github.com/InsightSoftwareConsortium/napari-itk-io/workflows/tests/badge.svg" alt="tests" /></a>
-<a href="https://codecov.io/gh/InsightSoftwareConsortium/napari-itk-io"><img src="https://codecov.io/gh/InsightSoftwareConsortium/napari-itk-io/branch/master/graph/badge.svg" alt="codecov" /></a></p>
-<p>File IO with <a href="https://itk.org">itk</a> for <a href="https://napari.org">napari</a>.</p>
-<p>Image metadata, e.g. the pixel spacing, origin, and metadata tags, are preserved and passed into napari.</p>
-<p>Supported image file formats:</p>
+                                        <p>Manual fine-tuning toolkit for <strong>napari Labels</strong> (integer label masks).
+Designed for “after segmentation” workflows where you need to <strong>inspect, fix, and export</strong> large label images safely (e.g., TIFF/LZW/BigTIFF).</p>
+<h2>What it does</h2>
+<p>This plugin operates on a <strong>napari Labels layer</strong> (background must be <code>0</code>) and provides a small, fast panel to:</p>
 <ul>
-<li><a href="http://www.bio-rad.com/">BioRad</a></li>
-<li><a href="https://en.wikipedia.org/wiki/BMP_file_format">BMP</a></li>
-<li><a href="http://dicom.nema.org/">DICOM</a></li>
-<li><a href="http://dicom.nema.org/">DICOM Series</a></li>
-<li><a href="https://support.hdfgroup.org/HDF5/">ITK HDF5</a></li>
-<li><a href="https://en.wikipedia.org/wiki/JPEG_File_Interchange_Format">JPEG</a></li>
-<li><a href="http://www3.gehealthcare.com">GE4,GE5,GEAdw</a></li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/12956259">Gipl (Guys Image Processing Lab)</a></li>
-<li><a href="http://www.openwetware.org/wiki/Dissecting_LSM_files">LSM</a></li>
-<li><a href="https://itk.org/Wiki/ITK/MetaIO/Documentation">MetaImage</a></li>
-<li><a href="https://en.wikibooks.org/wiki/MINC/SoftwareDevelopment/MINC2.0_File_Format_Reference">MINC 2.0</a></li>
-<li><a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat">MGH</a></li>
-<li><a href="http://www.ccpem.ac.uk/mrc_format/mrc_format.php">MRC</a></li>
-<li><a href="https://nifti.nimh.nih.gov/nifti-1">NifTi</a></li>
-<li><a href="http://teem.sourceforge.net/nrrd/format.html">NRRD</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Portable_Network_Graphics">Portable Network Graphics (PNG)</a></li>
-<li><a href="https://en.wikipedia.org/wiki/TIFF">Tagged Image File Format (TIFF)</a></li>
-<li><a href="http://www.vtk.org/VTK/img/file-formats.pdf">VTK legacy file format for images</a></li>
+<li><strong>Pick Active Layer</strong>: choose the current active Image/Labels layer; if it’s an Image, it can be converted to Labels (integer).</li>
+<li><strong>Compute Stats (safe)</strong>: compute <code>maxID</code> and <code>cells</code> without heavy <code>np.unique</code> (safer for large arrays).</li>
+<li><strong>New ID (max+1)</strong>: set selected label to <code>maxID + 1</code> so you can paint a new object.</li>
+<li><strong>Delete selected ID</strong>: delete the currently selected label ID (set its pixels to <code>0</code>).</li>
+<li><strong>Compact IDs Order (1..N)</strong>: relabel present IDs to consecutive <code>1..N</code> (useful before export).</li>
+<li><strong>Merge (Shift-click)</strong>: when merge is enabled, <strong>Shift-click A</strong>, then <strong>Shift-click B</strong> to merge <strong>B → A</strong> (into A).</li>
 </ul>
-<p>For DICOM Series, select the folder containing the series with <em>File -&gt; Open
-Folder...</em>. The first series will be selected and sorted spatially.</p>
+<p>Export:</p>
+<ul>
+<li><strong>Save labels to TIFF (LZW)</strong> (BigTIFF enabled).
+If you provide a directory as “Save path”, the plugin auto-appends a filename.</li>
+</ul>
+<h2>Compatibility</h2>
+<ul>
+<li>Python: 3.10–3.13 (tested on 3.11)</li>
+<li>napari: 0.6.x</li>
+<li>Layer type: <strong>Labels</strong> (integer), background <code>0</code></li>
+</ul>
 <h2>Installation</h2>
-<p>You can install <code>napari-itk-io</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">itk</span><span class="o">-</span><span class="n">io</span>
+<h3>From PyPI (recommended)</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-manual-labels-editor
 </pre></div>
 </code></pre>
-<h2>Contributing</h2>
-<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
-<p>Follow the <a href="https://github.com/InsightSoftwareConsortium/ITK/blob/master/CONTRIBUTING.md">itk contributing
-guidelines</a>
-and the <a href="https://github.com/InsightSoftwareConsortium/ITK/blob/master/CODE_OF_CONDUCT.md">itk code of
-conduct</a>.</p>
+<p>If you don’t have napari yet:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&quot;</span><span class="w"> </span>napari-manual-labels-editor
+</pre></div>
+</code></pre>
+<h3>From GitHub (latest main)</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;git+https://github.com/yaohualee1215-bit/napari-manual-labels-editor.git&quot;</span>
+</pre></div>
+</code></pre>
+<h2>Usage (inside napari)</h2>
+<ol>
+<li>
+<p>Launch napari and load your <strong>Labels</strong> layer (and optional background image).</p>
+</li>
+<li>
+<p>Open the plugin panel:</p>
+<p><strong>Plugins → Manual Labels Editor → Manual Labels Editor</strong></p>
+</li>
+<li>
+<p>Click <strong>Pick Active Layer (Image or Labels)</strong>
+Make sure the layer you want is the <strong>active</strong> layer in the layer list first.</p>
+</li>
+<li>
+<p>Click <strong>Compute Stats (safe)</strong>
+The status area will show <code>selected</code>, <code>cells</code>, <code>maxID</code>, and <code>merge</code> state.</p>
+</li>
+</ol>
+<h3>Editing actions</h3>
+<ul>
+<li><strong>New ID (max+1)</strong> → then paint to add a new label</li>
+<li><strong>Delete selected ID</strong> → remove a label</li>
+<li><strong>Compact IDs Order (1..N)</strong> → relabel to <code>1..N</code></li>
+<li><strong>Merge (Shift-click)</strong> → enable merge, then Shift-click label <strong>A</strong> then label <strong>B</strong> to merge <strong>B → A</strong></li>
+</ul>
+<h3>Export</h3>
+<ol>
+<li>Set <strong>Save path</strong> (file path or directory)</li>
+<li>Click <strong>Save labels to TIFF (LZW)</strong></li>
+</ol>
+<p>Notes:</p>
+<ul>
+<li>TIFF writer uses <code>compression=&quot;lzw&quot;</code> and <code>bigtiff=True</code>.</li>
+<li>If “Save path” is a directory, output becomes:
+<code>&lt;dir&gt;/&lt;layer_name&gt;_edited_LZW.tif</code> (or your configured suffix).</li>
+</ul>
+<h2>Notes</h2>
+<h3>Large LZW TIFF support</h3>
+<p>If LZW read/write fails or is slow, install <code>imagecodecs</code>:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>imagecodecs
+</pre></div>
+</code></pre>
+<h2>Publish to PyPI (maintainers)</h2>
+<p>Maintainer-only. Regular users should install from PyPI above.</p>
+<h3>Release workflow (one block)</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># from repo root</span>
+<span class="c1"># 1) bump version in pyproject.toml (e.g., 0.1.0 -&gt; 0.1.1)</span>
+
+<span class="c1"># 2) run checks</span>
+pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+
+<span class="c1"># 3) build + upload</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>build<span class="w"> </span>twine
+rm<span class="w"> </span>-rf<span class="w"> </span>dist<span class="w"> </span>build<span class="w"> </span>*.egg-info
+python<span class="w"> </span>-m<span class="w"> </span>build
+twine<span class="w"> </span>check<span class="w"> </span>dist/*
+twine<span class="w"> </span>upload<span class="w"> </span>dist/*
+
+<span class="c1"># 4) tag on GitHub</span>
+git<span class="w"> </span>tag<span class="w"> </span>v0.1.1
+git<span class="w"> </span>push<span class="w"> </span>--tags
+</pre></div>
+</code></pre>
+<h3>Clean env smoke test (optional)</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-mlabels-test<span class="w"> </span>-y<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+conda<span class="w"> </span>activate<span class="w"> </span>napari-mlabels-test
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-manual-labels-editor
+
+python<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PY&#39;</span>
+<span class="s">import importlib.metadata as im</span>
+<span class="s">print(&quot;pkg version:&quot;, im.version(&quot;napari-manual-labels-editor&quot;))</span>
+<span class="s">eps = [e for e in im.entry_points(group=&quot;napari.manifest&quot;) if &quot;manual-labels-editor&quot; in e.name]</span>
+<span class="s">print(&quot;entrypoints:&quot;, eps)</span>
+<span class="s">PY</span>
+
+napari
+</pre></div>
+</code></pre>
 <h2>License</h2>
-<p>Distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License 2.0</a> license,
-&quot;napari-itk-io&quot; is free and open source software.</p>
-<h2>Issues</h2>
-<p>If you encounter any problems, please <a href="https://github.com/InsightSoftwareConsortium/napari-itk-io/issues">file an issue</a> along with a detailed description.</p>
+<p>BSD-3-Clause</p>
 
 
                                     </div>
@@ -272,7 +339,7 @@ conduct</a>.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.4.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -282,7 +349,7 @@ conduct</a>.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2024-11-13</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-02-22</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -292,7 +359,7 @@ conduct</a>.</p>
                                                     released<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2021-04-28</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-02-22</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -303,7 +370,8 @@ conduct</a>.</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
                                                     <li class="MetadataList_textItem__KKmMN">
-                                                            Apache
+                                                            Copyright (c) 2026, Yaohua Li
+...
                                                     </li>
                                                 </ul>
                                             </div>
@@ -329,21 +397,21 @@ conduct</a>.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Plugin
                                                     type<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=reader">Reader</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=writer">Writer</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=widget">Widget</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Open
                                                     extension<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mgz">*.mgz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.gipl.gz">*.gipl.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mha">*.mha</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.h5">*.h5</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.hdr">*.hdr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.jpg">*.jpg</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.bmp">*.bmp</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mhd">*.mhd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.gipl">*.gipl</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.pic">*.pic</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.dcm">*.dcm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nia">*.nia</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nhdr">*.nhdr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mgh">*.mgh</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nrrd">*.nrrd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tiff">*.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mgh.gz">*.mgh.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nii">*.nii</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mrc">*.mrc</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.hdf5">*.hdf5</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mnc.gz">*.mnc.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mnc">*.mnc</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.vtk">*.vtk</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nii.gz">*.nii.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.png">*.png</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.mnc2">*.mnc2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.jpeg">*.jpeg</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.dicom">*.dicom</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.lsm">*.lsm</a></li></ul>
+                                                    
                                             </div>
                                         </div>
                                         <div class="text-sm">
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Save
                                                     extension<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.tif">.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.h5">.h5</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mha">.mha</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.dcm">.dcm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mnc">.mnc</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.tiff">.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mrc">.mrc</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.hdf5">.hdf5</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nia">.nia</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.lsm">.lsm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mhd">.mhd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.gipl.gz">.gipl.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.pic">.pic</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.jpg">.jpg</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nii">.nii</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nhdr">.nhdr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.bmp">.bmp</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mnc2">.mnc2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.jpeg">.jpeg</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nii.gz">.nii.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.vtk">.vtk</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mgh">.mgh</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.dicom">.dicom</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mnc.gz">.mnc.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mgz">.mgz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.nrrd">.nrrd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.hdr">.hdr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.mgh.gz">.mgh.gz</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.gipl">.gipl</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.png">.png</a></li></ul>
+                                                    
                                             </div>
                                         </div>
                                     </div>
@@ -360,7 +428,7 @@ conduct</a>.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -379,7 +447,7 @@ conduct</a>.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine>=0.2.0</li><li class="MetadataList_textItem__KKmMN">itk-io>=5.2.0</li><li class="MetadataList_textItem__KKmMN">itk-napari-conversion</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
                                             </div>
                                         </div>
                                     </div>
