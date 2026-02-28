@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.4</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-02-27</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-02-28</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -221,13 +221,14 @@ Designed for “after segmentation” workflows where you need to <strong>inspec
 <li><strong>Merge (Shift-click)</strong>: when merge is enabled, <strong>Shift-click A</strong>, then <strong>Shift-click B</strong> to merge <strong>B → A</strong> (into A).</li>
 <li><strong>Fill closed shape</strong>: draw a closed outline, then fill the enclosed region for the selected label.</li>
 <li><strong>Filter small labels (to new layer)</strong>: remove tiny fragments by area threshold while keeping the original layer unchanged.</li>
-<li><strong>Undo / Redo</strong>: revert recent edits made through the plugin’s actions.</li>
+<li><strong>Undo / Redo</strong>: revert recent edits made through the plugin’s actions (pixel edits only).</li>
 <li><strong>Blink</strong>: quick visibility toggling for spot-checking edits.</li>
+<li><strong>Jump to label (J)</strong>: jump to a specific label ID via a dialog (sets <code>selected_label</code>).</li>
 </ul>
 <p>Export:</p>
 <ul>
-<li><strong>Save labels to TIFF (LZW)</strong> (BigTIFF enabled).
-If you provide a directory as “Save path”, the plugin auto-appends a filename.</li>
+<li><strong>Save labels to TIFF</strong> (LZW + BigTIFF enabled).
+Use <strong>Browse…</strong> to pick an output path, then click <strong>Save</strong>.</li>
 </ul>
 <h2>Compatibility</h2>
 <ul>
@@ -267,33 +268,36 @@ The status area will show <code>selected</code>, <code>cells</code>, <code>maxID
 </li>
 </ol>
 <h3>Hotkeys</h3>
-<p>These are convenience hotkeys for faster manual editing.</p>
 <ul>
 <li><code>N</code> — <strong>New ID (max+1)</strong></li>
 <li><code>F</code> — <strong>Fill closed shape</strong></li>
 <li><code>Shift+F</code> — <strong>Fill closed shape + Next ID</strong></li>
+<li><code>J</code> — <strong>Jump to label ID</strong> (dialog)</li>
 </ul>
 <p>Notes:</p>
 <ul>
-<li>Hotkeys are captured by the napari viewer. If a key seems unresponsive, <strong>click once on the canvas</strong> to give the viewer focus.</li>
+<li>Hotkeys are captured by the napari viewer. If a key seems unresponsive, click once on the canvas to give the viewer focus.</li>
 <li>napari also has its own built-in tools/hotkeys (e.g., paint/fill modes); you can keep using those alongside this plugin.</li>
+</ul>
+<h3>UI behavior (narrow dock)</h3>
+<ul>
+<li>The dock panel can be resized narrower without hiding critical controls.</li>
+<li><strong>Browse…</strong> and <strong>Save</strong> are protected from being shrunk to zero width.</li>
 </ul>
 <h3>Undo / Redo behavior</h3>
 <ul>
-<li>Undo/Redo reverts <strong>recent pixel edits</strong> made via the plugin’s actions (e.g., fill closed, delete, merge, relabel/filter).</li>
-<li><strong>Changing the selected label / “New ID” alone does not change pixels</strong>, so it is not treated as an edit step to undo.</li>
+<li>Undo/Redo reverts recent pixel edits made via the plugin’s actions (e.g., fill closed, delete, merge, relabel/filter).</li>
+<li>Changing the selected label / “New ID” alone does not change pixels, so it is not treated as an edit step to undo.</li>
 <li>Standard behavior: if you Undo and then make a new edit, the Redo history is cleared.</li>
 </ul>
 <h3>Export</h3>
 <ol>
-<li>Set <strong>Save path</strong> (file path or directory)</li>
-<li>Click <strong>Save labels to TIFF (LZW)</strong></li>
+<li>Click <strong>Browse…</strong> to choose an output file path (TIFF).</li>
+<li>Click <strong>Save</strong>.</li>
 </ol>
 <p>Notes:</p>
 <ul>
 <li>TIFF writer uses <code>compression=&quot;lzw&quot;</code> and <code>bigtiff=True</code>.</li>
-<li>If “Save path” is a directory, output becomes:
-<code>&lt;dir&gt;/&lt;layer_name&gt;_edited_LZW.tif</code> (or your configured suffix).</li>
 </ul>
 <h2>Notes</h2>
 <h3>Large LZW TIFF support</h3>
@@ -318,7 +322,7 @@ The status area will show <code>selected</code>, <code>cells</code>, <code>maxID
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.4</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -328,7 +332,7 @@ The status area will show <code>selected</code>, <code>cells</code>, <code>maxID
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-02-27</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-02-28</li>
                                                 </ul>
                                             </div>
                                         </div>
