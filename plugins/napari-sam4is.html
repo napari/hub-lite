@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.5</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.6</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-02-17</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-01</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -210,7 +210,8 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><a href="https://github.com/hiroalchem/napari-SAM4IS/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-SAM4IS.svg?color=green" alt="License Apache Software License 2.0" /></a>
+                                        <p><a href="README.md">English</a> | <a href="README.ja.md">日本語</a></p>
+<p><a href="https://github.com/hiroalchem/napari-SAM4IS/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-SAM4IS.svg?color=green" alt="License Apache Software License 2.0" /></a>
 <a href="https://pypi.org/project/napari-SAM4IS"><img src="https://img.shields.io/pypi/v/napari-SAM4IS.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-SAM4IS.svg?color=green" alt="Python Version" /></a>
 <a href="https://github.com/hiroalchem/napari-SAM4IS/actions"><img src="https://github.com/hiroalchem/napari-SAM4IS/workflows/tests/badge.svg" alt="tests" /></a>
@@ -263,7 +264,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Choose between local model or API mode:
 <ul>
 <li><strong>Local Model Mode</strong>: Select the model you want to use and click the load button. (The default option is recommended.)</li>
-<li><strong>API Mode</strong>: Check the &quot;Use API&quot; checkbox, then enter your API URL and API Key. No model loading is required.</li>
+<li><strong>API Mode</strong>: Check the &quot;Use API&quot; checkbox, then enter your API URL and API Key. No model loading is required. This mode is designed to work with the SAM API provided by <a href="https://lpixel.net/">LPIXEL Inc.</a> via <a href="https://imacel.net/">IMACEL</a>. For API access, please contact <a href="https://imacel.net/contact">IMACEL</a> directly.</li>
 </ul>
 </li>
 <li>Next, select the image layer you want to annotate.</li>
@@ -310,13 +311,13 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>Each annotation can have additional attributes to support quality control workflows.</p>
 <ol>
 <li>Select one or more annotations in the output Shapes layer.</li>
-<li>In the <strong>Attributes</strong> panel, you can set:
+<li>In the <strong>Annotation Attributes</strong> panel, you can set:
 <ul>
-<li><strong>Unclear</strong>: Mark annotations where the object boundary is ambiguous.</li>
-<li><strong>Uncertain</strong>: Mark annotations where the object class is uncertain.</li>
-<li><strong>Reviewed at</strong>: Automatically records a timestamp when an annotation is reviewed. Click <strong>Mark reviewed</strong> to set, or <strong>Clear</strong> to reset.</li>
+<li><strong>Unclear boundary</strong>: Mark annotations where the object boundary is ambiguous.</li>
+<li><strong>Uncertain class</strong>: Mark annotations where the object class is uncertain.</li>
 </ul>
 </li>
+<li>Click <strong>Accept Selected</strong> to mark the selected annotations as reviewed (sets status to &quot;approved&quot; with a timestamp), or <strong>Accept All</strong> to review all annotations at once.</li>
 <li>Attributes are saved as part of the COCO JSON output under each annotation's <code>&quot;attributes&quot;</code> field.</li>
 <li>When multiple annotations are selected with mixed attribute values, checkboxes show a mixed state indicator.</li>
 </ol>
@@ -339,6 +340,16 @@ the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License 2.0</a> license,
 &quot;napari-SAM4IS&quot; is free and open source software</p>
+<h2>Citation</h2>
+<p>If you use napari-SAM4IS in your research, please cite it:</p>
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">kawai_napari_sam4is</span><span class="p">,</span>
+  <span class="n">author</span>  <span class="o">=</span> <span class="p">{</span><span class="n">Kawai</span><span class="p">,</span> <span class="n">Hiroki</span><span class="p">},</span>
+  <span class="n">title</span>   <span class="o">=</span> <span class="p">{</span><span class="n">napari</span><span class="o">-</span><span class="n">SAM4IS</span><span class="p">},</span>
+  <span class="n">url</span>     <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">hiroalchem</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">SAM4IS</span><span class="p">},</span>
+  <span class="n">license</span> <span class="o">=</span> <span class="p">{</span><span class="n">Apache</span><span class="o">-</span><span class="mf">2.0</span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/hiroalchem/napari-SAM4IS/issues">file an issue</a> along with a detailed description.</p>
 
@@ -356,7 +367,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.5</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.6</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -366,7 +377,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-02-17</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-01</li>
                                                 </ul>
                                             </div>
                                         </div>
