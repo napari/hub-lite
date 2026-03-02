@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.4.0a2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.4.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-02-11</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-02</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Open extension<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.lsm">*.lsm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.fbd">*.fbd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.sdt">*.sdt</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*ome.tif">*ome.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ptu">*.ptu</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.fbd">*.fbd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.sdt">*.sdt</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.lsm">*.lsm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ptu">*.ptu</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*ome.tif">*ome.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -224,8 +224,9 @@
 <h2>Usage</h2>
 <p>napari-phasors is a comprehensive plugin that provides a complete workflow
 for phasor analysis in napari. It includes widgets for reading various FLIM
-and hyperspectral file formats, performing phasor analysis, calibration,
-component analysis, FRET analysis, filtering, manual selections, and
+and hyperspectral file formats, performing phasor analysis on multiple layers
+simultaneously, calibration, component analysis, FRET analysis, filtering,
+phasor selections (manual, circular cursor, and automatic clustering), and
 exporting results.</p>
 <h3>Sample Data</h3>
 <p>Two sample datasets for FLIM are provided, along with their corresponding
@@ -244,6 +245,17 @@ plot and visualized in the full universal circle. The
 'Universal Semi-Circle/Full Polar Plot' in the &quot;Plot Settings&quot; tab must be
 unchecked.</p>
 <p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/hsi%20plot.gif" alt="phasors_hyperspectral" /></p>
+<h3>Multiple-Layer Selection and Simultaneous Analysis</h3>
+<p>Multiple image layers containing phasor data can be selected simultaneously
+from the layer dropdown in the &quot;Phasor Plot&quot; widget. All layers can be
+selected or deselected at once using the &quot;All&quot; and &quot;None&quot; controls. When more
+than one layer is selected, their phasor coordinates are merged and displayed
+together in the phasor plot, enabling direct comparison and joint analysis. A
+primary layer can be designated from the same dropdown to drive plot settings
+and analysis parameters (such as calibration, frequency, filter settings, and
+component locations) for all selected layers. All analyses are then applied to
+every selected layer at once.</p>
+<p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/multiple%20layers.gif" alt="multiple_layers" /></p>
 <h3>Phasor Calibration</h3>
 <p>FLIM images can be calibrated using a reference image acquired under the same
 experimental parameters in the &quot;Calibration&quot; tab of the &quot;Phasor Plot&quot; widget.
@@ -253,21 +265,44 @@ experiment. This ensures accuracy and consistency in lifetime measurements.</p>
 <p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/calibration.gif" alt="calibration" /></p>
 <h3>Filtering and Thresholding</h3>
 <p>Apply various filters and thresholds to your phasor data to enhance analysis
-quality in the &quot;Filter/Threshold&quot; tab on the &quot;Phasor Plot&quot; widget. You can
+quality in the &quot;Filter&quot; tab on the &quot;Phasor Plot&quot; widget. You can
 filter phasor coordinates using the median or wavelet filter.</p>
 <p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/filter%20threshold.gif" alt="filter_threshold" /></p>
 <h3>Mask</h3>
-<p>You can create a mask using either a shapes layer or a labels layer in napari. Once the mask is created, select it from the mask combobox in the &quot;Phasor Plot&quot; widget. Only the pixels inside the selected mask will be plotted in the phasor space and included in subsequent analyses. This allows you to focus your analysis on specific regions of interest within your data.</p>
+<p>You can create a mask using either a shapes layer or a labels layer in napari. Once the
+mask is created, select it from the mask combobox in the &quot;Phasor Plot&quot; widget. Only the
+pixels inside the selected mask will be plotted in the phasor space and included in subsequent
+analyses. This allows you to focus your analysis on specific regions of interest within your data.</p>
 <p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/mask.gif" alt="mask" /></p>
 <h3>Copy Settings and Analysis</h3>
-<p>You can quickly copy plot settings and analysis parameters, such as calibration, frequency, filter settings, and component locations, from another layer or from an OME-TIF file previously exported with the napari-phasors plugin. This feature streamlines the workflow by allowing you to reuse established configurations, ensuring consistency and saving time when analyzing multiple datasets.</p>
+<p>You can quickly copy plot settings and analysis parameters, such as calibration, frequency, filter
+settings, and component locations, from another layer or from an OME-TIF file previously exported
+with the napari-phasors plugin. This feature streamlines the workflow by allowing you to reuse
+established configurations, ensuring consistency and saving time when analyzing multiple datasets.</p>
 <p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/copy%20settings.gif" alt="copy_settings" /></p>
-<h3>Manual Phasor Selections</h3>
-<p>Create manual selections on the phasor plot to identify specific regions of
-interest. These selections can be used to highlight corresponding pixels in
-the intensity image and perform targeted analysis. Shape of selection can be
-chosen at the top of the phasor plot and the selection ID can be selected in
-the &quot;Selection&quot; tab of the &quot;Phasor Plot&quot; widget.</p>
+<h3>Phasor Selections</h3>
+<p>The &quot;Selection&quot; tab of the &quot;Phasor Plot&quot; widget offers three modes for
+identifying regions of interest in the phasor plot and mapping the
+corresponding pixels back to the intensity image.</p>
+<h4>Circular Cursor Selection</h4>
+<p>Define one or more circular cursors on the phasor plot to select regions of
+interest. Each cursor can be positioned and resized interactively by dragging
+it on the plot, or by entering coordinates directly in the table. A separate
+labels layer is created for each cursor, color-coded for easy identification.
+Statistics for each cursor region are displayed in the table.</p>
+<p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/circular%20cursors.gif" alt="circular_cursors" /></p>
+<h4>Automatic Clustering</h4>
+<p>Automatically segment the phasor plot into clusters using Gaussian Mixture
+Models (GMM). The number of clusters can be specified, and the resulting
+clusters are displayed as ellipses on the phasor plot. Each cluster is
+assigned a color that can be customized, and the corresponding pixels are
+highlighted in a labels layer. Cluster statistics are shown in the table.</p>
+<p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/automatic%20clustering.gif" alt="automatic_clustering" /></p>
+<h4>Manual Selection</h4>
+<p>Draw free-form selections directly on the phasor plot using different shape
+tools available at the top of the plot. The selection ID can be managed from
+the &quot;Selection&quot; tab, allowing multiple independent selections to be stored
+and toggled. NOTE: Manual selections are not stored when exporting in OME-TIF format.</p>
 <p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/selections.gif" alt="selections" /></p>
 <h3>Component Analysis</h3>
 <p>Perform multi-component analysis to identify and separate different
@@ -297,7 +332,11 @@ Depending on the file format, you can specify additional options such as harmoni
 The signal can then be visualized according to the selected parameters for each file.</p>
 <p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/import.gif" alt="custom_import" /></p>
 <h3>Data Export</h3>
-<p>The average intensity image and phasor coordinates can be exported as OME-TIF files, which are compatible with both napari-phasors and PhasorPy. Alternatively, you can export the phasor coordinates and selections as a CSV file using the &quot;Export Phasor&quot; widget. Analysis results—such as lifetime, FRET efficiency, and component fractions—can also be exported to CSV. Additionally, the colormapped image layer can be exported with or without its associated colorbar.</p>
+<p>The average intensity image and phasor coordinates can be exported as OME-TIF files, which are compatible
+with both napari-phasors and PhasorPy. Alternatively, you can export the phasor coordinates and selections
+as a CSV file using the &quot;Export Phasor&quot; widget. Analysis results—such as lifetime, FRET efficiency, and
+component fractions—can also be exported to CSV. Additionally, the colormapped image layer can be exported
+with or without its associated colorbar.</p>
 <p><img src="https://github.com/napari-phasors/napari-phasors-data/raw/main/gifs/export.gif" alt="export_phasors" /></p>
 <h2>Installation</h2>
 <p>You can install <code>napari-phasors</code> via <a href="https://pypi.org/project/pip/">pip</a>. Follow these steps from a
@@ -328,7 +367,8 @@ the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
 &quot;napari-phasors&quot; is free and open source software.</p>
-<p>Please cite doi: <a href="https://doi.org/10.5281/zenodo.14647626">https://doi.org/10.5281/zenodo.14647626</a> if napari-phasors contributes to a project that leads to a publication.</p>
+<p>Please cite doi: <a href="https://doi.org/10.5281/zenodo.14647626">https://doi.org/10.5281/zenodo.14647626</a>
+if napari-phasors contributes to a project that leads to a publication.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/napari-phasors/napari-phasors/issues">file an issue</a> along with a detailed
 description.</p>
@@ -347,7 +387,7 @@ description.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.4.0a2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.4.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -357,7 +397,7 @@ description.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-02-11</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-02</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -411,7 +451,7 @@ description.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Open
                                                     extension<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.lsm">*.lsm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.fbd">*.fbd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.sdt">*.sdt</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*ome.tif">*ome.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ptu">*.ptu</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.fbd">*.fbd</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.sdt">*.sdt</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.lsm">*.lsm</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ptu">*.ptu</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*ome.tif">*ome.tif</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.tif">*.tif</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
