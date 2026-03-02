@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-06-02</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-02</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">gunpowder</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">lsds</li><li class="MetadataList_textItem__KKmMN">mwatershed</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">zarr<3</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">gunpowder</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">lsds</li><li class="MetadataList_textItem__KKmMN">mwatershed</li><li class="MetadataList_textItem__KKmMN">fastmorph[spherical]</li><li class="MetadataList_textItem__KKmMN">connected-components-3d</li><li class="MetadataList_textItem__KKmMN">fastremap</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -211,53 +211,80 @@
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-bootstrapper.svg?color=green" alt="Python Version" /></a>
 <a href="https://github.com/ucsdmanorlab/napari-bootstrapper/actions"><img src="https://github.com/ucsdmanorlab/napari-bootstrapper/workflows/tests/badge.svg" alt="tests" /></a>
 <a href="https://napari-hub.org/plugins/napari-bootstrapper"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-bootstrapper" alt="napari hub" /></a></p>
-<ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#getting-started">Getting Started</a></li>
-<li><a href="#citation">Citation</a></li>
-<li><a href="#issues">Issues</a></li>
-<li><a href="#funding">Funding</a></li>
-</ul>
-<h2>Introduction</h2>
-<p><code>napari-bootstrapper</code> is a tool to quickly generate dense 3D labels using sparse 2D labels within napari.</p>
-<p>Dense 3D segmentations are generated using the 2D-&gt;3D method described in the preprint titled <a href="https://www.biorxiv.org/content/10.1101/2024.06.14.599135v2"><em>Sparse Annotation is Sufficient for Bootstrapping Dense Segmentation</em></a>. In the preprint, we show sparse 2D annotations made in ~10 minutes on a single section can generate dense 3D segmentations that are reasonably good starting points for refining or bootstrapping.</p>
-<p>This plugin is limited to the 2D-&gt;3D method and is intended for small volumes that can fit in memory. For more complex bootstrapping workflows, dedicated 3D models, and block-wise processing of large volumes, we recommend using the <a href="https://github.com/ucsdmanorlab/bootstrapper"><em>Bootstrapper</em></a> CLI tool.</p>
-<h2>Installation</h2>
-<p>We recommend installing <code>napari-bootstrapper</code> via conda and <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<ol>
-<li>Create a new environment called <code>napari-bootstrapper</code>:</li>
-</ol>
+<p>A napari plugin to quickly generate dense 3D segmentations from sparse 2D labels.</p>
+<p>Sparse 2D annotations made in ~10 minutes on a single section can produce dense 3D segmentations that are good starting points for refinement. Based on the 2D→3D method described in <a href="https://www.biorxiv.org/content/10.1101/2024.06.14.599135v2"><em>Sparse Annotation is Sufficient for Bootstrapping Dense Segmentation</em></a>.</p>
+<blockquote>
+<p>For larger volumes, dedicated 3D models, and block-wise processing, see the <a href="https://github.com/ucsdmanorlab/bootstrapper">Bootstrapper CLI</a>.</p>
+</blockquote>
+<p><img src="https://github.com/user-attachments/assets/db0e9ef7-0826-4184-9f00-8203e7bf48ec" alt="cremi30" /></p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Data Type</th>
+<th>Video</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CREMI C</td>
+<td>3D volumetric stack</td>
+<td><a href="https://www.youtube.com/watch?v=n0KkhZ-oBTs"><img src="https://img.youtube.com/vi/n0KkhZ-oBTs/0.jpg" alt="CREMI C" /></a></td>
+</tr>
+<tr>
+<td>Fluo-C2DL-Huh7</td>
+<td>2D + time series</td>
+<td><a href="https://www.youtube.com/watch?v=vThjwJR_RNg"><img src="https://img.youtube.com/vi/vThjwJR_RNg/0.jpg" alt="Fluo-C2DL-Huh7" /></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Getting Started</h2>
+<h3>Install</h3>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-bootstrapper<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">==</span><span class="m">3</span>.11<span class="w"> </span>napari<span class="w"> </span>pyqt
+conda<span class="w"> </span>activate<span class="w"> </span>napari-bootstrapper
+pip<span class="w"> </span>install<span class="w"> </span>napari-bootstrapper
 </pre></div>
 </code></pre>
-<ol start="2">
-<li>Activate the newly-created environment:</li>
-</ol>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span><span class="o">-</span><span class="n">bootstrapper</span>
-</pre></div>
-</code></pre>
-<ol start="3">
-<li>You can install <code>napari-bootstrapper</code> via <a href="https://pypi.org/project/pip/">pip</a>:</li>
-</ol>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-bootstrapper
-</pre></div>
-</code></pre>
-<ul>
-<li>Or you can install the latest development version from github:</li>
-</ul>
+<p>Or install the latest development version:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/ucsdmanorlab/napari-bootstrapper.git
 </pre></div>
 </code></pre>
-<h2>Getting Started</h2>
-<p>Run the following in your terminal:</p>
+<h3>Launch</h3>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>napari-bootstrapper
 napari
 </pre></div>
 </code></pre>
+<p>Open the Bootstrapper widget from <strong>Plugins → napari-bootstrapper</strong>.</p>
+<hr />
+<h2>How It Works</h2>
+<p>The plugin has four sections that follow a simple workflow:</p>
+<h3>1. Data</h3>
+<p>Load a 3D image (or 4D with a channels dimension) and create <strong>sparse 2D labels</strong> on one or a few slices. Click <strong>&quot;Make mask&quot;</strong> to generate a binary training mask.</p>
+<p>We recommend using a foundation model to make sparse 2D labels, like <a href="https://github.com/computational-cell-analytics/micro-sam">micro-sam</a>.</p>
+<h3>2. Train a 2D Model</h3>
+<p>Train a 2D model on your sparse labels. Three task types are available:</p>
+<ul>
+<li><code>2d_affs</code> — affinities</li>
+<li><code>2d_lsd</code> — local shape descriptors</li>
+<li><code>2d_mtlsd</code> — multi-task (both)</li>
+</ul>
+<p>Or load a pretrained checkpoint.</p>
+<h3>3. Load a 3D Model</h3>
+<p>The 3D model lifts 2D predictions into 3D affinities. Pretrained weights are recommended — just click <strong>&quot;Download&quot;</strong>.</p>
+<h3>4. Segment</h3>
+<p>Click <strong>&quot;Start&quot;</strong> to run the full 2D→3D inference pipeline. The output is an instance segmentation produced via mutex watershed or connected components.</p>
+<h3>Proofreading</h3>
+<p>We provide a separate widget for refining segmentations quickly. Select labels by placing points on them or entering label IDs manually. Operations can be applied per-slice (2D) or on the full volume (3D).</p>
+<ul>
+<li><strong>Morphology</strong> — Dilate, erode, open, close, fill holes. Stenciled (3×3×3) or spherical (variable radius). Uses <a href="https://github.com/seung-lab/fastmorph">fastmorph</a>.</li>
+<li><strong>Merge / Split</strong> — Merge labels, split with watershed markers, or delete. Uses <a href="https://github.com/seung-lab/fastremap">fastremap</a>.</li>
+<li><strong>Filter</strong> — Remove by size (min/max voxels), keep K largest, remove outliers by sigma, filter by Z-slice count, relabel connected components. Uses <a href="https://github.com/seung-lab/connected-components-3d">cc3d</a>.</li>
+</ul>
+<hr />
 <h2>Citation</h2>
-<p>If you find Bootstrapper useful in your research, please consider citing our <strong><a href="https://www.biorxiv.org/content/10.1101/2024.06.14.599135v1">preprint</a></strong>:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="nd">@article</span> <span class="p">{</span><span class="n">Thiyagarajan2024</span><span class="mf">.06.14.599135</span><span class="p">,</span>
+<p>If you find this useful, please cite our <a href="https://www.biorxiv.org/content/10.1101/2024.06.14.599135v2">preprint</a>:</p>
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nd">@article</span> <span class="p">{</span><span class="n">Thiyagarajan2024</span><span class="mf">.06.14.599135</span><span class="p">,</span>
 	<span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">Thiyagarajan</span><span class="p">,</span> <span class="n">Vijay</span> <span class="n">Venu</span> <span class="ow">and</span> <span class="n">Sheridan</span><span class="p">,</span> <span class="n">Arlo</span> <span class="ow">and</span> <span class="n">Harris</span><span class="p">,</span> <span class="n">Kristen</span> <span class="n">M</span><span class="o">.</span> <span class="ow">and</span> <span class="n">Manor</span><span class="p">,</span> <span class="n">Uri</span><span class="p">},</span>
 	<span class="n">title</span> <span class="o">=</span> <span class="p">{</span><span class="n">Sparse</span> <span class="n">Annotation</span> <span class="ow">is</span> <span class="n">Sufficient</span> <span class="k">for</span> <span class="n">Bootstrapping</span> <span class="n">Dense</span> <span class="n">Segmentation</span><span class="p">},</span>
 	<span class="n">year</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2024</span><span class="p">},</span>
@@ -268,6 +295,12 @@ napari
 </code></pre>
 <h2>Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/ucsdmanorlab/napari-bootstrapper/issues">file an issue</a> along with a detailed description.</p>
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://github.com/computational-cell-analytics/micro-sam">micro-sam</a> — Making foundation models like SAM accessible to the community.</li>
+<li><a href="https://github.com/volume-em/empanada-napari">empanada-napari</a> — Proofreading widget inspiration.</li>
+<li><a href="https://github.com/funkelab/napari-cellulus">napari-cellulus</a> — Development scaffolding.</li>
+</ul>
 <h2>Funding</h2>
 <p>Chan-Zuckerberg Imaging Scientist Award DOI <a href="https://doi.org/10.37921/694870itnyzk">https://doi.org/10.37921/694870itnyzk</a> from the Chan Zuckerberg Initiative DAF, an advised fund of Silicon Valley Community Foundation (funder DOI 10.13039/100014989).</p>
 <p>NSF NeuroNex Technology Hub Award (1707356), NSF NeuroNex2 Award (2014862)</p>
@@ -287,7 +320,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -297,7 +330,7 @@ napari
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-06-02</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-02</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -394,7 +427,7 @@ napari
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">gunpowder</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">lsds</li><li class="MetadataList_textItem__KKmMN">mwatershed</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">zarr<3</li><li class="MetadataList_textItem__KKmMN">numba</li><li class="MetadataList_textItem__KKmMN">gunpowder</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">lsds</li><li class="MetadataList_textItem__KKmMN">mwatershed</li><li class="MetadataList_textItem__KKmMN">fastmorph[spherical]</li><li class="MetadataList_textItem__KKmMN">connected-components-3d</li><li class="MetadataList_textItem__KKmMN">fastremap</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
