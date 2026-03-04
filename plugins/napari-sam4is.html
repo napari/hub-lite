@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-02</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-04</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy>=1.23.0</li><li class="MetadataList_textItem__KKmMN">magicgui>=0.8.0</li><li class="MetadataList_textItem__KKmMN">qtpy>=2.4.0</li><li class="MetadataList_textItem__KKmMN">torch>=2.0.0</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.15.0</li><li class="MetadataList_textItem__KKmMN">scikit-image>=0.21.0</li><li class="MetadataList_textItem__KKmMN">napari>=0.4.19</li><li class="MetadataList_textItem__KKmMN">requests>=2.31.0</li><li class="MetadataList_textItem__KKmMN">urllib3>=2.0.0</li><li class="MetadataList_textItem__KKmMN">Pillow>=10.0.0</li><li class="MetadataList_textItem__KKmMN">pyyaml>=6.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest<9.0,>=7.4.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov<6.0,>=4.1.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt<5.0,>=4.2.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">black<25.0,>=24.0; extra == "dev"</li><li class="MetadataList_textItem__KKmMN">ruff<1.0,>=0.8.0; extra == "dev"</li><li class="MetadataList_textItem__KKmMN">pre-commit; extra == "dev"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy>=1.23.0</li><li class="MetadataList_textItem__KKmMN">magicgui>=0.8.0</li><li class="MetadataList_textItem__KKmMN">qtpy>=2.4.0</li><li class="MetadataList_textItem__KKmMN">torch>=2.0.0</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.15.0</li><li class="MetadataList_textItem__KKmMN">scikit-image>=0.21.0</li><li class="MetadataList_textItem__KKmMN">napari>=0.4.19</li><li class="MetadataList_textItem__KKmMN">requests>=2.31.0</li><li class="MetadataList_textItem__KKmMN">urllib3>=2.0.0</li><li class="MetadataList_textItem__KKmMN">Pillow>=10.0.0</li><li class="MetadataList_textItem__KKmMN">pyyaml>=6.0</li><li class="MetadataList_textItem__KKmMN">platformdirs>=2.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest<9.0,>=7.4.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov<6.0,>=4.1.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt<5.0,>=4.2.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">black<25.0,>=24.0; extra == "dev"</li><li class="MetadataList_textItem__KKmMN">ruff<1.0,>=0.8.0; extra == "dev"</li><li class="MetadataList_textItem__KKmMN">pre-commit; extra == "dev"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -272,13 +272,28 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Finally, select the output layer as &quot;shapes&quot; for instance segmentation or &quot;labels&quot; for semantic segmentation. (For instance segmentation, the &quot;Accept&quot; layer can also be used.)</li>
 </ol>
 <h3>Class Management</h3>
-<p>You can define annotation classes to assign to each segmented object.</p>
+<p>You can define annotation classes to assign to each segmented object. Classes support a hierarchical (parent–child) structure.</p>
 <ol>
-<li>In the <strong>Class Management</strong> section, type a class name and click <strong>Add</strong> (or press Enter) to add a new class.</li>
-<li>Click a class in the list to select it. The selected class will be assigned to subsequent annotations.</li>
+<li>In the <strong>Class Management</strong> section, type a class name and click <strong>Add</strong> (or press Enter) to add a new top-level class.</li>
+<li>To add a subclass, first select a parent class in the tree, type the subclass name, and click <strong>Add Sub</strong>.</li>
+<li>Click a class in the tree to select it. The selected class will be assigned to subsequent annotations.</li>
 <li>To reassign a class, select an existing annotation in the output Shapes layer, then click the desired class.</li>
-<li>Classes in use cannot be deleted. Remove the associated annotations first.</li>
-<li>You can load class definitions from a YAML file (click <strong>Load</strong>). The expected format is:<pre><code class="language-yaml"><div class="highlight"><pre><span></span><span class="nt">names</span><span class="p">:</span>
+<li>Classes with subclasses cannot be deleted. Remove all subclasses first. Classes in use cannot be deleted either.</li>
+<li>You can load class definitions from a YAML file (click <strong>Load</strong>). The supported formats are:<pre><code class="language-yaml"><div class="highlight"><pre><span></span><span class="c1"># New hierarchical format</span>
+<span class="nt">classes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">animal</span>
+<span class="w">    </span><span class="nt">children</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cat</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dog</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vehicle</span>
+</pre></div>
+</code></pre>
+<pre><code class="language-yaml"><div class="highlight"><pre><span></span><span class="c1"># Legacy flat format (still supported)</span>
+<span class="nt">names</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cat</span>
 <span class="w">  </span><span class="nt">1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dog</span>
 <span class="w">  </span><span class="nt">2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bird</span>
@@ -321,6 +336,14 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Attributes are saved as part of the COCO JSON output under each annotation's <code>&quot;attributes&quot;</code> field.</li>
 <li>When multiple annotations are selected with mixed attribute values, checkboxes show a mixed state indicator.</li>
 </ol>
+<h3>Display Settings</h3>
+<p>The <strong>Display Settings</strong> panel lets you customize the appearance of annotation layers and persist those preferences across sessions.</p>
+<ul>
+<li><strong>Accepted edge color</strong>: Click the color swatch to open a color picker and change the outline color of accepted annotations. The new color is applied immediately to all existing shapes on the Accepted layer and saved for future sessions.</li>
+<li><strong>Annotation text color</strong>: Click the color swatch to change the color of class label text shown on annotation shapes.</li>
+<li><strong>Annotation text size</strong>: Adjust the integer spinner to change the font size of class label text.</li>
+</ul>
+<p>All settings are saved to <code>settings.json</code> in the OS user-config directory (e.g. <code>~/Library/Preferences/napari-SAM4IS/</code> on macOS) and restored automatically on the next launch.</p>
 <h3>Saving and Loading Annotations</h3>
 <ol>
 <li>If you have output to the labels layer, use napari's standard functionality to save the mask.</li>
@@ -367,7 +390,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -377,7 +400,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-02</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-04</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -474,7 +497,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy>=1.23.0</li><li class="MetadataList_textItem__KKmMN">magicgui>=0.8.0</li><li class="MetadataList_textItem__KKmMN">qtpy>=2.4.0</li><li class="MetadataList_textItem__KKmMN">torch>=2.0.0</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.15.0</li><li class="MetadataList_textItem__KKmMN">scikit-image>=0.21.0</li><li class="MetadataList_textItem__KKmMN">napari>=0.4.19</li><li class="MetadataList_textItem__KKmMN">requests>=2.31.0</li><li class="MetadataList_textItem__KKmMN">urllib3>=2.0.0</li><li class="MetadataList_textItem__KKmMN">Pillow>=10.0.0</li><li class="MetadataList_textItem__KKmMN">pyyaml>=6.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest<9.0,>=7.4.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov<6.0,>=4.1.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt<5.0,>=4.2.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">black<25.0,>=24.0; extra == "dev"</li><li class="MetadataList_textItem__KKmMN">ruff<1.0,>=0.8.0; extra == "dev"</li><li class="MetadataList_textItem__KKmMN">pre-commit; extra == "dev"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy>=1.23.0</li><li class="MetadataList_textItem__KKmMN">magicgui>=0.8.0</li><li class="MetadataList_textItem__KKmMN">qtpy>=2.4.0</li><li class="MetadataList_textItem__KKmMN">torch>=2.0.0</li><li class="MetadataList_textItem__KKmMN">torchvision>=0.15.0</li><li class="MetadataList_textItem__KKmMN">scikit-image>=0.21.0</li><li class="MetadataList_textItem__KKmMN">napari>=0.4.19</li><li class="MetadataList_textItem__KKmMN">requests>=2.31.0</li><li class="MetadataList_textItem__KKmMN">urllib3>=2.0.0</li><li class="MetadataList_textItem__KKmMN">Pillow>=10.0.0</li><li class="MetadataList_textItem__KKmMN">pyyaml>=6.0</li><li class="MetadataList_textItem__KKmMN">platformdirs>=2.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest<9.0,>=7.4.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov<6.0,>=4.1.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt<5.0,>=4.2.0; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">black<25.0,>=24.0; extra == "dev"</li><li class="MetadataList_textItem__KKmMN">ruff<1.0,>=0.8.0; extra == "dev"</li><li class="MetadataList_textItem__KKmMN">pre-commit; extra == "dev"</li></ul>
                                             </div>
                                         </div>
                                     </div>
