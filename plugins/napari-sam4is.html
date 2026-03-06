@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-04</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-06</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -244,18 +244,29 @@ https://napari.org/stable/plugins/index.html
 </pre></div>
 </code></pre>
 <h3>Step 2: Install Segment Anything Model (Optional - for local model usage)</h3>
-<p><strong>Note</strong>: Installing the Segment Anything Model is only required if you plan to use local models. If you're using the API mode, you can skip this step.</p>
-<p>To use local models, install SAM:</p>
+<p><strong>Note</strong>: Installing a SAM model is only required if you plan to use local models. If you're using the API mode, you can skip this step.</p>
+<h4>SAM 1 (vit_h / vit_l / vit_b)</h4>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/facebookresearch/segment-anything.git
 </pre></div>
 </code></pre>
-<p>Or you can install from source by cloning the repository:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/facebookresearch/segment-anything.git
-<span class="nb">cd</span><span class="w"> </span>segment-anything
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<p>For more detailed instructions, please refer to the <a href="https://github.com/facebookresearch/segment-anything#installation">SAM installation guide</a>.</p>
+<h4>SAM 3</h4>
+<p>SAM 3 requires a patched fork for macOS compatibility. Install with:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/hiroalchem/sam3.git@patched-macos
 </pre></div>
 </code></pre>
-<p>For more detailed instructions, please refer to the <a href="https://github.com/facebookresearch/segment-anything#installation">SAM installation guide</a>.</p>
+<p>If you use <a href="https://docs.astral.sh/uv/">uv</a>, sam3 and its dependencies are resolved automatically:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>uv<span class="w"> </span>sync<span class="w"> </span>--group<span class="w"> </span>sam3
+</pre></div>
+</code></pre>
+<p>SAM 3 also requires the following packages (installed automatically with uv, manually with pip):</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;numpy&gt;=1.26&quot;</span><span class="w"> </span><span class="s2">&quot;timm&gt;=1.0.17&quot;</span><span class="w"> </span><span class="s2">&quot;einops&gt;=0.8,&lt;0.9&quot;</span><span class="w"> </span><span class="s2">&quot;huggingface-hub&gt;=0.30,&lt;1&quot;</span><span class="w"> </span><span class="s2">&quot;av&gt;=12&quot;</span><span class="w"> </span><span class="s2">&quot;pycocotools&gt;=2&quot;</span>
+</pre></div>
+</code></pre>
+<blockquote>
+<p><strong>Important</strong>: Before using SAM 3, you must request access to the checkpoints on the <a href="https://huggingface.co/facebook/sam3">SAM 3 Hugging Face repo</a>. Once accepted, you need to be authenticated (e.g., <code>huggingface-cli login</code>) to download the checkpoints automatically.</p>
+<p>Alternatively, you can download <code>sam3.pt</code> manually and specify the local path in the plugin's checkpoint field.</p>
+</blockquote>
 <h2>Usage</h2>
 <h3>Preparation</h3>
 <ol>
@@ -263,7 +274,8 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Upon launching the plugin, several layers will be automatically created: SAM-Box, SAM-Positive, SAM-Negative, SAM-Predict, and Accepted. The usage of these layers will be explained later.</li>
 <li>Choose between local model or API mode:
 <ul>
-<li><strong>Local Model Mode</strong>: Select the model you want to use and click the load button. (The default option is recommended.)</li>
+<li><strong>Local Model Mode (SAM 1)</strong>: Select the model you want to use and click the load button. (The default option is recommended.)</li>
+<li><strong>Local Model Mode (SAM 3)</strong>: Select &quot;SAM3&quot; from the model dropdown. The model weights will be downloaded automatically from HuggingFace (gated access required), or you can specify a local checkpoint path.</li>
 <li><strong>API Mode</strong>: Check the &quot;Use API&quot; checkbox, then enter your API URL and API Key. No model loading is required. This mode is designed to work with the SAM API provided by <a href="https://lpixel.net/">LPIXEL Inc.</a> via <a href="https://imacel.net/">IMACEL</a>. For API access, please contact <a href="https://imacel.net/contact">IMACEL</a> directly.</li>
 </ul>
 </li>
@@ -312,6 +324,26 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>If you accept the annotation, it will be output as label 1 for semantic segmentation or converted to a polygon and output to the designated layer for instance segmentation. The currently selected class will be assigned to the annotation.</li>
 <li>If you reject the annotation, the segmentation mask in the SAM-Predict layer will be discarded.</li>
 <li>After accepting or rejecting the annotation, the SAM-Predict layer will automatically reset to blank and return to the SAM-Box layer.</li>
+</ol>
+<h3>SAM 3: Detect All</h3>
+<p>When using SAM 3, additional features are available for batch detection:</p>
+<ol>
+<li><strong>Prompt Modes</strong>: Choose between Text, Box, or Text+Box prompts using the radio buttons in the SAM3 Prompt section.</li>
+<li><strong>Box prompt</strong>: Draw a bounding box on the SAM-Box layer, then click <strong>Detect All</strong> to detect all instances within the box.</li>
+<li><strong>Text prompt</strong>: Enter a class name or description as the text prompt. The text is derived from the currently selected class name.</li>
+<li><strong>Exemplar-based detection</strong>: Select one or more shapes in the output Shapes layer (e.g., Accepted), then click <strong>Detect All</strong>. The selected shapes are used as exemplar box prompts. This is useful for finding similar objects across the image.
+<ul>
+<li>The output Shapes layer must be the active layer for exemplar selection to take effect.</li>
+<li>All selected exemplar shapes must belong to the same class.</li>
+<li>Exemplar boxes and SAM-Box input can be combined.</li>
+</ul>
+</li>
+<li><strong>IoU duplicate filtering</strong>: To prevent overlapping annotations, the plugin automatically filters out masks that overlap with existing shapes above a configurable IoU threshold (default: 0.5).
+<ul>
+<li>Adjust the threshold using the <strong>IoU Threshold</strong> spinner.</li>
+<li>Check <strong>Same class only</strong> to only filter duplicates within the same class, or uncheck it to filter across all classes.</li>
+</ul>
+</li>
 </ol>
 <h3>Manual Annotation (without SAM)</h3>
 <p>You can also annotate without using SAM by enabling <strong>Manual Mode</strong>.</p>
@@ -390,7 +422,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -400,7 +432,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-04</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-06</li>
                                                 </ul>
                                             </div>
                                         </div>
