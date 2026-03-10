@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.7</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.8</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-12-12</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-10</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">czitools>=0.13.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-timeout; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">czitools>=0.14.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-timeout; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-forked; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -344,6 +344,40 @@ https://napari.org/stable/plugins/index.html
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
+<h3>Running Tests</h3>
+<p>Install test dependencies first (recommended for full local coverage):</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[testing]&quot;</span>
+</pre></div>
+</code></pre>
+<p>This installs <code>pytest-qt</code>, which provides the <code>qtbot</code> fixture used by
+napari/Qt tests.</p>
+<p><strong>Windows/macOS:</strong></p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pytest
+</pre></div>
+</code></pre>
+<p><strong>Linux (recommended - use tox):</strong></p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py311-linux
+</pre></div>
+</code></pre>
+<p>(Replace <code>py311</code> with your Python version: <code>py310</code>, <code>py312</code>, or <code>py313</code>)</p>
+<p><strong>Linux (direct pytest):</strong></p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>-v<span class="w"> </span>--forked<span class="w"> </span>--color<span class="o">=</span>yes
+</pre></div>
+</code></pre>
+<p>Note: The <code>--forked</code> flag is required on Linux to prevent CZI + Qt crashes by running each test in its own process. This flag is not available on Windows.</p>
+<h3>Recent Compatibility Notes</h3>
+<ul>
+<li><code>czitools&gt;=0.14.0</code> is supported.</li>
+<li>Newer <code>czitools</code> may return scene data as a list of xarray stacks when lazy
+reading is enabled. The plugin now handles both single-stack and scene-list
+outputs when creating channel layers.</li>
+<li>Channel extraction uses positional indexing to support channel coordinates
+represented by names (for example <code>&quot;DAPI&quot;</code>, <code>&quot;EGFP&quot;</code>) instead of numeric
+labels.</li>
+<li>URL metadata tests can be affected by transient remote read failures (for
+example GitHub/network hiccups). The test suite retries and skips these
+network-dependent checks if remote headers cannot be read reliably.</li>
+</ul>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
 &quot;napari-czitools&quot; is free and open source software</p>
@@ -368,7 +402,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.7</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.8</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -378,7 +412,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-12-12</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-10</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -475,7 +509,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">czitools>=0.13.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-timeout; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">czitools>=0.14.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-timeout; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-forked; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
