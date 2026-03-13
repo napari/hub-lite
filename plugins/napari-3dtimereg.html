@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.11</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.12</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-01-08</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-13</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">imaris_ims_file_reader</li><li class="MetadataList_textItem__KKmMN">czifile</li><li class="MetadataList_textItem__KKmMN">itk==5.3.0</li><li class="MetadataList_textItem__KKmMN">itk-registration</li><li class="MetadataList_textItem__KKmMN">itk-elastix</li><li class="MetadataList_textItem__KKmMN">pydantic<=1.10.14</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">imaris-ims-file-reader</li><li class="MetadataList_textItem__KKmMN">czifile</li><li class="MetadataList_textItem__KKmMN">itk==5.3.0</li><li class="MetadataList_textItem__KKmMN">itk-registration</li><li class="MetadataList_textItem__KKmMN">itk-elastix</li><li class="MetadataList_textItem__KKmMN">pydantic<=1.10.14</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -213,8 +213,26 @@
 <p>Temporal registration of 2D/3D movies on one channel based on <a href="https://pypi.org/project/itk-elastix/">itk-elastix</a>, and transpose alignement to the other channels.</p>
 <p>Adaptated from <a href="https://gitlab.pasteur.fr/gletort/multireg">multireg</a> for temporal movies.
 For a tutorial on using <code>elastix</code> for registration, see <a href="https://m-albert.github.io/elastix_tutorial/intro.html">this tutorial</a>.</p>
+<ul>
+<li><a href="#installation">Installation</a>
+<ul>
+<li><a href="#system-requirement">System requirement</a></li>
+<li><a href="#installation-steps">Installation steps</a></li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#demotest">Demo</a></li>
+<li><a href="#license">License</a></li>
+</ul>
 <hr />
-<h2>Installation</h2>
+<h1>Installation</h1>
+<h2>System requirement</h2>
+<p><code>napari-3dtimereg</code> is a Napari plugin therefore can be installed on all operating systems.
+It requires a python environement compatible with <code>Napari</code> and <code>elastix</code> version.</p>
+<h3>Tested system</h3>
+<p>It has been tested on python 3.9, napari XX and elastix XX.</p>
+<h2>Installation steps</h2>
+<p>In a python environment that contains Napari:</p>
 <ul>
 <li>
 <p>You can install the plugin directly in <code>Napari</code> by going to <code>Plugins&gt;Install/Uninstall plugins</code> and search for <code>napari-3dtimereg</code></p>
@@ -224,7 +242,8 @@ For a tutorial on using <code>elastix</code> for registration, see <a href="http
 <p>pip install napari-3dtimereg</p>
 </li>
 </ul>
-<h2>Usage</h2>
+<p>If you don't have Napari installed yet, see <a href="https://napari.org/stable/tutorials/fundamentals/quick_start.html#napari-quick-start">here</a> for installation instructions.</p>
+<h1>Usage</h1>
 <p>You can launch <code>3dtimereg</code> in napari by going to <code>Plugins&gt;Do 3D movie registration (napari-3dtimereg)</code>.</p>
 <h3>Choose movie and reference chanel</h3>
 <p>First, choose select the movie that you want to register. The plugin will create a folder <code>aligned</code> in the folder of your selected movie where the results will be saved.</p>
@@ -249,8 +268,42 @@ You can tune several parameters in this plugin:</p>
 <h3>Create the final aligned movie</h3>
 <p>When all frames have been processed, each color chanel and each frame have been saved in the <code>aligned</code> folder as separated images. This is usefull to calculate the registration on large movies without having to keep all the intermediates and calculated images in memory. You can directly use these separated images, or reconstruct a single composite movie of the result.</p>
 <p>If you click on <code>Concatenate aligned images</code> on the plugin interface, the plugin will create a single composite movie from the aligned images, save it and delete the separated images in the <code>aligned</code> folder.</p>
-<h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license, &quot;napari-3dtimereg&quot; is free and open source software</p>
+<h1>Demo/Test</h1>
+<p>To test this plugin, you can use our <a href="https://zenodo.org/records/15028169">demo dataset</a> proposed in a Zenodo repository or directly on your own dataset.
+If you use the data from the Zenodo repository, the file to use to test this plugin is the movie <code>Registration_WTn1_Crop_V1.tif</code> which has been cropped from our dataset to reduce the size.</p>
+<h2>Steps</h2>
+<p>The input of the process should be a <code>.tiff</code> 3D and temporal stack with one or more channels.
+If you want to use fix points registration option, you should have a file that contains the position of each tracked point at each time.
+See in our demo dataset for the format of this file.
+It can be for example generated from a <a href="https://imagej.net/plugins/trackmate/">TrackMate</a> file with the macro <a href="./src/napari_3dtimereg/getTimePoints.py">getTimePoints.py</a> proposed in this repository.
+Run it in Fiji by going to <code>Plugins&gt;Macro&gt;Edit</code>, openning the <a href="./src/napari_3dtimereg/getTimePoints.py">getTimePoints.py</a> macro and then click <code>Run</code>.
+It will generate a file <code>reference_points.csv</code> that you should put in the same folder as your movie to register (or select this file in the plugin interface in the <code>refpoints file</code> parameter).</p>
+<p>Activate your python virtual environement in which napari and the plugin are installed.
+For example, if the name of the environment is <code>timereg-env</code>, type: <code>conda activate timereg-env</code>.</p>
+<p>When it's activated, type <code>napari</code> to start Napari.
+Go to <code>Plugins&gt;napari-3dtimereg</code> to start it.</p>
+<p>Load the movie to register. The plugin will ask you to choose the channel on which to calculate the registration, so choose a channel that should be immobile during the movie (for example, the channel containing the fibers which should be stable over time).
+Set the <code>reference channel</code> to the corresponding channel number (that you can see in the bottom left part of the viewer, with the layers name <code>Movie_C_*</code>). In our example dataset, choose <code>0</code> as the reference channel (the red channel that contains the fibers).</p>
+<p><img src="./imgs/load.png" alt="example screenshot" /></p>
+<p>Click <code>Update</code> to get to the step to choose the <a href="#calculate-temporal-alignement">registration parameters</a>.</p>
+<h3>Parameters</h3>
+<p>In <a href="https://www.biorxiv.org/content/10.1101/2025.03.13.643016v1">Sarde et al., 2025</a>, we used the following parameter values to register our intravital movies:</p>
+<ul>
+<li><code>use reference points: True</code></li>
+<li><code>rigid resolution: 4</code></li>
+<li><code>spline resolution: 2</code></li>
+<li><code>iterations: 1000</code></li>
+<li><code>rigid final spacing: 50</code></li>
+<li><code>spline final spacing: 200</code></li>
+<li><code>final order: 1</code></li>
+</ul>
+<p>When the parameters have been selected, the registration will be calculated.
+This step can take a lot of time depending on your movie size.</p>
+<h2>Output</h2>
+<p>At the end of the process, you will get a folder named <code>aligned</code> in which the registered movie will be saved.</p>
+<h1>License</h1>
+<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license, &quot;napari-3dtimereg&quot; is free and open source software.</p>
+<p>If you use it, please cite our paper <a href="https://www.biorxiv.org/content/10.1101/2025.03.13.643016v1">Sarde et al., 2025</a>.</p>
 
 
                                     </div>
@@ -266,7 +319,7 @@ You can tune several parameters in this plugin:</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.11</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.12</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -276,7 +329,7 @@ You can tune several parameters in this plugin:</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-01-08</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-13</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -373,7 +426,7 @@ You can tune several parameters in this plugin:</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">imaris_ims_file_reader</li><li class="MetadataList_textItem__KKmMN">czifile</li><li class="MetadataList_textItem__KKmMN">itk==5.3.0</li><li class="MetadataList_textItem__KKmMN">itk-registration</li><li class="MetadataList_textItem__KKmMN">itk-elastix</li><li class="MetadataList_textItem__KKmMN">pydantic<=1.10.14</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">imaris-ims-file-reader</li><li class="MetadataList_textItem__KKmMN">czifile</li><li class="MetadataList_textItem__KKmMN">itk==5.3.0</li><li class="MetadataList_textItem__KKmMN">itk-registration</li><li class="MetadataList_textItem__KKmMN">itk-elastix</li><li class="MetadataList_textItem__KKmMN">pydantic<=1.10.14</li></ul>
                                             </div>
                                         </div>
                                     </div>
