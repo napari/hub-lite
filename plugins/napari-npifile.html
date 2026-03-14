@@ -9,15 +9,15 @@
     <meta
         content="napari-npifile, Daniel Haase, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="None" name="description" />
-    <meta content="None" property="og:description" />
-    <meta content="None." name="twitter:description" />
-    <meta content="npifile - napari Plugin - Daniel Haase" property="og:title" />
-    <meta content="npifile - napari Plugin - Daniel Haase" name="twitter:title" />
+    <meta content="Read and write .npi files, a lightweight format based on NumPy .npy arrays with additional napari viewer and layer metadata such as axis names and colormaps." name="description" />
+    <meta content="Read and write .npi files, a lightweight format based on NumPy .npy arrays with additional napari viewer and layer metadata such as axis names and colormaps." property="og:description" />
+    <meta content="Read and write .npi files, a lightweight format based on NumPy .npy arrays with additional napari viewer and layer metadata such as axis names and colormaps.." name="twitter:description" />
+    <meta content="napari-npifile - napari Plugin - Daniel Haase" property="og:title" />
+    <meta content="napari-npifile - napari Plugin - Daniel Haase" name="twitter:title" />
     <meta content="article" property="og:type" />
     <meta content="../plugins/napari-npifile.html" property="og:url" />
     <meta content="@napari_imaging" name="twitter:site" />
-    <title>npifile - napari Plugin - Daniel Haase</title>
+    <title>napari-npifile - napari Plugin - Daniel Haase</title>
 
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@
                         <article
                             class="w-full col-span-2 row-start-1 screen-875:col-span-3 screen-1150:col-start-1 screen-1425:col-start-2">
                                 <div class="container" style="display: flex; flex-direction: column;">
-                                    <h1 class="font-bold text-4xl" style="margin-bottom: 20px;" >npifile</h1>
+                                    <h1 class="font-bold text-4xl" style="margin-bottom: 20px;" >napari-npifile</h1>
                                 </div>
 
                                 
@@ -179,7 +179,7 @@
     </div>
 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">None</h2>
+                                    <h2 class="text-lg">Read and write .npi files, a lightweight format based on NumPy .npy arrays with additional napari viewer and layer metadata such as axis names and colormaps.</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -212,26 +212,26 @@ stores <strong>napari viewer and layer configuration</strong>, such as axis name
 <p>The goal is to keep the simplicity of <code>.npy</code> files while preserving useful visualization
 settings when opening arrays in napari.</p>
 <h2>Quick Example</h2>
-<pre><code><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_npifile</span>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_npifile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
 
 <span class="c1"># save it without napari metadata</span>
-<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">quick_example</span><span class="o">.</span><span class="n">npy</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;quick_example.npy&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 <span class="c1"># save it with napari metadata</span>
 <span class="n">napari_npifile</span><span class="o">.</span><span class="n">write_npi</span><span class="p">(</span>
-    <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">quick_example</span><span class="o">.</span><span class="n">npi</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span>
+    <span class="s2">&quot;quick_example.npi&quot;</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
     <span class="n">layer_attributes</span><span class="o">=</span><span class="p">{</span>
-        <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">name</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">foo</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span>
-        <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">colormap</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">magma</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span>
-        <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">contrast_limits</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">),</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;colormap&quot;</span><span class="p">:</span> <span class="s2">&quot;magma&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;contrast_limits&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">),</span>
     <span class="p">},</span>
     <span class="n">viewer_settings</span><span class="o">=</span><span class="p">{</span>
-        <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">axis_labels</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">T</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">Z</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">Y</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">X</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;],</span>
-        <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">scale_bar_properties</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">visible</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="kc">True</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">unit</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">px</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">font_size</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="mf">40.0</span><span class="p">},</span>
+        <span class="s2">&quot;axis_labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;scale_bar_properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;px&quot;</span><span class="p">,</span> <span class="s2">&quot;font_size&quot;</span><span class="p">:</span> <span class="mf">40.0</span><span class="p">},</span>
     <span class="p">},</span>
 <span class="p">)</span>
 
@@ -241,7 +241,7 @@ settings when opening arrays in napari.</p>
 <span class="c1">#    v</span>
 </pre></div>
 </code></pre>
-<p><img src="quick_example.gif" alt="quick_example.gif" /></p>
+<p><img src="https://codeberg.org/dhaase-de/napari-npifile/raw/branch/main/quick_example.gif" alt="quick_example.gif" /></p>
 <h2>Motivation</h2>
 <p>When working on image analysis tasks in Python it is common to save temporary NumPy
 arrays such as:</p>
@@ -257,13 +257,13 @@ drag-and-drop.</p>
 display settings (colormap, contrast limits, etc.) must be configured manually.</p>
 <p><code>.npi</code> files solve this by storing the arrays together with napari viewer metadata.</p>
 <h2>Installation</h2>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">napari</span><span class="o">-</span><span class="n">npifile</span>
+<pre><code class="language-console"><div class="highlight"><pre><span></span><span class="go">pip install --upgrade napari-npifile</span>
 </pre></div>
 </code></pre>
 <p><strong>Note</strong>: napari is <strong>not</strong> included as a dependency, to allow writing <code>.npi</code> files
 even if napari is not installed (e.g., on headless servers).</p>
 <p>To view <code>.npi</code> files in napari, you must install napari separately:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span>
+<pre><code class="language-console"><div class="highlight"><pre><span></span><span class="go">pip install napari</span>
 </pre></div>
 </code></pre>
 <p>See the
@@ -277,7 +277,7 @@ supported format:</p>
 <li>via drag-and-drop,</li>
 <li>via the <code>File -&gt; Open</code> menu,</li>
 <li>via the napari console using <code>viewer.open(&quot;myfile.npi&quot;, plugin=&quot;napari-npifile&quot;)</code>, or</li>
-<li>programmatically using:<pre><code><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<li>programmatically using:<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;myfile.npi&quot;</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="s2">&quot;napari-npifile&quot;</span><span class="p">)</span>
@@ -300,21 +300,21 @@ a single layer and <code>write_multilayer_npi</code> for multiple layers.</p>
 <p>The class <code>NpiWriter_v1</code> allows to <strong>incrementally</strong> write layers into a single <code>.npi</code>
 file over time, making it ideal for loops.</p>
 <h4>Convenience wrapper <code>write_npi</code> (single-layer):</h4>
-<pre><code><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_npifile</span>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_npifile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
 
 <span class="n">napari_npifile</span><span class="o">.</span><span class="n">write_npi</span><span class="p">(</span>
-    <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">single</span><span class="o">.</span><span class="n">npi</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span>
+    <span class="s2">&quot;single.npi&quot;</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-    <span class="n">layer_attributes</span><span class="o">=</span><span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">name</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">layer0</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">colormap</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">magma</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;},</span>
-    <span class="n">viewer_settings</span><span class="o">=</span><span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">axis_labels</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">Z</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">Y</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">X</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;]},</span>
+    <span class="n">layer_attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;layer0&quot;</span><span class="p">,</span> <span class="s2">&quot;colormap&quot;</span><span class="p">:</span> <span class="s2">&quot;magma&quot;</span><span class="p">},</span>
+    <span class="n">viewer_settings</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;axis_labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">]},</span>
 <span class="p">)</span>
 </pre></div>
 </code></pre>
 <h4>Convenience wrapper <code>write_multilayer_npi</code> (multi-layer):</h4>
-<pre><code><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_npifile</span>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_npifile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">data_seq</span> <span class="o">=</span> <span class="p">[</span>
@@ -322,43 +322,43 @@ file over time, making it ideal for loops.</p>
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)),</span>
 <span class="p">]</span>
 <span class="n">layer_attributes_seq</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">name</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">first</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">colormap</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">gray</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;},</span>
-    <span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">name</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">second</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">colormap</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">green</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;},</span>
+    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="s2">&quot;colormap&quot;</span><span class="p">:</span> <span class="s2">&quot;gray&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;second&quot;</span><span class="p">,</span> <span class="s2">&quot;colormap&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">},</span>
 <span class="p">]</span>
 
 <span class="n">napari_npifile</span><span class="o">.</span><span class="n">write_multilayer_npi</span><span class="p">(</span>
-    <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">multi</span><span class="o">.</span><span class="n">npi</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span>
+    <span class="s2">&quot;multi.npi&quot;</span><span class="p">,</span>
     <span class="n">data_seq</span><span class="o">=</span><span class="n">data_seq</span><span class="p">,</span>
     <span class="n">layer_attributes_seq</span><span class="o">=</span><span class="n">layer_attributes_seq</span><span class="p">,</span>
-    <span class="n">viewer_settings</span><span class="o">=</span><span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">axis_labels</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">Z</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">Y</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">X</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;]},</span>
+    <span class="n">viewer_settings</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;axis_labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">]},</span>
 <span class="p">)</span>
 </pre></div>
 </code></pre>
 <h4>Full general example using <code>NpiWriter_v1</code>:</h4>
-<pre><code><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_npifile</span>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari_npifile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># prepare writer</span>
 <span class="n">writer</span> <span class="o">=</span> <span class="n">napari_npifile</span><span class="o">.</span><span class="n">NpiWriter_v1</span><span class="p">(</span>
-    <span class="n">out_path</span><span class="o">=&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">out</span><span class="o">.</span><span class="n">npi</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span>
+    <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;out.npi&quot;</span><span class="p">,</span>
     <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># viewer settings are saved once and are used for all layers</span>
 <span class="n">writer</span><span class="o">.</span><span class="n">write_viewer_settings</span><span class="p">(</span>
     <span class="p">{</span>
-        <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">axis_labels</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">T</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">K</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">Z</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">Y</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">X</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;],</span>
-        <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">grid_properties</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">enabled</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="kc">True</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">shape</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">stride</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">spacing</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="mf">0.1</span><span class="p">},</span>
-        <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">scale_bar_properties</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">visible</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="kc">True</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">unit</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">px</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">gridded</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="kc">True</span><span class="p">},</span>
+        <span class="s2">&quot;axis_labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;grid_properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;enabled&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;stride&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;spacing&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">},</span>
+        <span class="s2">&quot;scale_bar_properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;px&quot;</span><span class="p">,</span> <span class="s2">&quot;gridded&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="c1"># layers are written one at a time, each with individual attributes</span>
 <span class="n">data1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span> 
-<span class="n">writer</span><span class="o">.</span><span class="n">write_layer</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data1</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">colormap</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">cyan</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">name</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">foo</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;})</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write_layer</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data1</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;colormap&quot;</span><span class="p">:</span> <span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">})</span>
 
 <span class="n">data2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
-<span class="n">writer</span><span class="o">.</span><span class="n">write_layer</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">colormap</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">green</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">name</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;:</span> <span class="o">&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">bar</span><span class="o">&amp;</span><span class="n">quot</span><span class="p">;})</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write_layer</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;colormap&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">})</span>
 </pre></div>
 </code></pre>
 <h2>File Format</h2>
@@ -391,24 +391,23 @@ added alongside it, leaving existing code using <code>NpiWriter_v1</code> fully 
 </table>
 <h3>Current Version Details (<code>v1</code>)</h3>
 <h4>Archive Layout</h4>
-<pre><code><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">.</span><span class="n">npi</span>                  <span class="c1"># this is just a ZIP archive</span>
-<span class="err">├──</span> <span class="n">metadata</span><span class="o">.</span><span class="n">json</span>            <span class="c1"># contains {&amp;quot;npi_format&amp;quot;: &amp;quot;v1&amp;quot;}</span>
-<span class="err">├──</span> <span class="n">viewer_settings</span><span class="o">.</span><span class="n">json</span>     <span class="c1"># dictionary with global viewer settings - see below</span>
-<span class="err">└──</span> <span class="n">layers</span>
-    <span class="err">├──</span> <span class="mi">00000000</span>             <span class="c1"># each layer is stored under a sequential numeric key</span>
-    <span class="err">│</span>   <span class="err">├──</span> <span class="n">data</span><span class="o">.</span><span class="n">npy</span>         <span class="c1"># NumPy array as saved via np.save</span>
-    <span class="err">│</span>   <span class="err">└──</span> <span class="n">attributes</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># layer attributes (as in napari.layers.Image)</span>
-    <span class="err">└──</span> <span class="mi">00000001</span>
-        <span class="err">├──</span> <span class="n">data</span><span class="o">.</span><span class="n">npy</span>
-        <span class="err">└──</span> <span class="n">attributes</span><span class="o">.</span><span class="n">json</span>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>example.npi                  # this is just a ZIP archive
+├── metadata.json            # contains {&quot;npi_format&quot;: &quot;v1&quot;}
+├── viewer_settings.json     # dictionary with global viewer settings - see below
+└── layers
+    ├── 00000000             # each layer is stored under a sequential numeric key
+    │   ├── data.npy         # NumPy array as saved via np.save
+    │   └── attributes.json  # layer attributes (as in napari.layers.Image)
+    └── 00000001
+        ├── data.npy
+        └── attributes.json
 </pre></div>
 </code></pre>
-<h4>Metadata</h4>
 <p>All metadata files are JSON files which contain a dictionary.</p>
-<h5>File <code>metadata.json</code></h5>
+<h4>Metadata File <code>metadata.json</code></h4>
 <p>Only contains <code>{&quot;npi_format&quot;: &quot;v1&quot;}</code>.
 It is used by the reader to select the correct parser for the file.</p>
-<h5>File <code>viewer_settings.json</code></h5>
+<h4>Metadata File <code>viewer_settings.json</code></h4>
 <p>Stores global napari viewer settings.
 All fields are <strong>optional</strong>; if missing, the reader does not change the current napari
 configuration.</p>
@@ -473,7 +472,7 @@ configuration.</p>
 </tr>
 </tbody>
 </table>
-<h5>File(s) <code>layers/*/attributes.json</code></h5>
+<h4>Metadata File(s) <code>layers/*/attributes.json</code></h4>
 <p>Layer-specific settings for each layer. All fields are <strong>optional</strong>; if missing, the
 reader uses napari defaults.</p>
 <p><a href="https://napari.org/stable/api/napari.layers.Image.html#napari-layers-image">Any keyword argument accepted by napari’s Image layer</a>
@@ -525,6 +524,20 @@ not work when there are no pre-existing layers or when <code>clear_existing_laye
 <ul>
 <li>Add support to write <code>.npi</code> files directly from napari.</li>
 <li>Add CLI to convert existing <code>.npy</code> files to <code>.npi</code> files (and back).</li>
+<li>Add option to specify ZIP compression method and level to optionally reduce file size.</li>
+</ul>
+<h2>Changelog</h2>
+<ul>
+<li><code>v0.1.1</code> (2026-03-14)
+<ul>
+<li>fixed missing project description and formatting errors in the readme</li>
+</ul>
+</li>
+<li><code>v0.1.0</code> (2026-03-14)
+<ul>
+<li>initial release with standalone read/write and napari reader support</li>
+</ul>
+</li>
 </ul>
 <h2>Related Discussions / Projects</h2>
 <ul>
@@ -548,7 +561,7 @@ not work when there are no pre-existing layers or when <code>clear_existing_laye
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.1</li>
                                                 </ul>
                                             </div>
                                         </div>
