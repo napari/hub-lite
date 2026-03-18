@@ -7,17 +7,17 @@
     <link href="../plugins/brillouin-imaging.html" rel="canonical" />
     <meta content="width=device-width,initial-scale=1" name="viewport" />
     <meta
-        content="brillouin-imaging, Carlo Bevilacqua, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
+        content="brillouin-imaging, Carlo Bevilacqua, Markus Körbel, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
     <meta content="A plugin to work with brim files, which contain Brillouin imaging data" name="description" />
     <meta content="A plugin to work with brim files, which contain Brillouin imaging data" property="og:description" />
     <meta content="A plugin to work with brim files, which contain Brillouin imaging data." name="twitter:description" />
-    <meta content="Brillouin Imaging - napari Plugin - Carlo Bevilacqua" property="og:title" />
-    <meta content="Brillouin Imaging - napari Plugin - Carlo Bevilacqua" name="twitter:title" />
+    <meta content="Brillouin Imaging - napari Plugin - Carlo Bevilacqua, Markus Körbel" property="og:title" />
+    <meta content="Brillouin Imaging - napari Plugin - Carlo Bevilacqua, Markus Körbel" name="twitter:title" />
     <meta content="article" property="og:type" />
     <meta content="../plugins/brillouin-imaging.html" property="og:url" />
     <meta content="@napari_imaging" name="twitter:site" />
-    <title>Brillouin Imaging - napari Plugin - Carlo Bevilacqua</title>
+    <title>Brillouin Imaging - napari Plugin - Carlo Bevilacqua, Markus Körbel</title>
 
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-11-24</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-18</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">brimfile</li><li class="MetadataList_textItem__KKmMN">brimfile[remote-store]</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">brimfile[remote-store]<2.0.0,>=1.5.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
                                         <span class="text-[11px] screen-495:text-[14px]
-                                          font-semibold">Carlo Bevilacqua</span>
+                                          font-semibold">Carlo Bevilacqua, Markus Körbel</span>
                                     </li>
                             </ul>
                             <div class="screen-1425:hidden mt-sds-xl mb-sds-xxl"><a
@@ -213,7 +213,23 @@
                                         <h2>What is it?</h2>
 <p><em>brillouin-imaging</em> is a napari plugin to work with brim (<strong>Br</strong>illouin <strong>im</strong>aging) files, containing spectral data and metadata from Brillouin microscopy.</p>
 <p>More information about the scope and definition of the brim file format can be found <a href="https://github.com/prevedel-lab/Brillouin-standard-file">here</a>.</p>
-<p>At the current stage the brillouin-imaging plugin can only read from both local and remote brim files, by implementing the <a href="https://napari.org/stable/plugins/building_a_plugin/guides.html#readers">reader contribution</a>. It also provides some sample data through the <a href="https://napari.org/stable/plugins/building_a_plugin/guides.html#sample-data">sample data contribution</a>.</p>
+<p>The brillouin-imaging plugin implements three contributions:</p>
+<ul>
+<li>
+<p><em>reader</em><br />
+Allows to open brim files by implementing the <a href="https://napari.org/stable/plugins/building_a_plugin/guides.html#readers">reader contribution</a>.</p>
+</li>
+<li>
+<p><em>sample_data</em><br />
+Provides some sample Brillouin data through the <a href="https://napari.org/stable/plugins/building_a_plugin/guides.html#sample-data">sample data contribution</a>. Data are hosted on a S3 bucket.</p>
+</li>
+<li>
+<p><em>Spectra Analysis Tools widget</em><br />
+Inspetion and analysis tools by adding the <a href="https://napari.org/stable/plugins/building_a_plugin/guides.html#widgets">widget contribution</a>. One can view metadata, inspect individual spectra, create images based on the AUC of the PSD, and use a labels layer to calculate average Brillouin spectra and statistics for annotated or segmented regions.</p>
+</li>
+</ul>
+<p>Example Screenshot of the Spectra Analysis Tools widget displaying the metadata of the opened drosophila_LSBM sample data:</p>
+<img width="800" height="470" alt="brillouin-imaging-napari-screenshot" src="images/brillouin-imaging-napari-screenshot.png" />
 <h2>How to install it</h2>
 <p><em>brillouin-imaging</em> can be installed from the napari plugin manager, as any standard napari plugin. More info can be found <a href="https://napari.org/stable/plugins/start_using_plugins/finding_and_installing_plugins.html">here</a>.</p>
 
@@ -231,7 +247,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -241,7 +257,7 @@
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-11-24</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-18</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -338,7 +354,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">brimfile</li><li class="MetadataList_textItem__KKmMN">brimfile[remote-store]</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">brimfile[remote-store]<2.0.0,>=1.5.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
