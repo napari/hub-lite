@@ -7,17 +7,17 @@
     <link href="../plugins/napari-myelin-quantifier.html" rel="canonical" />
     <meta content="width=device-width,initial-scale=1" name="viewport" />
     <meta
-        content="napari-myelin-quantifier, Napari User, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
+        content="napari-myelin-quantifier, Wulin Teo, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
     <meta content="Myelinated Axon Quantification with Label Tracking" name="description" />
     <meta content="Myelinated Axon Quantification with Label Tracking" property="og:description" />
     <meta content="Myelinated Axon Quantification with Label Tracking." name="twitter:description" />
-    <meta content="Myelin Quantifier - napari Plugin - Napari User" property="og:title" />
-    <meta content="Myelin Quantifier - napari Plugin - Napari User" name="twitter:title" />
+    <meta content="Myelin Quantifier - napari Plugin - Wulin Teo" property="og:title" />
+    <meta content="Myelin Quantifier - napari Plugin - Wulin Teo" name="twitter:title" />
     <meta content="article" property="og:type" />
     <meta content="../plugins/napari-myelin-quantifier.html" property="og:url" />
     <meta content="@napari_imaging" name="twitter:site" />
-    <title>Myelin Quantifier - napari Plugin - Napari User</title>
+    <title>Myelin Quantifier - napari Plugin - Wulin Teo</title>
 
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.1.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-02-20</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-26</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
                                         <span class="text-[11px] screen-495:text-[14px]
-                                          font-semibold">Napari User</span>
+                                          font-semibold">Wulin Teo</span>
                                     </li>
                             </ul>
                             <div class="screen-1425:hidden mt-sds-xl mb-sds-xxl"><a
@@ -240,12 +240,29 @@
 </pre></div>
 </code></pre>
 <h2>Input Requirements</h2>
-<p>The plugin requires a binary mask layer:</p>
+<p>The plugin accepts either:</p>
 <ul>
-<li>Myelin = foreground (1 / True)</li>
+<li>A 2D binary mask layer</li>
+</ul>
+<p>Expected mask semantics:</p>
+<ul>
+<li>Myelin = foreground (non-zero / True)</li>
 <li>Background = 0 / False</li>
 <li>Recommended: clean segmentation without holes or broken rings</li>
 </ul>
+<p>If your mask is stored as RGB/RGBA or grayscale, use the optional Quick Mask Prep
+section in the quantify panel to convert it into a binary mask first.</p>
+<h2>Quick Mask Prep (Optional)</h2>
+<p>This helper is intended for users who already have a segmented mask, but the
+file is stored as RGB/RGBA or grayscale instead of a clean binary mask.</p>
+<p>Available quick actions:</p>
+<ul>
+<li><code>1-Channel</code> → create a single-channel image layer</li>
+<li><code>Invert</code> → create an inverted single-channel image layer</li>
+<li><code>Binary (Otsu)</code> → convert the selected layer into a binary Labels layer</li>
+</ul>
+<p>The prepared binary layer is automatically selected in the quantifier <code>mask layer</code>
+field so you can run quantification immediately.</p>
 <p>Example Binary Mask</p>
 <p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/1_mask.PNG" alt="Binary Mask" /></p>
 <p><em>Image courtesy of Bo Hu Lab, Houston Methodist Research Institute.</em></p>
@@ -315,16 +332,19 @@
 <h2>Typical Workflow</h2>
 <ol>
 <li>
-<p>Load binary mask into napari.</p>
+<p>Load your mask into napari.</p>
+</li>
+<li>
+<p>If needed, use <code>Quick Mask Prep</code> to convert RGB/RGBA or grayscale mask images into a binary mask.</p>
 </li>
 <li>
 <p>Open:</p>
 </li>
 </ol>
 <ul>
-<li>Plugins → Myelin Quantifier</li>
+<li>Plugins → Myelin Rings: Quantify</li>
 </ul>
-<ol start="3">
+<ol start="4">
 <li>Adjust filtering parameters:</li>
 </ol>
 <ul>
@@ -338,9 +358,12 @@
 <p>Exclude border objects (recommended)</p>
 </li>
 </ul>
-<ol start="4">
+<ol start="5">
 <li>
 <p>Run quantification.</p>
+</li>
+<li>
+<p>Optional: open Plugins → Myelin Rings: Locate by ID to jump to a specific <code>ring_id</code>.</p>
 </li>
 <li>
 <p>Export CSV.</p>
@@ -373,7 +396,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.1.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -383,7 +406,7 @@
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-02-20</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-26</li>
                                                 </ul>
                                             </div>
                                         </div>
