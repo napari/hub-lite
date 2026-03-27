@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-02-24</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-27</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">npe2</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine>=0.1.4</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">cellpose==2.1.0</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">aicsimageio</li><li class="MetadataList_textItem__KKmMN">scipy>=1.11.0</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">npe2</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine>=0.1.4</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">zarr>=3.0.8</li><li class="MetadataList_textItem__KKmMN">cellpose<4</li><li class="MetadataList_textItem__KKmMN">tqdm>=4.0</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">bioio</li><li class="MetadataList_textItem__KKmMN">scipy>=1.11.0</li><li class="MetadataList_textItem__KKmMN">ome-zarr>=0.12.0</li><li class="MetadataList_textItem__KKmMN">napari-ome-zarr</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "all"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "all"</li><li class="MetadataList_textItem__KKmMN">pre-commit; extra == "all"</li><li class="MetadataList_textItem__KKmMN">bioio-tifffile; extra == "all"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +228,7 @@ Load a zarr-file consisting of Image, Label and Tracks layer. -->
 </pre></div>
 </code></pre>
 <p>By default, CPU is used for segmentation computing. We did our best to optimize the CPU computing time, but still recommend GPU computing for better performance. For more detailed instructions on how to install GPU support look <a href="https://github.com/MouseLand/cellpose#gpu-version-cuda-on-windows-or-linux">here</a>.</p>
-<!-- 
+<!--
 
 To install latest development version :
 
@@ -244,13 +244,16 @@ To install latest development version :
 <p>The &quot;save as&quot; button can be used to save the existing layers (raw, segmentation, tracks) in a single .zarr file, which can be loaded again later using the &quot;load&quot; button. The &quot;save&quot; button overwrites the loaded .zarr file.</p>
 <p>The computation mode is used to set how many of the available CPU cores (40% or 80%) are to be used for computing the CPU segmentation and tracking and therefore has a direct impact on performance.</p>
 <h3>Segmentation</h3>
-<p>For segmentation, we use the state of the art instance segmentation method Cellpose. We provide a model that we trained and has proven successful for our application (<a href="https://doi.org/10.1038/s41467-023-43765-3">see more information</a>).</p>
+<p>For segmentation, we use the state of the art instance segmentation method Cellpose. We provide a model that we trained and has proven successful for our application (<a href="https://doi.org/10.1038/s41467-023-43765-3">see more information</a>). Note: Due to computational constraints, we do not employ Cellpose-SAM here.</p>
 <h4>Automatic instance segmentation</h4>
 <p>To start automatic segmentation, a model must first be selected. Automatic segmentation can then be started via &quot;Run Segmentation&quot;. The &quot;Preview&quot; option offers the possibility of segmenting the first 5 frames first in order to obtain an estimate of the expected results, as the computation - depending on the data and hardware - can be time-consuming.</p>
-<h5>Custom models</h5>
+<h5>Add custom models</h5>
 <p>The plugin supports adding custom Cellpose models. To do so, simply click on &quot;Add custom Cellpose model&quot;, enter a name to be displayed, select the model path and pass the required parameters. Click <a href="https://cellpose.readthedocs.io/en/latest/api.html#id0">here</a> for more information about the parameters.</p>
-<p>To train your own Cellpose model, <a href="https://cellpose.readthedocs.io/en/latest/train.html">this</a> might be helpful.
-In future versions, we plan to support fine-tuning of Cellpose models within the plugin.</p>
+<p>To train your own Cellpose model, <a href="https://cellpose.readthedocs.io/en/latest/train.html">this</a> might be helpful.</p>
+<h5>Train new models</h5>
+<p>The plugin also allows users to train new Cellpose models. For this, expand “Train new Cellpose model”, select the frames to use for training, provide a model name, and click “Train model.” Once training finishes successfully, a popup prompts the user to choose the path where the model should be saved.</p>
+<p>By default, training runs for 200 epochs. If the “Longer Training” option is enabled, the number of training epochs is increased to 1000.</p>
+<p>Models trained within the plugin remain available after restarting it. If the plugin is reinstalled or the model needs to be used on another computer, it can simply be re-added as a custom model.</p>
 <h4>Manual curation</h4>
 <p>We provide different options to correct the automatic segmentation:</p>
 <ul>
@@ -306,11 +309,14 @@ In our experience, coordinate-based tracking has proven itself in cases with rel
 <ul>
 <li>Feedback (progress bar) for computationally intensive functions</li>
 <li>Support of lineages</li>
-<li>Support training custom Cellpose models within the plugin</li>
+<li><s>Support training custom Cellpose models within the plugin</s></li>
 <li>Model optimization to further optimize segmentation computation</li>
 <li>Support evaluation of external segmentations</li>
 <li>Improve robustness of Mac computing</li>
-<li>...</li>
+<li>Batch processing</li>
+<li>Add support for OME-Zarr</li>
+<li>Add support for multiscale data</li>
+<li>Add single-cell tracking view (<em>action cam</em>)</li>
 </ul>
 <p>If you have a feature request, please <a href="https://github.com/MMV-Lab/mmv_h4tracks/issues">file an issue</a>.</p>
 <h2>Resources</h2>
@@ -342,7 +348,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -352,7 +358,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-02-24</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-27</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -430,7 +436,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -449,7 +455,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">npe2</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine>=0.1.4</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">cellpose==2.1.0</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">aicsimageio</li><li class="MetadataList_textItem__KKmMN">scipy>=1.11.0</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">npe2</li><li class="MetadataList_textItem__KKmMN">napari-plugin-engine>=0.1.4</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">zarr>=3.0.8</li><li class="MetadataList_textItem__KKmMN">cellpose<4</li><li class="MetadataList_textItem__KKmMN">tqdm>=4.0</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">bioio</li><li class="MetadataList_textItem__KKmMN">scipy>=1.11.0</li><li class="MetadataList_textItem__KKmMN">ome-zarr>=0.12.0</li><li class="MetadataList_textItem__KKmMN">napari-ome-zarr</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "all"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "all"</li><li class="MetadataList_textItem__KKmMN">pre-commit; extra == "all"</li><li class="MetadataList_textItem__KKmMN">bioio-tifffile; extra == "all"</li></ul>
                                             </div>
                                         </div>
                                     </div>
