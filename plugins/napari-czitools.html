@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.9</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.10</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-12</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-29</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">czitools>=0.14.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-timeout; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-forked; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">czitools>=0.15.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-timeout; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-forked; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -303,17 +303,17 @@ https://napari.org/stable/plugins/index.html
 <ol>
 <li>Select the CZI file to read its metadata</li>
 <li>Once the metadata are read the display can be toggled between a <strong>table</strong> and a <strong>tree view</strong></li>
-<li>The metadata will update the dimension double-range sliders and enable reading the pixel data</li>
+<li>The metadata will update the dimension range sliders (powered by <a href="https://pyapp-kit.github.io/superqt/">superqt</a>'s <code>QLabeledRangeSlider</code>) and enable reading the pixel data</li>
 </ol>
 <img src="https://github.com/sebi06/napari-czitools/raw/main/readme_images/reader_adv1.png" alt="Advanced CZI Reader - Plugin" style="width:30%; height:auto;">
 <ol>
 <li>Metadata will be shown as a <strong>table</strong> or as a <strong>tree view</strong></li>
 <li>The <strong>Load Pixel Data</strong> button will be enabled once the metadata is read</li>
-<li>The <strong>Dimension Sliders</strong> will be enabled and allow to select an range to be read for all available dimensions</li>
+<li>The <strong>Dimension Sliders</strong> (using <a href="https://pyapp-kit.github.io/superqt/">superqt</a>'s dual-handle range slider) will be enabled and allow to select a range to be read for all available dimensions. Both handles can be set to the same value for single-slice selection (e.g. 3-3)</li>
 </ol>
 <img src="https://github.com/sebi06/napari-czitools/raw/main/readme_images/reader_adv2.png" alt="Advanced CZI Reader - Plugin" style="width:80%; height:auto;">
 <ul>
-<li>The dimensions slider allow to define size of CZI subset to be read</li>
+<li>The dimension range sliders (from <a href="https://pyapp-kit.github.io/superqt/">superqt</a>) allow to define the size of a CZI subset to be read</li>
 <li>This allows to read parts of a CZI image dataset</li>
 <li>Important - when reading a subset the metadata will still reflects the size of the complete CZI</li>
 </ul>
@@ -381,6 +381,14 @@ labels.</li>
 <li>URL metadata tests can be affected by transient remote read failures (for
 example GitHub/network hiccups). The test suite retries and skips these
 network-dependent checks if remote headers cannot be read reliably.</li>
+<li>The custom dual-handle <code>DoubleRangeSlider</code> has been replaced with wrappers
+around <a href="https://pyapp-kit.github.io/superqt/">superqt</a>'s <code>QLabeledRangeSlider</code> and <code>QRangeSlider</code>, reducing
+custom painting/mouse handling code and using a well-tested community
+component. The public slider API (<code>low()</code>, <code>high()</code>, <code>setLow()</code>,
+<code>setHigh()</code>, single-value mode) is unchanged.</li>
+<li>A small internal patch (<code>_allow_handle_overlap</code>) is applied to every
+superqt range slider so that both handles can sit on the same value,
+enabling single-frame extraction (e.g. T=4-4 to read one timepoint).</li>
 </ul>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
@@ -406,7 +414,7 @@ network-dependent checks if remote headers cannot be read reliably.</li>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.9</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.10</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -416,7 +424,7 @@ network-dependent checks if remote headers cannot be read reliably.</li>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-12</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-29</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -513,7 +521,7 @@ network-dependent checks if remote headers cannot be read reliably.</li>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">czitools>=0.14.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-timeout; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-forked; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">superqt</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">pyqtgraph</li><li class="MetadataList_textItem__KKmMN">czitools>=0.15.0</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-timeout; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-forked; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
