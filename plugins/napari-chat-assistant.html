@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.2.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.2.5</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-27</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-29</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -235,10 +235,11 @@
 <li>clear unpinned recent and built-in prompts while keeping saved and pinned items</li>
 <li>keep bounded session memory from approved prior turns</li>
 <li>reject the last assistant outcome from session memory with a thumbs-down control</li>
+<li>optionally open ND2 conversion, spectral viewer, and spectral analysis widgets from <code>napari-nd2-spectral-ome-zarr</code></li>
 </ul>
 <p>The current default model is:</p>
 <ul>
-<li><code>qwen3.5</code></li>
+<li><code>nemotron-cascade-2:30b</code></li>
 </ul>
 <h2>Why This Plugin</h2>
 <p>Most chat interfaces are detached from the actual napari session. This plugin keeps the assistant inside the viewer and grounds its responses in:</p>
@@ -305,6 +306,19 @@
 <li>executed from the plugin after user review</li>
 </ul>
 <p>This is useful when you want a reusable script, need to adjust code manually, or prefer explicit code over hidden automation.</p>
+<h3>Optional ND2 and spectral integration</h3>
+<p>If <code>napari-nd2-spectral-ome-zarr</code> is installed, the assistant can open:</p>
+<ul>
+<li>the ND2-to-OME-Zarr export widget</li>
+<li>the Spectral Viewer widget</li>
+<li>the Spectral Analysis widget</li>
+</ul>
+<p>This lets chat act as an entry point for Nikon ND2 conversion and spectral workflows without rebuilding those UIs inside this plugin.</p>
+<p>Install links:</p>
+<ul>
+<li>GitHub: <code>https://github.com/wulinteousa2-hash/napari-nd2-spectral-ome-zarr</code></li>
+<li>napari Hub: <code>https://napari-hub.org/plugins/napari-nd2-spectral-ome-zarr.html</code></li>
+</ul>
 <h3>Selective Session Memory</h3>
 <p>The assistant now includes bounded session memory with three states:</p>
 <ul>
@@ -350,7 +364,7 @@
 <li>Python 3.9+</li>
 <li>napari</li>
 <li>Ollama installed locally</li>
-<li>a local Ollama model such as <code>qwen3.5</code></li>
+<li>a local Ollama model such as <code>nemotron-cascade-2:30b</code></li>
 </ul>
 <p>Tested during development on an NVIDIA DGX Spark workstation.</p>
 <p>The plugin does not bundle the Ollama server or model weights.</p>
@@ -361,12 +375,12 @@
 </pre></div>
 </code></pre>
 <p>Pull a model before using the plugin:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>qwen3.5
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>nemotron-cascade-2:30b
 </pre></div>
 </code></pre>
 <p>Optional alternatives:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>qwen3-coder-next:latest
-ollama<span class="w"> </span>pull<span class="w"> </span>qwen3.5:35b
+ollama<span class="w"> </span>pull<span class="w"> </span>qwen3.5
 ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:7b
 </pre></div>
 </code></pre>
@@ -504,17 +518,17 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <h2>Recommended Models</h2>
 <p>Good starting choices:</p>
 <ul>
-<li><code>qwen3.5</code></li>
+<li><code>nemotron-cascade-2:30b</code></li>
 <li><code>qwen3-coder-next:latest</code></li>
+<li><code>qwen3.5</code></li>
 <li><code>qwen2.5:7b</code></li>
-<li><code>qwen3.5:35b</code></li>
 </ul>
 <p>Selection guidance:</p>
 <ul>
-<li><code>qwen3.5</code> is the current default and a good general model for this workflow. The local install you tested is about 9.7B parameters.</li>
+<li><code>nemotron-cascade-2:30b</code> is the current default and a strong general model for this workflow.</li>
 <li><code>qwen3-coder-next:latest</code> is a better candidate for Python and napari code generation, but it is significantly heavier.</li>
+<li><code>qwen3.5</code> remains a useful alternative general model.</li>
 <li><code>qwen2.5:7b</code> is lighter and may fit smaller-memory systems more easily.</li>
-<li><code>qwen3.5:35b</code> is a larger general model that needs substantially more memory than <code>qwen3.5</code>.</li>
 </ul>
 <p>Memory note:</p>
 <ul>
@@ -564,7 +578,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>type the tag into the plugin <code>Model</code> field if needed</li>
 <li>pull it in a terminal, for example:</li>
 </ul>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>qwen3.5
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>nemotron-cascade-2:30b
 </pre></div>
 </code></pre>
 <p>Then use <code>Test Connection</code> to refresh the plugin state.</p>
@@ -575,6 +589,22 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li><code>~/.napari-chat-assistant/crash.log</code></li>
 </ul>
 <p>Use these together with the terminal traceback when diagnosing crashes or unclear UI failures.</p>
+<h3>Local model telemetry</h3>
+<p>The plugin also writes lightweight local telemetry to:</p>
+<ul>
+<li><code>~/.napari-chat-assistant/model_telemetry.jsonl</code></li>
+</ul>
+<p>This records real usage events such as:</p>
+<ul>
+<li>request start and completion</li>
+<li>selected model and prompt hash</li>
+<li>total latency</li>
+<li>response type (<code>reply</code>, <code>tool</code>, <code>code</code>, or <code>error</code>)</li>
+<li>reject feedback from <code>👎 Reject</code></li>
+<li>approved code execution success or failure</li>
+</ul>
+<p>The goal is passive model tracking during actual work rather than separate benchmarking runs.</p>
+<p>Generated code is also preflight-validated before execution for common dtype mistakes, unsupported napari imports, and unavailable <code>viewer.*</code> APIs. When validation blocks execution, the code remains visible and copyable for review or regeneration.</p>
 <h2>Development</h2>
 <p>Editable install:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
@@ -601,7 +631,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.2.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.2.5</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -611,7 +641,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-27</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-29</li>
                                                 </ul>
                                             </div>
                                         </div>
