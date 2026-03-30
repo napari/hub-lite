@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.2.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-22</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-30</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Open extension<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -356,33 +356,98 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <h3>Important ROI logic</h3>
 <p>ROI layers are now handled per image, not globally.</p>
 <ul>
-<li>Each active spectral image gets its own Shapes layer named like <code>image_name ROI</code></li>
-<li>ROI labels are displayed through a separate companion label layer</li>
+<li>Each spectral image gets its own Shapes layer named like <code>image_name ROI</code></li>
 <li>ROI numbering resets per image, so image 1 can have <code>ROI 1..N</code> and image 2 can also have <code>ROI 1..N</code></li>
 <li>ROIs from image 1 are not reused automatically for image 2</li>
+<li>ROI helper visibility follows the active image context, so unrelated ROI overlays are hidden while working on one image</li>
+<li>ROI layers are kept adjacent to their source spectral image in the napari layer list</li>
+<li>ROI annotation text is drawn on the Shapes layer itself, without creating a separate visible annotation layer row</li>
 </ul>
+<h3>Spectral Viewer sections</h3>
+<p>The viewer is organized into 3 sections:</p>
+<ul>
+<li><code>ROI Spectrum</code></li>
+<li><code>ROI Comparison</code></li>
+<li><code>Pseudocolor</code></li>
+</ul>
+<p>This keeps ROI editing, cross-image comparison, and pseudocolor generation separated.</p>
 <h3>Recommended step-by-step use</h3>
 <ol>
 <li>Select a spectral image layer.</li>
-<li>Click <code>Prepare ROI Layer</code>.</li>
+<li>Click <code>Prepare ROI Layers</code>.</li>
+<li>Use <code>ROI image</code> and <code>Activate ROI Layer</code> if you need to jump directly to a specific image's ROI layer.</li>
 <li>Draw ROIs for that image only.</li>
-<li>Click <code>Plot ROI Spectrum</code>.</li>
-<li>The plugin stores that image's ROI spectra in memory as a dataset.</li>
+<li><code>ROI Spectrum</code> updates for the active image and the plugin stores that image's ROI spectra in memory as a dataset.</li>
 <li>Move to the next image.</li>
-<li>Click <code>Prepare ROI Layer</code> again for that image.</li>
+<li>Activate that image's ROI layer.</li>
 <li>Draw a fresh set of ROIs starting from <code>ROI 1</code>.</li>
 </ol>
 <p>If you want to redraw for the current image, click <code>Clear Active ROI</code>. That clears only the active image's ROI shapes and restarts numbering from <code>ROI 1</code>.</p>
+<h3>Reactive ROI plotting</h3>
+<p>The active ROI plot now responds immediately when these controls change:</p>
+<ul>
+<li><code>Normalized</code> / <code>Absolute</code></li>
+<li><code>Plot individual ROIs</code></li>
+<li><code>Plot pooled ROI mean</code></li>
+<li><code>Include background label 0</code></li>
+<li>legend display options</li>
+</ul>
+<p><code>Plot individual ROIs</code> is on by default.</p>
+<p><code>Plot pooled ROI mean</code> is off by default and can be enabled only when needed.</p>
+<h3>ROI comparison across images</h3>
+<p><code>ROI Comparison</code> is intended for cross-image plotting after ROI datasets have been stored.</p>
+<ul>
+<li>Use <code>Refresh All ROI Datasets</code> to update stored datasets from all open spectral images</li>
+<li>The comparison table lists ROI traces and pooled traces from all stored datasets</li>
+<li>Use <code>Plot Selected Across Images</code> to display selected traces from multiple source images on the same axes</li>
+</ul>
+<p><code>Normalized</code> / <code>Absolute</code> now affects both the active ROI plot and the across-images comparison plot. Raw spectra are stored in memory and normalization is applied only at display time.</p>
 <h3>Stored ROI datasets</h3>
 <p>When <code>Plot ROI Spectrum</code> is used, the selected ROI spectra are stored in memory for the current napari session.</p>
 <ul>
 <li>Stored datasets remain available even if the image layer is later closed</li>
 <li>Stored datasets can be exported from <code>Spectral Viewer</code></li>
 <li>Stored datasets are consumed by the <code>Spectral Analysis</code> panel</li>
-<li>Stored datasets do not persist across a full napari restart unless they are exported</li>
+<li>Stored datasets do not persist across a full napari restart unless they are exported or saved in a session package</li>
 </ul>
+<h3>Session package save/load</h3>
+<p><code>Spectral Viewer</code> now supports full session packaging with:</p>
+<ul>
+<li><code>Save Session Package</code></li>
+<li><code>Load Session Package</code></li>
+</ul>
+<p>A session package is saved as a folder containing:</p>
+<ul>
+<li><code>manifest.json</code></li>
+<li><code>roi_shapes/*.json</code></li>
+<li><code>roi_datasets/*.json</code></li>
+<li><code>truecolor/*.tif</code></li>
+</ul>
+<p>The package preserves the linkage between each source image and its ROI shapes by storing:</p>
+<ul>
+<li><code>source_layer_name</code></li>
+<li><code>source_path</code></li>
+<li>saved ROI geometry</li>
+<li>stored ROI spectral datasets</li>
+<li>derived truecolor outputs</li>
+</ul>
+<h3>Session package limitations</h3>
+<p>Session packages save enough information to restore ROI geometry, stored ROI datasets, and derived truecolor outputs.</p>
+<p>However, full spectral-layer restoration still depends on access to the original ND2 or OME-Zarr source paths recorded in the manifest.</p>
+<p>Saved truecolor TIFF files are included as derived outputs, but they do not replace the original spectral source data.</p>
 <h2>Spectral Analysis Workflow</h2>
 <p><code>Spectral Analysis</code> is intended for multi-image and multi-animal experiments.</p>
+<p>The widget now reads from the same shared ROI dataset store used by <code>Spectral Viewer</code>, and its stored-dataset table refreshes automatically when ROI datasets are added, updated, or removed.</p>
+<h3>Analysis sections</h3>
+<p><code>Spectral Analysis</code> now includes:</p>
+<ul>
+<li>a stored ROI dataset table</li>
+<li>ROI / Image / Animal summary tables</li>
+<li>a <code>Stats</code> section for statistical checks and comparisons</li>
+<li>a larger report-style statistics view</li>
+<li>an analysis plot canvas</li>
+</ul>
+<p>The report view is designed to behave more like a statistics console than a single one-line result field.</p>
 <h3>Metadata editing</h3>
 <p>The <code>Stored ROI Datasets</code> table lets you annotate each captured dataset with:</p>
 <ul>
@@ -425,9 +490,86 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li>user-defined split wavelength</li>
 <li>ratio modes such as above/below split intensity ratio</li>
 <li>optional normalization before ratio calculation</li>
-<li>two-group comparison such as WT vs mutant or control vs treatment</li>
+<li>two-group comparison using a selected factor with exactly two groups</li>
 <li>one-way ANOVA by selected factor</li>
 <li>blind PCA and clustering for unlabeled datasets</li>
+</ul>
+<h3>Stats workflow</h3>
+<p>The <code>Stats</code> section is intended to support a more standard statistics workflow:</p>
+<ol>
+<li>Review descriptive statistics.</li>
+<li>Check normality and homogeneity of variance.</li>
+<li>Decide whether parametric interpretation is appropriate.</li>
+<li>Run the relevant comparison or correlation workflow.</li>
+</ol>
+<p>Current <code>Stats</code> tools include:</p>
+<ul>
+<li><code>Descriptive Statistics</code></li>
+<li><code>Normality &amp; Equality of Variance</code></li>
+<li><code>Two-Group Welch t-test</code></li>
+<li><code>Correlation Coefficient</code></li>
+</ul>
+<h3>Descriptive statistics</h3>
+<p>The descriptive workflow reports grouped summary statistics using the selected <code>Stats factor</code>.</p>
+<p>Reported values include:</p>
+<ul>
+<li><code>n</code></li>
+<li>mean</li>
+<li>standard deviation</li>
+<li>SEM</li>
+<li>median</li>
+<li>IQR</li>
+<li>confidence interval</li>
+</ul>
+<p>The confidence interval percentage can be changed in the UI.</p>
+<h3>Normality and equal-variance checks</h3>
+<p>The assumption-check workflow currently includes:</p>
+<ul>
+<li>Shapiro-Wilk normality testing per group when sample size is sufficient</li>
+<li>Bartlett test for equal variances</li>
+<li>Levene test for equal variances</li>
+</ul>
+<p>The report concludes whether:</p>
+<ul>
+<li>groups are approximately normal</li>
+<li>variances appear equal</li>
+<li>parametric tests are appropriate or should be treated with caution</li>
+</ul>
+<p>The significance threshold is user-editable in the UI.</p>
+<h3>Two-group testing</h3>
+<p>The two-group workflow uses a selectable factor:</p>
+<ul>
+<li><code>group_label</code></li>
+<li><code>genotype</code></li>
+<li><code>sex</code></li>
+<li><code>age</code></li>
+<li><code>region</code></li>
+<li><code>batch</code></li>
+</ul>
+<p>The Welch t-test runs only when the selected factor contains exactly two non-empty groups with at least two values each.</p>
+<p>This means users are not restricted to hardcoded labels such as <code>WT</code> and <code>HNPP</code>.</p>
+<h3>Correlation</h3>
+<p>The correlation workflow lets the user choose numeric <code>x</code> and <code>y</code> fields from the current analysis level.</p>
+<p>It reports:</p>
+<ul>
+<li>Pearson correlation</li>
+<li>Spearman correlation</li>
+</ul>
+<p>and displays a scatter plot with a linear fit.</p>
+<h3>Statistical interpretation note</h3>
+<p>The plugin currently mixes assumption checks with permutation-based inference:</p>
+<ul>
+<li>descriptive and assumption checks are presented in a conventional statistical workflow</li>
+<li>Welch t-test and ANOVA use standard test statistics</li>
+<li>significance is estimated by permutation rather than classical closed-form p-values</li>
+</ul>
+<p>So the reported <code>t</code> and <code>F</code> values are standard-style statistics, but the reported p-values are permutation p-values.</p>
+<h3>Stats report export</h3>
+<p>The report view can be exported with <code>Export Stats Report</code>.</p>
+<p>Supported output formats:</p>
+<ul>
+<li>plain text</li>
+<li>CSV</li>
 </ul>
 <h3>Recommended experiment flow</h3>
 <ol>
@@ -476,7 +618,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.2.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -486,7 +628,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-22</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-30</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -540,7 +682,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Open
                                                     extension<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
