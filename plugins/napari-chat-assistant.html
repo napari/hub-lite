@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.2.5</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.2.6</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-29</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-30</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -453,7 +453,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>model picker with discovered local models</li>
 <li>test connection</li>
 <li>use selected model</li>
-<li>model help with model-tag examples, memory guidance, and terminal pull instructions</li>
+<li><code>Ollama Setup</code> help with install, <code>ollama serve</code>, and model pull examples</li>
 <li>unload model</li>
 </ul>
 <h3>Prompt Library</h3>
@@ -469,6 +469,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>Shift/Ctrl multi-select for batch actions</li>
 <li><code>Delete Selected</code> works on built-in, recent, and saved prompts</li>
 <li><code>Clear Non-Saved</code> keeps saved and pinned items and clears unpinned recent and built-in items</li>
+<li><code>A-</code> and <code>A+</code> adjust prompt-library font size in small steps</li>
 </ul>
 <h3>Chat</h3>
 <ul>
@@ -479,15 +480,15 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 </ul>
 <h3>Code Actions</h3>
 <ul>
-<li><code>Thumbs Down Last Answer</code></li>
-<li><code>Run Pending Code</code></li>
-<li><code>Copy Pending Code</code></li>
-<li><code>Discard Pending Code</code></li>
+<li><code>Reject</code></li>
+<li><code>Run Code</code></li>
+<li><code>Copy Code</code></li>
+<li><code>Help</code></li>
 </ul>
 <h3>Current Context</h3>
 <ul>
 <li>current layer summary from the active napari viewer</li>
-<li>per-layer semantic profile summaries</li>
+<li>shortened layer names and a compact per-layer summary to avoid over-stretching the left column</li>
 </ul>
 <h3>Action Log</h3>
 <ul>
@@ -495,6 +496,8 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>model connection messages</li>
 <li>tool execution messages</li>
 <li>code execution and copy actions</li>
+<li>color-highlighted path entries for assistant log, crash log, telemetry log, prompt library, and session memory</li>
+<li><code>Performance Summary</code>, <code>Telemetry Log</code>, and <code>Reset Log</code></li>
 </ul>
 <h2>How It Works</h2>
 <p>The assistant is designed to operate within constrained napari workflows rather than as a general-purpose chatbot.</p>
@@ -604,6 +607,13 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>approved code execution success or failure</li>
 </ul>
 <p>The goal is passive model tracking during actual work rather than separate benchmarking runs.</p>
+<p>For advanced users, the Action Log includes:</p>
+<ul>
+<li><code>Performance Summary</code> to generate a quick in-app summary of recent model speed and behavior</li>
+<li><code>Telemetry Log</code> to inspect the latest raw JSONL records together with the summary</li>
+<li><code>Reset Log</code> to clear the local telemetry file and start fresh from the next request</li>
+</ul>
+<p>This keeps the append-only log intact while making it easier to review without leaving napari.</p>
 <p>Generated code is also preflight-validated before execution for common dtype mistakes, unsupported napari imports, and unavailable <code>viewer.*</code> APIs. When validation blocks execution, the code remains visible and copyable for review or regeneration.</p>
 <h2>Development</h2>
 <p>Editable install:</p>
@@ -631,7 +641,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.2.5</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.2.6</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -641,7 +651,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-29</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-30</li>
                                                 </ul>
                                             </div>
                                         </div>
