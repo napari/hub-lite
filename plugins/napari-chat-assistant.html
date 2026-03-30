@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.2.6</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -230,6 +230,7 @@
 <li>automate batch actions across multiple layers</li>
 <li>generate napari Python code when no built-in tool fits</li>
 <li>copy or run generated code from the assistant UI</li>
+<li>paste and run your own Python directly from the Prompt box with <code>Run My Code</code>, without opening QtConsole</li>
 <li>save, pin, and reuse prompts through a local Prompt Library</li>
 <li>delete selected built-in, recent, or saved prompts from the Prompt Library</li>
 <li>clear unpinned recent and built-in prompts while keeping saved and pinned items</li>
@@ -305,7 +306,8 @@
 <li>copied to the clipboard</li>
 <li>executed from the plugin after user review</li>
 </ul>
-<p>This is useful when you want a reusable script, need to adjust code manually, or prefer explicit code over hidden automation.</p>
+<p>You can also paste your own Python directly into the Prompt box and run it from the plugin with <code>Run My Code</code>, without switching to QtConsole.</p>
+<p>This is useful when you want a reusable script, need to adjust code manually, test a small viewer-bound snippet quickly, or prefer explicit code over hidden automation.</p>
 <h3>Optional ND2 and spectral integration</h3>
 <p>If <code>napari-nd2-spectral-ome-zarr</code> is installed, the assistant can open:</p>
 <ul>
@@ -403,6 +405,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>Click <code>Test Connection</code>.</li>
 <li>Start chatting, or use the Prompt Library for repeatable tasks.</li>
 </ol>
+<p>If you already have Python code you want to try, paste it into the Prompt box and click <code>Run My Code</code>. This runs viewer-bound code directly inside napari without opening QtConsole.</p>
 <p>The assistant works best when prompts describe a concrete action.</p>
 <p>Examples:</p>
 <p>Layer inspection:</p>
@@ -482,9 +485,12 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <ul>
 <li><code>Reject</code></li>
 <li><code>Run Code</code></li>
+<li><code>Run My Code</code></li>
 <li><code>Copy Code</code></li>
 <li><code>Help</code></li>
 </ul>
+<p><code>Run Code</code> is for assistant-generated code that has been staged in the chat.</p>
+<p><code>Run My Code</code> is for your own pasted Python from the Prompt box when you want to test or iterate directly inside napari without opening QtConsole.</p>
 <h3>Current Context</h3>
 <ul>
 <li>current layer summary from the active napari viewer</li>
@@ -497,7 +503,8 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>tool execution messages</li>
 <li>code execution and copy actions</li>
 <li>color-highlighted path entries for assistant log, crash log, telemetry log, prompt library, and session memory</li>
-<li><code>Performance Summary</code>, <code>Telemetry Log</code>, and <code>Reset Log</code></li>
+<li><code>Enable Telemetry</code> switch for advanced users</li>
+<li><code>Performance Summary</code>, <code>Telemetry Log</code>, and <code>Reset Log</code> only when telemetry is enabled</li>
 </ul>
 <h2>How It Works</h2>
 <p>The assistant is designed to operate within constrained napari workflows rather than as a general-purpose chatbot.</p>
@@ -558,6 +565,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>trust current viewer context and current layer profiles over any remembered prior turn</li>
 <li>use the Prompt Library for repeated tasks</li>
 <li>use generated code when you want explicit review and control</li>
+<li>use <code>Run My Code</code> when you already have working Python and want to test it directly inside napari</li>
 </ul>
 <p>For demo and education workflows:</p>
 <ul>
@@ -606,6 +614,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>reject feedback from <code>👎 Reject</code></li>
 <li>approved code execution success or failure</li>
 </ul>
+<p>Telemetry is now opt-in from the Action Log through <code>Enable Telemetry</code>.</p>
 <p>The goal is passive model tracking during actual work rather than separate benchmarking runs.</p>
 <p>For advanced users, the Action Log includes:</p>
 <ul>
@@ -641,7 +650,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.2.6</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
