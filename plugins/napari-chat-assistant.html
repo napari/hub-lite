@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.4.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.4.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-03-31</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -219,6 +219,13 @@
 <p><code>napari-chat-assistant</code> adds a dock widget inside napari that understands the active viewer session, runs built-in image-analysis actions, and generates executable napari Python code when a request goes beyond the current toolset.</p>
 <p>It is designed for local interactive work, repeatable workflows, and gradual automation rather than cloud chat or fully opaque “one-click AI”.</p>
 <p>The current direction is a deterministic, layer-aware assistant: the plugin profiles loaded napari layers first, then uses that structured context to guide tool choice and generated code.</p>
+<h2>What's New In 1.4.1</h2>
+<ul>
+<li>added experimental SAM2 integration as an optional advanced workflow</li>
+<li>moved SAM2 access out of the default toolbar and into <code>Advanced</code></li>
+<li>kept the main assistant workflow clean for users who do not use SAM2</li>
+<li>improved dock resizing so the assistant panel behaves better on larger displays</li>
+</ul>
 <h2>Overview</h2>
 <p>Current capabilities include:</p>
 <ul>
@@ -228,6 +235,7 @@
 <li>profile loaded layers with deterministic semantic and workflow-aware metadata</li>
 <li>run built-in, registry-backed image-analysis tools from natural-language requests</li>
 <li>support common microscopy workflows such as enhancement, thresholding, cleanup, measurement, projection, and cropping</li>
+<li>support ROI-aware inspection and grayscale value extraction from <code>Labels</code> and <code>Shapes</code> layers</li>
 <li>automate batch actions across multiple layers when the request applies to all compatible inputs</li>
 <li>generate napari Python code only when no built-in tool is a better fit</li>
 <li>review, copy, validate, and run assistant-generated code from the plugin UI</li>
@@ -239,6 +247,7 @@
 <li>delete selected built-in, recent, saved, or code items from the Library and clear unpinned recent history while keeping saved and pinned items</li>
 <li>keep bounded session memory from approved prior turns</li>
 <li>reject the last assistant outcome from session memory with a thumbs-down control</li>
+<li>optionally configure and run experimental SAM2 segmentation from <code>Advanced</code></li>
 <li>optionally open ND2 conversion, spectral viewer, and spectral analysis widgets from <code>napari-nd2-spectral-ome-zarr</code></li>
 </ul>
 <p>The current default model is:</p>
@@ -287,6 +296,7 @@
 <li>per-object measurement table summaries for labels layers</li>
 <li>max-intensity projection for 3D grayscale images</li>
 <li>cropping one layer to the bounding box of another layer</li>
+<li>ROI inspection and grayscale value extraction from labels or shapes regions</li>
 <li>registry-backed tool execution as the foundation for future workflow and pipeline expansion</li>
 </ul>
 <p>Layer inspection is now backed by a deterministic profile object that includes:</p>
@@ -319,6 +329,8 @@
 <li><code>measure_labels_table</code></li>
 <li><code>project_max_intensity</code></li>
 <li><code>crop_to_layer_bbox</code></li>
+<li><code>inspect_roi_context</code></li>
+<li><code>extract_roi_values</code></li>
 </ul>
 <h3>Code generation workflows</h3>
 <p>When a request is not covered by a built-in tool, the assistant can return napari Python code instead of guessing or forcing the wrong tool.</p>
@@ -343,6 +355,35 @@
 <li>GitHub: <code>https://github.com/wulinteousa2-hash/napari-nd2-spectral-ome-zarr</code></li>
 <li>napari Hub: <code>https://napari-hub.org/plugins/napari-nd2-spectral-ome-zarr.html</code></li>
 </ul>
+<h3>Experimental SAM2 integration</h3>
+<p>Version <code>1.4.1</code> adds an experimental SAM2 path for users who want box-prompt or point-prompt segmentation inside napari without making SAM2 part of the default assistant workflow.</p>
+<p>Behavior:</p>
+<ul>
+<li>SAM2 is accessed from <code>Advanced</code>, not from the main toolbar</li>
+<li><code>SAM2 Setup</code> is always available from <code>Advanced</code></li>
+<li><code>SAM2 Live</code> stays disabled until the backend is configured and passes readiness checks</li>
+<li>the rest of the assistant remains usable even if SAM2 is not configured</li>
+</ul>
+<p>Current setup expects:</p>
+<ul>
+<li>a working Python environment that already includes the dependencies required by your SAM2 wrapper</li>
+<li>an external SAM2 project path</li>
+<li>a wrapper module exposed as <code>sam2_wrapper.py</code> or <code>sam2_wrapper/__init__.py</code></li>
+<li><code>segment_image_from_box(...)</code> for box workflows</li>
+<li><code>segment_image_from_points(...)</code> for point workflows if you want live point prompting</li>
+<li>a valid checkpoint path</li>
+<li>a valid config path</li>
+</ul>
+<p>Typical setup flow:</p>
+<ol>
+<li>Start napari from the environment that contains your SAM2 dependencies.</li>
+<li>Open <code>Plugins -&gt; Chat Assistant</code>.</li>
+<li>Open <code>Advanced -&gt; SAM2 Setup</code>.</li>
+<li>Enter the SAM2 project path, checkpoint path, config path, and device.</li>
+<li>Click <code>Test</code>.</li>
+<li>Save the settings.</li>
+<li>Open <code>Advanced -&gt; SAM2 Live</code> when the backend reports ready.</li>
+</ol>
 <h3>Selective Session Memory</h3>
 <p>The assistant now includes bounded session memory with three states:</p>
 <ul>
@@ -400,6 +441,7 @@
 <p>Optional:</p>
 <ul>
 <li><code>napari-nd2-spectral-ome-zarr</code> for ND2 export, spectral viewer, and spectral analysis integration</li>
+<li>external SAM2 project, weights, and config if you want the experimental SAM2 workflow</li>
 </ul>
 <p>Notes:</p>
 <ul>
@@ -460,6 +502,8 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li><code>Measure labels table for rgb_cells_2d_labels</code></li>
 <li><code>Create a max intensity projection from em_3d_snr_mid along axis 0</code></li>
 <li><code>Crop em_2d_snr_high to the bounding box of em_2d_mask with padding 8</code></li>
+<li><code>Inspect the current ROI</code></li>
+<li><code>Extract ROI values from em_2d_snr_mid using em_2d_mask</code></li>
 </ul>
 <h3>Demo Packs</h3>
 <p>Use the Library <code>Code</code> tab to load built-in demo packs for repeatable testing.</p>
@@ -471,7 +515,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>RGB cells 3D SNR sweep</li>
 <li>messy masks 2D/3D</li>
 </ul>
-<p>These create named layers so you can test built-in tools quickly without hunting for sample data.</p>
+<p>These create named layers so you can test built-in tools quickly without hunting for sample data. Labels layers from the demo packs can also be used as ROIs for ROI inspection and value extraction.</p>
 <p>Example pipeline:</p>
 <ol>
 <li>Run the <code>EM 2D SNR Sweep</code> demo pack.</li>
@@ -524,10 +568,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li><code>Run Code</code></li>
 <li><code>Run My Code</code></li>
 <li><code>Copy Code</code></li>
+<li><code>Advanced</code></li>
 <li><code>Help</code></li>
 </ul>
 <p><code>Run Code</code> is for assistant-generated code that has been staged in the chat.</p>
 <p><code>Run My Code</code> is for your own pasted Python from the Prompt box when you want to test or iterate directly inside napari without opening QtConsole.</p>
+<p><code>Advanced</code> contains optional integrations such as experimental SAM2 setup and live preview.</p>
 <h3>Current Context</h3>
 <ul>
 <li>current layer summary from the active napari viewer</li>
@@ -561,6 +607,48 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>update session memory from explicit user feedback or successful follow-up behavior</li>
 </ol>
 <p>This keeps the assistant more grounded than a plain chat interface and makes common operations more reliable.</p>
+<h2>Design Direction</h2>
+<p>The intended architecture is:</p>
+<ol>
+<li>natural language at the user surface</li>
+<li>registry-backed tools underneath</li>
+<li>explicit scope resolution for full-layer and ROI/subregion workflows</li>
+</ol>
+<p>This means users should be able to ask for operations in normal language, while the plugin resolves those requests into deterministic tool calls with structured parameters.</p>
+<h3>Tool model</h3>
+<p>Registered tools are the common execution model for:</p>
+<ul>
+<li>chat-triggered actions</li>
+<li>reusable UI actions</li>
+<li>future workflow and pipeline steps</li>
+<li>future plugin-contributed extensions</li>
+</ul>
+<p>Each tool is moving toward a shared definition with:</p>
+<ul>
+<li>stable name</li>
+<li>parameter schema</li>
+<li>supported layer types</li>
+<li>prepare/execute/apply lifecycle</li>
+<li>UI metadata</li>
+<li>provenance metadata</li>
+</ul>
+<h3>Scope model</h3>
+<p>For imaging analysis, operations may target:</p>
+<ul>
+<li>the full layer</li>
+<li>a labels mask</li>
+<li>a specific labels object</li>
+<li>a shapes ROI</li>
+<li>a bounding-box crop</li>
+</ul>
+<p>Natural language can express these requests, but the plugin still needs deterministic binding rules underneath.</p>
+<p>The preferred resolution order is:</p>
+<ol>
+<li>explicit user binding such as <code>image_a using roi_shapes</code></li>
+<li>current viewer selection when there is only one clear match</li>
+<li>a short clarification question when multiple bindings are plausible</li>
+</ol>
+<p>Session memory should remain secondary context. Current viewer state and explicit user clarification should remain the primary source of truth.</p>
 <h2>Recommended Models</h2>
 <p>Good starting choices:</p>
 <ul>
@@ -687,7 +775,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.4.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.4.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -697,7 +785,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-03-31</li>
                                                 </ul>
                                             </div>
                                         </div>
