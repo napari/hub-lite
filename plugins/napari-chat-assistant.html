@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.3.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.4.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -224,16 +224,19 @@
 <ul>
 <li>connect to a local Ollama server</li>
 <li>discover and unload local models from the plugin UI</li>
-<li>inspect layers and selected-layer properties</li>
-<li>profile layers with a deterministic Phase 1 dataset profiler</li>
-<li>apply built-in image tools from chat</li>
-<li>automate batch actions across multiple layers</li>
-<li>generate napari Python code when no built-in tool fits</li>
-<li>copy or run generated code from the assistant UI</li>
+<li>inspect the selected layer or named layers with structured layer summaries</li>
+<li>profile loaded layers with deterministic semantic and workflow-aware metadata</li>
+<li>run built-in, registry-backed image-analysis tools from natural-language requests</li>
+<li>support common microscopy workflows such as enhancement, thresholding, cleanup, measurement, projection, and cropping</li>
+<li>automate batch actions across multiple layers when the request applies to all compatible inputs</li>
+<li>generate napari Python code only when no built-in tool is a better fit</li>
+<li>review, copy, validate, and run assistant-generated code from the plugin UI</li>
 <li>paste and run your own Python directly from the Prompt box with <code>Run My Code</code>, without opening QtConsole</li>
-<li>save, pin, and reuse prompts through a local Prompt Library</li>
-<li>delete selected built-in, recent, or saved prompts from the Prompt Library</li>
-<li>clear unpinned recent and built-in prompts while keeping saved and pinned items</li>
+<li>reuse built-in demo packs for EM-style grayscale data, fluorescent RGB cell data, SNR sweeps, and messy mask cleanup tests</li>
+<li>save, pin, tag, rename, and reuse prompts through the local Library</li>
+<li>save, tag, rename, and run reusable code through the Library <code>Code</code> tab</li>
+<li>keep built-in examples alongside recent and saved items in the Library</li>
+<li>delete selected built-in, recent, saved, or code items from the Library and clear unpinned recent history while keeping saved and pinned items</li>
 <li>keep bounded session memory from approved prior turns</li>
 <li>reject the last assistant outcome from session memory with a thumbs-down control</li>
 <li>optionally open ND2 conversion, spectral viewer, and spectral analysis widgets from <code>napari-nd2-spectral-ome-zarr</code></li>
@@ -243,17 +246,18 @@
 <li><code>nemotron-cascade-2:30b</code></li>
 </ul>
 <h2>Why This Plugin</h2>
-<p>Most chat interfaces are detached from the actual napari session. This plugin keeps the assistant inside the viewer and grounds its responses in:</p>
+<p>Most chat interfaces are detached from the actual napari session. This plugin keeps the assistant inside the viewer and grounds its behavior in the live state of the current napari workspace:</p>
 <ul>
 <li>loaded layers</li>
 <li>the selected layer</li>
-<li>shape and dtype</li>
-<li>semantic layer profiling</li>
-<li>labels statistics</li>
-<li>local tool execution</li>
-<li>local Python code generation</li>
+<li>layer shape, dtype, and transforms</li>
+<li>deterministic semantic layer profiling</li>
+<li>labels and mask statistics</li>
+<li>built-in local tool execution</li>
+<li>local Python code generation when needed</li>
 <li>bounded session memory</li>
 </ul>
+<p>The goal is not a generic chatbot inside napari. The goal is a layer-aware assistant that can grow into a practical microscopy workflow workbench.</p>
 <h3>Local-first by design</h3>
 <p>The assistant runs on local open-weight models through Ollama:</p>
 <ul>
@@ -262,7 +266,7 @@
 <li>no cloud services</li>
 <li>no data leaves your workstation</li>
 </ul>
-<p>This makes it suitable for research workflows where the user wants interactive help, repeatable prompts, and local control over data and models.</p>
+<p>This makes it a better fit for research workflows where users want interactive help, repeatable analysis steps, reusable demo and prompt packs, and direct control over both data and models.</p>
 <h2>Current Features</h2>
 <h3>Session-aware tools</h3>
 <p>The assistant currently supports built-in tools for:</p>
@@ -272,12 +276,18 @@
 <li>inspecting a specific named layer</li>
 <li>CLAHE contrast enhancement for grayscale 2D and 3D images</li>
 <li>batch CLAHE across multiple image layers</li>
+<li>Gaussian denoising for grayscale image layers</li>
 <li>threshold preview</li>
 <li>threshold apply</li>
 <li>batch threshold preview and apply</li>
 <li>mask measurement</li>
 <li>batch mask measurement</li>
-<li>mask morphology operations</li>
+<li>mask cleanup operations such as hole filling, small-object removal, and largest-component selection</li>
+<li>connected-component labeling for binary masks</li>
+<li>per-object measurement table summaries for labels layers</li>
+<li>max-intensity projection for 3D grayscale images</li>
+<li>cropping one layer to the bounding box of another layer</li>
+<li>registry-backed tool execution as the foundation for future workflow and pipeline expansion</li>
 </ul>
 <p>Layer inspection is now backed by a deterministic profile object that includes:</p>
 <ul>
@@ -299,15 +309,27 @@
 <li><code>remove_small</code></li>
 <li><code>keep_largest</code></li>
 </ul>
+<p>Additional built-in workflow tools currently exposed through chat include:</p>
+<ul>
+<li><code>gaussian_denoise</code></li>
+<li><code>remove_small_objects</code></li>
+<li><code>fill_mask_holes</code></li>
+<li><code>keep_largest_component</code></li>
+<li><code>label_connected_components</code></li>
+<li><code>measure_labels_table</code></li>
+<li><code>project_max_intensity</code></li>
+<li><code>crop_to_layer_bbox</code></li>
+</ul>
 <h3>Code generation workflows</h3>
-<p>When a request is not covered by a built-in tool, the assistant can return napari Python code instead of guessing.</p>
+<p>When a request is not covered by a built-in tool, the assistant can return napari Python code instead of guessing or forcing the wrong tool.</p>
 <p>Generated code can be:</p>
 <ul>
 <li>copied to the clipboard</li>
-<li>executed from the plugin after user review</li>
+<li>reviewed and executed from the plugin</li>
 </ul>
 <p>You can also paste your own Python directly into the Prompt box and run it from the plugin with <code>Run My Code</code>, without switching to QtConsole.</p>
-<p>This is useful when you want a reusable script, need to adjust code manually, test a small viewer-bound snippet quickly, or prefer explicit code over hidden automation.</p>
+<p>Use assistant-generated code when you want a reusable script or need custom logic beyond the current built-in tools.</p>
+<p>Use <code>Run My Code</code> when you already have Python you want to test quickly inside the current napari session.</p>
 <h3>Optional ND2 and spectral integration</h3>
 <p>If <code>napari-nd2-spectral-ome-zarr</code> is installed, the assistant can open:</p>
 <ul>
@@ -337,21 +359,24 @@
 <li><code>Thumbs Down Last Answer</code> rejects the most recent memory candidate for the current session</li>
 </ul>
 <p>This is intentionally not full transcript memory. The model is still grounded primarily in the current napari viewer state.</p>
-<h3>Prompt Library</h3>
-<p>The assistant includes a persistent Prompt Library for repeatable workflows:</p>
+<h3>Library</h3>
+<p>The assistant includes a persistent Library for repeatable workflows and reusable code:</p>
 <ul>
 <li>built-in starter prompts</li>
+<li>built-in demo packs and reusable code examples in the <code>Code</code> tab</li>
 <li>recent prompts captured automatically</li>
 <li>saved prompts for reusable tasks</li>
 <li>pinned prompts for high-frequency workflows</li>
+<li>recent and saved code snippets in a separate <code>Code</code> tab</li>
 </ul>
 <p>Interaction:</p>
 <ul>
-<li>single click loads a prompt into the editor</li>
-<li>double click sends it directly</li>
+<li>single click loads a prompt or code snippet into the editor</li>
+<li>double click sends a prompt directly or runs a code snippet</li>
+<li>right click can rename or edit tags for saved and recent prompt/code items</li>
 <li>multi-select supports Shift/Ctrl selection for batch actions</li>
-<li><code>Delete Selected</code> can remove saved prompts, recent prompts, or hide built-in prompts</li>
-<li><code>Clear Non-Saved</code> removes unpinned recent and built-in prompts while keeping saved and pinned items</li>
+<li><code>Delete</code> can remove saved prompts, recent prompts, code snippets, or hide built-in prompts</li>
+<li><code>Clear</code> removes unpinned recent prompt/code items while keeping saved and pinned items</li>
 </ul>
 <p>Logic:</p>
 <ul>
@@ -359,24 +384,37 @@
 <li><code>pinned</code> means keep this prompt surfaced at the top of the library</li>
 <li>a prompt can be pinned without being saved</li>
 <li>built-in prompts are shipped examples; deleting them hides them from the current local library view</li>
+<li>built-in code entries include demo packs and starter <code>Run My Code</code> examples</li>
+<li>built-in code entries remain visible even if the same snippet also appears in recent history</li>
+<li>code snippets can be tagged and renamed so they are easier to reference later in workflows</li>
 </ul>
 <p>This is designed for users who want repeatable automation without committing everything to full scripting.</p>
 <h2>Requirements</h2>
 <ul>
 <li>Python 3.9+</li>
 <li>napari</li>
-<li>Ollama installed locally</li>
-<li>a local Ollama model such as <code>nemotron-cascade-2:30b</code></li>
+<li>Ollama installed locally and running on the same machine</li>
+<li>at least one local Ollama model such as <code>nemotron-cascade-2:30b</code></li>
+</ul>
+<p>Core Python dependencies used by the plugin are installed with the package itself.</p>
+<p>Optional:</p>
+<ul>
+<li><code>napari-nd2-spectral-ome-zarr</code> for ND2 export, spectral viewer, and spectral analysis integration</li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li>The plugin does not bundle the Ollama server or model weights.</li>
+<li>Model memory requirements vary substantially by model tag.</li>
+<li>Larger local models may require significant RAM or VRAM.</li>
 </ul>
 <p>Tested during development on an NVIDIA DGX Spark workstation.</p>
-<p>The plugin does not bundle the Ollama server or model weights.</p>
 <h2>Installation</h2>
 <h3>1. Install Ollama</h3>
-<p>Install Ollama on the same machine that runs napari, then start the local server:</p>
+<p>Install Ollama on the same machine as napari, then start the local server:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>serve
 </pre></div>
 </code></pre>
-<p>Pull a model before using the plugin:</p>
+<p>Pull at least one model before using the plugin:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>nemotron-cascade-2:30b
 </pre></div>
 </code></pre>
@@ -387,92 +425,91 @@ ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:7b
 </pre></div>
 </code></pre>
 <h3>2. Install the plugin</h3>
-<p>Clone the repository and install it in editable mode:</p>
+<p>For normal use:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-chat-assistant
+</pre></div>
+</code></pre>
+<p>For development:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wulinteousa2-hash/napari-chat-assistant.git
 <span class="nb">cd</span><span class="w"> </span>napari-chat-assistant
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </code></pre>
 <h2>Release</h2>
-<p>This package is published to PyPI so napari Hub can discover it.
-For maintainer release instructions and PyPI publishing setup, see <a href="RELEASING.md">RELEASING.md</a></p>
+<p>This package is published to PyPI so napari Hub can discover it.</p>
+<p>For maintainer release instructions and PyPI publishing setup, see <a href="RELEASING.md">RELEASING.md</a></p>
 <h2>Usage</h2>
 <ol>
 <li>Start napari.</li>
 <li>Open <code>Plugins -&gt; Chat Assistant</code>.</li>
 <li>Leave <code>Base URL</code> as <code>http://127.0.0.1:11434</code> unless your Ollama server is elsewhere.</li>
 <li>Choose a model from the <code>Model</code> dropdown or type a model tag manually.</li>
-<li>Click <code>Test Connection</code>.</li>
-<li>Start chatting, or use the Prompt Library for repeatable tasks.</li>
+<li>Click <code>Test</code>.</li>
+<li>Start chatting, or use the Library for repeatable tasks and reusable code.</li>
 </ol>
 <p>If you already have Python code you want to try, paste it into the Prompt box and click <code>Run My Code</code>. This runs viewer-bound code directly inside napari without opening QtConsole.</p>
-<p>The assistant works best when prompts describe a concrete action.</p>
+<p>The assistant works best when prompts describe a concrete action. Natural language is fine.</p>
 <p>Examples:</p>
-<p>Layer inspection:</p>
 <ul>
-<li><code>list all layers in the current viewer</code></li>
-<li><code>inspect the selected layer properties</code></li>
-<li><code>inspect layer LV-nerve and report its shape and dtype</code></li>
+<li><code>Inspect the selected layer</code></li>
+<li><code>Preview threshold on em_2d_snr_mid</code></li>
+<li><code>Apply gaussian denoise to em_2d_snr_low with sigma 1.2</code></li>
+<li><code>Fill holes in mask_messy_2d</code></li>
+<li><code>Remove small objects from mask_messy_2d with min_size 64</code></li>
+<li><code>Keep only the largest connected component in mask_messy_2d</code></li>
+<li><code>Measure labels table for rgb_cells_2d_labels</code></li>
+<li><code>Create a max intensity projection from em_3d_snr_mid along axis 0</code></li>
+<li><code>Crop em_2d_snr_high to the bounding box of em_2d_mask with padding 8</code></li>
 </ul>
-<p>EM contrast enhancement:</p>
+<h3>Demo Packs</h3>
+<p>Use the Library <code>Code</code> tab to load built-in demo packs for repeatable testing.</p>
+<p>Current demo packs include:</p>
 <ul>
-<li><code>apply CLAHE to the selected EM image</code></li>
-<li><code>apply CLAHE to the selected image with kernel_size 32, clip_limit 0.01, nbins 256</code></li>
-<li><code>apply CLAHE to all open EM images with kernel_size 64, clip_limit 0.02, nbins 512</code></li>
+<li>EM 2D SNR sweep</li>
+<li>EM 3D SNR sweep</li>
+<li>RGB cells 2D SNR sweep</li>
+<li>RGB cells 3D SNR sweep</li>
+<li>messy masks 2D/3D</li>
 </ul>
-<p>Thresholding and masks:</p>
-<ul>
-<li><code>preview a threshold mask for the selected image layer</code></li>
-<li><code>apply a threshold optimized for dim objects on the selected image</code></li>
-<li><code>measure connected components in the current mask layer</code></li>
-</ul>
-<p>Code generation:</p>
-<ul>
-<li><code>write napari code to duplicate the selected layer</code></li>
-<li><code>generate QtConsole code to print the selected layer shape</code></li>
-<li><code>create a synthetic noisy image in the current viewer and generate napari code for it</code></li>
-<li><code>create a docked histogram widget for the selected image and report mean, noise SD, and simple SNR</code></li>
-</ul>
-<p>Profile-aware prompts:</p>
-<ul>
-<li><code>show every loaded layer with semantic type, confidence, axes, shape, and dtype</code></li>
-<li><code>inspect the selected layer and explain what kind of dataset it is and why</code></li>
-<li><code>tell me which operation classes are recommended or discouraged for the selected layer</code></li>
-<li><code>decide if CLAHE is appropriate for the selected layer before using it</code></li>
-</ul>
-<p>Demo and education prompts:</p>
-<ul>
-<li><code>create a synthetic noisy image in the current viewer for teaching image noise</code></li>
-<li><code>generate a docked histogram and simple SNR widget for the selected image</code></li>
-<li><code>create two synthetic images with low noise and high noise and compare their histograms</code></li>
-<li><code>simulate low-SNR and high-SNR examples for teaching imaging quality</code></li>
-<li><code>generate napari code that shows how noise level changes histogram width and simple SNR</code></li>
-<li><code>create a demo image with bright spots on dark background and vary the noise step by step</code></li>
-</ul>
+<p>These create named layers so you can test built-in tools quickly without hunting for sample data.</p>
+<p>Example pipeline:</p>
+<ol>
+<li>Run the <code>EM 2D SNR Sweep</code> demo pack.</li>
+<li><code>Apply gaussian denoise to em_2d_snr_low with sigma 1.0</code></li>
+<li><code>Preview threshold on em_2d_snr_low_gaussian</code></li>
+<li><code>Apply threshold now on em_2d_snr_low_gaussian</code></li>
+<li><code>Fill holes in em_2d_snr_low_gaussian_labels</code></li>
+<li><code>Remove small objects from em_2d_snr_low_gaussian_labels_filled with min_size 64</code></li>
+<li><code>Keep only the largest connected component in em_2d_snr_low_gaussian_labels_filled_clean</code></li>
+<li><code>Measure mask on em_2d_snr_low_gaussian_labels_filled_clean_largest</code></li>
+</ol>
 <h2>UI Overview</h2>
 <h3>Model Connection</h3>
 <ul>
 <li>local Ollama base URL</li>
 <li>model picker with discovered local models</li>
-<li>test connection</li>
-<li>use selected model</li>
-<li><code>Ollama Setup</code> help with install, <code>ollama serve</code>, and model pull examples</li>
-<li>unload model</li>
+<li><code>Test</code></li>
+<li><code>Use</code></li>
+<li><code>Setup</code> help with install, <code>ollama serve</code>, and model pull examples</li>
+<li><code>Unload</code></li>
 </ul>
-<h3>Prompt Library</h3>
+<h3>Library</h3>
 <ul>
 <li>built-in prompts</li>
+<li>built-in demo packs and starter code in the <code>Code</code> tab</li>
 <li>recent prompts</li>
 <li>saved prompts</li>
+<li>recent and saved code snippets in the <code>Code</code> tab</li>
 <li>pinned prompts</li>
 <li><code>saved</code> keeps your own reusable copy</li>
 <li><code>pinned</code> keeps a prompt at the top regardless of whether it is built-in, recent, or saved</li>
 <li>single click to load</li>
-<li>double click to send</li>
+<li>double click to send from <code>Prompts</code> or run from <code>Code</code></li>
+<li>right click to rename or edit tags for saved/recent prompt and code items</li>
 <li>Shift/Ctrl multi-select for batch actions</li>
-<li><code>Delete Selected</code> works on built-in, recent, and saved prompts</li>
-<li><code>Clear Non-Saved</code> keeps saved and pinned items and clears unpinned recent and built-in items</li>
-<li><code>A-</code> and <code>A+</code> adjust prompt-library font size in small steps</li>
+<li><code>Delete</code> works on built-in, recent, saved, and code items</li>
+<li><code>Clear</code> keeps saved and pinned items and clears unpinned recent items</li>
+<li><code>A-</code> and <code>A+</code> adjust library font size in small steps</li>
 </ul>
 <h3>Chat</h3>
 <ul>
@@ -496,15 +533,14 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>current layer summary from the active napari viewer</li>
 <li>shortened layer names and a compact per-layer summary to avoid over-stretching the left column</li>
 </ul>
-<h3>Action Log</h3>
+<h3>Session</h3>
 <ul>
-<li>local status updates</li>
-<li>model connection messages</li>
-<li>tool execution messages</li>
-<li>code execution and copy actions</li>
+<li><code>Activity</code> tab shows local status updates, model connection messages, tool execution messages, and code execution/copy actions</li>
+<li><code>Telemetry</code> tab contains the optional telemetry controls</li>
+<li><code>Diagnostics</code> tab provides access to the app log and crash log</li>
 <li>color-highlighted path entries for assistant log, crash log, telemetry log, prompt library, and session memory</li>
 <li><code>Enable Telemetry</code> switch for advanced users</li>
-<li><code>Performance Summary</code>, <code>Telemetry Log</code>, and <code>Reset Log</code> only when telemetry is enabled</li>
+<li><code>Summary</code>, <code>Log</code>, and <code>Reset</code> only when telemetry is enabled</li>
 </ul>
 <h2>How It Works</h2>
 <p>The assistant is designed to operate within constrained napari workflows rather than as a general-purpose chatbot.</p>
@@ -521,7 +557,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>generated Python code</li>
 </ul>
 </li>
-<li>run the selected tool or expose the generated code through the UI</li>
+<li>run the selected registry-backed tool or expose the generated code through the UI</li>
 <li>update session memory from explicit user feedback or successful follow-up behavior</li>
 </ol>
 <p>This keeps the assistant more grounded than a plain chat interface and makes common operations more reliable.</p>
@@ -547,14 +583,15 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 </ul>
 <h2>Current Limitations</h2>
 <ul>
-<li>the dataset profiler is still Phase 1 and currently strongest on already-loaded napari layers rather than file-format-specific readers</li>
+<li>the dataset profiler is still Phase 1 and remains strongest on already-loaded napari layers rather than reader- or file-format-specific workflows</li>
 <li>TIFF vs OME-Zarr adapter behavior is not implemented yet</li>
-<li>ND2 and Zeiss adapters are not implemented yet</li>
+<li>ND2 and Zeiss reader-aware adapters are not implemented in this plugin</li>
+<li>the tool registry is in progress; some tools are now registry-backed, but the migration is not complete yet</li>
 <li>session memory is selective and bounded; it is not full conversation memory</li>
-<li>model output can still be inconsistent, especially for generated code</li>
-<li>not all requests map cleanly to built-in tools yet</li>
-<li>generated code can still fail if the model invents incorrect napari APIs</li>
-<li>no multi-step task planning yet (complex workflows may require several prompts)</li>
+<li>model output can still be inconsistent, especially when falling back to generated code</li>
+<li>some requests still miss built-in tools and fall through to code generation when a stronger built-in workflow would be preferable</li>
+<li>generated code can still fail if the model invents incorrect napari APIs or unsupported imports</li>
+<li>multi-step workflow planning and replay are not implemented yet</li>
 <li>no image attachment or multimodal input pipeline yet</li>
 <li>performance optimization for very large 2D/3D datasets is still in progress</li>
 <li>hard native crashes in Qt/C-extension code may not be captured cleanly by the plugin crash log even when normal plugin errors are logged</li>
@@ -563,7 +600,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <ul>
 <li>use built-in tools for common layer inspection and mask/image actions</li>
 <li>trust current viewer context and current layer profiles over any remembered prior turn</li>
-<li>use the Prompt Library for repeated tasks</li>
+<li>use the Library for repeated prompts, demo packs, and reusable code</li>
 <li>use generated code when you want explicit review and control</li>
 <li>use <code>Run My Code</code> when you already have working Python and want to test it directly inside napari</li>
 </ul>
@@ -575,12 +612,12 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 </ul>
 <h2>Troubleshooting</h2>
 <h3>Ollama not running</h3>
-<p>If <code>Test Connection</code> fails after restarting your computer, Ollama is usually not running yet.</p>
+<p>If <code>Test</code> fails after restarting your computer, Ollama is usually not running yet.</p>
 <p>Start it in a terminal:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>serve
 </pre></div>
 </code></pre>
-<p>Then return to the plugin and click <code>Test Connection</code> again.</p>
+<p>Then return to the plugin and click <code>Test</code> again.</p>
 <h3>Pulling a model</h3>
 <p>Model downloads are intentionally handled outside the plugin.</p>
 <p>To try a different model:</p>
@@ -592,7 +629,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>nemotron-cascade-2:30b
 </pre></div>
 </code></pre>
-<p>Then use <code>Test Connection</code> to refresh the plugin state.</p>
+<p>Then use <code>Test</code> to refresh the plugin state.</p>
 <h3>Logs and crash logs</h3>
 <p>The plugin writes two local log files:</p>
 <ul>
@@ -614,13 +651,13 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
 <li>reject feedback from <code>👎 Reject</code></li>
 <li>approved code execution success or failure</li>
 </ul>
-<p>Telemetry is now opt-in from the Action Log through <code>Enable Telemetry</code>.</p>
+<p>Telemetry is now opt-in from the <code>Session -&gt; Telemetry</code> tab through <code>Enable Telemetry</code>.</p>
 <p>The goal is passive model tracking during actual work rather than separate benchmarking runs.</p>
-<p>For advanced users, the Action Log includes:</p>
+<p>For advanced users, the <code>Session -&gt; Telemetry</code> tab includes:</p>
 <ul>
-<li><code>Performance Summary</code> to generate a quick in-app summary of recent model speed and behavior</li>
-<li><code>Telemetry Log</code> to inspect the latest raw JSONL records together with the summary</li>
-<li><code>Reset Log</code> to clear the local telemetry file and start fresh from the next request</li>
+<li><code>Summary</code> to generate a quick in-app summary of recent model speed and behavior</li>
+<li><code>Log</code> to inspect the latest raw JSONL records together with the summary</li>
+<li><code>Reset</code> to clear the local telemetry file and start fresh from the next request</li>
 </ul>
 <p>This keeps the append-only log intact while making it easier to review without leaving napari.</p>
 <p>Generated code is also preflight-validated before execution for common dtype mistakes, unsupported napari imports, and unavailable <code>viewer.*</code> APIs. When validation blocks execution, the code remains visible and copyable for review or regeneration.</p>
@@ -650,7 +687,7 @@ For maintainer release instructions and PyPI publishing setup, see <a href="RELE
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.3.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.4.0</li>
                                                 </ul>
                                             </div>
                                         </div>
