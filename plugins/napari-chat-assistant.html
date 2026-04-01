@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.4.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.4.5</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-31</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-01</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -214,71 +214,195 @@
 <a href="https://pypi.org/project/napari-chat-assistant"><img src="https://img.shields.io/pypi/v/napari-chat-assistant.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-chat-assistant.svg?color=green" alt="Python Version" /></a>
 <a href="https://napari-hub.org/plugins/napari-chat-assistant"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-chat-assistant" alt="napari hub" /></a></p>
-<hr />
-<p>Local Ollama-powered assistant for napari image-analysis workflows.</p>
+<p>Local, Ollama-powered chat and code assistant for napari image-analysis workflows.</p>
 <p><code>napari-chat-assistant</code> adds a dock widget inside napari that understands the active viewer session, runs built-in image-analysis actions, and generates executable napari Python code when a request goes beyond the current toolset.</p>
-<p>It is designed for local interactive work, repeatable workflows, and gradual automation rather than cloud chat or fully opaque “one-click AI”.</p>
-<p>The current direction is a deterministic, layer-aware assistant: the plugin profiles loaded napari layers first, then uses that structured context to guide tool choice and generated code.</p>
-<h2>What's New In 1.4.3</h2>
+<p>The goal is not to bolt a generic chatbot onto a viewer. The goal is to turn napari into a more practical analysis workspace for people who work with microscopy and other large multidimensional imaging datasets, especially users who want local AI help, reproducible workflows, and direct control over their data.</p>
+<h2>Who It Is For</h2>
+<p>This plugin is built for:</p>
 <ul>
-<li>added built-in image grid view for side-by-side comparison of open image layers</li>
-<li>added a built-in action to turn image grid view off and restore hidden non-image layers</li>
-<li>added built-in plugin UI help so users can ask what controls do and get short usage tips</li>
-<li>expanded help coverage for Library, Prompt, code actions, model controls, telemetry, diagnostics, status, and prompt tips</li>
+<li>imaging core facility users</li>
+<li>researchers, staff scientists, and students working with imaging data</li>
+<li>teachers and educators running imaging demos or training sessions</li>
+<li>users who already work in napari and want help with code, automation, ROI-driven analysis, and repeatable workflows</li>
+</ul>
+<p>It is especially useful when you:</p>
+<ul>
+<li>inspect large 2D or 3D image stacks in napari</li>
+<li>move between interactive viewing and Python-based analysis</li>
+<li>want a local open-weight model instead of a cloud service</li>
+<li>need to save, reuse, and teach common imaging workflows</li>
+</ul>
+<h2>Why It Is Different</h2>
+<p>This plugin comes out of long practical imaging experience rather than a generic &quot;chat in a sidebar&quot; idea.</p>
+<p>It is designed around how imaging work actually happens:</p>
+<ul>
+<li>look at the data first</li>
+<li>identify objects or regions of interest in the viewer</li>
+<li>ask for the next analysis step in plain language</li>
+<li>inspect the result</li>
+<li>run or refine code when needed</li>
+<li>save useful prompts and scripts for later reuse</li>
+</ul>
+<p>The assistant is grounded in the live napari session. It can inspect loaded layers, use ROI context, run built-in analysis actions, and fall back to executable Python when the request is more specialized. In practice, this makes napari feel closer to a viewer plus notebook-style workbench, without forcing users to leave the image, open QtConsole, or start from a blank script.</p>
+<h2>What You Can Do</h2>
+<p>Current workflows include:</p>
+<ul>
+<li>inspect the selected layer or named layers with structured summaries</li>
+<li>profile loaded layers with deterministic semantic and workflow-aware metadata</li>
+<li>run built-in tools for enhancement, thresholding, mask cleanup, measurement, projection, and cropping</li>
+<li>inspect ROI context and extract grayscale values from <code>Labels</code> and <code>Shapes</code> layers</li>
+<li>generate napari Python code when no built-in tool is the right fit</li>
+<li>paste and run your own viewer-bound Python from the prompt box with <code>Run My Code</code></li>
+<li>save, pin, tag, rename, and reuse prompts and code from the local Library</li>
+<li>use built-in demo packs for repeatable teaching, testing, and workflow development</li>
+</ul>
+<p>Example requests:</p>
+<ul>
+<li><code>Inspect the selected layer</code></li>
+<li><code>Preview threshold on em_2d_snr_mid</code></li>
+<li><code>Apply gaussian denoise to em_2d_snr_low with sigma 1.2</code></li>
+<li><code>Measure labels table for rgb_cells_2d_labels</code></li>
+<li><code>Inspect the current ROI</code></li>
+<li><code>Extract ROI values from em_2d_snr_mid using em_2d_mask</code></li>
+<li><code>Write napari code to plot object area by condition</code></li>
+</ul>
+<h2>Local-First By Design</h2>
+<p>The assistant runs on local open-weight models through Ollama:</p>
+<ul>
+<li>no API key required</li>
+<li>no cloud dependency</li>
+<li>no internet requirement during normal use</li>
+<li>no image data leaves your workstation</li>
+</ul>
+<p>This makes it a better fit for research and facility environments where users want privacy, controllability, and local reproducibility.</p>
+<h2>What's New In 1.4.5</h2>
+<ul>
+<li>improved prompt routing for compound imaging workflows and added a local-first path for axon-interior extraction</li>
+<li>strengthened napari code validation to block invented layer attributes such as <code>.type</code> and <code>._type</code></li>
+<li>preserved saved code formatting better in <code>Run My Code</code> and the local library</li>
+<li>expanded experimental SAM2 live work with better session handling, progress feedback, and a simpler points workflow</li>
 <li>kept experimental SAM2 under <code>Advanced</code> rather than the default toolbar</li>
 <li>kept the clearer <code>Load</code>, <code>Unload</code>, <code>Test</code>, <code>Setup</code> model flow and improved status wording</li>
 </ul>
 <p>For older release history, see <a href="CHANGELOG.md">CHANGELOG.md</a>.</p>
-<h2>Overview</h2>
-<p>Current capabilities include:</p>
+<h2>Quick Start</h2>
+<ol>
+<li>Install Ollama and pull a local model.</li>
+<li><code>pip install napari-chat-assistant</code></li>
+<li>Open <code>Plugins -&gt; Chat Assistant</code> in napari and start with a concrete prompt such as <code>Inspect the selected layer</code>.</li>
+</ol>
+<h2>Requirements</h2>
 <ul>
-<li>connect to a local Ollama server</li>
-<li>discover and unload local models from the plugin UI</li>
-<li>inspect the selected layer or named layers with structured layer summaries</li>
-<li>profile loaded layers with deterministic semantic and workflow-aware metadata</li>
-<li>run built-in, registry-backed image-analysis tools from natural-language requests</li>
-<li>support common microscopy workflows such as enhancement, thresholding, cleanup, measurement, projection, and cropping</li>
-<li>support ROI-aware inspection and grayscale value extraction from <code>Labels</code> and <code>Shapes</code> layers</li>
-<li>automate batch actions across multiple layers when the request applies to all compatible inputs</li>
-<li>generate napari Python code only when no built-in tool is a better fit</li>
-<li>review, copy, validate, and run assistant-generated code from the plugin UI</li>
-<li>paste and run your own Python directly from the Prompt box with <code>Run My Code</code>, without opening QtConsole</li>
-<li>reuse built-in demo packs for EM-style grayscale data, fluorescent RGB cell data, SNR sweeps, and messy mask cleanup tests</li>
-<li>save, pin, tag, rename, and reuse prompts through the local Library</li>
-<li>save, tag, rename, and run reusable code through the Library <code>Code</code> tab</li>
-<li>keep built-in examples alongside recent and saved items in the Library</li>
-<li>delete selected built-in, recent, saved, or code items from the Library and clear unpinned recent history while keeping saved and pinned items</li>
-<li>keep bounded session memory from approved prior turns</li>
-<li>reject the last assistant outcome from session memory with a thumbs-down control</li>
-<li>optionally configure and run experimental SAM2 segmentation from <code>Advanced</code></li>
-<li>optionally open ND2 conversion, spectral viewer, and spectral analysis widgets from <code>napari-nd2-spectral-ome-zarr</code></li>
+<li>Python 3.9+</li>
+<li>napari</li>
+<li>Ollama installed locally and running on the same machine</li>
+<li>at least one local Ollama model such as <code>nemotron-cascade-2:30b</code></li>
 </ul>
-<p>The current default model is:</p>
+<p>Core Python dependencies used by the plugin are installed with the package itself.</p>
+<p>Optional:</p>
 <ul>
-<li><code>nemotron-cascade-2:30b</code></li>
+<li><code>napari-nd2-spectral-ome-zarr</code> for ND2 export, spectral viewer, and spectral analysis integration</li>
+<li>external SAM2 project, weights, and config if you want the experimental SAM2 workflow</li>
 </ul>
-<h2>Why This Plugin</h2>
-<p>Most chat interfaces are detached from the actual napari session. This plugin keeps the assistant inside the viewer and grounds its behavior in the live state of the current napari workspace:</p>
+<p>Notes:</p>
 <ul>
-<li>loaded layers</li>
-<li>the selected layer</li>
-<li>layer shape, dtype, and transforms</li>
-<li>deterministic semantic layer profiling</li>
-<li>labels and mask statistics</li>
-<li>built-in local tool execution</li>
-<li>local Python code generation when needed</li>
-<li>bounded session memory</li>
+<li>The plugin does not bundle the Ollama server or model weights.</li>
+<li>Model memory requirements vary substantially by model tag.</li>
+<li>Larger local models may require significant RAM or VRAM.</li>
 </ul>
-<p>The goal is not a generic chatbot inside napari. The goal is a layer-aware assistant that can grow into a practical microscopy workflow workbench.</p>
-<h3>Local-first by design</h3>
-<p>The assistant runs on local open-weight models through Ollama:</p>
+<p>Tested during development on an NVIDIA DGX Spark workstation.</p>
+<h2>Installation</h2>
+<h3>1. Install Ollama</h3>
+<p>macOS and Linux:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://ollama.com/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+ollama<span class="w"> </span>serve
+</pre></div>
+</code></pre>
+<p>Windows:</p>
 <ul>
-<li>no API key required</li>
-<li>no internet dependency</li>
-<li>no cloud services</li>
-<li>no data leaves your workstation</li>
+<li>download from <code>https://ollama.com/download/windows</code></li>
+<li>install Ollama</li>
+<li>start the Ollama service or application</li>
 </ul>
-<p>This makes it a better fit for research workflows where users want interactive help, repeatable analysis steps, reusable demo and prompt packs, and direct control over both data and models.</p>
+<p>Pull at least one model before using the plugin:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>nemotron-cascade-2:30b
+</pre></div>
+</code></pre>
+<p>Optional alternatives:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>gpt-oss:120b
+ollama<span class="w"> </span>pull<span class="w"> </span>qwen3-coder-next:latest
+ollama<span class="w"> </span>pull<span class="w"> </span>qwen3.5
+ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:7b
+</pre></div>
+</code></pre>
+<h3>2. Install the plugin</h3>
+<p>For normal use:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-chat-assistant
+</pre></div>
+</code></pre>
+<p>For development:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wulinteousa2-hash/napari-chat-assistant.git
+<span class="nb">cd</span><span class="w"> </span>napari-chat-assistant
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+<h2>Usage</h2>
+<ol>
+<li>Start napari.</li>
+<li>Open <code>Plugins -&gt; Chat Assistant</code>.</li>
+<li>Leave <code>Base URL</code> as <code>http://127.0.0.1:11434</code> unless your Ollama server is elsewhere.</li>
+<li>Choose a model from the <code>Model</code> dropdown or type a model tag manually.</li>
+<li>Click <code>Test</code>.</li>
+<li>Start chatting, or use the Library for repeatable tasks and reusable code.</li>
+</ol>
+<p>If you already have Python code you want to try, paste it into the Prompt box and click <code>Run My Code</code>. This runs viewer-bound code directly inside napari without opening QtConsole.</p>
+<p>The assistant works best when prompts describe a concrete action. Natural language is fine.</p>
+<p>Examples:</p>
+<ul>
+<li><code>Inspect the selected layer</code></li>
+<li><code>Preview threshold on em_2d_snr_mid</code></li>
+<li><code>Apply gaussian denoise to em_2d_snr_low with sigma 1.2</code></li>
+<li><code>Fill holes in mask_messy_2d</code></li>
+<li><code>Remove small objects from mask_messy_2d with min_size 64</code></li>
+<li><code>Keep only the largest connected component in mask_messy_2d</code></li>
+<li><code>Measure labels table for rgb_cells_2d_labels</code></li>
+<li><code>Create a max intensity projection from em_3d_snr_mid along axis 0</code></li>
+<li><code>Crop em_2d_snr_high to the bounding box of em_2d_mask with padding 8</code></li>
+<li><code>Inspect the current ROI</code></li>
+<li><code>Extract ROI values from em_2d_snr_mid using em_2d_mask</code></li>
+</ul>
+<h2>Typical Workflow</h2>
+<ol>
+<li>Open your image or volume in napari.</li>
+<li>Ask the assistant to inspect the layer and suggest the next step.</li>
+<li>Run a built-in tool for denoising, thresholding, cleanup, or measurement.</li>
+<li>Select an ROI or object in the viewer if you want local analysis.</li>
+<li>Ask for code when you need a custom plot, statistics, or reusable script.</li>
+<li>Save useful prompts or code snippets into the Library for later reuse.</li>
+</ol>
+<p>This is the core value of the plugin: users can stay in the viewer, interact with the data, ask questions, run analysis, and keep the resulting workflow close to the image session.</p>
+<h2>Demo Packs</h2>
+<p>Use the Library <code>Code</code> tab to load built-in demo packs for repeatable testing.</p>
+<p>Current demo packs include:</p>
+<ul>
+<li>EM 2D SNR sweep</li>
+<li>EM 3D SNR sweep</li>
+<li>RGB cells 2D SNR sweep</li>
+<li>RGB cells 3D SNR sweep</li>
+<li>messy masks 2D/3D</li>
+</ul>
+<p>These create named layers so you can test built-in tools quickly without hunting for sample data. Labels layers from the demo packs can also be used as ROIs for ROI inspection and value extraction.</p>
+<p>Example pipeline:</p>
+<ol>
+<li>Run the <code>EM 2D SNR Sweep</code> demo pack.</li>
+<li><code>Apply gaussian denoise to em_2d_snr_low with sigma 1.0</code></li>
+<li><code>Preview threshold on em_2d_snr_low_gaussian</code></li>
+<li><code>Apply threshold now on em_2d_snr_low_gaussian</code></li>
+<li><code>Fill holes in em_2d_snr_low_gaussian_labels</code></li>
+<li><code>Remove small objects from em_2d_snr_low_gaussian_labels_filled with min_size 64</code></li>
+<li><code>Keep only the largest connected component in em_2d_snr_low_gaussian_labels_filled_clean</code></li>
+<li><code>Measure mask on em_2d_snr_low_gaussian_labels_filled_clean_largest</code></li>
+</ol>
 <h2>Current Features</h2>
 <h3>Session-aware tools</h3>
 <p>The assistant currently supports built-in tools for:</p>
@@ -302,7 +426,7 @@
 <li>ROI inspection and grayscale value extraction from labels or shapes regions</li>
 <li>registry-backed tool execution as the foundation for future workflow and pipeline expansion</li>
 </ul>
-<p>Layer inspection is now backed by a deterministic profile object that includes:</p>
+<p>Layer inspection is backed by a deterministic profile object that includes:</p>
 <ul>
 <li><code>semantic_type</code></li>
 <li><code>confidence</code></li>
@@ -336,59 +460,18 @@
 <li><code>extract_roi_values</code></li>
 </ul>
 <h3>Code generation workflows</h3>
-<p>When a request is not covered by a built-in tool, the assistant can return napari Python code instead of guessing or forcing the wrong tool.</p>
+<p>When a request is not covered by a built-in tool, the assistant can return napari Python code instead of forcing the wrong tool.</p>
 <p>Generated code can be:</p>
 <ul>
 <li>copied to the clipboard</li>
-<li>reviewed and executed from the plugin</li>
+<li>reviewed in chat</li>
+<li>executed from the plugin</li>
 </ul>
 <p>You can also paste your own Python directly into the Prompt box and run it from the plugin with <code>Run My Code</code>, without switching to QtConsole.</p>
 <p>Use assistant-generated code when you want a reusable script or need custom logic beyond the current built-in tools.</p>
 <p>Use <code>Run My Code</code> when you already have Python you want to test quickly inside the current napari session.</p>
-<h3>Optional ND2 and spectral integration</h3>
-<p>If <code>napari-nd2-spectral-ome-zarr</code> is installed, the assistant can open:</p>
-<ul>
-<li>the ND2-to-OME-Zarr export widget</li>
-<li>the Spectral Viewer widget</li>
-<li>the Spectral Analysis widget</li>
-</ul>
-<p>This lets chat act as an entry point for Nikon ND2 conversion and spectral workflows without rebuilding those UIs inside this plugin.</p>
-<p>Install links:</p>
-<ul>
-<li>GitHub: <code>https://github.com/wulinteousa2-hash/napari-nd2-spectral-ome-zarr</code></li>
-<li>napari Hub: <code>https://napari-hub.org/plugins/napari-nd2-spectral-ome-zarr.html</code></li>
-</ul>
-<h3>Experimental SAM2 integration</h3>
-<p>Version <code>1.4.3</code> includes an experimental SAM2 path for users who want box-prompt or point-prompt segmentation inside napari without making SAM2 part of the default assistant workflow.</p>
-<p>Behavior:</p>
-<ul>
-<li>SAM2 is accessed from <code>Advanced</code>, not from the main toolbar</li>
-<li><code>SAM2 Setup</code> is always available from <code>Advanced</code></li>
-<li><code>SAM2 Live</code> stays disabled until the backend is configured and passes readiness checks</li>
-<li>the rest of the assistant remains usable even if SAM2 is not configured</li>
-</ul>
-<p>Current setup expects:</p>
-<ul>
-<li>a working Python environment that already includes the dependencies required by your SAM2 wrapper</li>
-<li>an external SAM2 project path</li>
-<li>a wrapper module exposed as <code>sam2_wrapper.py</code> or <code>sam2_wrapper/__init__.py</code></li>
-<li><code>segment_image_from_box(...)</code> for box workflows</li>
-<li><code>segment_image_from_points(...)</code> for point workflows if you want live point prompting</li>
-<li>a valid checkpoint path</li>
-<li>a valid config path</li>
-</ul>
-<p>Typical setup flow:</p>
-<ol>
-<li>Start napari from the environment that contains your SAM2 dependencies.</li>
-<li>Open <code>Plugins -&gt; Chat Assistant</code>.</li>
-<li>Open <code>Advanced -&gt; SAM2 Setup</code>.</li>
-<li>Enter the SAM2 project path, checkpoint path, config path, and device.</li>
-<li>Click <code>Test</code>.</li>
-<li>Save the settings.</li>
-<li>Open <code>Advanced -&gt; SAM2 Live</code> when the backend reports ready.</li>
-</ol>
-<h3>Selective Session Memory</h3>
-<p>The assistant now includes bounded session memory with three states:</p>
+<h3>Selective session memory</h3>
+<p>The assistant includes bounded session memory with three states:</p>
 <ul>
 <li><code>provisional</code></li>
 <li><code>approved</code></li>
@@ -433,105 +516,50 @@
 <li>code snippets can be tagged and renamed so they are easier to reference later in workflows</li>
 </ul>
 <p>This is designed for users who want repeatable automation without committing everything to full scripting.</p>
-<h2>Requirements</h2>
+<h3>Optional ND2 and spectral integration</h3>
+<p>If <code>napari-nd2-spectral-ome-zarr</code> is installed, the assistant can open:</p>
 <ul>
-<li>Python 3.9+</li>
-<li>napari</li>
-<li>Ollama installed locally and running on the same machine</li>
-<li>at least one local Ollama model such as <code>nemotron-cascade-2:30b</code></li>
+<li>the ND2-to-OME-Zarr export widget</li>
+<li>the Spectral Viewer widget</li>
+<li>the Spectral Analysis widget</li>
 </ul>
-<p>Core Python dependencies used by the plugin are installed with the package itself.</p>
-<p>Optional:</p>
+<p>This lets chat act as an entry point for Nikon ND2 conversion and spectral workflows without rebuilding those UIs inside this plugin.</p>
+<p>Install links:</p>
 <ul>
-<li><code>napari-nd2-spectral-ome-zarr</code> for ND2 export, spectral viewer, and spectral analysis integration</li>
-<li>external SAM2 project, weights, and config if you want the experimental SAM2 workflow</li>
+<li>GitHub: <code>https://github.com/wulinteousa2-hash/napari-nd2-spectral-ome-zarr</code></li>
+<li>napari Hub: <code>https://napari-hub.org/plugins/napari-nd2-spectral-ome-zarr.html</code></li>
 </ul>
-<p>Notes:</p>
+<h3>Experimental SAM2 integration</h3>
+<p>Version <code>1.4.5</code> includes an experimental SAM2 path for users who want box-prompt or point-prompt segmentation inside napari without making SAM2 part of the default assistant workflow.</p>
+<p>Behavior:</p>
 <ul>
-<li>The plugin does not bundle the Ollama server or model weights.</li>
-<li>Model memory requirements vary substantially by model tag.</li>
-<li>Larger local models may require significant RAM or VRAM.</li>
+<li>SAM2 is accessed from <code>Advanced</code>, not from the main toolbar</li>
+<li><code>SAM2 Setup</code> is always available from <code>Advanced</code></li>
+<li><code>SAM2 Live</code> stays disabled until the backend is configured and passes readiness checks</li>
+<li>the rest of the assistant remains usable even if SAM2 is not configured</li>
 </ul>
-<p>Tested during development on an NVIDIA DGX Spark workstation.</p>
-<h2>Installation</h2>
-<h3>1. Install Ollama</h3>
-<p>Install Ollama on the same machine as napari, then start the local server:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>serve
-</pre></div>
-</code></pre>
-<p>Pull at least one model before using the plugin:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>nemotron-cascade-2:30b
-</pre></div>
-</code></pre>
-<p>Optional alternatives:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>qwen3-coder-next:latest
-ollama<span class="w"> </span>pull<span class="w"> </span>qwen3.5
-ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:7b
-</pre></div>
-</code></pre>
-<h3>2. Install the plugin</h3>
-<p>For normal use:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-chat-assistant
-</pre></div>
-</code></pre>
-<p>For development:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wulinteousa2-hash/napari-chat-assistant.git
-<span class="nb">cd</span><span class="w"> </span>napari-chat-assistant
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</pre></div>
-</code></pre>
-<h2>Release</h2>
-<p>This package is published to PyPI so napari Hub can discover it.</p>
-<p>For maintainer release instructions and PyPI publishing setup, see <a href="RELEASING.md">RELEASING.md</a></p>
-<h2>Usage</h2>
+<p>Current setup expects:</p>
+<ul>
+<li>a working Python environment that already includes the dependencies required by your SAM2 wrapper</li>
+<li>an external SAM2 project path</li>
+<li>a wrapper module exposed as <code>sam2_wrapper.py</code> or <code>sam2_wrapper/__init__.py</code></li>
+<li><code>segment_image_from_box(...)</code> for box workflows</li>
+<li><code>segment_image_from_points(...)</code> for point workflows if you want live point prompting</li>
+<li>a valid checkpoint path</li>
+<li>a valid config path</li>
+</ul>
+<p>Typical setup flow:</p>
 <ol>
-<li>Start napari.</li>
+<li>Start napari from the environment that contains your SAM2 dependencies.</li>
 <li>Open <code>Plugins -&gt; Chat Assistant</code>.</li>
-<li>Leave <code>Base URL</code> as <code>http://127.0.0.1:11434</code> unless your Ollama server is elsewhere.</li>
-<li>Choose a model from the <code>Model</code> dropdown or type a model tag manually.</li>
+<li>Open <code>Advanced -&gt; SAM2 Setup</code>.</li>
+<li>Enter the SAM2 project path, checkpoint path, config path, and device.</li>
 <li>Click <code>Test</code>.</li>
-<li>Start chatting, or use the Library for repeatable tasks and reusable code.</li>
-</ol>
-<p>If you already have Python code you want to try, paste it into the Prompt box and click <code>Run My Code</code>. This runs viewer-bound code directly inside napari without opening QtConsole.</p>
-<p>The assistant works best when prompts describe a concrete action. Natural language is fine.</p>
-<p>Examples:</p>
-<ul>
-<li><code>Inspect the selected layer</code></li>
-<li><code>Preview threshold on em_2d_snr_mid</code></li>
-<li><code>Apply gaussian denoise to em_2d_snr_low with sigma 1.2</code></li>
-<li><code>Fill holes in mask_messy_2d</code></li>
-<li><code>Remove small objects from mask_messy_2d with min_size 64</code></li>
-<li><code>Keep only the largest connected component in mask_messy_2d</code></li>
-<li><code>Measure labels table for rgb_cells_2d_labels</code></li>
-<li><code>Create a max intensity projection from em_3d_snr_mid along axis 0</code></li>
-<li><code>Crop em_2d_snr_high to the bounding box of em_2d_mask with padding 8</code></li>
-<li><code>Inspect the current ROI</code></li>
-<li><code>Extract ROI values from em_2d_snr_mid using em_2d_mask</code></li>
-</ul>
-<h3>Demo Packs</h3>
-<p>Use the Library <code>Code</code> tab to load built-in demo packs for repeatable testing.</p>
-<p>Current demo packs include:</p>
-<ul>
-<li>EM 2D SNR sweep</li>
-<li>EM 3D SNR sweep</li>
-<li>RGB cells 2D SNR sweep</li>
-<li>RGB cells 3D SNR sweep</li>
-<li>messy masks 2D/3D</li>
-</ul>
-<p>These create named layers so you can test built-in tools quickly without hunting for sample data. Labels layers from the demo packs can also be used as ROIs for ROI inspection and value extraction.</p>
-<p>Example pipeline:</p>
-<ol>
-<li>Run the <code>EM 2D SNR Sweep</code> demo pack.</li>
-<li><code>Apply gaussian denoise to em_2d_snr_low with sigma 1.0</code></li>
-<li><code>Preview threshold on em_2d_snr_low_gaussian</code></li>
-<li><code>Apply threshold now on em_2d_snr_low_gaussian</code></li>
-<li><code>Fill holes in em_2d_snr_low_gaussian_labels</code></li>
-<li><code>Remove small objects from em_2d_snr_low_gaussian_labels_filled with min_size 64</code></li>
-<li><code>Keep only the largest connected component in em_2d_snr_low_gaussian_labels_filled_clean</code></li>
-<li><code>Measure mask on em_2d_snr_low_gaussian_labels_filled_clean_largest</code></li>
+<li>Save the settings.</li>
+<li>Open <code>Advanced -&gt; SAM2 Live</code> when the backend reports ready.</li>
 </ol>
 <h2>UI Overview</h2>
-<h3>Model Connection</h3>
+<h3>Model connection</h3>
 <ul>
 <li>local Ollama base URL</li>
 <li>model picker with discovered local models</li>
@@ -565,7 +593,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Shift/Ctrl/Alt+Enter for newline</li>
 <li>transcript showing user messages, assistant replies, tool results, and generated code</li>
 </ul>
-<h3>Code Actions</h3>
+<h3>Code actions</h3>
 <ul>
 <li><code>Reject</code></li>
 <li><code>Run Code</code></li>
@@ -577,7 +605,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p><code>Run Code</code> is for assistant-generated code that has been staged in the chat.</p>
 <p><code>Run My Code</code> is for your own pasted Python from the Prompt box when you want to test or iterate directly inside napari without opening QtConsole.</p>
 <p><code>Advanced</code> contains optional integrations such as experimental SAM2 setup and live preview.</p>
-<h3>Current Context</h3>
+<h3>Current context</h3>
 <ul>
 <li>current layer summary from the active napari viewer</li>
 <li>shortened layer names and a compact per-layer summary to avoid over-stretching the left column</li>
@@ -653,9 +681,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </ol>
 <p>Session memory should remain secondary context. Current viewer state and explicit user clarification should remain the primary source of truth.</p>
 <h2>Recommended Models</h2>
+<p>For a broader list of models tested during development, see <a href="docs/tested_models.md">docs/tested_models.md</a>.</p>
 <p>Good starting choices:</p>
 <ul>
 <li><code>nemotron-cascade-2:30b</code></li>
+<li><code>gpt-oss:120b</code></li>
 <li><code>qwen3-coder-next:latest</code></li>
 <li><code>qwen3.5</code></li>
 <li><code>qwen2.5:7b</code></li>
@@ -663,6 +693,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>Selection guidance:</p>
 <ul>
 <li><code>nemotron-cascade-2:30b</code> is the current default and a strong general model for this workflow.</li>
+<li><code>gpt-oss:120b</code> is a large model that can still feel relatively fast in practice on high-memory systems; it is a good option when you want stronger reasoning without moving to a smaller lightweight tag.</li>
 <li><code>qwen3-coder-next:latest</code> is a better candidate for Python and napari code generation, but it is significantly heavier.</li>
 <li><code>qwen3.5</code> remains a useful alternative general model.</li>
 <li><code>qwen2.5:7b</code> is lighter and may fit smaller-memory systems more easily.</li>
@@ -739,19 +770,20 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>selected model and prompt hash</li>
 <li>total latency</li>
 <li>response type (<code>reply</code>, <code>tool</code>, <code>code</code>, or <code>error</code>)</li>
-<li>reject feedback from <code>👎 Reject</code></li>
+<li>reject feedback from <code>Reject</code></li>
 <li>approved code execution success or failure</li>
 </ul>
-<p>Telemetry is now opt-in from the <code>Session -&gt; Telemetry</code> tab through <code>Enable Telemetry</code>.</p>
-<p>The goal is passive model tracking during actual work rather than separate benchmarking runs.</p>
+<p>Telemetry is opt-in from the <code>Session -&gt; Telemetry</code> tab through <code>Enable Telemetry</code>.</p>
 <p>For advanced users, the <code>Session -&gt; Telemetry</code> tab includes:</p>
 <ul>
 <li><code>Summary</code> to generate a quick in-app summary of recent model speed and behavior</li>
 <li><code>Log</code> to inspect the latest raw JSONL records together with the summary</li>
 <li><code>Reset</code> to clear the local telemetry file and start fresh from the next request</li>
 </ul>
-<p>This keeps the append-only log intact while making it easier to review without leaving napari.</p>
 <p>Generated code is also preflight-validated before execution for common dtype mistakes, unsupported napari imports, and unavailable <code>viewer.*</code> APIs. When validation blocks execution, the code remains visible and copyable for review or regeneration.</p>
+<h2>Release</h2>
+<p>This package is published to PyPI so napari Hub can discover it.</p>
+<p>For maintainer release instructions and PyPI publishing setup, see <a href="RELEASING.md">RELEASING.md</a>.</p>
 <h2>Development</h2>
 <p>Editable install:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
@@ -778,7 +810,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.4.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.4.5</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -788,7 +820,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-31</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-01</li>
                                                 </ul>
                                             </div>
                                         </div>
