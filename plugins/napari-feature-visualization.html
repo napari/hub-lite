@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-06-27</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-02</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">packaging</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">napari>=0.6</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt6; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -216,35 +216,128 @@
 <a href="https://github.com/fractal-napari-plugins-collection/napari-feature-visualization/actions"><img src="https://github.com/fractal-napari-plugins-collection/napari-feature-visualization/workflows/tests/badge.svg" alt="tests" /></a>
 <a href="https://codecov.io/gh/fractal-napari-plugins-collection/napari-feature-visualization"><img src="https://codecov.io/gh/fractal-napari-plugins-collection/napari-feature-visualization/branch/main/graph/badge.svg" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/napari-feature-visualization"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-feature-visualization" alt="napari hub" /></a></p>
-<p>Visualizing feature measurements on label images in napari</p>
-<img src="https://github.com/user-attachments/assets/d2c83d70-d122-4e08-812f-12c5e6006488" alt="feature_vis_demo" style="width: 100%;"/>
-<p>Supports both loading features from a CSV file or visualizing features saved in the label_layer.features dataframe. Through plugins like the <a href="https://github.com/fractal-napari-plugins-collection/napari-ome-zarr-navigator">napari OME-Zarr navigator</a>, this enables visualizing feature measurements stored in OME-Zarrs.</p>
+<p>Visualize per-label feature measurements on label images in napari. Color each
+label by any numeric or categorical feature column, with support for both
+continuous colormaps (with adjustable contrast limits) and qualitative
+colormaps for categorical data.</p>
+<p><img src="https://github.com/user-attachments/assets/4c7e2d37-2981-43bc-9bb6-1f59ac973dd1" alt="feature_viz_demo" /></p>
+<p>Feature data can be loaded from a CSV file or read directly from
+<code>layer.features</code> — enabling visualization of measurements stored in OME-Zarrs
+via plugins such as the <a href="https://github.com/fractal-napari-plugins-collection/napari-ome-zarr-navigator">napari OME-Zarr navigator</a>.</p>
 <hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
 <h2>Installation</h2>
-<p>You can install <code>napari-feature-visualization</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">feature</span><span class="o">-</span><span class="n">visualization</span>
 </pre></div>
 </code></pre>
-<p>To install latest development version :</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fractal</span><span class="o">-</span><span class="n">napari</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">collection</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">feature</span><span class="o">-</span><span class="n">visualization</span><span class="o">.</span><span class="n">git</span>
+<hr />
+<h2>Usage</h2>
+<p>Open the widget via <strong>Plugins → Feature Visualization</strong>.</p>
+<h3>1. Select a data source</h3>
+<p>The widget has two modes, selected with the radio buttons at the top:</p>
+<ul>
+<li><strong>Layer Properties</strong> — reads feature columns directly from the active Labels
+layer's <code>.features</code> DataFrame. No file is needed; the features travel with
+the layer.</li>
+<li><strong>CSV File</strong> — loads a CSV from disk. Click <strong>Browse…</strong> to pick the file.
+The CSV must have one row per label and at least one column whose values
+match the label IDs in the image.</li>
+</ul>
+<img width="1983" height="1243" alt="feature_viz_overview" src="https://github.com/user-attachments/assets/56a41144-9c2c-460e-ad06-11fc5df6b6d8" />
+<h3>2. Select a Labels layer</h3>
+<p>Click a Labels layer in the napari layer list. The widget automatically tracks
+the active layer — the layer name shown below the radio buttons updates as you
+switch between layers. If the active layer is not a Labels layer or has no
+feature columns the dropdowns will be empty.</p>
+<h3>3. Configure columns</h3>
+<table>
+<thead>
+<tr>
+<th>Dropdown</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Feature</strong></td>
+<td>The column to visualize (any numeric or string column)</td>
+</tr>
+<tr>
+<td><strong>Label column</strong></td>
+<td>The column whose integer values match the label IDs in the image</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Label column</strong> defaults to the first column named <code>label</code>, <code>Label</code>, or
+<code>index</code> if one exists.</p>
+<h3>4. Choose a colormap</h3>
+<p>For <strong>continuous</strong> features all napari colormaps are available. The default is
+<code>viridis</code>.</p>
+<p>For <strong>categorical</strong> (non-numeric) features only qualitative colormaps wide
+enough to cover the number of unique categories are shown. The default is
+<code>tab10</code> (up to 10 categories). When the number of categories exceeds all
+available qualitative colormaps the napari <code>label_colormap</code> is used as
+fallback.</p>
+<img width="1983" height="1243" alt="feature_viz_continuous" src="https://github.com/user-attachments/assets/babef956-8439-43b8-962a-ca8427f4f555" />
+<img width="1983" height="1243" alt="feature_viz_categorical" src="https://github.com/user-attachments/assets/6a6deee3-6149-4217-a57b-d8dcebaabd7e" />
+<h3>5. Adjust contrast limits (continuous features only)</h3>
+<p>The range slider sets the lower and upper contrast limits. Values below the
+lower limit map to the first colormap color; values above the upper limit map
+to the last. The limits default to the 1st and 99th percentiles of the feature
+values.</p>
+<p>The <strong>Show colorbar</strong> checkbox renders a labeled gradient bar below the slider.</p>
+<img width="578" height="98" alt="feature_viz_colorbar" src="https://github.com/user-attachments/assets/15fdca4e-b26b-4265-952d-4b50b7510b23" />
+<h3>6. Apply</h3>
+<ul>
+<li>Click <strong>Apply Feature Colormap</strong> to color the layer once.</li>
+<li>Check <strong>Live update</strong> to automatically re-apply whenever you change the
+feature, colormap, or contrast limits.</li>
+</ul>
+<p>Labels whose feature value is <code>NaN</code> / <code>None</code> are rendered transparent.
+Background (label 0) is always black.</p>
+<hr />
+<h2>Contributing</h2>
+<p>Contributions are welcome. The project uses <a href="https://pixi.sh">pixi</a> for environment management.</p>
+<pre><code><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fractal</span><span class="o">-</span><span class="n">napari</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">collection</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">feature</span><span class="o">-</span><span class="n">visualization</span>
+<span class="n">cd</span> <span class="n">napari</span><span class="o">-</span><span class="n">feature</span><span class="o">-</span><span class="n">visualization</span>
+<span class="n">pixi</span> <span class="n">install</span>
+<span class="n">pixi</span> <span class="n">run</span> <span class="n">test</span>      <span class="c1"># run the test suite</span>
+<span class="n">pixi</span> <span class="n">run</span> <span class="n">napari</span>    <span class="c1"># launch napari with the plugin installed</span>
 </pre></div>
 </code></pre>
-<h2>Contributing</h2>
-<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
+<p>Linting and formatting use <a href="https://docs.astral.sh/ruff/">ruff</a>:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="n">pixi</span> <span class="n">run</span> <span class="n">lint</span>      <span class="c1"># check</span>
+<span class="n">pixi</span> <span class="n">run</span> <span class="nb">format</span>    <span class="c1"># auto-format</span>
+<span class="n">pixi</span> <span class="n">run</span> <span class="n">check</span>     <span class="c1"># lint + test in one step</span>
+</pre></div>
+</code></pre>
+<p>Please ensure the test coverage does not decrease before opening a pull
+request.</p>
+<hr />
+<h2>Releases</h2>
+<p>Releases are driven by git tags. The version is managed automatically by
+<a href="https://setuptools-scm.readthedocs.io/">setuptools-scm</a> — there is no version number to edit manually.</p>
+<ol>
+<li>Make sure <code>main</code> is clean and all tests pass.</li>
+<li>Create and push a version tag:<pre><code><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">tag</span> <span class="n">v</span><span class="o">&lt;</span><span class="n">major</span><span class="o">&gt;.&lt;</span><span class="n">minor</span><span class="o">&gt;.&lt;</span><span class="n">patch</span><span class="o">&gt;</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">v</span><span class="o">&lt;</span><span class="n">major</span><span class="o">&gt;.&lt;</span><span class="n">minor</span><span class="o">&gt;.&lt;</span><span class="n">patch</span><span class="o">&gt;</span>
+</pre></div>
+</code></pre>
+</li>
+<li>The GitHub Actions workflow detects the tag and automatically:
+<ul>
+<li>Builds the source distribution and wheel (<code>python -m build</code>)</li>
+<li>Uploads to PyPI via Twine (requires the <code>TWINE_API_KEY</code> secret to be set
+in the repository settings)</li>
+</ul>
+</li>
+</ol>
+<p>There is no separate changelog file — use the GitHub Releases page to document
+what changed.</p>
+<hr />
 <h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-&quot;napari-feature-visualization&quot; is free and open source software</p>
+<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license.</p>
 <h2>Issues</h2>
-<p>If you encounter any problems, please <a href="https://github.com/fractal-napari-plugins-collection/napari-feature-visualization/issues">file an issue</a> along with a detailed description.</p>
+<p><a href="https://github.com/fractal-napari-plugins-collection/napari-feature-visualization/issues">File an issue</a> on GitHub with a detailed description.</p>
 
 
                                     </div>
@@ -260,7 +353,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -270,7 +363,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-06-27</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-02</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -348,7 +441,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -367,7 +460,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">packaging</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">napari>=0.6</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt6; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
