@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.4.5</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.6.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-01</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-02</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -236,7 +236,7 @@
 <p>This plugin comes out of long practical imaging experience rather than a generic &quot;chat in a sidebar&quot; idea.</p>
 <p>It is designed around how imaging work actually happens:</p>
 <ul>
-<li>look at the data first</li>
+<li>start from the data already open in the viewer</li>
 <li>identify objects or regions of interest in the viewer</li>
 <li>ask for the next analysis step in plain language</li>
 <li>inspect the result</li>
@@ -249,12 +249,14 @@
 <ul>
 <li>inspect the selected layer or named layers with structured summaries</li>
 <li>profile loaded layers with deterministic semantic and workflow-aware metadata</li>
-<li>run built-in tools for enhancement, thresholding, mask cleanup, measurement, projection, and cropping</li>
+<li>run built-in tools for enhancement, thresholding, mask cleanup, measurement, projection, cropping, presentation, and layer visibility control</li>
 <li>inspect ROI context and extract grayscale values from <code>Labels</code> and <code>Shapes</code> layers</li>
 <li>generate napari Python code when no built-in tool is the right fit</li>
 <li>paste and run your own viewer-bound Python from the prompt box with <code>Run My Code</code></li>
+<li>repair or explain broken pasted Python with <code>Refine My Code</code></li>
+<li>use <code>Layer Context</code> to copy or insert exact layer summaries into the Prompt box</li>
 <li>save, pin, tag, rename, and reuse prompts and code from the local Library</li>
-<li>use built-in demo packs for repeatable teaching, testing, and workflow development</li>
+<li>browse built-in templates and demo packs for repeatable teaching, testing, and workflow development</li>
 </ul>
 <p>Example requests:</p>
 <ul>
@@ -275,16 +277,16 @@
 <li>no image data leaves your workstation</li>
 </ul>
 <p>This makes it a better fit for research and facility environments where users want privacy, controllability, and local reproducibility.</p>
-<h2>What's New In 1.4.5</h2>
+<h2>What's New In 1.6.0</h2>
 <ul>
-<li>improved prompt routing for compound imaging workflows and added a local-first path for axon-interior extraction</li>
-<li>strengthened napari code validation to block invented layer attributes such as <code>.type</code> and <code>._type</code></li>
-<li>preserved saved code formatting better in <code>Run My Code</code> and the local library</li>
-<li>expanded experimental SAM2 live work with better session handling, progress feedback, and a simpler points workflow</li>
-<li>kept experimental SAM2 under <code>Advanced</code> rather than the default toolbar</li>
-<li>kept the clearer <code>Load</code>, <code>Unload</code>, <code>Test</code>, <code>Setup</code> model flow and improved status wording</li>
+<li>added <code>Refine My Code</code> so users can repair pasted or failed viewer-bound Python directly inside the plugin, using the current napari session context</li>
+<li>added direct layer visibility controls for showing, hiding, isolating, and restoring layers without manual layer toggling</li>
+<li>redesigned the dock around a compact model/status bar and a cleaner main workflow that keeps chat, prompt writing, and library access in focus</li>
+<li>replaced the old context area with <code>Layer Context</code>, which now includes a copyable summary view plus per-layer <code>Insert</code> and <code>Copy</code> actions for faster prompt building</li>
+<li>made <code>Layer Context</code> refresh live from napari layer and selection changes instead of relying on manual refreshes</li>
+<li>improved library usability with a collapsed template tree by default, clearer tab tooltips, and darker prompt/code list styling</li>
 </ul>
-<p>For older release history, see <a href="CHANGELOG.md">CHANGELOG.md</a>.</p>
+<p>For complete release history, see <a href="CHANGELOG.md">CHANGELOG.md</a>.</p>
 <h2>Quick Start</h2>
 <ol>
 <li>Install Ollama and pull a local model.</li>
@@ -352,10 +354,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Open <code>Plugins -&gt; Chat Assistant</code>.</li>
 <li>Leave <code>Base URL</code> as <code>http://127.0.0.1:11434</code> unless your Ollama server is elsewhere.</li>
 <li>Choose a model from the <code>Model</code> dropdown or type a model tag manually.</li>
-<li>Click <code>Test</code>.</li>
+<li>Use <code>Load</code> if you want to warm the selected model before the first request.</li>
 <li>Start chatting, or use the Library for repeatable tasks and reusable code.</li>
 </ol>
 <p>If you already have Python code you want to try, paste it into the Prompt box and click <code>Run My Code</code>. This runs viewer-bound code directly inside napari without opening QtConsole.</p>
+<p>If your pasted code fails or needs adaptation to the current viewer session, click <code>Refine My Code</code> to send it back through the assistant with the current napari context and local validation feedback.</p>
 <p>The assistant works best when prompts describe a concrete action. Natural language is fine.</p>
 <p>Examples:</p>
 <ul>
@@ -374,11 +377,13 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <h2>Typical Workflow</h2>
 <ol>
 <li>Open your image or volume in napari.</li>
+<li>Use <code>Layer Context</code> if you want to copy or insert exact layer summaries into the Prompt box.</li>
 <li>Ask the assistant to inspect the layer and suggest the next step.</li>
-<li>Run a built-in tool for denoising, thresholding, cleanup, or measurement.</li>
+<li>Run a built-in tool for denoising, thresholding, cleanup, measurement, layout, or layer visibility.</li>
 <li>Select an ROI or object in the viewer if you want local analysis.</li>
 <li>Ask for code when you need a custom plot, statistics, or reusable script.</li>
-<li>Save useful prompts or code snippets into the Library for later reuse.</li>
+<li>Use <code>Run My Code</code> for your own Python and <code>Refine My Code</code> when pasted code fails or needs repair for this plugin environment.</li>
+<li>Save useful prompts, code snippets, or templates into the Library for later reuse.</li>
 </ol>
 <p>This is the core value of the plugin: users can stay in the viewer, interact with the data, ask questions, run analysis, and keep the resulting workflow close to the image session.</p>
 <h2>Demo Packs</h2>
@@ -423,6 +428,10 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>per-object measurement table summaries for labels layers</li>
 <li>max-intensity projection for 3D grayscale images</li>
 <li>cropping one layer to the bounding box of another layer</li>
+<li>showing image layers in a comparison grid</li>
+<li>hiding the image grid view and restoring hidden non-image layers</li>
+<li>arranging layers for presentation in rows, columns, grids, or repeated groups</li>
+<li>showing, hiding, isolating, and restoring layer visibility directly from chat</li>
 <li>ROI inspection and grayscale value extraction from labels or shapes regions</li>
 <li>registry-backed tool execution as the foundation for future workflow and pipeline expansion</li>
 </ul>
@@ -466,10 +475,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>copied to the clipboard</li>
 <li>reviewed in chat</li>
 <li>executed from the plugin</li>
+<li>repaired or explained in place when you use <code>Refine My Code</code> on pasted or failed user code</li>
 </ul>
 <p>You can also paste your own Python directly into the Prompt box and run it from the plugin with <code>Run My Code</code>, without switching to QtConsole.</p>
 <p>Use assistant-generated code when you want a reusable script or need custom logic beyond the current built-in tools.</p>
 <p>Use <code>Run My Code</code> when you already have Python you want to test quickly inside the current napari session.</p>
+<p>Use <code>Refine My Code</code> when your own code fails validation, errors at runtime, or needs adjustment to the current napari viewer state.</p>
 <h3>Selective session memory</h3>
 <p>The assistant includes bounded session memory with three states:</p>
 <ul>
@@ -491,6 +502,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <ul>
 <li>built-in starter prompts</li>
 <li>built-in demo packs and reusable code examples in the <code>Code</code> tab</li>
+<li>built-in categorized starter templates in the <code>Templates</code> tab</li>
 <li>recent prompts captured automatically</li>
 <li>saved prompts for reusable tasks</li>
 <li>pinned prompts for high-frequency workflows</li>
@@ -500,6 +512,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <ul>
 <li>single click loads a prompt or code snippet into the editor</li>
 <li>double click sends a prompt directly or runs a code snippet</li>
+<li>templates can be previewed, loaded into the Prompt box, or run directly</li>
 <li>right click can rename or edit tags for saved and recent prompt/code items</li>
 <li>multi-select supports Shift/Ctrl selection for batch actions</li>
 <li><code>Delete</code> can remove saved prompts, recent prompts, code snippets, or hide built-in prompts</li>
@@ -530,7 +543,6 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>napari Hub: <code>https://napari-hub.org/plugins/napari-nd2-spectral-ome-zarr.html</code></li>
 </ul>
 <h3>Experimental SAM2 integration</h3>
-<p>Version <code>1.4.5</code> includes an experimental SAM2 path for users who want box-prompt or point-prompt segmentation inside napari without making SAM2 part of the default assistant workflow.</p>
 <p>Behavior:</p>
 <ul>
 <li>SAM2 is accessed from <code>Advanced</code>, not from the main toolbar</li>
@@ -540,20 +552,31 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </ul>
 <p>Current setup expects:</p>
 <ul>
-<li>a working Python environment that already includes the dependencies required by your SAM2 wrapper</li>
+<li>a working Python environment that already includes the dependencies required by SAM2</li>
 <li>an external SAM2 project path</li>
-<li>a wrapper module exposed as <code>sam2_wrapper.py</code> or <code>sam2_wrapper/__init__.py</code></li>
-<li><code>segment_image_from_box(...)</code> for box workflows</li>
-<li><code>segment_image_from_points(...)</code> for point workflows if you want live point prompting</li>
 <li>a valid checkpoint path</li>
 <li>a valid config path</li>
 </ul>
+<p><code>napari-chat-assistant</code> now ships its own bundled SAM2 adapter in
+<code>napari_chat_assistant.integrations.sam2_adapter</code>, so users only need the SAM2 repo,
+checkpoint, and config files in the normal places.</p>
+<p>The <code>SAM2 Setup</code> dialog now includes:</p>
+<ul>
+<li><code>Auto Detect</code> to scan common local clone locations and fill likely project, checkpoint, and config paths</li>
+<li><code>Setup Help</code> for short setup commands and field tips</li>
+</ul>
+<p>Minimal install:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/facebookresearch/sam2.git<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sam2
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
 <p>Typical setup flow:</p>
 <ol>
 <li>Start napari from the environment that contains your SAM2 dependencies.</li>
 <li>Open <code>Plugins -&gt; Chat Assistant</code>.</li>
 <li>Open <code>Advanced -&gt; SAM2 Setup</code>.</li>
-<li>Enter the SAM2 project path, checkpoint path, config path, and device.</li>
+<li>Click <code>Auto Detect</code> first.</li>
+<li>Confirm or edit the SAM2 project path, checkpoint path, config path, and device.</li>
 <li>Click <code>Test</code>.</li>
 <li>Save the settings.</li>
 <li>Open <code>Advanced -&gt; SAM2 Live</code> when the backend reports ready.</li>
@@ -810,7 +833,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.4.5</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.6.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -820,7 +843,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-01</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-02</li>
                                                 </ul>
                                             </div>
                                         </div>
