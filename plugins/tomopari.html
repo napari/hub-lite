@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.5</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-12-16</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-03</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -226,45 +226,44 @@ https://napari.org/stable/plugins/index.html
 <p><strong>tomopari</strong> is a <a href="https://napari.org/">napari</a> plugin that enables users to easily reconstruct tomography images directly from raw projection data. Simply load an ordered stack of projection files into the napari viewer, and the plugin takes care of reconstructing the corresponding tomographic volume.</p>
 <h2>🚀 Usage</h2>
 <ol>
-<li>
-<p><strong>Load ordered stack</strong><br />
-<img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/refs/heads/nhattm/tomopari/figures/stack_image.png" alt="plot" /></p>
-<p>Go to <strong>File → Open Files as Stack...</strong> and load the angular projections for parallel beam optical tomography reconstruction.</p>
-<p>After loading, the stack of θ-angular projection images should have shape of $N_{angles} × det_h × det_w$, where:</p>
-<ul>
-<li>$N_{angles}$ is the number of projection views (one image per rotation angle θ),</li>
-<li>$det_h$ is the detector height (vertical pixel dimension),</li>
-<li>$det_w$ is the detector width (horizontal pixel dimension).</li>
-</ul>
-</li>
-<li>
-<p><strong>Select image layer</strong><br />
-<img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/refs/heads/nhattm/tomopari/figures/select_layer.png" alt="plot" /></p>
-<p>In the dropdown menu, click <strong>Select image layer</strong> and choose the loaded volume.</p>
-</li>
+<li><strong>Load ordered stack</strong><br />
+<img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/refs/heads/nhattm/tomopari/figures/stack_image.png" alt="plot" /></li>
 </ol>
-<!--  make this line be bigger and bold -->
-<h3>From here you can choose between two reconstruction modes: Basic and Advanced.</h3>
+<p>Go to <strong>File → Open Files as Stack...</strong> and load the angular projections for parallel beam optical tomography reconstruction.</p>
+<p>After loading, the stack of <code>θ</code>-angular projection images should have shape <code>(N_angles × H × W)</code></p>
+<p>where:</p>
+<ul>
+<li><code>N_angles</code>: number of projection views (one image per rotation angle <code>θ</code>),</li>
+<li><code>H</code>: detector height (vertical pixel dimension),</li>
+<li><code>W</code>: detector width (horizontal pixel dimension).</li>
+</ul>
+<ol start="2">
+<li><strong>Select image layer</strong><br />
+<img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/refs/heads/nhattm/tomopari/figures/select_layer.png" alt="plot" /></li>
+</ol>
+<p>In the dropdown menu, click <strong>Select image layer</strong> and choose the loaded volume.</p>
+<hr />
+<h3><span style="font-size:1.2em;"><strong>From here you can choose between two reconstruction modes: Basic and Advanced.</strong></span></h3>
 <h3>🔹 Basic Mode</h3>
 <p><img src="https://raw.githubusercontent.com/obandomarcos/ToMoDL/refs/heads/nhattm/tomopari/figures/basic_mode.png" alt="plot" /></p>
 <ol start="3">
-<li>
-<p><strong>Half-rotation</strong></p>
+<li><strong>Half-rotation</strong></li>
+</ol>
 <ul>
 <li>Click <strong>Half rotation</strong> if your projection data were acquired from 0° to 180°.</li>
 <li>Leave it unchecked if data were acquired from 0° to 360°.</li>
 </ul>
-</li>
+<ol start="4">
 <li>
 <p><strong>Automatic axis alignment</strong><br />
-If the rotation axis is not correctly aligned during acquisition, enable <strong>Automatic axis alignment</strong>.  This aligns the sinogram to the detector center using the <a href="https://doi.org/10.1088/0031-9155/50/19/015">Wall-method</a>.</p>
+If the rotation axis is not correctly aligned during acquisition, enable <strong>Automatic axis alignment</strong>. This aligns the sinogram to the detector center using the <a href="https://doi.org/10.1088/0031-9155/50/19/015">Wall-method</a>.</p>
 </li>
 <li>
 <p><strong>Compression</strong><br />
 Compression affects the detector dimension differently depending on the acquisition mode:</p>
 <ul>
-<li>Vertical-axis mode → the $det_w$ will be resized</li>
-<li>Horizontal-axis mode → the $det_h$ will be resized</li>
+<li>Vertical-axis mode → the <code>W</code> will be resized</li>
+<li>Horizontal-axis mode → the <code>H</code> will be resized</li>
 </ul>
 <p>Available compression levels:</p>
 <ul>
@@ -294,8 +293,8 @@ Select smoothing strength (only applies to <strong>TOMODL</strong> methods). Can
 <p><strong>Rotation axis</strong><br />
 Select how your data is organized with respect to the rotation axis:</p>
 <ul>
-<li><strong>Vertical</strong> → rotation axis parallel to $det_h$</li>
-<li><strong>Horizontal</strong> → rotation axis parallel to $det_w$</li>
+<li><strong>Vertical</strong> → rotation axis parallel to <code>H</code></li>
+<li><strong>Horizontal</strong> → rotation axis parallel to <code>W</code></li>
 </ul>
 </li>
 </ol>
@@ -305,7 +304,7 @@ Select how your data is organized with respect to the rotation axis:</p>
 <ol start="9">
 <li>
 <p><strong>Manual axis alignment</strong><br />
-Shift the object along $det_w$ in vertical mode, and along $det_h$ in horizontal mode.</p>
+Shift the object along <code>W</code> in vertical mode, and along <code>H</code> in horizontal mode.</p>
 <ul>
 <li>Negative values → shift left (toward lower pixel indices)</li>
 <li>Positive values → shift right (toward higher pixel indices)</li>
@@ -455,7 +454,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.5</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -465,7 +464,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-12-16</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-03</li>
                                                 </ul>
                                             </div>
                                         </div>
