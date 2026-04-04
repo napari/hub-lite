@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.4.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-06-27</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-04</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pandas>=2.2.0</li><li class="MetadataList_textItem__KKmMN">scikit-learn>=1.2.2</li><li class="MetadataList_textItem__KKmMN">pandera</li><li class="MetadataList_textItem__KKmMN">xxhash</li><li class="MetadataList_textItem__KKmMN">hypothesis</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari>=0.6.0</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas<3.0.0,>=2.2.0</li><li class="MetadataList_textItem__KKmMN">pandera</li><li class="MetadataList_textItem__KKmMN">scikit-learn>=1.2.2</li><li class="MetadataList_textItem__KKmMN">xxhash</li><li class="MetadataList_textItem__KKmMN">hypothesis; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">qtpy; extra == 'testing'</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -216,108 +216,112 @@
 <a href="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/actions"><img src="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/workflows/tests/badge.svg" alt="tests" /></a>
 <a href="https://codecov.io/gh/fractal-napari-plugins-collection/napari-feature-classifier"><img src="https://codecov.io/gh/fractal-napari-plugins-collection/napari-feature-classifier/branch/main/graph/badge.svg" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/napari-feature-classifier"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-feature-classifier" alt="napari hub" /></a></p>
-<p>An interactive classifier plugin that allows the user to assign objects in a label image to multiple classes and train a classifier to learn those classes based on a feature dataframe.</p>
+<p>An interactive classifier plugin for napari that lets you annotate objects in a label image and train a random forest classifier to generalize those annotations across all objects — without leaving the viewer.</p>
+<p><img src="https://github.com/user-attachments/assets/e1a3156a-bc78-442e-9294-f81aba503ee4" alt="napari-feature-classifier" /></p>
+<h2>When to use this</h2>
+<p>This plugin is designed for tasks where visual inspection defines the ground truth:</p>
+<ul>
+<li>Classifying cell types (e.g. mitotic vs. interphase cells)</li>
+<li>Quality control (flagging mis-segmented objects)</li>
+<li>Any labeling task where you can recognize the classes by eye but want to scale it to thousands of objects automatically</li>
+</ul>
+<p>You need: a <strong>label image</strong> and a <strong>feature table</strong> — measurements per object (area, intensity, shape descriptors, etc.) stored in <code>layer.features</code>. The classifier learns from your manual annotations and applies those patterns to every object.</p>
 <h2>Usage</h2>
-<p align="center"><img src="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/assets/18033446/1ebf0890-1a7b-4e4b-a21c-88ca8f1dd800" /></p>
-<p>To use the napari-feature-classifier, you need to have a label image and corresponding measurements: as a csv file, loaded to layer.features or in an <a href="https://github.com/fractal-napari-plugins-collection/napari-ome-zarr-navigator">OME-Zarr Anndata table loaded with another plugin</a>. Your feature measurements need to contain a <code>label</code> column that matches the label objects in the label image.
-These interactive classification workflows are well suited to visually define cell types, find mitotic cells in images, do quality control by automatically detecting missegmented cells and other tasks where a user can easily assign objects to groups.</p>
-<h4>Prepare the label layer:</h4>
+<h3>1. Prepare your label layer</h3>
+<p>Load your label image into napari and attach feature measurements to <code>layer.features</code> of that layer. You can have multiple label layers open at once — the classifier handles them all.</p>
+<p>Your feature table must have:</p>
 <ul>
-<li>Load your label layer into napari and add the features measurements to layer.features of the corresponding label layer. You can have multiple label layers with their features open at the same time
+<li>A <code>label</code> column matching the integer labels in the image</li>
+<li>A <code>roi_id</code> column identifying which image each row belongs to (used when training on multiple images)</li>
+</ul>
+<p><strong>Ways to load features:</strong></p>
 <ul>
-<li>To load features from a CSV file: <code>Plugins -&gt; napari-feature-classifier -&gt; CSV Feature Loader</code>, then load the features for the correct label image.</li>
-<li>To load features from an OME-Zarr file: Get both the label layer into memory as a normal label layer (not a pyramidal label layer, currently untested) and the corresponding features. If your OME-Zarr file is created by <a href="https://fractal-analytics-platform.github.io/">Fractal</a>, you can use <a href="https://github.com/jluethi/napari-ome-zarr-roi-loader">this ROI loader plugin</a>.</li>
-<li>To load features from anywhere else, load them manually to your label_layer.features</li>
+<li>From an OME-Zarr file: use <a href="https://github.com/fractal-napari-plugins-collection/napari-ome-zarr-navigator">napari-ome-zarr-navigator</a>, which handles correct loading of both the label image and the feature table and populates the <code>roi_id</code> column automatically.</li>
+<li>From a CSV file: <code>Plugins → napari-feature-classifier → CSV Feature Loader</code>, then select the label layer and point to the CSV.</li>
+<li>Programmatically: <code>label_layer.features = your_dataframe</code></li>
 </ul>
-</li>
-<li>Your feature table should have 2 columns used for indexing (but stored as normal columns in layer.features):
+<h3>2. Initialize a classifier</h3>
+<p>Go to <code>Plugins → napari-feature-classifier → Initialize a Classifier</code>.</p>
+<img width="1694" height="1088" alt="classifier_init" src="https://github.com/user-attachments/assets/05a2495a-b7fd-40be-bd9c-607177c0aa68" />
 <ul>
-<li>The <code>label</code> column to match the object in the label image</li>
-<li>The <code>roi_id</code> column to identify the image you're currently classifying (used when a classifier is trained on multiple label images)</li>
+<li>Select the features to use for training. Hold Cmd/Ctrl to select multiple. The feature list reflects the currently selected label layer.</li>
+<li>Name your classes (e.g. &quot;Mitotic&quot;, &quot;Interphase&quot;). Classes without a name won't be created.</li>
+<li>Click <strong>Initialize</strong>.</li>
 </ul>
-</li>
-</ul>
-<h4>Initialize a classifier:</h4>
+<blockquote>
+<p>Feature selection is fixed after initialization. If you want different features, start a new classifier.</p>
+</blockquote>
+<h3>3. Annotate and train</h3>
+<img width="1694" height="1088" alt="classifier_annotation" src="https://github.com/user-attachments/assets/25a9c90a-0d58-4fc2-92df-9006cdae00aa" />
 <ul>
-<li>Start the classifier in napari by going to <code>Plugins -&gt; napari-feature-classifier -&gt; Initialize a Classifier</code></li>
-<li>Select the features you want to use for the classifier (you need to do the feature selection before initializing. The feature selection can't be changed after initialization anymore). Hold the command key to select multiple features. Feature options are always shown for the features available in the last selected label layer, based on layer.features available features.</li>
-<li>(Optional) Give your classes recognizable names (e.g. Mitotic &amp; Interphase, Cell Type a, b and c etc.)
-<img width="1606" alt="Screenshot 2023-05-09 at 11 46 35" src="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/assets/18033446/452c0d6a-98a3-4e2d-9233-33bfd5bcad19"></li>
+<li>Select your label layer in the napari layer list.</li>
+<li>Pick a class using the panel buttons or keyboard shortcuts (keys <strong>1–9</strong> for classes, <strong>0</strong> to deselect).</li>
+<li>Click on label objects in the viewer to annotate them.</li>
+<li>The live count display shows how many objects you've annotated per class across all open images.</li>
+<li>Once you have at least a handful of examples per class (aim for 10+), click <strong>Run Classifier</strong>.</li>
 </ul>
-<h4>Classify objects:</h4>
-<img width="1802" alt="Classifier_annotation" src="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/assets/18033446/556739b8-972b-4570-9da4-637738fc6a75">
+<p>The classifier splits your annotations 80/20 into training and test sets, trains a random forest, and applies it to all objects. Predictions appear as a color-coded <strong>Predictions</strong> layer.</p>
+<img width="1694" height="1088" alt="classifier-predict" src="https://github.com/user-attachments/assets/273d696f-669f-4d01-88e4-e74e204a066d" />
+<p>Correct mistakes the classifier made and click Run Classifier again to improve it. Iterative annotation is the intended workflow.</p>
+<h3>4. Save and reload</h3>
+<p>After each run, the classifier auto-saves to a <code>.clf</code> file named after the label layer (in the current working directory). To save to a different location: expand <strong>▶ Saving &amp; Export</strong> and click <strong>Save Classifier As…</strong>.</p>
+<p>To resume work or apply a trained classifier to new images:
+<code>Plugins → napari-feature-classifier → Load Classifier</code></p>
+<p>Select the <code>.clf</code> file, make sure your label layers with features are already open, and click <strong>Load Classifier</strong>.</p>
+<h3>5. Export results</h3>
+<p>Expand <strong>▶ Saving &amp; Export</strong> and click <strong>Export Results As…</strong> to save predictions for the currently selected layer as a CSV file.</p>
+<p>The exported CSV contains:</p>
 <ul>
-<li>Make sure you have the label layer selected on which you want to classify</li>
-<li>Select the current class with the radio buttons or by pressing 0, 1, 2, etc.</li>
-<li>Click on label objects in the viewer to assign them to the currently selected class</li>
-<li>Once you have trained enough examples, click &quot;Run Classifier&quot; to run the classifier and have it make a prediction for all objects. Aim for at least a dozen annotations per class, as the classifier divides your annotations 80/20 in training and test sets.</li>
-<li>Once you get predictions, correct mistakes the classifier made and retrain it to improve its performance.</li>
-<li>You can save the classifier under a different name or in a different location. Define the new output location and then click <code>Save Classifier</code> (you need to click the Save Classifier button. Just defining the new output path does not save it yet. But every run of the classifier triggers an autosave)
-<img width="1802" alt="Classifier_prediction" src="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/assets/18033446/69cff600-4585-4a66-9274-d2e7caeb335f"></li>
+<li><code>label</code> — integer object ID</li>
+<li><code>prediction</code> — classifier prediction (1–N for each class; NaN for objects with missing features)</li>
+<li><code>annotations</code> — your manual annotations (NaN = not annotated, −1 = explicitly deselected, 1–N = class)</li>
+<li>One column per annotation class name</li>
 </ul>
-<h4>Apply the classifier to additional images:</h4>
-<ul>
-<li>You can apply a classifier trained on one image to additional label images. Use <code>Plugins -&gt; napari-feature-classifier -&gt; Load Classifier</code></li>
-<li>Select the classifier (.clf file with the name you gave above) while already having the label images ready (see <code>Prepare the label layer</code> above).</li>
-<li>Click Load Classifier, proceed as above.
-<img width="1606" alt="Screenshot 2023-05-09 at 12 01 00" src="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/assets/18033446/e1143f9f-9729-4f8e-979c-2ab195e0aaca"></li>
-</ul>
-<h4>Export classifier results</h4>
-<ul>
-<li>To export the training data and the results of the classifier, define an Export Name (full path to an output file or just a filename ending in .csv) where the results of the classifier shall be saved. It defaults to the layer name for the selected layer in the last directory you chose (or the current working directory if none was chosen so far)</li>
-<li>Click <code>Export Classifier Result</code> (Just selecting a filename is not enough, you need to click the export button). This will export the predictions for the currently selected layer.</li>
-<li>The results of the classifier are save in a csv file. The label is an integer of the label object within that image. The prediction column contains predictions of the classifier for all objects (except those that contained NaNs in their feature data) and the annotation column contains the annotations you made (NaN for unclassified objects, -1 for objects you deselected, 1 - 9 for the classes)
-<img width="1802" alt="Classifier_prediction" src="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/assets/18033446/e8f6f7b7-d88b-44f8-b43e-8a2fa81e18d4"></li>
-</ul>
-<h4>Batch mode result export</h4>
-<p>(To be updated: Create a new notebook to run batch processing, this is for the older version of the classifier)
-There is a simple workflow for the classifier in the examples folder:</p>
-<ul>
-<li>Install jupyter-lab (<code>pip install jupyterlab</code>)</li>
-<li>Open the notebook in jupyter lab (Type <code>jupyter-lab</code> in the terminal when you are in the examples folder)</li>
-<li>Follow the instructions to generate an example dataframe and an example label image</li>
-<li>Use the classifier in napari with this simplified data</li>
-</ul>
-<h4>Initializing the Annotator</h4>
-<p>You can use the annotation functionality also independently from the classifier
-Start the annotator widget by going to <code>Plugins -&gt; napari-feature-classifier -&gt; Annotator</code>
-Select names for your classes. You can name up to 9 classes. Only classes that you give a name will be created upon initialization.
-Then click <code>Initialize</code>.</p>
-<img width="1411" alt="Screenshot 2023-02-16 at 14 49 38" src="https://user-images.githubusercontent.com/18033446/219384524-9873bd66-270b-4cdd-b913-60d390f6c77a.png">
-<p>A annotator widget opens. Use the Radio-Buttons to select what class you're annotating (or keybindings for 1-9 for classes, 0 for deselect).
-The annotator will always work on the currently selected label layer. While the annotator is open, you can't edit the labels. Restart napari to allow editing of labels again.</p>
-<img width="1411" alt="Screenshot 2023-02-16 at 14 50 00" src="https://user-images.githubusercontent.com/18033446/219384925-b20e4c1a-2eca-4070-8269-902493c5d5ef.png">
-<p>The annotations are saved in the <code>layer.features</code> table of the corresponding label layer as an <code>annotations</code> column.
-<img width="1411" alt="Screenshot 2023-02-16 at 15 01 01" src="https://user-images.githubusercontent.com/18033446/219385788-f61bd0a5-fbb6-42d7-81e5-f77ee4d1b4ff.png"></p>
+<img width="317" height="137" alt="classifier-save" src="https://github.com/user-attachments/assets/62236f0d-7cc5-4760-8158-efe65e52109a" />
+<h3>6. Standalone annotator</h3>
+<p>You can use the annotation tool independently from the classifier:
+<code>Plugins → napari-feature-classifier → Annotator</code></p>
+<p>Name up to 9 classes, click <strong>Initialize</strong>, then annotate as above. Annotations are stored in <code>layer.features[&quot;annotations&quot;]</code> and can be saved to CSV via <strong>▶ Save Annotations</strong>.</p>
+<img width="322" height="239" alt="annotator" src="https://github.com/user-attachments/assets/05c3bebc-3d9c-4a78-bfde-b821e8f565cc" />
+<h3>Batch / scripted use</h3>
+<p>Classifiers can be applied programmatically without the napari UI. See <a href="examples/simple_classifier_example.ipynb">examples/simple_classifier_example.ipynb</a> for a worked example.</p>
 <h2>Installation</h2>
-<p>This plugin is written for the new napari npe2 plugin engine. Thus, it requires napari &gt;= 0.4.13.
-Activate your environment where you have napari installed (or install napari using <code>pip install &quot;napari[all]&quot;</code>), then install the classifier plugin:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">feature</span><span class="o">-</span><span class="n">classifier</span>
+<p>Requires Python ≥ 3.10 and napari ≥ 0.6.0.</p>
+<p>We recommend installing into a dedicated environment to avoid dependency conflicts:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># With conda</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-feature-classifier<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>napari<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>napari-feature-classifier
+pip<span class="w"> </span>install<span class="w"> </span>napari-feature-classifier
 </pre></div>
 </code></pre>
-<p>The layer.features dataframes have some issues in napari 0.4.17 (see <a href="https://github.com/napari/napari/issues/5617">here</a>). They seem to be working again in the nighlty builds. To set up a nightly builds napari env, do the following:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">classifier</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">napari</span><span class="o">-</span><span class="n">main</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;napari/label/nightly&quot;</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">napari</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.10</span> <span class="o">-</span><span class="n">y</span>
+<p>Or with <a href="https://pixi.sh">pixi</a>:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>init<span class="w"> </span>my-project
+pixi<span class="w"> </span>add<span class="w"> </span>napari<span class="w"> </span>napari-feature-classifier
+pixi<span class="w"> </span>run<span class="w"> </span>napari
+</pre></div>
+</code></pre>
+<p>Or into an existing environment:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-feature-classifier
 </pre></div>
 </code></pre>
 <h2>Similar napari plugins</h2>
-<p>If you're looking for other classification approaches, <a href="https://github.com/haesleinhuepf/apoc">apoc</a> by <a href="https://github.com/haesleinhuepf">Robert Haase</a> has a pixel classifier in napari and an object classification workflow:<br />
-<a href="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification">napari-accelerated-pixel-and-object-classification (APOC)</a><br />
-Alternatively, Clément Cazorla has built <a href="https://www.napari-hub.org/plugins/napari-svetlana">napari-svetlana, a deep learning based classifier</a></p>
+<ul>
+<li><a href="https://github.com/guiwitz/napari-convpaint">napari-convpaint</a> — deep feature-based pixel and object classifier by Guillaume Witz</li>
+<li><a href="https://github.com/haesleinhuepf/napari-accelerated-pixel-and-object-classification">napari-accelerated-pixel-and-object-classification (APOC)</a> — pixel and object classifier by Robert Haase</li>
+<li><a href="https://www.napari-hub.org/plugins/napari-svetlana">napari-svetlana</a> — deep learning based classifier by Clément Cazorla</li>
+</ul>
 <h2>Release process</h2>
 <ol>
-<li>Update the version number in src/napari-feature-classifier/<strong>init</strong>.py</li>
-<li>Update the version in setup.cfg</li>
-<li>Add a Github release with a new version tag (matching the version set above)</li>
-<li>Once tests pass, this should automatically be deployed to pypi</li>
-<li>Wait for conda automation to make a PR for an updated conda release (see <a href="https://github.com/conda-forge/napari-feature-classifier-feedstock">https://github.com/conda-forge/napari-feature-classifier-feedstock</a>). This can take 1-2 days. Make sure that PR gets merged.</li>
+<li>Tag a release on GitHub with the new version number (e.g. <code>v0.3.2</code>). The version is set automatically from the git tag via <code>hatch-vcs</code>.</li>
+<li>Once CI tests pass, the package is automatically deployed to PyPI.</li>
+<li>A conda-forge PR will be opened automatically within 1–2 days — review and merge it at <a href="https://github.com/conda-forge/napari-feature-classifier-feedstock">napari-feature-classifier-feedstock</a>.</li>
 </ol>
 <h2>Contributing</h2>
-<p>Contributions are very welcome.</p>
+<p>Contributions are very welcome. Please open an issue to discuss significant changes before starting work.</p>
 <h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-&quot;napari-feature-classifier&quot; is free and open source software</p>
+<p>Distributed under the terms of the <a href="LICENSE">BSD-3-Clause</a> license.</p>
 <h2>Issues</h2>
-<p>If you encounter any problems, please [file an issue] along with a detailed description.</p>
+<p>If you encounter any problems, please <a href="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier/issues">file an issue</a> along with a detailed description.</p>
 <h2>Contributors</h2>
 <p><a href="https://github.com/jluethi">Joel Lüthi</a> &amp; <a href="https://github.com/MaksHess">Max Hess</a></p>
 
@@ -335,7 +339,7 @@ Alternatively, Clément Cazorla has built <a href="https://www.napari-hub.org/pl
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.4.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -345,7 +349,7 @@ Alternatively, Clément Cazorla has built <a href="https://www.napari-hub.org/pl
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-06-27</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-04</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -423,7 +427,7 @@ Alternatively, Clément Cazorla has built <a href="https://www.napari-hub.org/pl
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -442,7 +446,7 @@ Alternatively, Clément Cazorla has built <a href="https://www.napari-hub.org/pl
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">pandas>=2.2.0</li><li class="MetadataList_textItem__KKmMN">scikit-learn>=1.2.2</li><li class="MetadataList_textItem__KKmMN">pandera</li><li class="MetadataList_textItem__KKmMN">xxhash</li><li class="MetadataList_textItem__KKmMN">hypothesis</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">napari>=0.6.0</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas<3.0.0,>=2.2.0</li><li class="MetadataList_textItem__KKmMN">pandera</li><li class="MetadataList_textItem__KKmMN">scikit-learn>=1.2.2</li><li class="MetadataList_textItem__KKmMN">xxhash</li><li class="MetadataList_textItem__KKmMN">hypothesis; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == 'testing'</li><li class="MetadataList_textItem__KKmMN">qtpy; extra == 'testing'</li></ul>
                                             </div>
                                         </div>
                                     </div>
