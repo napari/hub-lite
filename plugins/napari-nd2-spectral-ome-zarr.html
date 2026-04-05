@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.3.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-05</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Open extension<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -228,7 +228,7 @@ to image-level and animal-level datasets.</p>
 </ol>
 <ul>
 <li>convert single files or batches from ND2 to OME-Zarr</li>
-<li>load single or batch OME-Zarr datasets</li>
+<li>scan and open single or batch OME-Zarr datasets from the same workspace</li>
 <li>validate image structure and dimensions such as axes order, shape, and wavelength metadata</li>
 </ul>
 <ol start="2">
@@ -267,6 +267,16 @@ to image-level and animal-level datasets.</p>
 </pre></div>
 </code></pre>
 <p>Then start napari and open the plugin widgets from the Plugins menu.</p>
+<h2>Interface Preview</h2>
+<p>The screenshot below shows the main <code>ND2 Spectral Export</code> workflow used for conversion and OME-Zarr loading.</p>
+<p><img src="docs/nd2_spectral_export_workflow.png" alt="ND2 Spectral Export workflow" /></p>
+<p>Highlighted areas:</p>
+<ol>
+<li>The conversion section defines the <code>ND2 source</code> and <code>OME-Zarr output</code> used for ND2-to-OME-Zarr export.</li>
+<li><code>Scan Zarr Folder</code> is used to browse and discover converted OME-Zarr datasets.</li>
+<li>The table lists dataset properties such as file name, relative path, axes, shape, preview shape, wavelength range, and spectral status.</li>
+</ol>
+<p>Additional screenshots and supporting project assets can be stored and referenced from <a href="docs/"><code>docs/</code></a>.</p>
 <h2>Intended users</h2>
 <p>This plugin is designed for researchers working with spectral fluorescence
 microscopy datasets, especially solvatochromic probes such as Nile Red
@@ -289,31 +299,26 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <h2>ND2 Spectral Export Workflow</h2>
 <p><code>ND2 Spectral Export</code> now handles:</p>
 <ul>
-<li>single ND2 preview</li>
-<li>batch ND2 to OME-Zarr export</li>
-<li>single OME-Zarr loading</li>
-<li>batch OME-Zarr loading from a parent folder</li>
+<li>ND2-to-OME-Zarr conversion from a dropped single file, subfolder, or parent folder</li>
+<li>recursive batch ND2 conversion while preserving the original relative folder structure</li>
+<li>root-level <code>manifest.json</code> export logging for converted datasets</li>
+<li>OME-Zarr scanning and opening from the same widget</li>
+<li>per-file conversion status, progress, and failure reporting in the shared table</li>
+<li>conversion error collection in a dedicated troubleshooting panel</li>
 </ul>
-<h3>Single Zarr loading</h3>
-<p>The widget supports drag-and-drop or browsing for one <code>.zarr</code> folder.</p>
-<p>Before opening, it shows:</p>
+<h3>OME-Zarr scanning and opening</h3>
+<p>The widget supports drag-and-drop or browsing for:</p>
 <ul>
-<li>dataset name</li>
-<li>axes</li>
-<li>full-resolution shape</li>
-<li>preview shape</li>
-<li>whether the dataset is spectral</li>
-<li>wavelength count and wavelength range</li>
+<li>one <code>.zarr</code> folder</li>
+<li>one parent folder containing many <code>.zarr</code> datasets</li>
 </ul>
-<p>The user can choose which views to open:</p>
+<p>The user can choose which views to open for selected Zarr datasets:</p>
 <ul>
 <li><code>Visible sum</code></li>
 <li><code>Truecolor</code></li>
 <li><code>Raw spectral</code></li>
 </ul>
 <p>It also supports <code>Use preview pyramid level</code> for the display layers.</p>
-<h3>Batch Zarr loading</h3>
-<p>The widget also supports scanning one parent folder recursively for <code>.zarr</code> datasets, including nested subfolders.</p>
 <p>The batch table shows:</p>
 <ul>
 <li><code>open</code></li>
@@ -328,12 +333,28 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <p><code>relative_path</code> is shown as the parent folder only, for example <code>./659/</code>, instead of including the <code>.zarr</code> folder name.</p>
 <p>The user can:</p>
 <ul>
-<li>browse to a root folder</li>
-<li>scan recursively for <code>.zarr</code> datasets</li>
-<li>select all or clear all</li>
-<li>open only the checked datasets</li>
+<li>browse or drag a Zarr source</li>
+<li>click the prominent <code>Scan Zarr Folder</code> action between the source box and the table</li>
+<li>select one row, multiple rows, or use <code>Select All</code> / <code>Clear All</code></li>
+<li>press <code>Space</code> to toggle the selected Zarr rows</li>
+<li>open only the selected or checked datasets with <code>Open Selected Zarr</code></li>
 </ul>
 <p>The chosen <code>Visible sum</code>, <code>Truecolor</code>, <code>Raw spectral</code>, and preview options are applied to all selected Zarr datasets in the batch open action.</p>
+<h3>ND2 conversion behavior</h3>
+<p>The ND2 conversion area now uses:</p>
+<ul>
+<li><code>ND2 source</code></li>
+<li><code>OME-Zarr output</code></li>
+<li><code>Convert To OME-Zarr</code></li>
+</ul>
+<p>Conversion status is shown with:</p>
+<ul>
+<li>a fixed <code>Status:</code> message bar</li>
+<li>a progress bar</li>
+<li>a shared table listing queued ND2 files, converted outputs, and failures</li>
+<li>a <code>Conversion Errors</code> panel for troubleshooting failed files</li>
+</ul>
+<p>If one ND2 file fails, the widget continues converting the remaining files and records the failed file in the error panel instead of aborting the whole batch.</p>
 <h3>Reader popup note</h3>
 <p>If a user opens <code>.zarr</code> files through napari's generic file-open dialog, napari may still show a <code>Choose reader</code> popup when multiple readers claim <code>.zarr</code>.</p>
 <p>This plugin cannot reliably suppress that global napari chooser by itself.</p>
@@ -374,12 +395,12 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <h3>Recommended step-by-step use</h3>
 <ol>
 <li>Select a spectral image layer.</li>
-<li>Click <code>Prepare ROI Layers</code>.</li>
-<li>Use <code>ROI image</code> and <code>Activate ROI Layer</code> if you need to jump directly to a specific image's ROI layer.</li>
+<li>Click <code>Prepare Selected ROI</code> for the current image, or <code>Prepare ROI Layers</code> if you want to prepare every open spectral image.</li>
+<li>Use <code>ROI image</code> and <code>Find Image</code> if you need to jump back to a specific source image quickly.</li>
 <li>Draw ROIs for that image only.</li>
 <li><code>ROI Spectrum</code> updates for the active image and the plugin stores that image's ROI spectra in memory as a dataset.</li>
 <li>Move to the next image.</li>
-<li>Activate that image's ROI layer.</li>
+<li>Prepare that image's ROI context and draw a fresh set of ROIs.</li>
 <li>Draw a fresh set of ROIs starting from <code>ROI 1</code>.</li>
 </ol>
 <p>If you want to redraw for the current image, click <code>Clear Active ROI</code>. That clears only the active image's ROI shapes and restarts numbering from <code>ROI 1</code>.</p>
@@ -400,6 +421,7 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li>Use <code>Refresh All ROI Datasets</code> to update stored datasets from all open spectral images</li>
 <li>The comparison table lists ROI traces and pooled traces from all stored datasets</li>
 <li>Use <code>Plot Selected Across Images</code> to display selected traces from multiple source images on the same axes</li>
+<li>Use <code>Remove Selected Rows</code> to delete unneeded ROI or pooled entries from stored datasets</li>
 </ul>
 <p><code>Normalized</code> / <code>Absolute</code> now affects both the active ROI plot and the across-images comparison plot. Raw spectra are stored in memory and normalization is applied only at display time.</p>
 <h3>Stored ROI datasets</h3>
@@ -593,7 +615,7 @@ these workflows accessible within OME-Zarr-compatible environments.</p>
 <ul>
 <li>If <code>.zarr</code> files are opened through napari's generic file-open dialog, napari may still show a <code>Choose reader</code> popup when multiple readers claim <code>.zarr</code>. Use the plugin's own Zarr loader to avoid that workflow.</li>
 <li>ROI datasets are stored in memory for the current napari session and should be exported if they need to survive a full application restart.</li>
-<li>napari <code>Shapes</code> rendering can be sensitive in some environments. The plugin uses separate ROI label layers to reduce instability, but behavior can still depend on upstream napari and vispy rendering.</li>
+<li>napari <code>Shapes</code> rendering can still be sensitive in some environments, so ROI display behavior may depend on upstream napari and vispy rendering details.</li>
 </ul>
 <h2>Citation</h2>
 <p>This plugin implements spectral analysis workflows derived from the
@@ -618,7 +640,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.3.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -628,7 +650,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-05</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -682,7 +704,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Open
                                                     extension<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
