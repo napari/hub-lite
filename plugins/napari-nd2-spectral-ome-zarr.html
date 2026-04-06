@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.3.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.4.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-05</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-06</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Open extension<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -213,8 +213,8 @@
                                         <p>This napari plugin supports spectral fluorescence imaging workflows for
 solvatochromic dye analysis (e.g., Nile Red) across the visible emission
 range (~400–740 nm). It provides ND2-to-OME-Zarr conversion, ROI-based
-spectral extraction, emission-ratio analysis, and aggregation from ROI
-to image-level and animal-level datasets.</p>
+spectral extraction, kernel-based spatial ratio analysis, emission-ratio
+analysis, and aggregation from ROI to image-level and animal-level datasets.</p>
 <h2>Supported microscopy systems</h2>
 <p>Tested with spectral ND2 datasets generated from:</p>
 <ul>
@@ -222,7 +222,7 @@ to image-level and animal-level datasets.</p>
 <li>Nikon AX spectral detector systems</li>
 </ul>
 <h2>Plugin Overview</h2>
-<p>The plugin is organized as 3 subplugins:</p>
+<p>The plugin is organized as 4 subplugins:</p>
 <ol>
 <li><code>ND2 Spectral Export</code></li>
 </ol>
@@ -249,6 +249,15 @@ to image-level and animal-level datasets.</p>
 <li>support Student's t-test and one-way or two-way ANOVA</li>
 <li>support blind-group analysis using PCA, feature comparison, user-selected clustering, and p-value statistics</li>
 </ul>
+<ol start="4">
+<li><code>Spatial Ratio Analysis</code></li>
+</ol>
+<ul>
+<li>compute kernel-based spatial ratio measurements within prepared ROI contexts</li>
+<li>support shape-only, labels-only, or shape-refined-by-label kernel analysis</li>
+<li>export raw kernel tables and summary tables to CSV</li>
+<li>send spatial-ratio summaries into the shared analysis dataset store for downstream statistics</li>
+</ul>
 <p>Features:</p>
 <ul>
 <li>Read <code>.nd2</code> files into napari</li>
@@ -259,6 +268,7 @@ to image-level and animal-level datasets.</p>
 <li>Keep per-image ROI spectral datasets in memory during the napari session</li>
 <li>Export stored ROI datasets and analysis tables to CSV</li>
 <li>Run split-wavelength Nile Red ratio analysis, aggregation, and group comparison in a dedicated analysis panel</li>
+<li>Run kernel-based spatial ratio analysis with optional blank subtraction and exportable summary tables</li>
 </ul>
 <p>The plugin is designed around 2D spectral images and keeps <code>T</code>, <code>C</code>, <code>Z</code>, <code>Y</code>, <code>X</code> axis semantics explicit during export.</p>
 <h2>Installation</h2>
@@ -289,13 +299,14 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li>multi-image aggregation across animals</li>
 </ul>
 <h2>Dock Widgets</h2>
-<p>The plugin now exposes 3 napari dock widgets:</p>
+<p>The plugin now exposes 4 napari dock widgets:</p>
 <ul>
 <li><code>ND2 Spectral Export</code></li>
 <li><code>Spectral Viewer</code></li>
 <li><code>Spectral Analysis</code></li>
+<li><code>Spatial Ratio Analysis</code></li>
 </ul>
-<p>All 3 widgets are configured to float by default instead of staying docked in the main napari window.</p>
+<p>All 4 widgets are configured to float by default instead of staying docked in the main napari window.</p>
 <h2>ND2 Spectral Export Workflow</h2>
 <p><code>ND2 Spectral Export</code> now handles:</p>
 <ul>
@@ -415,13 +426,24 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 </ul>
 <p><code>Plot individual ROIs</code> is on by default.</p>
 <p><code>Plot pooled ROI mean</code> is off by default and can be enabled only when needed.</p>
+<h3>ROI and labels workflows</h3>
+<p><code>Spectral Viewer</code> now supports three ROI measurement modes per image context:</p>
+<ul>
+<li>shapes only</li>
+<li>labels only</li>
+<li>shapes refined by a bound labels layer</li>
+</ul>
+<p>When both shapes and labels are present, the labels are used to split each shape into label-specific ROI measurements. If no shapes exist, a bound labels layer can still drive labels-only measurement for the full image context.</p>
+<p>Blank subtraction is also available during ROI spectrum measurement by choosing a different spectral image as the blank reference.</p>
 <h3>ROI comparison across images</h3>
-<p><code>ROI Comparison</code> is intended for cross-image plotting after ROI datasets have been stored.</p>
+<p><code>ROI Comparison</code> is intended for cross-image plotting and curation after ROI datasets have been stored.</p>
 <ul>
 <li>Use <code>Refresh All ROI Datasets</code> to update stored datasets from all open spectral images</li>
-<li>The comparison table lists ROI traces and pooled traces from all stored datasets</li>
-<li>Use <code>Plot Selected Across Images</code> to display selected traces from multiple source images on the same axes</li>
-<li>Use <code>Remove Selected Rows</code> to delete unneeded ROI or pooled entries from stored datasets</li>
+<li>The curation table lists ROI traces and pooled traces from all stored datasets</li>
+<li>Use the <code>use</code> checkbox to include or exclude datasets from downstream analysis without deleting them</li>
+<li>Edit metadata fields such as <code>group_label</code>, <code>animal_id</code>, <code>sex</code>, <code>age</code>, <code>region</code>, and <code>roi_class</code> directly in the table</li>
+<li>Use <code>Plot Selected Across Images</code> to display checked traces from multiple source images on the same axes</li>
+<li>Use <code>Remove Selected Rows</code> to reject unneeded ROI or pooled entries from stored datasets</li>
 </ul>
 <p><code>Normalized</code> / <code>Absolute</code> now affects both the active ROI plot and the across-images comparison plot. Raw spectra are stored in memory and normalization is applied only at display time.</p>
 <h3>Stored ROI datasets</h3>
@@ -473,6 +495,8 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <h3>Metadata editing</h3>
 <p>The <code>Stored ROI Datasets</code> table lets you annotate each captured dataset with:</p>
 <ul>
+<li><code>trace_kind</code></li>
+<li><code>trace_label</code></li>
 <li><code>animal_id</code></li>
 <li><code>group_label</code></li>
 <li><code>genotype</code></li>
@@ -481,6 +505,7 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li><code>region</code></li>
 <li><code>batch</code></li>
 <li><code>blind_id</code></li>
+<li><code>roi_class</code></li>
 </ul>
 <p>This supports experiments such as:</p>
 <ul>
@@ -492,6 +517,7 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <h3>Dataset selection and removal</h3>
 <p>Analysis no longer uses every stored dataset automatically.</p>
 <ul>
+<li>Use the <code>Measurement</code> selector to switch between <code>spectral_mean</code> and <code>spatial_ratio</code> datasets</li>
 <li>Use the <code>use_for_analysis</code> checkbox column to choose which dataset IDs are included</li>
 <li>Click <code>Compute Spectral Analysis</code> to analyze only the checked datasets</li>
 <li>Click <code>Remove Selected Datasets</code> to delete all checked datasets from memory</li>
@@ -567,6 +593,7 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li><code>age</code></li>
 <li><code>region</code></li>
 <li><code>batch</code></li>
+<li><code>roi_class</code></li>
 </ul>
 <p>The Welch t-test runs only when the selected factor contains exactly two non-empty groups with at least two values each.</p>
 <p>This means users are not restricted to hardcoded labels such as <code>WT</code> and <code>HNPP</code>.</p>
@@ -593,6 +620,27 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li>plain text</li>
 <li>CSV</li>
 </ul>
+<h2>Spatial Ratio Analysis Workflow</h2>
+<p><code>Spatial Ratio Analysis</code> is intended for kernel-based emission-ratio measurements inside prepared image ROI contexts.</p>
+<p>The widget supports:</p>
+<ul>
+<li>a per-image context table showing the current spectral image, ROI layer, bound labels layer, measurement mode, ROI count, and readiness status</li>
+<li>configurable kernel size, minimum valid coverage, split wavelength, ratio mode, optional normalization, and optional blank subtraction</li>
+<li>scatter-based selection of kernel subsets after computation</li>
+<li>raw-kernel CSV export, summary CSV export, and <code>Send Summary To Analysis</code></li>
+</ul>
+<h3>Recommended spatial-ratio flow</h3>
+<ol>
+<li>Open one or more spectral images in napari.</li>
+<li>Prepare ROI context for the image you want to analyze.</li>
+<li>Draw shapes, bind labels, or use both when you want label-refined measurements inside each shape.</li>
+<li>Open <code>Spatial Ratio Analysis</code> and select the target image row in <code>Image ROI Context</code>.</li>
+<li>Set kernel size, minimum coverage, split wavelength, and ratio mode.</li>
+<li>Optionally enable normalization or choose a blank reference image.</li>
+<li>Click <code>Compute Spatial Ratio</code>.</li>
+<li>Review the kernel summary table and scatter plot.</li>
+<li>Export raw or summary CSV output, or use <code>Send Summary To Analysis</code> for downstream statistics.</li>
+</ol>
 <h3>Recommended experiment flow</h3>
 <ol>
 <li>Open spectral images in napari.</li>
@@ -601,6 +649,7 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li>Repeat for image 2, image 3, and so on.</li>
 <li>Open <code>Spectral Analysis</code>.</li>
 <li>Enter metadata for each stored dataset.</li>
+<li>Choose the measurement type you want to analyze.</li>
 <li>Check only the dataset IDs you want to compare.</li>
 <li>Set the wavelength split point.</li>
 <li>Compute the analysis.</li>
@@ -615,6 +664,7 @@ these workflows accessible within OME-Zarr-compatible environments.</p>
 <ul>
 <li>If <code>.zarr</code> files are opened through napari's generic file-open dialog, napari may still show a <code>Choose reader</code> popup when multiple readers claim <code>.zarr</code>. Use the plugin's own Zarr loader to avoid that workflow.</li>
 <li>ROI datasets are stored in memory for the current napari session and should be exported if they need to survive a full application restart.</li>
+<li>Spatial-ratio summaries sent into the shared dataset store are session-scoped unless exported or saved through a broader workflow.</li>
 <li>napari <code>Shapes</code> rendering can still be sensitive in some environments, so ROI display behavior may depend on upstream napari and vispy rendering details.</li>
 </ul>
 <h2>Citation</h2>
@@ -640,7 +690,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.3.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.4.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -650,7 +700,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-05</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-06</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -704,7 +754,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Open
                                                     extension<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.ome.zarr">*.ome.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.zarr">*.zarr</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?readerFileExtensions=*.nd2">*.nd2</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
