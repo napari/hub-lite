@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.1.8</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -210,9 +210,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><a href="https://pypi.org/project/napari-simple-tracker/"><img src="https://img.shields.io/pypi/v/napari-simple-tracker" alt="PyPI version" /></a></p>
-<p><code>Napari_Simple_Tracker</code> is a lightweight and user-friendly napari plugin for ROI tracking and FRAP analysis in time-lapse image data.<br />
-It is designed to remain intentionally simple while providing the core functionality typically required for routine quantitative analysis.</p>
+                                        <p><a href="https://pypi.org/project/napari-simple-tracker/1.1.8/"><img src="https://img.shields.io/badge/PyPI-1.1.8-blue" alt="PyPI version 1.1.8" /></a>
+<a href="https://pypi.org/project/napari-simple-tracker/"><img src="https://img.shields.io/badge/Python-3.10--3.14-green" alt="Python 3.10-3.14" /></a>
+<a href="https://napari-hub.org/plugins/napari-simple-tracker.html"><img src="https://img.shields.io/badge/napari--hub-plugin-orange" alt="napari hub" /></a></p>
+<p><code>Napari_Simple_Tracker</code> is a lightweight, easy-to-use napari plugin for ROI tracking and FRAP analysis in time-lapse imaging data.<br />
+It is intentionally simple while still providing the core tools needed for routine quantitative analysis.</p>
 <ul>
 <li>Simple: point-based interaction with minimal configuration</li>
 <li>Practical: tracking, intensity plotting, CSV export, and session save/load are included</li>
@@ -221,7 +223,7 @@ It is designed to remain intentionally simple while providing the core functiona
 <h2>Capabilities</h2>
 <h3><code>Simple_Tracker</code></h3>
 <ul>
-<li>Multi-track ROI tracking</li>
+<li>Multi ROI tracking</li>
 <li>Linear interpolation across frames</li>
 <li>Mean intensity measurement within circular ROIs</li>
 <li>Plot generation</li>
@@ -238,10 +240,17 @@ It is designed to remain intentionally simple while providing the core functiona
 <li>CSV export</li>
 <li>Session save/load</li>
 </ul>
+<h2>Examples</h2>
+<h3><code>Simple_Tracker</code></h3>
+<p><img src="https://raw.githubusercontent.com/Aohirovet/Napari_Simple_Tracker/main/Simple_Tracker.gif" alt="Simple Tracker demo" /></p>
+<h3><code>Multiple_track</code></h3>
+<p><img src="https://raw.githubusercontent.com/Aohirovet/Napari_Simple_Tracker/main/Multiple_track.gif" alt="Multiple track demo" /></p>
+<h3><code>Simple_FRAP_analysis</code></h3>
+<p><img src="https://raw.githubusercontent.com/Aohirovet/Napari_Simple_Tracker/main/FRAP_Analysis.gif" alt="FRAP Analysis demo" /></p>
 <h2>Installation</h2>
 <p>This package is published on PyPI as <code>napari-simple-tracker</code>.</p>
 <h3>Install with pip</h3>
-<p>Install the plugin into an environment where <code>napari</code> is already available:</p>
+<p>Install the plugin in an environment where <code>napari</code> is already installed:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-simple-tracker
 </pre></div>
 </code></pre>
@@ -249,19 +258,19 @@ It is designed to remain intentionally simple while providing the core functiona
 <ol>
 <li>Launch napari.</li>
 <li>Open <code>Plugins -&gt; Install/Uninstall Plugins...</code>.</li>
-<li>Search for <code>napari-simple-tracker</code> and install it.</li>
+<li>Use <code>Install by name/URL</code>.</li>
+<li>Enter the package name <code>napari-simple-tracker</code> and install it.</li>
 </ol>
-<p>If you use <code>Install by name/URL</code>, enter the package name <code>napari-simple-tracker</code>.</p>
 <h3>Install from source</h3>
-<p>If you want the latest local version from this repository:</p>
+<p>To install the latest local version from this repository:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Aohirovet/Napari_Simple_Tracker.git
 <span class="nb">cd</span><span class="w"> </span>Napari_Simple_Tracker
 python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </code></pre>
-<p>If you are using a dedicated environment for napari, activate that environment before running the install command.</p>
+<p>If you use a dedicated environment for napari, activate it before running the install command.</p>
 <h2>Usage</h2>
-<p>After installation, open napari and start either widget from:</p>
+<p>After installation, open napari and launch either widget from:</p>
 <p><code>Plugins -&gt; Napari Simple Tracker -&gt; Simple_Tracker</code></p>
 <p>or</p>
 <p><code>Plugins -&gt; Napari Simple Tracker -&gt; Simple_FRAP_analysis</code></p>
@@ -291,12 +300,14 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <li>Select the relevant layers and ROI radii, then press <code>Run FRAP Analysis</code>.</li>
 </ol>
 <h2>Documentation</h2>
-<p>More detailed usage notes, supported image dimensions, output columns, session behavior, and common errors are documented here:</p>
+<p>Detailed usage notes, supported image dimensions, output columns, session behavior, and common errors are documented here:</p>
 <ul>
-<li><a href="docs/USAGE.md">Usage guide index</a></li>
-<li><a href="docs/USAGE_SIMPLE_TRACKER.md">Simple Tracker guide</a></li>
-<li><a href="docs/USAGE_FRAP.md">FRAP Analysis guide</a></li>
+<li><a href="https://github.com/Aohirovet/Napari_Simple_Tracker/blob/main/docs/USAGE.md">Usage guide index</a></li>
+<li><a href="https://github.com/Aohirovet/Napari_Simple_Tracker/blob/main/docs/USAGE_SIMPLE_TRACKER.md">Simple Tracker guide</a></li>
+<li><a href="https://github.com/Aohirovet/Napari_Simple_Tracker/blob/main/docs/USAGE_FRAP.md">FRAP Analysis guide</a></li>
 </ul>
+<h2>Release Note</h2>
+<p>For every new public release, increment the version in <code>pyproject.toml</code> before publishing to PyPI or expecting changes to appear on napari-hub.</p>
 <h2>License</h2>
 <p>MIT License</p>
 
@@ -314,7 +325,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.1.8</li>
                                                 </ul>
                                             </div>
                                         </div>
