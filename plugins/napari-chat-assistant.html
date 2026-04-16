@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">2.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-11</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-16</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">markdown-it-py</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">numcodecs</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "test"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "test"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">markdown-it-py</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">numcodecs</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">faster-whisper; extra == "voice"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "test"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "test"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -217,17 +217,28 @@
 <p>Local, Ollama-powered AI and deterministic workbench for napari image-analysis workflows.</p>
 <p><code>napari-chat-assistant</code> adds a dock widget inside napari that understands the active viewer session, runs built-in image-analysis actions, generates executable napari Python code when a request goes beyond the current toolset, and lets users promote repeatable tasks into one-click shortcuts.</p>
 <p>The goal is not to bolt a generic chatbot onto a viewer. The goal is to turn napari into a more practical analysis workspace for people who work with microscopy and other large multidimensional imaging datasets, especially users who want local AI help, reproducible workflows, direct control over their data, and fewer clicks per task.</p>
-<h2>What's New In 2.2.0</h2>
-<p>Version <code>2.2.0</code> makes the assistant easier to guide, easier to inspect, and easier to improve from real usage.</p>
-<p>New in this release:</p>
+<h2>What's New In 2.3.0</h2>
+<p>Version <code>2.3.0</code> adds an optional local <code>Voice Input</code> workflow for users who prefer speaking prompts instead of typing them.</p>
+<p>This update was added in response to feedback from Ron DeSpain on <a href="http://image.sc">image.sc</a>:</p>
 <ul>
-<li><code>Rate Result</code> lets you quickly mark the latest result as <code>Helpful</code>, <code>Wrong Route</code>, <code>Wrong Answer</code>, or <code>Didn't Work</code></li>
-<li>telemetry is easier to inspect with clearer session views for <code>Model Activity</code>, <code>Intent Signals</code>, <code>Problems</code>, and <code>Raw Log</code></li>
-<li>the assistant can now suggest prompts that are more likely to trigger supported local workflows</li>
-<li>long-running model requests can now be stopped directly from the chat panel</li>
-<li>runtime guidance is clearer when generated code depends on packages that are not included by default</li>
+<li><a href="https://forum.image.sc/t/napari-chat-assistant-experimenting-with-a-local-chat-assistant-inside-napari-looking-for-feedback/120351/2">https://forum.image.sc/t/napari-chat-assistant-experimenting-with-a-local-chat-assistant-inside-napari-looking-for-feedback/120351/2</a></li>
 </ul>
-<p>These updates improve local workflow discovery, feedback-driven refinement, and day-to-day control of the assistant.</p>
+<p>Quick feature summary:</p>
+<ul>
+<li>optional <code>Voice Input</code> entry under <code>Advanced</code></li>
+<li>local microphone recording with input-device selection</li>
+<li>live green input-level meter during recording</li>
+<li>local transcription with <a href="https://github.com/SYSTRAN/faster-whisper"><code>faster-whisper</code></a></li>
+<li>editable transcript preview before execution</li>
+<li>direct <code>Run</code> from the voice window without an extra prompt-send step</li>
+<li>reusable non-blocking voice window that stays open while you work in napari</li>
+</ul>
+<p>Important:</p>
+<ul>
+<li>voice input is optional and is not required for the base plugin</li>
+<li>it requires <a href="https://github.com/SYSTRAN/faster-whisper"><code>faster-whisper</code></a> installed in the same Python environment as napari</li>
+<li>microphone support also depends on the Qt multimedia stack available in that same environment</li>
+</ul>
 <p>For complete release history, see <a href="CHANGELOG.md">CHANGELOG.md</a>.</p>
 <h2>Who It Is For</h2>
 <p>This plugin is built for:</p>
@@ -320,6 +331,7 @@ Enter natural language requests or paste Python for <code>Run My Code</code> and
 <li>learn from built-in content for microscopy, electron microscopy, imaging physics, quantitative imaging, statistics, academic prompting, and language support</li>
 <li>save and restore workspace state with a JSON manifest plus OME-Zarr assets for generated image and labels data</li>
 <li>use <code>Atlas Stitch</code> from the advanced menu for specialized stitching and export workflows</li>
+<li>use optional local <code>Voice Input</code> from <code>Advanced</code> for microphone recording, transcript review, and direct prompt execution</li>
 </ul>
 <p>Example requests:</p>
 <ul>
@@ -380,6 +392,11 @@ ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:7b
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-chat-assistant
 </pre></div>
 </code></pre>
+<p>Optional voice input support:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>faster-whisper
+</pre></div>
+</code></pre>
+<p>Install <code>faster-whisper</code> in the same Python environment that launches napari if you want to use <code>Advanced -&gt; Voice Input</code>.</p>
 <p>Development install:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wulinteousa2-hash/napari-chat-assistant.git
 <span class="nb">cd</span><span class="w"> </span>napari-chat-assistant
@@ -397,6 +414,17 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Start chatting, or use the Library for repeatable tasks and reusable code.</li>
 </ol>
 <p>The assistant works best when prompts describe a concrete action. If you already have Python code, paste it into the Prompt box and use <code>Run My Code</code>. If pasted code fails or needs adaptation to the current viewer, use <code>Refine My Code</code>.</p>
+<h3>Optional Voice Input</h3>
+<p><code>Advanced -&gt; Voice Input</code> opens a small reusable voice window for users who want a local speech-to-text path inside napari.</p>
+<p>The flow is:</p>
+<ul>
+<li>choose the microphone input device</li>
+<li>start and stop recording</li>
+<li>watch the live input-level meter to confirm the mic is active</li>
+<li>review and edit the transcript</li>
+<li>press <code>Run</code> or hit <code>Enter</code> to execute it directly</li>
+</ul>
+<p>This feature is intentionally optional and advanced. It depends on <a href="https://github.com/SYSTRAN/faster-whisper"><code>faster-whisper</code></a> being installed in the same Python environment as napari.</p>
 <p>Examples:</p>
 <ul>
 <li><code>Inspect the selected layer</code></li>
@@ -443,7 +471,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>annotation overlays, including free text, particle labels, callouts, and boxed titles</li>
 <li>workspace save/restore with a JSON manifest plus OME-Zarr assets for generated image and labels data</li>
 <li>deterministic <code>Actions</code>, reusable <code>Templates</code>, and user-defined <code>Shortcuts</code></li>
-<li>optional advanced workflows such as SAM2 and Atlas Stitch</li>
+<li>optional advanced workflows such as Voice Input, SAM2, and Atlas Stitch</li>
 </ul>
 <h3>Code generation workflows</h3>
 <p>When a request is not covered by a built-in tool, the assistant can return napari Python code instead of forcing the wrong tool.</p>
@@ -640,7 +668,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -650,7 +678,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-11</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-16</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -747,7 +775,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">markdown-it-py</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">numcodecs</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "test"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "test"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">markdown-it-py</li><li class="MetadataList_textItem__KKmMN">napari</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">numcodecs</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">faster-whisper; extra == "voice"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "test"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "test"</li></ul>
                                             </div>
                                         </div>
                                     </div>
