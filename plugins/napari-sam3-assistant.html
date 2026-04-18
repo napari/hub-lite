@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">2.0.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -220,6 +220,102 @@
 <p>SAM 3 is not bundled with this plugin. Install the SAM 3 backend and download the SAM 3 model files separately from Meta's Hugging Face repository.</p>
 <h2>Status</h2>
 <p>This project is under active development. The current widget supports local SAM 3 model loading, napari prompt collection, background execution, and writing results back to napari layers.</p>
+<h2>Changelog</h2>
+<h3>2.0.0</h3>
+<p>Major update focused on SAM3.1 support, clearer model selection, live refinement, and result handling.</p>
+<p>Added:</p>
+<ul>
+<li>SAM3.1 video multiplex support through <code>sam3.1_multiplex.pt</code>.</li>
+<li>Explicit <code>Model type</code> selector:
+<ul>
+<li><code>SAM3.0 2D/3D/video</code></li>
+<li><code>SAM3.1 video multiplex</code></li>
+</ul>
+</li>
+<li>Model-type-aware validation so SAM3.0 and SAM3.1 folders are not confused.</li>
+<li>SAM3.1 routing for 3D/video propagation through the multiplex video predictor.</li>
+<li>Automatic task guidance for SAM3.1: <code>Load 2D Model</code> is disabled and the task is set to <code>3D/video propagation</code>.</li>
+<li>Two-column step-based widget layout:
+<ul>
+<li>left column: <code>Model Setup</code>, <code>Task</code>, <code>Layers</code></li>
+<li>right column: <code>Prompt Tools</code>, <code>Run</code>, <code>Results</code>, and collapsible <code>Status</code></li>
+</ul>
+</li>
+<li>Muted professional widget theme for lower eye strain during long napari sessions.</li>
+<li>Compact activity indicator in <code>Run</code> showing model execution, propagation, refinement, idle, and failure states.</li>
+<li>Results table showing <code>Layer</code>, <code>Prompt</code>, <code>Frame</code>, <code>Object ID</code>, <code>Score</code>, and <code>Area</code>.</li>
+<li>Detection threshold control for SAM3 grounding, useful when text prompts return no candidates.</li>
+<li>More visible text prompt input with <code>Enter</code> bound to <code>Run Preview</code>.</li>
+<li>Text prompt cleanup that sends short model-facing phrases such as <code>myelin ring</code> instead of instruction text such as <code>segment all the myelin ring</code>.</li>
+<li>Automatic lower-threshold retry for text segmentation when the first pass returns zero objects.</li>
+<li>Batch mode for running the same 2D prompt setup across all open image layers, with separate preview and saved label layers per image.</li>
+<li>Multi-text batch mode: enter one text concept per line and run each prompt independently against the selected image or all image layers.</li>
+<li>Results actions:
+<ul>
+<li><code>Clear Results</code></li>
+<li><code>Copy Clipboard</code></li>
+<li><code>Export CSV</code></li>
+</ul>
+</li>
+<li>Label-value merge controls for converting multiple label IDs into one class value.</li>
+<li>Stable object-ID label mapping for propagated video/stack results.</li>
+<li>Remembered model type, model directory, and device selection through Qt settings.</li>
+<li>Safer CUDA error reporting for unsupported GPU kernel architectures.</li>
+</ul>
+<p>Live refinement improvements:</p>
+<ul>
+<li><code>Refinement (live point correction)</code> mode now arms live point refinement immediately after <code>Create Prompt Layer</code>.</li>
+<li>The first point starts live refinement; the first run may take longer if the model is lazy-loaded.</li>
+<li><code>SAM3 preview labels</code> is pre-created for live refinement so napari does not switch users away from the points layer after the first result.</li>
+<li>After each live refinement update, the active layer returns to <code>SAM3 points</code> in add mode.</li>
+<li><code>Next point mode</code> affects only future points.</li>
+<li><code>T</code> toggles next point mode only and does not rerun refinement.</li>
+<li><code>Shift+T</code> flips selected point polarity, or the latest point if none is selected, and reruns refinement.</li>
+<li>Existing dot colors now change only when stored point <code>properties[&quot;polarity&quot;]</code> changes.</li>
+<li><code>Apply mode to selected points</code> still edits selected existing points and reruns preview.</li>
+</ul>
+<p>Changed:</p>
+<ul>
+<li><code>Backend / Model Setup</code> was renamed to <code>Model Setup</code>.</li>
+<li><code>Napari Layers</code> was renamed to <code>Layers</code>.</li>
+<li><code>Batch all image layers</code> can be used independently from multi-text prompts.</li>
+<li><code>Load Image Model</code> was renamed to <code>Load 2D Model</code>.</li>
+<li><code>Lazy-load on run</code> was renamed to <code>Load model when running</code>.</li>
+<li>Text prompts no longer require a prompt layer.</li>
+<li>Text prompt submission can be run with <code>Enter</code> without moving to the <code>Run Preview</code> button.</li>
+<li>Preview clearing removes generated preview layers only and keeps prompts, saved labels, and loaded models.</li>
+<li><code>pytorch_model.bin</code> was removed from documented and validated model-file names.</li>
+</ul>
+<p>Current model support:</p>
+<ul>
+<li>SAM3.0 weights support 2D image tasks and 3D/video propagation.</li>
+<li>SAM3.1 <code>sam3.1_multiplex.pt</code> supports 3D/video propagation.</li>
+<li>SAM3.1 is not currently routed through the plugin's 2D image model loader.</li>
+</ul>
+<h3>1.0.0</h3>
+<p>Initial SAM3 Assistant plugin foundation.</p>
+<p>Added:</p>
+<ul>
+<li>Local SAM3 backend adapter for napari workflows.</li>
+<li>Task-based UI for:
+<ul>
+<li>2D segmentation</li>
+<li>3D stack/video-like propagation</li>
+<li>exemplar segmentation</li>
+<li>text segmentation</li>
+<li>refinement with positive and negative prompts</li>
+</ul>
+</li>
+<li>Prompt collection from napari Points, Shapes, Labels, and text input.</li>
+<li>Box prompts from Shapes layers.</li>
+<li>Labels-layer mask prompts.</li>
+<li>Text prompts for concept segmentation.</li>
+<li>Preview outputs as napari Labels, Image, and Shapes layers.</li>
+<li>Saved label outputs through <code>Save Result as Labels</code>.</li>
+<li>Background worker execution to keep the napari UI responsive.</li>
+<li>Channel-axis handling for grayscale, RGB/RGBA, channel-first, and stack-like data.</li>
+<li>Basic model-directory validation for local SAM3 files.</li>
+</ul>
 <h2>Requirements</h2>
 <ul>
 <li>Python <code>&gt;=3.12</code></li>
@@ -230,11 +326,11 @@
 <ul>
 <li><code>config.json</code></li>
 <li><code>processor_config.json</code></li>
-<li>one weight file such as <code>sam3.pt</code> or <code>model.safetensors</code>
-GPU use requires a PyTorch / torchvision / SAM 3 stack that is compatible with your GPU architecture. If CUDA kernels are not available for the device, select <strong>CPU</strong> in the widget.</li>
+<li>one weight file such as <code>sam3.pt</code>, <code>model.safetensors</code>, or <code>sam3.1_multiplex.pt</code></li>
 </ul>
 </li>
 </ul>
+<p>GPU use requires a PyTorch / torchvision / SAM 3 stack that is compatible with your GPU architecture. If CUDA kernels are not available for the device, select <strong>CPU</strong> in the widget.</p>
 <h2>Setup</h2>
 <p>Setup has three parts:</p>
 <ol>
@@ -263,7 +359,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <pre><code class="language-text"><div class="highlight"><pre><span></span>https://huggingface.co/facebook/sam3
 </pre></div>
 </code></pre>
-<p>The repository is gated.</p>
+<p>SAM3.1 multiplex weights are available from:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>https://huggingface.co/facebook/sam3.1
+</pre></div>
+</code></pre>
+<p>These repositories are gated.</p>
 <ol>
 <li>Sign in to your Hugging Face account.</li>
 <li>Open the facebook/sam3 model page.</li>
@@ -280,15 +380,29 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
   sam3.pt
 </pre></div>
 </code></pre>
-<p><code>model.safetensors</code> is also supported as a weight file. Depending on the Hugging Face layout, the directory may also contain tokenizer files such as <code>tokenizer.json</code>, <code>vocab.json</code>, and <code>merges.txt</code>.</p>
-<p>Keep all downloaded model files together in one directory. In the plugin widget, click <code>Browse</code>, select that directory, then click <code>Validate</code>.</p>
-<p>For this project, a local folder such as the following is acceptable:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>~/Projects/napari/sam3/model
+<p><code>model.safetensors</code> is also supported as a SAM3 3.0 weight file.</p>
+<p>For SAM3.1 video multiplex, use:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>~/models/sam3.1/
+  config.json
+  processor_config.json
+  sam3.1_multiplex.pt
 </pre></div>
 </code></pre>
-<p>Note that the upstream SAM 3 source repository does not ship with a model/ folder by default. In this project, sam3/model is a user-created local directory used to store downloaded SAM 3 weights and configuration files.</p>
-<p>If you created sam3/model yourself and placed the downloaded Hugging Face files there, that is a valid setup. The important requirement is simply that all required SAM 3 files stay together in one readable directory and that you select that directory in the widget.</p>
-<p>The selected model directory is remembered by the widget.</p>
+<p>Depending on the Hugging Face layout, the directory may also contain tokenizer files such as <code>tokenizer.json</code>, <code>vocab.json</code>, and <code>merges.txt</code>.</p>
+<p>Current model support:</p>
+<ul>
+<li>SAM3 3.0 weights: 2D image tasks and 3D/video propagation.</li>
+<li>SAM3.1 <code>sam3.1_multiplex.pt</code>: 3D/video propagation through the SAM3.1 multiplex video predictor.</li>
+<li>SAM3.1 is not currently routed through the plugin's 2D image model loader.</li>
+</ul>
+<p>Keep each model version in its own directory. In the plugin widget, first choose <code>Model type</code>, then click <code>Browse</code>, select the matching directory, and click <code>Validate</code>.</p>
+<p>Example local folders:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>~/Projects/napari/sam3/model     -&gt; choose SAM3.0 2D/3D/video
+~/Projects/napari/sam3/model3_1  -&gt; choose SAM3.1 video multiplex
+</pre></div>
+</code></pre>
+<p>Note that the upstream SAM 3 source repository does not ship with a <code>model/</code> folder by default. In this project, <code>sam3/model</code> and <code>sam3/model3_1</code> are user-created local directories used to store downloaded SAM 3 weights and configuration files.</p>
+<p>The selected model type, model directory, and device are remembered by the widget.</p>
 <h3>3. Install napari-sam3-assistant</h3>
 <p>Install this plugin:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wulinteousa2-hash/napari-sam3-assistant
@@ -308,7 +422,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <ol>
 <li>Open an image in napari.</li>
 <li>Open <code>Plugins &gt; SAM3 Assistant</code>.</li>
-<li>Select the image in <code>Napari Layers &gt; Image</code>.</li>
+<li>Select the image in <code>Layers &gt; Image</code>.</li>
 <li>Select a task.</li>
 <li>Create a prompt layer if the task needs one.</li>
 <li>Click <code>Run Preview</code>.</li>
@@ -316,13 +430,59 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Click <code>Save Result as Labels</code> to keep the result.</li>
 </ol>
 <p>Use <code>Clear Preview</code> to remove generated preview layers without deleting prompts or saved labels.</p>
+<h3>Batch Multiple 2D Images</h3>
+<p>Use <code>Batch all image layers</code> when several open 2D images should receive the same prompt setup.</p>
+<p>Workflow:</p>
+<ol>
+<li>Open multiple images in napari.</li>
+<li>Configure a 2D task such as text, box, exemplar, or labels-mask segmentation.</li>
+<li>Add the prompt once.</li>
+<li>Enable <code>Batch all image layers</code> in <code>Step 3. Layers</code>.</li>
+<li>Click <code>Run Preview</code>.</li>
+</ol>
+<p>Each source image gets its own output layers:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>SAM3 preview labels [image name]
+SAM3 preview masks [image name]
+SAM3 preview boxes [image name]
+</pre></div>
+</code></pre>
+<p><code>Save Result as Labels</code> saves each batch preview labels layer separately:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>SAM3 saved labels [image name]
+</pre></div>
+</code></pre>
+<p>Batch mode is intended for 2D image tasks. It is disabled for live refinement and 3D/video propagation because those workflows depend on one active image/session.</p>
+<h3>Multi-Text Batch Mode</h3>
+<p>Use <code>Batch text prompts</code> when you want each text concept to run independently instead of writing one combined phrase such as <code>cat and dog</code>.</p>
+<p>Workflow:</p>
+<ol>
+<li>Set <code>Task</code> to <code>Text segmentation</code>.</li>
+<li>Enter one concept per line in <code>Batch text prompts</code>:</li>
+</ol>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>cat
+dog
+person
+</pre></div>
+</code></pre>
+<ol start="3">
+<li>Leave <code>Batch all image layers</code> off to run all prompts on the selected image only.</li>
+<li>Enable <code>Batch all image layers</code> to run every prompt on every open image.</li>
+<li>Click <code>Run Preview</code>.</li>
+</ol>
+<p>Outputs include both image and prompt:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>SAM3 preview labels [Image 1 - cat]
+SAM3 preview labels [Image 1 - dog]
+SAM3 preview labels [Image 2 - cat]
+SAM3 preview labels [Image 2 - dog]
+</pre></div>
+</code></pre>
+<p>The Results table includes a <code>Prompt</code> column. Object IDs are scoped to each image-prompt result, so <code>Object ID 1</code> for <code>Image 1 - cat</code> is separate from <code>Object ID 1</code> for <code>Image 1 - dog</code>.</p>
 <h2>Tasks</h2>
 <h3>Text Segmentation</h3>
 <p>Use text to segment all matching instances of a concept.</p>
 <p>Workflow:</p>
 <ol>
 <li>Set <code>Task</code> to <code>Text segmentation</code>.</li>
-<li>Leave <code>Prompt tool</code> as <code>Text only</code>.</li>
+<li>Leave <code>Prompt type</code> as <code>Text only</code>.</li>
 <li>Enter a short phrase, for example:</li>
 </ol>
 <pre><code class="language-text"><div class="highlight"><pre><span></span>cell
@@ -332,17 +492,18 @@ myelin sheath
 </pre></div>
 </code></pre>
 <ol start="4">
-<li>Click <code>Run Preview</code>.</li>
+<li>Keep <code>Detection threshold</code> near the default <code>0.35</code>, or lower it if the result is empty.</li>
+<li>Press <code>Enter</code> in the text prompt field or click <code>Run Preview</code>.</li>
 </ol>
 <p>No prompt layer is needed for text segmentation. <code>Create Prompt Layer</code> is not required.</p>
-<p>Text prompts usually work better as short noun phrases than instructions. Prefer <code>myelin sheath</code> over <code>segment all the myelin rings</code>.</p>
-<p>If the result says <code>objects=0</code>, SAM 3 ran but did not return masks above threshold.</p>
+<p>Text prompts usually work better as short noun phrases than instructions. Prefer <code>myelin sheath</code> over <code>segment all the myelin rings</code>. The plugin strips common instruction prefixes before sending the prompt to SAM3, but microscopy-specific language can still be difficult for the model.</p>
+<p>If the result says <code>objects=0</code>, SAM3 ran but did not return masks above threshold. Try a shorter noun phrase, lower <code>Detection threshold</code>, or use a box/exemplar prompt for structures that are visually clear but not well recognized by text.</p>
 <h3>2D Segmentation With Boxes</h3>
 <p>Use boxes to identify the target object or concept.</p>
 <p>Workflow:</p>
 <ol>
 <li>Set <code>Task</code> to <code>2D segmentation</code>.</li>
-<li>Set <code>Prompt tool</code> to <code>Box</code>.</li>
+<li>Set <code>Prompt type</code> to <code>Box</code>.</li>
 <li>Click <code>Create Prompt Layer</code>.</li>
 <li>Draw one or more rectangles in the <code>SAM3 boxes</code> Shapes layer.</li>
 <li>Click <code>Run Preview</code>.</li>
@@ -353,7 +514,7 @@ myelin sheath
 <p>Workflow:</p>
 <ol>
 <li>Set <code>Task</code> to <code>Exemplar segmentation</code>.</li>
-<li>Set <code>Prompt tool</code> to <code>Box</code>.</li>
+<li>Set <code>Prompt type</code> to <code>Box</code>.</li>
 <li>Click <code>Create Prompt Layer</code>.</li>
 <li>Draw boxes around one or more example objects.</li>
 <li>Click <code>Run Preview</code>.</li>
@@ -363,8 +524,8 @@ myelin sheath
 <p>Use points to correct a result.</p>
 <p>Workflow:</p>
 <ol>
-<li>Set <code>Task</code> to <code>Refinement</code>.</li>
-<li>Set <code>Prompt tool</code> to <code>Points (+/-)</code>.</li>
+<li>Set <code>Task</code> to <code>Refinement (live point correction)</code>.</li>
+<li>Set <code>Prompt type</code> to <code>Points (positive/negative)</code>.</li>
 <li>Click <code>Create Prompt Layer</code>.</li>
 <li>Choose <code>Positive</code> and add points on regions to include.</li>
 <li>Choose <code>Negative</code> and add points on regions to exclude.</li>
@@ -376,7 +537,7 @@ myelin sheath
 <p>Workflow:</p>
 <ol>
 <li>Set a task that supports mask prompts.</li>
-<li>Set <code>Prompt tool</code> to <code>Labels mask</code>.</li>
+<li>Set <code>Prompt type</code> to <code>Labels mask</code>.</li>
 <li>Click <code>Create Prompt Layer</code>.</li>
 <li>Paint non-zero pixels in <code>SAM3 mask prompt</code>.</li>
 <li>Click <code>Run Preview</code>.</li>
@@ -442,7 +603,7 @@ SAM3 saved propagated labels
 <p>Buttons:</p>
 <ul>
 <li><code>Validate</code>: check the selected SAM 3 model directory.</li>
-<li><code>Load Image Model</code>: load the 2D/image model.</li>
+<li><code>Load 2D Model</code>: load the 2D/image model.</li>
 <li><code>Load 3D/Video Model</code>: load the video propagation model.</li>
 <li><code>Run Preview</code>: run the selected task.</li>
 <li><code>Clear Preview</code>: remove generated preview layers only.</li>
@@ -450,6 +611,31 @@ SAM3 saved propagated labels
 <li><code>Cancel</code>: stop a running worker.</li>
 <li><code>Unload</code>: unload the SAM3 model from memory.</li>
 </ul>
+<p>Results table:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Layer | Prompt | Frame | Object ID | Score | Area
+</pre></div>
+</code></pre>
+<ul>
+<li><code>Layer</code>: source image layer.</li>
+<li><code>Prompt</code>: text prompt used for text and multi-text results. For non-text workflows this is <code>-</code>.</li>
+<li><code>Frame</code>: propagated frame or slice index. For 2D results this is <code>-</code>.</li>
+<li><code>Object ID</code>: SAM3 object ID when available, otherwise a generated label ID.</li>
+<li><code>Score</code>: SAM3 confidence/probability when returned by the backend.</li>
+<li><code>Area</code>: number of mask pixels for that object in the displayed 2D plane or frame.</li>
+</ul>
+<p>Results actions:</p>
+<ul>
+<li><code>Clear Results</code>: clear the table only.</li>
+<li><code>Copy Clipboard</code>: copy tab-separated results, including headers, for pasting into Excel or statistics software.</li>
+<li><code>Export CSV</code>: save the results table to a CSV file.</li>
+</ul>
+<p>Label-value merge:</p>
+<p>Use this when multiple SAM3 objects should become the same class value in a Labels layer. For example, if labels <code>3</code>, <code>4</code>, <code>5</code>, and <code>6</code> are all the same biological class, set:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Values to replace: 3,4,5,6
+New value: 3
+</pre></div>
+</code></pre>
+<p>Then click <code>Merge Label Values</code>. The selected Labels layer is updated in place.</p>
 <h2>ARM64, CUDA, and DGX Spark</h2>
 <p>For ARM64 systems such as NVIDIA DGX Spark / GB10:</p>
 <ul>
@@ -484,6 +670,7 @@ nvrtc: error: invalid value for --gpu-architecture
 <ul>
 <li>a shorter text prompt</li>
 <li>a more common concept phrase</li>
+<li>a lower <code>Detection threshold</code></li>
 <li>box or exemplar prompts</li>
 <li>CPU mode if the CUDA path is unstable</li>
 </ul>
@@ -538,7 +725,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2.0.0</li>
                                                 </ul>
                                             </div>
                                         </div>
