@@ -9,9 +9,9 @@
     <meta
         content="napari-sam3-assistant, Wulin Teo, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="A napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, point-based refinement, and 3D/video-like propagation" name="description" />
-    <meta content="A napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, point-based refinement, and 3D/video-like propagation" property="og:description" />
-    <meta content="A napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, point-based refinement, and 3D/video-like propagation." name="twitter:description" />
+    <meta content="A napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, large-image ROI inference, mask operations, and 3D/video-like propagation" name="description" />
+    <meta content="A napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, large-image ROI inference, mask operations, and 3D/video-like propagation" property="og:description" />
+    <meta content="A napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, large-image ROI inference, mask operations, and 3D/video-like propagation." name="twitter:description" />
     <meta content="SAM3 Assistant - napari Plugin - Wulin Teo" property="og:title" />
     <meta content="SAM3 Assistant - napari Plugin - Wulin Teo" name="twitter:title" />
     <meta content="article" property="og:type" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">3.0.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-18</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-20</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@
     </div>
 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">A napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, point-based refinement, and 3D/video-like propagation</h2>
+                                    <h2 class="text-lg">A napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, large-image ROI inference, mask operations, and 3D/video-like propagation</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -208,19 +208,50 @@
 
                                         <h1>napari-sam3-assistant</h1>
 <p><img src="docs/ui.png" alt="napari-sam3-assistant UI" /></p>
-<p><code>napari-sam3-assistant</code> is a napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, point-based refinement, and 3D/video-like propagation.</p>
+<p><code>napari-sam3-assistant</code> is a napari plugin for interactive Segment Anything Model 3 (SAM3) segmentation using text, points, boxes, exemplar prompts, large-image ROI inference, point-based refinement, mask operations, and 3D/video-like propagation.</p>
 <p>The plugin focuses on task-based segmentation workflows:</p>
 <ul>
 <li>2D segmentation with text, box, point, and mask-style prompts</li>
 <li>3D stack / video-like propagation from prompts on a selected slice or frame</li>
 <li>exemplar segmentation from Shapes ROI boxes</li>
 <li>text-based concept segmentation</li>
+<li>large OME-Zarr and TIFF segmentation through local ROI inference</li>
 <li>refinement with positive and negative point prompts</li>
+<li>downstream mask cleanup, merge, and export operations</li>
 </ul>
 <p>SAM 3 is not bundled with this plugin. Install the SAM 3 backend and download the SAM 3 model files separately from Meta's Hugging Face repository.</p>
 <h2>Status</h2>
-<p>This project is under active development. The current widget supports local SAM 3 model loading, napari prompt collection, background execution, and writing results back to napari layers.</p>
+<p>This project is under active development. The current widget supports local SAM 3 model loading, napari prompt collection, large-image ROI execution, downstream mask operations, background execution, and writing results back to napari layers.</p>
 <h2>Changelog</h2>
+<h3>3.0.0</h3>
+<p>Major update compared with 2.0.0, focused on large-image segmentation, Step 7 mask operations, workflow modularization, and bug fixes.</p>
+<p>Added:</p>
+<ul>
+<li>Optional large-image local inference mode for OME-Zarr, large TIFF, and similar very large images, including images on the order of <code>60000 x 50000</code> pixels when the data source can provide lazy ROI reads.</li>
+<li>Local ROI inference with selectable ROI sizes from <code>512 x 512</code> through <code>8192 x 8192</code>.</li>
+<li>Active ROI overlay layer showing the current SAM3 local inference window in global image coordinates.</li>
+<li>Step 7 <code>Mask Operations</code> workflow for accepting, cleaning, merging, and exporting segmentation masks.</li>
+<li>Accepted-object saving with object name, class name, class value, append, and replace modes.</li>
+<li>Class-level merge workflow for accepted object layers.</li>
+<li>Mask cleanup tools for connected-component analysis, deleting selected components, removing small objects, filling holes, smoothing masks, keeping the largest object, and relabeling values.</li>
+<li>Final merge/export tools for semantic, instance, and binary output masks.</li>
+<li>Overlap handling during final mask merge with priority, selection-order, component-size, and background rules.</li>
+<li>Mask export to TIFF, PNG, and NumPy <code>.npy</code>.</li>
+<li>Task-runner modules for image, refinement, and video workflows to keep the main widget easier to maintain.</li>
+</ul>
+<p>Changed:</p>
+<ul>
+<li>Large-image ROI choices now include <code>4096 x 4096</code> and <code>8192 x 8192</code>.</li>
+<li>README now documents the large-image workflow and Step 7 mask operations.</li>
+<li>Result writing handles ROI-local outputs and maps them back into global image coordinates.</li>
+<li>Prompt collection and coordinate utilities support ROI-local conversion for large-image workflows.</li>
+</ul>
+<p>Fixed:</p>
+<ul>
+<li>Improved coordinate handling for local ROI segmentation on large images.</li>
+<li>Improved preview/result layer handling for ROI-local outputs.</li>
+<li>Added tests for ROI extraction, prompt localization, global result mapping, and Step 7 UI presence.</li>
+</ul>
 <h3>2.0.0</h3>
 <p>Major update focused on SAM3.1 support, clearer model selection, live refinement, and result handling.</p>
 <p>Added:</p>
@@ -330,92 +361,121 @@
 </ul>
 </li>
 </ul>
-<p>GPU use requires a PyTorch / torchvision / SAM 3 stack that is compatible with your GPU architecture. If CUDA kernels are not available for the device, select <strong>CPU</strong> in the widget.</p>
+<p>If CUDA is not available or not compatible, select <strong>CPU</strong> in the widget.</p>
 <h2>Setup</h2>
-<p>Setup has three parts:</p>
-<ol>
-<li>Install the SAM 3 backend.</li>
-<li>Download the SAM 3 model files from Hugging Face and configure the model path.</li>
-<li>Install this napari plugin.</li>
-</ol>
-<h3>1. Install SAM 3</h3>
-<p>Create and activate an environment:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-sam3<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12
+<h3>Important for Windows users</h3>
+<p>If you installed the standalone napari desktop app from the website, Plugin Manager may not work for this plugin because that app uses a different Python environment.</p>
+<p>For Windows, use a <strong>new Conda environment with Python 3.12</strong> and install napari, SAM 3, and <code>napari-sam3-assistant</code> there.</p>
+<h2>Windows install in PowerShell</h2>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="c"># 1) install Miniforge first from:</span>
+<span class="c"># https://conda-forge.org/download/</span>
+
+<span class="c"># 2) open Miniforge Prompt or PowerShell after Miniforge is installed</span>
+
+
+<span class="n">conda</span> <span class="n">create</span> <span class="n">-n</span> <span class="n">napari-sam3</span> <span class="n">python</span><span class="p">=</span><span class="n">3</span><span class="p">.</span><span class="n">12</span> <span class="n">-y</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">napari-sam3</span>
+
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-upgrade</span> <span class="n">pip</span> <span class="n">wheel</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;setuptools&lt;82&quot;</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;napari[all]&quot;</span>
+
+<span class="c"># choose one:</span>
+<span class="c">##CPU</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="p">-</span><span class="n">-index-url</span> <span class="n">https</span><span class="p">://</span><span class="n">download</span><span class="p">.</span><span class="n">pytorch</span><span class="p">.</span><span class="n">org</span><span class="p">/</span><span class="n">whl</span><span class="p">/</span><span class="n">cpu</span>
+<span class="c"># or</span>
+<span class="c">##GPU</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="p">-</span><span class="n">-index-url</span> <span class="n">https</span><span class="p">://</span><span class="n">download</span><span class="p">.</span><span class="n">pytorch</span><span class="p">.</span><span class="n">org</span><span class="p">/</span><span class="n">whl</span><span class="p">/</span><span class="n">cu128</span>
+
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">facebookresearch</span><span class="p">/</span><span class="n">sam3</span><span class="p">.</span><span class="n">git</span>
+<span class="nb">cd </span><span class="n">sam3</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-no-cache-dir</span> <span class="n">sam3</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">einops</span> <span class="n">triton-windows</span> <span class="n">pycocotools</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">napari-sam3-assistant</span>
+
+<span class="n">napari</span>
+</pre></div>
+</code></pre>
+<h2>Linux</h2>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span><span class="c1"># 1) install Miniforge first from:</span>
+<span class="c1"># https://conda-forge.org/download/</span>
+
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-sam3<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span>-y
 conda<span class="w"> </span>activate<span class="w"> </span>napari-sam3
-</pre></div>
-</code></pre>
-<p>Install PyTorch and torchvision for your platform. Use the official PyTorch selector for the current command:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision
-</pre></div>
-</code></pre>
-<p>Install SAM 3:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/facebookresearch/sam3.git
+
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>wheel
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;setuptools&lt;82&quot;</span><span class="w"> </span><span class="s2">&quot;numpy&gt;=1.26,&lt;2&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[bermuda, pyqt6, optional-numba, optional-base]&quot;</span>
+
+<span class="c1"># choose one:</span>
+<span class="c1">##CPU</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
+<span class="c1"># or</span>
+<span class="c1">##GPU</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu130
+
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/facebookresearch/sam3.git
 <span class="nb">cd</span><span class="w"> </span>sam3
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>sam3
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>einops<span class="w"> </span>triton-windows<span class="w"> </span>pycocotools
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-sam3-assistant
+
+napari
 </pre></div>
 </code></pre>
-<h3>2. Download SAM 3 Weights</h3>
-<p>This plugin does not ship with SAM 3 weights or model configuration files. Download them from the official Hugging Face repository:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>https://huggingface.co/facebook/sam3
-</pre></div>
-</code></pre>
-<p>SAM3.1 multiplex weights are available from:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>https://huggingface.co/facebook/sam3.1
-</pre></div>
-</code></pre>
-<p>These repositories are gated.</p>
-<ol>
-<li>Sign in to your Hugging Face account.</li>
-<li>Open the facebook/sam3 model page.</li>
-<li>Request or accept access to the repository.</li>
-<li>Once access is approved, open the Files and versions tab.</li>
-<li>Download the required model and configuration files directly from the website.</li>
-</ol>
+<h2>Download SAM 3 model files</h2>
+<p>Download the model files from:</p>
+<ul>
+<li><code>https://huggingface.co/facebook/sam3</code></li>
+<li><code>https://huggingface.co/facebook/sam3.1</code></li>
+</ul>
+<p>These repositories are gated, so you must request or accept access first.</p>
+<p>After approval, download the files manually from the <strong>Files and versions</strong> tab.</p>
 <p>A reference screenshot of the file list is shown below:</p>
 <p><img src="docs/sam3_model_files.png" alt="SAM 3 model files screenshot" /></p>
-<p>Expected model directory:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>~/models/sam3/
+<h2>Model folder</h2>
+<p>The model files can be stored in any folder you want.</p>
+<p>Examples:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>D:\models\sam3
+D:\models\sam3_1
+</pre></div>
+</code></pre>
+<p>The plugin only needs the correct folder path.</p>
+<p>Example SAM3.0 folder:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>D:\models\sam3\
   config.json
   processor_config.json
   sam3.pt
 </pre></div>
 </code></pre>
 <p><code>model.safetensors</code> is also supported as a SAM3 3.0 weight file.</p>
-<p>For SAM3.1 video multiplex, use:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>~/models/sam3.1/
+<p>Example SAM3.1 folder:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>D:\models\sam3_1\
   config.json
   processor_config.json
   sam3.1_multiplex.pt
 </pre></div>
 </code></pre>
-<p>Depending on the Hugging Face layout, the directory may also contain tokenizer files such as <code>tokenizer.json</code>, <code>vocab.json</code>, and <code>merges.txt</code>.</p>
 <p>Current model support:</p>
 <ul>
-<li>SAM3 3.0 weights: 2D image tasks and 3D/video propagation.</li>
-<li>SAM3.1 <code>sam3.1_multiplex.pt</code>: 3D/video propagation through the SAM3.1 multiplex video predictor.</li>
-<li>SAM3.1 is not currently routed through the plugin's 2D image model loader.</li>
+<li>SAM3.0 weights: 2D image tasks and 3D/video propagation</li>
+<li>SAM3.1 <code>sam3.1_multiplex.pt</code>: 3D/video propagation through the SAM3.1 multiplex video predictor</li>
+<li>SAM3.1 is not currently routed through the plugin's 2D image model loader</li>
 </ul>
-<p>Keep each model version in its own directory. In the plugin widget, first choose <code>Model type</code>, then click <code>Browse</code>, select the matching directory, and click <code>Validate</code>.</p>
-<p>Example local folders:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>~/Projects/napari/sam3/model     -&gt; choose SAM3.0 2D/3D/video
-~/Projects/napari/sam3/model3_1  -&gt; choose SAM3.1 video multiplex
-</pre></div>
-</code></pre>
-<p>Note that the upstream SAM 3 source repository does not ship with a <code>model/</code> folder by default. In this project, <code>sam3/model</code> and <code>sam3/model3_1</code> are user-created local directories used to store downloaded SAM 3 weights and configuration files.</p>
-<p>The selected model type, model directory, and device are remembered by the widget.</p>
-<h3>3. Install napari-sam3-assistant</h3>
-<p>Install this plugin:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wulinteousa2-hash/napari-sam3-assistant
-<span class="nb">cd</span><span class="w"> </span>napari-sam3-assistant
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</pre></div>
-</code></pre>
-<p>Start napari:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari
-</pre></div>
-</code></pre>
-<p>Open the widget from:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>Plugins &gt; SAM3 Assistant
+<h2>Device rule</h2>
+<ul>
+<li>If you installed CPU-only PyTorch, choose <strong>CPU</strong></li>
+<li>If you installed CUDA PyTorch and <code>torch.cuda.is_available()</code> is <code>True</code>, you may choose <strong>CUDA</strong></li>
+</ul>
+<h2>For developers</h2>
+<p>If you want editable installs and <code>git pull</code>, use:</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">facebookresearch</span><span class="p">/</span><span class="n">sam3</span><span class="p">.</span><span class="n">git</span>
+<span class="nb">cd </span><span class="n">sam3</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-no-cache-dir</span> <span class="n">-e</span> <span class="p">.</span>
+
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">wulinteousa2-hash</span><span class="p">/</span><span class="n">napari-sam3-assistant</span><span class="p">.</span><span class="n">git</span>
+<span class="nb">cd </span><span class="n">napari-sam3-assistant</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">-e</span> <span class="p">.</span>
 </pre></div>
 </code></pre>
 <h2>Basic Workflow</h2>
@@ -430,6 +490,46 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li>Click <code>Save Result as Labels</code> to keep the result.</li>
 </ol>
 <p>Use <code>Clear Preview</code> to remove generated preview layers without deleting prompts or saved labels.</p>
+<h3>Large-Image Local Inference</h3>
+<p>Large-image mode is optional and off by default. When it is off, the plugin keeps the existing full-image inference path.</p>
+<p>Use this mode for OME-Zarr, large TIFF, and similar large images where sending the full selected plane to SAM3 is too expensive.</p>
+<p>Workflow:</p>
+<ol>
+<li>Set up the normal task and prompt type.</li>
+<li>Enable <code>Enable large-image local inference</code> in <code>Step 2. Task</code>.</li>
+<li>Choose a local ROI size:</li>
+</ol>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>512 x 512
+1024 x 1024
+2048 x 2048
+4096 x 4096
+8192 x 8192
+</pre></div>
+</code></pre>
+<ol start="4">
+<li>Add a point or box prompt.</li>
+<li>Click <code>Run Preview</code>, or add points in live refinement mode.</li>
+</ol>
+<p>ROI behavior:</p>
+<ul>
+<li>Point prompts use the latest point as the ROI anchor.</li>
+<li>Box prompts use the box center and keep the box inside the local inference window when possible.</li>
+<li>Refinement uses the latest point as the ROI anchor.</li>
+<li>Text-only prompts keep the full-image path in this first pass unless a point or box anchor is also available.</li>
+<li>If a new point or box stays inside the current ROI, the same ROI is reused.</li>
+<li>If a new point or box falls outside the current ROI, the ROI is rebuilt around the new prompt.</li>
+</ul>
+<p>The active ROI is shown as:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>SAM3 active ROI
+</pre></div>
+</code></pre>
+<p>SAM3 receives only the local ROI image data. Returned labels and boxes are written back into global image coordinates in the normal preview layers.</p>
+<p>Status messages report:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Large-image mode OFF: full-image inference.
+Large-image mode ON: local ROI inference (WIDTH x HEIGHT).
+Active ROI bounds: y=Y0:Y1, x=X0:X1.
+</pre></div>
+</code></pre>
 <h3>Batch Multiple 2D Images</h3>
 <p>Use <code>Batch all image layers</code> when several open 2D images should receive the same prompt setup.</p>
 <p>Workflow:</p>
@@ -636,6 +736,16 @@ New value: 3
 </pre></div>
 </code></pre>
 <p>Then click <code>Merge Label Values</code>. The selected Labels layer is updated in place.</p>
+<h2>Step 7 Mask Operations</h2>
+<p>Step 7 provides downstream mask operations for turning SAM3 previews into curated masks for analysis or training data.</p>
+<p>Tabs:</p>
+<ul>
+<li><code>Accepted Objects</code>: save a preview Labels layer as a named accepted object with class metadata, append it to an existing accepted layer, or replace an existing accepted layer.</li>
+<li><code>Class Merge</code>: merge selected accepted-object layers into a class working mask.</li>
+<li><code>Mask Cleanup</code>: analyze connected components, delete selected components, remove small objects, fill holes, smooth masks, keep the largest component, and relabel values.</li>
+<li><code>Final Merge / Export</code>: merge cleaned class masks into semantic, instance, or binary final masks, choose overlap handling, and export TIFF, PNG, or NumPy <code>.npy</code> files.</li>
+</ul>
+<p>The mask operations panel works on napari Labels layers, including SAM3 preview and saved label layers.</p>
 <h2>ARM64, CUDA, and DGX Spark</h2>
 <p>For ARM64 systems such as NVIDIA DGX Spark / GB10:</p>
 <ul>
@@ -725,7 +835,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">3.0.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -735,7 +845,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-18</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-20</li>
                                                 </ul>
                                             </div>
                                         </div>
