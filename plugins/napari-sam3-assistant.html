@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">3.1.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">3.2.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-20</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-21</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -223,142 +223,7 @@
 <h2>Status</h2>
 <p>This project is under active development. The current widget supports local SAM 3 model loading, napari prompt collection, large-image ROI execution, downstream mask operations, background execution, and writing results back to napari layers.</p>
 <h2>Changelog</h2>
-<h3>3.1.0</h3>
-<p>Small workflow cleanup release focused on making the main widget easier to use.</p>
-<p>Changed:</p>
-<ul>
-<li>Renamed <code>Step 2. Task</code> to <code>Step 2. Task Setup</code>.</li>
-<li>Removed the separate <code>Layers</code> step.</li>
-<li>Moved image selection into Task Setup as <code>Target image</code>.</li>
-<li>Added a collapsed <code>Advanced</code> section for channel axis, detection threshold, and 3D direction.</li>
-<li>Kept common controls visible by default: task, target image, batch mode, large-image mode, and ROI size.</li>
-<li>Renumbered the remaining steps so the workflow reads from setup to prompts, run, results, and mask operations.</li>
-<li>Kept backend behavior, prompt collection, batch processing, large-image inference, and result writing unchanged.</li>
-</ul>
-<h3>3.0.0</h3>
-<p>Major update compared with 2.0.0, focused on large-image segmentation, Step 7 mask operations, workflow modularization, and bug fixes.</p>
-<p>Added:</p>
-<ul>
-<li>Optional large-image local inference mode for OME-Zarr, large TIFF, and similar very large images, including images on the order of <code>60000 x 50000</code> pixels when the data source can provide lazy ROI reads.</li>
-<li>Local ROI inference with selectable ROI sizes from <code>512 x 512</code> through <code>8192 x 8192</code>.</li>
-<li>Active ROI overlay layer showing the current SAM3 local inference window in global image coordinates.</li>
-<li>Step 7 <code>Mask Operations</code> workflow for accepting, cleaning, merging, and exporting segmentation masks.</li>
-<li>Accepted-object saving with object name, class name, class value, append, and replace modes.</li>
-<li>Class-level merge workflow for accepted object layers.</li>
-<li>Mask cleanup tools for connected-component analysis, deleting selected components, removing small objects, filling holes, smoothing masks, keeping the largest object, and relabeling values.</li>
-<li>Final merge/export tools for semantic, instance, and binary output masks.</li>
-<li>Overlap handling during final mask merge with priority, selection-order, component-size, and background rules.</li>
-<li>Mask export to TIFF, PNG, and NumPy <code>.npy</code>.</li>
-<li>Task-runner modules for image, refinement, and video workflows to keep the main widget easier to maintain.</li>
-</ul>
-<p>Changed:</p>
-<ul>
-<li>Large-image ROI choices now include <code>4096 x 4096</code> and <code>8192 x 8192</code>.</li>
-<li>README now documents the large-image workflow and Step 7 mask operations.</li>
-<li>Result writing handles ROI-local outputs and maps them back into global image coordinates.</li>
-<li>Prompt collection and coordinate utilities support ROI-local conversion for large-image workflows.</li>
-</ul>
-<p>Fixed:</p>
-<ul>
-<li>Improved coordinate handling for local ROI segmentation on large images.</li>
-<li>Improved preview/result layer handling for ROI-local outputs.</li>
-<li>Added tests for ROI extraction, prompt localization, global result mapping, and Step 7 UI presence.</li>
-</ul>
-<h3>2.0.0</h3>
-<p>Major update focused on SAM3.1 support, clearer model selection, live refinement, and result handling.</p>
-<p>Added:</p>
-<ul>
-<li>SAM3.1 video multiplex support through <code>sam3.1_multiplex.pt</code>.</li>
-<li>Explicit <code>Model type</code> selector:
-<ul>
-<li><code>SAM3.0 2D/3D/video</code></li>
-<li><code>SAM3.1 video multiplex</code></li>
-</ul>
-</li>
-<li>Model-type-aware validation so SAM3.0 and SAM3.1 folders are not confused.</li>
-<li>SAM3.1 routing for 3D/video propagation through the multiplex video predictor.</li>
-<li>Automatic task guidance for SAM3.1: <code>Load 2D Model</code> is disabled and the task is set to <code>3D/video propagation</code>.</li>
-<li>Two-column step-based widget layout:
-<ul>
-<li>left column: <code>Model Setup</code>, <code>Task</code>, <code>Layers</code></li>
-<li>right column: <code>Prompt Tools</code>, <code>Run</code>, <code>Results</code>, and collapsible <code>Status</code></li>
-</ul>
-</li>
-<li>Muted professional widget theme for lower eye strain during long napari sessions.</li>
-<li>Compact activity indicator in <code>Run</code> showing model execution, propagation, refinement, idle, and failure states.</li>
-<li>Results table showing <code>Layer</code>, <code>Prompt</code>, <code>Frame</code>, <code>Object ID</code>, <code>Score</code>, and <code>Area</code>.</li>
-<li>Detection threshold control for SAM3 grounding, useful when text prompts return no candidates.</li>
-<li>More visible text prompt input with <code>Enter</code> bound to <code>Run Preview</code>.</li>
-<li>Text prompt cleanup that sends short model-facing phrases such as <code>myelin ring</code> instead of instruction text such as <code>segment all the myelin ring</code>.</li>
-<li>Automatic lower-threshold retry for text segmentation when the first pass returns zero objects.</li>
-<li>Batch mode for running the same 2D prompt setup across all open image layers, with separate preview and saved label layers per image.</li>
-<li>Multi-text batch mode: enter one text concept per line and run each prompt independently against the selected image or all image layers.</li>
-<li>Results actions:
-<ul>
-<li><code>Clear Results</code></li>
-<li><code>Copy Clipboard</code></li>
-<li><code>Export CSV</code></li>
-</ul>
-</li>
-<li>Label-value merge controls for converting multiple label IDs into one class value.</li>
-<li>Stable object-ID label mapping for propagated video/stack results.</li>
-<li>Remembered model type, model directory, and device selection through Qt settings.</li>
-<li>Safer CUDA error reporting for unsupported GPU kernel architectures.</li>
-</ul>
-<p>Live refinement improvements:</p>
-<ul>
-<li><code>Refinement (live point correction)</code> mode now arms live point refinement immediately after <code>Create Prompt Layer</code>.</li>
-<li>The first point starts live refinement; the first run may take longer if the model is lazy-loaded.</li>
-<li><code>SAM3 preview labels</code> is pre-created for live refinement so napari does not switch users away from the points layer after the first result.</li>
-<li>After each live refinement update, the active layer returns to <code>SAM3 points</code> in add mode.</li>
-<li><code>Next point mode</code> affects only future points.</li>
-<li><code>T</code> toggles next point mode only and does not rerun refinement.</li>
-<li><code>Shift+T</code> flips selected point polarity, or the latest point if none is selected, and reruns refinement.</li>
-<li>Existing dot colors now change only when stored point <code>properties[&quot;polarity&quot;]</code> changes.</li>
-<li><code>Apply mode to selected points</code> still edits selected existing points and reruns preview.</li>
-</ul>
-<p>Changed:</p>
-<ul>
-<li><code>Backend / Model Setup</code> was renamed to <code>Model Setup</code>.</li>
-<li><code>Napari Layers</code> was renamed to <code>Layers</code>.</li>
-<li><code>Batch all image layers</code> can be used independently from multi-text prompts.</li>
-<li><code>Load Image Model</code> was renamed to <code>Load 2D Model</code>.</li>
-<li><code>Lazy-load on run</code> was renamed to <code>Load model when running</code>.</li>
-<li>Text prompts no longer require a prompt layer.</li>
-<li>Text prompt submission can be run with <code>Enter</code> without moving to the <code>Run Preview</code> button.</li>
-<li>Preview clearing removes generated preview layers only and keeps prompts, saved labels, and loaded models.</li>
-<li><code>pytorch_model.bin</code> was removed from documented and validated model-file names.</li>
-</ul>
-<p>Current model support:</p>
-<ul>
-<li>SAM3.0 weights support 2D image tasks and 3D/video propagation.</li>
-<li>SAM3.1 <code>sam3.1_multiplex.pt</code> supports 3D/video propagation.</li>
-<li>SAM3.1 is not currently routed through the plugin's 2D image model loader.</li>
-</ul>
-<h3>1.0.0</h3>
-<p>Initial SAM3 Assistant plugin foundation.</p>
-<p>Added:</p>
-<ul>
-<li>Local SAM3 backend adapter for napari workflows.</li>
-<li>Task-based UI for:
-<ul>
-<li>2D segmentation</li>
-<li>3D stack/video-like propagation</li>
-<li>exemplar segmentation</li>
-<li>text segmentation</li>
-<li>refinement with positive and negative prompts</li>
-</ul>
-</li>
-<li>Prompt collection from napari Points, Shapes, Labels, and text input.</li>
-<li>Box prompts from Shapes layers.</li>
-<li>Labels-layer mask prompts.</li>
-<li>Text prompts for concept segmentation.</li>
-<li>Preview outputs as napari Labels, Image, and Shapes layers.</li>
-<li>Saved label outputs through <code>Save Result as Labels</code>.</li>
-<li>Background worker execution to keep the napari UI responsive.</li>
-<li>Channel-axis handling for grayscale, RGB/RGBA, channel-first, and stack-like data.</li>
-<li>Basic model-directory validation for local SAM3 files.</li>
-</ul>
+<p>Release notes and bug-fix history are maintained in <a href="CHANGELOG.md">CHANGELOG.md</a>.</p>
 <h2>Requirements</h2>
 <ul>
 <li>Python <code>&gt;=3.12</code></li>
@@ -633,6 +498,7 @@ myelin sheath
 <li>Click <code>Run Preview</code>.</li>
 </ol>
 <p>The local SAM 3 image API exposes visual exemplars through geometric box prompts. The plugin stores ROI metadata, but inference currently passes exemplar ROIs as SAM 3 visual box prompts.</p>
+<p><code>Exemplar segmentation</code> is a 2D/image task in this plugin. For exemplar-like 3D propagation, use <code>3D/video propagation</code> with a box prompt on the selected frame or slice.</p>
 <h3>Refinement With Positive and Negative Points</h3>
 <p>Use points to correct a result.</p>
 <p>Workflow:</p>
@@ -655,6 +521,7 @@ myelin sheath
 <li>Paint non-zero pixels in <code>SAM3 mask prompt</code>.</li>
 <li>Click <code>Run Preview</code>.</li>
 </ol>
+<p>Labels-mask prompts are currently supported for 2D/image workflows, not <code>3D/video propagation</code>. For 3D/video propagation, use text, box, or point prompts on the selected frame.</p>
 <h3>3D Stack / Video Propagation</h3>
 <p>Treat a stack as video-like data and propagate a prompt through frames or slices.</p>
 <p>Workflow:</p>
@@ -672,6 +539,15 @@ myelin sheath
 </li>
 <li>Click <code>Run Preview</code> or <code>Propagate Stack/Video</code>.</li>
 </ol>
+<p>3D/video prompt limits:</p>
+<ul>
+<li>SAM3.0 video propagation supports one initial visual box on the prompted frame.</li>
+<li>SAM3.1 video multiplex can accept multiple box prompts.</li>
+<li>Point prompts target one object per request and cannot be mixed with text or box prompts in the same 3D/video request.</li>
+<li>Point prompts are limited to 16 points per request. SAM3's tracker prompt encoder uses the first 8 and last 8 points when more are supplied, so the plugin fails early instead of letting middle points be ignored.</li>
+<li>Labels-mask prompts are not supported by the SAM3 video predictor API used by this plugin.</li>
+<li><code>Exemplar segmentation</code> itself is routed through the 2D image model. Use box prompts in <code>3D/video propagation</code> when the goal is exemplar-like propagation through a stack.</li>
+</ul>
 <p>Preview output is written to:</p>
 <pre><code class="language-text"><div class="highlight"><pre><span></span>SAM3 propagated preview labels
 </pre></div>
@@ -848,7 +724,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">3.1.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">3.2.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -858,7 +734,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-20</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-21</li>
                                                 </ul>
                                             </div>
                                         </div>
