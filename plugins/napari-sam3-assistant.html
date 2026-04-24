@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.0.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-21</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-24</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -223,8 +223,13 @@
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
 </ul>
-<h2>What's New in 4.0.0</h2>
-<p>Version 4.0.0 is a workflow release focused on the new Simple mode and a cleaner Advanced mode.</p>
+<h2>What's New in 4.0.1</h2>
+<p>Version 4.0.1 keeps the 4.0 workflow update and adds a small SAM3.1 compatibility follow-up:</p>
+<ul>
+<li>Keeps the plugin-side fix for the earlier <code>SAM3.1</code> <code>start_session</code> crash where some installed <code>sam3</code> backends rejected <code>offload_state_to_cpu</code> during <code>init_state()</code>.</li>
+<li>Documents the separate Windows-only <code>SAM3.1</code> multiplex runtime workaround for later <code>No available kernel. Aborting execution!</code> propagation failures.</li>
+</ul>
+<p>Version 4.0.0 was a workflow release focused on the new Simple mode and a cleaner Advanced mode.</p>
 <ul>
 <li>New <code>Simple</code> mode for common imaging tasks with a compact one-column layout.</li>
 <li><code>Advanced</code> mode keeps the full manual UI for model setup, batch work, large-image ROI settings, result tables, mask operations, and detailed logs.</li>
@@ -243,7 +248,7 @@
 <p>Release notes and bug-fix history are maintained in <a href="CHANGELOG.md">CHANGELOG.md</a>.</p>
 <h2>Requirements</h2>
 <ul>
-<li>Python <code>&gt;=3.12</code></li>
+<li>Python <code>&gt;=3.11</code></li>
 <li>napari <code>&gt;=0.5</code></li>
 <li>SAM 3 Python package importable as <code>sam3</code></li>
 <li>PyTorch and torchvision installed for your platform</li>
@@ -257,65 +262,159 @@
 </ul>
 <p>If CUDA is not available or not compatible, select <strong>CPU</strong> in the widget.</p>
 <h2>Setup</h2>
-<p>If you installed the standalone napari desktop app from the website, Plugin Manager may not work for this plugin because that app uses a different Python environment.</p>
-<p>Use a <strong>new Conda environment with Python 3.12</strong> and install napari, SAM3, and <code>napari-sam3-assistant</code> there.</p>
 <h3>Windows</h3>
-<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="c"># 1) install Miniforge first from:</span>
-<span class="c"># https://conda-forge.org/download/</span>
+<ol>
+<li>
+<p>Download and install <strong>Miniforge</strong>:<br />
+<a href="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe">https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe</a></p>
+</li>
+<li>
+<p>After Miniforge is installed, open either:</p>
+<ul>
+<li><strong>Miniforge Prompt</strong></li>
+<li><strong>PowerShell</strong></li>
+</ul>
+</li>
+<li>
+<p>Create and activate the environment</p>
+</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span><span class="o">=======</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-sam3<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
 
-<span class="c"># 2) open Miniforge Prompt or PowerShell after Miniforge is installed</span>
-
-
-<span class="n">conda</span> <span class="n">create</span> <span class="n">-n</span> <span class="n">napari-sam3</span> <span class="n">python</span><span class="p">=</span><span class="n">3</span><span class="p">.</span><span class="n">12</span> <span class="n">-y</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">napari-sam3</span>
-
-<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-upgrade</span> <span class="n">pip</span> <span class="n">wheel</span>
-<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;setuptools&lt;82&quot;</span>
-<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;napari[all]&quot;</span>
-
-<span class="c"># choose one:</span>
-<span class="c"># CPU</span>
-<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="p">-</span><span class="n">-index-url</span> <span class="n">https</span><span class="p">://</span><span class="n">download</span><span class="p">.</span><span class="n">pytorch</span><span class="p">.</span><span class="n">org</span><span class="p">/</span><span class="n">whl</span><span class="p">/</span><span class="n">cpu</span>
-
-<span class="c"># GPU</span>
-<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="p">-</span><span class="n">-index-url</span> <span class="n">https</span><span class="p">://</span><span class="n">download</span><span class="p">.</span><span class="n">pytorch</span><span class="p">.</span><span class="n">org</span><span class="p">/</span><span class="n">whl</span><span class="p">/</span><span class="n">cu128</span>
-</pre></div>
-</code></pre>
-<h3>Install SAM3 (Windows)</h3>
-<pre><code><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">facebookresearch</span><span class="o">/</span><span class="n">sam3</span><span class="o">.</span><span class="n">git</span>
-<span class="ow">or</span>
-<span class="c1"># quick alternative</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">cache</span><span class="o">-</span><span class="nb">dir</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">facebookresearch</span><span class="o">/</span><span class="n">sam3</span>
-
-
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">einops</span> <span class="n">triton</span><span class="o">-</span><span class="n">windows</span> <span class="n">pycocotools</span>
-</pre></div>
-</code></pre>
-<h2>Linux ARM64 (AArch64)</h2>
-<pre><code class="language-Bash"><div class="highlight"><pre><span></span><span class="c1"># 1) install Miniforge first from:</span>
-<span class="c1"># https://conda-forge.org/download/</span>
-
-conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-sam3<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span>-y
 conda<span class="w"> </span>activate<span class="w"> </span>napari-sam3
-
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>wheel
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;setuptools&lt;82&quot;</span><span class="w"> </span><span class="s2">&quot;numpy&gt;=1.26,&lt;2&quot;</span>
-pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[bermuda, pyqt6, optional-numba, optional-base]&quot;</span>
-
-<span class="c1"># choose one:</span>
-<span class="c1"># CPU</span>
-
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
-
-<span class="c1"># GPU</span>
-
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu130
 </pre></div>
 </code></pre>
-<h3>Install SAM3 (Linux ARM64)</h3>
+<ol start="4">
+<li>Install base Python tools and napari</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>wheel
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;setuptools&lt;82&quot;</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&quot;</span>
+</pre></div>
+</code></pre>
+<ol start="5">
+<li>Install PyTorch</li>
+</ol>
+<h3>Choose one:</h3>
+<h3>CPU</h3>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
+</pre></div>
+</code></pre>
+<h3>GPU</h3>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
+</pre></div>
+</code></pre>
+<ol start="6">
+<li>Install SAM3</li>
+</ol>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/facebookresearch/sam3.git
 <span class="nb">cd</span><span class="w"> </span>sam3
 python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+<p>Option B. Install directly from GitHub</p>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>git+https://github.com/facebookresearch/sam3
+</pre></div>
+</code></pre>
+<ol start="7">
+<li>Install extra dependencies</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>einops<span class="w"> </span>triton-windows<span class="w"> </span>pycocotools
+</pre></div>
+</code></pre>
+<p>If <code>SAM3.1</code> multiplex propagation later fails on Windows with errors such as
+<code>No available kernel. Aborting execution!</code>, see the replacement-file workaround in
+<a href="windows_sam31_workaround/README.md"><code>windows_sam31_workaround/README.md</code></a>.
+8. Install napari-sam3-assistant</p>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-sam3-assistant
+</pre></div>
+</code></pre>
+<p>If you are installing from a local repository checkout instead:</p>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+<ol start="9">
+<li>Launch napari</li>
+</ol>
+<pre><code><div class="highlight"><pre><span></span><span class="n">napari</span>
+</pre></div>
+</code></pre>
+<h3>Linux ARM64 (AArch64)</h3>
+<ol>
+<li>Download Miniforge
+<a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a></li>
+</ol>
+<p>Install Miniforge first.</p>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>Miniforge3-Linux-aarch64.sh
+./Miniforge3-Linux-aarch64.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/miniforge3&quot;</span>
+<span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/miniforge3/bin/activate&quot;</span>
+</pre></div>
+</code></pre>
+<ol start="2">
+<li>Create and activate the environment</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-sam3<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>napari-sam3
+</pre></div>
+</code></pre>
+<ol start="3">
+<li>Install base Python tools and napari</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>wheel
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;setuptools&lt;82&quot;</span><span class="w"> </span><span class="s2">&quot;numpy&gt;=1.26,&lt;2&quot;</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[bermuda, pyqt6, optional-numba, optional-base]&quot;</span>
+</pre></div>
+</code></pre>
+<ol start="4">
+<li>Install PyTorch</li>
+</ol>
+<p>Choose one:</p>
+<h3>CPU</h3>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
+</pre></div>
+</code></pre>
+<h3>GPU</h3>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu130
+</pre></div>
+</code></pre>
+<ol start="5">
+<li>Install SAM3</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/facebookresearch/sam3.git
+<span class="nb">cd</span><span class="w"> </span>sam3
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+<ol start="6">
+<li>Install extra dependencies</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>einops<span class="w"> </span>triton<span class="w"> </span>pycocotools
+</pre></div>
+</code></pre>
+<ol start="7">
+<li>Install napari-sam3-assistant</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-sam3-assistant
+</pre></div>
+</code></pre>
+<p>If you are installing from a local repository checkout instead:</p>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+<ol start="8">
+<li>Launch napari</li>
+</ol>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>napari
+</pre></div>
+</code></pre>
+<p>Verify the installation</p>
+<p>Inside the activated environment, confirm that SAM3 imports correctly:</p>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import sam3; print(&#39;sam3 import OK&#39;)&quot;</span>
+</pre></div>
+</code></pre>
+<p>You can also verify napari:</p>
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import napari; print(napari.__version__)&quot;</span>
 </pre></div>
 </code></pre>
 <h2>Download SAM 3 model files</h2>
@@ -694,7 +793,7 @@ New value: 3
 <h2>ARM64, CUDA, and DGX Spark</h2>
 <p>For ARM64 systems such as NVIDIA DGX Spark / GB10:</p>
 <ul>
-<li>Use Python 3.12 or newer.</li>
+<li>Use Python 3.11 or newer.</li>
 <li>Keep the NVIDIA driver and CUDA stack current.</li>
 <li>Install a PyTorch/torchvision build that supports your GPU architecture.</li>
 <li>Use <code>CPU</code> mode for reliable 2D execution if CUDA kernels are unavailable.</li>
@@ -743,6 +842,26 @@ nvrtc: error: invalid value for --gpu-architecture
 <p>The installed PyTorch CUDA runtime cannot compile for the detected GPU. Use <code>CPU</code> or install a build that supports the GPU.</p>
 <h3>BFloat16 conversion errors</h3>
 <p>The plugin converts SAM3 <code>bfloat16</code> outputs to <code>float32</code> before writing NumPy-backed napari layers. If you still see dtype errors, restart napari after changing device mode and run again.</p>
+<h3>SAM3.1 <code>start_session</code> fails with <code>unexpected keyword argument 'offload_state_to_cpu'</code></h3>
+<p>This is a plugin/backend API mismatch, not a prompt or data problem.</p>
+<ul>
+<li>The failure happens during <code>start_session</code> / <code>init_state</code>, before propagation actually begins.</li>
+<li>The installed <code>sam3</code> backend does not accept the keyword that newer plugin code may pass.</li>
+<li><code>napari-sam3-assistant</code> 4.0.1 keeps a compatibility fix for this case so older installed <code>sam3</code> backends can still start a 3D/video session.</li>
+</ul>
+<p>If you still see this exact error, first verify that napari is importing the intended local <code>sam3</code> install and not an older duplicate environment copy.</p>
+<h3>SAM3.1 propagation fails later with <code>No available kernel. Aborting execution!</code> on Windows</h3>
+<p>This is a different issue from the <code>offload_state_to_cpu</code> startup mismatch.</p>
+<ul>
+<li><code>start_session</code> succeeds.</li>
+<li>prompts are accepted.</li>
+<li>the failure happens only when <code>SAM3.1</code> multiplex propagation actually starts.</li>
+</ul>
+<p>On some Windows systems using <code>triton-windows</code>, this appears to be an upstream <code>sam3</code> runtime/kernel path issue rather than a napari prompt-collection bug.</p>
+<p>Use the documented replacement-file workaround here:</p>
+<ul>
+<li><a href="windows_sam31_workaround/README.md"><code>windows_sam31_workaround/README.md</code></a></li>
+</ul>
 <h3>Text prompt creates no layer</h3>
 <p>That is expected. Text segmentation does not need a prompt layer. Enter text and click <code>Run Preview</code>.</p>
 <h2>Development</h2>
@@ -780,7 +899,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.0.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -790,7 +909,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-21</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-24</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -868,7 +987,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
