@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.4.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.5.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-06</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-24</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -222,16 +222,25 @@ analysis, and aggregation from ROI to image-level and animal-level datasets.</p>
 <li>Nikon AX spectral detector systems</li>
 </ul>
 <h2>Plugin Overview</h2>
-<p>The plugin is organized as 4 subplugins:</p>
+<p>The plugin is organized as 5 subplugins:</p>
 <ol>
 <li><code>ND2 Spectral Export</code></li>
 </ol>
 <ul>
 <li>convert single files or batches from ND2 to OME-Zarr</li>
-<li>scan and open single or batch OME-Zarr datasets from the same workspace</li>
-<li>validate image structure and dimensions such as axes order, shape, and wavelength metadata</li>
+<li>preserve relative folder structure during batch export</li>
+<li>track per-file conversion status, output paths, and failures</li>
 </ul>
 <ol start="2">
+<li><code>OME-Zarr Browser</code></li>
+</ol>
+<ul>
+<li>browse, filter, validate, and open single or batch OME-Zarr datasets from a dedicated browser widget</li>
+<li>validate image structure and dimensions such as axes order, shape, and wavelength metadata</li>
+<li>support whole-word search, dataset-type filtering, and fast row-based opening for spectral and non-spectral datasets</li>
+<li>optionally load visible, truecolor, and raw spectral views with preview-mode support and background-cleaned truecolor rendering</li>
+</ul>
+<ol start="3">
 <li><code>Spectral Viewer</code></li>
 </ol>
 <ul>
@@ -240,7 +249,7 @@ analysis, and aggregation from ROI to image-level and animal-level datasets.</p>
 <li>read spectral intensity versus wavelength in normalized or absolute modes</li>
 <li>support ROI generation and ROI-based spectral extraction</li>
 </ul>
-<ol start="3">
+<ol start="4">
 <li><code>Spectral Analysis</code></li>
 </ol>
 <ul>
@@ -249,7 +258,7 @@ analysis, and aggregation from ROI to image-level and animal-level datasets.</p>
 <li>support Student's t-test and one-way or two-way ANOVA</li>
 <li>support blind-group analysis using PCA, feature comparison, user-selected clustering, and p-value statistics</li>
 </ul>
-<ol start="4">
+<ol start="5">
 <li><code>Spatial Ratio Analysis</code></li>
 </ol>
 <ul>
@@ -261,8 +270,9 @@ analysis, and aggregation from ROI to image-level and animal-level datasets.</p>
 <p>Features:</p>
 <ul>
 <li>Read <code>.nd2</code> files into napari</li>
-<li>Read <code>.zarr</code> and <code>.ome.zarr</code> through the plugin loader widget</li>
+<li>Browse and open <code>.zarr</code> and <code>.ome.zarr</code> datasets through the dedicated <code>OME-Zarr Browser</code></li>
 <li>Build an estimated truecolor RGB view for spectral ranges spanning roughly 400 nm to 740 nm</li>
+<li>Optionally auto-clean background during truecolor loading with low, medium, or high strength</li>
 <li>Export the loaded ND2 spectral cube to OME-Zarr with multiscales and wavelength metadata</li>
 <li>Plot ROI spectra from spectral OME-Zarr layers</li>
 <li>Keep per-image ROI spectral datasets in memory during the napari session</li>
@@ -278,13 +288,13 @@ analysis, and aggregation from ROI to image-level and animal-level datasets.</p>
 </code></pre>
 <p>Then start napari and open the plugin widgets from the Plugins menu.</p>
 <h2>Interface Preview</h2>
-<p>The screenshot below shows the main <code>ND2 Spectral Export</code> workflow used for conversion and OME-Zarr loading.</p>
+<p>The screenshot below shows the main <code>ND2 Spectral Export</code> workflow used for ND2-to-OME-Zarr conversion.</p>
 <p><img src="docs/nd2_spectral_export_workflow.png" alt="ND2 Spectral Export workflow" /></p>
 <p>Highlighted areas:</p>
 <ol>
 <li>The conversion section defines the <code>ND2 source</code> and <code>OME-Zarr output</code> used for ND2-to-OME-Zarr export.</li>
-<li><code>Scan Zarr Folder</code> is used to browse and discover converted OME-Zarr datasets.</li>
-<li>The table lists dataset properties such as file name, relative path, axes, shape, preview shape, wavelength range, and spectral status.</li>
+<li><code>Convert To OME-Zarr</code> runs the current export job for the dropped source selection.</li>
+<li>The table lists queued ND2 files, conversion status, output locations, and per-file failures.</li>
 </ol>
 <p>Additional screenshots and supporting project assets can be stored and referenced from <a href="docs/"><code>docs/</code></a>.</p>
 <h2>Intended users</h2>
@@ -299,29 +309,52 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li>multi-image aggregation across animals</li>
 </ul>
 <h2>Dock Widgets</h2>
-<p>The plugin now exposes 4 napari dock widgets:</p>
+<p>The plugin now exposes 5 napari dock widgets:</p>
 <ul>
 <li><code>ND2 Spectral Export</code></li>
+<li><code>OME-Zarr Browser</code></li>
 <li><code>Spectral Viewer</code></li>
 <li><code>Spectral Analysis</code></li>
 <li><code>Spatial Ratio Analysis</code></li>
 </ul>
-<p>All 4 widgets are configured to float by default instead of staying docked in the main napari window.</p>
+<p>All 5 widgets are configured to float by default instead of staying docked in the main napari window.</p>
 <h2>ND2 Spectral Export Workflow</h2>
 <p><code>ND2 Spectral Export</code> now handles:</p>
 <ul>
 <li>ND2-to-OME-Zarr conversion from a dropped single file, subfolder, or parent folder</li>
 <li>recursive batch ND2 conversion while preserving the original relative folder structure</li>
 <li>root-level <code>manifest.json</code> export logging for converted datasets</li>
-<li>OME-Zarr scanning and opening from the same widget</li>
 <li>per-file conversion status, progress, and failure reporting in the shared table</li>
 <li>conversion error collection in a dedicated troubleshooting panel</li>
 </ul>
+<h3>ND2 conversion behavior</h3>
+<p>The ND2 conversion area uses:</p>
+<ul>
+<li><code>ND2 source</code></li>
+<li><code>OME-Zarr output</code></li>
+<li><code>Convert To OME-Zarr</code></li>
+</ul>
+<p>Conversion status is shown with:</p>
+<ul>
+<li>a fixed <code>Status:</code> message bar</li>
+<li>a progress bar</li>
+<li>a shared table listing queued ND2 files, converted outputs, and failures</li>
+<li>a <code>Conversion Errors</code> panel for troubleshooting failed files</li>
+</ul>
+<p>If one ND2 file fails, the widget continues converting the remaining files and records the failed file in the error panel instead of aborting the whole batch.</p>
+<h2>OME-Zarr Browser Workflow</h2>
+<p><code>OME-Zarr Browser</code> is a dedicated dataset browser for exported or existing OME-Zarr folders. It is meant to be its own workflow for scanning, filtering, validating, and opening OME-Zarr datasets from a separate dock widget.</p>
 <h3>OME-Zarr scanning and opening</h3>
-<p>The widget supports drag-and-drop or browsing for:</p>
+<p>The browser supports drag-and-drop or browsing for:</p>
 <ul>
 <li>one <code>.zarr</code> folder</li>
 <li>one parent folder containing many <code>.zarr</code> datasets</li>
+</ul>
+<p>The browser can be used for:</p>
+<ul>
+<li>spectral OME-Zarr datasets with wavelength metadata</li>
+<li>non-spectral OME-Zarr datasets that still need quick inspection and opening</li>
+<li>mixed folders where spectral and non-spectral datasets are stored together</li>
 </ul>
 <p>The user can choose which views to open for selected Zarr datasets:</p>
 <ul>
@@ -329,7 +362,15 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <li><code>Truecolor</code></li>
 <li><code>Raw spectral</code></li>
 </ul>
-<p>It also supports <code>Use preview pyramid level</code> for the display layers.</p>
+<p>It also supports:</p>
+<ul>
+<li>whole-word dataset filtering across name, path, wavelength, and shape metadata</li>
+<li>multiple search keywords separated by spaces or commas</li>
+<li>dataset-type filtering for <code>All datasets</code>, <code>Spectral only</code>, <code>Non-spectral only</code>, and <code>Errors only</code></li>
+<li><code>Preview</code> loading for display layers</li>
+<li>optional <code>Clean bg</code> truecolor cleanup</li>
+<li><code>Low</code>, <code>Med</code>, or <code>High</code> cleanup strength</li>
+</ul>
 <p>The batch table shows:</p>
 <ul>
 <li><code>open</code></li>
@@ -345,33 +386,20 @@ for myelin physicochemical analysis. It supports workflows involving:</p>
 <p>The user can:</p>
 <ul>
 <li>browse or drag a Zarr source</li>
-<li>click the prominent <code>Scan Zarr Folder</code> action between the source box and the table</li>
-<li>select one row, multiple rows, or use <code>Select All</code> / <code>Clear All</code></li>
+<li>click <code>Scan</code></li>
+<li>select one row, multiple rows, or use <code>Select Visible</code> / <code>Clear Visible</code></li>
 <li>press <code>Space</code> to toggle the selected Zarr rows</li>
-<li>open only the selected or checked datasets with <code>Open Selected Zarr</code></li>
+<li>double-click a row to open one dataset directly</li>
+<li>press <code>Enter</code> / <code>Return</code> to open checked datasets</li>
+<li>open only the selected or checked datasets with <code>Open Checked</code></li>
 </ul>
-<p>The chosen <code>Visible sum</code>, <code>Truecolor</code>, <code>Raw spectral</code>, and preview options are applied to all selected Zarr datasets in the batch open action.</p>
-<h3>ND2 conversion behavior</h3>
-<p>The ND2 conversion area now uses:</p>
-<ul>
-<li><code>ND2 source</code></li>
-<li><code>OME-Zarr output</code></li>
-<li><code>Convert To OME-Zarr</code></li>
-</ul>
-<p>Conversion status is shown with:</p>
-<ul>
-<li>a fixed <code>Status:</code> message bar</li>
-<li>a progress bar</li>
-<li>a shared table listing queued ND2 files, converted outputs, and failures</li>
-<li>a <code>Conversion Errors</code> panel for troubleshooting failed files</li>
-</ul>
-<p>If one ND2 file fails, the widget continues converting the remaining files and records the failed file in the error panel instead of aborting the whole batch.</p>
+<p>The chosen <code>Visible sum</code>, <code>Truecolor</code>, <code>Raw spectral</code>, preview, and background-cleaning options are applied to all selected Zarr datasets in the batch open action.</p>
 <h3>Reader popup note</h3>
 <p>If a user opens <code>.zarr</code> files through napari's generic file-open dialog, napari may still show a <code>Choose reader</code> popup when multiple readers claim <code>.zarr</code>.</p>
 <p>This plugin cannot reliably suppress that global napari chooser by itself.</p>
 <p>The intended workaround is:</p>
 <ul>
-<li>use the plugin's own Zarr loader in <code>ND2 Spectral Export</code></li>
+<li>use the plugin's own Zarr loader in <code>OME-Zarr Browser</code></li>
 <li>open Zarr datasets from there instead of through napari's general file-open menu</li>
 </ul>
 <h3>Visible sum definition</h3>
@@ -690,7 +718,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.4.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.5.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -700,7 +728,7 @@ Nile Red myelin spectroscopy methodology described in:</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-06</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-24</li>
                                                 </ul>
                                             </div>
                                         </div>
