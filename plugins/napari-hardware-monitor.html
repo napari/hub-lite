@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -210,51 +210,34 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p>Lightweight local hardware and responsiveness monitoring for napari.</p>
-<p><code>napari-hardware-monitor</code> adds a compact dashboard dock for watching napari health, CPU, system memory, GPU activity, and GPU memory while image-analysis and local AI workflows run. It is designed for users who want immediate visibility into whether napari is responding normally and whether segmentation models, vision models, or large image data are putting pressure on the machine.</p>
+                                        <p>Hardware and responsiveness monitoring inside napari.</p>
+<p><code>napari-hardware-monitor</code> adds a compact dock for watching napari UI responsiveness, CPU, system memory, GPU activity, and GPU memory while image-analysis and local AI workflows run.</p>
 <p><img src="docs/napari-hardware-monitor_v1.png" alt="napari-hardware-monitor widget" /></p>
-<h2>First Release</h2>
-<p>Version <code>1.0.0</code> focuses on a small, reliable monitor:</p>
+<h2>Features</h2>
 <ul>
-<li>obvious napari Health card for UI responsiveness</li>
-<li>event-loop delay readout for spotting lag or recent freezes</li>
-<li>short health hints for likely causes such as CPU saturation, memory pressure, or main-thread blocking</li>
-<li>compact dark dashboard with gauge cards and short history traces</li>
-<li>CPU utilization</li>
-<li>optional per-core CPU utilization</li>
-<li>system memory usage</li>
-<li>NVIDIA GPU utilization through <code>nvidia-smi</code></li>
-<li>NVIDIA VRAM usage when reported by the driver</li>
-<li>GPU temperature and power draw</li>
-<li>Start / Pause monitoring</li>
-<li>refresh interval selector</li>
-<li>Float button for detaching the monitor dock when napari exposes a dock container</li>
-<li>Copy Snapshot for bug reports, benchmarking notes, or reproducibility records</li>
+<li>napari Health card with Qt event-loop delay and recent-freeze readout</li>
+<li>CPU, system RAM, NVIDIA GPU, and VRAM monitoring</li>
+<li>GPU temperature and power draw when reported by <code>nvidia-smi</code></li>
+<li>compact gauge cards with short history traces</li>
+<li>optional per-core CPU panel</li>
+<li>Start / Pause, refresh interval, Float / Attach, and Copy Snapshot controls</li>
 </ul>
-<p>Per-core CPU detail is collapsed by default. The main view stays focused on the common question: is the workflow limited by CPU, RAM, GPU, or VRAM?</p>
 <h2>Why This Plugin Exists</h2>
-<p>Local image analysis is increasingly hardware-dependent. When a user loads a large TIFF or OME-Zarr, runs local SAM3, chat-assistant or another GPU-backed workflow, they often need to know:</p>
+<p>Large images and local AI workflows can make napari slow or briefly unresponsive.</p>
+<p>The operating system may show a &quot;<code>napari</code> is not responding&quot; dialog with <code>Wait</code> and <code>Force Quit</code>, but that appears only after the UI is already stuck. It does not keep a history or help after napari responds again.</p>
+<p>This plugin adds the missing context inside napari:</p>
 <ul>
-<li>Is the GPU actually being used?</li>
-<li>Is VRAM full?</li>
-<li>Is system RAM becoming the bottleneck?</li>
-<li>Is napari healthy, lagging, or recently frozen?</li>
-<li>Is the CPU busy while the GPU is idle?</li>
-<li>Did a model finish, stall, or continue running in the background?</li>
+<li>current hardware pressure from CPU, system RAM, GPU, and VRAM</li>
+<li>UI responsiveness from Qt event-loop delay</li>
+<li>a recent-freeze readout, such as <code>4500 ms, 18s ago</code>, after recovery</li>
 </ul>
-<p>This plugin gives that signal directly inside napari without opening a separate system monitor. It also watches the Qt event loop so users can tell the difference between a busy machine and a napari UI that is becoming unresponsive.</p>
+<p>It does not identify the exact code that caused a freeze. After napari responds again, it shows how long the UI was delayed and what the surrounding hardware state looked like, so users have useful context for adjusting the workload or reporting the issue.</p>
 <h2>Scope</h2>
 <p><code>napari-hardware-monitor</code> is a hardware and responsiveness visibility plugin. It is not a profiler, model launcher, training manager, benchmark suite, or process attribution tool.</p>
-<p>It is meant to sit beside tools such as:</p>
-<ul>
-<li><code>napari-chat-assistant</code>: local text assistant</li>
-<li>segmentation and model plugins that consume CPU/GPU resources</li>
-</ul>
 <p>The values are system-level. They tell users what the machine is doing, not which exact plugin or process caused the load.</p>
 <h2>GPU Support</h2>
-<p>NVIDIA GPU monitoring uses <code>nvidia-smi</code>.</p>
-<p>If <code>nvidia-smi</code> is unavailable, the plugin still shows CPU and system memory and displays a clear no-GPU fallback. Multi-GPU systems are summarized as aggregate VRAM, maximum GPU utilization, maximum temperature, and total power draw.</p>
-<p>Some platforms or drivers may report GPU activity but not VRAM totals. In that case the GPU memory card shows <code>N/A</code> rather than pretending the value is known.</p>
+<p>NVIDIA GPU monitoring uses <code>nvidia-smi</code>. If it is unavailable, the plugin still shows CPU and system memory with a clear no-GPU fallback.</p>
+<p>Multi-GPU systems are summarized as aggregate VRAM, maximum GPU utilization, maximum temperature, and total power draw. If a driver reports GPU activity but not VRAM totals, the GPU memory card shows <code>N/A</code>.</p>
 <h2>Usage</h2>
 <p>Open napari and choose:</p>
 <pre><code class="language-text"><div class="highlight"><pre><span></span>Plugins &gt; Hardware Monitor
@@ -264,10 +247,10 @@
 <ul>
 <li><code>Start</code>: begin automatic polling.</li>
 <li><code>Pause</code>: stop polling while keeping the last values visible.</li>
-<li><code>1s / 2s / 5s</code>: choose refresh interval. <code>2s</code> is the default balance between responsiveness and overhead.</li>
-<li><code>Float</code>: detach the monitor dock when the napari dock container supports it.</li>
+<li><code>1s / 2s / 5s</code>: choose refresh interval.</li>
+<li><code>Float</code> / <code>Attach</code>: detach or reattach the monitor dock when the napari dock container supports it.</li>
 <li><code>Copy</code>: copy a plain-text hardware and napari health snapshot.</li>
-<li><code>CPU cores</code>: expand optional per-core CPU usage.</li>
+<li><code>CPU cores</code>: expand or collapse optional per-core CPU usage.</li>
 </ul>
 <h2>Installation</h2>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-hardware-monitor
@@ -284,13 +267,23 @@ napari
 <h2>Design Notes</h2>
 <ul>
 <li>Polling runs off the Qt UI thread so a slow <code>nvidia-smi</code> call does not freeze the dock.</li>
-<li>napari Health is measured on the Qt UI thread using event-loop delay. A large delay means napari was busy or recently unresponsive.</li>
+<li>napari Health is measured on the Qt UI thread using event-loop delay.</li>
+<li>Recent freeze information stays visible briefly after recovery.</li>
 <li>The dashboard uses Qt painting directly and avoids heavy plotting dependencies.</li>
-<li>The dashboard keeps only a short in-memory history, so it stays lightweight during long napari sessions.</li>
-<li>Individual CPU cores are available as an optional detail panel, not as default dashboard clutter.</li>
-<li>The first release intentionally stays small: clear local hardware visibility is the core value.</li>
+<li>The dashboard keeps only a short in-memory history.</li>
+<li>Per-core CPU detail is collapsed by default.</li>
 </ul>
 <h2>Release Notes</h2>
+<h3>1.1.0</h3>
+<p>Usability and responsiveness diagnostics release.</p>
+<ul>
+<li>Added sticky recent-freeze readout with duration and age.</li>
+<li>Added recent-freeze details to copied snapshots.</li>
+<li>Increased default dock width and height for clearer metric cards.</li>
+<li>Improved metric card sizing so GPU information is not clipped.</li>
+<li>Made CPU cores collapse restore the compact dock height.</li>
+<li>Changed Float into a Float / Attach toggle when napari exposes dock floating APIs.</li>
+</ul>
 <h3>1.0.0</h3>
 <p>Stable responsiveness release.</p>
 <ul>
@@ -327,7 +320,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>
