@@ -9,9 +9,9 @@
     <meta
         content="napari-hardware-monitor, Wulin Teo, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="A lightweight napari dock widget for monitoring CPU, RAM, GPU, and VRAM during local AI and image analysis workflows." name="description" />
-    <meta content="A lightweight napari dock widget for monitoring CPU, RAM, GPU, and VRAM during local AI and image analysis workflows." property="og:description" />
-    <meta content="A lightweight napari dock widget for monitoring CPU, RAM, GPU, and VRAM during local AI and image analysis workflows.." name="twitter:description" />
+    <meta content="A lightweight napari dock widget for monitoring hardware and UI responsiveness during local AI and image analysis workflows." name="description" />
+    <meta content="A lightweight napari dock widget for monitoring hardware and UI responsiveness during local AI and image analysis workflows." property="og:description" />
+    <meta content="A lightweight napari dock widget for monitoring hardware and UI responsiveness during local AI and image analysis workflows.." name="twitter:description" />
     <meta content="Hardware Monitor - napari Plugin - Wulin Teo" property="og:title" />
     <meta content="Hardware Monitor - napari Plugin - Wulin Teo" name="twitter:title" />
     <meta content="article" property="og:type" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-25</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-26</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@
         </div>
 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">A lightweight napari dock widget for monitoring CPU, RAM, GPU, and VRAM during local AI and image analysis workflows.</h2>
+                                    <h2 class="text-lg">A lightweight napari dock widget for monitoring hardware and UI responsiveness during local AI and image analysis workflows.</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -210,12 +210,15 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p>Lightweight local hardware monitoring for napari.</p>
-<p><code>napari-hardware-monitor</code> adds a compact dashboard dock for watching CPU, system memory, GPU activity, and GPU memory while image-analysis and local AI workflows run. It is designed for users who want immediate visibility into whether napari, segmentation models, vision models, or large image data are putting pressure on the machine.</p>
-<p><img src="docs/napari-hardware-monitor.png" alt="napari-hardware-monitor widget" /></p>
+                                        <p>Lightweight local hardware and responsiveness monitoring for napari.</p>
+<p><code>napari-hardware-monitor</code> adds a compact dashboard dock for watching napari health, CPU, system memory, GPU activity, and GPU memory while image-analysis and local AI workflows run. It is designed for users who want immediate visibility into whether napari is responding normally and whether segmentation models, vision models, or large image data are putting pressure on the machine.</p>
+<p><img src="docs/napari-hardware-monitor_v1.png" alt="napari-hardware-monitor widget" /></p>
 <h2>First Release</h2>
-<p>Version <code>0.1.0</code> focuses on a small, reliable monitor:</p>
+<p>Version <code>1.0.0</code> focuses on a small, reliable monitor:</p>
 <ul>
+<li>obvious napari Health card for UI responsiveness</li>
+<li>event-loop delay readout for spotting lag or recent freezes</li>
+<li>short health hints for likely causes such as CPU saturation, memory pressure, or main-thread blocking</li>
 <li>compact dark dashboard with gauge cards and short history traces</li>
 <li>CPU utilization</li>
 <li>optional per-core CPU utilization</li>
@@ -230,21 +233,21 @@
 </ul>
 <p>Per-core CPU detail is collapsed by default. The main view stays focused on the common question: is the workflow limited by CPU, RAM, GPU, or VRAM?</p>
 <h2>Why This Plugin Exists</h2>
-<p>Local image analysis is increasingly hardware-dependent. When a user loads a large TIFF or OME-Zarr, runs SAM, Cellpose, StarDist, a local Ollama vision model, or another GPU-backed workflow, they often need to know:</p>
+<p>Local image analysis is increasingly hardware-dependent. When a user loads a large TIFF or OME-Zarr, runs local SAM3, chat-assistant or another GPU-backed workflow, they often need to know:</p>
 <ul>
 <li>Is the GPU actually being used?</li>
 <li>Is VRAM full?</li>
 <li>Is system RAM becoming the bottleneck?</li>
+<li>Is napari healthy, lagging, or recently frozen?</li>
 <li>Is the CPU busy while the GPU is idle?</li>
 <li>Did a model finish, stall, or continue running in the background?</li>
 </ul>
-<p>This plugin gives that signal directly inside napari without opening a separate system monitor.</p>
+<p>This plugin gives that signal directly inside napari without opening a separate system monitor. It also watches the Qt event loop so users can tell the difference between a busy machine and a napari UI that is becoming unresponsive.</p>
 <h2>Scope</h2>
-<p><code>napari-hardware-monitor</code> is a hardware visibility plugin. It is not a profiler, model launcher, training manager, benchmark suite, or process attribution tool.</p>
+<p><code>napari-hardware-monitor</code> is a hardware and responsiveness visibility plugin. It is not a profiler, model launcher, training manager, benchmark suite, or process attribution tool.</p>
 <p>It is meant to sit beside tools such as:</p>
 <ul>
 <li><code>napari-chat-assistant</code>: local text assistant</li>
-<li><code>napari-vision-assistant</code>: local image + text vision assistant</li>
 <li>segmentation and model plugins that consume CPU/GPU resources</li>
 </ul>
 <p>The values are system-level. They tell users what the machine is doing, not which exact plugin or process caused the load.</p>
@@ -263,7 +266,7 @@
 <li><code>Pause</code>: stop polling while keeping the last values visible.</li>
 <li><code>1s / 2s / 5s</code>: choose refresh interval. <code>2s</code> is the default balance between responsiveness and overhead.</li>
 <li><code>Float</code>: detach the monitor dock when the napari dock container supports it.</li>
-<li><code>Copy</code>: copy a plain-text hardware snapshot.</li>
+<li><code>Copy</code>: copy a plain-text hardware and napari health snapshot.</li>
 <li><code>CPU cores</code>: expand optional per-core CPU usage.</li>
 </ul>
 <h2>Installation</h2>
@@ -281,12 +284,22 @@ napari
 <h2>Design Notes</h2>
 <ul>
 <li>Polling runs off the Qt UI thread so a slow <code>nvidia-smi</code> call does not freeze the dock.</li>
+<li>napari Health is measured on the Qt UI thread using event-loop delay. A large delay means napari was busy or recently unresponsive.</li>
 <li>The dashboard uses Qt painting directly and avoids heavy plotting dependencies.</li>
 <li>The dashboard keeps only a short in-memory history, so it stays lightweight during long napari sessions.</li>
 <li>Individual CPU cores are available as an optional detail panel, not as default dashboard clutter.</li>
 <li>The first release intentionally stays small: clear local hardware visibility is the core value.</li>
 </ul>
 <h2>Release Notes</h2>
+<h3>1.0.0</h3>
+<p>Stable responsiveness release.</p>
+<ul>
+<li>Added napari Health card.</li>
+<li>Added Qt event-loop delay monitoring.</li>
+<li>Added readable health states: Healthy, Busy, Lagging, and Frozen recently.</li>
+<li>Added health hints for common bottlenecks.</li>
+<li>Added napari health details to copied snapshots.</li>
+</ul>
 <h3>0.1.0</h3>
 <p>Initial release.</p>
 <ul>
@@ -314,7 +327,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -324,7 +337,7 @@ napari
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-25</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-26</li>
                                                 </ul>
                                             </div>
                                         </div>
