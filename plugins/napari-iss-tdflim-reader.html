@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-26</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-27</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Plugin type<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=reader">Reader</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=reader">Reader</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=writer">Writer</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -124,7 +124,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Save extension<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.tiff">.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.tif">.tif</a></li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li><li class="MetadataList_textItem__KKmMN">imagecodecs; extra == "all"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -218,36 +218,86 @@
 <a href="https://napari-hub.org/plugins/napari-iss-tdflim-reader"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-iss-tdflim-reader" alt="napari hub" /></a>
 <a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a>
 <a href="https://github.com/copier-org/copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json" alt="Copier" /></a></p>
-<p>A simple reader for .iss-tdfilm files</p>
+<blockquote>
+<p>🔬 A <a href="https://github.com/napari/napari">napari</a> plugin to <strong>read and write</strong> ISS TD-FLIM acquisition files (<code>.iss-tdflim</code>).</p>
+</blockquote>
 <hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://copier.readthedocs.io/en/stable/">copier</a> using the <a href="https://github.com/napari/napari-plugin-template">napari-plugin-template</a> (None).</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/napari-plugin-template#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-<h2>Installation</h2>
-<p>You can install <code>napari-iss-tdflim-reader</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
+<h2>✨ Features</h2>
+<h3>📂 Reader</h3>
+<p>Opens <code>.iss-tdflim</code> files directly in napari.<br />
+Each file is a ZIP archive produced by the ISS ALBA FLIM system and contains:</p>
+<ul>
+<li><code>dataProps/Core.xml</code> — acquisition metadata (pixel size, TAC range, channel IDs, …)</li>
+<li><code>data/PrimaryDecayData.bin</code> — raw photon-count decay histograms</li>
+</ul>
+<p>Two image layers are added <strong>per channel</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Shape</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;stem&gt;_intensity_Ch&lt;id&gt;</code></td>
+<td><code>(H, W)</code></td>
+<td>Total photon counts (sum along TAC axis)</td>
+</tr>
+<tr>
+<td><code>&lt;stem&gt;_flim_Ch&lt;id&gt;</code></td>
+<td><code>(T, H, W)</code></td>
+<td>Full FLIM decay cube — use the time slider to scrub through TAC bins</td>
+</tr>
+</tbody>
+</table>
+<p>Spatial calibration (µm/pixel) and TAC time axis (ns/bin) are embedded as napari <code>scale</code> and <code>axis_labels</code> so physical units are always correct.</p>
+<h3>💾 Writer</h3>
+<p>Saves any napari Image layer (including those loaded by the reader) to <strong>ImageJ-hyperstack TIFF</strong> files.</p>
+<ul>
+<li>✅ Supports both intensity <code>(H, W)</code> and FLIM decay <code>(T, H, W)</code> layers</li>
+<li>🗜️ Lossless <strong>zlib compression</strong> (requires <code>imagecodecs</code>)</li>
+<li>📐 Spatial calibration (<code>XResolution</code>/<code>YResolution</code> tags + <code>unit</code>) preserved for Fiji/ImageJ</li>
+<li>⏱️ Time-axis interval (<code>finterval</code>) embedded for FLIM cubes</li>
+<li>🏷️ Full acquisition metadata (channel IDs, ADC resolution, TAC range, …) stored as JSON in the TIFF <code>Info</code> field — visible in Fiji via <strong>Image › Info…</strong> and recoverable in Python via:<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span><span class="o">,</span><span class="w"> </span><span class="nn">tifffile</span>
+<span class="k">with</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">TiffFile</span><span class="p">(</span><span class="s1">&#39;my_file.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tf</span><span class="p">:</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">imagej_metadata</span><span class="p">[</span><span class="s1">&#39;Info&#39;</span><span class="p">])</span>
+</pre></div>
+</code></pre>
+</li>
+<li>🔄 Non-ImageJ-compatible integer dtypes (e.g. <code>uint32</code>, <code>uint64</code>) are automatically cast to <code>float32</code></li>
+</ul>
+<hr />
+<h2>🚀 Installation</h2>
+<p>Install from PyPI:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-iss-tdflim-reader
 </pre></div>
 </code></pre>
-<p>If napari is not already installed, you can install <code>napari-iss-tdflim-reader</code> with napari and Qt via:</p>
+<p>To install with napari and all optional dependencies (including Qt backend and compression support):</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari-iss-tdflim-reader[all]&quot;</span>
 </pre></div>
 </code></pre>
-<p>To install latest development version:</p>
+<p>Install the latest development version directly from GitHub:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/DBP008/napari-iss-tdflim-reader.git
 </pre></div>
 </code></pre>
-<h2>Contributing</h2>
+<hr />
+<h2>🛠️ Usage</h2>
+<h3>Reading</h3>
+<p>Drag and drop an <code>.iss-tdflim</code> file onto the napari window, or open it via <strong>File › Open File(s)…</strong>.<br />
+The plugin is selected automatically based on the file extension.</p>
+<h3>Writing</h3>
+<p>Select one or more Image layers in the napari layer list, then use <strong>File › Save Selected Layer(s)…</strong> and choose a <code>.tif</code> / <code>.tiff</code> destination.<br />
+When saving multiple layers, each is written to a separate file with a <code>_0</code>, <code>_1</code>, … suffix.</p>
+<hr />
+<h2>🤝 Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
-<h2>License</h2>
-<p>Distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License 2.0</a> license,
-&quot;napari-iss-tdflim-reader&quot; is free and open source software</p>
-<h2>Issues</h2>
+<h2>📄 License</h2>
+<p>Distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License 2.0</a> license.<br />
+<code>napari-iss-tdflim-reader</code> is free and open source software.</p>
+<h2>🐛 Issues</h2>
 <p>If you encounter any problems, please <a href="https://github.com/DBP008/napari-iss-tdflim-reader/issues">file an issue</a> along with a detailed description.</p>
 
 
@@ -264,7 +314,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -274,7 +324,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-26</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-27</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -321,7 +371,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Plugin
                                                     type<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=reader">Reader</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=reader">Reader</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?pluginType=writer">Writer</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
@@ -335,7 +385,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Save
                                                     extension<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.tiff">.tiff</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?writerFileExtensions=.tif">.tif</a></li></ul>
                                             </div>
                                         </div>
                                     </div>
@@ -371,7 +421,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li><li class="MetadataList_textItem__KKmMN">imagecodecs; extra == "all"</li></ul>
                                             </div>
                                         </div>
                                     </div>
