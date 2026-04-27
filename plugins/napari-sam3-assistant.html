@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.0.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.0.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-24</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-27</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -223,12 +223,14 @@
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
 </ul>
-<h2>What's New in 4.0.1</h2>
-<p>Version 4.0.1 keeps the 4.0 workflow update and adds a small SAM3.1 compatibility follow-up:</p>
+<h2>What's New in 4.0.3</h2>
+<p>Version 4.0.3 keeps the 4.0 workflow update and clarifies the difference between 2D box prompting and exemplar prompting:</p>
 <ul>
-<li>Keeps the plugin-side fix for the earlier <code>SAM3.1</code> <code>start_session</code> crash where some installed <code>sam3</code> backends rejected <code>offload_state_to_cpu</code> during <code>init_state()</code>.</li>
-<li>Documents the separate Windows-only <code>SAM3.1</code> multiplex runtime workaround for later <code>No available kernel. Aborting execution!</code> propagation failures.</li>
+<li><code>2D</code> box-only preview now segments inside each prompted box instead of behaving like exemplar-style visual matching.</li>
+<li><code>Exemplar</code> box prompts still use the boxed examples to find and segment similar objects outside the original boxes.</li>
+<li>More patch-level release details are documented in <a href="CHANGELOG.md">CHANGELOG.md</a>.</li>
 </ul>
+<h2>What's New in 4.0.0</h2>
 <p>Version 4.0.0 was a workflow release focused on the new Simple mode and a cleaner Advanced mode.</p>
 <ul>
 <li>New <code>Simple</code> mode for common imaging tasks with a compact one-column layout.</li>
@@ -279,9 +281,7 @@
 <p>Create and activate the environment</p>
 </li>
 </ol>
-<pre><code class="language-Bash"><div class="highlight"><pre><span></span><span class="o">=======</span>
-conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-sam3<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
-
+<pre><code class="language-Bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>napari-sam3<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
 conda<span class="w"> </span>activate<span class="w"> </span>napari-sam3
 </pre></div>
 </code></pre>
@@ -308,6 +308,8 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <ol start="6">
 <li>Install SAM3</li>
 </ol>
+<p>Choose one:</p>
+<p>Option A. Install from a local clone</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/facebookresearch/sam3.git
 <span class="nb">cd</span><span class="w"> </span>sam3
 python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-e<span class="w"> </span>.
@@ -617,7 +619,7 @@ myelin sheath
 <p>Text prompts usually work better as short noun phrases than instructions. Prefer <code>myelin sheath</code> over <code>segment all the myelin rings</code>. The plugin strips common instruction prefixes before sending the prompt to SAM3, but microscopy-specific language can still be difficult for the model.</p>
 <p>If the result says <code>objects=0</code>, SAM3 ran but did not return masks above threshold. Try a shorter noun phrase, lower <code>Detection threshold</code>, or use a box/exemplar prompt for structures that are visually clear but not well recognized by text.</p>
 <h3>2D Segmentation With Boxes</h3>
-<p>Use boxes to identify the target object or concept.</p>
+<p>Use boxes to segment the target region inside each drawn box.</p>
 <p>Workflow:</p>
 <ol>
 <li>Set <code>Task</code> to <code>2D segmentation</code>.</li>
@@ -626,7 +628,7 @@ myelin sheath
 <li>Draw one or more rectangles in the <code>SAM3 boxes</code> Shapes layer.</li>
 <li>Click <code>Run Preview</code>.</li>
 </ol>
-<p>The output appears in preview layers.</p>
+<p>Each 2D box preview writes segmentation only inside the corresponding drawn box. This is different from <code>Exemplar segmentation</code>, which uses boxed examples to find and segment similar objects outside the original boxes.</p>
 <h3>Exemplar Segmentation</h3>
 <p>Use example ROIs to segment similar objects.</p>
 <p>Workflow:</p>
@@ -847,7 +849,7 @@ nvrtc: error: invalid value for --gpu-architecture
 <ul>
 <li>The failure happens during <code>start_session</code> / <code>init_state</code>, before propagation actually begins.</li>
 <li>The installed <code>sam3</code> backend does not accept the keyword that newer plugin code may pass.</li>
-<li><code>napari-sam3-assistant</code> 4.0.1 keeps a compatibility fix for this case so older installed <code>sam3</code> backends can still start a 3D/video session.</li>
+<li>The plugin includes compatibility handling for this case so older installed <code>sam3</code> backends can still start a 3D/video session.</li>
 </ul>
 <p>If you still see this exact error, first verify that napari is importing the intended local <code>sam3</code> install and not an older duplicate environment copy.</p>
 <h3>SAM3.1 propagation fails later with <code>No available kernel. Aborting execution!</code> on Windows</h3>
@@ -858,7 +860,7 @@ nvrtc: error: invalid value for --gpu-architecture
 <li>the failure happens only when <code>SAM3.1</code> multiplex propagation actually starts.</li>
 </ul>
 <p>On some Windows systems using <code>triton-windows</code>, this appears to be an upstream <code>sam3</code> runtime/kernel path issue rather than a napari prompt-collection bug.</p>
-<p>Use the documented replacement-file workaround here:</p>
+<p>Use the documented Windows workaround here:</p>
 <ul>
 <li><a href="windows_sam31_workaround/README.md"><code>windows_sam31_workaround/README.md</code></a></li>
 </ul>
@@ -899,7 +901,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.0.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.0.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -909,7 +911,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-24</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-27</li>
                                                 </ul>
                                             </div>
                                         </div>
