@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.2.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-28</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-29</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -211,7 +211,37 @@
                                     <div class="Markdown_markdown__QZ95j">
 
                                         <p>Standalone napari widget for stitching atlas tile exports from ZEISS Volutome and JEOL EM workflows.</p>
-<p>Version: <code>1.0.0</code></p>
+<p>Version: <code>1.2.0</code></p>
+<p><code>napari-atlas-stitch</code> parses atlas metadata, checks tile availability, previews nominal, refined, and manual tile layouts in napari, estimates refined tile positions from overlapping neighboring tiles, supports optional donor-based seam repair, and exports stitched atlas mosaics as OME-Zarr.</p>
+<h2>Development Status</h2>
+<p>This plugin is under active development. Alignment refinement, seam repair, and export settings should be treated as experimental until validated on your own ZEISS Volutome or JEOL EM acquisition workflow.</p>
+<h2>Alignment Refinement</h2>
+<p>Version <code>1.2.0</code> adds additional overlap-registration options and safety controls for EM tile mosaics.</p>
+<p>Atlas Stitch estimates translations between neighboring overlapping tiles, then solves a global layout from the accepted pairwise constraints. This helps prevent one local adjustment from disrupting the whole mosaic.</p>
+<p>Available registration modes:</p>
+<ul>
+<li><strong>Light translation registration</strong> — fast phase-correlation-based translation estimation.</li>
+<li><strong>Robust translation registration</strong> — tests multiple overlap-strip widths and selects the most reliable translation estimate.</li>
+<li><strong>Robust translation with residual-based outlier rejection</strong> — removes pairwise constraints that disagree with the solved global layout.</li>
+<li><strong>Feature-based registration</strong> — uses local image features from overlapping regions when intensity correlation is unreliable.</li>
+<li><strong>ECC intensity-based registration</strong> — uses enhanced correlation coefficient optimization for translation alignment.</li>
+<li><strong>Center-out seeded registration</strong> — starts near the center of the tile grid and expands outward using clockwise or counterclockwise neighbor priority. This is useful when weak outer-tile matches distort the global layout.</li>
+</ul>
+<p>Additional safeguards:</p>
+<ul>
+<li><strong>Maximum correction</strong> — rejects translation corrections larger than the configured pixel limit.</li>
+<li><strong>Minimum confidence</strong> — rejects weak pairwise registrations before global optimization.</li>
+</ul>
+<p>Recommended EM starting settings:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Registration mode: Robust translation with residual-based outlier rejection
+Tile overlap: 10–20%
+Maximum correction: 50 px
+Minimum confidence: 0.20
+</pre></div>
+</code></pre>
+<p>Version: <code>1.1.0</code></p>
+<p>napari-atlas-stitch parses atlas metadata, checks tile availability, previews nominal/refined/manual tile layouts in napari, estimates refined tile positions from overlapping neighboring tiles, supports optional donor-based seam repair, and exports stitched atlas mosaics as OME-Zarr.</p>
+<p>Version: <code>1.0.1</code></p>
 <p><code>napari-atlas-stitch</code> parses atlas metadata, checks tile availability, previews nominal/refined/manual tile layouts in napari, estimates refined tile positions from overlaps, supports donor-based seam repair, and exports stitched atlas mosaics as OME-Zarr.</p>
 <h2>Development Status</h2>
 <p>This plugin is under active development. The core workflow has been split into a standalone napari package, but many functions still need broader testing on real ZEISS Volutome and JEOL EM datasets. Treat alignment refinement, seam repair, and export settings as experimental until validated on your acquisition workflow.</p>
@@ -224,7 +254,9 @@
 </ul>
 <h2>Install</h2>
 <p>From a local checkout:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wulinteousa2-hash/napari-atlas-stitch
+<span class="nb">cd</span><span class="w"> </span>napari-atlas-stitch
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </code></pre>
 <p>For development and tests:</p>
@@ -255,8 +287,6 @@
 </ul>
 <h2>Changelog</h2>
 <p>See <a href="CHANGELOG.md">CHANGELOG.md</a> for release notes and feature details.</p>
-<h2>Relationship To napari-chat-assistant</h2>
-<p>This repository was split out from <code>napari-chat-assistant</code> so Atlas Stitch can be installed, released, and pushed independently. The chat assistant can still launch Atlas Stitch from its Advanced menu, and will prefer this standalone plugin when it is installed in the same environment.</p>
 <h2>Tests</h2>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest
 </pre></div>
@@ -277,7 +307,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.2.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -287,7 +317,7 @@
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-28</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-29</li>
                                                 </ul>
                                             </div>
                                         </div>
