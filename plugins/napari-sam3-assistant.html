@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.1.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.2.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-28</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-04-30</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -223,31 +223,20 @@
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
 </ul>
-<h2>What's New in 4.1.0</h2>
-<p>Version 4.1.0 adds a faster <code>Run and Save</code> handoff for acquiring masks and continuing segmentation work:</p>
+<h2>What's New in 4.2.1 Optional completion chime for long runs</h2>
+<p>SAM3 Assistant can play a short, soft completion chime when a long-running task finishes.
+This is useful when preview or 3D/video propagation takes more than one minute and the user is working away from the screen.
+The chime is optional and can be turned on or off from the plugin UI.</p>
+<h2>What's New in 4.2.0</h2>
+<p>Version 4.2.0 adds experimental CPU-only support for SAM3.0 2D image workflows when using a CPU-safe <code>sam3</code> backend such as <code>sam3-cpu</code>.</p>
 <ul>
-<li><code>Step 4. Run</code> is now <code>Step 4. Run and Save</code>.</li>
-<li>After a preview is created, users can choose output folder, format, and filename, then click <code>Save &amp; Clean</code>.</li>
-<li><code>Save &amp; Clean</code> saves the preview mask, removes temporary preview layers, releases temporary memory, unloads the model, and leaves an <code>Open Folder</code> shortcut.</li>
-<li>Quick-save formats are <code>TIFF</code>, NumPy <code>.npy</code>, and <code>PNG</code> for 2D masks; 3D/video masks use <code>TIFF</code> or NumPy <code>.npy</code>.</li>
-<li>Tested image coverage is documented for single-channel and RGB <code>2K x 2K</code> images, plus single-channel large-image local ROI inference around <code>60000 x 60000</code>.</li>
-<li><code>3D/video</code> propagation now uses the selected image axes more consistently when exporting frames to SAM3, drawing propagated boxes, and writing propagated labels back into napari.</li>
-<li>This patch is meant to keep multichannel and RGB-like stack behavior aligned with the image the user actually selected in napari.</li>
-<li>More patch-level release details are documented in <a href="CHANGELOG.md">CHANGELOG.md</a>.</li>
-</ul>
-<h2>What's New in 4.0.4</h2>
-<p>Version 4.0.4 fixes a <code>3D/video</code> stack-axis bug that could mis-handle RGB-like or multichannel data during propagation:</p>
-<ul>
-<li><code>3D/video</code> propagation now uses the selected image axes more consistently when exporting frames to SAM3, drawing propagated boxes, and writing propagated labels back into napari.</li>
-<li>This patch is meant to keep multichannel and RGB-like stack behavior aligned with the image the user actually selected in napari.</li>
-<li>More patch-level release details are documented in <a href="CHANGELOG.md">CHANGELOG.md</a>.</li>
-</ul>
-<h2>What's New in 4.0.3</h2>
-<p>Version 4.0.3 keeps the 4.0 workflow update and clarifies the difference between 2D box prompting and exemplar prompting:</p>
-<ul>
-<li><code>2D</code> box-only preview now segments inside each prompted box instead of behaving like exemplar-style visual matching.</li>
-<li><code>Exemplar</code> box prompts still use the boxed examples to find and segment similar objects outside the original boxes.</li>
-<li>More patch-level release details are documented in <a href="CHANGELOG.md">CHANGELOG.md</a>.</li>
+<li>CPU-only setup is documented in <a href="docs/cpu_only.md">docs/cpu_only.md</a>.</li>
+<li>Device mode is now environment-driven and shown as an indicator; normal users no longer need to choose CPU or GPU manually.</li>
+<li>Advanced manual device override is available only for backend testing with <code>NAPARI_SAM3_ENABLE_DEVICE_OVERRIDE=1</code>.</li>
+<li>SAM3.0 2D CPU workflows are enabled for points, boxes, text, exemplar, and Live Points when the installed <code>sam3</code> backend supports CPU model construction.</li>
+<li>SAM3.1, 3D/video propagation, and SAM3 video-predictor workflows remain CUDA/GPU-only in this plugin.</li>
+<li>Model-folder setup now passes the detected BPE tokenizer path to SAM3 and can create <code>bpe_simple_vocab_16e6.txt.gz</code> automatically from <code>merges.txt</code>.</li>
+<li>The plugin reports a clear upstream CPU-support limitation if a non-CPU-safe SAM3 backend still allocates CUDA tensors during CPU image model construction.</li>
 </ul>
 <h2>What's New in 4.0.0</h2>
 <p>Version 4.0.0 was a workflow release focused on the new Simple mode and a cleaner Advanced mode.</p>
@@ -259,7 +248,7 @@
 <li>Simple mode keeps common tasks short: choose the image/task, add or enter the prompt, then run preview.</li>
 <li>Simple mode includes <code>Mask Ops</code> in the Run area to open the standalone mask cleanup widget for preview labels.</li>
 <li>Simple mode uses SAM3.0 for 2D image tasks so Advanced SAM3.1 video-model settings do not break Simple image segmentation.</li>
-<li>Device selection is explicit: choose <code>GPU</code> or <code>CPU</code>; there is no automatic device mode in the Simple workflow.</li>
+<li>Device selection is explicit. <code>GPU / CUDA</code> is recommended for full SAM3 functionality; <code>CPU</code> is experimental for SAM3.0 2D image workflows and requires a CPU-safe SAM3 backend.</li>
 <li>Live Points are still available with <code>T</code> for next point mode and <code>Shift+T</code> to flip selected or latest points.</li>
 </ul>
 <p>SAM 3 is not bundled with this plugin. Install the SAM 3 backend and download the SAM 3 model files separately from Meta's Hugging Face repository.</p>
@@ -272,7 +261,7 @@
 <li>Python <code>&gt;=3.11</code></li>
 <li>napari <code>&gt;=0.5</code></li>
 <li>SAM 3 Python package importable as <code>sam3</code></li>
-<li>PyTorch and torchvision installed for your platform</li>
+<li>CUDA-enabled PyTorch and torchvision installed for your platform for normal use</li>
 <li>A local SAM 3 checkpoint directory containing:
 <ul>
 <li><code>config.json</code></li>
@@ -281,7 +270,7 @@
 </ul>
 </li>
 </ul>
-<p>If CUDA is not available or not compatible, select <strong>CPU</strong> in the widget.</p>
+<p>CPU-only use is possible for SAM3.0 2D image workflows with a CPU-safe SAM3 backend. See <a href="docs/cpu_only.md">CPU-only SAM3.0 setup</a>.</p>
 <h2>Setup</h2>
 <h3>Windows</h3>
 <ol>
@@ -313,14 +302,8 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </pre></div>
 </code></pre>
 <ol start="5">
-<li>Install PyTorch</li>
+<li>Install CUDA-enabled PyTorch</li>
 </ol>
-<h3>Choose one:</h3>
-<h3>CPU</h3>
-<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
-</pre></div>
-</code></pre>
-<h3>GPU</h3>
 <pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
 </pre></div>
 </code></pre>
@@ -346,8 +329,10 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </code></pre>
 <p>If <code>SAM3.1</code> multiplex propagation later fails on Windows with errors such as
 <code>No available kernel. Aborting execution!</code>, see the replacement-file workaround in
-<a href="windows_sam31_workaround/README.md"><code>windows_sam31_workaround/README.md</code></a>.
-8. Install napari-sam3-assistant</p>
+<a href="windows_sam31_workaround/README.md"><code>windows_sam31_workaround/README.md</code></a>.</p>
+<ol start="8">
+<li>Install napari-sam3-assistant</li>
+</ol>
 <pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-sam3-assistant
 </pre></div>
 </code></pre>
@@ -388,14 +373,8 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </pre></div>
 </code></pre>
 <ol start="4">
-<li>Install PyTorch</li>
+<li>Install CUDA-enabled PyTorch</li>
 </ol>
-<p>Choose one:</p>
-<h3>CPU</h3>
-<pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
-</pre></div>
-</code></pre>
-<h3>GPU</h3>
 <pre><code class="language-Bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu130
 </pre></div>
 </code></pre>
@@ -479,8 +458,9 @@ D:\models\sam3_1
 </ul>
 <h2>Device rule</h2>
 <ul>
-<li>If you installed CPU-only PyTorch, choose <strong>CPU</strong></li>
-<li>If you installed CUDA PyTorch and <code>torch.cuda.is_available()</code> is <code>True</code>, you may choose <strong>CUDA</strong></li>
+<li>Use a CUDA-enabled PyTorch environment for normal use.</li>
+<li>Select <strong>GPU / CUDA</strong> for SAM3.0, SAM3.1, and 3D/video workflows.</li>
+<li><strong>CPU</strong> is experimental for SAM3.0 2D image workflows with a CPU-safe SAM3 backend. Tested CPU workflows include points, boxes, exemplar, text, and Live Points. See <a href="docs/cpu_only.md">CPU-only SAM3.0 setup</a>.</li>
 </ul>
 <h2>For developers</h2>
 <p>If you want editable installs and <code>git pull</code>, use:</p>
@@ -504,7 +484,7 @@ D:\models\sam3_1
 </ol>
 <p>Simple mode is intended for common imaging tasks:</p>
 <ul>
-<li><code>2D</code>: points, boxes, labels-mask, or text prompts on the selected image plane</li>
+<li><code>2D</code>: points, boxes, labels-mask, or text prompts on the selected image plane. CPU mode requires a CPU-safe SAM3 backend.</li>
 <li><code>Text</code>: enter a short imaging concept such as <code>cell</code>, <code>nucleus</code>, or <code>myelin</code></li>
 <li><code>Refine</code>: use Live Points to add positive or negative point corrections</li>
 <li><code>Exemplar</code>: draw one or more boxes around example objects</li>
@@ -513,7 +493,7 @@ D:\models\sam3_1
 <p>Simple mode keeps model setup small:</p>
 <ul>
 <li>model folder</li>
-<li><code>GPU</code> or <code>CPU</code></li>
+<li><code>GPU / CUDA</code> or experimental <code>CPU</code></li>
 <li>SAM3.0 for Simple image tasks</li>
 </ul>
 <p>Use <code>Advanced</code> when you need SAM3.1 model selection, batch processing, large-image ROI controls, detailed result tables, or CSV export.</p>
@@ -764,7 +744,7 @@ myelin sheath
 <pre><code class="language-text"><div class="highlight"><pre><span></span>SAM3 saved propagated labels
 </pre></div>
 </code></pre>
-<p>The current SAM 3 video predictor backend is CUDA-only. CPU mode is supported for 2D/image workflows, not 3D/video propagation.</p>
+<p>The current SAM 3 video predictor backend is CUDA-only. CPU mode is experimental for SAM3.0 2D image workflows with a CPU-safe SAM3 backend; see <a href="docs/cpu_only.md">CPU-only SAM3.0 setup</a>.</p>
 <h2>Channel Axis</h2>
 <p><code>Channel axis</code> tells the plugin which data axis is color/channel.</p>
 <p>Default:</p>
@@ -902,8 +882,8 @@ New value: 3
 <li>Use Python 3.11 or newer.</li>
 <li>Keep the NVIDIA driver and CUDA stack current.</li>
 <li>Install a PyTorch/torchvision build that supports your GPU architecture.</li>
-<li>Use <code>CPU</code> mode for reliable 2D execution if CUDA kernels are unavailable.</li>
-<li>Use explicit <code>CUDA</code> only when testing a compatible GPU build.</li>
+<li>Use a PyTorch/torchvision/SAM3 build with CUDA kernels compatible with the device.</li>
+<li>CPU-only PyTorch requires a CPU-safe SAM3 backend for image workflows; see <a href="docs/cpu_only.md">CPU-only SAM3.0 setup</a>.</li>
 </ul>
 <p>Check PyTorch GPU support:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PY&#39;</span>
@@ -932,20 +912,20 @@ nvrtc: error: invalid value for --gpu-architecture
 <li>a more common concept phrase</li>
 <li>a lower <code>Detection threshold</code></li>
 <li>box or exemplar prompts</li>
-<li>CPU mode if the CUDA path is unstable</li>
+<li>a CUDA/PyTorch/SAM3 build compatible with your GPU</li>
 </ul>
 <h3>CUDA kernel image error</h3>
 <p>Error:</p>
 <pre><code class="language-text"><div class="highlight"><pre><span></span>CUDA error: no kernel image is available for execution on the device
 </pre></div>
 </code></pre>
-<p>The GPU is visible, but at least one required CUDA kernel was not built for the device architecture. Use <code>CPU</code>, or install compatible PyTorch/torchvision/SAM 3 builds.</p>
+<p>The GPU is visible, but at least one required CUDA kernel was not built for the device architecture. Install compatible PyTorch/torchvision/SAM 3 builds for the GPU. For CPU-only 2D use, see <a href="docs/cpu_only.md">CPU-only SAM3.0 setup</a>.</p>
 <h3>Invalid GPU architecture</h3>
 <p>Error:</p>
 <pre><code class="language-text"><div class="highlight"><pre><span></span>nvrtc: error: invalid value for --gpu-architecture
 </pre></div>
 </code></pre>
-<p>The installed PyTorch CUDA runtime cannot compile for the detected GPU. Use <code>CPU</code> or install a build that supports the GPU.</p>
+<p>The installed PyTorch CUDA runtime cannot compile for the detected GPU. Install a PyTorch/torchvision/SAM 3 build that supports the GPU. For CPU-only 2D use, see <a href="docs/cpu_only.md">CPU-only SAM3.0 setup</a>.</p>
 <h3>BFloat16 conversion errors</h3>
 <p>The plugin converts SAM3 <code>bfloat16</code> outputs to <code>float32</code> before writing NumPy-backed napari layers. If you still see dtype errors, restart napari after changing device mode and run again.</p>
 <h3>SAM3.1 <code>start_session</code> fails with <code>unexpected keyword argument 'offload_state_to_cpu'</code></h3>
@@ -1005,7 +985,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.1.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.2.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1015,7 +995,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-28</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-04-30</li>
                                                 </ul>
                                             </div>
                                         </div>
