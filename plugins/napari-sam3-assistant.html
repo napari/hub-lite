@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.2.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.2.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-03</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -223,10 +223,19 @@
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
 </ul>
-<h2>What's New in 4.2.1 Optional completion chime for long runs</h2>
+<h2>What's New in 4.2.3 SAM3 video diagnostics and performance logging</h2>
+<p>Version 4.2.3 adds an opt-in diagnostic mode for SAM3.1 video and 3D propagation performance troubleshooting.
+<img src="docs/activate%20diagnostic%20option.png" alt="Activate SAM3 diagnostics option" /></p>
+<ul>
+<li>Added a <code>Log SAM3.1 diagnostics</code> checkbox in <code>Advanced &gt; Step 2. Task Setup &gt; Advanced</code>.</li>
+<li>When enabled, the plugin records detailed SAM3 video timing and runtime diagnostics during model loading, session startup, prompt insertion, propagation, and napari label writing.</li>
+<li>The diagnostic mode is intended for comparing SAM3.1 multiplex performance across machines, CUDA/PyTorch builds, and plugin execution paths.</li>
+<li>The option is off by default so normal users are not exposed to extra debug logging during routine segmentation.</li>
+</ul>
+<h2>What's New in 4.2.2 Optional completion chime for long runs</h2>
 <p>SAM3 Assistant can play a short, soft completion chime when a long-running task finishes.
 This is useful when preview or 3D/video propagation takes more than one minute and the user is working away from the screen.
-The chime is optional and can be turned on or off from the plugin UI.</p>
+The chime is optional and can be turned on or off from the plugin UI. On Windows, SAM3 Assistant uses the native winsound backend first for more reliable playback, while Linux and macOS keep the standard plugin sound path with a fallback beep if needed.</p>
 <h2>What's New in 4.2.0</h2>
 <p>Version 4.2.0 adds experimental CPU-only support for SAM3.0 2D image workflows when using a CPU-safe <code>sam3</code> backend such as <code>sam3-cpu</code>.</p>
 <ul>
@@ -270,7 +279,7 @@ The chime is optional and can be turned on or off from the plugin UI.</p>
 </ul>
 </li>
 </ul>
-<p>CPU-only use is possible for SAM3.0 2D image workflows with a CPU-safe SAM3 backend. See <a href="docs/cpu_only.md">CPU-only SAM3.0 setup</a>.</p>
+<p>CPU-only use is possible for SAM3.0 2D image workflows with a CPU-safe SAM3 backend. The tested optional backend is the external <code>rhubarb-ai/sam3-cpu</code> fork, which reports version <code>0.1.0</code> and is distributed under the MIT license in its own repository. It is not bundled with this plugin. See <a href="docs/cpu_only.md">CPU-only SAM3.0 setup</a>.</p>
 <h2>Setup</h2>
 <h3>Windows</h3>
 <ol>
@@ -985,7 +994,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.2.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.2.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -995,7 +1004,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-03</li>
                                                 </ul>
                                             </div>
                                         </div>
