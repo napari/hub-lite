@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">pillow</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">dask[array]</li><li class="MetadataList_textItem__KKmMN">torch</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -212,12 +212,74 @@ for a SAM3-to-U-Net training loop.</p>
 settings, auto-configuration decisions, checkpoints, benchmark history,
 prediction outputs, and logs.</p>
 <h2>Current Scope</h2>
-<p>This plugin currently implements the persistent project workspace, SAM3 preview
-annotation flow, U-Net architecture configuration, checkpoint metadata, imported
-starting-weight tracking, prediction output storage, and dataset mask
+<p>Version 0.3.0 implements the persistent project workspace, SAM3 preview
+annotation flow, Model Task management, task-scoped dataset storage, U-Net
+architecture configuration, working PyTorch U-Net training, checkpoint history,
+imported starting-weight tracking, prediction output storage, and dataset mask
 preparation.</p>
-<p>The actual PyTorch training runner is not wired in yet. The current <code>Train U-Net</code> action registers a placeholder checkpoint so the persistence and UI flow
-can be validated before connecting the real trainer.</p>
+<p>The <code>Train U-Net</code> action now runs the project training pipeline, builds patch
+datasets from the active Model Task, trains a U-Net with PyTorch, saves the best
+model checkpoint, and records run metadata, metrics, benchmark history, and
+training history in the project folder.</p>
+<h2>Installation</h2>
+<p>For the full SAM3-to-U-Net workflow, first install and validate SAM3 support by following
+the <code>napari-sam3-assistant</code> installation guide:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>https://github.com/wulinteousa2-hash/napari-sam3-assistant
+</pre></div>
+</code></pre>
+<p>Use that README as the reference for installing:</p>
+<ul>
+<li><code>napari-sam3-assistant</code></li>
+<li>the SAM3 Python backend</li>
+<li>local SAM3 model weights</li>
+<li>compatible CUDA/PyTorch dependencies for SAM3 and SAM3.1 multiplex workflows</li>
+</ul>
+<p>After <code>napari-sam3-assistant</code> is working in your napari environment, install
+<code>napari-training-assistant</code> into the same environment:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wulinteousa2-hash/napari-training-assistant.git
+<span class="nb">cd</span><span class="w"> </span>napari-training-assistant
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</code></pre>
+<p>Start napari and open the plugin from the napari Plugins menu:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari
+</pre></div>
+</code></pre>
+<p>Inside <code>napari-training-assistant</code>, select the SAM3 model folders in the
+<strong>SAM3</strong> tab:</p>
+<ul>
+<li>2D SAM3 modes require a SAM3.0 image model folder containing <code>sam3.pt</code> or
+<code>model.safetensors</code>.</li>
+<li>SAM3.1 3D/multiplex mode requires a SAM3.1 model folder containing
+<code>sam3.1_multiplex.pt</code> and CUDA.</li>
+</ul>
+<p>U-Net training from existing image/mask pairs can run without using SAM3 during
+the workflow. However, for the full SAM3-assisted mask-generation workflow, this
+plugin expects <code>napari-sam3-assistant</code> and a working SAM3 installation to already
+be available in the same environment.</p>
+<h2>Dependencies</h2>
+<p>For the full workflow, this plugin should be installed into the same environment
+where <code>napari-sam3-assistant</code> and SAM3 already work. The SAM3 installation guide
+is intentionally not duplicated here because SAM3 setup depends on OS, CUDA,
+PyTorch, and model version.</p>
+<p>The training assistant itself uses:</p>
+<ul>
+<li><code>napari</code> and <code>qtpy</code> for the dock widget UI</li>
+<li><code>numpy</code> for array handling</li>
+<li><code>tifffile</code> and <code>Pillow</code> for image I/O</li>
+<li><code>dask</code>, <code>zarr</code>, and <code>ome-zarr</code> for OME-Zarr loading</li>
+<li><code>torch</code> for U-Net training and inference</li>
+<li><code>napari-sam3-assistant</code> for SAM3-assisted prompt collection, SAM3.1 multiplex
+handoff, and napari layer writing</li>
+<li>a working SAM3 backend and local SAM3 model folders for SAM3 preview and
+propagation</li>
+</ul>
+<p>Practical rule:</p>
+<ul>
+<li>Follow the <code>napari-sam3-assistant</code> README first.</li>
+<li>Confirm SAM3 works there.</li>
+<li>Then install <code>napari-training-assistant</code> in the same environment.</li>
+</ul>
 <h2>User Interface</h2>
 <p>The dock widget is organized as a tabbed workflow with a compact project status
 bar at the top.</p>
@@ -235,8 +297,8 @@ bar at the top.</p>
 <li><strong>SAM3</strong>: configure SAM3 model folders, choose a prompt mode, auto-create
 prompt layers, prepare preview labels, and accept preview masks into the
 persistent dataset.</li>
-<li><strong>Dataset</strong>: choose image/mask layers, prepare masks, add accepted pairs, and
-inspect the compact dataset table.</li>
+<li><strong>Dataset</strong>: choose image/mask layers, prepare masks, add accepted pairs,
+reopen selected pairs, and inspect the compact dataset table.</li>
 <li><strong>Train</strong>: choose training mode, dataset source, starting point, and core
 training parameters.</li>
 <li><strong>Checkpoints</strong>: inspect checkpoint history and choose a checkpoint for
@@ -247,6 +309,23 @@ project notes.</li>
 </ul>
 <p>Training-related actions are disabled until the user selects or creates a
 Training Project Folder.</p>
+<h2>Model Task Workflow</h2>
+<p>A Model Task defines one segmentation target inside a Training Project. Examples
+include <code>myelin + background</code>, <code>axon + background</code>, or a multiclass task such as
+<code>background + myelin + axon</code>.</p>
+<p>Each Model Task keeps its own dataset manifest, copied image/mask pairs,
+checkpoints, predictions, benchmark history, and training-run history. This keeps
+separate segmentation goals from mixing their data or model outputs.</p>
+<p>The Model Task bar supports:</p>
+<ul>
+<li>creating a fresh task</li>
+<li>duplicating a task configuration</li>
+<li>renaming a task</li>
+<li>switching the active task</li>
+<li>importing an existing paired image/mask dataset into the active task</li>
+</ul>
+<p>The active Model Task controls which dataset pairs are used for training and
+where new checkpoints and predictions are saved.</p>
 <h2>Training Project Folder</h2>
 <p>The Training Project Folder is the persistent workspace. Users should select or
 create it before adding masks, training U-Net, or saving predictions.</p>
@@ -260,10 +339,34 @@ create it before adding masks, training U-Net, or saving predictions.</p>
     sam3/
         sam3_config.json
 
-    dataset/
-        images/
-        masks/
-        manifest.json
+    tasks/
+        tasks.json
+
+        default_binary/
+            task_config.json
+
+            dataset/
+                images/
+                masks/
+                manifest.json
+
+            checkpoints/
+                checkpoints.json
+                latest.pt
+
+            predictions/
+                prediction_001.tif
+                prediction_002.tif
+
+            history/
+                training_runs.json
+                benchmark_history.csv
+                unet_runs/
+                    unet_run_001_YYYYMMDDTHHMMSSZ/
+                        best_model.pt
+                        config.json
+                        summary.json
+                        history.csv
 
     models/
         imported/
@@ -271,26 +374,19 @@ create it before adding masks, training U-Net, or saving predictions.</p>
         starting_weights_config.json
 
     checkpoints/
-        checkpoints.json
         latest.pt
-        unet_run_001.pt
-        unet_run_002.pt
-
-    predictions/
-        prediction_001.tif
-        prediction_002.tif
-
-    history/
-        training_runs.json
-        benchmark_history.csv
 
     logs/
         training.log
 </pre></div>
 </code></pre>
-<p>Reopening the same project restores dataset history, training settings, U-Net
-architecture settings, starting-weight choice, checkpoint history, latest
-checkpoint pointer, benchmark history, and previously selected layer names.</p>
+<p>The root-level project files preserve global settings. The <code>tasks/</code> folder owns
+the active training data, task-specific checkpoints, predictions, and run
+history.</p>
+<p>Reopening the same project restores Model Tasks, dataset history, training
+settings, U-Net architecture settings, starting-weight choice, checkpoint
+history, latest checkpoint pointer, benchmark history, and previously selected
+layer names.</p>
 <h2>SAM3 Annotation Tab</h2>
 <p>The SAM3 tab is task-driven. The user selects an image layer and a prompt mode;
 the plugin creates or reuses the expected napari prompt layer automatically.</p>
@@ -385,6 +481,22 @@ U-Net options as future/unsupported.</p>
 </code></pre>
 <p>The dataset manifest records the source labels, saved labels, target class name,
 and label transform so the conversion is auditable.</p>
+<h2>PyTorch Training Output</h2>
+<p>The <code>Train U-Net</code> action runs PyTorch training for the active Model Task. The
+training runner builds a patch dataset from selected image/mask pairs, trains
+with the configured U-Net settings, saves the best model state, and registers a
+checkpoint in the task history.</p>
+<p>For each U-Net run, the plugin writes:</p>
+<ul>
+<li><code>best_model.pt</code> for the best validation checkpoint</li>
+<li><code>config.json</code> for the resolved run configuration</li>
+<li><code>summary.json</code> for image count, patch count, best epoch, Dice, and IoU</li>
+<li><code>history.csv</code> for per-epoch loss and metric history</li>
+<li>task checkpoint metadata and benchmark history</li>
+</ul>
+<p>Current supported production path: 2D U-Net training. 3D U-Net code paths are
+reserved for future expansion and should be treated as experimental until the
+full UI workflow is validated.</p>
 <h2>Starting Weights</h2>
 <p>Supported starting-weight choices in the UI:</p>
 <ul>
@@ -412,7 +524,7 @@ checkpoint.</p>
 <li>output channels</li>
 </ul>
 <h2>Checkpoint Metadata</h2>
-<p>Every successful training run should create a new numbered checkpoint. Previous
+<p>Every successful training run creates a new numbered checkpoint. Previous
 checkpoints are not overwritten by default. <code>latest.pt</code> is only updated after a
 successful checkpoint registration.</p>
 <p>Each checkpoint records:</p>
@@ -433,9 +545,14 @@ successful checkpoint registration.</p>
 </ul>
 <h2>Development Notes</h2>
 <p>The default U-Net descriptor and lazy PyTorch builder live in
-<code>src/napari_training_assistant/unet.py</code>. The builder imports PyTorch lazily so
-the plugin metadata and persistence layer can still import in environments where
-Torch is not installed.</p>
+<code>src/napari_training_assistant/unet.py</code>. The project-level training runner lives
+in <code>src/napari_training_assistant/unet_backend/project_runner.py</code> and connects
+the active Model Task to patch dataset creation, PyTorch training, run-output
+files, checkpoint registration, and benchmark history.</p>
+<p>SAM3.1 multiplex behavior is intentionally delegated to <code>napari-sam3-assistant</code>
+for prompt collection, adapter behavior, video-session semantics, and napari
+layer writing. <code>napari-training-assistant</code> uses SAM3 as an annotation source and
+keeps U-Net training as the persistent trainable-model workflow.</p>
 
 
                                     </div>
@@ -451,7 +568,7 @@ Torch is not installed.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -558,7 +675,7 @@ Torch is not installed.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">pillow</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li><li class="MetadataList_textItem__KKmMN">dask[array]</li><li class="MetadataList_textItem__KKmMN">torch</li></ul>
                                             </div>
                                         </div>
                                     </div>
