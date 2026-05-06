@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.4</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-03-27</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-06</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyclesperanto_prototype</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyclesperanto_prototype</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tapenade>=0.0.18</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -213,8 +213,6 @@
                                         <p><a href="https://github.com/jules-vanaret/napari-manual-registration/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-manual-registration.svg?color=green" alt="License BSD-3" /></a>
 <a href="https://pypi.org/project/napari-manual-registration"><img src="https://img.shields.io/pypi/v/napari-manual-registration.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-manual-registration.svg?color=green" alt="Python Version" /></a>
-<a href="https://github.com/jules-vanaret/napari-manual-registration/actions"><img src="https://github.com/jules-vanaret/napari-manual-registration/workflows/tests/badge.svg" alt="tests" /></a>
-<a href="https://codecov.io/gh/jules-vanaret/napari-manual-registration"><img src="https://codecov.io/gh/jules-vanaret/napari-manual-registration/branch/main/graph/badge.svg" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/napari-manual-registration"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-manual-registration" alt="napari hub" /></a></p>
 <img src="https://github.com/GuignardLab/tapenade/blob/main/imgs/tapenade3.png" width="100">
 <p>A plugin to obtain parameters for affine transform used to register two views of the same object, e.g as obtained with dual-view microscopes.</p>
@@ -254,8 +252,8 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 <pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">manual</span><span class="o">-</span><span class="n">registration</span>
 </pre></div>
 </code></pre>
-<p>To install latest development version :</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jules</span><span class="o">-</span><span class="n">vanaret</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">manual</span><span class="o">-</span><span class="n">registration</span><span class="o">.</span><span class="n">git</span>
+<p>To get the option to directly fuse the registered views in Napari, you will also need to install the package <code>vt</code> from the <code>morpheme</code> channel:</p>
+<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">vt</span> <span class="o">-</span><span class="n">c</span> <span class="n">morpheme</span>
 </pre></div>
 </code></pre>
 <h2>Usage</h2>
@@ -264,14 +262,22 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 <p>[!CAUTION]
 Be aware that the visualization does not accomodate for voxel anisotropy, so we recommend using isotropic data, or to resize you anisotropic data to an isotropic voxel size (e.g by using <a href="https://github.com/GuignardLab/napari-tapenade-processing">napari-tapenade-processing</a>).</p>
 </blockquote>
+<p>Tutorials structure:</p>
+<ul>
+<li>A. Registration by annotating salient landmarks</li>
+<li>B. Registration by selecting explicit transformation parameters
+- Registration with 3D view
+- Registration with 2D view</li>
+<li>C. Export the transformation parameters to a JSON file or fuse the registered views</li>
+</ul>
 <h3>A. Registration by annotating salient landmarks</h3>
 <img src="imgs/reg_2_3.png">
 <p>Steps:</p>
 <ol>
 <li>First, load your images in Napari. You can drag and drop them from your file explorer to the Napari viewer, or open them using the <code>File &gt; Open files...</code> menu.</li>
 <li>Click on the <code>Plugins &gt; Manual Registration</code> menu to open the plugin.</li>
-<li>Select the reference layer from the combo box. The reference layer is chosen to be the one that does not move.</li>
-<li>Select the floating layer from the combo box. The floating layer is the one that will be transformed.</li>
+<li>Select the reference layer from the combo box. The reference layer is chosen to be the one that does not move. Select the floating layer from the combo box. The floating layer is the one that will be transformed.</li>
+<li>Select &quot;Landmarks matching&quot; from the drop down menu.</li>
 <li>Click the <code>Create landmarks layers</code> button to create two new Labels layers that will be used to annotate the landmarks in the reference and floating views.</li>
 <li>We recommend pressing the <code>Format layers for landmarks matching</code> button so that your layers are automatically formatted for you to begin the registration process. Napari offers a wide range of customisation options for the layers appearances, so feel free to play with them if our formatting does not fit your preferences. ;)</li>
 <li>We first recommend hiding the reference layer and the reference landmarks layer by clicking on the eye icon next to the layer name in the layer list. This will allow you to focus on the floating layer and the floating landmarks layer.</li>
@@ -286,8 +292,8 @@ Be aware that the visualization does not accomodate for voxel anisotropy, so we 
 <li>Draw a &quot;blob&quot; around the corresponding landmark in the reference view by clicking and dragging your mouse.</li>
 <li>Increment your label value by clicking on the <code>+</code> button in the layer properties widget each time you draw a new widget. Repeat steps 15 to 17 until you have annotated all the salient landmarks in the reference view.</li>
 <li>Once you have annotated all the salient landmarks in the reference view, click on the <code>Run landmark registration</code> button. The plugin will automatically find the optimal transformation that aligns the floating landmarks to the reference landmarks using principal component analysis.</li>
-<li>If you are satisfied with the registration, choose a directory to save the transformation parameters by clicking on the <code>Choose directory</code> button. The transformation parameters will be saved in a <code>.json</code> file in this directory. Finally, click on the <code>Save to JSON</code> button to save the transformation parameters.</li>
 </ol>
+<p>Go to section C to learn how to save the transformation parameters or fuse the registered views in Napari.</p>
 <h3>B. Registration by selecting explicit transformation parameters</h3>
 <h4>Registration with 3D view</h4>
 <p>We describe below the steps to register two views of the same object in a purely 3D manner. Note that the plugin also allows to switch between 2D and 3D at any time, and 2D view is described in the next section.</p>
@@ -298,22 +304,40 @@ Be aware that the visualization does not accomodate for voxel anisotropy, so we 
 <li>Click on the <code>Plugins &gt; Manual Registration</code> menu to open the plugin.</li>
 <li>Select the reference layer from the combo box. The reference layer is chosen to be the one that does not move.</li>
 <li>Select the floating layer from the combo box. The floating layer is the one that will be transformed.</li>
-<li>We recommend pressing the <code>Format layers for explicit registration</code> button so that your layers are automatically formatted for you to begin the registration process. Napari offers a wide range of customisation options for the layers appearances, so feel free to play with them if our formatting does not fit your preferences. ;)</li>
+<li>Select &quot;Explicit transforms&quot; from the drop down menu.</li>
+<li>We recommend pressing the <code>Format layers</code> button so that your layers are automatically formatted for you to begin the registration process. Napari offers a wide range of customisation options for the layers appearances, so feel free to play with them if our formatting does not fit your preferences. ;)</li>
 <li>You can now start the registration process by moving the <code>Translations</code> and <code>Rotations</code> sliders. The floating layer will be transformed in real-time according to the selected parameters.</li>
 <li>To optimize the visibility of your images, you can change the contrast limits and opacity of a layer by clicking on the layer name in the layer list and adjusting the sliders in the layer properties widget.</li>
 <li>If you wish to hide a layer, you can click on the eye icon next to the layer name in the layer list.</li>
-<li>Once you are satisfied with the registration, choose a directory to save the transformation parameters by clicking on the <code>Choose directory</code> button. The transformation parameters will be saved in a <code>.json</code> file in this directory.</li>
-<li>Finally, click on the <code>Save to JSON</code> button to save the transformation parameters.</li>
 </ol>
+<p>Go to section C to learn how to save the transformation parameters or fuse the registered views in Napari.</p>
 <h4>Registration with 2D view</h4>
 <img src="imgs/reg_1.png">
-<p>Steps (the steps 1 to 5 are the same as for the 3D registration):
-6. If you want to switch to the 2D view, click on the <code>Toggle 2D/3D view</code> button (it resembles a square when in 2D mode, or a cube when in 3D mode).
-7. Again, feel free to play with the contrast limits and opacity of the layers to optimize the visibility of your images. First click on the layer name in the layer list, then adjust the sliders in the layer properties widget.
-8. If you wish to hide a layer, you can click on the eye icon next to the layer name in the layer list.
-9. In 2D mode, a slider appears at the bottom of the plugin window. You can use it to slide through the z-slices of your images.
-10. You can now start the registration process by moving the <code>Translations</code> and <code>Rotations</code> sliders. The floating layer will be transformed in real-time according to the selected parameters.
-11. Once you are satisfied with the registration, choose a directory to save the transformation parameters by clicking on the <code>Choose directory</code> button. The transformation parameters will be saved in a <code>.json</code> file in this directory. Finally, click on the <code>Save to JSON</code> button to save the transformation parameters.</p>
+<p>Steps (the steps 1 to 6 are the same as for the 3D registration):</p>
+<ol start="7">
+<li>If you want to switch to the 2D view, click on the <code>Toggle 2D/3D view</code> button (it resembles a square when in 2D mode, or a cube when in 3D mode).</li>
+<li>In 2D mode, a slider appears at the bottom of the plugin window. You can use it to slide through the z-slices of your images.</li>
+<li>If you wish to hide a layer, you can click on the eye icon next to the layer name in the layer list.</li>
+<li>Again, feel free to play with the contrast limits and opacity of the layers to optimize the visibility of your images. First click on the layer name in the layer list, then adjust the sliders in the layer properties widget.</li>
+<li>You can now start the registration process by moving the <code>Translations</code> and <code>Rotations</code> sliders. The floating layer will be transformed in real-time according to the selected parameters.</li>
+</ol>
+<p>Go to section C to learn how to save the transformation parameters or fuse the registered views in Napari.</p>
+<h3>C. Export the transformation parameters to a JSON file or fuse the registered views in Napari</h3>
+<h4>Save the transformation parameters to a JSON file</h4>
+<ol>
+<li>Once you are satisfied with the registration, select &quot;Save Parameters (JSON)&quot; from the drop down menu.</li>
+<li>Choose a directory to save the transformation parameters by clicking on the <code>Choose directory</code> button. The transformation parameters will be saved in a <code>.json</code> file in this directory.</li>
+<li>Finally, click on the <code>Save to JSON</code> button to save the transformation parameters.</li>
+</ol>
+<img src="imgs/export_save.png" width="50%">
+<h4>Fuse the registered views (optionnally load the fused image in Napari)</h4>
+<ol>
+<li>Once you are satisfied with the registration, select &quot;Fuse views&quot; from the drop down menu.</li>
+<li>Choose a directory to save the fused image by clicking on the <code>Choose directory</code> button. Type the name of the fused image in the <code>Output name</code> text box. The fused image will be saved in this directory with the specified name.</li>
+<li>Optionally, if you want to load the fused image in Napari, check the <code>Load fused as layer</code> checkbox.</li>
+<li>Finally, click on the <code>Run fusion</code> button to fuse the registered views and save the fused image. If you checked the <code>Load fused as layer</code> checkbox, the fused image will also be loaded in Napari as a new layer.</li>
+</ol>
+<img src="imgs/export_fuse.png" width="50%">
 <h2>Demo dataset</h2>
 <p>A demo dataset is available <a href="https://amubox.univ-amu.fr/s/HLktPNLGgMF4jHT">here</a>.</p>
 <h3>Content</h3>
@@ -323,6 +347,11 @@ Be aware that the visualization does not accomodate for voxel anisotropy, so we 
 <li>Load the images from the folder (either drag and drop, or &quot;File&gt;Open file(s)&quot;).</li>
 <li>Specify one of the images as the &quot;Reference layer&quot; (which is fixed), and the other one as the &quot;Layer to move&quot; (usually called &quot;floating&quot;).</li>
 <li>Choose between the &quot;Explicit transforms&quot; or &quot;Landmarks matching&quot; modes, and follow instructions on the plugin repository for further use.</li>
+</ul>
+<h2>How to cite</h2>
+<p>If you use this plugin for your research, please cite us using the following reference:</p>
+<ul>
+<li>Jules Vanaret, Alice Gros, Valentin Dunsing-Eichenauer, Agathe Rostan, Philippe Roudot, Pierre-François Lenne, Léo Guignard, Sham Tlili (2025) <b>A quantitative pipeline for whole-mount deep imaging and analysis of multi-layered organoids across scales</b>. eLife 14:RP107154 ; doi:<a href="https://doi.org/10.7554/eLife.107154.2">https://doi.org/10.7554/eLife.107154.2</a></li>
 </ul>
 <h2>Contributing</h2>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
@@ -349,7 +378,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -359,7 +388,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-03-27</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-06</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -456,7 +485,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyclesperanto_prototype</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyclesperanto_prototype</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">tapenade>=0.0.18</li></ul>
                                             </div>
                                         </div>
                                     </div>

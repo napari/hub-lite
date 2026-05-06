@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2024-09-26</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-06</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyclesperanto-prototype</li><li class="MetadataList_textItem__KKmMN">tapenade</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyclesperanto_prototype</li><li class="MetadataList_textItem__KKmMN">tapenade</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -213,14 +213,13 @@
                                         <p><a href="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-spatial-correlation-plotter.svg?color=green" alt="License MIT" /></a>
 <a href="https://pypi.org/project/napari-spatial-correlation-plotter"><img src="https://img.shields.io/pypi/v/napari-spatial-correlation-plotter.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-spatial-correlation-plotter.svg?color=green" alt="Python Version" /></a>
-<a href="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/actions"><img src="https://github.com/jules-vanaret/napari-spatial-correlation-plotter/workflows/tests/badge.svg" alt="tests" /></a>
-<a href="https://codecov.io/gh/jules-vanaret/napari-spatial-correlation-plotter"><img src="https://codecov.io/gh/jules-vanaret/napari-spatial-correlation-plotter/branch/main/graph/badge.svg" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/napari-spatial-correlation-plotter"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-spatial-correlation-plotter" alt="napari hub" /></a></p>
-<img src="https://github.com/GuignardLab/tapenade/blob/Packaging/imgs/tapenade3.png" width="100">
+<img src="https://github.com/GuignardLab/tapenade/blob/main/imgs/tapenade3.png" width="100">
 <p>A plugin to dynamically interact with the spatial correlation heatmap obtained by comparing two continuous fields of biophysical properties in 3D tissues.</p>
 <p>If you use this plugin for your research, please <a href="https://github.com/GuignardLab/tapenade/blob/main/README.md#how-to-cite">cite us</a>.</p>
 <p><code>napari-spatial-correlation-plotter</code> is a <a href="https://github.com/napari/napari">napari</a> plugin that is part of the <a href="https://github.com/GuignardLab/tapenade">Tapenade</a> project. Tapenade is a tool for the analysis of dense 3D tissues acquired with deep imaging microscopy. It is designed to be user-friendly and to provide a comprehensive analysis of the data.</p>
 <h2>Overview</h2>
+<img src="imgs/napari_correlation_demo.gif">
 <p>While working with large and dense 3D and 3D+time gastruloid datasets, we found that being able to visualise and interact with the data dynamically greatly helped processing it.
 During the pre-processing stage, dynamical exploration and interaction led to faster tuning of the parameters by allowing direct visual feedback, and gave key biophysical insight during the analysis stage.</p>
 <p>This plugins allows the user to analyse the spatial correlations of two 3D fields loaded in Napari (e.g two fluorescent markers). The user can dynamically vary the analysis length scale, which corresponds to the standard deviation of the Gaussian kernel used for smoothing the 3D fields.
@@ -260,13 +259,29 @@ The user can dynamically interact with the correlation heatmap by manually selec
 <li>To trigger the grid view like in the example image, you can click on the <code>Toggle grid mode</code> button. This will display all layers in a grid view. By right clicking the button, you can parametrize the grid view (e.g number of columns, number of rows, etc).</li>
 <li>You can switch between 2D and 3D view at all time by clicking on the <code>Toggle 2D/3D view</code> button (it resembles a square when in 2D mode, or a cube when in 3D mode).</li>
 </ol>
+<h2>Demo dataset</h2>
+<p>A demo dataset is available <a href="https://amubox.univ-amu.fr/s/igYycspAiXankWF">here</a>.</p>
+<h3>Content</h3>
+<p>This test dataset is composed of five 3D images.</p>
+<ul>
+<li><code>bra isotropized.tif</code>, <code>dapi isotropized.tif</code>, and <code>ecad isotropized.tif</code> correspond to 3 biological signals images, respectively Brachyury, Dapi, and E-Cadherin.</li>
+<li><code>mask.tif</code> is a binary mask that defines the inside/outside of the sample.</li>
+<li><code>labels.tif</code> is the nuclei segmentation performed on the Dapi channel with our custom Stardist3D model.</li>
+</ul>
+<h3>How to use</h3>
+<ul>
+<li>Load the images from the folder (either drag and drop, or &quot;File&gt;Open file(s)&quot;).</li>
+<li>Follow instructions from the plugin repository to test the plugin.</li>
+</ul>
+<h2>How to cite</h2>
+<p>If you use this plugin for your research, please cite us using the following reference:</p>
+<ul>
+<li>Jules Vanaret, Alice Gros, Valentin Dunsing-Eichenauer, Agathe Rostan, Philippe Roudot, Pierre-François Lenne, Léo Guignard, Sham Tlili (2025) <b>A quantitative pipeline for whole-mount deep imaging and analysis of multi-layered organoids across scales</b>. eLife 14:RP107154 ; doi:<a href="https://doi.org/10.7554/eLife.107154.2">https://doi.org/10.7554/eLife.107154.2</a></li>
+</ul>
 <h2>Acknowledgements</h2>
 <p>The &quot;napari-clusters-plotter&quot; plugin [1] heavily inspired this plugin, most notably the <code>SelectFromCollection</code>, <code>MplCanvas</code> and <code>FigureToolbar</code> classes. The <code>PlotterWidget</code> class has been modified for the specific use case of this plugin, but the core functionalites have been adapted directly.
 napari-clusters-plotter source code is available <a href="https://github.com/BiAPoL/napari-clusters-plotter/tree/main">here</a>.</p>
 <p>[1] Zigutyte, L., Savill, R., Müller, J., Zoccoler, M., Wagner, T., &amp; Haase, R. (2023). napari-clusters-plotter. Zenodo. <a href="https://doi.org/10.5281/zenodo.5884657">https://doi.org/10.5281/zenodo.5884657</a></p>
-<h2>Contributing</h2>
-<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT</a> license,
 &quot;napari-spatial-correlation-plotter&quot; is free and open source software</p>
@@ -289,7 +304,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -299,7 +314,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2024-09-26</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-06</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -396,7 +411,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyclesperanto-prototype</li><li class="MetadataList_textItem__KKmMN">tapenade</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">pyclesperanto_prototype</li><li class="MetadataList_textItem__KKmMN">tapenade</li></ul>
                                             </div>
                                         </div>
                                     </div>
