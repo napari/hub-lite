@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.2.6</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.2.7</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -223,17 +223,15 @@
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
 </ul>
-<h2>What's New in 4.2.6</h2>
-<p>Version 4.2.6 focuses on faster downstream mask operations for users who generate many SAM3 mask layers on the same image.</p>
+<h2>What's New in 4.2.7</h2>
+<p>Version 4.2.7 focuses on post-SAM myelin cleanup and more responsive Mask Cleanup operations.</p>
 <ul>
-<li>Added a new <code>Mask Isolation</code> tab between <code>Mask Cleanup / Multiclass</code> and <code>Merge Layers</code>.</li>
-<li>Added candidate consolidation for many aligned SAM3 mask layers: harvest masks, split connected components, assign global candidate IDs, classify duplicates/parents/children/fragments, and create one clean isolated objects layer.</li>
-<li>Added fast SciPy-based mask harvesting with a visible progress bar so large mask sets no longer look frozen during processing.</li>
-<li>Added output metadata that records source layers, candidate provenance, included statuses, thresholds, and candidate-to-output ID mapping.</li>
-<li>Added clearer Mask Operations tooltips and tab descriptions so users know which actions affect the final isolated layer.</li>
-<li>Added opt-in table right-click actions in <code>Mask Isolation</code> for keep, reject, duplicate, parent, child, fragment, locate, and isolate selected candidates.</li>
-<li>Added quick class assignment tools in <code>Mask Cleanup / Multiclass</code> so users can assign final isolated objects to class values <code>1</code> through <code>6</code> from the table or canvas.</li>
-<li>Changed canvas cleanup delete actions to be explicit and opt-in, while keeping canvas assignment tools separate from delete tools.</li>
+<li>Added an axon hole click tool in <code>Mask Cleanup / Multiclass</code>: select the original source image, enable the tool, then click inside the axon region of a SAM mask to set that connected seed-similar region to background or an axon class.</li>
+<li>Added <code>Seed tolerance %</code>, <code>Max axon %</code>, and optional axon class assignment controls for tuning ring-only or two-class myelin/axon labels.</li>
+<li>Changed axon cutting to use seed-similar intensity instead of assuming the axon is dark, so it can work when the axon is brighter or darker than the surrounding myelin rim.</li>
+<li>Added visible progress reporting when <code>Analyze Layer</code> builds the Mask Cleanup component index.</li>
+<li>Made <code>Undo Last Edit</code> more responsive by restoring the previous mask immediately and clearing the stale component table/index instead of re-analyzing automatically.</li>
+<li>Fixed an axon-click <code>NameError</code> and a napari/vispy <code>EventEmitter loop detected</code> crash caused by re-entering the event loop during canvas mouse handling.</li>
 </ul>
 <h2>What's New in 4.2.0</h2>
 <p>Version 4.2.0 adds experimental CPU-only support for SAM3.0 2D image workflows when using a CPU-safe <code>sam3</code> backend such as <code>sam3-cpu</code>.</p>
@@ -993,7 +991,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.2.6</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.2.7</li>
                                                 </ul>
                                             </div>
                                         </div>
