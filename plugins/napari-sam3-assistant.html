@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.2.7</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.2.10</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-07</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-09</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -223,15 +223,17 @@
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
 </ul>
-<h2>What's New in 4.2.7</h2>
-<p>Version 4.2.7 focuses on post-SAM myelin cleanup and more responsive Mask Cleanup operations.</p>
+<h2>What's New in 4.2.9</h2>
+<p>Version 4.2.9 adds batch local exemplar segmentation for large 2D images. Pick one exemplar ROI, enable large-image local inference, then let SAM3 scan the full image tile by tile and compose the result back into one full-size labels layer.</p>
+<p><img src="docs/tiled_exemplar_scan.png" alt="Batch local exemplar segmentation scans large images tile by tile" /></p>
 <ul>
-<li>Added an axon hole click tool in <code>Mask Cleanup / Multiclass</code>: select the original source image, enable the tool, then click inside the axon region of a SAM mask to set that connected seed-similar region to background or an axon class.</li>
-<li>Added <code>Seed tolerance %</code>, <code>Max axon %</code>, and optional axon class assignment controls for tuning ring-only or two-class myelin/axon labels.</li>
-<li>Changed axon cutting to use seed-similar intensity instead of assuming the axon is dark, so it can work when the axon is brighter or darker than the surrounding myelin rim.</li>
-<li>Added visible progress reporting when <code>Analyze Layer</code> builds the Mask Cleanup component index.</li>
-<li>Made <code>Undo Last Edit</code> more responsive by restoring the previous mask immediately and clearing the stale component table/index instead of re-analyzing automatically.</li>
-<li>Fixed an axon-click <code>NameError</code> and a napari/vispy <code>EventEmitter loop detected</code> crash caused by re-entering the event loop during canvas mouse handling.</li>
+<li>Added <code>Scan Full Image by Tiles</code> for Advanced <code>Exemplar segmentation</code> when large-image local inference is enabled.</li>
+<li>The local ROI size becomes the tile size, so a 6k x 6k image can be processed as many smaller SAM3 calls instead of one oversized inference.</li>
+<li>Added <code>Tile overlap</code> control, default <code>15%</code>, to reduce edge misses between neighboring tiles.</li>
+<li>Added <code>Merge seam-split objects</code>, enabled by default, to reconnect objects cut by straight tile boundaries after stitching.</li>
+<li>Composed all tile results into <code>SAM3 tiled exemplar labels</code> with full original image shape.</li>
+<li>Renamed the normal run action in this mode to <code>Run Current ROI Only</code>, making the difference between one local test tile and full-image scanning clear.</li>
+<li>Added clearer progress and output naming so users can tell whether they ran a single ROI or a full tiled scan.</li>
 </ul>
 <h2>What's New in 4.2.0</h2>
 <p>Version 4.2.0 adds experimental CPU-only support for SAM3.0 2D image workflows when using a CPU-safe <code>sam3</code> backend such as <code>sam3-cpu</code>.</p>
@@ -991,7 +993,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.2.7</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.2.10</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1001,7 +1003,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-07</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-09</li>
                                                 </ul>
                                             </div>
                                         </div>
