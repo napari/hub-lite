@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-03</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-10</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,28 +213,29 @@
                                         <p><code>napari-unet-assistant</code> is a napari plugin for supervised 2D and 3D U-Net segmentation workflows.</p>
 <p>It is designed for users who already have image-mask training data and want to pair files, train a U-Net model, run inference, and inspect results directly inside napari.</p>
 <p>This plugin is separate from SAM-based annotation workflows. Its focus is conventional supervised U-Net training from existing image-mask pairs.</p>
-<h2>What's new in 0.2.0</h2>
+<h2>What's new in 0.3.0</h2>
 <ul>
-<li>Added smarter image-mask pairing.</li>
-<li>Added support for one-folder mixed datasets.</li>
-<li>Added manual CSV pairing.</li>
-<li>Added <code>_1</code> / <code>_2</code> pairing support, where <code>_1</code> is treated as image and <code>_2</code> as mask.</li>
-<li>Added expanded mask-name detection, including <code>_mask</code>, <code>_label</code>, <code>_seg</code>, <code>_annotation</code>, <code>_gt</code>, and related suffixes.</li>
-<li>Added expanded image-name detection, including <code>_image</code>, <code>_img</code>, <code>_raw</code>, <code>_input</code>, and related suffixes.</li>
-<li>Added pair confidence, pairing reason, and shape-check status.</li>
-<li>Added reporting for ambiguous, unmatched, rejected, and shape-mismatched files.</li>
+<li>Added recursive dataset-folder auto pairing for TIFF datasets with <code>images</code>/<code>masks</code>, <code>raw</code>/<code>labels</code>, mixed-folder, and nested layouts.</li>
+<li>Added folder-name role hints so dataset folders can guide image-mask pairing even when filenames are less explicit.</li>
+<li>Added configurable augmentation presets: <code>none</code>, <code>conservative</code>, <code>balanced</code>, and <code>strong</code>.</li>
+<li>Added custom augmentation controls for flips, rotation, shear, scale, brightness jitter, and Gaussian noise.</li>
+<li>Added saving and loading of augmentation settings in run configuration metadata.</li>
+<li>Added a training stop button that cancels after the current batch, discards the interrupted model state, and clears GPU cache when available.</li>
+<li>Added a U-Net architecture preview for the selected 2D/3D mode and output-channel configuration.</li>
+<li>Improved the training UI layout with clearer tabs and more stable dock-widget sizing.</li>
 </ul>
 <h2>Highlights</h2>
 <ul>
 <li>TIFF-first 2D and 3D U-Net training</li>
 <li>Binary and multiclass segmentation</li>
-<li>Smart image-mask pairing</li>
+<li>Recursive smart image-mask pairing</li>
 <li>Pair review with confidence, reason, and shape-check status</li>
 <li>Patch-based training with configurable patch size and overlap</li>
 <li>Optional empty-mask patch inclusion</li>
-<li>Conservative augmentation</li>
+<li>Configurable augmentation presets and custom augmentation controls</li>
 <li>80/20 validation split</li>
 <li>Continue training from a previous run</li>
+<li>Training cancellation from the UI</li>
 <li>Single-image and folder inference</li>
 <li>2D image and 3D volume prediction</li>
 <li>TIFF prediction export</li>
@@ -243,9 +244,17 @@
 <h2>Smart image-mask pairing</h2>
 <p>The plugin can pair training data from:</p>
 <ul>
+<li>a dataset root scanned recursively</li>
 <li>separate image and mask folders</li>
 <li>one mixed folder containing both images and masks</li>
 <li>a manual CSV file</li>
+</ul>
+<p>Dataset-root auto scan supports common layouts such as:</p>
+<ul>
+<li><code>images/</code> + <code>masks/</code></li>
+<li><code>raw/</code> + <code>labels/</code></li>
+<li>nested TIFF folders under one dataset root</li>
+<li>one mixed folder containing <code>sample.tif</code> + <code>sample_mask.tif</code></li>
 </ul>
 <p>Supported naming patterns include:</p>
 <ul>
@@ -255,6 +264,20 @@
 <li><code>sample_raw.tif</code> + <code>sample_label.tif</code></li>
 </ul>
 <p>After scanning, the plugin shows each proposed pair with confidence, reason, and shape-check status. Ambiguous or invalid pairs are reported instead of being silently used for training.</p>
+<p>Folder names such as <code>images</code>, <code>raw</code>, <code>masks</code>, and <code>labels</code> can also provide role hints during recursive dataset scans.</p>
+<h2>Augmentation</h2>
+<p>Training supports augmentation presets and custom controls:</p>
+<ul>
+<li><code>none</code>: no augmentation</li>
+<li><code>conservative</code>: flips, small rotations/scales, and light brightness jitter</li>
+<li><code>balanced</code>: stronger rotation/scale, shear, brightness jitter, and light Gaussian noise</li>
+<li><code>strong</code>: wider rotation/scale/shear ranges, stronger brightness jitter, and stronger Gaussian noise</li>
+<li><code>custom</code>: user-selected flips, rotation, shear, scale, brightness, and noise settings</li>
+</ul>
+<p>The selected augmentation configuration is saved in each run folder's <code>config.json</code> and restored when loading run metadata.</p>
+<h2>Training controls</h2>
+<p>The training panel includes a stop button for cancelling an active training run. Cancellation is checked between batches, so the current batch may finish before the run stops.</p>
+<p>When a run is stopped, the interrupted model state is discarded and GPU cache is cleared when available.</p>
 <h2>Manual CSV pairing</h2>
 <p>For manual pairing, provide a CSV file with one image-mask pair per row.</p>
 <p>Required columns:</p>
@@ -381,7 +404,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -391,7 +414,7 @@ napari
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-03</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-10</li>
                                                 </ul>
                                             </div>
                                         </div>
