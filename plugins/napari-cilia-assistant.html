@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-09</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-10</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -210,11 +210,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><code>napari-cilia-assistant</code> is a napari plugin for measuring ciliary beat frequency (CBF) from high-speed AVI microscopy videos.</p>
-<p><img src="docs/ui.png" alt="Cilia Assistant UI" /></p>
+                                        <p><code>napari-cilia-assistant</code> is a napari plugin for exploratory ciliary motion analysis from high-speed AVI microscopy videos.</p>
+<p>The plugin supports ROI-based ciliary beat frequency (CBF) measurement, kymograph review, spatial CBF heatmaps, motion activity maps, and experimental optical-flow descriptors.</p>
 <p><a href="docs/ui.mp4">Watch the demo video</a></p>
 <h2>Install</h2>
-<p>Install conda-forge first:
+<p>Install conda-forge first:<br />
 <a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a></p>
 <p>Then open a terminal and run:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>cilia-assistant<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
@@ -226,20 +226,70 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 napari
 </pre></div>
 </code></pre>
-<p>In napari, open <code>Plugins &gt; Cilia Assistant</code>.</p>
+<p>In napari, open:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Plugins &gt; Cilia Assistant
+</pre></div>
+</code></pre>
 <h2>What It Does</h2>
 <ul>
 <li>Opens one AVI video through the napari widget.</li>
-<li>Reads video metadata such as FPS, frame count, size, and duration.</li>
+<li>Reads video metadata such as FPS, frame count, size, codec, and duration.</li>
 <li>Loads AVI data as a grayscale <code>T, Y, X</code> image stack.</li>
 <li>Lets the user draw/edit a rectangular ROI over active cilia.</li>
+<li>Supports optional background ROI subtraction.</li>
 <li>Measures ROI mean-intensity change over time.</li>
-<li>Estimates CBF using FFT and peak-interval checks.</li>
+<li>Estimates CBF using FFT, Welch PSD, or periodogram analysis.</li>
+<li>Provides a peak-interval CBF check.</li>
 <li>Creates a kymograph layer from the selected ROI.</li>
-<li>Exports the last ROI signal and FFT spectrum as CSV files.</li>
+<li>Generates spatial CBF heatmaps.</li>
+<li>Generates motion activity maps to help locate moving regions.</li>
+<li>Provides experimental optical-flow maps for apparent motion direction, magnitude, curl, and deformation.</li>
+<li>Exports the last ROI signal and frequency spectrum as CSV files.</li>
 <li>Copies or saves the current measurement graph.</li>
 </ul>
-<h2>Basic Workflow</h2>
+<h2>User Interface Overview</h2>
+<p>The widget uses a five-step workflow:</p>
+<ol>
+<li>
+<p><strong>Input</strong><br />
+Load an AVI file, inspect metadata, and confirm FPS.</p>
+</li>
+<li>
+<p><strong>Region of Interest</strong><br />
+Draw or edit the cilia ROI. Optionally define a background ROI.</p>
+</li>
+<li>
+<p><strong>Analysis</strong><br />
+Choose one of the analysis tabs:</p>
+<ul>
+<li>
+<p><strong>ROI Frequency</strong><br />
+Standard CBF measurement from a selected ROI. This is the main workflow for quantitative reporting.</p>
+</li>
+<li>
+<p><strong>CBF Heatmap</strong><br />
+Generates a spatial map of dominant frequency across the selected ROI or whole frame.</p>
+</li>
+<li>
+<p><strong>Motion Activity</strong><br />
+Shows where the video changes over time. This is useful for finding active cilia, drift, debris, or non-ciliary motion.</p>
+</li>
+<li>
+<p><strong>Advanced Flow</strong><br />
+Experimental optical-flow analysis for apparent motion magnitude, direction, curl, and deformation.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Results / Graphs</strong><br />
+Review the intensity trace, frequency spectrum, peak result, heatmap, activity map, or flow-map summary.</p>
+</li>
+<li>
+<p><strong>Export &amp; Log</strong><br />
+Export results and copy the analysis log.</p>
+</li>
+</ol>
+<h2>Basic ROI Frequency Workflow</h2>
 <ol>
 <li>Open napari.</li>
 <li>Open <code>Plugins &gt; Cilia Assistant</code>.</li>
@@ -247,33 +297,64 @@ napari
 <li>Confirm the FPS. Correct it manually if the AVI metadata are wrong.</li>
 <li>Click <strong>Create / Edit ROI Rectangle</strong>.</li>
 <li>Move/resize the ROI over visibly beating cilia.</li>
+<li>Optional: create a background ROI if there is shared illumination or focus drift.</li>
+<li>Go to <strong>Step 3 &gt; ROI Frequency</strong>.</li>
+<li>Choose the frequency method:
+<ul>
+<li><code>FFT</code> for simple dominant-frequency analysis.</li>
+<li><code>Welch</code> for noisier traces.</li>
+<li><code>Periodogram</code> as another spectrum-based check.</li>
+</ul>
+</li>
 <li>Set the expected CBF search range, for example <code>3-25 Hz</code>.</li>
-<li>Click <strong>Measure CBF from Selected ROI</strong>.</li>
-<li>Review the trace, FFT peak, peak-interval result, and kymograph.</li>
-<li>Export the CSV files if the result is usable.</li>
+<li>Click <strong>Analyze Selected ROI</strong>.</li>
+<li>Review the trace, frequency peak, peak-interval result, and kymograph.</li>
+<li>Export CSV files if the result is usable.</li>
 </ol>
 <h2>Output</h2>
 <ul>
-<li><strong>FFT CBF:</strong> dominant frequency in the selected search range.</li>
+<li><strong>Frequency CBF:</strong> dominant frequency in the selected search range.</li>
 <li><strong>Peak-interval CBF:</strong> independent check based on repeated peaks in the ROI signal.</li>
 <li><strong>Kymograph:</strong> visual audit of periodic motion in the ROI.</li>
-<li><strong>CSV export:</strong> raw ROI time-intensity signal and FFT power spectrum.</li>
+<li><strong>CBF heatmap:</strong> spatial map of estimated dominant frequency.</li>
+<li><strong>Peak-strength map:</strong> map showing relative frequency-peak strength.</li>
+<li><strong>Motion activity map:</strong> temporal motion/activity map.</li>
+<li><strong>Optical-flow maps:</strong> exploratory apparent motion descriptors.</li>
+<li><strong>CSV export:</strong> raw ROI time-intensity signal and frequency spectrum.</li>
+<li><strong>Graph export:</strong> copy or save the current measurement graph.</li>
 </ul>
 <h2>Good Measurement Practice</h2>
 <ul>
 <li>Use videos with known FPS.</li>
+<li>Correct the FPS manually if AVI metadata are wrong.</li>
 <li>Keep temperature, medium, and timing consistent across samples.</li>
 <li>Place the ROI on active cilia, not static tissue, debris, or whole-frame motion.</li>
+<li>Use motion activity maps to identify candidate moving regions before final ROI measurement.</li>
+<li>Use CBF heatmaps as exploratory spatial screening, not as a replacement for careful ROI review.</li>
 <li>Use multiple ROIs/videos and biological replicates for group comparisons.</li>
-<li>Treat whole-frame motion frequency as exploratory only.</li>
+<li>Treat whole-frame frequency and optical-flow results as exploratory only.</li>
+<li>Always review the raw video, ROI placement, graph, and kymograph before interpreting the number.</li>
 </ul>
 <h2>Limitations</h2>
-<p>This plugin measures beat frequency, not full ciliary waveform or clinical diagnostic beat pattern. A sample can have a normal CBF but abnormal waveform or poor flow generation. Always review the raw video and kymograph before interpreting the number.</p>
+<p>This plugin measures ciliary motion from intensity changes in AVI microscopy videos. The standard ROI workflow estimates beat frequency, not full ciliary waveform or clinical diagnostic beat pattern.</p>
+<p>A sample can have a normal CBF but abnormal waveform or poor flow generation. CBF heatmaps, motion activity maps, and optical-flow maps are useful exploratory tools, but they do not replace expert review of the raw video.</p>
+<p>The <strong>Advanced Flow</strong> tab is experimental. Flow magnitude, direction, curl, and deformation should be interpreted as image-motion descriptors, not diagnostic classifications.</p>
+<h2>Acknowledgements</h2>
+<p>During development, I reviewed publicly available open-source cilia motion-analysis resources, including the <code>cilia-metrics</code> repository:</p>
+<p><a href="https://github.com/quinngroup/cilia-metrics">https://github.com/quinngroup/cilia-metrics</a></p>
+<p>The repository was useful for understanding existing computational approaches to ciliary motion analysis, especially spatial CBF mapping and frequency-domain analysis. This helped guide the addition of CBF heatmaps, Welch/PSD options, and motion-map style outputs in <code>napari-cilia-assistant</code>.</p>
+<p><code>napari-cilia-assistant</code> is independently implemented as a napari-based interactive workflow for AVI loading, ROI-based CBF measurement, kymograph review, spatial screening, and exportable analysis logs.</p>
 <h2>References</h2>
 <ol>
-<li>Chilvers MA, O'Callaghan C. Analysis of ciliary beat pattern and beat frequency using digital high speed imaging: comparison with the photomultiplier and photodiode methods. <em>Thorax</em>. 2000;55:314-317. doi:10.1136/thorax.55.4.314</li>
-<li>Jackson CL, Bottier M. Methods for the assessment of human airway ciliary function. <em>European Respiratory Journal</em>. 2022;60:2102300. doi:10.1183/13993003.02300-2021</li>
-<li>Francis R. A Simple Method for Imaging and Quantifying Respiratory Cilia Motility in Mouse Models. <em>Methods and Protocols</em>. 2025;8:113. doi:10.3390/mps8050113</li>
+<li>
+<p>Chilvers MA, O'Callaghan C. Analysis of ciliary beat pattern and beat frequency using digital high speed imaging: comparison with the photomultiplier and photodiode methods. <em>Thorax</em>. 2000;55:314-317. doi:10.1136/thorax.55.4.314</p>
+</li>
+<li>
+<p>Jackson CL, Bottier M. Methods for the assessment of human airway ciliary function. <em>European Respiratory Journal</em>. 2022;60:2102300. doi:10.1183/13993003.02300-2021</p>
+</li>
+<li>
+<p>Francis R. A Simple Method for Imaging and Quantifying Respiratory Cilia Motility in Mouse Models. <em>Methods and Protocols</em>. 2025;8:113. doi:10.3390/mps8050113</p>
+</li>
 </ol>
 
 
@@ -290,7 +371,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -300,7 +381,7 @@ napari
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-09</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-10</li>
                                                 </ul>
                                             </div>
                                         </div>
