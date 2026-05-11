@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.2.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-26</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-11</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -214,172 +214,219 @@
 <a href="https://pypi.org/project/napari-myelin-quantifier"><img src="https://img.shields.io/pypi/v/napari-myelin-quantifier.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-myelin-quantifier.svg?color=green" alt="Python Version" /></a>
 <a href="https://napari-hub.org/plugins/napari-myelin-quantifier"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-myelin-quantifier" alt="napari hub" /></a></p>
-<hr />
-<h2>Overview</h2>
-<p><code>napari-myelin-quantifier</code> is a napari plugin for quantitative analysis of 2D cross-sectional myelinated axons from binary segmentation masks.</p>
-<p>The plugin identifies individual myelin rings, assigns a unique <code>ring_id</code> to each structure, and exports morphometric measurements for downstream analysis.</p>
-<p>It enables reproducible extraction of:</p>
+<p><code>napari-myelin-quantifier</code> is a napari plugin for 2D myelinated axon analysis. It supports two related workflows:</p>
 <ul>
-<li>Axon diameter</li>
-<li>Fiber diameter</li>
-<li>Myelin thickness</li>
-<li>g-ratio</li>
+<li>Detect and quantify myelin rings from binary mask layers in napari.</li>
+<li>Import raw label/object measurement CSV files and calculate myelin morphometric features into Excel workbooks.</li>
 </ul>
-<hr />
+<p>Current version: <code>1.2.1</code></p>
 <h2>Installation</h2>
-<p>Install via pip:</p>
+<p>Install from PyPI:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-myelin-quantifier
 </pre></div>
 </code></pre>
-<p>If napari is not installed:</p>
+<p>If napari is not already installed:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari-myelin-quantifier[all]&quot;</span>
 </pre></div>
 </code></pre>
-<p>Development version:</p>
+<p>Install the development version from GitHub:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/wulinteousa2-hash/napari-myelin-quantifier.git
 </pre></div>
 </code></pre>
-<h2>Input Requirements</h2>
-<p>The plugin accepts either:</p>
+<h2>Plugin Panels</h2>
+<p>The plugin contributes three napari widgets:</p>
 <ul>
-<li>A 2D binary mask layer</li>
+<li><code>Myelin Rings: Quantify</code></li>
+<li><code>Myelin Rings: Locate by ID</code></li>
+<li><code>CSV Quantification</code></li>
 </ul>
+<p>Open them from the napari menu:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Plugins -&gt; Myelin Quantifier
+</pre></div>
+</code></pre>
+<h2>Mask Quantification Workflow</h2>
+<p>Use <code>Myelin Rings: Quantify</code> when you have a 2D binary mask layer.</p>
 <p>Expected mask semantics:</p>
 <ul>
-<li>Myelin = foreground (non-zero / True)</li>
-<li>Background = 0 / False</li>
-<li>Recommended: clean segmentation without holes or broken rings</li>
+<li>Myelin ring pixels are foreground, non-zero, or <code>True</code>.</li>
+<li>Background is <code>0</code> or <code>False</code>.</li>
+<li>Intact ring-shaped objects are recommended. Broken rings, solid objects, and border objects can be filtered or flagged.</li>
 </ul>
-<p>If your mask is stored as RGB/RGBA or grayscale, use the optional Quick Mask Prep
-section in the quantify panel to convert it into a binary mask first.</p>
-<h2>Quick Mask Prep (Optional)</h2>
-<p>This helper is intended for users who already have a segmented mask, but the
-file is stored as RGB/RGBA or grayscale instead of a clean binary mask.</p>
+<p>If your mask is stored as RGB/RGBA or grayscale, use <code>Quick Mask Prep</code> in the quantification panel to create a binary Labels layer before running quantification.</p>
+<h3>Quick Mask Prep</h3>
 <p>Available quick actions:</p>
 <ul>
-<li><code>1-Channel</code> → create a single-channel image layer</li>
-<li><code>Invert</code> → create an inverted single-channel image layer</li>
-<li><code>Binary (Otsu)</code> → convert the selected layer into a binary Labels layer</li>
+<li><code>1-Channel</code>: create a single-channel image layer.</li>
+<li><code>Invert</code>: create an inverted single-channel image layer.</li>
+<li><code>Binary (Otsu)</code>: convert the selected layer into a binary Labels layer.</li>
 </ul>
-<p>The prepared binary layer is automatically selected in the quantifier <code>mask layer</code>
-field so you can run quantification immediately.</p>
-<p>Example Binary Mask</p>
+<p>The prepared binary layer is automatically selected in the quantifier mask-layer field.</p>
+<p>Example binary mask:</p>
 <p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/1_mask.PNG" alt="Binary Mask" /></p>
 <p><em>Image courtesy of Bo Hu Lab, Houston Methodist Research Institute.</em></p>
-<h2>Ring Detection and Labeling</h2>
-<p>Each connected myelin ring is:</p>
+<h3>Ring Detection and Labeling</h3>
+<p>Each detected myelin ring is:</p>
 <ul>
-<li>
-<p>Assigned a unique <code>ring_id</code></p>
-</li>
-<li>
-<p>Spatially localized using centroid coordinates</p>
-</li>
-<li>
-<p>Evaluated for ring topology using Euler characteristic</p>
-</li>
+<li>assigned a unique <code>ring_id</code>,</li>
+<li>localized using centroid coordinates,</li>
+<li>measured for bounding box and area values,</li>
+<li>evaluated for topology using Euler characteristic.</li>
 </ul>
-<p>Example Labeled Output</p>
+<p>Example labeled output:</p>
 <p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/2_multiROI_connected_components.PNG" alt="MultiROI" /></p>
 <p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/3_result_labels.PNG" alt="MultiROI_ring_ID" /></p>
-<h2>Topological Validation (Euler Characteristic)</h2>
-<p>The Euler number ensures valid ring topology:</p>
+<h3>Topological Validation</h3>
+<p>Euler number is used to distinguish ring-like structures from likely artifacts:</p>
 <ul>
-<li>
-<p>Euler = 0 → valid ring (one hole)</p>
-</li>
-<li>
-<p>Euler ≠ 0 → solid object or fragmented structure</p>
-</li>
+<li><code>Euler = 0</code>: ring-like object with one hole.</li>
+<li><code>Euler != 0</code>: solid object, fragmented object, or object with unexpected topology.</li>
 </ul>
-<p>This prevents non-myelinated artifacts from being included in analysis.</p>
-<p>Topology Illustration</p>
-<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/4_2D_euler_number_0.PNG" alt="Euler = 0 and  ≠ 0 " /></p>
-<h2>Quantitative Output (CSV)</h2>
-<p>For each ring, the plugin exports:</p>
-<p><code>ring_id</code></p>
-<p><code>centroid_x, centroid_y</code></p>
-<p><code>bbox_x0, bbox_y0, bbox_x1, bbox_y1</code></p>
-<p><code>ring_area_px</code></p>
-<p><code>lumen_area_px</code></p>
-<p><code>filled_area_px</code></p>
-<p><code>euler</code></p>
-<p><code>touches_border</code></p>
+<p>Topology illustration:</p>
+<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/4_2D_euler_number_0.PNG" alt="Euler = 0 and != 0" /></p>
+<h3>Mask CSV Output</h3>
+<p>The mask workflow can export a CSV with one row per detected ring. Columns include:</p>
+<ul>
+<li><code>ring_id</code></li>
+<li><code>centroid_x</code>, <code>centroid_y</code></li>
+<li><code>bbox_x0</code>, <code>bbox_y0</code>, <code>bbox_x1</code>, <code>bbox_y1</code></li>
+<li><code>ring_area_px</code></li>
+<li><code>lumen_area_px</code></li>
+<li><code>filled_area_px</code></li>
+<li><code>euler</code></li>
+<li><code>touches_border</code></li>
+<li>optional <code>ring_area_um2</code>, <code>lumen_area_um2</code>, and <code>filled_area_um2</code> when pixel size is set</li>
+</ul>
 <p>Example:</p>
-<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="n">ring_id</span><span class="p">,</span><span class="n">centroid_x</span><span class="p">,</span><span class="n">centroid_y</span><span class="p">,</span><span class="n">bbox_x0</span><span class="p">,</span><span class="n">bbox_y0</span><span class="p">,</span><span class="n">bbox_x1</span><span class="p">,</span><span class="n">bbox_y1</span><span class="p">,</span><span class="n">ring_area_px</span><span class="p">,</span><span class="n">lumen_area_px</span><span class="p">,</span><span class="n">filled_area_px</span><span class="p">,</span><span class="n">euler</span><span class="p">,</span><span class="n">touches_border</span>
+<pre><code class="language-csv"><div class="highlight"><pre><span></span><span class="n">ring_id</span><span class="p">,</span><span class="n">centroid_x</span><span class="p">,</span><span class="n">centroid_y</span><span class="p">,</span><span class="n">bbox_x0</span><span class="p">,</span><span class="n">bbox_y0</span><span class="p">,</span><span class="n">bbox_x1</span><span class="p">,</span><span class="n">bbox_y1</span><span class="p">,</span><span class="n">ring_area_px</span><span class="p">,</span><span class="n">lumen_area_px</span><span class="p">,</span><span class="n">filled_area_px</span><span class="p">,</span><span class="n">euler</span><span class="p">,</span><span class="n">touches_border</span>
 <span class="mi">1</span><span class="p">,</span><span class="mf">873.8658</span><span class="p">,</span><span class="mf">34.4421</span><span class="p">,</span><span class="mi">857</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">890</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">380</span><span class="p">,</span><span class="mi">556</span><span class="p">,</span><span class="mi">936</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">False</span>
 </pre></div>
 </code></pre>
-<h2>Derived Morphometric Parameters</h2>
-<p>Assuming approximately circular cross-sections:</p>
-<h3>Axon diameter:</h3>
-<pre><code class="language-Code"><div class="highlight"><pre><span></span><span class="n">d_axon</span> <span class="o">=</span> <span class="mi">2</span> <span class="err">×</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">lumen_area</span> <span class="o">/</span> <span class="n">π</span><span class="p">)</span>
-</pre></div>
-</code></pre>
-<h3>Fiber diameter:</h3>
-<pre><code class="language-Code"><div class="highlight"><pre><span></span><span class="n">d_fiber</span> <span class="o">=</span> <span class="mi">2</span> <span class="err">×</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">filled_area</span> <span class="o">/</span> <span class="n">π</span><span class="p">)</span>
-</pre></div>
-</code></pre>
-<h3>Myelin thickness:</h3>
-<pre><code class="language-Code"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">d_fiber</span> <span class="err">−</span> <span class="n">d_axon</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-</pre></div>
-</code></pre>
-<h3>g-ratio:</h3>
-<pre><code class="language-Code"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">d_axon</span> <span class="o">/</span> <span class="n">d_fiber</span>
-</pre></div>
-</code></pre>
-<p>Note: These are geometric approximations. For highly irregular axons, area-based statistics may be preferable.</p>
-<h2>Typical Workflow</h2>
+<h2>CSV Quantification Workflow</h2>
+<p>Use <code>CSV Quantification</code> when you already have raw object measurement CSV files from a label/object measurement tool.</p>
+<p>The importer supports common CSV variants, including comma-delimited files and semicolon-delimited UTF-8 files with a byte-order mark.</p>
+<p>Required input columns, using either naming format:</p>
+<ul>
+<li><code>2D Area (µm²)</code></li>
+<li><code>2D Filled Area (µm²)</code></li>
+</ul>
+<p>or:</p>
+<ul>
+<li><code>ring_area_um2</code></li>
+<li><code>filled_area_um2</code></li>
+</ul>
+<p>or a mask export without pixel size:</p>
+<ul>
+<li><code>ring_area_px</code></li>
+<li><code>filled_area_px</code></li>
+</ul>
+<p>When mask area columns are used, the CSV workflow copies them into the standard <code>2D Area (µm²)</code> and <code>2D Filled Area (µm²)</code> columns before calculating features. If micrometer-squared and pixel-area mask columns are both present, the calibrated micrometer-squared columns are preferred.</p>
+<p>Other columns, such as <code>Time Step</code>, <code>Label Index</code>, <code>Name (NA)</code>, and <code>2D Euler Number</code>, are preserved in the processed output.</p>
+<h3>CSV UI Steps</h3>
 <ol>
-<li>
-<p>Load your mask into napari.</p>
-</li>
-<li>
-<p>If needed, use <code>Quick Mask Prep</code> to convert RGB/RGBA or grayscale mask images into a binary mask.</p>
-</li>
-<li>
-<p>Open:</p>
-</li>
+<li>Open <code>Plugins -&gt; Myelin Quantifier -&gt; CSV Quantification</code>.</li>
+<li>Click <code>Import CSV</code>.</li>
+<li>Select one CSV file or multiple CSV files.</li>
+<li>Review the file table for row count, required-column detection, and processing status.</li>
+<li>Click <code>Process CSV</code>.</li>
+<li>Select a processed row in the table to view the quick summary and generate plots.</li>
 </ol>
+<p>For each processed input file, the plugin writes an Excel workbook next to the original CSV:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>calculated_&lt;original_filename_without_extension&gt;.xlsx
+</pre></div>
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>117.csv -&gt; calculated_117.xlsx
+</pre></div>
+</code></pre>
+<p>When multiple files are processed together, the plugin also writes:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>combined_myelin_quantification_summary.xlsx
+</pre></div>
+</code></pre>
+<h3>Calculated Columns</h3>
+<p>The CSV workflow assumes:</p>
 <ul>
-<li>Plugins → Myelin Rings: Quantify</li>
+<li><code>2D Filled Area (µm²)</code> is the outer filled fiber area.</li>
+<li><code>2D Area (µm²)</code> is the myelin ring area.</li>
+<li><code>AxonArea</code> is the inner axon area.</li>
 </ul>
-<ol start="4">
-<li>Adjust filtering parameters:</li>
-</ol>
+<p>Calculated columns:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>MyelinatedArea = 2D Filled Area (µm²)
+AxonArea = MyelinatedArea - 2D Area (µm²)
+Rout µm = sqrt(MyelinatedArea / pi)
+Rin µm = sqrt(AxonArea / pi)
+thickness (Myelin) = Rout µm - Rin µm
+G-ratio = Rin µm / Rout µm
+Axon Diameter µm = Rin µm * 2
+</pre></div>
+</code></pre>
+<p>Myelin thickness is the radius difference, not the diameter difference.</p>
+<h3>Validity Checks</h3>
+<p>Each row is marked with:</p>
 <ul>
-<li>
-<p>Minimum ring area</p>
-</li>
-<li>
-<p>Minimum lumen area</p>
-</li>
-<li>
-<p>Exclude border objects (recommended)</p>
-</li>
+<li><code>Valid Measurement</code></li>
+<li><code>Validity Note</code></li>
 </ul>
-<ol start="5">
-<li>
-<p>Run quantification.</p>
-</li>
-<li>
-<p>Optional: open Plugins → Myelin Rings: Locate by ID to jump to a specific <code>ring_id</code>.</p>
-</li>
-<li>
-<p>Export CSV.</p>
-</li>
-<li>
-<p>Perform statistical analysis in Python, R, or Excel.</p>
-</li>
+<p>A row is valid only when:</p>
+<ul>
+<li><code>2D Filled Area (µm²) &gt; 2D Area (µm²)</code></li>
+<li><code>AxonArea &gt; 0</code></li>
+<li><code>Rout µm &gt; 0</code></li>
+<li><code>Rin µm &gt;= 0</code></li>
+<li><code>G-ratio</code> is finite</li>
+<li><code>G-ratio</code> is between <code>0</code> and <code>1</code></li>
+</ul>
+<p>Invalid rows are kept in the output and annotated with the reason in <code>Validity Note</code>.</p>
+<h3>Axon Size Classes</h3>
+<p>The CSV workflow adds <code>Axon Size Class</code>:</p>
+<ul>
+<li><code>Thin</code>: <code>Axon Diameter µm &lt; 1.0</code></li>
+<li><code>Medium</code>: <code>1.0 &lt;= Axon Diameter µm &lt; 3.0</code></li>
+<li><code>Thick</code>: <code>Axon Diameter µm &gt;= 3.0</code></li>
+<li><code>Invalid</code>: invalid measurements</li>
+</ul>
+<h3>Excel Output</h3>
+<p>Each processed workbook contains:</p>
+<ul>
+<li><code>Processed_Data</code>: original CSV columns plus calculated columns.</li>
+<li><code>Summary</code>: one-row summary statistics for the source file.</li>
+</ul>
+<p>Summary statistics include total, valid, and invalid object counts; mean, median, standard deviation, minimum, and maximum G-ratio; mean and median myelin thickness; and mean, median, minimum, and maximum axon diameter.</p>
+<h3>Plots</h3>
+<p>The CSV panel can generate:</p>
+<ul>
+<li>G-ratio histogram</li>
+<li>Axon diameter histogram</li>
+<li>Myelin thickness histogram</li>
+<li>G-ratio vs axon diameter scatter plot</li>
+<li>G-ratio vs myelin thickness scatter plot</li>
+<li>G-ratio by axon size class boxplot</li>
+</ul>
+<h2>Typical Mask Workflow</h2>
+<ol>
+<li>Load your mask into napari.</li>
+<li>If needed, use <code>Quick Mask Prep</code>.</li>
+<li>Open <code>Plugins -&gt; Myelin Rings: Quantify</code>.</li>
+<li>Adjust filtering parameters, such as minimum ring area, minimum lumen area, and border exclusion.</li>
+<li>Run quantification.</li>
+<li>Optionally open <code>Plugins -&gt; Myelin Rings: Locate by ID</code> to jump to a specific <code>ring_id</code>.</li>
+<li>Export the mask measurement CSV.</li>
+<li>Optionally process compatible CSV measurements with <code>CSV Quantification</code>.</li>
 </ol>
-<p>Interface</p>
-<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/interface.PNG" alt="Interface " /></p>
+<p>Interface:</p>
+<p><img src="https://github.com/wulinteousa2-hash/napari-myelin-quantifier/blob/main/docs/images/interface.PNG" alt="Interface" /></p>
+<h2>Notes</h2>
+<p>Area-derived diameter, radius, thickness, and G-ratio values assume approximately circular cross-sections. For highly irregular axons, inspect area-based values and validity notes before interpreting derived morphometrics.</p>
+<h2>Development</h2>
+<p>Run tests from the repository root:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest
+</pre></div>
+</code></pre>
 <h2>Acknowledgements</h2>
 <p>Example microscopy data used in documentation were generated by the <strong>Bo Hu Lab</strong>, Houston Methodist Research Institute.</p>
 <p>Imaging hardware and infrastructure support were provided by the <strong>Electron Microscopy Core</strong>, directed by <strong>István Katona</strong>, Houston Methodist Research Institute.</p>
 <h2>Contributing</h2>
 <p>Contributions are welcome. Please ensure tests pass before submitting pull requests.</p>
-<p>License</p>
+<h2>License</h2>
 <p>MIT License.</p>
 
 
@@ -396,7 +443,7 @@ field so you can run quantification immediately.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.2.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -406,7 +453,7 @@ field so you can run quantification immediately.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-26</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-11</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -503,7 +550,7 @@ field so you can run quantification immediately.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
                                             </div>
                                         </div>
                                     </div>
