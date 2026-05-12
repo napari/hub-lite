@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.2.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.3.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-11</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-12</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">xlrd</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -214,12 +214,14 @@
 <a href="https://pypi.org/project/napari-myelin-quantifier"><img src="https://img.shields.io/pypi/v/napari-myelin-quantifier.svg?color=green" alt="PyPI" /></a>
 <a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-myelin-quantifier.svg?color=green" alt="Python Version" /></a>
 <a href="https://napari-hub.org/plugins/napari-myelin-quantifier"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-myelin-quantifier" alt="napari hub" /></a></p>
-<p><code>napari-myelin-quantifier</code> is a napari plugin for 2D myelinated axon analysis. It supports two related workflows:</p>
+<p><code>napari-myelin-quantifier</code> is a napari plugin for 2D myelinated axon analysis. It supports three related workflows:</p>
 <ul>
 <li>Detect and quantify myelin rings from binary mask layers in napari.</li>
 <li>Import raw label/object measurement CSV files and calculate myelin morphometric features into Excel workbooks.</li>
+<li>Build study-level analyses from raw CSV or calculated Excel files, compare blinded/final groups, and export combined study results.</li>
 </ul>
-<p>Current version: <code>1.2.1</code></p>
+<p>Current version: <code>1.3.1</code></p>
+<p>Version <code>1.3.1</code> adds study-level CSV/Excel analysis, filename-based sample IDs for blinded files such as <code>119.csv</code>, resumable imports from <code>calculated_*.xlsx</code>, direct two- or three-way comparison plots, PCA/k-means, and user-selected output folders.</p>
 <h2>Installation</h2>
 <p>Install from PyPI:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-myelin-quantifier
@@ -234,11 +236,12 @@
 </pre></div>
 </code></pre>
 <h2>Plugin Panels</h2>
-<p>The plugin contributes three napari widgets:</p>
+<p>The plugin contributes four napari widgets:</p>
 <ul>
 <li><code>Myelin Rings: Quantify</code></li>
 <li><code>Myelin Rings: Locate by ID</code></li>
 <li><code>CSV Quantification</code></li>
+<li><code>CSV Study Analysis</code></li>
 </ul>
 <p>Open them from the napari menu:</p>
 <pre><code class="language-text"><div class="highlight"><pre><span></span>Plugins -&gt; Myelin Quantifier
@@ -401,6 +404,60 @@ Axon Diameter µm = Rin µm * 2
 <li>G-ratio vs myelin thickness scatter plot</li>
 <li>G-ratio by axon size class boxplot</li>
 </ul>
+<h2>CSV Study Analysis Workflow</h2>
+<p>Use <code>CSV Study Analysis</code> when you want to compare multiple samples, assign blind and final group labels, resume from calculated Excel files, make group plots, run PCA/k-means, or export one study workbook.</p>
+<p>Supported inputs:</p>
+<ul>
+<li>raw measurement <code>.csv</code> files</li>
+<li>processed <code>calculated_*.xlsx</code> workbooks from this plugin</li>
+<li>compatible Excel workbooks containing a <code>Processed_Data</code> sheet with calculated columns</li>
+</ul>
+<p>This means you can reopen a study later by importing the already calculated Excel files instead of processing raw CSV files again.</p>
+<h3>Study Setup</h3>
+<ol>
+<li>Open <code>Plugins -&gt; Myelin Quantifier -&gt; CSV Study Analysis</code>.</li>
+<li>Click <code>Import CSV / Excel</code>.</li>
+<li>Select raw CSV files, calculated Excel files, or a mix of both.</li>
+<li>Optionally click <code>Set Output Folder</code> to choose where newly calculated Excel files and study exports should be saved.</li>
+<li>Review or edit sample metadata in the import table:
+<ul>
+<li><code>Sample ID</code></li>
+<li><code>Animal ID</code></li>
+<li><code>Image ID</code></li>
+<li><code>Blind Group</code></li>
+<li><code>Final Group</code></li>
+</ul>
+</li>
+<li>Use the <code>Include</code> checkbox to control which samples enter summaries, plots, PCA, and exports.</li>
+<li>Click <code>Process Selected</code> or <code>Process All</code>.</li>
+</ol>
+<p>Calculated Excel files are loaded as already processed samples. Raw CSV files are processed into <code>calculated_&lt;name&gt;.xlsx</code> in the selected output folder, or next to the source CSV if no output folder is set.</p>
+<p>By default, <code>Sample ID</code> is taken from the filename so existing blinded sample codes are preserved. For example, <code>119.csv</code> becomes <code>119</code>, <code>S119.csv</code> becomes <code>S119</code>, and <code>calculated_119.xlsx</code> becomes <code>119</code>. Enable <code>Prefix numeric IDs with S</code> if you prefer numeric filenames such as <code>119.csv</code> to display as <code>S119</code>.</p>
+<h3>Traditional Comparisons</h3>
+<p>The <code>Compare</code> tab is for direct two- or three-way comparisons without PCA.</p>
+<p>You can compare by:</p>
+<ul>
+<li><code>Sample ID</code></li>
+<li><code>Blind Group</code></li>
+<li><code>Final Group</code></li>
+</ul>
+<p>Choose comparison values A, B, and optionally C, then generate:</p>
+<ul>
+<li>overlay histograms</li>
+<li>boxplots</li>
+<li>G-ratio vs axon diameter scatter overlays</li>
+<li>G-ratio vs myelin thickness scatter overlays</li>
+</ul>
+<p>This is intended for straightforward subject-vs-subject, blind-group, or final-group comparisons with overlapping plots.</p>
+<h3>Study Outputs</h3>
+<p>The <code>Export</code> tab can write:</p>
+<ul>
+<li>full study workbook</li>
+<li>combined object-level CSV</li>
+<li>sample-level summary CSV</li>
+<li>PCA/cluster results CSV</li>
+</ul>
+<p>The study workbook contains object-level data, sample-level summaries, PCA/cluster results when available, and analysis metadata.</p>
 <h2>Typical Mask Workflow</h2>
 <ol>
 <li>Load your mask into napari.</li>
@@ -443,7 +500,7 @@ Axon Diameter µm = Rin µm * 2
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.2.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.3.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -453,7 +510,7 @@ Axon Diameter µm = Rin µm * 2
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-11</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-12</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -550,7 +607,7 @@ Axon Diameter µm = Rin µm * 2
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">pandas</li><li class="MetadataList_textItem__KKmMN">openpyxl</li><li class="MetadataList_textItem__KKmMN">xlrd</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">magicgui</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">scikit-learn</li><li class="MetadataList_textItem__KKmMN">napari[all]; extra == "all"</li></ul>
                                             </div>
                                         </div>
                                     </div>
