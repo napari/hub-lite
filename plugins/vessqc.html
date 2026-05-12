@@ -4,18 +4,18 @@
 
 <head>
     <meta charset="utf-8" />
-    <link href="../plugins/VessQC.html" rel="canonical" />
+    <link href="../plugins/vessqc.html" rel="canonical" />
     <meta content="width=device-width,initial-scale=1" name="viewport" />
     <meta
-        content="VessQC, Peter Lampen, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
+        content="vessqc, Peter Lampen, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="Quality control plugin for vessel segmentation in napari" name="description" />
-    <meta content="Quality control plugin for vessel segmentation in napari" property="og:description" />
-    <meta content="Quality control plugin for vessel segmentation in napari." name="twitter:description" />
+    <meta content="Napari plugin for uncertainty-based quality control of 3D vessel segmentations" name="description" />
+    <meta content="Napari plugin for uncertainty-based quality control of 3D vessel segmentations" property="og:description" />
+    <meta content="Napari plugin for uncertainty-based quality control of 3D vessel segmentations." name="twitter:description" />
     <meta content="VessQC - napari Plugin - Peter Lampen" property="og:title" />
     <meta content="VessQC - napari Plugin - Peter Lampen" name="twitter:title" />
     <meta content="article" property="og:type" />
-    <meta content="../plugins/VessQC.html" property="og:url" />
+    <meta content="../plugins/vessqc.html" property="og:url" />
     <meta content="@napari_imaging" name="twitter:site" />
     <title>VessQC - napari Plugin - Peter Lampen</title>
 
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.8.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.9.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-08-20</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-12</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                                 
    <div class="flex items-center" style="gap: 20px; ; align-items: center;"">
         <a class="underline flex" href="https://pypi.org/project/vessqc/" rel="noreferrer" target="_blank">
-        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">VessQC</span>
+        <img src="../static/images/PyPI_logo.svg.png" alt="PyPI" style="height: 42px;" /><span style="padding-top: 10px; padding-left: 10px;">vessqc</span>
     </a>
     
         <a class="underline flex" href="https://github.com/MMV-Lab/VessQC" rel="noreferrer" target="_blank">
@@ -183,7 +183,7 @@
         </div>
 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">Quality control plugin for vessel segmentation in napari</h2>
+                                    <h2 class="text-lg">Napari plugin for uncertainty-based quality control of 3D vessel segmentations</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -216,33 +216,163 @@
 <a href="https://github.com/MMV-Lab/VessQC/actions"><img src="https://github.com/MMV-Lab/VessQC/workflows/tests/badge.svg" alt="tests" /></a>
 <a href="https://codecov.io/gh/MMV-Lab/VessQC"><img src="https://codecov.io/gh/MMV-Lab/VessQC/branch/main/graph/badge.svg" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/VessQC"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/VessQC" alt="napari hub" /></a></p>
-<p>A plugin for a vessel quality check</p>
+<p>A napari plugin for uncertainty-based quality control and manual correction of 3D blood vessel segmentations.</p>
 <hr />
-<p>This <a href="https://github.com/napari/napari">napari</a> plugin was generated with <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> using <a href="https://github.com/napari">@napari</a>'s <a href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.</p>
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
+<h2>Overview</h2>
+<p>VessQC is a plugin for the image viewer <a href="https://github.com/napari/napari">napari</a>.
+It is designed for the inspection and correction of 3D vessel segmentations generated by machine-learning pipelines.</p>
+<p>The plugin combines:</p>
+<ul>
+<li>visualization of image, segmentation, and uncertainty data,</li>
+<li>automatic grouping of uncertain regions into segments,</li>
+<li>interactive review of suspicious regions,</li>
+<li>manual correction of segmentation masks,</li>
+<li>export of corrected segmentation results.</li>
+</ul>
+<p>The plugin is particularly useful for workflows in which:</p>
+<ul>
+<li>a neural network generates vessel segmentations,</li>
+<li>uncertainty maps are available,</li>
+<li>only uncertain regions should be reviewed manually.</li>
+</ul>
+<hr />
+<h2>Screenshot</h2>
+<p><img src="docs/images/vessqc_screenshot.png" alt="VessQC user interface" /></p>
+<hr />
 <h2>Installation</h2>
-<p>You can install <code>VessQC</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">VessQC</span>
+<p>Install the released version from PyPI:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>VessQC
 </pre></div>
 </code></pre>
-<p>To install latest development version :</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">MMV</span><span class="o">-</span><span class="n">Lab</span><span class="o">/</span><span class="n">VessQC</span><span class="o">.</span><span class="n">git</span>
+<p>Install the latest development version from GitHub:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/MMV-Lab/VessQC.git
 </pre></div>
 </code></pre>
+<hr />
+<h2>Input Data</h2>
+<p>VessQC expects three volumetric datasets:</p>
+<ol>
+<li>Original image data</li>
+<li>Predicted vessel segmentation (<code>*_segPred</code>)</li>
+<li>Uncertainty map (<code>*_uncertainty</code>)</li>
+</ol>
+<p>Supported file formats:</p>
+<ul>
+<li>TIFF (<code>.tif</code>, <code>.tiff</code>)</li>
+<li>NIfTI (<code>.nii</code>, <code>.nii.gz</code>)</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Sample_IM.tif
+Sample_segPred.tif
+Sample_uncertainty.tif
+</pre></div>
+</code></pre>
+<hr />
+<h2>Usage</h2>
+<h3>1. Load the image</h3>
+<p>Press:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Load image
+</pre></div>
+</code></pre>
+<p>and select the original 3D image.</p>
+<hr />
+<h3>2. Load segmentation and uncertainty data</h3>
+<p>Press:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Read segPred file
+</pre></div>
+</code></pre>
+<p>The plugin automatically searches for matching:</p>
+<ul>
+<li><code>*_segPred</code></li>
+<li><code>*_uncertainty</code></li>
+</ul>
+<p>files in the same directory.</p>
+<p>The uncertainty map is segmented into connected uncertain regions.</p>
+<hr />
+<h3>3. Review uncertain segments</h3>
+<p>Press:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Show list of segments
+</pre></div>
+</code></pre>
+<p>A separate window displays all detected uncertain regions.</p>
+<p>For each segment the following information is shown:</p>
+<ul>
+<li>segment name,</li>
+<li>uncertainty value,</li>
+<li>voxel count,</li>
+<li>processing state.</li>
+</ul>
+<hr />
+<h3>4. Inspect a segment</h3>
+<p>Click a segment button to:</p>
+<ul>
+<li>zoom into the corresponding region,</li>
+<li>crop the surrounding image data,</li>
+<li>display the local segmentation,</li>
+<li>center the viewer on the selected segment.</li>
+</ul>
+<hr />
+<h3>5. Correct the segmentation</h3>
+<p>Use the standard napari label editing tools to:</p>
+<ul>
+<li>add missing vessel voxels,</li>
+<li>remove incorrect voxels,</li>
+<li>refine the segmentation mask.</li>
+</ul>
+<p>After correction press:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>done
+</pre></div>
+</code></pre>
+<p>The modifications are transferred back into:</p>
+<ul>
+<li>the segmentation volume,</li>
+<li>the uncertainty map,</li>
+<li>the internal label representation.</li>
+</ul>
+<hr />
+<h3>6. Save the result</h3>
+<p>Press:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Save final result
+</pre></div>
+</code></pre>
+<p>The corrected segmentation is written to disk as:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>*_segPred_New.tif
+</pre></div>
+</code></pre>
+<p>Optionally the corrected uncertainty map can also be saved.</p>
+<hr />
+<h2>Intermediate Data</h2>
+<p>VessQC can store intermediate processing results in the temporary directory.</p>
+<p>The following data are saved:</p>
+<ul>
+<li>segmentation volume,</li>
+<li>uncertainty volume,</li>
+<li>label volume,</li>
+<li>segment metadata.</li>
+</ul>
+<p>This allows interrupted curation sessions to be resumed later.</p>
+<hr />
+<h2>Development</h2>
+<p>Run the test suite with:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pytest
+</pre></div>
+</code></pre>
+<hr />
 <h2>Contributing</h2>
-<p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
+<p>Contributions and bug reports are welcome.</p>
+<p>Please include:</p>
+<ul>
+<li>a detailed problem description,</li>
+<li>steps to reproduce the issue,</li>
+<li>example data if possible.</li>
+</ul>
+<hr />
 <h2>License</h2>
-<p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license,
-&quot;VessQC&quot; is free and open source software</p>
-<h2>Issues</h2>
-<p>If you encounter any problems, please <a href="https://github.com/MMV-Lab/VessQC/issues">file an issue</a> along with a detailed description.</p>
+<p>Distributed under the terms of the BSD-3 license.</p>
+<hr />
+<h2>Repository</h2>
+<p>GitHub repository:</p>
+<p><a href="https://github.com/MMV-Lab/VessQC">https://github.com/MMV-Lab/VessQC</a></p>
 
 
                                     </div>
@@ -258,7 +388,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.8.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.9.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -268,7 +398,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-08-20</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-12</li>
                                                 </ul>
                                             </div>
                                         </div>
