@@ -10,20 +10,12 @@ templates and CSS templates required to build the web pages.
 
 ![](./static/images/napari_hub_lite_snapshot.png)
 
-The `fetch_napari_data.py` script queries [npe2api](https://github.com/napari/npe2api) for plugin information including PyPI/conda info and individual plugin manifests.
-
-The `create_static_html_files.py` script uses this data to generate HTML files for each individual plugin page as well as for the plugin listing on the website's homepage.
-
-The `plugin_loading_and_search.js` script contains functions for loading the main plugin list and searching.
-
-The `build_and_deploy.yml` workflow builds the website using the above scripts and deploys it to GitHub pages.
-
 ## How the site works
 
 The site is a static build with a small Python-based generator.
 
 1. `build_site.py` orchestrates the local build, copies shared assets into `_build/`, and runs the data and HTML generation steps.
-2. `fetch_napari_data.py` fetches plugin data from `npe2api` and PyPI, then writes build data into `_build/data/`.
+2. `fetch_napari_data.py` fetches plugin data from [npe2api](https://github.com/napari/npe2api) for plugin information including PyPI/conda info and individual plugin manifests, then writes build data into `_build/data/`.
 3. `create_static_html_files.py` reads `_build/data/plugin_page_data.json` and generates:
 	- `_build/plugins/*.html` for individual plugin pages
 	- `_build/plugins_list.html` for the homepage plugin list
@@ -39,36 +31,34 @@ The key implementation surfaces are:
 - `static/js/plugin_loading_and_search.js`: homepage interactivity
 - `static/css/`: copied styling assets used by the generated pages
 
-`build_site.py` is the implementation layer. `pixi` calls it directly from
-`pyproject.toml`, and the `Makefile` stays in place as a small compatibility wrapper
-for contributors and CI that still expect `make all` or `make serve-local`.
-
 ## Local Development
 
-### Recommended: pixi
+### Quick Start with pixi:
 
-[Pixi](https://pixi.sh) is the easiest cross-platform way to build the site locally, especially on Windows.
-
-1. [Install pixi](https://pixi.sh/latest/installation/).
-2. From the repository root, install the environment:
-
+To build the website locally:
 ```sh
-pixi install
-```
-
-3. Build the site:
-
-```sh
+# install pixi if you don't have it already
 pixi run build
 ```
-
-4. Serve the generated site locally:
-
+or to serve the site locally in your browser:
 ```sh
 pixi run serve-local
 ```
 
-Useful pixi tasks:
+### Development Workflow
+
+All tasks are available through `build_site.py` and can be run with `uv`, `pixi`, or make. The tasks are:
+
+- `clean`: deletes the `_build/` directory and everything inside it, so use with caution. This is the first step in a full build, but you can also run it separately if you want to start from a clean slate.
+- `prep`: copies static assets into `_build/` and prepares the build environment, but does not run the data fetching or HTML generation steps, so it is fast to run and can be used before `fetch-data` or `create-html` for iterative development.
+- `fetch-data`: runs the data fetching step, which can be slow due to the number of plugins and API calls, but is only needed when plugin data changes.
+- `create-html`: runs the data fetching and HTML generation steps, but does not clean or copy static assets, so it is faster for iterative development.
+
+### Recommended: pixi
+
+[Pixi](https://pixi.sh) is the easiest cross-platform way to build the site locally.
+
+Useful tasks:
 
 - `pixi run clean`
 - `pixi run prep`
@@ -77,90 +67,13 @@ Useful pixi tasks:
 - `pixi run build`
 - `pixi run serve-local`
 
-These pixi tasks intentionally mirror the existing `make` targets so the review surface
-stays small, even though they now call the Python build helper directly.
-
-The single source of truth for both Pixi and Python dependencies is now
-`pyproject.toml`.
-
 ### Alternative: uv
 
-If you prefer a Python-native workflow without Pixi, use `uv` against the same
-`pyproject.toml` manifest.
+If you prefer a Python-native workflow without Pixi, use [`uv`](https://docs.astral.sh/uv/getting-started/installation/) against the same
+`pyproject.toml` manifest. This uses the commands that make wraps, so the underlying Python scripts are the same as with Pixi. E.g.
 
-1. [Install uv](https://docs.astral.sh/uv/getting-started/installation/).
-2. Sync the development environment:
-
-```sh
-uv sync --group dev
-```
-
-3. Build the site:
-
-```sh
-uv run python build_site.py all
-```
-
-4. Serve the generated site locally:
-
-```sh
-uv run python build_site.py serve-local
-```
-
-This repository is not packaged as an installable Python distribution, so the
-intended modern non-Pixi workflow is `uv sync` plus `uv run` rather than a
-legacy `requirements.txt` install.
-
-### Building the Website
-
-To build the website locally use:
-
-```sh
-# this deletes the `_build` directory and everything inside it
-make clean
-
-# this runs the required Python scripts and populates the `_build` directory
-make all
-```
-
-The main commands are still:
-
-```sh
-make clean
-make prep
-make fetch-data
-make create-html
-make all
-```
-
-Those `make` commands are thin wrappers around:
-
-```sh
-python build_site.py clean
-python build_site.py prep
-python build_site.py fetch-data
-python build_site.py create-html
-python build_site.py all
-```
-
-If you want to inspect or update dependency definitions, edit `pyproject.toml`
-rather than a separate `requirements.txt` or `pixi.toml`.
-
-### Serving the Website Locally
-
-To serve the website locally in your browser use:
-
-```sh
-make serve-local
-```
-
-Or directly:
-
-```sh
-pixi run serve-local
-```
-
-By default the server runs at `http://127.0.0.1:8000`.
+- `uv run python build_site.py all`
+- `uv run python build_site.py serve-local`
 
 ### Acknowledgments
 
