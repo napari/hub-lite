@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.2.12</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.2.13</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-12</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-13</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -222,6 +222,14 @@
 <li>large OME-Zarr and TIFF segmentation through local ROI inference</li>
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
+</ul>
+<h2>What's New in 4.2.13</h2>
+<p>Version 4.2.13 fixes result-layer writing for 2D SAM3 outputs produced from 3D image slices.</p>
+<ul>
+<li>Fixed a napari <code>ValueError</code> when 2D exemplar or segmentation results were written from a 3D source image with 3D layer transforms.</li>
+<li>Result labels now keep the spatial Y/X transform from the source layer while dropping transform components that do not match the 2D output layer.</li>
+<li>Fixed 2D exemplar ROI cropping on 3D stacks so the exemplar patch comes from the current viewer frame.</li>
+<li>Added a regression test covering 2D global-image labels written from a 3D source image.</li>
 </ul>
 <h2>What's New in 4.2.12</h2>
 <p>Version 4.2.12 adds an external crop exemplar workflow for large-image tiled scans. Select the large image as <code>Target image to scan</code>, choose a separate crop image as the exemplar source, then scan the target image tile by tile without needing to spatially register the crop back to the large image.</p>
@@ -1008,7 +1016,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.2.12</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.2.13</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1018,7 +1026,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-12</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-13</li>
                                                 </ul>
                                             </div>
                                         </div>
