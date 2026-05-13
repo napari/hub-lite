@@ -13,24 +13,23 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            - v1-dependencies-
+            - v1-pixi-{{ checksum "pixi.lock" }}
+            - v1-pixi-
       - run:
-          name: Install dependencies
+          name: Install pixi
           command: |
-            python -m venv .venv
-            . .venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
+            curl -fsSL https://pixi.sh/install.sh | sh
+            export PATH="$HOME/.pixi/bin:$PATH"
+            pixi install --locked
       - save_cache:
           paths:
-            - .venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+            - .pixi
+          key: v1-pixi-{{ checksum "pixi.lock" }}
       - run:
           name: Build static site
           command: |
-            . .venv/bin/activate
-            make all
+            export PATH="$HOME/.pixi/bin:$PATH"
+            pixi run build
       - store_artifacts:
           path: _build
           destination: build-artifacts
@@ -48,24 +47,23 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            - v1-dependencies-
+            - v1-pixi-{{ checksum "pixi.lock" }}
+            - v1-pixi-
       - run:
-          name: Install dependencies
+          name: Install pixi
           command: |
-            python -m venv .venv
-            . .venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
+            curl -fsSL https://pixi.sh/install.sh | sh
+            export PATH="$HOME/.pixi/bin:$PATH"
+            pixi install --locked
       - save_cache:
           paths:
-            - .venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+            - .pixi
+          key: v1-pixi-{{ checksum "pixi.lock" }}
       - run:
           name: Build static site
           command: |
-            . .venv/bin/activate
-            make all
+            export PATH="$HOME/.pixi/bin:$PATH"
+            pixi run build
 
 workflows:
   version: 2
