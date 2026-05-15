@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-07</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-15</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,8 +213,8 @@
                                         <p>Task-based electron microscopy image processing tools for napari.</p>
 <p><code>napari-em-assistant</code> is organized around small, explicit processing tasks that
 can be used interactively on an active napari layer or applied to folders of EM
-images. The first task is ImageJ/Fiji-style local contrast enhancement with
-CLAHE.</p>
+images. The first tasks are ImageJ/Fiji-style local contrast enhancement with
+CLAHE and frictionless 2D/3D image cropping.</p>
 <h2>Current Task</h2>
 <h3>Enhance Local Contrast CLAHE</h3>
 <p>The CLAHE task provides a napari widget for 2D grayscale EM images and 3D
@@ -249,8 +249,11 @@ transfer overhead and is not yet a fully optimized CUDA CLAHE kernel.</li>
 <p>The acceleration bar shows the active mode for the selected backend. Detailed
 CuPy/OpenCV CUDA availability is still available in the tooltip for diagnostics.</p>
 <p>OpenCV CLAHE parameters are not identical to ImageJ/Fiji CLAHE parameters.
-Use <code>imagej_reference</code> when Fiji-style output is the priority. Current OpenCV
-and CuPy paths should be treated as practical approximations.</p>
+The OpenCV backend is faster, but it rescales the ImageJ-style <code>maximum slope</code>
+before passing it as OpenCV <code>clipLimit</code> for a more ImageJ-like user experience;
+<code>maximum slope</code> values up to <code>1</code> apply no enhancement in the OpenCV backend. Use
+<code>imagej_reference</code> when Fiji-style output is the priority. Current OpenCV and
+CuPy paths should be treated as practical approximations.</p>
 <h2>Install</h2>
 <p>From this repository:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
@@ -270,6 +273,26 @@ package manually and keep the base plugin install CPU-only.</p>
 </code></pre>
 <p>For interactive use, select a 2D grayscale image layer or 3D grayscale stack and
 use <code>Preview</code> or <code>Apply to Active Layer</code>.</p>
+<h3>Crop Image</h3>
+<p>The crop task provides a compact widget for 2D images and 3D grayscale stacks.
+It is organized around four imaging workflows: crop from a drawn ROI, tile by
+total tile count, tile by pixel size, and advanced coordinate cropping. A progress bar reports
+saved or created crop pieces as <code>completed / total</code>.
+The widget asks for confirmation before likely mistakes, including very tiny
+crops from a large source image/stack and operations that would save more than
+1000 crop TIFF files.</p>
+<p>For detailed step-by-step crop workflows, see
+<a href="src/napari_em_assistant/tasks/crop_image/README.md">src/napari_em_assistant/tasks/crop_image/README.md</a>.</p>
+<p>For large images, choose a save folder and use either tiling workflow:</p>
+<ul>
+<li><code>Tile by Total Count</code>: enter the total number of output tiles wanted. The
+plugin chooses a near-even Y/X grid automatically and keeps full Z depth for
+3D stacks. For example, <code>6</code> creates six image tiles.</li>
+<li><code>Tile by Pixel Size</code>: save tiles with the requested output dimensions. For
+example, a <code>6000 x 6000 x 500</code> stack with <code>z size = 0</code>, <code>y size = 2000</code>, and
+<code>x size = 2000</code> writes nine <code>500 x 2000 x 2000</code> stack tiles. <code>z size = 0</code>
+keeps the full Z depth in every tile.</li>
+</ul>
 <p>For batch use, choose an input folder containing 2D images or 3D grayscale
 stacks saved as <code>.tif</code> or <code>.tiff</code> files, choose an output folder, select a
 backend, and run the batch. Outputs are saved as:</p>
@@ -308,7 +331,7 @@ backend, and run the batch. Outputs are saved as:</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -318,7 +341,7 @@ backend, and run the batch. Outputs are saved as:</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-07</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-15</li>
                                                 </ul>
                                             </div>
                                         </div>
