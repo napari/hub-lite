@@ -10,7 +10,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parent
 DEFAULT_BUILD_DIR = ROOT / "_build"
 ASSET_DIRS = (
@@ -51,7 +50,9 @@ def require_environment() -> None:
         print("Managed Python environment detected.")
         return
 
-    raise SystemExit("Please activate a virtual environment first (venv, conda, or pixi).")
+    raise SystemExit(
+        "Please activate a virtual environment first (venv, conda, or pixi)."
+    )
 
 
 def copy_tree(source: Path, destination: Path) -> None:
