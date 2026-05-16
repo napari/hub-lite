@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.3.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.3.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
 
                                         <h1>napari-sam3-assistant</h1>
 <p><img src="docs/ui.png" alt="napari-sam3-assistant UI" /></p>
-<p><code>napari-sam3-assistant</code> is a napari plugin for Segment Anything Model 3 (SAM3) image segmentation. Version 4.3.2 adds large-mask cleanup regions and more reliable BigTIFF export for huge tiled exemplar masks.</p>
+<p><code>napari-sam3-assistant</code> is a napari plugin for Segment Anything Model 3 (SAM3) image segmentation. Version 4.3.3 adds a critical transform fix for 2D exemplar workflows on transformed 3D image layers.</p>
 <p>The plugin focuses on task-based segmentation workflows:</p>
 <ul>
 <li>2D segmentation with text, box, point, and mask-style prompts</li>
@@ -223,9 +223,11 @@
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
 </ul>
-<h2>What's New in 4.3.2</h2>
-<p>Version 4.3.2 keeps the 4.3.1 OME-Zarr alignment fixes and adds focused improvements for huge full-image masks after tiled exemplar scans.</p>
+<h2>What's New in 4.3.3</h2>
+<p>Version 4.3.3 keeps the 4.3.2 large-mask cleanup and BigTIFF export updates, and fixes a critical napari transform crash in 2D exemplar workflows on transformed 3D image layers.</p>
 <ul>
+<li>Simple and Advanced prompt-layer geometry copying is now dimension-aware. A 2D exemplar prompt or preview layer created from a 3D source image keeps compatible spatial Y/X geometry and skips incompatible 3D affine transforms.</li>
+<li>This fixes a napari transform matrix mismatch that could occur immediately after clicking exemplar tools on 3D image data represented as separate channel layers.</li>
 <li>Mask Cleanup <code>Components</code> now includes a <code>Working Region</code> section. Users can analyze the full mask, a manual Y/X ROI, or a drawn Shapes ROI.</li>
 <li>Working-region cleanup builds the fast component index only for the selected ROI, then writes delete/assign/cleanup edits back into the original full-size mask at the correct coordinates.</li>
 <li>ROI edits use ROI-sized undo snapshots, reducing the cost of repeated local cleanup on very large masks.</li>
@@ -967,7 +969,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.3.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.3.3</li>
                                                 </ul>
                                             </div>
                                         </div>
