@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.3.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.3.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-15</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-16</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">pillow</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">pillow</li><li class="MetadataList_textItem__KKmMN">tifffile</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +212,7 @@
 
                                         <h1>napari-sam3-assistant</h1>
 <p><img src="docs/ui.png" alt="napari-sam3-assistant UI" /></p>
-<p><code>napari-sam3-assistant</code> is a napari plugin for Segment Anything Model 3 (SAM3) image segmentation. Version 4 adds a two-mode interface: <code>Simple</code> for guided image segmentation and <code>Advanced</code> for the original full Step 1 to Step 6 workflow.</p>
+<p><code>napari-sam3-assistant</code> is a napari plugin for Segment Anything Model 3 (SAM3) image segmentation. Version 4.3.2 adds large-mask cleanup regions and more reliable BigTIFF export for huge tiled exemplar masks.</p>
 <p>The plugin focuses on task-based segmentation workflows:</p>
 <ul>
 <li>2D segmentation with text, box, point, and mask-style prompts</li>
@@ -223,18 +223,15 @@
 <li>Live Points with positive and negative prompts</li>
 <li>downstream mask cleanup, merge, and export operations</li>
 </ul>
-<h2>What's New in 4.3.1</h2>
-<p>Version 4.3.1 focuses on making Simple/Advanced local ROI workflows reliable for transformed OME-Zarr layers and tightening the current Simple Exemplar and Mask Cleanup workflow.</p>
+<h2>What's New in 4.3.2</h2>
+<p>Version 4.3.2 keeps the 4.3.1 OME-Zarr alignment fixes and adds focused improvements for huge full-image masks after tiled exemplar scans.</p>
 <ul>
-<li>Prompt layers now copy the selected image layer geometry. Boxes, points, labels prompts, preview labels, and active ROI overlays stay aligned on OME-Zarr layers with physical scale metadata.</li>
-<li>OME-Zarr local ROI and tiled exemplar workflows now use the same visible coordinates users draw on, avoiding empty SAM3 masks caused by scale/coordinate mismatch.</li>
-<li>Simple remains task-focused with <code>Exemplar</code>, <code>Live Points</code>, <code>3D Multiplex</code>, <code>Cleanup</code>, <code>2D Slice</code>, and <code>Text</code>.</li>
-<li>Simple Exemplar keeps <code>Scan Full Image</code> in the <code>Run</code> panel next to <code>Run Current ROI</code>.</li>
-<li>Simple Exemplar can batch across all Image layers already loaded in napari, and <code>Batch all image layers</code> can be enabled independently from <code>Enable local/tiled inference</code>.</li>
-<li><code>Save Labels</code> and <code>Save &amp;&amp; Clean</code> activate after tiled scan results, and <code>Save &amp;&amp; Clean</code> exports all batch preview mask layers.</li>
-<li>Live Points supports right-click <code>Accept + Clear</code> into <code>SAM3 live accepted labels</code> so users can rapidly accept one-point previews and continue.</li>
-<li>Mask Cleanup right-click delete/assign returns Labels layers to <code>pick</code> mode, and the axon hole click context action no longer crashes on PyQt.</li>
-<li>SAM3.1 is selected automatically for <code>3D Multiplex</code>; 2D task workflows continue to use the SAM3 image model.</li>
+<li>Mask Cleanup <code>Components</code> now includes a <code>Working Region</code> section. Users can analyze the full mask, a manual Y/X ROI, or a drawn Shapes ROI.</li>
+<li>Working-region cleanup builds the fast component index only for the selected ROI, then writes delete/assign/cleanup edits back into the original full-size mask at the correct coordinates.</li>
+<li>ROI edits use ROI-sized undo snapshots, reducing the cost of repeated local cleanup on very large masks.</li>
+<li><code>Save &amp;&amp; Clean</code> now exports huge tiled exemplar labels through BigTIFF using <code>tifffile</code>, preserving <code>uint32</code> label IDs.</li>
+<li>PNG export now rejects label values above <code>65535</code> and directs users to TIFF or NumPy for high-value masks.</li>
+<li>Prompt layers, preview labels, and active ROI overlays still copy selected image-layer geometry so TIFF and OME-Zarr local/tiled workflows stay aligned.</li>
 </ul>
 <p>SAM 3 is not bundled with this plugin. Install the SAM 3 backend and download the SAM 3 model files separately from Meta's Hugging Face repository.</p>
 <h2>Status</h2>
@@ -970,7 +967,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.3.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.3.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -980,7 +977,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-15</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-16</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1077,7 +1074,7 @@ nvrtc: error: invalid value for --gpu-architecture
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">pillow</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">pillow</li><li class="MetadataList_textItem__KKmMN">tifffile</li></ul>
                                             </div>
                                         </div>
                                     </div>
