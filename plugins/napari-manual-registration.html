@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.0.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-06</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-17</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -247,6 +247,7 @@ During the pre-processing stage, dynamical exploration and interaction led to fa
 <img src="imgs/Fig_Napari_registration.png">
 <h2>Installation</h2>
 <p>The plugin obviously requires <a href="https://github.com/napari/napari">napari</a> to run. If you don't have it yet, follow the instructions <a href="https://napari.org/stable/tutorials/fundamentals/installation.html">here</a>.</p>
+<p>Compatible with Python 3.9 to 3.13 (recommended: 3.12).</p>
 <p>The simplest way to install <code>napari-manual-registration</code> is via the <a href="https://github.com/napari/napari">napari</a> plugin manager. Open Napari, go to <code>Plugins &gt; Install/Uninstall Packages...</code> and search for <code>napari-manual-registration</code>. Click on the install button and you are ready to go!</p>
 <p>You can also install <code>napari-manual-registration</code> via <a href="https://pypi.org/project/pip/">pip</a>:</p>
 <pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">napari</span><span class="o">-</span><span class="n">manual</span><span class="o">-</span><span class="n">registration</span>
@@ -338,6 +339,14 @@ Be aware that the visualization does not accomodate for voxel anisotropy, so we 
 <li>Finally, click on the <code>Run fusion</code> button to fuse the registered views and save the fused image. If you checked the <code>Load fused as layer</code> checkbox, the fused image will also be loaded in Napari as a new layer.</li>
 </ol>
 <img src="imgs/export_fuse.png" width="50%">
+<h3>D. Load a JSON file with transformation parameters and apply to loaded views</h3>
+<p>Use this mode to apply a previously saved transformation (from Section C) to the currently selected &quot;Layer to move&quot;. This can be useful if you have multichannel images and you want to apply the same registration transform to all channels by saving the transform parameters as a JSON file and applying it to each channel iteratively. The same principle can be used for temporal images, by applying the same registration transform to each time frame sequentially (even though you might want to use automatic registration in a script, e.g via our <a href="https://github.com/GuignardLab/tapenade/blob/main/src/tapenade/notebooks/registration_notebook.ipynb">registration notebook</a>, to automatically iterate through time frames or channels instead of doing it manually in Napari).</p>
+<ol>
+<li>Load your images in Napari and select the reference and floating layers as usual.</li>
+<li>In the modality drop down menu, select &quot;Load from JSON&quot;.</li>
+<li>Click on the file field to choose the JSON file containing the saved parameters.</li>
+<li>Click on the <code>Apply JSON transform</code> button to apply the transform to the floating layer.</li>
+</ol>
 <h2>Demo dataset</h2>
 <p>A demo dataset is available <a href="https://amubox.univ-amu.fr/s/HLktPNLGgMF4jHT">here</a>.</p>
 <h3>Content</h3>
@@ -378,7 +387,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.0.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -388,7 +397,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-06</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-17</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -466,7 +475,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.8">3.8</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.9">3.9</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
