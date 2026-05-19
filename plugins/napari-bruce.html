@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.4</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.5</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-29</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-19</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -236,7 +236,6 @@
 |-------------------------|--------------------------------------|
 | Windows (native)        | <span class="sb">`env/bruce-env_windows_native.yml`</span>   |
 | macOS (Apple Silicon)   | <span class="sb">`env/bruce-env_macos_arm.yml`</span>        |
-| Linux                   | <span class="sb">`env/bruce-env_linux.yml`</span>            |
 </pre></div>
 </code></pre>
 <p>Open a terminal and run:</p>
@@ -254,12 +253,15 @@ bruce
 
 <span class="c1"># Or launch Bruce directly from napari</span>
 napari<span class="w"> </span>--with<span class="w"> </span>napari-bruce
+
+<span class="c1"># Show help</span>
+bruce<span class="w"> </span>-h
 </pre></div>
 </code></pre>
 <hr />
 <h2>Configuration</h2>
 <p>Bruce stores its configuration in a user-specific JSON file.</p>
-<p>Useful commands:</p>
+<p>Available commands:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Show config file path</span>
 bruce<span class="w"> </span>--show-config-path
 
@@ -273,15 +275,26 @@ bruce<span class="w"> </span>--reset-config
 <hr />
 <h2>GPU support &amp; StarDist models</h2>
 <p>Bruce runs StarDist predictions on the GPU when visible to TensorFlow, and supports user-defined StarDist models.</p>
-<p>Useful commands:</p>
+<p>Available commands:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Check whether GPU(s) are visible to TensorFlow</span>
 bruce<span class="w"> </span>--gpu-status
 
 <span class="c1"># List available StarDist models</span>
 bruce<span class="w"> </span>--list-models
 
-<span class="c1"># Add a user-defined StarDist model (replace &lt;MODEL_DIR&gt; with the model directory)</span>
+<span class="c1"># Add a user-defined StarDist model located at &lt;MODEL_DIR&gt;</span>
 bruce<span class="w"> </span>--add-model<span class="w"> </span>&lt;MODEL_DIR&gt;
+</pre></div>
+</code></pre>
+<hr />
+<h2>Image annotation for model training</h2>
+<p>Bruce comes with a dedicated GUI to annotate 2-channel images produced by PALMRobo 4.9.</p>
+<p>Available commands:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Construct an image set from 2-channel .zvi files located at &lt;IN_DIR&gt; and save to &lt;OUT_DIR&gt;/imgs.pkl</span>
+bruce<span class="w"> </span>--zvi-to-dict<span class="w"> </span>&lt;IN_DIR&gt;<span class="w"> </span>&lt;OUT_DIR&gt;
+
+<span class="c1"># Open the annotation GUI to label the image set at &lt;IN_DIR&gt;/imgs.pkl and save image/mask pairs to &lt;OUT_DIR&gt;/imgs_annotated.pkl</span>
+bruce<span class="w"> </span>--annotate<span class="w"> </span>&lt;IN_DIR&gt;<span class="w"> </span>&lt;OUT_DIR&gt;
 </pre></div>
 </code></pre>
 <hr />
@@ -303,7 +316,7 @@ They are not installed with the napari-bruce Python package.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.5</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -313,7 +326,7 @@ They are not installed with the napari-bruce Python package.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-29</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-19</li>
                                                 </ul>
                                             </div>
                                         </div>

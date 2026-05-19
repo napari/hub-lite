@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.4.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.6.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-10</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-19</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
                                         <p><code>napari-unet-assistant</code> is a napari plugin for supervised 2D and 3D U-Net segmentation workflows.</p>
 <p>It is designed for users who already have image-mask training data and want to pair files, train a U-Net model, run inference, and inspect results directly inside napari.</p>
 <p>This plugin is separate from SAM-based annotation workflows. Its focus is conventional supervised U-Net training from existing image-mask pairs.</p>
-<h2>What's new in 0.4.0</h2>
+<h2>What's new in 0.6.0</h2>
 <ul>
 <li>Added recursive dataset-folder auto pairing for TIFF datasets with <code>images</code>/<code>masks</code>, <code>raw</code>/<code>labels</code>, mixed-folder, and nested layouts.</li>
 <li>Added folder-name role hints so dataset folders can guide image-mask pairing even when filenames are less explicit.</li>
@@ -222,9 +222,11 @@
 <li>Added model-capacity options for standard, large, and xlarge U-Net widths.</li>
 <li>Added a model registry with built-in U-Net, MONAI, nnU-Net, and segmentation-models-pytorch backend hooks.</li>
 <li>Added separate model-family, backbone/encoder, and encoder-weight controls for clearer U-Net variant testing.</li>
+<li>Added a Model Sweep tab for running multiple backend, model-family, backbone, weight, and capacity combinations sequentially.</li>
 <li>Added saving and loading of augmentation settings in run configuration metadata.</li>
 <li>Added a training stop button that cancels after the current batch, discards the interrupted model state, and clears GPU cache when available.</li>
 <li>Added a U-Net architecture preview for the selected 2D/3D mode and output-channel configuration.</li>
+<li>Added short tooltips across the main controls to explain settings in place.</li>
 <li>Improved the training UI layout with clearer tabs and more stable dock-widget sizing.</li>
 </ul>
 <h2>Highlights</h2>
@@ -238,6 +240,7 @@
 <li>Configurable augmentation presets and custom augmentation controls</li>
 <li>Standard, large, and xlarge U-Net capacity options</li>
 <li>Optional model backends for MONAI, nnU-Net, and segmentation-models-pytorch</li>
+<li>Model Sweep for batch training and validation comparison across model choices</li>
 <li>80/20 validation split</li>
 <li>Continue training from a previous run</li>
 <li>Training cancellation from the UI</li>
@@ -286,13 +289,37 @@
 <h2>Model capacity</h2>
 <p>Training can use standard, large, or xlarge U-Net widths. For 2D models, these use base channel widths of 32, 64, and 128. Larger models can learn more complex boundaries, but they need more GPU memory and may require a smaller batch size.</p>
 <h2>Model backends</h2>
-<p>The default backend is the built-in U-Net. Optional backends can be installed separately:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>monai<span class="o">]</span>
-pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>smp<span class="o">]</span>
-pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>nnunet<span class="o">]</span>
-pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>models<span class="o">]</span>
+<p>The default backend is the built-in U-Net and works without extra model packages. MONAI, segmentation-models-pytorch, and nnU-Net are optional backends, so they must be installed into the same Python environment that runs napari. Prefer <code>python -m pip</code> from that environment so the package is installed where napari can import it.</p>
+<p>If you install a release of <code>napari-unet-assistant</code> that declares the optional extras, you can use:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>monai<span class="o">]</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>smp<span class="o">]</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>nnunet<span class="o">]</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>models<span class="o">]</span>
 </pre></div>
 </code></pre>
+<p>Use <code>models</code> to install all optional model backends at once. If your shell treats square brackets specially, quote the requirement:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari-unet-assistant[models]&quot;</span>
+</pre></div>
+</code></pre>
+<p>If the extras command does not install the backend package, install the backend dependency directly:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>monai
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>segmentation-models-pytorch
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>nnunetv2
+</pre></div>
+</code></pre>
+<p>For a development checkout, install the extras from the repository root:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[models]&quot;</span>
+</pre></div>
+</code></pre>
+<p>For the GitHub version, put the extras before the <code>@</code> URL:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari-unet-assistant[models] @ git+https://github.com/wulinteousa2-hash/napari-unet-assistant.git&quot;</span>
+</pre></div>
+</code></pre>
+<p>You can verify that the optional packages are available with:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import monai; import segmentation_models_pytorch; import nnunetv2; print(&#39;optional model backends ok&#39;)&quot;</span>
+</pre></div>
+</code></pre>
+<p>If this import check fails, napari will still load the built-in U-Net backend, but the missing optional backend will not be usable until its package is installed in the active environment. After installing a backend, restart napari and select it from the <code>Model backend</code> dropdown.</p>
 <p>The model registry lives under <code>src/napari_unet_assistant/models/</code> and separates provider code into <code>providers/</code>. MONAI and segmentation-models-pytorch models are regular <code>torch.nn.Module</code> backends. nnU-Net is reserved as a pipeline adapter because nnU-Net manages its own data conversion, training, and prediction workflow.</p>
 <p>Model selection is split into:</p>
 <ul>
@@ -302,6 +329,25 @@ pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<
 <li><code>Encoder weights</code>: pretrained encoder weights when supported</li>
 <li><code>Model capacity</code>: built-in width preset used by backends that expose width/depth-style capacity</li>
 </ul>
+<h2>Model Sweep</h2>
+<p>Use the <code>Model Sweep</code> tab when you want to compare multiple model configurations without starting each run manually. Set the shared training constants first, including data shape, task type, patch settings, augmentation, validation split, epochs, and batch size. Then select the backends and capacities to test, click <code>Preview model sweep</code>, and click <code>Run model sweep</code>.</p>
+<p>The sweep runs configurations sequentially so one GPU is used predictably. Each completed configuration gets its own run folder with the usual files:</p>
+<ul>
+<li><code>config.json</code></li>
+<li><code>run_summary.txt</code></li>
+<li><code>validation.json</code></li>
+<li><code>history.csv</code></li>
+<li><code>summary.json</code></li>
+<li><code>best_model.pt</code></li>
+</ul>
+<p>The sweep folder also writes:</p>
+<ul>
+<li><code>sweep_config.json</code>: shared settings, augmentation, selected configurations, and skipped entries</li>
+<li><code>sweep_results.csv</code>: one summary row per skipped, failed, or completed configuration</li>
+<li><code>pairs.csv</code>: image-mask pairs used by the sweep</li>
+</ul>
+<p>The <code>sweep_results.csv</code> table includes backend, model family, capacity, encoder, encoder weights, best validation loss, best validation Dice/IoU/F1, run folder, and any error message. Failed combinations do not stop the sweep; they are recorded and the next configuration runs. The stop button cancels after the current batch or epoch boundary and leaves partial results on disk.</p>
+<p>The current nnU-Net entry is reported as skipped in Model Sweep because nnU-Net uses its own data-conversion, training, and prediction pipeline rather than the plugin's direct <code>torch.nn.Module</code> training loop.</p>
 <h2>Manual CSV pairing</h2>
 <p>For manual pairing, provide a CSV file with one image-mask pair per row.</p>
 <p>Required columns:</p>
@@ -397,11 +443,13 @@ napari
 <p>The current training workflow uses a standard train/validation split. The default validation split is 20%.</p>
 <p>K-fold cross-validation is not active in this release.</p>
 <p>Each run writes <code>validation.json</code> with the active validation mode, split fraction, random seed, total patch count, train patch count, and validation patch count. The training log also reports the same split. Per-epoch validation metrics are written to <code>history.csv</code>.</p>
+<p>At training start, the log reports the model backend, model family, backbone/encoder, encoder weights, capacity, patch settings, augmentation preset, validation setup, epochs, and batch size. The same user-readable summary is written to <code>run_summary.txt</code>, while full structured settings are saved in <code>config.json</code>.</p>
 <h2>Outputs</h2>
 <p>Each run folder can contain:</p>
 <ul>
 <li><code>best_model.pt</code></li>
 <li><code>config.json</code></li>
+<li><code>run_summary.txt</code></li>
 <li><code>summary.json</code></li>
 <li><code>history.csv</code></li>
 <li><code>validation.json</code></li>
@@ -430,7 +478,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.4.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.6.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -440,7 +488,7 @@ napari
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-10</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-19</li>
                                                 </ul>
                                             </div>
                                         </div>
