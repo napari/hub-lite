@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.6.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.6.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
                                         <p><code>napari-unet-assistant</code> is a napari plugin for supervised 2D and 3D U-Net segmentation workflows.</p>
 <p>It is designed for users who already have image-mask training data and want to pair files, train a U-Net model, run inference, and inspect results directly inside napari.</p>
 <p>This plugin is separate from SAM-based annotation workflows. Its focus is conventional supervised U-Net training from existing image-mask pairs.</p>
-<h2>What's new in 0.6.2</h2>
+<h2>What's new in 0.6.3</h2>
 <ul>
 <li>Added recursive dataset-folder auto pairing for TIFF datasets with <code>images</code>/<code>masks</code>, <code>raw</code>/<code>labels</code>, mixed-folder, and nested layouts.</li>
 <li>Added folder-name role hints so dataset folders can guide image-mask pairing even when filenames are less explicit.</li>
@@ -225,6 +225,7 @@
 <li>Added a Model Sweep tab for running multiple backend, model-family, backbone, weight, and capacity combinations sequentially.</li>
 <li>Added a dedicated nnU-Net pipeline path that exports training pairs, runs nnU-Net v2 CLI training, and imports prediction TIFFs.</li>
 <li>Added early stopping with one learning-rate reduction on validation plateau before stopping after a second plateau.</li>
+<li>Added a Training Monitor tab with structured run, pair, metric, and output-path summaries.</li>
 <li>Added multiclass mask label-range validation before training starts.</li>
 <li>Added saving and loading of augmentation settings in run configuration metadata.</li>
 <li>Added a training stop button that cancels after the current batch, discards the interrupted model state, and clears GPU cache when available.</li>
@@ -244,6 +245,7 @@
 <li>Standard, large, and xlarge U-Net capacity options</li>
 <li>Optional model backends for MONAI, nnU-Net, and segmentation-models-pytorch</li>
 <li>Model Sweep for batch training and validation comparison across model choices</li>
+<li>Training Monitor for structured current-run status, latest/best metrics, and output paths</li>
 <li>80/20 validation split</li>
 <li>Continue training from a previous run</li>
 <li>Training cancellation from the UI</li>
@@ -290,6 +292,9 @@
 <p>The training panel includes a stop button for cancelling an active training run. Cancellation is checked between batches, so the current batch may finish before the run stops.</p>
 <p>When a run is stopped, the interrupted model state is discarded and GPU cache is cleared when available.</p>
 <p>The validation tab also includes early stopping controls. When enabled, the plugin monitors validation Dice. If validation Dice does not improve by at least the configured minimum gain for the patience window, the learning rate is reduced once. If validation Dice still does not improve for another patience window after that reduction, training stops early and keeps the best validation-Dice checkpoint. Validation uses augmentation disabled, even when training augmentation is enabled. When at least two image-mask pairs are available, validation is split by image/mask pair so training and validation patches come from different source images. Single-pair datasets fall back to patch-level validation and record that fallback in <code>validation.json</code>. The per-epoch <code>history.csv</code> records <code>learning_rate</code>, <code>lr_reduced</code>, and <code>early_stopped</code>, and <code>validation.json</code> records split level plus augmentation state.</p>
+<h2>Training Monitor</h2>
+<p>The <code>Monitor</code> tab in Training Options gives an organized current-run view instead of another scrolling log. It shows the active run configuration, pair-scan summary, latest validation metrics, best validation metrics, and important output paths such as <code>config.json</code>, <code>history.csv</code>, <code>summary.json</code>, <code>best_model.pt</code>, and prediction folders.</p>
+<p>This is different from Step 4 <code>Results</code>: Step 4 remains the chronological message log for detailed events, warnings, pair reports, and command output. The Monitor tab is a compact dashboard that overwrites the same fields as training progresses, so users can leave training running and come back to the current state quickly. It also includes lightweight actions to preview one selected/first OK image-mask pair in napari and to reuse the current run folder in the Inference section.</p>
 <h2>Model capacity</h2>
 <p>Training can use standard, large, or xlarge U-Net widths. For 2D models, these use base channel widths of 32, 64, and 128. Larger models can learn more complex boundaries, but they need more GPU memory and may require a smaller batch size.</p>
 <h2>Model backends</h2>
@@ -482,7 +487,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.6.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.6.3</li>
                                                 </ul>
                                             </div>
                                         </div>
