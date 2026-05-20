@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.6.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.6.4</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
                                         <p><code>napari-unet-assistant</code> is a napari plugin for supervised 2D and 3D U-Net segmentation workflows.</p>
 <p>It is designed for users who already have image-mask training data and want to pair files, train a U-Net model, run inference, and inspect results directly inside napari.</p>
 <p>This plugin is separate from SAM-based annotation workflows. Its focus is conventional supervised U-Net training from existing image-mask pairs.</p>
-<h2>What's new in 0.6.3</h2>
+<h2>What's new in 0.6.4</h2>
 <ul>
 <li>Added recursive dataset-folder auto pairing for TIFF datasets with <code>images</code>/<code>masks</code>, <code>raw</code>/<code>labels</code>, mixed-folder, and nested layouts.</li>
 <li>Added folder-name role hints so dataset folders can guide image-mask pairing even when filenames are less explicit.</li>
@@ -226,6 +226,10 @@
 <li>Added a dedicated nnU-Net pipeline path that exports training pairs, runs nnU-Net v2 CLI training, and imports prediction TIFFs.</li>
 <li>Added early stopping with one learning-rate reduction on validation plateau before stopping after a second plateau.</li>
 <li>Added a Training Monitor tab with structured run, pair, metric, and output-path summaries.</li>
+<li>Changed single new training runs to create timestamped child run folders under the selected output parent so repeated runs do not overwrite history.</li>
+<li>Improved resume metadata loading so epochs, batch size, validation split, and early-stopping controls are restored as editable defaults.</li>
+<li>Clarified model selection wording with user-facing labels: model source, architecture, feature extractor, pretrained weights, and model size.</li>
+<li>Made Model Sweep write completed/failed result rows immediately from the worker thread so <code>sweep_results.csv</code> stays current through long sweeps.</li>
 <li>Added multiclass mask label-range validation before training starts.</li>
 <li>Added saving and loading of augmentation settings in run configuration metadata.</li>
 <li>Added a training stop button that cancels after the current batch, discards the interrupted model state, and clears GPU cache when available.</li>
@@ -237,6 +241,7 @@
 <ul>
 <li>TIFF-first 2D and 3D U-Net training</li>
 <li>Binary and multiclass segmentation</li>
+<li>Clear binary output-channel wording: binary uses one foreground channel while background remains label 0</li>
 <li>Recursive smart image-mask pairing</li>
 <li>Pair review with confidence, reason, and shape-check status</li>
 <li>Patch-based training with configurable patch size and overlap</li>
@@ -292,13 +297,14 @@
 <p>The training panel includes a stop button for cancelling an active training run. Cancellation is checked between batches, so the current batch may finish before the run stops.</p>
 <p>When a run is stopped, the interrupted model state is discarded and GPU cache is cleared when available.</p>
 <p>The validation tab also includes early stopping controls. When enabled, the plugin monitors validation Dice. If validation Dice does not improve by at least the configured minimum gain for the patience window, the learning rate is reduced once. If validation Dice still does not improve for another patience window after that reduction, training stops early and keeps the best validation-Dice checkpoint. Validation uses augmentation disabled, even when training augmentation is enabled. When at least two image-mask pairs are available, validation is split by image/mask pair so training and validation patches come from different source images. Single-pair datasets fall back to patch-level validation and record that fallback in <code>validation.json</code>. The per-epoch <code>history.csv</code> records <code>learning_rate</code>, <code>lr_reduced</code>, and <code>early_stopped</code>, and <code>validation.json</code> records split level plus augmentation state.</p>
+<p>When loading resume metadata, the plugin restores architecture/data settings for compatibility and also restores editable schedule controls such as epochs, batch size, validation split, and early-stopping settings. In continue-training mode, the restored epoch value is the default number of additional epochs to run, not a total lifetime epoch target.</p>
 <h2>Training Monitor</h2>
 <p>The <code>Monitor</code> tab in Training Options gives an organized current-run view instead of another scrolling log. It shows the active run configuration, pair-scan summary, latest validation metrics, best validation metrics, and important output paths such as <code>config.json</code>, <code>history.csv</code>, <code>summary.json</code>, <code>best_model.pt</code>, and prediction folders.</p>
 <p>This is different from Step 4 <code>Results</code>: Step 4 remains the chronological message log for detailed events, warnings, pair reports, and command output. The Monitor tab is a compact dashboard that overwrites the same fields as training progresses, so users can leave training running and come back to the current state quickly. It also includes lightweight actions to preview one selected/first OK image-mask pair in napari and to reuse the current run folder in the Inference section.</p>
-<h2>Model capacity</h2>
+<h2>Model size</h2>
 <p>Training can use standard, large, or xlarge U-Net widths. For 2D models, these use base channel widths of 32, 64, and 128. Larger models can learn more complex boundaries, but they need more GPU memory and may require a smaller batch size.</p>
-<h2>Model backends</h2>
-<p>The default backend is the built-in U-Net and works without extra model packages. MONAI, segmentation-models-pytorch, and nnU-Net are optional backends, so they must be installed into the same Python environment that runs napari. Prefer <code>python -m pip</code> from that environment so the package is installed where napari can import it.</p>
+<h2>Model sources</h2>
+<p>The default model source is the built-in U-Net and works without extra model packages. MONAI, segmentation-models-pytorch, and nnU-Net are optional backends, so they must be installed into the same Python environment that runs napari. Prefer <code>python -m pip</code> from that environment so the package is installed where napari can import it.</p>
 <p>If you install a release of <code>napari-unet-assistant</code> that declares the optional extras, you can use:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>monai<span class="o">]</span>
 python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-unet-assistant<span class="o">[</span>smp<span class="o">]</span>
@@ -328,18 +334,18 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import monai; import segmentation_models_pytorch; import nnunetv2; print(&#39;optional model backends ok&#39;)&quot;</span>
 </pre></div>
 </code></pre>
-<p>If this import check fails, napari will still load the built-in U-Net backend, but the missing optional backend will not be usable until its package is installed in the active environment. After installing a backend, restart napari and select it from the <code>Model backend</code> dropdown.</p>
+<p>If this import check fails, napari will still load the built-in U-Net backend, but the missing optional model source will not be usable until its package is installed in the active environment. After installing a source, restart napari and select it from the <code>Model source</code> dropdown.</p>
 <p>The model registry lives under <code>src/napari_unet_assistant/models/</code> and separates provider code into <code>providers/</code>. MONAI and segmentation-models-pytorch models are regular <code>torch.nn.Module</code> backends. nnU-Net uses a dedicated pipeline workflow because nnU-Net manages its own data conversion, planning, preprocessing, training, and prediction commands.</p>
 <p>Model selection is split into:</p>
 <ul>
-<li><code>Model backend</code>: implementation source, such as built-in, MONAI, SMP, or nnU-Net</li>
-<li><code>Model family</code>: architecture family, such as U-Net, U-Net++, SegResNet, or DeepLabV3+</li>
-<li><code>Backbone / encoder</code>: feature extractor when the selected family supports one, such as ResNet34, ResNet50, EfficientNet-B0, DenseNet121, or MobileNetV2</li>
-<li><code>Encoder weights</code>: pretrained encoder weights when supported</li>
-<li><code>Model capacity</code>: built-in width preset used by backends that expose width/depth-style capacity</li>
+<li><code>Model source</code>: the library or workflow provider, such as built-in plugin models, MONAI, SMP, or the separate nnU-Net pipeline. This is the ML/backend term in plainer UI wording.</li>
+<li><code>Architecture</code>: the model family inside that source, such as U-Net, U-Net++, SegResNet, or DeepLabV3+.</li>
+<li><code>Feature extractor</code>: the encoder/backbone used by encoder-style models when supported, such as ResNet34, ResNet50, EfficientNet-B0, DenseNet121, or MobileNetV2.</li>
+<li><code>Pretrained weights</code>: optional starting weights for the feature extractor, such as ImageNet weights for supported 2D SMP encoders.</li>
+<li><code>Model size</code>: width/depth capacity preset used by sources that expose size controls.</li>
 </ul>
 <h2>Model Sweep</h2>
-<p>Use the <code>Model Sweep</code> tab when you want to compare multiple model configurations without starting each run manually. Set the shared training constants first, including data shape, task type, patch settings, augmentation, validation split, epochs, and batch size. Then check the backends and capacities to test, click <code>Preview model sweep</code>, and click <code>Run model sweep</code>. The regular <code>Model backend</code>, <code>Model family</code>, and <code>Backbone / encoder</code> controls in the <code>Run</code> tab are for single training runs; Model Sweep expands checked backends into valid model families, encoders, and encoder weights automatically.</p>
+<p>Use the <code>Model Sweep</code> tab when you want to compare multiple model configurations without starting each run manually. Set the shared training constants first, including data shape, task type, patch settings, augmentation, validation split, epochs, and batch size. Then check the model sources and model sizes to test, click <code>Preview model sweep</code>, and click <code>Run model sweep</code>. The regular <code>Model source</code>, <code>Architecture</code>, and <code>Feature extractor</code> controls in the <code>Run</code> tab are for single training runs; Model Sweep expands checked sources into valid architectures, feature extractors, and pretrained weights automatically.</p>
 <p>The sweep runs configurations sequentially so one GPU is used predictably. Each completed configuration gets its own run folder with the usual files:</p>
 <ul>
 <li><code>config.json</code></li>
@@ -355,7 +361,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <li><code>sweep_results.csv</code>: one summary row per skipped, failed, or completed configuration</li>
 <li><code>pairs.csv</code>: image-mask pairs used by the sweep</li>
 </ul>
-<p>The <code>sweep_results.csv</code> table includes backend, model family, capacity, encoder, encoder weights, best validation loss, best validation Dice/IoU/F1, run folder, and any error message. Missing optional backend packages are reported as skipped during preview/run. Failed combinations do not stop the sweep; they are recorded and the next configuration runs. The stop button cancels after the current batch or epoch boundary and leaves partial results on disk.</p>
+<p>The <code>sweep_results.csv</code> table includes source/backend, architecture/model family, model size, feature extractor/encoder, pretrained weights, best validation loss, best validation Dice/IoU/F1, run folder, and any error message. Missing optional backend packages are reported as skipped during preview/run. Failed combinations do not stop the sweep; they are recorded and the next configuration runs. Completed and failed rows are written from the sweep worker as each configuration ends, so partial results stay current even during long runs. The stop button cancels after the current batch or epoch boundary and leaves partial results on disk.</p>
 <p>nnU-Net is not trained through Model Sweep because it uses its own data-conversion, planning, training, and prediction pipeline rather than the plugin's direct <code>torch.nn.Module</code> training loop. To train nnU-Net, select <code>nnunet</code> in the <code>Run</code> tab and start a normal training run. The plugin exports the paired TIFF data to a self-contained nnU-Net work folder, runs <code>nnUNetv2_plan_and_preprocess</code>, runs <code>nnUNetv2_train</code>, and saves <code>nnunet_workflow.json</code> so the Inference panel can run <code>nnUNetv2_predict</code> and convert predictions back to TIFF.</p>
 <h2>Manual CSV pairing</h2>
 <p>For manual pairing, provide a CSV file with one image-mask pair per row.</p>
@@ -399,6 +405,9 @@ napari
 <li>Run inference on new images or volumes.</li>
 <li>Review prediction masks in napari.</li>
 </ol>
+<h2>Binary vs multiclass outputs</h2>
+<p>For binary segmentation, masks still use <code>0 = background</code> and nonzero/<code>1 = foreground</code>, but the model uses one output channel: foreground probability. Background is implicit when foreground probability is below the threshold.</p>
+<p>For multiclass segmentation, enter the total number of labels including background. For example, three classes means <code>0 = background</code>, <code>1 = class 1</code>, and <code>2 = class 2</code>.</p>
 <h2>Supported data</h2>
 <h3>2D training</h3>
 <ul>
@@ -452,7 +461,18 @@ napari
 <p>The current training workflow uses a standard train/validation split. The default validation split is 20%.</p>
 <p>K-fold cross-validation is not active in this release.</p>
 <p>Each run writes <code>validation.json</code> with the active validation mode, split fraction, random seed, total patch count, train patch count, and validation patch count. The training log also reports the same split. Per-epoch validation metrics are written to <code>history.csv</code>.</p>
-<p>At training start, the log reports the model backend, model family, backbone/encoder, encoder weights, capacity, patch settings, augmentation preset, validation setup, epochs, and batch size. The same user-readable summary is written to <code>run_summary.txt</code>, while full structured settings are saved in <code>config.json</code>.</p>
+<p>At training start, the log reports the model source, architecture, feature extractor, pretrained weights, model size, patch settings, augmentation preset, validation setup, epochs, and batch size. The same user-readable summary is written to <code>run_summary.txt</code>, while full structured settings are saved in <code>config.json</code>.</p>
+<h2>Output History</h2>
+<p>The <code>Run output</code> field is treated as a parent folder for new training runs. Each new single training run creates a timestamped child run folder so repeated one-by-one experiments do not overwrite earlier <code>history.csv</code>, <code>summary.json</code>, or <code>best_model.pt</code> files.</p>
+<p>Example:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>my_training_outputs/
+  run_20260520_143000_builtin_unet_large_plain_none/
+  run_20260520_151500_monai_unet_large_plain_none/
+  run_20260520_163000_smp_unetplusplus_large_resnet34_imagenet/
+  run_20260520_174500_nnunet_nnunetv2_dataset600_2d_fold0/
+</pre></div>
+</code></pre>
+<p>Model Sweep already uses a parent folder with child run folders under <code>sweep_YYYYMMDD_HHMMSS/</code>. Continue-training workflows still target a specific compatible run folder instead of creating a new sibling.</p>
 <h2>Outputs</h2>
 <p>Each run folder can contain:</p>
 <ul>
@@ -487,7 +507,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.6.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.6.4</li>
                                                 </ul>
                                             </div>
                                         </div>

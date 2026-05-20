@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.3.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.4.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-04-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-20</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">Pillow</li><li class="MetadataList_textItem__KKmMN">napari[all]>=0.4.19; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">qtpy; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">pandas; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">pyphenix[napari]; extra == "all"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">Pillow</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">napari[all]>=0.4.19; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">qtpy; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">pandas; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">pyphenix[napari]; extra == "all"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -255,6 +255,30 @@ required and will <strong>not</strong> be installed.</p>
 <span class="n">data</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read_data</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </code></pre>
+<h4>Plate overview images (no napari required)</h4>
+<p><code>generate_plate_overview()</code> produces one diagnostic PNG per channel combo
+(plus a JSON provenance sidecar) showing a downsampled thumbnail of every
+well in the plate. Plate-wide contrast is computed once per channel so wells
+are visually comparable.</p>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyphenix</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_plate_overview</span>
+
+<span class="n">generate_plate_overview</span><span class="p">(</span>
+    <span class="n">experiment_path</span><span class="o">=</span><span class="s2">&quot;/path/to/experiment&quot;</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;/path/to/overviews&quot;</span><span class="p">,</span>
+    <span class="c1"># Optional overrides — all have sensible defaults:</span>
+    <span class="n">field</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>        <span class="c1"># &#39;stitched&#39;, an int field index, or None (first field)</span>
+    <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>     <span class="c1"># subset of channel IDs, or None (all acquired)</span>
+    <span class="n">timepoint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>    <span class="c1"># int, or None (first timepoint)</span>
+    <span class="n">z_slices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>     <span class="c1"># int / list / None (all Z planes, max-projected)</span>
+    <span class="n">well_px</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>       <span class="c1"># per-well render size on the longest side</span>
+    <span class="n">apply_ffc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</code></pre>
+<p>For N selected channels the call writes <code>2**N − 1</code> PNGs (singletons +
+every merge subset) and a single <code>*_overview.json</code> sidecar capturing the
+input parameters, plate-wide contrast limits, channel→colormap assignments,
+and pyphenix version.</p>
 <h4>Full GUI install (napari widget)</h4>
 <p>To use the interactive napari widget, install with the <code>napari</code> extra:</p>
 <pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;pyphenix[napari]&quot;</span>
@@ -299,7 +323,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.3.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.4.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -309,7 +333,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-04-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-20</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -407,7 +431,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">Pillow</li><li class="MetadataList_textItem__KKmMN">napari[all]>=0.4.19; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">qtpy; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">pandas; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">pyphenix[napari]; extra == "all"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">Pillow</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">tqdm</li><li class="MetadataList_textItem__KKmMN">napari[all]>=0.4.19; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">qtpy; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">pandas; extra == "napari"</li><li class="MetadataList_textItem__KKmMN">pyphenix[napari]; extra == "all"</li></ul>
                                             </div>
                                         </div>
                                     </div>
