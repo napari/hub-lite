@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.6.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.6.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-19</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-20</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
                                         <p><code>napari-unet-assistant</code> is a napari plugin for supervised 2D and 3D U-Net segmentation workflows.</p>
 <p>It is designed for users who already have image-mask training data and want to pair files, train a U-Net model, run inference, and inspect results directly inside napari.</p>
 <p>This plugin is separate from SAM-based annotation workflows. Its focus is conventional supervised U-Net training from existing image-mask pairs.</p>
-<h2>What's new in 0.6.0</h2>
+<h2>What's new in 0.6.2</h2>
 <ul>
 <li>Added recursive dataset-folder auto pairing for TIFF datasets with <code>images</code>/<code>masks</code>, <code>raw</code>/<code>labels</code>, mixed-folder, and nested layouts.</li>
 <li>Added folder-name role hints so dataset folders can guide image-mask pairing even when filenames are less explicit.</li>
@@ -223,6 +223,9 @@
 <li>Added a model registry with built-in U-Net, MONAI, nnU-Net, and segmentation-models-pytorch backend hooks.</li>
 <li>Added separate model-family, backbone/encoder, and encoder-weight controls for clearer U-Net variant testing.</li>
 <li>Added a Model Sweep tab for running multiple backend, model-family, backbone, weight, and capacity combinations sequentially.</li>
+<li>Added a dedicated nnU-Net pipeline path that exports training pairs, runs nnU-Net v2 CLI training, and imports prediction TIFFs.</li>
+<li>Added early stopping with one learning-rate reduction on validation plateau before stopping after a second plateau.</li>
+<li>Added multiclass mask label-range validation before training starts.</li>
 <li>Added saving and loading of augmentation settings in run configuration metadata.</li>
 <li>Added a training stop button that cancels after the current batch, discards the interrupted model state, and clears GPU cache when available.</li>
 <li>Added a U-Net architecture preview for the selected 2D/3D mode and output-channel configuration.</li>
@@ -286,6 +289,7 @@
 <h2>Training controls</h2>
 <p>The training panel includes a stop button for cancelling an active training run. Cancellation is checked between batches, so the current batch may finish before the run stops.</p>
 <p>When a run is stopped, the interrupted model state is discarded and GPU cache is cleared when available.</p>
+<p>The validation tab also includes early stopping controls. When enabled, the plugin monitors validation Dice. If validation Dice does not improve by at least the configured minimum gain for the patience window, the learning rate is reduced once. If validation Dice still does not improve for another patience window after that reduction, training stops early and keeps the best validation-Dice checkpoint. Validation uses augmentation disabled, even when training augmentation is enabled. When at least two image-mask pairs are available, validation is split by image/mask pair so training and validation patches come from different source images. Single-pair datasets fall back to patch-level validation and record that fallback in <code>validation.json</code>. The per-epoch <code>history.csv</code> records <code>learning_rate</code>, <code>lr_reduced</code>, and <code>early_stopped</code>, and <code>validation.json</code> records split level plus augmentation state.</p>
 <h2>Model capacity</h2>
 <p>Training can use standard, large, or xlarge U-Net widths. For 2D models, these use base channel widths of 32, 64, and 128. Larger models can learn more complex boundaries, but they need more GPU memory and may require a smaller batch size.</p>
 <h2>Model backends</h2>
@@ -320,7 +324,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </pre></div>
 </code></pre>
 <p>If this import check fails, napari will still load the built-in U-Net backend, but the missing optional backend will not be usable until its package is installed in the active environment. After installing a backend, restart napari and select it from the <code>Model backend</code> dropdown.</p>
-<p>The model registry lives under <code>src/napari_unet_assistant/models/</code> and separates provider code into <code>providers/</code>. MONAI and segmentation-models-pytorch models are regular <code>torch.nn.Module</code> backends. nnU-Net is reserved as a pipeline adapter because nnU-Net manages its own data conversion, training, and prediction workflow.</p>
+<p>The model registry lives under <code>src/napari_unet_assistant/models/</code> and separates provider code into <code>providers/</code>. MONAI and segmentation-models-pytorch models are regular <code>torch.nn.Module</code> backends. nnU-Net uses a dedicated pipeline workflow because nnU-Net manages its own data conversion, planning, preprocessing, training, and prediction commands.</p>
 <p>Model selection is split into:</p>
 <ul>
 <li><code>Model backend</code>: implementation source, such as built-in, MONAI, SMP, or nnU-Net</li>
@@ -330,7 +334,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <li><code>Model capacity</code>: built-in width preset used by backends that expose width/depth-style capacity</li>
 </ul>
 <h2>Model Sweep</h2>
-<p>Use the <code>Model Sweep</code> tab when you want to compare multiple model configurations without starting each run manually. Set the shared training constants first, including data shape, task type, patch settings, augmentation, validation split, epochs, and batch size. Then select the backends and capacities to test, click <code>Preview model sweep</code>, and click <code>Run model sweep</code>.</p>
+<p>Use the <code>Model Sweep</code> tab when you want to compare multiple model configurations without starting each run manually. Set the shared training constants first, including data shape, task type, patch settings, augmentation, validation split, epochs, and batch size. Then check the backends and capacities to test, click <code>Preview model sweep</code>, and click <code>Run model sweep</code>. The regular <code>Model backend</code>, <code>Model family</code>, and <code>Backbone / encoder</code> controls in the <code>Run</code> tab are for single training runs; Model Sweep expands checked backends into valid model families, encoders, and encoder weights automatically.</p>
 <p>The sweep runs configurations sequentially so one GPU is used predictably. Each completed configuration gets its own run folder with the usual files:</p>
 <ul>
 <li><code>config.json</code></li>
@@ -346,8 +350,8 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <li><code>sweep_results.csv</code>: one summary row per skipped, failed, or completed configuration</li>
 <li><code>pairs.csv</code>: image-mask pairs used by the sweep</li>
 </ul>
-<p>The <code>sweep_results.csv</code> table includes backend, model family, capacity, encoder, encoder weights, best validation loss, best validation Dice/IoU/F1, run folder, and any error message. Failed combinations do not stop the sweep; they are recorded and the next configuration runs. The stop button cancels after the current batch or epoch boundary and leaves partial results on disk.</p>
-<p>The current nnU-Net entry is reported as skipped in Model Sweep because nnU-Net uses its own data-conversion, training, and prediction pipeline rather than the plugin's direct <code>torch.nn.Module</code> training loop.</p>
+<p>The <code>sweep_results.csv</code> table includes backend, model family, capacity, encoder, encoder weights, best validation loss, best validation Dice/IoU/F1, run folder, and any error message. Missing optional backend packages are reported as skipped during preview/run. Failed combinations do not stop the sweep; they are recorded and the next configuration runs. The stop button cancels after the current batch or epoch boundary and leaves partial results on disk.</p>
+<p>nnU-Net is not trained through Model Sweep because it uses its own data-conversion, planning, training, and prediction pipeline rather than the plugin's direct <code>torch.nn.Module</code> training loop. To train nnU-Net, select <code>nnunet</code> in the <code>Run</code> tab and start a normal training run. The plugin exports the paired TIFF data to a self-contained nnU-Net work folder, runs <code>nnUNetv2_plan_and_preprocess</code>, runs <code>nnUNetv2_train</code>, and saves <code>nnunet_workflow.json</code> so the Inference panel can run <code>nnUNetv2_predict</code> and convert predictions back to TIFF.</p>
 <h2>Manual CSV pairing</h2>
 <p>For manual pairing, provide a CSV file with one image-mask pair per row.</p>
 <p>Required columns:</p>
@@ -396,13 +400,13 @@ napari
 <li>image: <code>(Y, X)</code> grayscale TIFF</li>
 <li>mask: <code>(Y, X)</code> label TIFF</li>
 <li>binary masks: <code>0 = background</code>, nonzero = foreground</li>
-<li>multiclass masks: integer labels</li>
+<li>multiclass masks: integer labels from <code>0</code> through <code>num_classes - 1</code>; training checks this before starting</li>
 </ul>
 <h3>3D training</h3>
 <ul>
 <li>image: <code>(Z, Y, X)</code> grayscale TIFF</li>
 <li>mask: <code>(Z, Y, X)</code> label TIFF</li>
-<li>multiclass masks should use integer labels:
+<li>multiclass masks should use integer labels from <code>0</code> through <code>num_classes - 1</code>; training checks this before starting:
 <ul>
 <li><code>0 = background</code></li>
 <li><code>1 = class 1</code></li>
@@ -478,7 +482,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.6.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.6.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -488,7 +492,7 @@ napari
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-19</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-20</li>
                                                 </ul>
                                             </div>
                                         </div>
