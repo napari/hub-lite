@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.6.4</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.6.5</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-20</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-21</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
                                         <p><code>napari-unet-assistant</code> is a napari plugin for supervised 2D and 3D U-Net segmentation workflows.</p>
 <p>It is designed for users who already have image-mask training data and want to pair files, train a U-Net model, run inference, and inspect results directly inside napari.</p>
 <p>This plugin is separate from SAM-based annotation workflows. Its focus is conventional supervised U-Net training from existing image-mask pairs.</p>
-<h2>What's new in 0.6.4</h2>
+<h2>What's new in 0.6.5</h2>
 <ul>
 <li>Added recursive dataset-folder auto pairing for TIFF datasets with <code>images</code>/<code>masks</code>, <code>raw</code>/<code>labels</code>, mixed-folder, and nested layouts.</li>
 <li>Added folder-name role hints so dataset folders can guide image-mask pairing even when filenames are less explicit.</li>
@@ -230,6 +230,8 @@
 <li>Improved resume metadata loading so epochs, batch size, validation split, and early-stopping controls are restored as editable defaults.</li>
 <li>Clarified model selection wording with user-facing labels: model source, architecture, feature extractor, pretrained weights, and model size.</li>
 <li>Made Model Sweep write completed/failed result rows immediately from the worker thread so <code>sweep_results.csv</code> stays current through long sweeps.</li>
+<li>Added a Model Sweep SMP feature-extractor checklist so users can choose small/fast, default, or larger encoders instead of sweeping every SMP encoder blindly.</li>
+<li>Added an in-app Model Sweep results comparison view with a sortable table, metric bars, and a shortcut to use the selected run for inference.</li>
 <li>Added multiclass mask label-range validation before training starts.</li>
 <li>Added saving and loading of augmentation settings in run configuration metadata.</li>
 <li>Added a training stop button that cancels after the current batch, discards the interrupted model state, and clears GPU cache when available.</li>
@@ -345,7 +347,9 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <li><code>Model size</code>: width/depth capacity preset used by sources that expose size controls.</li>
 </ul>
 <h2>Model Sweep</h2>
-<p>Use the <code>Model Sweep</code> tab when you want to compare multiple model configurations without starting each run manually. Set the shared training constants first, including data shape, task type, patch settings, augmentation, validation split, epochs, and batch size. Then check the model sources and model sizes to test, click <code>Preview model sweep</code>, and click <code>Run model sweep</code>. The regular <code>Model source</code>, <code>Architecture</code>, and <code>Feature extractor</code> controls in the <code>Run</code> tab are for single training runs; Model Sweep expands checked sources into valid architectures, feature extractors, and pretrained weights automatically.</p>
+<p>Use the <code>Model Sweep</code> tab when you want to compare multiple model configurations without starting each run manually. Set the shared training constants first, including data shape, task type, patch settings, augmentation, validation split, epochs, and batch size. Then check the model sources, model sizes, and SMP feature extractors to test, click <code>Preview model sweep</code>, and click <code>Run model sweep</code>. The regular <code>Model source</code>, <code>Architecture</code>, and <code>Feature extractor</code> controls in the <code>Run</code> tab are for single training runs; Model Sweep expands checked sources into valid architectures, selected feature extractors, and pretrained weights automatically.</p>
+<p>For SMP sweeps, the <code>SMP feature extractors</code> checklist controls which encoders are expanded. The list is grouped into small/fast, good default, and larger encoders. The default checked encoders preserve the earlier sweep behavior: <code>resnet34</code>, <code>resnet50</code>, <code>efficientnet-b0</code>, <code>densenet121</code>, and <code>mobilenet_v2</code>.</p>
+<p>After a sweep finishes, click <code>Load sweep results</code> and choose the sweep folder to compare <code>sweep_results.csv</code> inside the app. The comparison view provides a sortable table, top-run metric bars for Dice, IoU, F1, or validation loss, and <code>Use selected run for inference</code> to load the chosen completed run into the Inference section.</p>
 <p>The sweep runs configurations sequentially so one GPU is used predictably. Each completed configuration gets its own run folder with the usual files:</p>
 <ul>
 <li><code>config.json</code></li>
@@ -507,7 +511,7 @@ napari
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.6.4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.6.5</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -517,7 +521,7 @@ napari
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-20</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-21</li>
                                                 </ul>
                                             </div>
                                         </div>
