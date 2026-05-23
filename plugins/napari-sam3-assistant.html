@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.3.4</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.3.6</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-19</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-23</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">pillow</li><li class="MetadataList_textItem__KKmMN">tifffile</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">pillow</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -211,6 +211,7 @@
                                     <div class="Markdown_markdown__QZ95j">
 
                                         <p><img src="docs/ui.png" alt="napari-sam3-assistant UI" /></p>
+<p>Latest version: <code>4.3.6</code></p>
 <p><code>napari-sam3-assistant</code> is a napari plugin for local Segment Anything Model 3
 (SAM3) segmentation. It provides:</p>
 <ul>
@@ -341,17 +342,26 @@ receives the polygon's bounding rectangle, not the exact polygon contour.</p>
 <li>Use <code>Exemplar</code>, <code>2D Slice</code>, or a box/Shapes prompt to create a preview.</li>
 <li>Switch to <code>Live Points</code> when the preview is close.</li>
 <li>Add positive points on missed parts and negative points on leakage.</li>
-<li>Use the Live Points right-click menu to <code>Accept + Clear</code>.</li>
+<li>Use the Live Points right-click menu to <code>Accept + Clear</code>. This menu is available in both Simple mode and Advanced mode while Live Points is active.</li>
 <li>Click <code>Save Labels</code> or <code>Save &amp; Clean</code>.</li>
 <li>Move to the next object or ROI and repeat.</li>
+</ol>
+<p>Large-image ROI loop:</p>
+<ol>
+<li>Enable local/tiled inference and choose a tile/ROI size.</li>
+<li>Draw or select a prompt box/point.</li>
+<li>Click <code>Run Current ROI Only</code> to test that local region.</li>
+<li>Changing ROI size recomputes the next local region; previous active ROIs are reused only when the requested size still matches.</li>
 </ol>
 <p>Exemplar scan loop:</p>
 <ol>
 <li>Draw a tight exemplar region around a representative object.</li>
 <li>Run the current ROI first.</li>
 <li>If the ROI result is good, scan the full image by tiles.</li>
+<li>Review <code>SAM3 tiled exemplar labels</code> and <code>SAM3 tiled exemplar boxes</code>.</li>
 <li>Use <code>SAM3 Mask Operations</code> for cleanup, isolation, merge, and export.</li>
 </ol>
+<p>Tiled exemplar scans are a search workflow, not an exact repeat of <code>Run Current ROI Only</code>. The current tiled scan uses one exemplar crop as a visual reference for each tile by composing an exemplar-plus-tile image, then writes the tile-side result back to the full canvas. Multiple boxes in the current ROI can help <code>Run Current ROI Only</code> when they overlap that ROI, but tiled scan currently uses the first collected exemplar crop as the default reference for all tiles.</p>
 <p>Advanced mode also includes <code>Detection threshold</code>, with default <code>0.35</code>. Lower
 values accept weaker candidates and may add false positives. Higher values are
 stricter and may miss faint or uncommon structures. The Results table <code>Score</code>
@@ -421,7 +431,7 @@ Methodist Research Institute.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.3.4</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.3.6</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -431,7 +441,7 @@ Methodist Research Institute.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-19</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-23</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -528,7 +538,7 @@ Methodist Research Institute.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">pillow</li><li class="MetadataList_textItem__KKmMN">tifffile</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.5.0</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">pillow</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">zarr</li><li class="MetadataList_textItem__KKmMN">ome-zarr</li></ul>
                                             </div>
                                         </div>
                                     </div>
