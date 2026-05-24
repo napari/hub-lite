@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.3.6</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.3.9</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-23</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-24</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -211,7 +211,7 @@
                                     <div class="Markdown_markdown__QZ95j">
 
                                         <p><img src="docs/ui.png" alt="napari-sam3-assistant UI" /></p>
-<p>Latest version: <code>4.3.6</code></p>
+<p>Latest version: <code>4.3.9</code></p>
 <p><code>napari-sam3-assistant</code> is a napari plugin for local Segment Anything Model 3
 (SAM3) segmentation. It provides:</p>
 <ul>
@@ -232,12 +232,14 @@ prompts.</li>
 crop image.</li>
 <li>Correct previews with Live Points using positive and negative clicks.</li>
 <li>Run local ROI inference on large TIFF or OME-Zarr-style images.</li>
+<li>In Advanced mode, run Phase 1 Huge Volume exemplar scans by processing 3D stacks slice by slice and writing tiled masks directly to OME-Zarr.</li>
 <li>Scan large 2D images tile by tile from an exemplar ROI and stitch the result
 into full-size labels.</li>
 <li>Propagate prompts through 3D stacks or video-like data when the installed SAM3
 backend supports the workflow.</li>
 <li>Save previews, clean connected components, relabel values, isolate overlapping
 candidates, merge labels/layers, inspect overlap, and export final masks.</li>
+<li>In Mask Operations, edit bounded regions with <code>Mask Cleanup / Multiclass</code> and save the current working region back to OME-Zarr or out to TIFF.</li>
 </ul>
 <h2>Documentation</h2>
 <p>Start here:</p>
@@ -247,6 +249,7 @@ candidates, merge labels/layers, inspect overlap, and export final masks.</li>
 <li><a href="docs/user_guide.md">User guide</a></li>
 <li><a href="docs/mask_operations.md">Mask operations</a></li>
 <li><a href="docs/troubleshooting.md">Troubleshooting</a></li>
+<li><a href="docs/huge_volume_mode.md">Huge Volume Mode</a></li>
 </ol>
 <p>Specialized setup:</p>
 <ul>
@@ -362,6 +365,7 @@ receives the polygon's bounding rectangle, not the exact polygon contour.</p>
 <li>Use <code>SAM3 Mask Operations</code> for cleanup, isolation, merge, and export.</li>
 </ol>
 <p>Tiled exemplar scans are a search workflow, not an exact repeat of <code>Run Current ROI Only</code>. The current tiled scan uses one exemplar crop as a visual reference for each tile by composing an exemplar-plus-tile image, then writes the tile-side result back to the full canvas. Multiple boxes in the current ROI can help <code>Run Current ROI Only</code> when they overlap that ROI, but tiled scan currently uses the first collected exemplar crop as the default reference for all tiles.</p>
+<p>Huge Volume Phase 1 is available in Advanced Exemplar mode for 3D stacks. Enable <code>Enable large-image local inference</code>, check <code>Scan all Z slices to OME-Zarr</code>, then use <code>Scan Z Stack by Tiles</code>. This path writes tile labels directly to an OME-Zarr mask store and does not create a full in-memory volume. To curate the result, drag/open the mask as a Labels layer, use <code>Mask Operations &gt; Mask Cleanup / Multiclass</code> with Full mask, Manual ROI, or Drawn ROI, then use <code>Region Output</code> to write the current working region back to OME-Zarr or export it as TIFF. Seam merging, cross-Z object linking, and resumable jobs are planned later phases.</p>
 <p>Advanced mode also includes <code>Detection threshold</code>, with default <code>0.35</code>. Lower
 values accept weaker candidates and may add false positives. Higher values are
 stricter and may miss faint or uncommon structures. The Results table <code>Score</code>
@@ -431,7 +435,7 @@ Methodist Research Institute.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.3.6</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.3.9</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -441,7 +445,7 @@ Methodist Research Institute.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-23</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-24</li>
                                                 </ul>
                                             </div>
                                         </div>
