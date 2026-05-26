@@ -10,40 +10,70 @@ templates and CSS templates required to build the web pages.
 
 ![](./static/images/napari_hub_lite_snapshot.png)
 
-The `fetch_napari_data.py` script queries [npe2api](https://github.com/napari/npe2api) for plugin information including PyPI/conda info and individual plugin manifests.
+## How the site works
 
-The `create_static_html_files.py` script uses this data to generate HTML files for each individual plugin page as well as for the plugin listing on the website's homepage.
+The site is a static build with a small Python-based generator.
 
-The `plugin_loading_and_search.js` script contains functions for loading the main plugin list and searching.
+1. `build_site.py` orchestrates the local build, copies shared assets into `_build/`, and runs the data and HTML generation steps.
+2. `fetch_napari_data.py` fetches plugin data from [npe2api](https://github.com/napari/npe2api) for plugin information including PyPI/conda info and individual plugin manifests, then writes build data into `_build/data/`.
+3. `create_static_html_files.py` reads `_build/data/plugin_page_data.json` and generates:
+	- `_build/plugins/*.html` for individual plugin pages
+	- `_build/plugins_list.html` for the homepage plugin list
+4. `index.html` is the homepage shell and `static/js/plugin_loading_and_search.js` loads the generated plugin list and client-side search behavior.
+5. `.github/workflows/build_and_deploy.yml` runs `make all` and publishes `_build/` to GitHub Pages.
 
-The `build_and_deploy.yml` workflow builds the website using the above scripts and deploys it to GitHub pages.
+The key implementation surfaces are:
+
+- `fetch_napari_data.py`: external data fetching and normalization
+- `create_static_html_files.py`: HTML generation and markdown rendering
+- `templates/each_plugin_template.html`: plugin detail page template
+- `index.html`: homepage structure
+- `static/js/plugin_loading_and_search.js`: homepage interactivity
+- `static/css/`: copied styling assets used by the generated pages
 
 ## Local Development
 
-Ensure you have the following prerequisites installed:
+### Quick Start with pixi:
 
-- Python 3.x
-- Other dependencies listed in `requirements.txt`
-
-### Building the Website
-
-To build the website locally use:
-
+To build the website locally:
 ```sh
-# this deletes the `_build` directory and everything inside it
-make clean
-
-# this runs the required Python scripts and populates the `_build` directory
-make all
+# install pixi if you don't have it already
+pixi run build
+```
+or to serve the site locally in your browser:
+```sh
+pixi run serve-local
 ```
 
-### Serving the Website Locally
+### Development Workflow
 
-To serve the website locally in your browser use:
+All tasks are available through `build_site.py` and can be run with `uv`, `pixi`, or make. The tasks are:
 
-```sh
-make serve-local
-```
+- `clean`: deletes the `_build/` directory and everything inside it, so use with caution. This is the first step in a full build, but you can also run it separately if you want to start from a clean slate.
+- `prep`: copies static assets into `_build/` and prepares the build environment, but does not run the data fetching or HTML generation steps, so it is fast to run and can be used before `fetch-data` or `create-html` for iterative development.
+- `fetch-data`: runs the data fetching step, which can be slow due to the number of plugins and API calls, but is only needed when plugin data changes.
+- `create-html`: runs the data fetching and HTML generation steps, but does not clean or copy static assets, so it is faster for iterative development.
+
+### Recommended: pixi
+
+[Pixi](https://pixi.sh) is the easiest cross-platform way to build the site locally.
+
+Useful tasks:
+
+- `pixi run clean`
+- `pixi run prep`
+- `pixi run fetch-data`
+- `pixi run create-html`
+- `pixi run build`
+- `pixi run serve-local`
+
+### Alternative: uv
+
+If you prefer a Python-native workflow without Pixi, use [`uv`](https://docs.astral.sh/uv/getting-started/installation/) against the same
+`pyproject.toml` manifest. This uses the commands that make wraps, so the underlying Python scripts are the same as with Pixi. E.g.
+
+- `uv run python build_site.py all`
+- `uv run python build_site.py serve-local`
 
 ### Acknowledgments
 
