@@ -9,9 +9,9 @@
     <meta
         content="napari-sam3-assistant, Wulin Teo, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
-    <meta content="A napari plugin for Segment Anything Model 3 (SAM3) image segmentation with Simple and Advanced workflows, text, points, boxes, exemplars, large-image ROI inference, mask operations, and 3D/video-like propagation" name="description" />
-    <meta content="A napari plugin for Segment Anything Model 3 (SAM3) image segmentation with Simple and Advanced workflows, text, points, boxes, exemplars, large-image ROI inference, mask operations, and 3D/video-like propagation" property="og:description" />
-    <meta content="A napari plugin for Segment Anything Model 3 (SAM3) image segmentation with Simple and Advanced workflows, text, points, boxes, exemplars, large-image ROI inference, mask operations, and 3D/video-like propagation." name="twitter:description" />
+    <meta content="A napari plugin for Segment Anything Model 3 (SAM3) image segmentation with Simple and Advanced workflows, text, points, boxes, exemplars, tiled ROI inference, mask operations, and 3D/video-like propagation" name="description" />
+    <meta content="A napari plugin for Segment Anything Model 3 (SAM3) image segmentation with Simple and Advanced workflows, text, points, boxes, exemplars, tiled ROI inference, mask operations, and 3D/video-like propagation" property="og:description" />
+    <meta content="A napari plugin for Segment Anything Model 3 (SAM3) image segmentation with Simple and Advanced workflows, text, points, boxes, exemplars, tiled ROI inference, mask operations, and 3D/video-like propagation." name="twitter:description" />
     <meta content="SAM3 Assistant - napari Plugin - Wulin Teo" property="og:title" />
     <meta content="SAM3 Assistant - napari Plugin - Wulin Teo" name="twitter:title" />
     <meta content="article" property="og:type" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">4.3.9</li>
+                                            <li class="MetadataList_textItem__KKmMN">4.4.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-24</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-25</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@
         </div>
 
                                 <div class="flex justify-between items-center my-6">
-                                    <h2 class="text-lg">A napari plugin for Segment Anything Model 3 (SAM3) image segmentation with Simple and Advanced workflows, text, points, boxes, exemplars, large-image ROI inference, mask operations, and 3D/video-like propagation</h2>
+                                    <h2 class="text-lg">A napari plugin for Segment Anything Model 3 (SAM3) image segmentation with Simple and Advanced workflows, text, points, boxes, exemplars, tiled ROI inference, mask operations, and 3D/video-like propagation</h2>
                                 </div>
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
@@ -210,13 +210,14 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><img src="docs/ui.png" alt="napari-sam3-assistant UI" /></p>
-<p>Latest version: <code>4.3.9</code></p>
+                                        <p><a href="https://doi.org/10.5281/zenodo.20367206"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.20367206.svg" alt="DOI" /></a></p>
+<p><img src="docs/ui.png" alt="napari-sam3-assistant UI" /></p>
+<p>Latest version: <code>4.4.0</code></p>
 <p><code>napari-sam3-assistant</code> is a napari plugin for local Segment Anything Model 3
 (SAM3) segmentation. It provides:</p>
 <ul>
 <li>a guided <code>Simple</code> mode for common segmentation work;</li>
-<li>an <code>Advanced</code> mode for model setup, batch runs, local ROI inference, result
+<li>an <code>Advanced</code> mode for model setup, batch runs, tiled inference, result
 tables, and 3D/video-style propagation;</li>
 <li>a separate <code>SAM3 Mask Operations</code> widget for cleanup, relabeling, isolation,
 merge, overlap inspection, and export.</li>
@@ -231,10 +232,12 @@ prompts.</li>
 <li>Search for similar features with exemplar prompting from a drawn region or
 crop image.</li>
 <li>Correct previews with Live Points using positive and negative clicks.</li>
-<li>Run local ROI inference on large TIFF or OME-Zarr-style images.</li>
+<li>Run tiled inference on large TIFF or OME-Zarr-style images.</li>
 <li>In Advanced mode, run Phase 1 Huge Volume exemplar scans by processing 3D stacks slice by slice and writing tiled masks directly to OME-Zarr.</li>
 <li>Scan large 2D images tile by tile from an exemplar ROI and stitch the result
 into full-size labels.</li>
+<li>Run experimental folder batch inference from a tested exemplar, writing TIFF
+or OME-Zarr masks to disk without loading full batch outputs into the viewer.</li>
 <li>Propagate prompts through 3D stacks or video-like data when the installed SAM3
 backend supports the workflow.</li>
 <li>Save previews, clean connected components, relabel values, isolate overlapping
@@ -349,9 +352,9 @@ receives the polygon's bounding rectangle, not the exact polygon contour.</p>
 <li>Click <code>Save Labels</code> or <code>Save &amp; Clean</code>.</li>
 <li>Move to the next object or ROI and repeat.</li>
 </ol>
-<p>Large-image ROI loop:</p>
+<p>Tiled ROI loop:</p>
 <ol>
-<li>Enable local/tiled inference and choose a tile/ROI size.</li>
+<li>Enable tiled inference and choose a tile/ROI size.</li>
 <li>Draw or select a prompt box/point.</li>
 <li>Click <code>Run Current ROI Only</code> to test that local region.</li>
 <li>Changing ROI size recomputes the next local region; previous active ROIs are reused only when the requested size still matches.</li>
@@ -365,7 +368,16 @@ receives the polygon's bounding rectangle, not the exact polygon contour.</p>
 <li>Use <code>SAM3 Mask Operations</code> for cleanup, isolation, merge, and export.</li>
 </ol>
 <p>Tiled exemplar scans are a search workflow, not an exact repeat of <code>Run Current ROI Only</code>. The current tiled scan uses one exemplar crop as a visual reference for each tile by composing an exemplar-plus-tile image, then writes the tile-side result back to the full canvas. Multiple boxes in the current ROI can help <code>Run Current ROI Only</code> when they overlap that ROI, but tiled scan currently uses the first collected exemplar crop as the default reference for all tiles.</p>
-<p>Huge Volume Phase 1 is available in Advanced Exemplar mode for 3D stacks. Enable <code>Enable large-image local inference</code>, check <code>Scan all Z slices to OME-Zarr</code>, then use <code>Scan Z Stack by Tiles</code>. This path writes tile labels directly to an OME-Zarr mask store and does not create a full in-memory volume. To curate the result, drag/open the mask as a Labels layer, use <code>Mask Operations &gt; Mask Cleanup / Multiclass</code> with Full mask, Manual ROI, or Drawn ROI, then use <code>Region Output</code> to write the current working region back to OME-Zarr or export it as TIFF. Seam merging, cross-Z object linking, and resumable jobs are planned later phases.</p>
+<p>Experimental folder batch loop:</p>
+<ol>
+<li>In Advanced <code>Exemplar segmentation</code>, load one representative image or crop.</li>
+<li>Enable tiled inference, choose tile size and overlap, and draw/select the exemplar box.</li>
+<li>Click <code>Run Current ROI Only</code> to confirm the exemplar works locally.</li>
+<li>Check <code>Run folder batch</code>; Step 4 shows input folder, output folder, and output format.</li>
+<li>Click <code>Run Folder Batch</code>. Masks are written to disk with the same input stem plus <code>_mask</code>, such as <code>image001_mask.tif</code> or <code>image001_mask.ome.zarr</code>.</li>
+</ol>
+<p>Folder batch is experimental. Input currently supports common 2D image files and TIFF stacks (<code>.tif</code>, <code>.tiff</code>, <code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.bmp</code>). OME-Zarr and ND2 input, nested-folder mirroring, overwrite/resume policy, and chunked output for truly huge <code>100k x 100k</code> images are not wired yet. Batch outputs are not automatically loaded into the viewer; drag written masks or OME-Zarr outputs into napari to review quality.</p>
+<p>Huge Volume Phase 1 is available in Advanced Exemplar mode for 3D stacks. Enable <code>Enable tiled inference</code>, check <code>Scan all Z slices to OME-Zarr</code>, then use <code>Scan Z Stack by Tiles</code>. This path writes tile labels directly to an OME-Zarr mask store and does not create a full in-memory volume. To curate the result, drag/open the mask as a Labels layer, use <code>Mask Operations &gt; Mask Cleanup / Multiclass</code> with <code>Current slice</code> or a small <code>Z range</code> plus <code>Manual ROI</code>/<code>Drawn ROI</code>, then use <code>Region Output</code> to write the current working region back to the loaded OME-Zarr store/array or export it as TIFF. Region Output reports OME-Zarr shape/chunks/axes/dtype and requires an explicit override before writing to a different store. Mask Cleanup blocks unsafe huge-volume choices such as <code>Whole volume</code> and unbounded <code>Full mask</code>. Seam merging, cross-Z object linking, and resumable jobs are planned later phases.</p>
 <p>Advanced mode also includes <code>Detection threshold</code>, with default <code>0.35</code>. Lower
 values accept weaker candidates and may add false positives. Higher values are
 stricter and may miss faint or uncommon structures. The Results table <code>Score</code>
@@ -409,6 +421,20 @@ tasks rather than exact layout alone.</p>
 <p>The test suite covers coordinate mapping, prompt collection, adapter utility
 behavior, mask operation services, and static widget UI checks. It does not
 download SAM3 weights.</p>
+<h2>Citation</h2>
+<p>If you use <code>napari-sam3-assistant</code> in your work, please cite the Zenodo archive for version <code>4.4.0</code>:</p>
+<p>Teo, Wulin. (2026). <code>napari-sam3-assistant</code> (Version 4.4.0) [Computer software]. Zenodo. <a href="https://doi.org/10.5281/zenodo.20367206">https://doi.org/10.5281/zenodo.20367206</a></p>
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">teo_2026_napari_sam3_assistant</span><span class="p">,</span>
+  <span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">Teo</span><span class="p">,</span> <span class="n">Wulin</span><span class="p">},</span>
+  <span class="n">title</span> <span class="o">=</span> <span class="p">{</span><span class="n">napari</span><span class="o">-</span><span class="n">sam3</span><span class="o">-</span><span class="n">assistant</span><span class="p">},</span>
+  <span class="n">version</span> <span class="o">=</span> <span class="p">{</span><span class="mf">4.4.0</span><span class="p">},</span>
+  <span class="n">year</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2026</span><span class="p">},</span>
+  <span class="n">publisher</span> <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
+  <span class="n">doi</span> <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.20367206</span><span class="p">},</span>
+  <span class="n">url</span> <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.20367206</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
 <h2>References</h2>
 <ul>
 <li>SAM3 repository: <a href="https://github.com/facebookresearch/sam3">https://github.com/facebookresearch/sam3</a></li>
@@ -435,7 +461,7 @@ Methodist Research Institute.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">4.3.9</li>
+                                                    <li class="MetadataList_textItem__KKmMN">4.4.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -445,7 +471,7 @@ Methodist Research Institute.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-24</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-25</li>
                                                 </ul>
                                             </div>
                                         </div>
