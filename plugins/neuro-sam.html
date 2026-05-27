@@ -7,17 +7,17 @@
     <link href="../plugins/neuro-sam.html" rel="canonical" />
     <meta content="width=device-width,initial-scale=1" name="viewport" />
     <meta
-        content="neuro-sam, Nipun Arora, Munna Singh, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
+        content="neuro-sam, Nipun Arora, napari hub, napari, hub, plugin, image analysis, imaging, chan zuckerberg initiative"
         name="keywords" />
     <meta content="Neuro-SAM: Foundation Model for Dendrite and Dendritic Spine Segmentation" name="description" />
     <meta content="Neuro-SAM: Foundation Model for Dendrite and Dendritic Spine Segmentation" property="og:description" />
     <meta content="Neuro-SAM: Foundation Model for Dendrite and Dendritic Spine Segmentation." name="twitter:description" />
-    <meta content="Neuro-SAM - napari Plugin - Nipun Arora, Munna Singh" property="og:title" />
-    <meta content="Neuro-SAM - napari Plugin - Nipun Arora, Munna Singh" name="twitter:title" />
+    <meta content="Neuro-SAM - napari Plugin - Nipun Arora" property="og:title" />
+    <meta content="Neuro-SAM - napari Plugin - Nipun Arora" name="twitter:title" />
     <meta content="article" property="og:type" />
     <meta content="../plugins/neuro-sam.html" property="og:url" />
     <meta content="@napari_imaging" name="twitter:site" />
-    <title>Neuro-SAM - napari Plugin - Nipun Arora, Munna Singh</title>
+    <title>Neuro-SAM - napari Plugin - Nipun Arora</title>
 
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.17</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.18</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-02-13</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-27</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                 <ul class="PluginAuthors_authors__hs3zO">
                                     <li class="inline">
                                         <span class="text-[11px] screen-495:text-[14px]
-                                          font-semibold">Nipun Arora, Munna Singh</span>
+                                          font-semibold">Nipun Arora</span>
                                     </li>
                             </ul>
                             <div class="screen-1425:hidden mt-sds-xl mb-sds-xxl"><a
@@ -212,58 +212,117 @@
 
                                         <div align="center">
 <h1>Neuro-SAM</h1>
-<h4>Foundation Model from Dendrite and Dendritic Spine Segmentation</h4>
+<h4>Foundation Model for Dendrite and Dendritic Spine Segmentation</h4>
 </div>
-<p>Neuro-SAM enables you to:</p>
+<p>Neuro-SAM is a napari plugin for analysing dendritic morphology in 3D fluorescence microscopy stacks. It enables you to:</p>
 <ul>
-<li>Trace individual dendrite in a 3D stack</li>
-<li>Segment traced dendrites using fine-tuned SAMv2</li>
-<li>Tubular View Analysis of the dendrites</li>
-<li>Segment Dendritic Spines using our custom model</li>
+<li>Trace individual dendrites in a 3D volume using waypoint-guided brightest-path search</li>
+<li>Segment traced dendrites using a fine-tuned SAM2 model</li>
+<li>Detect dendritic spines along each traced path</li>
+<li>Segment individual spines using a dedicated fine-tuned SAM2 model</li>
 </ul>
-<p>Neuro-SAM works across different imaging modalities including two-photon, confocal and STED microscopy.</p>
+<p>Neuro-SAM works across imaging modalities including two-photon, confocal, and STED microscopy.</p>
+<hr />
 <h3>🚀 Installation</h3>
-<p>Neuro-SAM requires <strong>Python 3.10+</strong> installed on your machine. It is recommended to use Conda/Miniconda for environment management. You can also use CUDA for GPU based accelerations. Our model are also optimised to use MPS on Apple Silicon (M series chips).</p>
-<p>To install Neuro-SAM:</p>
+<p>Neuro-SAM requires <strong>Python 3.10+</strong>. We recommend using Conda/Miniconda for environment management.</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>neuro-sam
 </pre></div>
 </code></pre>
-<p>Downloading models and sample dataset</p>
+<p>Models are downloaded automatically on first use and stored in <code>src/neuro_sam/checkpoints/</code> — easy to find and delete.</p>
+<p>To pre-download all models and the sample dataset:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>neuro-sam-download
 </pre></div>
 </code></pre>
+<p>GPU acceleration is supported via <strong>CUDA</strong> and <strong>MPS</strong> (Apple Silicon).</p>
+<hr />
 <h3>📊 Usage</h3>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># base usage with benchmark dataset</span>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="c1"># Launch with the built-in benchmark dataset</span>
 neuro-sam
 
-<span class="c1"># using with your own dataset</span>
+<span class="c1"># Launch with your own dataset</span>
 neuro-sam<span class="w"> </span>--image-path<span class="w"> </span>/path/to/your/image.tif
 </pre></div>
 </code></pre>
+<hr />
+<h3>🗃 Repository Structure</h3>
+<pre><code><div class="highlight"><pre><span></span><span class="n">src</span><span class="o">/</span><span class="n">neuro_sam</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">checkpoints</span><span class="o">/</span>          <span class="c1"># model weights (auto-downloaded on first use)</span>
+<span class="err">├──</span> <span class="n">napari_utils</span><span class="o">/</span>         <span class="c1"># UI widgets and inference modules</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">main_widget</span><span class="o">.</span><span class="n">py</span>          <span class="c1"># top-level plugin widget</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">path_tracing_module</span><span class="o">.</span><span class="n">py</span>  <span class="c1"># waypoint path tracing</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">segmentation_module</span><span class="o">.</span><span class="n">py</span>  <span class="c1"># dendrite segmentation</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">segmentation_model</span><span class="o">.</span><span class="n">py</span>   <span class="c1"># SAM2 dendrite model wrapper</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">spine_detection_module</span><span class="o">.</span><span class="n">py</span>     <span class="c1"># spine detection</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">spine_segmentation_module</span><span class="o">.</span><span class="n">py</span>  <span class="c1"># spine segmentation UI</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">spine_segmentation_model</span><span class="o">.</span><span class="n">py</span>   <span class="c1"># SAM2 spine model wrapper</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">anisotropic_scaling</span><span class="o">.</span><span class="n">py</span>  <span class="c1"># voxel spacing / scaling</span>
+<span class="err">├──</span> <span class="n">brightest_path_lib</span><span class="o">/</span>   <span class="c1"># waypoint A* path tracing algorithm</span>
+<span class="err">├──</span> <span class="n">training</span><span class="o">/</span>             <span class="c1"># training scripts for fine-tuning</span>
+<span class="err">├──</span> <span class="n">plugin</span><span class="o">.</span><span class="n">py</span>             <span class="c1"># napari entry point</span>
+<span class="err">└──</span> <span class="n">utils</span><span class="o">.</span><span class="n">py</span>              <span class="c1"># model download and shared utilities</span>
+</pre></div>
+</code></pre>
+<hr />
 <h3>🔬 Workflow</h3>
-<h4>1. <strong>Configure Voxel Spacing</strong></h4>
-<p>Set accurate X, Y, Z voxel spacing in the &quot;Path Tracing&quot; tab for proper scaling:</p>
-<h4>2. <strong>Trace Dendritic Paths</strong></h4>
+<h4>1. Configure Voxel Spacing</h4>
+<p>In the <strong>Path Tracing</strong> tab, set accurate X, Y, Z voxel spacing (nm) for your acquisition. This ensures correct anisotropic scaling throughout the pipeline.</p>
+<h4>2. Trace Dendritic Paths</h4>
 <ul>
-<li>Click waypoints along dendrite structures</li>
-<li>Algorithm automatically finds optimal brightest paths</li>
+<li>Click waypoints along dendrite structures in the viewer</li>
+<li>Use <strong>Load Dataset</strong> to switch datasets without restarting</li>
+<li>The algorithm finds the optimal brightest path between waypoints</li>
 </ul>
-<h4>3. <strong>Segment Dendrites</strong></h4>
+<h4>3. Segment Dendrites</h4>
 <ul>
-<li>Load pre-trained SAMv2 dendrite model</li>
-<li>Segment individual path with SAMv2</li>
+<li>Go to the <strong>Segmentation</strong> tab</li>
+<li>Load the pre-trained SAM2 dendrite model</li>
+<li>Run segmentation on individual traced paths</li>
 </ul>
-<h4>4. <strong>Segment Spines</strong></h4>
+<h4>4. Detect Spines</h4>
 <ul>
-<li>Segment Dendritic Spines with our fine tuned model</li>
+<li>Go to the <strong>Spine Detection</strong> tab</li>
+<li>Select a segmented path</li>
+<li>Run automatic spine detection using tubular view analysis</li>
 </ul>
-<h3>📬  Contact</h3>
+<h4>5. Segment Spines</h4>
 <ul>
-<li>Nipun Arora - <a href="mailto:nipunarora8@yahoo.com">nipunarora8@yahoo.com</a></li>
-<li>Munna Singh - <a href="mailto:singhmunna0786@gmail.com">singhmunna0786@gmail.com</a></li>
+<li>Go to the <strong>Spine Segmentation</strong> tab</li>
+<li>Load the pre-trained SAM2 spine model</li>
+<li>Run spine segmentation on detected spine positions</li>
+<li>Export spine masks as TIFF files</li>
+</ul>
+<hr />
+<h3>🗂 Models</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sam2.1_hiera_small.pt</code></td>
+<td>SAM2 base checkpoint</td>
+</tr>
+<tr>
+<td><code>dendrite_model.torch</code></td>
+<td>Fine-tuned weights for dendrite segmentation</td>
+</tr>
+<tr>
+<td><code>spine_model.torch</code></td>
+<td>Fine-tuned weights for spine segmentation</td>
+</tr>
+</tbody>
+</table>
+<p>All models are downloaded from the <a href="https://github.com/nipunarora8/Neuro-SAM/releases/tag/weights">GitHub release</a> on first use.</p>
+<hr />
+<h3>📬 Contact</h3>
+<ul>
+<li>Nipun Arora — <a href="mailto:nipunarora8@yahoo.com">nipunarora8@yahoo.com</a></li>
 </ul>
 <div align="center">
-<b style="color: black;">Made with ♥️ at <a href='https://anki.xyz' style="text-decoration: none; color: black;">Anki Lab</a> 🧠✨</b>
+<b>Made with ♥️ at <a href='https://anki.xyz'>Anki Lab</a> 🧠✨</b>
 </div>
 
 
@@ -280,7 +339,7 @@ neuro-sam<span class="w"> </span>--image-path<span class="w"> </span>/path/to/yo
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.17</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.18</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -290,7 +349,7 @@ neuro-sam<span class="w"> </span>--image-path<span class="w"> </span>/path/to/yo
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-02-13</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-27</li>
                                                 </ul>
                                             </div>
                                         </div>
