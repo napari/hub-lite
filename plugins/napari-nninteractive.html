@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2.1.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">2.1.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-28</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-05-29</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari-nifti</li><li class="MetadataList_textItem__KKmMN">huggingface_hub</li><li class="MetadataList_textItem__KKmMN">hf_transfer</li><li class="MetadataList_textItem__KKmMN">nnInteractive>=2.1.0</li><li class="MetadataList_textItem__KKmMN">napari_toolkit</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">nnInteractive[client]; extra == "remote"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari-nifti</li><li class="MetadataList_textItem__KKmMN">huggingface_hub</li><li class="MetadataList_textItem__KKmMN">hf_transfer</li><li class="MetadataList_textItem__KKmMN">nnInteractive>=2.2.0</li><li class="MetadataList_textItem__KKmMN">napari_toolkit</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">nnInteractive[client]>=2.2.0; extra == "remote"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +243,11 @@ Extensive benchmarking demonstrates that nnInteractive far surpasses existing me
 </a>
 <h2>Installation</h2>
 <h3>Prerequisites</h3>
-<p>You need a Linux or Windows computer with a Nvidia GPU. 10GB of VRAM is recommended. Small objects should work with &lt;6GB.</p>
+<p>For <strong>local</strong> inference you need a Linux or Windows computer with an Nvidia GPU. 10GB of VRAM is recommended. Small objects should work with &lt;6GB.</p>
+<blockquote>
+<p>[!TIP]
+<strong>On a Mac, or without a capable Nvidia GPU?</strong> Use <a href="#remote-inference-server--client"><strong>Remote inference</strong></a> instead. nnInteractive relies heavily on 3D convolutions, which are prohibitively slow on Apple Silicon (MPS) and CPU hardware — running the model on a remote GPU and driving it from napari is the recommended, and often only practical, way to use nnInteractive on these machines. The napari client itself has no GPU requirements and runs anywhere; only the GPU server needs the hardware above.</p>
+</blockquote>
 <h5>1. Create a virtual environment:</h5>
 <p>nnInteractive supports Python 3.10+ and works with Conda, pip, or any other virtual environment. Here’s an example using Conda:</p>
 <pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">nnInteractive</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.12</span>
@@ -292,6 +296,40 @@ Afterward, Drag and drop your images into napari.</p>
 <h1>How to use</h1>
 <p><strong>Note:</strong> To open Nifti (.nii.gz, .nii) files we recommend to select napari-nifti.</p>
 <img src="https://github.com/MIC-DKFZ/napari-nninteractive/raw/main/imgs/gui_instuctions.png" width="1200">
+<h2>Remote inference (server / client)</h2>
+<p><strong>This is the recommended way to run nnInteractive on a Mac or any machine without a capable Nvidia GPU.</strong> nnInteractive
+depends heavily on 3D convolutions, which are prohibitively slow on Apple Silicon (MPS) and CPU — in practice, remote
+inference is the only usable option on those systems.</p>
+<p>You run the model on a remote machine and drive it from napari over the network. One server hosts the model and serves
+multiple napari clients; each client gets its own independent session (image, prompts, segmentation), while the
+model weights are loaded once and shared. The napari client has no GPU requirements, so it runs fine on a laptop or Mac.</p>
+<h3>On the GPU machine — start the server</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>nninteractive-server<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--model-dir<span class="w"> </span>/path/to/checkpoint_folder<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--fold<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">1527</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-sessions<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--api-key<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span><span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</code></pre>
+<p>Share the printed API key with your users via whatever channel you use for shared credentials. For a single-user setup over SSH (no API key, no exposed port), see the SSH-tunnel section in the full docs linked below.</p>
+<h3>In napari — connect to the server</h3>
+<ol>
+<li>Start napari with the plugin (<code>napari -w napari-nninteractive</code>).</li>
+<li>In the plugin panel, flip the <strong>Local | Remote</strong> switch to <strong>Remote</strong>.</li>
+<li>Enter the <strong>Server URL</strong> (e.g. <code>http://gpu-box.lab:1527</code>) and the <strong>API key</strong>.</li>
+<li>Click <strong>Connect</strong>. On success the status line shows <code>connected (...)</code>.</li>
+<li>Use <strong>Initialize</strong> and the rest of the workflow exactly as in local mode — point, bbox, scribble, and lasso prompts all behave the same; only the prediction runs on the remote GPU.</li>
+</ol>
+<p>The model checkpoint is fixed by the server at startup, so the local checkpoint selector is hidden in Remote mode.</p>
+<h3>Things to be aware of</h3>
+<ul>
+<li><strong>Lost connection or idle timeout.</strong> Server-side sessions are reaped after 10 minutes of inactivity (configurable on the server), and a server that goes away (restart, crash, network drop) ends the session too. When this happens the plugin resets the <strong>Connect</strong> button and asks you to reconnect. <strong>Your current segmentation is preserved</strong> on the client: after you reconnect and click <strong>Initialize</strong> again, the image is re-uploaded and the segmentation is restored so you can keep refining where you left off. Only the in-progress prompt markers (the individual points/boxes/scribbles) need to be redone.</li>
+<li><strong>Server full.</strong> If all session slots are taken, Connect reports <code>server is full, try again later</code>. Retry shortly.</li>
+<li><strong>Concurrent users.</strong> Multiple researchers can use the same server independently. Predictions are serialized on the GPU, so heavy concurrent use makes individual predictions wait briefly — scale out by running one server per GPU.</li>
+<li><strong>Corporate proxies.</strong> If your client machine sets <code>HTTP_PROXY</code> / <code>HTTPS_PROXY</code>, add the server host to <code>NO_PROXY</code>, otherwise requests get intercepted and Connect will report an HTML/proxy error.</li>
+</ul>
+<p>For full details — all server flags, authentication, TLS / reverse-proxy setup, SSH tunnels, troubleshooting — see <a href="https://github.com/MIC-DKFZ/nnInteractive/blob/master/SERVER_CLIENT.md">SERVER_CLIENT.md in the nnInteractive backend repo</a>.</p>
 <h2>Citation</h2>
 <p>When using nnInteractive, please cite the following paper:</p>
 <blockquote>
@@ -326,7 +364,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2.1.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2.1.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -336,7 +374,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-28</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-05-29</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -433,7 +471,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari-nifti</li><li class="MetadataList_textItem__KKmMN">huggingface_hub</li><li class="MetadataList_textItem__KKmMN">hf_transfer</li><li class="MetadataList_textItem__KKmMN">nnInteractive>=2.1.0</li><li class="MetadataList_textItem__KKmMN">napari_toolkit</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">nnInteractive[client]; extra == "remote"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari-nifti</li><li class="MetadataList_textItem__KKmMN">huggingface_hub</li><li class="MetadataList_textItem__KKmMN">hf_transfer</li><li class="MetadataList_textItem__KKmMN">nnInteractive>=2.2.0</li><li class="MetadataList_textItem__KKmMN">napari_toolkit</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">nnInteractive[client]>=2.2.0; extra == "remote"</li></ul>
                                             </div>
                                         </div>
                                     </div>
