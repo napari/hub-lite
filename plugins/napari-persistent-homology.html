@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.5</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -210,11 +210,11 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p><a href="https://github.com/mertesdorfj/napari-persistent-homology/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-persistent-homology.svg?color=green" alt="License BSD-3" /></a>
-<a href="https://pypi.org/project/napari-persistent-homology"><img src="https://img.shields.io/pypi/v/napari-persistent-homology.svg?color=green" alt="PyPI" /></a>
-<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-persistent-homology.svg?color=green" alt="Python Version" /></a>
+                                        <p><a href="https://github.com/mertesdorfj/napari-persistent-homology/raw/main/LICENSE"><img src="https://img.shields.io/pypi/l/napari-persistent-homology.svg?color=green&amp;v=2" alt="License BSD-3" /></a>
+<a href="https://pypi.org/project/napari-persistent-homology"><img src="https://img.shields.io/pypi/v/napari-persistent-homology.svg?color=green&amp;v=2" alt="PyPI" /></a>
+<a href="https://python.org"><img src="https://img.shields.io/pypi/pyversions/napari-persistent-homology.svg?color=green&amp;v=2" alt="Python Version" /></a>
 <a href="https://github.com/mertesdorfj/napari-persistent-homology/actions/workflows/test_and_deploy.yml"><img src="https://github.com/mertesdorfj/napari-persistent-homology/actions/workflows/test_and_deploy.yml/badge.svg" alt="tests" /></a>
-<a href="https://codecov.io/gh/mertesdorfj/napari-persistent-homology"><img src="https://codecov.io/gh/mertesdorfj/napari-persistent-homology/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://codecov.io/gh/mertesdorfj/napari-persistent-homology"><img src="https://codecov.io/gh/mertesdorfj/napari-persistent-homology/branch/main/graph/badge.svg?v=2" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/napari-persistent-homology"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-persistent-homology" alt="napari hub" /></a>
 <a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a></p>
 <p><strong>3D shape analysis of binary segmentations using persistent homology.</strong></p>
@@ -355,8 +355,8 @@
 <tr>
 <td><strong>Lambda</strong></td>
 <td>Parameters</td>
-<td>0.1</td>
-<td>Subpixel step size in voxel-length units. <code>0.1</code> means 10 morphology steps per voxel. Smaller values are more accurate but slower.</td>
+<td>0.1 (minimum)</td>
+<td>Subpixel step size in voxel-length units, in the range <code>0.1</code>–<code>1.0</code>. <code>0.1</code> means 10 morphology steps per voxel. Smaller values are more accurate but slower; the minimum is set to <code>0.1</code> because smaller steps quickly become impractical without offering further accuracy gains.</td>
 </tr>
 <tr>
 <td><strong>Max steps</strong></td>
@@ -373,14 +373,14 @@
 <tr>
 <td><strong>Sigma</strong></td>
 <td>Advanced</td>
-<td>5.0</td>
+<td>3.0</td>
 <td>Standard deviation of the Gaussian smoothing applied to the count curve before peak-finding. Larger values give smoother curves and alleviate more noise, but can also blur close peaks and lead to more inaccurate / shifted peak results.</td>
 </tr>
 <tr>
 <td><strong>Offset</strong></td>
 <td>Advanced</td>
-<td>5</td>
-<td>Number of initial steps to skip when searching for the peak. The very first steps are dominated by noise and small irregularities in the surface rather than real structure, which can create a misleading spike near step 0; ignoring them keeps the search on the true peak. Recommended upper bound: <code>int(1 / Lambda)</code> (one full voxel layer), so that a genuine peak is never skipped.</td>
+<td><code>int(1 / Lambda)</code></td>
+<td>Number of initial steps to skip when searching for the peak. The very first steps are dominated by noise and small irregularities in the surface rather than real structure, which can create a misleading spike near step 0; ignoring them keeps the search on the true peak. The default tracks <code>Lambda</code> so that one full voxel layer is always skipped (e.g. <code>10</code> at the default <code>Lambda = 0.1</code>); whenever <code>Lambda</code> is changed in the widget, the offset is updated automatically. The user is free to override it manually afterwards — the next <code>Lambda</code> change resets it again.</td>
 </tr>
 <tr>
 <td><strong>Voxel size X / Y / Z</strong></td>
@@ -480,7 +480,7 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.5</li>
                                                 </ul>
                                             </div>
                                         </div>
