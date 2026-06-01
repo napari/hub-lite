@@ -12,12 +12,12 @@
     <meta content="Regression adjusted colocalisation colour mapping for napari" name="description" />
     <meta content="Regression adjusted colocalisation colour mapping for napari" property="og:description" />
     <meta content="Regression adjusted colocalisation colour mapping for napari." name="twitter:description" />
-    <meta content="RACC - napari Plugin - Rensu P. Theart" property="og:title" />
-    <meta content="RACC - napari Plugin - Rensu P. Theart" name="twitter:title" />
+    <meta content="napari-racc - napari Plugin - Rensu P. Theart" property="og:title" />
+    <meta content="napari-racc - napari Plugin - Rensu P. Theart" name="twitter:title" />
     <meta content="article" property="og:type" />
     <meta content="../plugins/napari-racc.html" property="og:url" />
     <meta content="@napari_imaging" name="twitter:site" />
-    <title>RACC - napari Plugin - Rensu P. Theart</title>
+    <title>napari-racc - napari Plugin - Rensu P. Theart</title>
 
     <meta content="2" name="next-head-count" />
     <meta content="#80d1ff" name="theme-color" />
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.2.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-29</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-01</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@
                         <article
                             class="w-full col-span-2 row-start-1 screen-875:col-span-3 screen-1150:col-start-1 screen-1425:col-start-2">
                                 <div class="container" style="display: flex; flex-direction: column;">
-                                    <h1 class="font-bold text-4xl" style="margin-bottom: 20px;" >RACC</h1>
+                                    <h1 class="font-bold text-4xl" style="margin-bottom: 20px;" >napari-racc</h1>
                                 </div>
 
                                 
@@ -216,6 +216,16 @@ microscopy data.</p>
 <p>The plugin takes two image layers, computes the RACC index in 3D whenever the
 inputs are volumes, and adds interactive overlay, RACC, side-by-side, MIP, and
 scatter-plot views to the napari viewer.</p>
+<h2>Screenshots</h2>
+<p><img src="https://raw.githubusercontent.com/rensutheart/napari-racc/main/docs/images/racc-side-by-side-volume.png" alt="RACC 3D side-by-side volume view" /></p>
+<p>3D side-by-side view with the thresholded channel overlay on the left and the
+RACC volume on the right.</p>
+<p><img src="https://raw.githubusercontent.com/rensutheart/napari-racc/main/docs/images/racc-side-by-side-mip.png" alt="RACC side-by-side MIP view" /></p>
+<p>3D-derived maximum-intensity projection view.</p>
+<img src="https://raw.githubusercontent.com/rensutheart/napari-racc/main/docs/images/racc-widget-controls.png" alt="RACC widget controls" width="360">
+<p>Scrollable RACC controls with manual thresholds, Costes thresholding, display
+scale controls, probe colors, scatter diagnostics, result export, and view
+switching.</p>
 <h2>Features</h2>
 <ul>
 <li>two-channel RACC calculation from napari <code>Image</code> layers</li>
@@ -223,11 +233,13 @@ scatter-plot views to the napari viewer.</p>
 <li>transparent zero-valued RACC voxels for clean volume rendering</li>
 <li>thresholded RGB overlay volume with selectable probe colors</li>
 <li>side-by-side overlay/RACC and 3D-derived MIP views</li>
-<li>scatter histogram with regression, threshold, and percentile-band overlays</li>
+<li>scatter histogram with visible axes, regression, threshold, and percentile-band overlays</li>
 <li>XY and Z display scale controls for metadata-light TIFF stacks</li>
+<li>scrollable control panel with expandable input layer selectors</li>
+<li>export of the numeric RACC result stack as TIFF</li>
 </ul>
 <h2>Installation</h2>
-<p>Install from PyPI once the package has been published:</p>
+<p>Install from PyPI:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-racc
 </pre></div>
 </code></pre>
@@ -247,11 +259,12 @@ uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </s
 <ol>
 <li>Open napari.</li>
 <li>Open two image stacks or use <code>File &gt; Open Sample &gt; RACC</code>.</li>
-<li>Start the widget from <code>Plugins &gt; RACC &gt; RACC</code>.</li>
+<li>Start the widget from <code>Plugins &gt; RACC (napari-racc)</code>.</li>
 <li>Select channel 1 and channel 2.</li>
 <li>Adjust thresholds manually or press <code>Costes thresholds</code>.</li>
 <li>Press <code>Run RACC</code>.</li>
-<li>Use <code>Overlay</code>, <code>RACC</code>, <code>Side by side</code>, and <code>MIPs</code> to switch views.</li>
+<li>Use <code>Overlay</code>, <code>RACC</code>, <code>3D side by side</code>, and <code>MIPs</code> to switch views.</li>
+<li>Press <code>Export RACC TIFF</code> to save the numeric RACC result stack for use in other software.</li>
 </ol>
 <p>RACC is calculated over the full 3D volume when 3D inputs are used. The MIP view
 is derived from the 3D calculation; it is not a 2D recalculation.</p>
@@ -298,7 +311,7 @@ the rights holder. See <code>LICENSE</code>, <code>NOTICE</code>, and <code>PATE
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.2.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -308,7 +321,7 @@ the rights holder. See <code>LICENSE</code>, <code>NOTICE</code>, and <code>PATE
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-29</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-01</li>
                                                 </ul>
                                             </div>
                                         </div>
