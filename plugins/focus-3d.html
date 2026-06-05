@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-05</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">First released<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-05</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,33 +213,54 @@
 <a href="https://codecov.io/gh/Qinghua24/cellseg"><img src="https://codecov.io/gh/Qinghua24/cellseg/branch/main/graph/badge.svg" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/cellseg"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cellseg" alt="napari hub" /></a>
 <a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a></p>
-<p>FOCUS-3D provides a user-friendly napari plugin for interactive 3D cell segmentation, manual curation, model fine-tuning, 3D reconstruction, and quantitative analysis. Users can run automatic 3D segmentation with pretrained FOCUS3D models, manually correct segmentation errors, perform one-click segmentation, prepare curated patches for human-in-the-loop fine-tuning, reconstruct selected 3D cell instances, and compute quantitative statistics within the same napari workflow.</p>
+<p>FOCUS-3D provides a user-friendly napari plugin for interactive 3D cell segmentation, manual curation, model fine-tuning, and analysis. Users can run automatic 3D segmentation with pretrained FOCUS-3D models, manually correct segmentation errors, perform one-click segmentation, prepare curated patches for human-in-the-loop fine-tuning, reconstruct selected 3D cell instances, and compute quantitative statistics within the same napari workflow.</p>
 <img width="3839" height="2082" alt="image" src="https://github.com/user-attachments/assets/2a9ccc08-3109-4b73-bcae-0514bcec2a86" />
 <h2>Installation</h2>
-<p>You can install <code>FOCUS-3D</code> with the following steps.</p>
-<h3>1. Create a new environment</h3>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>your_path
-conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>FOCUS3D<span class="w"> </span>-f<span class="w"> </span>environment.yml
+<h3>Windows</h3>
+<h4>1. Create a new environment</h4>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>focus3d<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>focus3d
 </pre></div>
 </code></pre>
-<h3>2. Install FOCUS-3D</h3>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>FOCUS3D
-pip<span class="w"> </span>install<span class="w"> </span>napari<span class="o">[</span>all<span class="o">]</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<h4>2. Install FOCUS-3D</h4>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;focus-3d[all]&quot;</span>
 </pre></div>
 </code></pre>
-<h3>3. Launch napari</h3>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>napari
+<h4>3. Launch napari</h4>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>napari
+</pre></div>
+</code></pre>
+<hr />
+<h3>Linux</h3>
+<h4>1. Create a new environment</h4>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>focus3d<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>focus3d
+</pre></div>
+</code></pre>
+<h4>2. Install PyTorch</h4>
+<p>For CUDA 12.6:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu126
+</pre></div>
+</code></pre>
+<p>If your CUDA version is different, please install the corresponding PyTorch version from the official PyTorch installation guide.</p>
+<h4>3. Install FOCUS-3D</h4>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;focus-3d[all]&quot;</span>
+</pre></div>
+</code></pre>
+<h4>4. Install detectron2</h4>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/facebookresearch/detectron2.git&quot;</span>
+</pre></div>
+</code></pre>
+<h4>5. Launch napari</h4>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>napari
 </pre></div>
 </code></pre>
 <h2>Usage</h2>
 <ol>
 <li>Open FOCUS-3D from <code>Plugins -&gt; FOCUS-3D</code>.</li>
-<li>Load the raw image from <code>File -&gt; Open Folder</code> for a <code>.zarr</code> dataset, or <code>File -&gt; Open File(s)</code> for <code>.tif</code> images.</li>
-<li>Use the <code>Basic</code>, <code>Segmentation</code>, and <code>Analysis</code> tabs to load labels, run FOCUS3D segmentation, manually curate results, fine-tune models, reconstruct 3D structures, and calculate quantitative statistics.</li>
+<li>Load the raw image from <code>File -&gt; Open Folder</code> for a <code>.zarr</code> dataset(recommend), or <code>File -&gt; Open File(s)</code> for <code>.tif</code> images.</li>
+<li>Use the <code>Basic</code>, <code>Segmentation</code>, and <code>Analysis</code> tabs to load labels, run segmentation, manually curate results, fine-tune models, reconstruct 3D structures, and calculate quantitative statistics.</li>
 </ol>
-<h2>FOCUS-3D Overview</h2>
-<p>FOCUS-3D provides an integrated workflow for 3D microscopy image analysis. It combines automatic segmentation, interactive correction, local one-click refinement, curated patch generation, model fine-tuning, 3D label reconstruction, and quantitative measurement in a single napari-based interface. This design allows users to move smoothly from raw 3D images to corrected segmentation results and downstream analysis, while also supporting human-in-the-loop improvement of FOCUS3D models using newly curated annotations.</p>
 <h2>Basic Menu</h2>
 <p>The <code>Basic</code> menu provides functions for loading segmentation labels, adjusting image display, manually curating labels, and saving edited results.</p>
 <h3>Load Label</h3>
@@ -435,7 +456,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </tbody>
 </table>
 <h2>Segmentation Menu</h2>
-<p>The <code>Segmentation</code> menu provides automatic 3D segmentation with <strong>FOCUS3D</strong>, one-click local segmentation refinement, and human-in-the-loop fine-tuning based on curated labels.
+<p>The <code>Segmentation</code> menu provides automatic 3D segmentation with <strong>FOCUS-3D</strong>, one-click local segmentation refinement, and human-in-the-loop fine-tuning based on curated labels.
 <img width="3839" height="2084" alt="image" src="https://github.com/user-attachments/assets/74b6b9ae-0a00-4b40-bb31-fb743709c725" /></p>
 <h3>Run Segmentation</h3>
 <table>
@@ -452,7 +473,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </tr>
 <tr>
 <td>Output Path</td>
-<td>Set the output folder for FOCUS3D segmentation results. By default, the plugin creates an output folder based on the input image path.</td>
+<td>Set the output folder for FOCUS-3D segmentation results. By default, the plugin creates an output folder based on the input image path.</td>
 </tr>
 <tr>
 <td>GPU IDs</td>
@@ -468,11 +489,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </tr>
 <tr>
 <td>Checkpoint</td>
-<td>Select the pretrained FOCUS3D model checkpoint. The default path is relative to the FOCUS3D backend folder.</td>
+<td>Select the pretrained model checkpoint. The default path is relative to the backend folder.</td>
 </tr>
 <tr>
 <td>Configure</td>
-<td>Select the FOCUS3D configuration file. The default configuration is <code>configs/3d_test.yaml</code>.</td>
+<td>Select the configuration file. The default configuration is <code>configs/3d_test.yaml</code>.</td>
 </tr>
 <tr>
 <td>Lower / Upper Percentile</td>
@@ -516,7 +537,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </tr>
 <tr>
 <td>Run 3D Segmentation</td>
-<td>Run automatic 3D segmentation using FOCUS3D. The result is loaded back into napari as an editable label layer, and the confidence map can also be saved or visualized.</td>
+<td>Run automatic 3D segmentation using FOCUS-3D. The result is loaded back into napari as an editable label layer, and the confidence map can also be saved or visualized.</td>
 </tr>
 </tbody>
 </table>
@@ -543,7 +564,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </tr>
 <tr>
 <td>Local Refinement</td>
-<td>Use the pretrained FOCUS3D model to refine a clicked cell or local region, supporting fast correction of missed or inaccurate instances.</td>
+<td>Use the pretrained FOCUS-3D model to refine a clicked cell or local region, supporting fast correction of missed or inaccurate instances.</td>
 </tr>
 <tr>
 <td>Undo</td>
@@ -582,11 +603,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </tr>
 <tr>
 <td>Checkpoint Dir</td>
-<td>Set the output directory for fine-tuned FOCUS3D checkpoints.</td>
+<td>Set the output directory for fine-tuned FOCUS-3D checkpoints.</td>
 </tr>
 <tr>
 <td>Run Fine-tune</td>
-<td>Fine-tune the FOCUS3D model using the curated patches. After fine-tuning, the newly generated checkpoint can be used for subsequent segmentation.</td>
+<td>Fine-tune the FOCUS-3D model using the curated patches. After fine-tuning, the newly generated checkpoint can be used for subsequent segmentation.</td>
 </tr>
 </tbody>
 </table>
@@ -658,18 +679,27 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>A typical workflow is:</p>
 <ol>
 <li>Load the raw 3D microscopy image into napari.</li>
-<li>Run automatic 3D segmentation with <strong>FOCUS3D</strong> from the <code>Segmentation</code> menu.</li>
+<li>Run automatic 3D segmentation with <strong>FOCUS-3D</strong> from the <code>Segmentation</code> menu.</li>
 <li>Inspect the segmentation result in the <code>Basic</code> menu.</li>
 <li>Correct segmentation errors using manual curation tools such as <strong>Add to Label</strong>, <strong>Subtract from Label</strong>, <strong>Add New Label</strong>, and <strong>Delete Inside ROI</strong>.</li>
 <li>Use <strong>One-click Segmentation</strong> for fast local correction of difficult or missed cells.</li>
 <li>Save the curated labels as <code>.zarr</code> or <code>.tif</code>.</li>
-<li>Optionally select valid curated patches and fine-tune FOCUS3D with the corrected labels.</li>
+<li>Optionally select valid curated patches and fine-tune FOCUS-3D with the corrected labels.</li>
 <li>Use the <code>Analysis</code> menu for 3D reconstruction, full 3D visualization, and quantitative statistics.</li>
 </ol>
 <h2>License</h2>
 <p>Distributed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3</a> license, <code>FOCUS-3D</code> is free and open source software.</p>
 <h2>Issues</h2>
 <p>If you encounter any problems, please [file an issue] along with a detailed description or contact <a href="mailto:zhangqh24@mails.tsinghua.edu.cn">zhangqh24@mails.tsinghua.edu.cn</a>.</p>
+<h2>Citing</h2>
+<pre><code class="language-bibtex"><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">wang2026high</span><span class="p">,</span>
+  <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">High</span><span class="o">-</span><span class="n">Fidelity</span> <span class="n">Long</span><span class="o">-</span><span class="n">term</span> <span class="n">Whole</span><span class="o">-</span><span class="n">embryo</span> <span class="n">Lineage</span> <span class="ow">and</span> <span class="n">Fate</span> <span class="n">Reconstruction</span> <span class="n">by</span> <span class="n">Iterative</span> <span class="n">Tracking</span> <span class="k">with</span> <span class="n">Error</span> <span class="n">Correction</span><span class="p">},</span>
+  <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Wang</span><span class="p">,</span> <span class="n">Mengfan</span> <span class="ow">and</span> <span class="n">Zhang</span><span class="p">,</span> <span class="n">Qinghua</span> <span class="ow">and</span> <span class="n">Wang</span><span class="p">,</span> <span class="n">Congchao</span> <span class="ow">and</span> <span class="n">Chi</span><span class="p">,</span> <span class="n">Yunfeng</span> <span class="ow">and</span> <span class="n">Zheng</span><span class="p">,</span> <span class="n">Wei</span> <span class="ow">and</span> <span class="n">Mu</span><span class="p">,</span> <span class="n">Zeyu</span> <span class="ow">and</span> <span class="n">Cao</span><span class="p">,</span> <span class="n">Xiangyu</span> <span class="ow">and</span> <span class="n">Zhang</span><span class="p">,</span> <span class="n">Weizhan</span> <span class="ow">and</span> <span class="n">Yang</span><span class="p">,</span> <span class="n">Boao</span> <span class="ow">and</span> <span class="n">Schier</span><span class="p">,</span> <span class="n">Alexander</span> <span class="n">F</span><span class="o">.</span> <span class="ow">and</span> <span class="n">Acedo</span><span class="p">,</span> <span class="n">Joaquin</span> <span class="n">Navajas</span> <span class="ow">and</span> <span class="n">Wan</span><span class="p">,</span> <span class="n">Yinan</span> <span class="ow">and</span> <span class="n">Yu</span><span class="p">,</span> <span class="n">Guoqiang</span><span class="p">},</span>
+  <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2026</span><span class="p">},</span>
+  <span class="n">doi</span><span class="o">=</span><span class="p">{</span><span class="mf">10.64898</span><span class="o">/</span><span class="mf">2026.03.12.711203</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
 
 
                                     </div>
@@ -685,7 +715,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -695,7 +725,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-05</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -705,7 +735,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                     released<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-05</li>
                                                 </ul>
                                             </div>
                                         </div>
