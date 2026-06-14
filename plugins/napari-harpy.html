@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.9</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.11</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-06</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-14</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -218,8 +218,8 @@
 <p>Built around <a href="https://spatialdata.scverse.org/en/stable/"><code>SpatialData</code></a> and <a href="https://harpy.readthedocs.io/en/latest/"><code>Harpy</code></a> for interactive exploration, feature extraction, and object classification.</p>
 <p><code>napari-harpy</code> is a napari plugin for viewing, exploring, and analyzing
 <code>SpatialData</code> datasets. It includes its own viewer for loading and
-browsing data inside napari, alongside feature extraction and interactive
-object classification workflows.</p>
+browsing data inside napari, alongside annotation, feature extraction, and
+interactive object classification workflows.</p>
 <h2>Installation</h2>
 <p>Install from <a href="https://pypi.org/project/napari-harpy/">PyPI</a>:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-harpy
@@ -248,11 +248,12 @@ and launch the Harpy napari interface with <code>Interactive</code>.</p>
 </code></pre>
 <p>This opens napari with the Harpy widgets docked and the
 <code>blobs_multi_region</code> dataset available in the shared viewer state.</p>
-<p>The current repository contains three working widgets:</p>
+<p>The current repository contains four working widgets:</p>
 <ul>
 <li><code>Viewer</code></li>
 <li><code>Feature Extraction</code></li>
 <li><code>Object Classification</code></li>
+<li><code>Annotation</code></li>
 </ul>
 <p>Today the plugin supports:</p>
 <ul>
@@ -264,6 +265,7 @@ linked table from the shared loaded <code>SpatialData</code></li>
 labels element, as <code>.obsm[feature_key]</code>, with companion metadata in
 <code>.uns[&quot;feature_matrices&quot;][feature_key]</code></li>
 <li>interactive manual annotation of instances in labels elements</li>
+<li>interactive creation and editing of polygon shapes annotations</li>
 <li>background <code>RandomForestClassifier</code> retraining on the selected feature
 matrix stored in <code>.obsm[feature_key]</code> of the <code>AnnData</code> table linked to the
 labels element</li>
@@ -277,10 +279,10 @@ processing</li>
 </ul>
 <p>Example napari-harpy session:</p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vibspatial/napari-harpy/main/docs/_static/Screenshot%202026-05-19%20at%2014.25.23.png" alt="napari-harpy viewer example screenshot" width="900">
+  <img src="https://raw.githubusercontent.com/vibspatial/napari-harpy/main/docs/_static/viewer.png" alt="napari-harpy viewer example screenshot" width="900">
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vibspatial/napari-harpy/main/docs/_static/Screenshot%202026-05-09%20at%2021.31.53.png" alt="napari-harpy object classification example screenshot" width="900">
+  <img src="https://raw.githubusercontent.com/vibspatial/napari-harpy/main/docs/_static/object_classification.png" alt="napari-harpy object classification example screenshot" width="900">
 </p>
 <h2>Headless and Multi-Sample Workflows</h2>
 <p>For scripted or batch processing, use the public <code>napari_harpy.headless</code> module.
@@ -322,6 +324,7 @@ napari
 <li><code>Plugins -&gt; napari-harpy -&gt; Viewer</code></li>
 <li><code>Plugins -&gt; napari-harpy -&gt; Feature Extraction</code></li>
 <li><code>Plugins -&gt; napari-harpy -&gt; Object Classification</code></li>
+<li><code>Plugins -&gt; napari-harpy -&gt; Annotation</code></li>
 </ul>
 <h2>Debug script</h2>
 <p>A small local debug script is available at
@@ -349,7 +352,7 @@ python<span class="w"> </span>scripts/debug_widget.py
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.9</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.11</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -359,7 +362,7 @@ python<span class="w"> </span>scripts/debug_widget.py
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-06</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-14</li>
                                                 </ul>
                                             </div>
                                         </div>
