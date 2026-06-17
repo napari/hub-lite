@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.0.5</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.0.6</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-10-07</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-17</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -218,12 +218,15 @@
 <h1>mAIcrobe</h1>
 <img src="docs/logowhitebg.png" align="right" width="200" style="margin-left: 20px;"/>
 <p><strong>mAIcrobe: a napari plugin for microbial image analysis.</strong></p>
-<p>mAIcrobe is a comprehensive napari plugin that facilitates image analysis workflows of bacterial cells. Combining state-of-the-art segmentation approaches, morphological analysis and adaptable classification models into a napari-plugin, mAIcrobe aims to deliver a user-friendly interface that helps inexperienced users perform image analysis tasks regardless of the bacterial species and microscopy modality.</p>
+<p>mAIcrobe is a comprehensive napari plugin that facilitates image analysis workflows of bacterial cells. Combining state-of-the-art segmentation approaches, morphological analysis and adaptable classification models into a napari-plugin, mAIcrobe aims to deliver a user-friendly interface that helps inexperienced users perform image analysis tasks regardless of the bacterial species and microscopy modality. Built using Python 3.10 and 3.11 and tested on Windows, and macOS.</p>
+<p><strong>You can read more about mAIcrobe in our <a href="https://www.biorxiv.org/content/10.1101/2025.10.21.683709v1">preprint</a>.</strong></p>
+<h2>Video Showcase</h2>
+<p><a href="https://youtu.be/UQ-dgATCgkU"><img src="docs/Images/Screenshotyoutube.png" alt="Video" /></a></p>
 <h2>✨ Why mAIcrobe?</h2>
 <h3>🔬 <strong>For Microbiologists</strong></h3>
 <ul>
-<li><strong>Automated Cell Segmentation</strong>: StarDist2D, Cellpose, and custom U-Net models</li>
-<li><strong>Deep learning classification</strong>: 6 pre-trained CNN models for <em>S. aureus</em> cell cycle determination plus support for custom models</li>
+<li><strong>Automated Cell Segmentation</strong>: StarDist2D, Cellpose, and custom U-Net models. Several pre-trained models also included.</li>
+<li><strong>Deep learning classification</strong>: 6 pre-trained CNN models for <em>S. aureus</em> cell cycle determination, a pre-trained model for <em>E. coli</em> antibiotic phenotyping plus support for custom models.</li>
 <li><strong>Morphological Analysis</strong>: Comprehensive measurements using scikit-image regionprops</li>
 <li><strong>Interactive Filtering</strong>: Real-time cell selection based on computed statistics</li>
 </ul>
@@ -235,6 +238,8 @@
 </ul>
 <h2>🚀 Installation</h2>
 <p><strong>Standard Installation:</strong></p>
+<p>We recommend using an environment manager like <a href="https://docs.conda.io/en/latest/">conda</a> to handle dependencies and assure reproducibility.</p>
+<p>Regardless of environment, you can install via pip in Python 3.10 or 3.11. This should handle all dependencies and might take a couple of minutes depending on your internet connection.</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-mAIcrobe
 </pre></div>
 </code></pre>
@@ -244,31 +249,25 @@
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </code></pre>
-<p><strong>🎯 <a href="docs/tutorials/basic-workflow.md">Complete Tutorial →</a></strong></p>
+<p><strong>🎯 <a href="docs/user-guide/getting-started.md#-installation">Detailed Installation Instructions →</a></strong></p>
 <h2>🏆 Key Features</h2>
 <h3>🎨 <strong>Cell Segmentation</strong></h3>
 <ul>
 <li><strong>Thresholding</strong>: Isodata and Local Average methods with watershed</li>
-<li><strong>StarDist2D</strong>: custom models</li>
+<li><strong>StarDist2D</strong>: custom models (pretrained available for <em>S. aureus</em>)</li>
 <li><strong>Cellpose</strong>: cyto3 model</li>
-<li><strong>Custom U-Net Models</strong>: custom models</li>
+<li><strong>Custom U-Net Models</strong>: custom models (pretrained available for <em>S. aureus</em>, <em>B. subtilis</em>, and <em>S. pneumoniae</em>)</li>
 </ul>
 <h3>🧠 <strong>Single cell Classification</strong></h3>
 <ul>
-<li><strong>Pre-trained Models</strong>: 6 specialized models for cell cycle determination in <em>S. aureus</em>:
-<ul>
-<li>DNA+Membrane (Epifluorescence &amp; SIM)</li>
-<li>DNA-only (Epifluorescence &amp; SIM)</li>
-<li>Membrane-only (Epifluorescence &amp; SIM)</li>
-</ul>
-</li>
-<li><strong>Custom Model Support</strong>: Load your own TensorFlow models</li>
+<li><strong>Pre-trained Models</strong>: <em>S. aureus</em> cell cycle and <em>E. coli</em> antibiotic phenotyping</li>
+<li><strong>Custom Model Support</strong>: Build your training dataset in napari with out custom <a href="docs/tutorials/generate_trainingdata.md">widget</a>, train using our jupyter notebook and load your own TensorFlow models,</li>
 </ul>
 <h3>📊 <strong>Comprehensive Morphometry</strong></h3>
 <ul>
 <li><strong>Shape Analysis</strong>: Area, perimeter, eccentricity</li>
 <li><strong>Intensity Measurements</strong>: Fluorescence statistics</li>
-<li><strong>Custom Measurements</strong>: Septum detection</li>
+<li><strong>Custom Measurements</strong>: Septum detection, colocalization, and more</li>
 </ul>
 <h2>📖 Documentation</h2>
 <table>
@@ -281,63 +280,47 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <tbody>
 <tr>
 <td><strong><a href="docs/user-guide/getting-started.md">🚀 Getting Started</a></strong></td>
-<td>Installation to first analysis</td>
+<td>Installation to first analysis using sample data</td>
 </tr>
 <tr>
 <td><strong><a href="docs/user-guide/segmentation-guide.md">🔬 Segmentation Guide</a></strong></td>
-<td>Choose the right segmentation method</td>
+<td>Explore the available segmentation methods</td>
 </tr>
 <tr>
 <td><strong><a href="docs/user-guide/cell-analysis.md">📊 Cell Analysis</a></strong></td>
-<td>Complete analysis workflows</td>
+<td>Explore complete analysis workflow and check the metrics measured</td>
 </tr>
 <tr>
 <td><strong><a href="docs/user-guide/cell-classification.md">🧠 Cell Classification Guide</a></strong></td>
-<td>Cell cycle classification setup</td>
-</tr>
-<tr>
-<td><strong><a href="docs/api/api-reference.md">⚙️ API Reference</a></strong></td>
-<td>Programmatic usage</td>
+<td>Explore the available classification models</td>
 </tr>
 </tbody>
 </table>
-<h2>🎯 Analysis Workflow</h2>
-<h3>📄 <strong>Single Image Analysis</strong></h3>
-<ol>
-<li><strong>Load Images</strong>: Phase contrast and/or fluorescence</li>
-<li><strong>Segment Cells</strong>: Choose segmentation algorithm and parameters</li>
-<li><strong>Analyze Cells</strong>: Extract morphological and intensity features and choose classification model</li>
-<li><strong>Filter Results</strong>: Interactive filtering of cell populations</li>
-<li><strong>Generate Report</strong>: Create comprehensive analysis report</li>
-</ol>
-<h2>🧪 Sample Data</h2>
-<p>The plugin includes test datasets for method validation:</p>
-<ul>
-<li><strong>Phase Contrast</strong>: <em>S. aureus</em> cells in exponential growth</li>
-<li><strong>Membrane Stain</strong>: NileRed fluorescence imaging</li>
-<li><strong>DNA Stain</strong>: Hoechst nuclear labeling</li>
-</ul>
-<p>Access via napari: <code>File &gt; Open Sample &gt; napari-mAIcrobe</code></p>
-<h2>🏃‍♀️ Example Analysis</h2>
-<p><strong>Input Data:</strong></p>
-<ul>
-<li>Phase contrast image</li>
-<li>Membrane fluorescence</li>
-<li>DNA fluorescence</li>
-</ul>
-<p><strong>Analysis Pipeline:</strong></p>
-<ol>
-<li><strong>Segmentation</strong>: Isodata or CellPose's cyto3 identifies individual cells in the phase contrast image</li>
-<li><strong>Morphology</strong>: Calculate morphological and intensity measurements</li>
-<li><strong>Classification</strong>: Cell cycle phase determination using pre-trained CNN model</li>
-<li><strong>Quality Control</strong>: Interactive filtering of analysis results. Select subpopulations based on size, intensity, or classification</li>
-<li><strong>Report Generation</strong>: HTML output</li>
-</ol>
+<table>
+<thead>
+<tr>
+<th>Tutorial</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="docs/tutorials/basic-workflow.md">🎨 Basic Workflow</a></strong></td>
+<td>Step-by-step guide with a simple example (&lt;5 minutes)</td>
+</tr>
+<tr>
+<td><strong><a href="docs/tutorials/generate_trainingdata.md">🛠️ Generate Training Data</a></strong></td>
+<td>Create annotated datasets for custom model training</td>
+</tr>
+</tbody>
+</table>
+<p><strong>For programmatic usage:</strong>
+| <strong><a href="docs/api/api-reference.md">⚙️ API Reference</a></strong></p>
 <h2>📚 Available Jupyter Notebooks</h2>
 <p>Explore advanced functionality with included notebooks:</p>
 <ul>
-<li><strong><a href="notebooks/napari_mAIcrobe_cellcyclemodel.ipynb">Cell Cycle Model Training</a></strong>: Train custom classification models</li>
-<li><strong><a href="notebooks/StarDistSegmentationTraining.ipynb">StarDist Segmentation</a></strong>: Retrain a StarDist segmentation model</li>
+<li><strong><a href="notebooks/napari_mAIcrobe_cellcyclemodel.ipynb">Cell Cycle Model Training</a></strong>: To train custom classification models</li>
+<li><strong><a href="notebooks/StarDistSegmentationTraining.ipynb">StarDist Segmentation</a></strong>: To retrain a StarDist segmentation model</li>
 </ul>
 <h2>🤝 Community</h2>
 <ul>
@@ -388,7 +371,7 @@ tox
 <div align="center">
 <p><strong>🔬 From the <a href="https://henriqueslab.org">Henriques</a> and <a href="https://www.itqb.unl.pt/research/biology/bacterial-cell-biology">Pinho</a> Labs</strong></p>
 <p><em>&quot;Advancing microbiology through AI-powered image analysis.&quot;</em></p>
-<p><strong><a href="docs/user-guide/getting-started.md">🚀 Get Started →</a></strong> | <strong><a href="docs/user-guide/segmentation-guide.md">📚 Learn More →</a></strong> | <strong><a href="docs/api/api-reference.md">⚙️ API Docs →</a></strong></p>
+<p><strong><a href="docs/user-guide/getting-started.md">🚀 Get Started →</a></strong> | <strong><a href="docs/tutorials/basic-workflow.md">📚 Learn More →</a></strong> | <strong><a href="docs/api/api-reference.md">⚙️ API Docs →</a></strong></p>
 </div>
 
 
@@ -405,7 +388,7 @@ tox
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.0.5</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.0.6</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -415,7 +398,7 @@ tox
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-10-07</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-17</li>
                                                 </ul>
                                             </div>
                                         </div>
