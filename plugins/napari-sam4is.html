@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-03-06</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-18</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -264,8 +264,11 @@ https://napari.org/stable/plugins/index.html
 </pre></div>
 </code></pre>
 <blockquote>
-<p><strong>Important</strong>: Before using SAM 3, you must request access to the checkpoints on the <a href="https://huggingface.co/facebook/sam3">SAM 3 Hugging Face repo</a>. Once accepted, you need to be authenticated (e.g., <code>huggingface-cli login</code>) to download the checkpoints automatically.</p>
-<p>Alternatively, you can download <code>sam3.pt</code> manually and specify the local path in the plugin's checkpoint field.</p>
+<p><strong>Important</strong>: Before using SAM 3, you must request access to the checkpoints on the <a href="https://huggingface.co/facebook/sam3">SAM 3 Hugging Face repo</a>.</p>
+<ul>
+<li><strong>Automatic download</strong>: Run <code>huggingface-cli login</code> to authenticate, then leave the checkpoint field empty and click the Load button. The weights will be downloaded automatically.</li>
+<li><strong>Manual download</strong>: Download <code>sam3.pt</code> from the HuggingFace repo and specify the local path in the plugin's checkpoint field.</li>
+</ul>
 </blockquote>
 <h2>Usage</h2>
 <h3>Preparation</h3>
@@ -328,17 +331,26 @@ https://napari.org/stable/plugins/index.html
 <h3>SAM 3: Detect All</h3>
 <p>When using SAM 3, additional features are available for batch detection:</p>
 <ol>
-<li><strong>Prompt Modes</strong>: Choose between Text, Box, or Text+Box prompts using the radio buttons in the SAM3 Prompt section.</li>
-<li><strong>Box prompt</strong>: Draw a bounding box on the SAM-Box layer, then click <strong>Detect All</strong> to detect all instances within the box.</li>
-<li><strong>Text prompt</strong>: Enter a class name or description as the text prompt. The text is derived from the currently selected class name.</li>
-<li><strong>Exemplar-based detection</strong>: Select one or more shapes in the output Shapes layer (e.g., Accepted), then click <strong>Detect All</strong>. The selected shapes are used as exemplar box prompts. This is useful for finding similar objects across the image.
+<li>
+<p><strong>Prompt Modes</strong>: Choose between Text, Box, or Text+Box prompts using the radio buttons in the SAM3 Prompt section.</p>
+</li>
+<li>
+<p><strong>Box prompt</strong>: Draw a bounding box on the SAM-Box layer, then click <strong>Detect All</strong> to detect all instances within the box.</p>
+</li>
+<li>
+<p><strong>Text prompt</strong>: Enter a class name or description as the text prompt. The text is derived from the currently selected class name.</p>
+</li>
+<li>
+<p><strong>Exemplar-based detection</strong>: Select one or more shapes in the output Shapes layer (e.g., Accepted), then click <strong>Detect All</strong>. The selected shapes are used as exemplar box prompts. This is useful for finding similar objects across the image.</p>
 <ul>
 <li>The output Shapes layer must be the active layer for exemplar selection to take effect.</li>
 <li>All selected exemplar shapes must belong to the same class.</li>
 <li>Exemplar boxes and SAM-Box input can be combined.</li>
 </ul>
+<p><a href="https://github.com/user-attachments/assets/daee138c-1185-428f-a787-71a53fffcee6">https://github.com/user-attachments/assets/daee138c-1185-428f-a787-71a53fffcee6</a></p>
 </li>
-<li><strong>IoU duplicate filtering</strong>: To prevent overlapping annotations, the plugin automatically filters out masks that overlap with existing shapes above a configurable IoU threshold (default: 0.5).
+<li>
+<p><strong>IoU duplicate filtering</strong>: To prevent overlapping annotations, the plugin automatically filters out masks that overlap with existing shapes above a configurable IoU threshold (default: 0.5).</p>
 <ul>
 <li>Adjust the threshold using the <strong>IoU Threshold</strong> spinner.</li>
 <li>Check <strong>Same class only</strong> to only filter duplicates within the same class, or uncheck it to filter across all classes.</li>
@@ -422,7 +434,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -432,7 +444,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-03-06</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-18</li>
                                                 </ul>
                                             </div>
                                         </div>

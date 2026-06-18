@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-05</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-18</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
 <a href="https://codecov.io/gh/Qinghua24/cellseg"><img src="https://codecov.io/gh/Qinghua24/cellseg/branch/main/graph/badge.svg" alt="codecov" /></a>
 <a href="https://napari-hub.org/plugins/cellseg"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/cellseg" alt="napari hub" /></a>
 <a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a></p>
-<p>FOCUS-3D provides a user-friendly napari plugin for interactive 3D cell segmentation, manual curation, model fine-tuning, and analysis. Users can run automatic 3D segmentation with pretrained FOCUS-3D models, manually correct segmentation errors, perform one-click segmentation, prepare curated patches for human-in-the-loop fine-tuning, reconstruct selected 3D cell instances, and compute quantitative statistics within the same napari workflow.</p>
+<p>FOCUS-3D provides a user-friendly napari plugin for interactive 3D cell segmentation, manual curation, model fine-tuning, and analysis. Users can run automatic 3D segmentation with pretrained FOCUS-3D models, manually correct segmentation errors, perform one-click segmentation, prepare curated patches for human-in-the-loop fine-tuning, reconstruct selected 3D cell instances, and compute quantitative statistics within the same napari workflow. Our website is <a href="https://www.quiclab.org.cn/focus-3d">https://www.quiclab.org.cn/focus-3d</a>.</p>
 <img width="3839" height="2082" alt="image" src="https://github.com/user-attachments/assets/2a9ccc08-3109-4b73-bcae-0514bcec2a86" />
 <h2>Installation</h2>
 <h3>Windows</h3>
@@ -612,9 +612,10 @@ conda<span class="w"> </span>activate<span class="w"> </span>focus3d
 </tbody>
 </table>
 <h2>Analysis Menu</h2>
-<p>The <code>Analysis</code> menu provides tools for 3D structure reconstruction, full-volume 3D visualization, and quantitative statistics.</p>
-<img width="3839" height="2087" alt="image" src="https://github.com/user-attachments/assets/7d499c7c-952c-4ad0-a2a4-5f1b9896d0f3" />
+<p>The <code>Analysis</code> menu provides tools for selected-label 3D reconstruction, full-volume 3D visualization, and task-based morphometry analysis.</p>
+<img width="3830" height="2072" alt="image" src="https://github.com/user-attachments/assets/bee8aa3e-7f57-439d-93bc-cf28ebbb0f9c" />
 <h3>3D Label Reconstruction</h3>
+<p>This module reconstructs one selected non-background label into a 3D surface mesh. The mesh is generated from the selected label mask and displayed in a separate napari 3D viewer as a <code>Surface</code> layer. The Z scaling factor is applied during mesh generation, which is important for anisotropic microscopy volumes.</p>
 <table>
 <thead>
 <tr>
@@ -625,23 +626,24 @@ conda<span class="w"> </span>activate<span class="w"> </span>focus3d
 <tbody>
 <tr>
 <td>Z Ratio</td>
-<td>Set the physical Z-to-XY ratio for 3D reconstruction. This is important for anisotropic microscopy volumes.</td>
+<td>Set the physical Z-to-XY scaling ratio used during mesh reconstruction. A larger value stretches the reconstructed mesh along the Z axis.</td>
 </tr>
 <tr>
 <td>Reconstruct Selected Label</td>
-<td>Reconstruct the selected label as a 3D mesh for visualization and downstream analysis.</td>
+<td>Reconstruct the currently selected non-background label into a 3D surface mesh. The selected label is cropped before mesh extraction to reduce memory usage.</td>
 </tr>
 <tr>
 <td>Load Mesh</td>
-<td>Load a previously saved 3D mesh file.</td>
+<td>Load a previously saved <code>.npz</code> mesh file and display it in a separate 3D napari viewer.</td>
 </tr>
 <tr>
 <td>Save Mesh</td>
-<td>Save the reconstructed 3D mesh.</td>
+<td>Save the latest reconstructed mesh as a compressed <code>.npz</code> file, including vertices, faces, voxel count, Z ratio, and label ID.</td>
 </tr>
 </tbody>
 </table>
 <h3>Full 3D View</h3>
+<p>This module switches the main napari viewer between 2D slice mode and full-volume 3D visualization mode. It applies anisotropic Z scaling to spatial layers before entering 3D view.</p>
 <table>
 <thead>
 <tr>
@@ -652,15 +654,16 @@ conda<span class="w"> </span>activate<span class="w"> </span>focus3d
 <tbody>
 <tr>
 <td>Z Ratio</td>
-<td>Set the Z-axis scaling factor for full-volume 3D visualization.</td>
+<td>Set the Z-axis scaling factor for full-volume 3D visualization. For 3D data ordered as <code>(Z, Y, X)</code>, the layer scale is set to <code>(Z Ratio, 1.0, 1.0)</code>.</td>
 </tr>
 <tr>
-<td>Switch to 3D View</td>
-<td>Switch the current napari viewer between 2D slice view and 3D visualization mode.</td>
+<td>Switch to 3D View / Switch to 2D View</td>
+<td>Toggle the main viewer between 2D slice view and 3D visualization. When entering 3D mode, the plugin also switches layers to pan/zoom mode to enable camera rotation.</td>
 </tr>
 </tbody>
 </table>
-<h3>Quantitative Statistics</h3>
+<h3>Quick Quantitative Statistics</h3>
+<p>This module provides a lightweight size-distribution summary from the current label layer. It is intended for a quick overview of segmentation results.</p>
 <table>
 <thead>
 <tr>
@@ -671,10 +674,213 @@ conda<span class="w"> </span>activate<span class="w"> </span>focus3d
 <tbody>
 <tr>
 <td>Calculate Size Distribution</td>
-<td>Calculate cell count and cell size distribution from the current label layer. This can be used for basic quantitative analysis of segmentation results.</td>
+<td>Count all non-background labels and compute their voxel sizes. The result dialog reports the number of cells, minimum size, maximum size, and a histogram of cell size distribution.</td>
 </tr>
 </tbody>
 </table>
+<h3>Morphometry Analysis</h3>
+<p>The <code>Morphometry Analysis</code> panel provides task-based quantitative analysis for 3D label layers. Each task runs independently in the background and saves its results to a task-specific output folder.</p>
+<blockquote>
+<p>Morphometry analysis currently supports 3D label layers. Raw image layers are only required when intensity-based features are selected.</p>
+</blockquote>
+<h4>Common Settings</h4>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voxel size (Z / Y / X)</td>
+<td>Set the physical voxel size used for volume, surface area, centroid, distance, and shape measurements.</td>
+</tr>
+<tr>
+<td>Output folder</td>
+<td>Set the root folder for morphometry outputs. Each task writes results into a subfolder such as <code>basic_info</code>, <code>neighborhood</code>, <code>contact</code>, or <code>clustering</code>.</td>
+</tr>
+<tr>
+<td>Browse</td>
+<td>Select an output folder from the file system.</td>
+</tr>
+<tr>
+<td>Open Output Folder</td>
+<td>Open the current morphometry output folder.</td>
+</tr>
+</tbody>
+</table>
+<h4>1. Basic Information</h4>
+<p>Compute selected per-cell measurements and save them into one CSV table.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raw layer</td>
+<td>Select the raw image layer used for intensity measurements. This is required only when intensity features are selected.</td>
+</tr>
+<tr>
+<td>Refresh Raw Layers</td>
+<td>Refresh the raw-layer dropdown from the current napari viewer.</td>
+</tr>
+<tr>
+<td>Features to compute</td>
+<td>Select cell-level features to calculate, including volume, equivalent diameter, surface area, centroid, sphericity, compactness, major axis length, elongation, flatness, and intensity statistics.</td>
+</tr>
+<tr>
+<td>Run Basic Information</td>
+<td>Compute the selected features and save <code>basic_info_cell_features.csv</code> and <code>basic_info_summary.csv</code>.</td>
+</tr>
+<tr>
+<td>Show feature</td>
+<td>Display a selected computed feature as a mapped 3D image layer in napari. Non-map features such as centroid and some scalar-only fields are saved in CSV but are not shown as feature maps.</td>
+</tr>
+</tbody>
+</table>
+<p>Supported basic features include:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Volume</td>
+<td>Physical cell volume computed from voxel count and voxel size.</td>
+</tr>
+<tr>
+<td>Equivalent diameter</td>
+<td>Diameter of a sphere with the same volume.</td>
+</tr>
+<tr>
+<td>Surface area</td>
+<td>Surface area estimated from exposed voxel faces.</td>
+</tr>
+<tr>
+<td>Centroid</td>
+<td>Cell centroid in physical coordinates.</td>
+</tr>
+<tr>
+<td>Sphericity</td>
+<td>Shape compactness relative to a sphere.</td>
+</tr>
+<tr>
+<td>Compactness</td>
+<td>Surface-area-to-volume based compactness measurement.</td>
+</tr>
+<tr>
+<td>Axis major</td>
+<td>Major axis length estimated from PCA on physical voxel coordinates.</td>
+</tr>
+<tr>
+<td>Elongation</td>
+<td>Ratio describing long-axis elongation.</td>
+</tr>
+<tr>
+<td>Flatness</td>
+<td>Ratio describing flattening along the minor axis.</td>
+</tr>
+<tr>
+<td>Min / Max / Mean / Std intensity</td>
+<td>Intensity statistics computed inside each labeled cell. Requires a raw image layer.</td>
+</tr>
+</tbody>
+</table>
+<h4>2. Neighborhood Analysis</h4>
+<p>Compute centroid-based neighborhood features using either k-nearest neighbors or a radius-based neighborhood.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mode</td>
+<td>Choose between <code>kNN distance</code> and <code>Radius count / density</code>.</td>
+</tr>
+<tr>
+<td>k</td>
+<td>Number of neighbors used in kNN mode.</td>
+</tr>
+<tr>
+<td>Radius pixels</td>
+<td>Radius used in radius mode, measured in voxel/pixel coordinates.</td>
+</tr>
+<tr>
+<td>Run Neighborhood</td>
+<td>Compute neighborhood features and save <code>neighborhood_cell_features.csv</code> and <code>neighborhood_summary.csv</code>.</td>
+</tr>
+<tr>
+<td>Show feature</td>
+<td>Display a selected neighborhood feature as a mapped 3D image layer.</td>
+</tr>
+<tr>
+<td>Run Local Comparison</td>
+<td>After neighborhood analysis is finished, compute a local z-score for one selected feature by comparing each cell with its neighbors.</td>
+</tr>
+</tbody>
+</table>
+<p>In <code>kNN distance</code> mode, the plugin computes nearest-neighbor distance, mean/median kNN distance, and local density. In <code>Radius count / density</code> mode, it computes the number of neighboring cells within the selected radius and the corresponding local density.</p>
+<p>Local comparison supports features such as mean intensity, sphericity, volume, surface area, compactness, elongation, and flatness. The output includes the original feature value, local neighbor mean, local neighbor standard deviation, and local z-score.</p>
+<h4>3. Contact Graph Analysis</h4>
+<p>Compute face-touching contact relationships between neighboring labeled cells.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Features to compute</td>
+<td>Select contact features to calculate, including neighbor count, total contact area, mean contact area, maximum contact area, and contact fraction.</td>
+</tr>
+<tr>
+<td>Run Contact Graph</td>
+<td>Compute the contact graph and save <code>contact_cell_features.csv</code>, <code>contact_edges.csv</code>, and <code>contact_summary.csv</code>.</td>
+</tr>
+<tr>
+<td>Show feature</td>
+<td>Display a selected contact feature as a mapped 3D image layer.</td>
+</tr>
+</tbody>
+</table>
+<p>Contact area is estimated from shared voxel faces using the physical voxel size. <code>contact_edges.csv</code> stores pairwise cell-cell contact edges, while <code>contact_cell_features.csv</code> stores per-cell contact summaries.</p>
+<h4>4. Clustering</h4>
+<p>Cluster cells using one selected feature.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature</td>
+<td>Select the feature used for clustering. Available features include morphology, intensity, and contact-related measurements.</td>
+</tr>
+<tr>
+<td>Clusters</td>
+<td>Set the number of clusters for K-means clustering.</td>
+</tr>
+<tr>
+<td>Run Clustering</td>
+<td>Cluster cells based on the selected feature and save <code>clustering_cell_features.csv</code> and <code>clustering_summary.csv</code>. The <code>cluster_id</code> result is displayed automatically in napari.</td>
+</tr>
+</tbody>
+</table>
+<p>If an intensity feature is selected for clustering, a raw image layer is required. Clustering uses the selected feature values and assigns each valid cell a <code>cluster_id</code>.</p>
 <h2>Recommended Workflow</h2>
 <p>A typical workflow is:</p>
 <ol>
@@ -715,7 +921,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>focus3d
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -725,7 +931,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>focus3d
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-05</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-18</li>
                                                 </ul>
                                             </div>
                                         </div>
