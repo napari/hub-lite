@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.0.6</li>
+                                            <li class="MetadataList_textItem__KKmMN">1.1.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2025-07-11</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-18</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -210,25 +210,85 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p>The napari plugin for UniSPAC [A Unified Segmentation framework for Proofreading and Annotation in Connectomics]. UniSPAC provides interactive 3D neuron segmentation. Neuron segmentation, proofreading and tracking can be done with just mouse clicks, which is much more efficient than existing tools.</p>
-<h2>Requirements</h2>
-<p>A system with enough GPU memory and pytorch installed. The size of the GPU memory is related to the size of the vEM image that can be processed. For  <code>test_roi1_sub_z0-100.tiff</code> with a shape of 800x800x100, the recommended minimum GPU memory is 12GB.</p>
+                                        <p><code>napari-UniSPAC</code> is a napari plugin for UniSPAC, a unified segmentation framework for proofreading and annotation in connectomics. The plugin provides interactive 2D and 3D neuron segmentation workflows for volume electron microscopy data, including click-based proofreading, 3D tracing, and automatic segmentation modes.</p>
+<h2>Overview</h2>
+<p>UniSPAC is designed for efficient neuron segmentation and proofreading with sparse user interaction. In napari, users can load an image volume, select an output labels layer, load the pretrained checkpoints, and refine segmentations with mouse clicks.</p>
+<p>Main features:</p>
+<ul>
+<li>Interactive click-based 2D neuron segmentation</li>
+<li>3D tracing across adjacent slices</li>
+<li>Automatic &quot;Everything&quot; segmentation mode</li>
+<li>Optional online adaptation of the 2D mask head</li>
+<li>Checkpoint loading from a user-selected local folder</li>
+</ul>
+<h2>System Requirements</h2>
+<p>The plugin requires a Python environment with napari and PyTorch. GPU acceleration is strongly recommended for practical use.</p>
+<p>Recommended hardware:</p>
+<ul>
+<li>NVIDIA GPU with CUDA support</li>
+</ul>
+<p>Recommended software:</p>
+<ul>
+<li>Python 3.9 or later</li>
+<li>napari</li>
+<li>PyTorch installed for the local CUDA or CPU configuration</li>
+</ul>
 <h2>Installation</h2>
-<p>Step 1: install napari via pip:</p>
+<p>Install napari:</p>
 <pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="s1">&#39;napari[all]&#39;</span>
 </pre></div>
 </code></pre>
-<p>Step 2: install <code>napari-UniSPAC</code></p>
+<p>Clone and install this plugin:</p>
 <pre><code class="language-shell"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ddd9898/napari-UniSPAC.git
 <span class="nb">cd</span><span class="w"> </span>napari-UniSPAC
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </code></pre>
-<p>Step 3: run napari:</p>
+<p>Install the additional runtime dependencies listed in <code>requirements.txt</code> when needed:</p>
+<pre><code class="language-shell"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</code></pre>
+<p>PyTorch should be installed separately using the command recommended for your CUDA or CPU setup at <a href="https://pytorch.org/">pytorch.org</a>.</p>
+<h2>Model Checkpoints</h2>
+<p>The plugin does not download model weights automatically. Download the pretrained checkpoints manually from the UniSPAC OneDrive folder:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>https://1drv.ms/f/c/88a3ba3c5aa53eeb/IgBDDnxcSN9QRKU-3jNDaBF4AdMLvpbbU3FTvKO2ngsWDlQ?e=XtkNDe
+</pre></div>
+</code></pre>
+<p>Download the following four files from the <code>leave-human-out</code> experiment and place them in the same local folder:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>ACRLSD_2D_leaveout_human_holdoutVal16_neo_Best_in_val.model
+ACRLSD_3D_leaveout_human_holdoutVal16_neo_preLSD_Best_in_val.model
+segEM2d_plus_leaveout_human_holdoutVal16_neo_wb1.0_wd1.0_wbd0.3_mtp5_sd0.55_Best_in_val.model
+segEM3d_trace_leaveout_human_holdoutVal16_neo_wb1.0_wd1.0_wbd0.3_Best_in_val.model
+</pre></div>
+</code></pre>
+<p>Keep all four files together so the plugin can resolve the referenced backbones during model loading.</p>
+<h2>Usage</h2>
+<p>Start napari:</p>
 <pre><code class="language-shell"><div class="highlight"><pre><span></span>napari
 </pre></div>
 </code></pre>
-<p>You can familiarise yourself with how UniSPAC's napari plugin operates by labeling  <code>test_roi1_sub_z0-100.tiff</code>, which is an example of Drosophila vEM images.</p>
+<p>In napari:</p>
+<ol>
+<li>Open an image or volume.</li>
+<li>Open the UniSPAC plugin from the napari plugin menu.</li>
+<li>Click <code>Load from folder</code> and select the local folder containing the four checkpoint files.</li>
+<li>Select the input image layer and output labels layer.</li>
+<li>Click <code>Activate</code> for interactive proofreading, or select <code>Everything</code> mode to run automatic segmentation.</li>
+</ol>
+<h2>Repository Contents</h2>
+<ul>
+<li><code>src/napari_UniSPAC/</code>: napari plugin source code</li>
+<li><code>requirements.txt</code>: runtime dependency list</li>
+<li><code>README.md</code>: installation and usage instructions</li>
+<li><code>LICENSE</code>: software license</li>
+</ul>
+<p>Reference scripts and local experimental files may be present in development copies of the repository, but they are not required to run the napari plugin.</p>
+<h2>Data and Model Availability</h2>
+<p>Pretrained UniSPAC checkpoints are distributed separately through the OneDrive link above. Example image data and additional experiment outputs are not bundled with the Python package.</p>
+<h2>Citation</h2>
+<p>If you use UniSPAC or this napari plugin in a publication, please cite the associated UniSPAC manuscript or repository. Citation details will be updated here when the final reference is available.</p>
+<h2>License</h2>
+<p>This project is distributed under the terms described in <code>LICENSE</code>.</p>
 
 
                                     </div>
@@ -244,7 +304,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.0.6</li>
+                                                    <li class="MetadataList_textItem__KKmMN">1.1.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -254,7 +314,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2025-07-11</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-18</li>
                                                 </ul>
                                             </div>
                                         </div>
