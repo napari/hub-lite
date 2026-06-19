@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.4.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.5.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-20</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-19</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -300,6 +300,36 @@ the widget available automatically:</p>
 <pre><code><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ferrinm</span><span class="o">/</span><span class="n">pyphenix</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </code></pre>
+<h2>Public API</h2>
+<p>The following names are part of pyphenix's stable public surface — signatures
+and return semantics will not shift between minor versions.</p>
+<p>Top-level (<code>from pyphenix import …</code>):</p>
+<ul>
+<li><code>OperaPhenixReader</code> — the reader class.</li>
+<li><code>FFCProfile</code> — flat-field correction profile container.
+Stable members: <code>has_correction()</code>, <code>generate_correction_image((Y, X))</code>,
+<code>channel_id</code>, <code>character</code>, <code>mean</code>, <code>quality</code>, <code>profile_type</code>.</li>
+<li><code>FFCCoverageWarning</code> — emitted on partial FFC coverage
+(also importable from <code>pyphenix.errors</code>).</li>
+<li><code>generate_plate_overview()</code> — plate overview PNG generator.</li>
+<li><code>launch_viewer()</code>, <code>napari_get_reader()</code> — napari entry points.</li>
+</ul>
+<p><code>OperaPhenixReader</code> methods that are part of the stable surface:</p>
+<ul>
+<li><code>apply_ffc(data, channel_ids, apply=True, verbose=True, *, dtype=&quot;float32&quot; | &quot;uint16&quot;)</code>
+— apply flat-field correction to a <code>(T, C, Z, Y, X)</code> array. Returns float32
+by default; <code>dtype=&quot;uint16&quot;</code> re-scales each channel by <code>profile.mean</code> then
+clips/rounds/casts to uint16.</li>
+<li><code>ffc_correction_images(shape=None, channel_ids=None) -&gt; dict[int, np.ndarray]</code>
+— return per-channel illumination tiles (float32, shape <code>(Y, X)</code>) for
+chunk-wise FFC. Channels without a real profile are omitted from the dict.
+Defaults: <code>shape = metadata.image_size</code>, <code>channel_ids = metadata.channel_ids</code>.</li>
+<li><code>ffc_profiles: dict[int, FFCProfile]</code> — per-channel correction profiles
+loaded from the FFC XML (empty dict if no FFC data is present).</li>
+</ul>
+<p>Both <code>apply_ffc</code> and <code>ffc_correction_images</code> emit <code>FFCCoverageWarning</code> once
+per call when at least one requested channel lacks a real profile and
+<code>ffc_profiles</code> is non-empty.</p>
 <h3>Contributing</h3>
 <p>Contributions are very welcome. Tests can be run with <a href="https://tox.readthedocs.io/en/latest/">tox</a>, please ensure
 the coverage at least stays the same before you submit a pull request.</p>
@@ -323,7 +353,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.4.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.5.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -333,7 +363,7 @@ the coverage at least stays the same before you submit a pull request.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-20</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-19</li>
                                                 </ul>
                                             </div>
                                         </div>
