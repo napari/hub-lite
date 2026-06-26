@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2.3.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">2.4.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-23</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-26</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari-nifti</li><li class="MetadataList_textItem__KKmMN">huggingface_hub</li><li class="MetadataList_textItem__KKmMN">hf_transfer</li><li class="MetadataList_textItem__KKmMN">nnInteractive>=2.4.0</li><li class="MetadataList_textItem__KKmMN">napari_toolkit</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">nnInteractive[client]>=2.4.0; extra == "remote"</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari-nifti</li><li class="MetadataList_textItem__KKmMN">napari_toolkit</li><li class="MetadataList_textItem__KKmMN">nninteractive-client>=2.5.0</li><li class="MetadataList_textItem__KKmMN">nnInteractive>=2.5.0; extra == "local"</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -242,41 +242,69 @@ Extensive benchmarking demonstrates that nnInteractive far surpasses existing me
     <img src="https://img.youtube.com/vi/V0rqPYA3sjA/0.jpg" width="270">
 </a>
 <h2>Installation</h2>
-<h3>Prerequisites</h3>
-<p>For <strong>local</strong> inference you need a Linux or Windows computer with an Nvidia GPU. 10GB of VRAM is recommended. Small objects should work with &lt;6GB.</p>
+<p><code>napari-nninteractive</code> installs as a <strong>lightweight, torch-free remote client by default</strong> — it can drive a remote <code>nninteractive-server</code> straight away, on any machine. <strong>Local (in-process) inference is an opt-in extra</strong> (<code>[local]</code>) that adds the full nnInteractive backend (PyTorch + nnU-Net) and needs an Nvidia GPU.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Install</th>
+<th>PyTorch?</th>
+<th>Hardware</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Remote client</strong> (default)</td>
+<td><code>pip install napari-nninteractive</code></td>
+<td><strong>No</strong> (lightweight, torch-free)</td>
+<td>anything — laptop, Mac, no GPU</td>
+</tr>
+<tr>
+<td><strong>Local inference</strong></td>
+<td><code>pip install &quot;napari-nninteractive[local]&quot;</code> (+ PyTorch)</td>
+<td><strong>Yes</strong> (large download)</td>
+<td>Linux/Windows + Nvidia GPU — 10 GB VRAM recommended, &lt;6 GB works for small objects</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>[!TIP]
-<strong>On a Mac, or without a capable Nvidia GPU?</strong> Use <a href="#remote-inference-server--client"><strong>Remote inference</strong></a> instead. nnInteractive relies heavily on 3D convolutions, which are prohibitively slow on Apple Silicon (MPS) and CPU hardware — running the model on a remote GPU and driving it from napari is the recommended, and often only practical, way to use nnInteractive on these machines. The napari client itself has no GPU requirements and runs anywhere; only the GPU server needs the hardware above.</p>
+<strong>On a Mac, or without a capable Nvidia GPU?</strong> The default install is already exactly what you want — stop after Step 2. nnInteractive relies heavily on 3D convolutions, which are prohibitively slow on Apple Silicon (MPS) and CPU hardware, so running the model on a remote GPU and driving it from napari is the recommended, and often only practical, way to use it on these machines. See <a href="#remote-inference-server--client">Remote inference (server / client)</a> for how to set up and connect to the server.</p>
 </blockquote>
-<h5>1. Create a virtual environment:</h5>
-<p>nnInteractive supports Python 3.10+ and works with Conda, pip, or any other virtual environment. Here’s an example using Conda:</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">nnInteractive</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.12</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">nnInteractive</span>
+<h3>Step 1 — Create a virtual environment</h3>
+<p>nnInteractive supports Python 3.10+ and works with Conda, pip, or any other virtual environment. Here's an example using Conda:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>nnInteractive<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12
+conda<span class="w"> </span>activate<span class="w"> </span>nnInteractive
 </pre></div>
 </code></pre>
-<h5>2. Install the correct PyTorch for your system</h5>
-<p>Go to the <a href="https://pytorch.org/get-started/locally/">PyTorch homepage</a> and pick the right configuration.
-Note that since recently PyTorch needs to be installed via pip. This is fine to do within your conda environment.</p>
-<p>For Ubuntu with a Nvidia GPU, pick 'stable', 'Linux', 'Pip', 'Python', 'CUDA12.6' (if all drivers are up to date, otherwise use and older version):</p>
-<pre><code><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">cu126</span>
-</pre></div>
-</code></pre>
-<h5>3. Install this repository + dependencies via</h5>
-<p>Install napari if necessary</p>
+<p>Install napari if you don't already have it:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari<span class="o">[</span>all<span class="o">]</span>
 </pre></div>
 </code></pre>
-<p>Install the plugin via pip:</p>
+<h3>Step 2 — Install the plugin (remote client, torch-free)</h3>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-nninteractive
 </pre></div>
 </code></pre>
-<p>Or clone and install this repository:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/MIC-DKFZ/napari-nninteractive
-<span class="nb">cd</span><span class="w"> </span>napari-nninteractive
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<p>This is the <strong>entire</strong> install if you only drive a remote <code>nninteractive-server</code>: no PyTorch, no GPU required. The plugin starts in Remote mode — see <a href="#remote-inference-server--client">Remote inference (server / client)</a> to connect.</p>
+<h3>Step 3 — (Optional) Enable local inference</h3>
+<p>Only needed if <strong>this</strong> machine runs the model itself. Requires a Linux or Windows computer with an Nvidia GPU.</p>
+<p><strong>1. Install the correct PyTorch for your system.</strong> Go to the <a href="https://pytorch.org/get-started/locally/">PyTorch homepage</a> and pick the right configuration. PyTorch must be installed via pip nowadays, which is fine inside a conda environment. For Ubuntu with an Nvidia GPU, pick 'stable', 'Linux', 'Pip', 'Python', CUDA version does not matter (ensure your driver is up to date!). Then execute the command that is displayed, for example:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu126
 </pre></div>
 </code></pre>
-<p><strong>Note:</strong> Model weights are automatically downloaded on first use. This can take up to a couple of minutes depending on your internet connection</p>
+<p><strong>2. Add the <code>[local]</code> extra</strong> (pulls the full nnInteractive backend + nnU-Net):</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari-nninteractive[local]&quot;</span>
+</pre></div>
+</code></pre>
+<p>Quote the brackets so your shell does not treat them as a glob (required in zsh / macOS). Model weights are downloaded automatically on first use; this can take a couple of minutes depending on your connection.</p>
+<p>You can do this at <strong>any</strong> time: if you started with the default client-only install and the <strong>Local</strong> switch in the plugin is greyed out, just run the command above (after installing PyTorch) and restart napari to unlock local inference.</p>
+<h3>Install from source (optional)</h3>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/MIC-DKFZ/napari-nninteractive
+<span class="nb">cd</span><span class="w"> </span>napari-nninteractive
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="w">                 </span><span class="c1"># remote client (torch-free) — the default</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[local]&quot;</span><span class="w">        </span><span class="c1"># local inference — also install PyTorch first (see Step 3)</span>
+</pre></div>
+</code></pre>
 <h2>Getting Started</h2>
 <p>Use one of these three options to start napari and activate the plugin.
 Afterward, Drag and drop your images into napari.</p>
@@ -322,6 +350,15 @@ model weights are loaded once and shared. The napari client has no GPU requireme
 <li>Use <strong>Initialize</strong> and the rest of the workflow exactly as in local mode — point, bbox, scribble, and lasso prompts all behave the same; only the prediction runs on the remote GPU.</li>
 </ol>
 <p>The model checkpoint is fixed by the server at startup, so the local checkpoint selector is hidden in Remote mode.</p>
+<blockquote>
+<p>[!NOTE]
+The <strong>default install is the torch-free client</strong>, so unless you added the <code>[local]</code> extra
+the plugin starts directly in Remote mode and the <strong>Local</strong> switch is greyed out. Hover the
+switch (or read the one-line notice printed on start-up) for the reason and the exact
+command. To unlock local inference, install PyTorch and the extra
+(<code>pip install &quot;napari-nninteractive[local]&quot;</code>; see Step 3 of <a href="#installation">Installation</a> above),
+then restart napari.</p>
+</blockquote>
 <h3>Things to be aware of</h3>
 <ul>
 <li><strong>Lost connection or idle timeout.</strong> Server-side sessions are reaped after 10 minutes of inactivity (configurable on the server), and a server that goes away (restart, crash, network drop) ends the session too. When this happens the plugin resets the <strong>Connect</strong> button and asks you to reconnect. <strong>Your current segmentation is preserved</strong> on the client: after you reconnect and click <strong>Initialize</strong> again, the image is re-uploaded and the segmentation is restored so you can keep refining where you left off. Only the in-progress prompt markers (the individual points/boxes/scribbles) need to be redone.</li>
@@ -338,7 +375,7 @@ model weights are loaded once and shared. The napari client has no GPU requireme
 </blockquote>
 <p>Link: <a href="https://arxiv.org/abs/2503.08373"><img src="https://img.shields.io/badge/arXiv-2503.08373-b31b1b.svg" alt="arXiv" /></a></p>
 <h1>License</h1>
-<p>Note that while this repository is available under Apache-2.0 license (see <a href="./LICENSE">LICENSE</a>), the <a href="https://huggingface.co/nnInteractive/nnInteractive">model checkpoint</a> is <code>Creative Commons Attribution Non Commercial Share Alike 4.0</code>!</p>
+<p>Note that while this repository is available under Apache-2.0 license (see <a href="./LICENSE">LICENSE</a>), the <a href="https://huggingface.co/MIC-DKFZ/nnInteractive">model checkpoint</a> is <code>Creative Commons Attribution Non Commercial Share Alike 4.0</code>!</p>
 <hr />
 <h2>Acknowledgments</h2>
 <p align="left">
@@ -364,7 +401,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2.3.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2.4.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -374,7 +411,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-23</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-26</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -471,7 +508,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">torch</li><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari-nifti</li><li class="MetadataList_textItem__KKmMN">huggingface_hub</li><li class="MetadataList_textItem__KKmMN">hf_transfer</li><li class="MetadataList_textItem__KKmMN">nnInteractive>=2.4.0</li><li class="MetadataList_textItem__KKmMN">napari_toolkit</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">nnInteractive[client]>=2.4.0; extra == "remote"</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">numpy</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">napari-nifti</li><li class="MetadataList_textItem__KKmMN">napari_toolkit</li><li class="MetadataList_textItem__KKmMN">nninteractive-client>=2.5.0</li><li class="MetadataList_textItem__KKmMN">nnInteractive>=2.5.0; extra == "local"</li><li class="MetadataList_textItem__KKmMN">tox; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-cov; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pytest-qt; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">napari; extra == "testing"</li><li class="MetadataList_textItem__KKmMN">pyqt5; extra == "testing"</li></ul>
                                             </div>
                                         </div>
                                     </div>
