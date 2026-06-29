@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2.4.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">2.4.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-26</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-29</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -359,6 +359,20 @@ command. To unlock local inference, install PyTorch and the extra
 (<code>pip install &quot;napari-nninteractive[local]&quot;</code>; see Step 3 of <a href="#installation">Installation</a> above),
 then restart napari.</p>
 </blockquote>
+<h3>…or run the server in Docker</h3>
+<p>If you'd rather not install the backend on the GPU box, the server is also published as a Docker
+image with the model <strong>baked in</strong> (a GPU host with the
+<a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html">NVIDIA Container Toolkit</a>
+is required):</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-p<span class="w"> </span><span class="m">1527</span>:1527<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">NN_INTERACTIVE_API_KEY</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ghcr.io/mic-dkfz/nninteractive-server:latest
+</pre></div>
+</code></pre>
+<p>A <code>lite</code> tag is also available if you'd rather mount your own checkpoint folder at <code>/model</code> (or
+fetch a model by id at startup). See the backend
+<a href="https://github.com/MIC-DKFZ/nnInteractive/blob/master/nnInteractive/inference/server/DOCKER.md">DOCKER.md</a>
+for both flavours and all configuration options.</p>
 <h3>Things to be aware of</h3>
 <ul>
 <li><strong>Lost connection or idle timeout.</strong> Server-side sessions are reaped after 10 minutes of inactivity (configurable on the server), and a server that goes away (restart, crash, network drop) ends the session too. When this happens the plugin resets the <strong>Connect</strong> button and asks you to reconnect. <strong>Your current segmentation is preserved</strong> on the client: after you reconnect and click <strong>Initialize</strong> again, the image is re-uploaded and the segmentation is restored so you can keep refining where you left off. Only the in-progress prompt markers (the individual points/boxes/scribbles) need to be redone.</li>
@@ -401,7 +415,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2.4.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2.4.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -411,7 +425,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-26</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-29</li>
                                                 </ul>
                                             </div>
                                         </div>

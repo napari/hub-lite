@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.4.3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.4.4</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-26</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-06-29</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -210,51 +210,96 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <p>Napari plugin for the Pentachrome histology pipeline. Current widgets:</p>
-<ul>
-<li><strong>VSI to TIFF Extractor</strong> (Phase 1) — extract tissue-region TIFFs from VSI files.</li>
-<li><strong>nnUNet Inference</strong> (Phase 2) — run the trained Epithelium / MultiStructure models on selected TIFF layers and load colorized masks back into the viewer.</li>
-<li><strong>Mask Statistics</strong> (Phase 3) — per-region statistics (thickness, composition, cell densities) computed on the inference output, with CSV export.</li>
-</ul>
-<p>Source and issues: <a href="https://github.com/dtsilis7/PentachromePipeline">https://github.com/dtsilis7/PentachromePipeline</a></p>
-<p><strong>Requirements:</strong> Windows, Python 3.10, napari &gt;= 0.4.18, and a Java JDK (JDK 17 confirmed). The Java/bioformats stack and the nnUNet model weights are installed separately (see below) — they can't come from a plain <code>pip install</code>.</p>
-<h2>Install (Windows, PowerShell)</h2>
-<p>Requires a working Java JDK on PATH.</p>
-<h3>Via napari plugin manager</h3>
-<p>In napari, open <strong>Plugins -&gt; Install/Uninstall Plugins</strong>, search &quot;pentachrome&quot;, and click Install. Or from a shell:</p>
+                                        <p>Napari plugin for the Pentachrome histology pipeline. The public plugin exposes a
+single clinician-facing widget, <strong>Guided Analysis</strong>, that walks through the whole
+workflow in one pane:</p>
+<ol>
+<li><strong>Extract</strong> — pull tissue-region TIFFs out of Olympus <code>.vsi</code> files.</li>
+<li><strong>Detect</strong> — run the trained nnUNet Epithelium / MultiStructure models on those
+images and load colorized masks back into the viewer.</li>
+<li><strong>Measure</strong> — per-region statistics (thickness, composition, cell densities),
+with CSV export.</li>
+</ol>
+<p>Each phase also exists as a separate advanced widget (<code>VsiExtractorWidget</code>,
+<code>NnUnetInferenceWidget</code>, <code>AnalysisWidget</code>) used during development. These are <strong>not</strong>
+registered in the public menu — see <a href="#from-source-development">From source (development)</a>.</p>
+<p>Source and issues: <a href="https://github.com/dtsilis7/Pentrachrome-Pipeline">https://github.com/dtsilis7/Pentrachrome-Pipeline</a></p>
+<p><strong>Requirements:</strong> Windows, Python 3.10, napari &gt;= 0.4.18, a JDK 17, the
+Java/bioformats stack, and the nnUNet model weights. The Java stack and the weights
+are installed separately (see below) — they can't come from a plain <code>pip install</code>.</p>
+<h2>Installation (Windows, PowerShell)</h2>
+<p>A working install has <strong>three parts</strong>, in this order:</p>
+<ol>
+<li>A conda environment (Python 3.10) with NumPy&lt;2, a JDK, and the Java/bioformats stack</li>
+<li>The plugin itself</li>
+<li>The nnUNet model weights (downloaded separately)</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong><code>pip install pentachrome-plugin</code> on its own is not enough.</strong> It gives you
+the napari UI, but <strong>VSI extraction fails</strong> without the Java/bioformats stack and
+<strong>inference fails</strong> without the model weights. Installing through napari's plugin
+manager only does the pip part — you still need steps 1 and 3 in the <em>same</em> env.</p>
+</blockquote>
+<h3>Step 1 — environment + Java/bioformats stack</h3>
+<p><code>openjdk</code> and <code>numpy&lt;2</code> come from conda-forge, but <strong><code>python-javabridge</code> and
+<code>python-bioformats</code> are not packaged on conda-forge — they come from pip.</strong>
+Keeping Python at 3.10 lets pip grab the prebuilt <code>python-javabridge</code> wheel instead
+of compiling it.</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="n">-n</span> <span class="n">pentachrome</span> <span class="n">python</span><span class="p">=</span><span class="n">3</span><span class="p">.</span><span class="n">10</span> <span class="n">-y</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">pentachrome</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">-c</span> <span class="n">conda-forge</span> <span class="n">openjdk</span><span class="p">=</span><span class="n">17</span> <span class="s2">&quot;numpy&lt;2&quot;</span> <span class="n">-y</span>    <span class="c"># JDK + NumPy 1.x FIRST</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">python-javabridge</span> <span class="n">python-bioformats</span>          <span class="c"># Java wrappers (pip, not conda)</span>
+</pre></div>
+</code></pre>
+<p>Order matters: <code>numpy&lt;2</code> must be in place <strong>before</strong> javabridge installs, because
+the javabridge C extension is built against the NumPy 1.x ABI. If pip can't find a
+prebuilt wheel for your Python and falls back to compiling, add <code>--no-build-isolation</code>
+to the pip line (so the build sees the pinned NumPy) and make sure the MS C++ Build
+Tools and the JDK are present.</p>
+<h3>Step 2 — the plugin</h3>
 <pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pentachrome-plugin</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">nnunetv2</span>          <span class="c"># required for the Detect step</span>
 </pre></div>
 </code></pre>
-<p>This installs the Python package only, you still need the conda-forge Java/bioformats step and the nnUNet weights (below) for the extractor and inference to work.</p>
+<p>You can also install the plugin through napari's <strong>Plugins -&gt; Install/Uninstall
+Plugins</strong> dialog (search &quot;pentachrome&quot;), but that only covers this step — you still
+need Step 1 and Step 3 in the same environment.</p>
+<h3>Step 3 — model weights</h3>
+<p>Download the nnUNet weights and point the widget at them — see
+<a href="#model-weights">Model weights</a> below.</p>
+<h3>Verify</h3>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">-m</span> <span class="n">napari</span>
+</pre></div>
+</code></pre>
+<p>In napari, open <strong>Plugins -&gt; Guided Analysis</strong> — the widget should load and show
+its Extract / Analyze / Statistics steps.</p>
 <h3>From source (development)</h3>
-<p>For working on the plugin itself, install editable from a checkout. <code>cd</code> into the plugin directory first, <code>pip install -e .</code> resolves <code>.</code> relative to your current shell directory:</p>
-<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span>
+<p>For working on the plugin itself, do Step 1 above, then install editable from a
+checkout instead of from PyPI (<code>cd</code> into the plugin directory first, or pass the
+absolute path):</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pentachrome</span>
 <span class="nb">cd </span><span class="s2">&quot;...\pentachrome_plugin&quot;</span>
-<span class="n">conda</span> <span class="n">install</span> <span class="n">-c</span> <span class="n">conda-forge</span> <span class="n">python-javabridge</span> <span class="n">python-bioformats</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">opencv-python</span> <span class="n">tifffile</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">-e</span> <span class="p">.</span>
 </pre></div>
 </code></pre>
-<p>If you would rather not <code>cd</code>, pass the absolute path explicitly:</p>
-<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">-e</span> <span class="s2">&quot;...\pentachrome_plugin&quot;</span>
-</pre></div>
-</code></pre>
-<p>Conda-forge ships pre-built wheels for <code>python-javabridge</code> and <code>python-bioformats</code> and avoids the MSVC + NumPy-2 compile failure that <code>pip install python-javabridge</code> hits today (the C extension references <code>_PyArray_Descr</code> fields removed in NumPy 2.0).</p>
-<h3>Fallback: pure pip</h3>
-<p>Only use this if conda-forge is unavailable. NumPy must be pinned below 2 <em>before</em> javabridge builds, and build isolation must be off so the build sees the pinned NumPy:</p>
-<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="nb">cd </span><span class="s2">&quot;...\pentachrome_plugin&quot;</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;numpy&lt;2&quot;</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-no-build-isolation</span> <span class="n">python-javabridge</span> <span class="n">python-bioformats</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">opencv-python</span> <span class="n">tifffile</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">-e</span> <span class="p">.</span>
+<p>The three phase widgets are de-registered from the public menu. To open them
+standalone during development, run the repo's <code>dev_widgets.py</code> — it docks the
+Extractor / Inference / Statistics widgets as tabs:</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">dev_widgets</span><span class="p">.</span><span class="n">py</span>
 </pre></div>
 </code></pre>
 <h2>Launch</h2>
-<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span>   <span class="c"># or whichever env you installed into</span>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pentachrome</span>   <span class="c"># or whichever env you installed into</span>
 <span class="n">python</span> <span class="n">-m</span> <span class="n">napari</span>
 </pre></div>
 </code></pre>
-<p>In napari: <strong>Plugins -&gt; VSI to TIFF Extractor</strong> or <strong>Plugins -&gt; nnUNet Inference</strong>.</p>
+<p>In napari: <strong>Plugins -&gt; Guided Analysis</strong>.</p>
+<blockquote>
+<p>The per-phase sections below (nnUNet Inference, Mask Statistics, etc.) describe
+the underlying widgets, which the Guided Analysis pane drives end-to-end. Their
+<strong>Plugins -&gt; ...</strong> menu references apply only to the dev widgets opened via
+<code>dev_widgets.py</code>; end users reach the same functionality through Guided Analysis.</p>
+</blockquote>
 <h2>Model weights</h2>
 <p>The nnUNet weights (~900 MB) aren't bundled in the PyPI package. Download
 [<code>nnunet_results.zip</code>]
@@ -263,11 +308,7 @@ unzip it, and point the inference widget's <strong>nnUNet results</strong> field
 extracted folder (the one containing <code>Dataset001_Epithelium</code> and
 <code>Dataset002_MultiStructure</code>).</p>
 <h2>nnUNet Inference (Phase 2)</h2>
-<p>Requires <code>nnunetv2</code> installed in the same environment (the <code>nnUNetv2_predict</code> CLI must be on PATH).</p>
-<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">napari</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">nnunetv2</span>
-</pre></div>
-</code></pre>
+<p>Requires <code>nnunetv2</code> installed in the same environment (the <code>nnUNetv2_predict</code> CLI must be on PATH) — this is covered by Step 2 of <a href="#installation-windows-powershell">Installation</a> above.</p>
 <p>Workflow:</p>
 <ol>
 <li>Load TIFFs into napari (e.g. via Phase 1's auto-load checkbox, or drag-and-drop).</li>
@@ -309,7 +350,7 @@ extracted folder (the one containing <code>Dataset001_Epithelium</code> and
 <h3>Continuing from the extractor</h3>
 <p>The two widgets are linked through two small bridges, so you can run <strong>Extract -&gt; Analyze</strong> in a single napari session without re-picking files:</p>
 <ul>
-<li>When the extractor auto-loads a TIFF as a viewer layer, it stashes the on-disk path on <code>layer.metadata['source_tiff']</code>. The inference widget reads that during staging and <strong>copies the original file</strong> into <code>_staging_input/</code> rather than re-saving the in-memory array — important for 15k x 15k tiles.</li>
+<li>When the extractor auto-loads a TIFF as a viewer layer, it stashes the on-disk path on <code>layer.metadata['source_tiff']</code>. The inference widget reads that during staging and <strong>copies the original file</strong> into <code>_staging_input/</code> rather than re-saving the in-memory array, important for 15k x 15k tiles.</li>
 <li>When an extraction completes, the inference widget's <strong>&quot;Use last extractor output&quot;</strong> button pre-fills the output folder to <code>&lt;extractor_output_root&gt;/_inference</code>, so masks land next to the per-VSI subfolders the extractor created.</li>
 </ul>
 <p>Both bridges are in-process only (see <code>_session.py</code>); they reset when napari closes.</p>
@@ -426,7 +467,7 @@ needed (defaults match <code>Main.py</code>).</li>
 </tr>
 <tr>
 <td>Elastin / Collagen / Other %</td>
-<td>Fraction of stained structure pixels — same definition as <code>compute_structure_percentages</code></td>
+<td>Fraction of stained structure pixels, same definition as <code>compute_structure_percentages</code></td>
 </tr>
 <tr>
 <td>Mucin %</td>
@@ -434,7 +475,7 @@ needed (defaults match <code>Main.py</code>).</li>
 </tr>
 <tr>
 <td>Nuclei / mm^2 and Goblets / mm^2</td>
-<td>Density per mm^2 of epithelium — goblet hyperplasia is a classic COPD readout</td>
+<td>Density per mm^2 of epithelium, goblet hyperplasia is a classic COPD readout</td>
 </tr>
 <tr>
 <td>Nuclei (n), Goblets (n)</td>
@@ -446,13 +487,13 @@ needed (defaults match <code>Main.py</code>).</li>
 of the percentages / thickness and totals for the counts. <strong>Export CSV...</strong>
 saves the whole table (per-region rows + aggregate rows).</p>
 <p>The elastin organization score (<code>ElastinAnalyzer.determine_organized_region</code>)
-from <code>Main.py</code> is intentionally not yet exposed — it's much heavier (skan +
+from <code>Main.py</code> is intentionally not yet exposed, it's much heavier (skan +
 shapely + ROI polygons) and will land as a separate toggle.</p>
 <h3>Class isolation</h3>
 <p>A &quot;Class isolation&quot; group at the top of the widget lets you view a single
 class (or a combination) without rerunning anything:</p>
 <ol>
-<li>Pick a source layer (the <strong>original</strong> TIFF — not a colorized mask).</li>
+<li>Pick a source layer (the <strong>original</strong> TIFF, not a colorized mask).</li>
 <li>Tick one or more of <strong>Elastin</strong>, <strong>Collagen</strong>, <strong>Nuclei</strong>, <strong>Mucins</strong>,
 <strong>Cell Membrane</strong>, <strong>Goblets</strong>, <strong>Epithelium</strong>.</li>
 <li>Click one of:
@@ -469,7 +510,7 @@ checking the segmentation against the stain.</li>
 <p>Masks are read on demand from the inference output folder; the original
 layer's pixels are taken from the viewer.</p>
 <h2>License</h2>
-<p>This project is licensed under the MIT License — see the <a href="LICENSE">LICENSE</a> file for details.</p>
+<p>This project is licensed under the MIT License, see the <a href="LICENSE">LICENSE</a> file for details.</p>
 
 
                                     </div>
@@ -485,7 +526,7 @@ layer's pixels are taken from the viewer.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.4.3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.4.4</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -495,7 +536,7 @@ layer's pixels are taken from the viewer.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-26</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-06-29</li>
                                                 </ul>
                                             </div>
                                         </div>
