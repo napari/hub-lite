@@ -52,7 +52,9 @@ MISSING_LEXERS = [
     "angular2",
     "bitex",
     "bibtex",
+    "csv",
     "commandline",
+    "env",
     "math",
     "mermaid",
     "{important}",
@@ -153,7 +155,7 @@ def create_plugins_list_html(plugins: list[PluginPageData], build_dir: str):
 
     html_content += "</body>\n</html>"
 
-    with open(f"{build_dir}/plugins_list.html", "w") as file:
+    with open(f"{build_dir}/plugins_list.html", "w", encoding="utf-8") as file:
         file.write(html_content)
 
 
@@ -389,7 +391,9 @@ def create_plugin_page_html(plugin: PluginPageData, template, plugin_dir):
 
     # Save the HTML file for each plugin
     os.makedirs(plugin_dir, exist_ok=True)
-    with open(f"{plugin_dir}/{plugin.normalized_name}.html", "w") as file:
+    with open(
+        f"{plugin_dir}/{plugin.normalized_name}.html", "w", encoding="utf-8"
+    ) as file:
         file.write(filled_template)
 
 
@@ -400,13 +404,13 @@ if __name__ == "__main__":
     plugin_dir = f"{build_dir}/plugins"
     template_dir = f"{build_dir}/templates"
 
-    with open(f"{data_dir}/plugin_page_data.json") as file:
+    with open(f"{data_dir}/plugin_page_data.json", encoding="utf-8") as file:
         plugins_data = [PluginPageData(**plugin) for plugin in json.load(file)]
 
     create_plugins_list_html(plugins_data, build_dir)
 
     # Read the individual plugin HTML template
-    with open(f"{template_dir}/each_plugin_template.html") as file:
+    with open(f"{template_dir}/each_plugin_template.html", encoding="utf-8") as file:
         template = file.read()
 
     # Generate individual plugin pages
