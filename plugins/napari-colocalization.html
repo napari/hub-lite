@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.1.6</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.1.7</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-17</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-02</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -223,7 +223,7 @@
 <a href="https://napari-hub.org/plugins/napari-colocalization"><img src="https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-colocalization" alt="napari hub" /></a>
 <a href="https://napari.org/stable/plugins/index.html"><img src="https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html" alt="npe2" /></a></p>
 <blockquote>
-<p>⚠️ <strong>Under construction — pre-alpha.</strong> APIs, UI, and outputs may change
+<p>⚠️ <strong>Under construction - pre-alpha.</strong> APIs, UI, and outputs may change
 without notice. Not recommended for production analysis yet; use at your
 own risk and please report rough edges via the
 <a href="https://github.com/DBI-INFRA/napari-colocalization/issues">issue tracker</a>.</p>
@@ -237,17 +237,33 @@ results table plus an intensity-vs-intensity density plot.</p>
 </p>
 <h2>Features</h2>
 <ul>
-<li><strong>Four correlation metrics</strong>: Pearson (PCC), Spearman rank (SRCC), Li
-Intensity Correlation Quotient (ICQ), and Manders' coefficients M1/M2 (MCC).</li>
+<li><strong>Five colocalization metrics</strong>, spanning both families: three of
+<em>correlation</em> — Pearson (PCC), Spearman rank (SRCC) and Li's Intensity
+Correlation Quotient (ICQ) — and two of <em>co-occurrence</em> — Manders'
+overlap coefficient with split coefficients (r, k1, k2) and Manders'
+thresholded coefficients tM1/tM2.</li>
 <li><strong>Pairwise or all-to-all</strong> mode: analyse two grayscale layers, or every
 channel pair within a single multi-channel layer.</li>
 <li><strong>2D and 3D</strong> support natively (no time-series for now).</li>
-<li><strong>Region-restricted analysis</strong> via a Shapes or Labels layer — each non-zero
+<li><strong>Region-restricted analysis</strong> via a Shapes or Labels layer - each non-zero
 region is reported on its own row.</li>
-<li><strong>Manders thresholds</strong>: choose <strong>Costes auto</strong> (iterative regression-based)
-or <strong>Manual</strong>.</li>
+<li><strong>Manders thresholds</strong>: choose <strong>Costes auto</strong> (orthogonal-regression
+bisection, matched to Fiji Coloc 2), a per-channel <strong>auto-threshold</strong>
+(Otsu, Li, Triangle, Yen, Mean, IsoData → thresholded tM1/tM2), or <strong>Manual</strong>.</li>
+<li><strong>Per-Z-slice mode</strong>: analyse each plane of a stack separately (one row
+per slice), à la JACoP B's &quot;consider Z slices separately&quot;.</li>
 <li><strong>Interactive results</strong>: in-widget table, density plot of the selected row,
-multi-row selection that highlights all matching shapes/labels in the viewer.</li>
+multi-row selection that highlights all matching shapes/labels in the viewer,
+and an optional <strong>fixed-axes</strong> cytofluorogram for comparable plots.</li>
+<li><strong>Diagnostics tab</strong>: single-pair diagnostic plots - Costes randomization
+significance test (observed PCC vs a scrambled null, with p-value/z-score),
+Van Steensel cross-correlation function (CCF), and Li intensity correlation
+analysis (ICA).</li>
+<li><strong>Object-based tab</strong>: compare segmented objects (from Labels layers or by
+thresholding) - centre-particle coincidence and object overlap per object,
+with centroid Points and nearest-neighbour Vectors drawn into the viewer.</li>
+<li><strong>Outputs to the viewer</strong>: add the colocalized-pixel mask (selected row) as
+a Labels layer, or a block-scrambled example as an Image layer.</li>
 <li><strong>CSV export</strong> of the current table, plus <strong>figure export</strong> of the
 density plot (PNG / PDF / SVG / TIFF, configurable size and DPI).</li>
 </ul>
@@ -271,9 +287,9 @@ density plot (PNG / PDF / SVG / TIFF, configurable size and DPI).</li>
 <li>
 <p>Load sample data: <strong>File → Open Sample → napari-colocalization →
 Colocalization sample (2D)</strong>. A 3D synthetic sample and <strong>CBS006RBM</strong>
-— a two-channel benchmark image from the
-<a href="https://colocalization-benchmark.com">Colocalization Benchmark Source</a>
-— are also provided.</p>
+(a two-channel benchmark image from the
+<a href="https://colocalization-benchmark.com">Colocalization Benchmark Source</a>)
+are also provided.</p>
 <p align="center">
   <img src="https://raw.githubusercontent.com/DBI-INFRA/napari-colocalization/main/docs/img/quickstart_sample.png" alt="Open Sample menu" width="520"/>
 </p>
@@ -293,7 +309,7 @@ metric values overlaid.</p>
 </p>
 <ol start="5">
 <li><em>(Optional)</em> Add a Shapes layer, draw a few rectangles or polygons, set
-<strong>Region</strong> to <em>Shapes</em> and pick the layer. Re-run — the table now has one
+<strong>Region</strong> to <em>Shapes</em> and pick the layer. Re-run - the table now has one
 row per shape, and clicking a row highlights the matching shape in the
 viewer.</li>
 </ol>
@@ -301,21 +317,50 @@ viewer.</li>
   <img src="https://raw.githubusercontent.com/DBI-INFRA/napari-colocalization/main/docs/img/widget_shapes.png" alt="napari-colocalization widget" width="780"/>
 </p>
 <p>See <a href="docs/usage.md">docs/usage.md</a> for the full walkthrough.</p>
+<h2>Diagnostics</h2>
+<p>The <strong>Diagnostics</strong> tab runs single-pair diagnostic plots that go beyond a
+single number per region: the <strong>Costes randomization</strong> significance test (the
+observed PCC against a block-scrambled null, with a p-value and z-score), the
+<strong>Van Steensel</strong> cross-correlation function, and <strong>Li's intensity correlation
+analysis</strong>.</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DBI-INFRA/napari-colocalization/main/docs/img/widget_diagnostics.png" alt="Diagnostics tab - Costes randomization" width="780"/>
+</p>
+<h2>Object-based analysis</h2>
+<p>The <strong>Object-based</strong> tab compares segmented <em>objects</em> between the two channels:
+<strong>centre-particle coincidence</strong> (does an object's centroid fall inside an
+object of the other channel?) and <strong>object overlap</strong>, with one row per object.
+Objects come from existing Labels layers or by thresholding, and the detected
+centroids and nearest-neighbour links are drawn back into the viewer as Points
+and Vectors.</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DBI-INFRA/napari-colocalization/main/docs/img/widget_objects.png" alt="Object-based tab - coincidence and overlap" width="780"/>
+</p>
 <h2>Documentation</h2>
 <ul>
-<li><strong><a href="docs/usage.md">Usage guide</a></strong> — every control in the widget, in order.</li>
-<li><strong><a href="docs/metrics.md">Metrics</a></strong> — what PCC, SRCC, ICQ and MCC mean, when to use
-which, and how the Costes auto-threshold works.</li>
-<li><strong><a href="docs/api.md">Python API</a></strong> — calling the pure-compute layer
-(<code>pearson</code>, <code>spearman</code>, <code>li_icq</code>, <code>manders</code>, <code>costes_threshold</code>,
-<code>analyse_pairwise</code>, <code>analyse_all_to_all</code>) from scripts or notebooks.</li>
+<li><strong><a href="docs/usage.md">Usage guide</a></strong> - every control in the widget, in order.</li>
+<li><strong><a href="docs/metrics.md">Metrics</a></strong> - what PCC, SRCC, ICQ, the overlap
+coefficient and Manders (tM1/tM2) mean, co-occurrence versus correlation,
+and how the Costes auto-threshold works.</li>
+<li><strong><a href="docs/api.md">Python API</a></strong> - calling the pure-compute layer
+(<code>pearson</code>, <code>spearman</code>, <code>li_icq</code>, <code>manders</code>, <code>overlap</code>,
+<code>costes_threshold</code>, <code>costes_regression</code>, <code>analyse_pairwise</code>,
+<code>analyse_all_to_all</code>) from scripts or notebooks.</li>
 </ul>
 <h2>Related projects</h2>
 <ul>
-<li><a href="https://imagej.net/plugins/coloc-2">Coloc 2</a> — the reference ImageJ
-colocalization plugin; this plugin follows it in spirit.</li>
-<li><a href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_colocalization_metrics.html">scikit-image colocalization metrics</a>
-— the underlying implementations of PCC and Manders.</li>
+<li><a href="https://imagej.net/plugins/coloc-2">Coloc 2</a> - the reference ImageJ
+colocalization plugin; this plugin follows it in spirit, and the Costes
+auto-threshold here is matched to its implementation.</li>
+<li><a href="https://imagej.net/plugins/jacop">JACoP</a> - &quot;Just Another Colocalization
+Plugin&quot; (Bolte &amp; Cordelières, 2006); the inspiration for the diagnostics
+(Van Steensel CCF, Li ICA, Costes randomization) and the object-based
+analysis.</li>
+<li><a href="https://github.com/BIOP/ijp-jacop-b">ijp-jacop-b</a> - the BIOP fork of JACoP;
+inspired the per-channel auto-thresholds, per-Z-slice mode and the
+layers written back to the viewer.</li>
+<li><a href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_colocalization_metrics.html">scikit-image colocalization metrics</a>:
+the underlying implementations of PCC and Manders.</li>
 </ul>
 <h2>Contributing</h2>
 <p>Contributions are welcome. Run the test suite with:</p>
@@ -351,7 +396,7 @@ licence; <code>napari-colocalization</code> is free and open-source software.</p
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.1.6</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.1.7</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -361,7 +406,7 @@ licence; <code>napari-colocalization</code> is free and open-source software.</p
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-17</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-02</li>
                                                 </ul>
                                             </div>
                                         </div>

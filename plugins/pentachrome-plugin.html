@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.4.6</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.5.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-02</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari[all]>=0.4.18</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">numpy<2</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">skan</li><li class="MetadataList_textItem__KKmMN">imagecodecs</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">shapely</li><li class="MetadataList_textItem__KKmMN">pandas</li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari[all]>=0.4.18</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">numpy<2</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">skan</li><li class="MetadataList_textItem__KKmMN">imagecodecs</li><li class="MetadataList_textItem__KKmMN">bioio-bioformats<2</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">shapely</li><li class="MetadataList_textItem__KKmMN">pandas</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -222,47 +222,41 @@ with CSV export.</li>
 </ol>
 <p>Each phase also exists as a separate advanced widget (<code>VsiExtractorWidget</code>,
 <code>NnUnetInferenceWidget</code>, <code>AnalysisWidget</code>) used during development. These are <strong>not</strong>
-registered in the public menu — see <a href="#from-source-development">From source (development)</a>.</p>
+registered in the public menu, see <a href="#from-source-development">From source (development)</a>.</p>
 <p>Source and issues: <a href="https://github.com/dtsilis7/Pentrachrome-Pipeline">https://github.com/dtsilis7/Pentrachrome-Pipeline</a></p>
-<p><strong>Requirements:</strong> Windows, Python 3.10, napari &gt;= 0.4.18, a JDK 17, the
-Java/bioformats stack, and the nnUNet model weights. The Java stack and the weights
-are installed separately (see below) — they can't come from a plain <code>pip install</code>.</p>
+<p><strong>Requirements:</strong> Windows, Python 3.10, napari &gt;= 0.4.18, and the nnUNet model
+weights. VSI reading uses <code>bioio-bioformats</code> (a plugin dependency) which
+auto-downloads a JDK on first use — <strong>no Java install, no javabridge</strong>. Only the
+model weights are installed separately (see below).</p>
 <h2>Installation (Windows, PowerShell)</h2>
 <p>A working install has <strong>three parts</strong>, in this order:</p>
 <ol>
-<li>A conda environment (Python 3.10) with NumPy&lt;2, a JDK, and the Java/bioformats stack</li>
-<li>The plugin itself</li>
+<li>A conda environment (Python 3.10) with NumPy&lt;2</li>
+<li>The plugin itself (pulls in the JDK-free <code>bioio-bioformats</code> VSI reader)</li>
 <li>The nnUNet model weights (downloaded separately)</li>
 </ol>
 <blockquote>
-<p>⚠️ <strong><code>pip install pentachrome-plugin</code> on its own is not enough.</strong> It gives you
-the napari UI, but <strong>VSI extraction fails</strong> without the Java/bioformats stack and
-<strong>inference fails</strong> without the model weights. Installing through napari's plugin
-manager only does the pip part — you still need steps 1 and 3 in the <em>same</em> env.</p>
+<p>⚠️ <strong><code>pip install pentachrome-plugin</code> gives you the UI <em>and</em> VSI extraction, but
+inference still needs the model weights</strong> (Step 3) in the <em>same</em> env. Installing
+through napari's plugin manager only does the pip part.</p>
 </blockquote>
-<h3>Step 1 — environment + Java/bioformats stack</h3>
-<p><code>openjdk</code> and <code>numpy&lt;2</code> come from conda-forge, but <strong><code>python-javabridge</code> and
-<code>python-bioformats</code> are not packaged on conda-forge — they come from pip.</strong>
-Keeping Python at 3.10 lets pip grab the prebuilt <code>python-javabridge</code> wheel instead
-of compiling it.</p>
-<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="n">-n</span> <span class="n">pentachrome</span> <span class="n">python</span><span class="p">=</span><span class="n">3</span><span class="p">.</span><span class="n">10</span> <span class="n">-y</span>
+<h3>Step 1 — environment</h3>
+<p>Create a Python 3.10 env pinned to <code>numpy&lt;2</code> (the <code>bioio-bioformats</code> VSI reader is
+pinned &lt;2, and nnU-Net / the imaging stack share the 1.x ABI).</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="n">-n</span> <span class="n">pentachrome</span> <span class="n">python</span><span class="p">=</span><span class="n">3</span><span class="p">.</span><span class="n">10</span> <span class="s2">&quot;numpy&lt;2&quot;</span> <span class="n">-y</span>
 <span class="n">conda</span> <span class="n">activate</span> <span class="n">pentachrome</span>
-<span class="n">conda</span> <span class="n">install</span> <span class="n">-c</span> <span class="n">conda-forge</span> <span class="n">openjdk</span><span class="p">=</span><span class="n">17</span> <span class="s2">&quot;numpy&lt;2&quot;</span> <span class="n">-y</span>    <span class="c"># JDK + NumPy 1.x FIRST</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">python-javabridge</span> <span class="n">python-bioformats</span>          <span class="c"># Java wrappers (pip, not conda)</span>
 </pre></div>
 </code></pre>
-<p>Order matters: <code>numpy&lt;2</code> must be in place <strong>before</strong> javabridge installs, because
-the javabridge C extension is built against the NumPy 1.x ABI. If pip can't find a
-prebuilt wheel for your Python and falls back to compiling, add <code>--no-build-isolation</code>
-to the pip line (so the build sees the pinned NumPy) and make sure the MS C++ Build
-Tools and the JDK are present.</p>
+<p><strong>No JDK or javabridge to install.</strong> VSI reading goes through <code>bioio-bioformats</code>
+(pulled in by Step 2), which provisions the Bio-Formats JVM via scyjava + cjdk and
+<strong>auto-downloads a JDK the first time you extract</strong> (cached afterward).</p>
 <h3>Step 2 — the plugin</h3>
-<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pentachrome-plugin</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">nnunetv2</span>          <span class="c"># required for the Detect step</span>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pentachrome-plugin</span>   <span class="c"># also installs the bioio-bioformats VSI reader</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">nnunetv2</span>             <span class="c"># required for the Detect step</span>
 </pre></div>
 </code></pre>
 <p>You can also install the plugin through napari's <strong>Plugins -&gt; Install/Uninstall
-Plugins</strong> dialog (search &quot;pentachrome&quot;), but that only covers this step — you still
+Plugins</strong> dialog (search &quot;pentachrome&quot;), but that only covers this step, you still
 need Step 1 and Step 3 in the same environment.</p>
 <h3>Step 3 — model weights</h3>
 <p>Download the nnUNet weights and point the widget at them — see
@@ -374,8 +368,8 @@ extracted folder (the one containing <code>Dataset001_Epithelium</code> and
 </ul>
 <h2>How it works</h2>
 <ul>
-<li>The widget itself never touches the JVM. When you click <strong>Extract ROIs</strong>, it spawns <code>_vsi_worker.py</code> as a separate Python process.</li>
-<li>That worker process starts the bioformats JVM, loops over the VSI files using <code>TileMaskStitcher</code> (reused from <code>VSI_Handler/tile_mask_stitcher.py</code>), writes numbered TIFFs into <code>&lt;output_root&gt;/&lt;vsi_basename&gt;/</code>, and emits JSON-line progress events on stdout.</li>
+<li>The widget itself never touches the JVM. When you click <strong>Extract ROIs</strong>, it spawns <code>_vsi_worker_bioio.py</code> as a separate Python process.</li>
+<li>That worker starts the Bio-Formats JVM through <code>bioio-bioformats</code> (scyjava + cjdk — no user JDK), loops over the VSI files using <code>TileMaskStitcher</code> (<code>vsi_handler/tile_mask_stitcher_bioio.py</code>, which drives <code>loci.formats.ImageReader</code> directly via <code>vsi_handler/_bioio_reader.py</code>), writes numbered TIFFs into <code>&lt;output_root&gt;/&lt;vsi_basename&gt;/</code>, and emits JSON-line progress events on stdout.</li>
 <li>The widget streams those events on a background thread and updates the progress bar / log without blocking the UI.</li>
 <li>When the worker exits, the JVM dies with it. The next extraction batch starts a fresh JVM in a fresh process - this avoids the &quot;JVM cannot be restarted&quot; pitfall during a long napari session.</li>
 </ul>
@@ -424,7 +418,8 @@ extracted folder (the one containing <code>Dataset001_Epithelium</code> and
     <span class="n">napari</span><span class="o">.</span><span class="n">yaml</span>             <span class="c1"># napari manifest</span>
     <span class="n">_session</span><span class="o">.</span><span class="n">py</span>             <span class="c1"># in-process cross-widget state (extractor -&gt; inference -&gt; analysis)</span>
     <span class="n">_widget</span><span class="o">.</span><span class="n">py</span>              <span class="c1"># VsiExtractorWidget (Phase 1)</span>
-    <span class="n">_vsi_worker</span><span class="o">.</span><span class="n">py</span>          <span class="c1"># VSI subprocess entrypoint</span>
+    <span class="n">_vsi_worker_bioio</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># VSI subprocess entrypoint (bioio-bioformats)</span>
+    <span class="n">vsi_handler</span><span class="o">/</span>            <span class="c1"># bioio VSI reader (_bioio_reader.py) + tile/mask stitcher</span>
     <span class="n">_inference_widget</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># NnUnetInferenceWidget (Phase 2)</span>
     <span class="n">_inference_worker</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># nnUNet subprocess entrypoint</span>
     <span class="n">_analysis_widget</span><span class="o">.</span><span class="n">py</span>     <span class="c1"># AnalysisWidget (Phase 3, in-process)</span>
@@ -526,7 +521,7 @@ layer's pixels are taken from the viewer.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.4.6</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.5.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -536,7 +531,7 @@ layer's pixels are taken from the viewer.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-02</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -633,7 +628,7 @@ layer's pixels are taken from the viewer.</p>
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari[all]>=0.4.18</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">numpy<2</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">skan</li><li class="MetadataList_textItem__KKmMN">imagecodecs</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">shapely</li><li class="MetadataList_textItem__KKmMN">pandas</li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari[all]>=0.4.18</li><li class="MetadataList_textItem__KKmMN">qtpy</li><li class="MetadataList_textItem__KKmMN">tifffile</li><li class="MetadataList_textItem__KKmMN">numpy<2</li><li class="MetadataList_textItem__KKmMN">opencv-python</li><li class="MetadataList_textItem__KKmMN">scipy</li><li class="MetadataList_textItem__KKmMN">scikit-image</li><li class="MetadataList_textItem__KKmMN">skan</li><li class="MetadataList_textItem__KKmMN">imagecodecs</li><li class="MetadataList_textItem__KKmMN">bioio-bioformats<2</li><li class="MetadataList_textItem__KKmMN">matplotlib</li><li class="MetadataList_textItem__KKmMN">shapely</li><li class="MetadataList_textItem__KKmMN">pandas</li></ul>
                                             </div>
                                         </div>
                                     </div>
