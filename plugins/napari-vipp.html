@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.8.2a2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.8.3a1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-02</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -267,7 +267,8 @@ slice/stack and linear/log modes;</li>
 <li>OME-TIFF, ImageJ TIFF, conventional TIFF, OME-Zarr 0.4/0.5, and common
 raster image import plus 2D raster export;</li>
 <li>adaptive image/series selection for multi-image sources;</li>
-<li>table outputs for object, intensity, skeleton, merged, and annotated results;</li>
+<li>table outputs for object, intensity, skeleton, merged, annotated, and grouped
+summary results;</li>
 <li>image/mask/label pinning as persistent napari preview layers;</li>
 <li>generated inspect layers for full-resolution napari review.</li>
 </ul>
@@ -298,7 +299,15 @@ work. See <code>docs/io-user-guide.md</code> for the current format contract.</p
 <li><code>VIPP synthetic multichannel volume</code>: <code>CZYX</code> volume with three probe-like
 channels;</li>
 <li><code>VIPP synthetic time-lapse multichannel</code>: <code>TCZYX</code> time-lapse, multichannel
-stack.</li>
+stack;</li>
+<li><code>VIPP synthetic measurement summary</code>: <code>TYX</code> time-series object sample with
+known per-timepoint object counts and areas;</li>
+<li><code>VIPP synthetic object morphology</code>: <code>YX</code> object sample with circle, ellipse,
+rectangle, and concave objects for derived shape-ratio and 2D moment checks;</li>
+<li><code>VIPP synthetic 3D mesh morphology</code>: anisotropic <code>ZYX</code> objects for surface
+area, mesh volume, convex hull, and sphericity checks;</li>
+<li><code>VIPP synthetic skeleton network</code>: sparse <code>ZYX</code> network sample with known
+endpoints, branches, a junction, a short spur, and an isolated voxel.</li>
 </ul>
 <p>The multichannel samples use separate intensity channels, not baked RGB images.
 Graph thumbnails render these as fluorescence-style pseudo-color composites
@@ -440,6 +449,9 @@ toolbar input selector and in the graph-level <code>Image Source</code> node.</p
 <li>Fill Holes</li>
 <li>Remove Small Objects</li>
 <li>Skeletonize</li>
+<li>Skeleton Keypoints</li>
+<li>Skeleton Graph Overlay</li>
+<li>Prune Skeleton Branches</li>
 </ul>
 </li>
 <li>Label Operations:
@@ -449,16 +461,24 @@ toolbar input selector and in the graph-level <code>Image Source</code> node.</p
 <li>Filter Labels By Property</li>
 <li>Clear Border Objects</li>
 <li>Relabel Sequential</li>
+<li>Label Skeleton Components</li>
+<li>Label Skeleton Branches</li>
 </ul>
 </li>
 <li>Measurements:
 <ul>
 <li>Measure Objects</li>
 <li>Measure Objects + Intensity</li>
+<li>Measure 3D Mesh Morphology</li>
 <li>Analyze Skeleton</li>
+<li>Measure Skeleton Branches</li>
+<li>Summarize Skeleton Branches</li>
+<li>Skeleton Graph Tables</li>
+<li>Measure Overall Skeleton Network</li>
 <li>Merge Tables</li>
 <li>Select Table Columns</li>
 <li>Add Metadata Columns</li>
+<li>Summarize Measurements</li>
 </ul>
 </li>
 </ul>
@@ -505,10 +525,12 @@ an image. The default measurement set includes label ID, pixel/voxel area or
 volume, calibrated physical area or volume when spatial scale metadata is
 available, centroid, bounding box, equivalent diameter, extent, and Euler
 number. Optional checkboxes add shape descriptors, axis/inertia descriptors,
-and 2D boundary descriptors. The 2D boundary group is hidden for true 3D
-inputs because perimeter, Crofton perimeter, orientation, and eccentricity are
-2D concepts in the current implementation. Table outputs show a row preview in
-the inspector and can be saved as CSV or TSV.</p>
+derived shape ratios, and 2D shape moments. The 2D-only groups are hidden for
+true 3D inputs. Derived shape ratios include axis ratios, bounding-box side
+lengths/aspect ratios, fill fraction, and inertia eigenvalue ratios. The 2D
+shape moments group includes Crofton-based circularity, perimeter-to-area
+ratio, and Hu moments. Table outputs show a row preview in the inspector and
+can be saved as CSV or TSV.</p>
 <p><code>Measure Objects + Intensity</code> is the first named multi-input measurement node.
 It has separate <code>Labels</code> and <code>Intensity image</code> input ports, then outputs the
 basic object morphology columns plus per-label mean, minimum, maximum, sum, and
@@ -516,23 +538,68 @@ standard deviation intensity. It exposes the same optional morphology groups as
 <code>Measure Objects</code>. The example workflow
 <code>examples/red-channel-object-intensity-measurements.json</code> demonstrates this
 pattern.</p>
+<p><code>Measure 3D Mesh Morphology</code> accepts true 3D labels and produces an opt-in,
+manual/cached table of surface morphology. It uses marching cubes with carried
+Z/Y/X scale metadata, reports voxel volume, mesh volume, mesh surface area,
+surface-to-volume ratio, equivalent sphere size, sphericity, axis-aligned mesh
+extents, optional convex-hull volume/area, 3D solidity, and per-object
+<code>mesh_status</code> / <code>mesh_error</code> fields. Tiny or invalid objects remain in the
+table with <code>NaN</code> mesh metrics instead of failing the whole node. The example
+workflow <code>examples/synthetic-3d-mesh-morphology.json</code> demonstrates merging
+standard object measurements with mesh morphology.</p>
 <p><code>Merge Tables</code> joins two or more table outputs into a single table. In <code>auto</code>
 mode it joins on stable identity columns such as <code>t_index</code> and <code>label_id</code>; when
 no identity columns are shared, equal-length tables can be joined by row
-position. <code>Select Table Columns</code> keeps, drops, or reorders table columns while
-preserving row order and column units. <code>Add Metadata Columns</code> appends constant
-treatment, replicate, batch, or condition columns before CSV/TSV export. The
+position. <code>Select Table Columns</code> shows detected upstream columns as a checklist:
+checked columns are kept, rows can be dragged or moved to set output order, and
+Select all/Deselect all buttons make broad edits explicit. It preserves row
+order and column units. <code>Add Metadata Columns</code> appends constant
+treatment, replicate, batch, or condition columns before CSV/TSV export.
+<code>Summarize Measurements</code> groups table rows by metadata or axis-index columns
+such as <code>condition</code>, <code>replicate</code>, and <code>t_index</code>, then calculates count, mean,
+median, standard deviation, min/max, and quartiles for selected numeric
+measurement columns. The
 example workflow
 <code>examples/red-channel-merged-measurement-table.json</code> demonstrates a
-PCA-oriented table assembly path.</p>
+PCA-oriented table assembly path.
+<code>examples/synthetic-measurement-summary.json</code> demonstrates grouped summaries on
+a synthetic time-series object sample with known object counts and areas.
+<code>examples/synthetic-derived-object-morphology.json</code> demonstrates the optional
+derived object morphology, circularity, and Hu-moment columns on a deterministic
+2D object-shape sample.
+<code>examples/synthetic-3d-mesh-morphology.json</code> demonstrates 3D mesh morphology on
+an anisotropic synthetic object sample and merges the mesh table with ordinary
+object measurements.
+<code>examples/synthetic-skeleton-qc.json</code> demonstrates skeleton keypoint masks,
+component labels, branch labels, pruning, and before/after skeleton analysis on
+the bundled skeleton-network sample.</p>
 <p><code>Skeletonize</code> accepts a binary mask and produces a skeleton mask using
 metadata-aware 2D or 3D processing. <code>Analyze Skeleton</code> accepts a skeleton mask
 and outputs a per-component table with skeleton voxel count, endpoint voxels,
 junction voxels, isolated nodes, branch/graph edge counts, voxel-graph edge
 count, cycle count, per-block component count, component voxel fraction, and
 skeleton length in pixel/voxel and physical units when scale metadata is
-available. These nodes are generic and are intended for mitochondria, neurites,
-vessels, fibers, hyphae, and other curvilinear structures.</p>
+available. <code>Measure Skeleton Branches</code> outputs one row per traced graph branch
+with branch type, voxel/edge counts, length, endpoint-to-endpoint distance,
+tortuosity, start/end coordinates, and calibrated physical length when
+available. <code>Summarize Skeleton Branches</code> converts branch tables into grouped
+length/tortuosity distributions and branch-type count/fraction summaries.
+<code>Measure Overall Skeleton Network</code> reports compact per-block connectedness,
+fragmentation, cycle, component, branch, and normalized per-component/per-length
+network metrics. <code>Skeleton Keypoints</code> emits separate endpoint, junction, and
+isolated node masks. <code>Skeleton Graph Overlay</code> renders skeleton edges and graph
+nodes as a channel-last RGB QC image with selectable colored-edge or white-edge
+modes.
+For napari 3D viewing, VIPP displays volumetric RGB outputs as separate
+additive red/green/blue layers because napari's native RGB-volume path is not
+reliable for this use case.
+<code>Label Skeleton Components</code> and <code>Label Skeleton Branches</code> turn network topology
+into inspectable label images, while <code>Prune Skeleton Branches</code> removes short
+terminal spurs and optional isolated skeleton voxels. These nodes are generic
+and are intended for mitochondria, neurites, vessels, fibers, hyphae, and other
+curvilinear structures.</p>
+<p>See <a href="docs/skeleton-nodes.md">docs/skeleton-nodes.md</a> for a practical guide to
+the skeleton node inputs, outputs, and intended use.</p>
 <p><code>Extract Channel</code> pulls one selected channel from a multichannel image.
 <code>Split Channels</code> is its bulk counterpart: it emits one output port per channel
 in the image (losslessly, preserving dtype), with the port count following the
@@ -607,11 +674,14 @@ named <code>Labels</code> plus <code>Intensity image</code> input slots on <code
 <p>Near-term development priorities:</p>
 <ul>
 <li>axis-aware channel selectors that show probe names instead of only numbers;</li>
-<li>grouped table summaries by condition/time/source;</li>
-<li>skeleton QC feature masks, branch labels, and short-branch pruning;</li>
-<li>distance transforms, marker generation, and marker-controlled watershed;</li>
-<li>richer 3D mesh morphology and calibrated physical variants for extended
-length/shape measurements;</li>
+<li>broader adoption of the implemented manual/cached
+<code>Calculate</code>/<code>Recalculate</code> model for future expensive nodes, with cancellation
+and progress where possible;</li>
+<li>calibrated physical variants for extended non-mesh length/shape measurements
+and optional mesh export/preview;</li>
+<li>specialist mitochondrial network metrics beyond the current generic skeleton
+branch and overall-network summaries;</li>
+<li>colocalization/localization table nodes;</li>
 <li>fluorescence background correction;</li>
 <li>OME-Zarr pyramids, label colors/properties, and preview-resolution selection;</li>
 <li>plate/well/field browsing, remote reads, batch execution, and memory-aware
@@ -640,7 +710,7 @@ I/O behavior, <code>docs/ome-io-plan.md</code> for the accepted OME architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.8.2a2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.8.3a1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -650,7 +720,7 @@ I/O behavior, <code>docs/ome-io-plan.md</code> for the accepted OME architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-02</li>
                                                 </ul>
                                             </div>
                                         </div>
