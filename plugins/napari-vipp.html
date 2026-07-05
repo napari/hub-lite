@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.8.3a1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.9.0a1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-07-02</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-05</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -255,6 +255,9 @@ and distribution metadata.</p>
 <li>connecting nodes by dragging or click-to-connect from output to input ports;</li>
 <li>explicit image source nodes for napari layers, files, or bundled samples;</li>
 <li>quick selected-output saving plus graph-level save nodes;</li>
+<li>first-pass folder batch UI that binds collection Image Source nodes per file
+and saves explicit <code>Batch Output</code> nodes, with terminal graph outputs as a
+fallback;</li>
 <li>per-node thumbnails with global show/hide, <code>Slice</code>/<code>MIP</code> preview modes,
 contrast modes (<code>Percentile</code>, <code>Min-max</code>, <code>Raw</code>), and monochrome colormaps;</li>
 <li>optional per-node thumbnail disabling for heavier workflows;</li>
@@ -323,6 +326,10 @@ toolbar input selector and in the graph-level <code>Image Source</code> node.</p
 <h2>Documentation</h2>
 <ul>
 <li>End-user workflow usage: <code>docs/user-guide.md</code></li>
+<li>Measurement/table workflow guide: <code>docs/measurement-workflows.md</code></li>
+<li>Colocalization/RACC plan: <code>docs/colocalization-racc-plan.md</code></li>
+<li>Bundled example workflow index: <code>examples/README.md</code></li>
+<li>Skeleton-specific node guide: <code>docs/skeleton-nodes.md</code></li>
 <li>Operator tips and performance tuning: <code>docs/operator-tips.md</code></li>
 <li>Developer and architecture notes: <code>docs/developer-notes.md</code></li>
 </ul>
@@ -335,6 +342,7 @@ toolbar input selector and in the graph-level <code>Image Source</code> node.</p
 <ul>
 <li>Image Source</li>
 <li>Save Image</li>
+<li>Batch Output</li>
 </ul>
 </li>
 <li>Axes &amp; Regions:
@@ -481,6 +489,16 @@ toolbar input selector and in the graph-level <code>Image Source</code> node.</p
 <li>Summarize Measurements</li>
 </ul>
 </li>
+<li>Colocalization &amp; Spatial Analysis:
+<ul>
+<li>Colocalization Metrics</li>
+<li>Masked Colocalization Metrics</li>
+<li>Colocalized Voxels</li>
+<li>Masked Colocalized Voxels</li>
+<li>RACC Index</li>
+<li>Masked RACC Index</li>
+</ul>
+</li>
 </ul>
 <p>Histogram-based automatic threshold nodes show <code>Threshold uses</code> on stack inputs.
 <code>Stack histogram</code> computes one cutoff from the whole grayscale input and applies
@@ -529,8 +547,16 @@ derived shape ratios, and 2D shape moments. The 2D-only groups are hidden for
 true 3D inputs. Derived shape ratios include axis ratios, bounding-box side
 lengths/aspect ratios, fill fraction, and inertia eigenvalue ratios. The 2D
 shape moments group includes Crofton-based circularity, perimeter-to-area
-ratio, and Hu moments. Table outputs show a row preview in the inspector and
-can be saved as CSV or TSV.</p>
+ratio, and Hu moments. When spatial scale metadata is available, VIPP also
+reports calibrated physical variants for extended object morphology columns
+such as centroids, bounding-box coordinates and side lengths, equivalent
+diameter, Feret diameter, major/minor axis length, and inertia eigenvalues.
+Isotropic 2D inputs also report physical perimeter variants; anisotropic 2D
+physical perimeter values are left as <code>NaN</code> rather than guessed from one scale.
+The calibrated morphology checks are documented in
+<code>docs/analytical-phantom-validation.md</code>.
+Table outputs show a row preview in the inspector and can be saved as CSV or
+TSV.</p>
 <p><code>Measure Objects + Intensity</code> is the first named multi-input measurement node.
 It has separate <code>Labels</code> and <code>Intensity image</code> input ports, then outputs the
 basic object morphology columns plus per-label mean, minimum, maximum, sum, and
@@ -641,6 +667,11 @@ node; that dialog defaults to TIFF but also allows <code>.npy</code> and PNG/JPE
 formats when the selected output is 2D. TIFF output is written in ImageJ
 hyperstack format when axis metadata is available, and binary masks are saved
 as 8-bit <code>0</code>/<code>255</code> values.</p>
+<p>For batch workflows, add <code>Batch Output</code> nodes to the images, masks, labels, or
+tables that should be written by <code>Run batch...</code>. Each marker is pass-through in
+the graph and can define a filename tag, optional subfolder, filename template,
+format override, and overwrite behavior. If no <code>Batch Output</code> nodes are present,
+batch execution falls back to saving terminal graph outputs.</p>
 <h2>Development</h2>
 <p>Create a local environment and install in editable mode:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
@@ -673,21 +704,21 @@ named <code>Labels</code> plus <code>Intensity image</code> input slots on <code
 <h2>Roadmap</h2>
 <p>Near-term development priorities:</p>
 <ul>
+<li>broader cooperative mid-operation cancellation/progress for long-running
+background/manual operations;</li>
 <li>axis-aware channel selectors that show probe names instead of only numbers;</li>
 <li>broader adoption of the implemented manual/cached
-<code>Calculate</code>/<code>Recalculate</code> model for future expensive nodes, with cancellation
-and progress where possible;</li>
-<li>calibrated physical variants for extended non-mesh length/shape measurements
-and optional mesh export/preview;</li>
+<code>Calculate</code>/<code>Recalculate</code> model for future expensive nodes;</li>
+<li>optional mesh export/preview after a surface-output graph contract is
+designed;</li>
 <li>specialist mitochondrial network metrics beyond the current generic skeleton
 branch and overall-network summaries;</li>
-<li>colocalization/localization table nodes;</li>
 <li>fluorescence background correction;</li>
 <li>OME-Zarr pyramids, label colors/properties, and preview-resolution selection;</li>
-<li>plate/well/field browsing, remote reads, batch execution, and memory-aware
-lazy execution;</li>
+<li>plate/well/field browsing, remote reads, richer batch execution, and
+memory-aware lazy execution;</li>
 <li>richer non-image outputs, including points and scalar summaries;</li>
-<li>batch execution over files, positions, channels, z-slices, and timepoints.</li>
+<li>batch execution over positions, channels, z-slices, and timepoints.</li>
 </ul>
 <p>See <code>docs/user-guide.md</code> for end-user operation guidance,
 <code>docs/operator-tips.md</code> for operator-focused tuning,
@@ -710,7 +741,7 @@ I/O behavior, <code>docs/ome-io-plan.md</code> for the accepted OME architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.8.3a1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.9.0a1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -720,7 +751,7 @@ I/O behavior, <code>docs/ome-io-plan.md</code> for the accepted OME architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-07-02</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-05</li>
                                                 </ul>
                                             </div>
                                         </div>
