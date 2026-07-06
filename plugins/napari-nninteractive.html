@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2.5.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">2.5.2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-07-03</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-06</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -298,6 +298,9 @@ conda<span class="w"> </span>activate<span class="w"> </span>nnInteractive
 </code></pre>
 <p>Quote the brackets so your shell does not treat them as a glob (required in zsh / macOS). Model weights are downloaded automatically on first use; this can take a couple of minutes depending on your connection.</p>
 <p>You can do this at <strong>any</strong> time: if you started with the default client-only install and the <strong>Local</strong> switch in the plugin is greyed out, just run the command above (after installing PyTorch) and restart napari to unlock local inference.</p>
+<blockquote>
+<p><strong>Local inference crashes with <code>CUDNN_STATUS_SUBLIBRARY_VERSION_MISMATCH</code> (or a <code>cublasLt</code> symbol error)?</strong> This happens on machines that already have a <strong>system-wide cuDNN/CUDA</strong> installed (e.g. the <code>libcudnn9-*</code> apt package, or a CUDA toolkit under <code>/usr/local/cuda*</code>) of a <strong>different version</strong> than the one your installed PyTorch ships. PyTorch's cuDNN loads some engine sub-libraries by bare name at runtime; when its wheel omits one (newer PyTorch builds do), the loader picks up the mismatched system copy and mixes cuDNN versions in one process. Your system cuDNN is not broken — the two versions just cannot be combined. The plugin now detects this at <strong>Initialize</strong> and shows the fix; you do <strong>not</strong> need to touch your system CUDA/cuDNN. Either install a PyTorch whose cuDNN doesn't collide (e.g. <code>pip install &quot;torch==2.8.0&quot; &quot;torchvision==0.23.0&quot; --index-url https://download.pytorch.org/whl/cu129 --force-reinstall</code>, then restart napari), or use <strong>Remote</strong> mode (no local CUDA is loaded).</p>
+</blockquote>
 <h3>Install from source (optional)</h3>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/MIC-DKFZ/napari-nninteractive
 <span class="nb">cd</span><span class="w"> </span>napari-nninteractive
@@ -415,7 +418,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2.5.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2.5.2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -425,7 +428,7 @@ of <a href="https://www.helmholtz-imaging.de/">Helmholtz Imaging</a> and the
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-07-03</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-06</li>
                                                 </ul>
                                             </div>
                                         </div>
