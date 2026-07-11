@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.11.0a1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.11.0a2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-07-09</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-11</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Python versions supported<!-- -->:</p>
-                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"></ul>
                                     </div>
                                 </div>
                                 <div class="text-sm">
@@ -210,87 +210,82 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <h2>Alpha Disclaimer</h2>
-<p>napari-vipp is an early alpha build in active development.</p>
-<ul>
-<li>Expect breaking changes between releases.</li>
-<li>Workflows, node parameters, and file compatibility may change.</li>
-<li>Validate outputs before scientific interpretation or publication use.</li>
-</ul>
-<p><code>napari-vipp</code> is an early prototype of a napari-native Visual Image Processing
-Pipeline (VIPP): an interactive node-graph workflow composer for bioimage
-analysis.</p>
-<p>The project is exploring a workflow where the graph is the main work surface:
-users add processing nodes, connect outputs to inputs, tune parameters, inspect
-stage outputs in napari, and compare mask overlays or processing branches while
-the pipeline updates live.</p>
-<p>This is research/prototype software. The current code is useful for exploring
-interaction patterns and metadata-aware pipeline execution, but it is not yet a
-released production analysis package.</p>
-<h2>Acknowledgement</h2>
-<p>If VIPP contributes to your work, please acknowledge the project by name
-(&quot;napari-vipp&quot;) and include a link to the repository:
-<a href="https://github.com/rensutheart/napari-vipp">https://github.com/rensutheart/napari-vipp</a></p>
-<p>Citation metadata is available in <code>CITATION.cff</code>. A DOI or manuscript citation
-can be added once one is available.</p>
-<h2>License</h2>
-<p>napari-vipp is distributed under the BSD 3-Clause License. See <code>LICENSE</code> for
-the full terms.</p>
-<h2>Current Status</h2>
-<p>The prototype currently supports:</p>
-<ul>
-<li>a napari <code>npe2</code> plugin manifest and dock widget;</li>
-<li>a large pan/zoom Qt graph canvas;</li>
-<li>toolbar graph zoom controls with a <code>100%</code> reset plus Ctrl/trackpad wheel zoom;</li>
-<li>draggable node cards with input/output ports and curved connectors;</li>
-<li>adding nodes from a categorized, fuzzy-searchable node library;</li>
-<li>connecting nodes by dragging or click-to-connect from output to input ports;</li>
-<li>named port tunnels for reusing channel, mask, ROI, or reference-image outputs
-without drawing long repeated wires;</li>
-<li>explicit image source nodes for napari layers, files, or bundled samples;</li>
-<li>quick selected-output saving plus graph-level save nodes;</li>
-<li>first-pass folder batch UI that binds collection Image Source nodes per file
-and saves explicit <code>Batch Output</code> nodes, with terminal graph outputs as a
-fallback;</li>
-<li>per-node thumbnails with global show/hide, <code>Slice</code>/<code>MIP</code> preview modes,
-contrast modes (<code>Percentile</code>, <code>Min-max</code>, <code>Raw</code>), and monochrome colormaps;</li>
-<li>optional per-node thumbnail disabling for heavier workflows;</li>
-<li>selected-node parameter controls in the inspector;</li>
-<li>slider plus numeric entry controls with soft range expansion where useful;</li>
-<li>right-panel output histograms plus cutoff-node input histograms with
-slice/stack and linear/log modes;</li>
-<li>compact node metadata plus detailed selected-node metadata;</li>
-<li>normalized axes, channel, acquisition, source, and provenance metadata;</li>
-<li>OME-TIFF, ImageJ TIFF, conventional TIFF, OME-Zarr 0.4/0.5, and common
-raster image import plus 2D raster export;</li>
-<li>adaptive image/series selection for multi-image sources;</li>
-<li>table outputs for object, intensity, skeleton, merged, annotated, and grouped
-summary results;</li>
-<li>image/mask/label pinning as persistent napari preview layers;</li>
-<li>generated inspect layers for full-resolution napari review.</li>
-</ul>
-<h2>Image Metadata</h2>
-<p>The graph carries an explicit image state object alongside each node output.
-That state records:</p>
-<ul>
-<li>shape and dtype;</li>
-<li>axis names and axis types, such as <code>t</code>, <code>c</code>, <code>z</code>, <code>y</code>, <code>x</code>;</li>
-<li>units, scale, and origin/translation where available;</li>
-<li>value range, bit depth, memory estimate, and binary-value hints;</li>
-<li>source layer and operation history.</li>
-<li>channel names, fluorophore/wavelength fields where available;</li>
-<li>acquisition and stable source identity records.</li>
-</ul>
-<p>When a napari layer provides OME-NGFF-style <code>multiscales</code> metadata, VIPP reads
-the axis definitions and coordinate transforms. When the source is a plain array
-without reliable metadata, VIPP falls back to inferred axes and labels that
-fallback explicitly.</p>
-<p>OME-TIFF metadata and local OME-Zarr 0.4/0.5 images are supported through the
-shared headless I/O layer. OME-Zarr label groups, HCS plate browsing, generated
-pyramids, remote stores, and full operation-level lazy execution remain future
-work. See <code>docs/io-user-guide.md</code> for the current format contract.</p>
-<p>Microscope acquisition readers are optional. Install the format-specific extra
-before opening proprietary microscope files, then restart napari:</p>
+                                        <p><a href="https://github.com/rensutheart/napari-vipp/actions/workflows/ci.yml"><img src="https://github.com/rensutheart/napari-vipp/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+<a href="https://pypi.org/project/napari-vipp/"><img src="https://img.shields.io/pypi/v/napari-vipp.svg" alt="PyPI" /></a>
+<a href="https://pypi.org/project/napari-vipp/"><img src="https://img.shields.io/pypi/pyversions/napari-vipp.svg" alt="Python" /></a>
+<a href="LICENSE"><img src="https://img.shields.io/pypi/l/napari-vipp.svg" alt="License" /></a></p>
+<p>napari-vipp is a napari-native visual image-processing pipeline builder for
+bioimage analysis. Build a typed node graph, inspect intermediate images and
+tables, tune parameters, save the workflow, and run the same operations without
+hiding axis or physical-scale metadata.</p>
+<blockquote>
+<p><strong>Alpha software:</strong> expect breaking workflow and parameter changes. Validate
+outputs on representative data before scientific interpretation or
+publication.</p>
+</blockquote>
+<h2>Install And Open</h2>
+<p>VIPP requires Python 3.12 or newer. If napari is not already installed, install
+it with a Qt backend at the same time:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[pyqt6]&quot;</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--pre<span class="w"> </span>napari-vipp
+napari
+</pre></div>
+</code></pre>
+<p>The <code>--pre</code> flag is required while VIPP is published as an alpha release. It is
+kept on the VIPP command so napari itself can continue to resolve to a stable
+release.</p>
+<p>In napari, open:</p>
+<pre><code class="language-text"><div class="highlight"><pre><span></span>Plugins &gt; VIPP Workflow (napari-vipp)
+</pre></div>
+</code></pre>
+<p>Use <code>Open example...</code> for a runnable workflow with synthetic data. A good first
+choice is <code>Red-Channel Label Cleanup</code>; select nodes from left to right to review
+their parameters, thumbnails, metadata, and outputs.</p>
+<p><img src="docs/assets/user-guide/vipp-example-chooser.png" alt="VIPP example workflow chooser" /></p>
+<h2>What It Supports</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Current alpha capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Graph authoring</td>
+<td>Searchable node palette, typed ports, dynamic outputs, cycle prevention, undo/redo, graph notes, named tunnels, auto-layout, and saved positions.</td>
+</tr>
+<tr>
+<td>Images and metadata</td>
+<td>Semantic T/C/Z/Y/X axes, scale/units/origin, channel and acquisition metadata, source identity, and operation history.</td>
+</tr>
+<tr>
+<td>Image processing</td>
+<td>Intensity transforms, filters, background correction, thresholding, watershed, binary/label morphology, channels, axes, masks, and composites.</td>
+</tr>
+<tr>
+<td>Measurements</td>
+<td>Object and intensity tables, calibrated morphology, 3D mesh morphology, skeleton/network analysis, colocalization, object association, and table composition.</td>
+</tr>
+<tr>
+<td>Restoration</td>
+<td>Born-Wolf PSF generation, measured-PSF preparation, and manual/cached 2D or 3D Richardson-Lucy and RL-TV deconvolution.</td>
+</tr>
+<tr>
+<td>Reuse and automation</td>
+<td>Workflow JSON, generated headless Python, explicit batch outputs, local collection batch runs, dry-run previews, and workflow/script artifacts.</td>
+</tr>
+<tr>
+<td>I/O</td>
+<td>OME-TIFF, ImageJ TIFF, TIFF, local OME-Zarr 0.4/0.5, NPY/NPZ, common 2D raster formats, and optional microscope readers.</td>
+</tr>
+</tbody>
+</table>
+<p>Most graph operations are still eager. Large z-stacks and OME-Zarr datasets
+therefore need deliberate cache, preview, and output choices; see the
+<a href="docs/cache-and-memory.md">cache and memory guide</a>.</p>
+<h2>Optional Microscope Readers</h2>
+<p>Install only the reader family you need, then restart napari:</p>
 <table>
 <thead>
 <tr>
@@ -300,471 +295,90 @@ before opening proprietary microscope files, then restart napari:</p>
 </thead>
 <tbody>
 <tr>
-<td>Zeiss CZI</td>
-<td><code>pip install &quot;napari-vipp[czi]&quot;</code></td>
-</tr>
-<tr>
 <td>Nikon ND2</td>
-<td><code>pip install &quot;napari-vipp[nd2]&quot;</code></td>
+<td><code>python -m pip install --pre &quot;napari-vipp[nd2]&quot;</code></td>
 </tr>
 <tr>
-<td>Mixed microscope workstation</td>
-<td><code>pip install &quot;napari-vipp[microscope]&quot;</code></td>
+<td>Zeiss CZI</td>
+<td><code>python -m pip install --pre &quot;napari-vipp[czi]&quot;</code></td>
+</tr>
+<tr>
+<td>Mixed microscope formats</td>
+<td><code>python -m pip install --pre &quot;napari-vipp[microscope]&quot;</code></td>
 </tr>
 <tr>
 <td>BioIO/Bio-Formats fallback</td>
-<td><code>pip install &quot;napari-vipp[bioformats]&quot;</code></td>
+<td><code>python -m pip install --pre &quot;napari-vipp[bioformats]&quot;</code></td>
 </tr>
 </tbody>
 </table>
-<p>If a reader is missing, VIPP shows an optional-reader dialog with the relevant
-copyable install command.</p>
-<h2>Sample Data</h2>
-<p>The plugin contributes synthetic fluorescence-like sample data:</p>
-<ul>
-<li><code>VIPP synthetic volume</code>: grayscale <code>ZYX</code> stack;</li>
-<li><code>VIPP synthetic multichannel volume</code>: <code>CZYX</code> volume with blue/DAPI-like
-nuclei, green/FITC-like neurites, and red/TRITC-like puncta channels;</li>
-<li><code>VIPP synthetic time-lapse multichannel</code>: <code>TCZYX</code> time-lapse, multichannel
-stack;</li>
-<li><code>VIPP synthetic measurement summary</code>: <code>TYX</code> time-series object sample with
-known per-timepoint object counts and areas;</li>
-<li><code>VIPP synthetic object morphology</code>: <code>YX</code> object sample with circle, ellipse,
-rectangle, and concave objects for derived shape-ratio and 2D moment checks;</li>
-<li><code>VIPP synthetic 3D mesh morphology</code>: anisotropic <code>ZYX</code> objects for surface
-area, mesh volume, convex hull, and sphericity checks;</li>
-<li><code>VIPP synthetic skeleton network</code>: sparse <code>ZYX</code> network sample with known
-endpoints, branches, a junction, a short spur, and an isolated voxel.</li>
-</ul>
-<p>The multichannel samples use separate intensity channels, not baked RGB images.
-Graph thumbnails render these as fluorescence-style pseudo-color composites
-while preserving the underlying channel axis in the carried metadata.</p>
-<p>Use bundled samples from an <code>Image Source</code> node by setting <code>Source</code> to <code>sample</code>.
-This exposes the full sample list without first loading raw sample layers into
-napari. Use <code>Open example...</code> in the VIPP toolbar when you want a complete
-runnable workflow template with its sample sources already selected.</p>
-<p>Napari's sample-data menu is still useful when you specifically want to inspect
-the raw sample layers:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>File &gt; Open Sample &gt; VIPP synthetic microscopy samples
-</pre></div>
-</code></pre>
+<p>These routes are an experimental foundation: axes and common metadata are
+normalized where the source reader exposes them, but format-specific coverage
+still needs validation against a broader corpus of real acquisition files.</p>
+<h2>Workflow Basics</h2>
+<ol>
+<li>Add or select an <code>Image Source</code> for a napari layer, file, or bundled sample.</li>
+<li>Add nodes from the palette and connect compatible output and input ports.</li>
+<li>Select a node to tune parameters and inspect its output metadata.</li>
+<li>Click <code>Calculate</code> for manual/cached nodes such as measurements and
+deconvolution.</li>
+<li>Pin important image outputs into napari for full-resolution comparison.</li>
+<li>Save the graph with <code>Save workflow...</code>.</li>
+<li>Add <code>Batch Output</code> nodes before <code>Run batch...</code> when exact saved outputs
+matter.</li>
+</ol>
+<p>Workflow JSON stores the graph and optional VIPP UI state, not cached pixels or
+tables. <code>Export Python...</code> emits direct calls to the headless operation and I/O
+functions; it does not reproduce interactive caches or full runtime metadata
+propagation. See the <a href="docs/user-guide.md">user guide</a> for details and caveats.</p>
 <h2>Documentation</h2>
 <ul>
-<li>End-user workflow usage: <code>docs/user-guide.md</code></li>
-<li>Measurement/table workflow guide: <code>docs/measurement-workflows.md</code></li>
-<li>Colocalization/RACC plan: <code>docs/colocalization-racc-plan.md</code></li>
-<li>Bundled example workflow index: <code>examples/README.md</code></li>
-<li>Skeleton-specific node guide: <code>docs/skeleton-nodes.md</code></li>
-<li>Operator tips and performance tuning: <code>docs/operator-tips.md</code></li>
-<li>Developer and architecture notes: <code>docs/developer-notes.md</code></li>
+<li><a href="docs/README.md">Documentation index</a></li>
+<li><a href="docs/user-guide.md">User guide</a></li>
+<li><a href="docs/io-user-guide.md">Image import and export</a></li>
+<li><a href="examples/README.md">Example workflow index</a></li>
+<li><a href="docs/measurement-workflows.md">Measurement workflows</a></li>
+<li><a href="docs/operator-tips.md">Operator tips</a></li>
+<li><a href="docs/developer-notes.md">Developer notes</a></li>
+<li><a href="docs/planning.md">Current planning and roadmap</a></li>
 </ul>
-<h2>Node Library</h2>
-<p>The current node catalogue includes:</p>
-<ul>
-<li>Image Data:
-<ul>
-<li>Source &amp; Output:
-<ul>
-<li>Image Source</li>
-<li>Save Image</li>
-<li>Batch Output</li>
-</ul>
-</li>
-<li>Axes &amp; Regions:
-<ul>
-<li>Crop Stack</li>
-<li>Select Axis Slice</li>
-<li>Split Axis</li>
-<li>Reorder Axes</li>
-<li>Set Pixel Size / Units</li>
-<li>Rescale Axes</li>
-</ul>
-</li>
-<li>Channels &amp; Composites:
-<ul>
-<li>Extract Channel</li>
-<li>Combine Channels</li>
-<li>Split Channels</li>
-<li>Composite → RGB</li>
-</ul>
-</li>
-<li>Utilities:
-<ul>
-<li>Convert Dtype</li>
-</ul>
-</li>
-<li>Math &amp; Logic:
-<ul>
-<li>Calculate New Image</li>
-<li>Add</li>
-<li>Subtract</li>
-<li>Ratio</li>
-<li>Mask Image</li>
-<li>Logical AND</li>
-<li>Logical OR</li>
-<li>Logical XOR</li>
-<li>Invert</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Intensity &amp; Contrast:
-<ul>
-<li>Linear Scale + Offset</li>
-<li>Gamma Correction</li>
-<li>Rescale Intensity</li>
-<li>Normalize</li>
-<li>Clip</li>
-</ul>
-</li>
-<li>Filtering:
-<ul>
-<li>Smoothing &amp; Denoising:
-<ul>
-<li>Average Blur</li>
-<li>Gaussian Blur</li>
-<li>Gaussian Blur 3D</li>
-<li>Median Filter</li>
-<li>Bilateral Filtering</li>
-<li>Non-Local Means</li>
-</ul>
-</li>
-<li>Edge &amp; Detail:
-<ul>
-<li>Difference of Gaussians</li>
-<li>Unsharp Mask</li>
-<li>Sobel Edges</li>
-<li>Canny Edges</li>
-<li>Laplace Filter</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Projection:
-<ul>
-<li>Maximum Projection</li>
-<li>Project Image (axis-aware dropdown plus multiple projection methods)</li>
-<li>Orthogonal Projection</li>
-</ul>
-</li>
-<li>Segmentation:
-<ul>
-<li>Global Thresholds:
-<ul>
-<li>Otsu Threshold</li>
-<li>Triangle Threshold</li>
-<li>Li Threshold</li>
-<li>Yen Threshold</li>
-<li>Isodata Threshold</li>
-<li>Minimum Threshold</li>
-<li>Binary Threshold</li>
-<li>Hysteresis Threshold</li>
-</ul>
-</li>
-<li>Local Thresholds:
-<ul>
-<li>Adaptive Mean Threshold</li>
-<li>Adaptive Gaussian Threshold</li>
-<li>Sauvola Threshold</li>
-<li>Niblack Threshold</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Morphology:
-<ul>
-<li>Dilation</li>
-<li>Erosion</li>
-<li>Opening</li>
-<li>Closing</li>
-<li>Top Hat</li>
-<li>Black Hat</li>
-<li>Morphological Gradient</li>
-<li>Fill Holes</li>
-<li>Remove Small Objects</li>
-<li>Skeletonize</li>
-<li>Skeleton Keypoints</li>
-<li>Skeleton Graph Overlay</li>
-<li>Prune Skeleton Branches</li>
-</ul>
-</li>
-<li>Label Operations:
-<ul>
-<li>Label Connected Components</li>
-<li>Filter Labels By Volume</li>
-<li>Filter Labels By Property</li>
-<li>Clear Border Objects</li>
-<li>Relabel Sequential</li>
-<li>Label Skeleton Components</li>
-<li>Label Skeleton Branches</li>
-</ul>
-</li>
-<li>Measurements:
-<ul>
-<li>Measure Objects</li>
-<li>Measure Objects + Intensity</li>
-<li>Measure 3D Mesh Morphology</li>
-<li>Analyze Skeleton</li>
-<li>Measure Skeleton Branches</li>
-<li>Summarize Skeleton Branches</li>
-<li>Skeleton Graph Tables</li>
-<li>Measure Overall Skeleton Network</li>
-<li>Merge Tables</li>
-<li>Select Table Columns</li>
-<li>Add Metadata Columns</li>
-<li>Summarize Measurements</li>
-</ul>
-</li>
-<li>Colocalization &amp; Spatial Analysis:
-<ul>
-<li>Colocalization Metrics</li>
-<li>Masked Colocalization Metrics</li>
-<li>Colocalized Voxels</li>
-<li>Masked Colocalized Voxels</li>
-<li>RACC Index</li>
-<li>Masked RACC Index</li>
-</ul>
-</li>
-</ul>
-<p>Histogram-based automatic threshold nodes show <code>Threshold uses</code> on stack inputs.
-<code>Stack histogram</code> computes one cutoff from the whole grayscale input and applies
-it to the full image; <code>Slice histogram</code> computes a separate cutoff per displayed
-plane while still producing a full-stack mask. The control is hidden for 2D
-inputs. These nodes also show the input histogram used for threshold selection
-with a live marker at the chosen threshold.</p>
-<p>The label pipeline converts binary masks into integer object IDs. Connected
-components can run over full <code>ZYX</code> volumes or independently over <code>YX</code> images.
-Volume filtering currently uses pixel/voxel counts, preserves retained IDs, and
-leaves compact renumbering to the explicit <code>Relabel Sequential</code> node. Its
-volume sliders use the largest observed object as their data-aware upper bound
-and a logarithmic scale for useful control across small and large structures;
-the numeric fields still accept exact values up to one billion. Selecting
-<code>Filter Labels By Volume</code> also shows the incoming object-volume distribution
-above the regular histogram. Dashed minimum and enabled maximum markers update
-with the filter controls. Its <code>Log volume axis</code> toggle is enabled by
-default and can be switched off for a linear distribution.</p>
-<p><code>Filter Labels By Property</code> accepts named <code>Labels</code> and <code>Measurements table</code>
-inputs and keeps or removes labels using any numeric table column, including
-area/volume, intensity, and skeleton/network measurements. It preserves label
-IDs and leaves compact renumbering to <code>Relabel Sequential</code>.</p>
-<p><code>Clear Border Objects</code> accepts either a binary mask or integer labels and
-preserves that semantic type. In 3D it can remove objects touching all <code>ZYX</code>
-volume boundaries or only the lateral <code>YX</code> boundaries, with an optional border
-buffer. Timepoints and channels are processed independently.</p>
-<p><code>Fill Holes</code> accepts binary masks and defaults to metadata-aware processing:
-2D images are filled in <code>YX</code>, while true z-stacks are filled as complete <code>ZYX</code>
-volumes. An advanced 2D-per-slice mode remains available for deliberately
-slice-wise segmentations. A maximum size of <code>0</code> fills every enclosed hole;
-positive values fill only holes up to the selected pixel area or voxel volume.
-The inspector hides 3D for true 2D inputs and warns when slice-wise filling is
-selected for a z-stack.</p>
-<p><code>Remove Small Objects</code> accepts binary masks or integer labels and preserves the
-connected semantic type. It removes objects below a minimum pixel area or voxel
-volume, supports 2D or 3D processing, and exposes connectivity for mask inputs.
-Its logarithmic size control is bounded by the largest observed input object.
-For labels-only cleanup with both minimum and maximum cutoffs, use
-<code>Filter Labels By Volume</code>.</p>
-<p><code>Measure Objects</code> accepts a label image and produces a table output instead of
-an image. The default measurement set includes label ID, pixel/voxel area or
-volume, calibrated physical area or volume when spatial scale metadata is
-available, centroid, bounding box, equivalent diameter, extent, and Euler
-number. Optional checkboxes add shape descriptors, axis/inertia descriptors,
-derived shape ratios, and 2D shape moments. The 2D-only groups are hidden for
-true 3D inputs. Derived shape ratios include axis ratios, bounding-box side
-lengths/aspect ratios, fill fraction, and inertia eigenvalue ratios. The 2D
-shape moments group includes Crofton-based circularity, perimeter-to-area
-ratio, and Hu moments. When spatial scale metadata is available, VIPP also
-reports calibrated physical variants for extended object morphology columns
-such as centroids, bounding-box coordinates and side lengths, equivalent
-diameter, Feret diameter, major/minor axis length, and inertia eigenvalues.
-Isotropic 2D inputs also report physical perimeter variants; anisotropic 2D
-physical perimeter values are left as <code>NaN</code> rather than guessed from one scale.
-The calibrated morphology checks are documented in
-<code>docs/analytical-phantom-validation.md</code>.
-Table outputs show a row preview in the inspector and can be saved as CSV or
-TSV.</p>
-<p><code>Measure Objects + Intensity</code> is the first named multi-input measurement node.
-It has separate <code>Labels</code> and <code>Intensity image</code> input ports, then outputs the
-basic object morphology columns plus per-label mean, minimum, maximum, sum, and
-standard deviation intensity. It exposes the same optional morphology groups as
-<code>Measure Objects</code>. The example workflow
-<code>examples/red-channel-object-intensity-measurements.json</code> demonstrates this
-pattern.</p>
-<p><code>Measure 3D Mesh Morphology</code> accepts true 3D labels and produces an opt-in,
-manual/cached table of surface morphology. It uses marching cubes with carried
-Z/Y/X scale metadata, reports voxel volume, mesh volume, mesh surface area,
-surface-to-volume ratio, equivalent sphere size, sphericity, axis-aligned mesh
-extents, optional convex-hull volume/area, 3D solidity, and per-object
-<code>mesh_status</code> / <code>mesh_error</code> fields. Tiny or invalid objects remain in the
-table with <code>NaN</code> mesh metrics instead of failing the whole node. The example
-workflow <code>examples/synthetic-3d-mesh-morphology.json</code> demonstrates merging
-standard object measurements with mesh morphology.</p>
-<p><code>Merge Tables</code> joins two or more table outputs into a single table. In <code>auto</code>
-mode it joins on stable identity columns such as <code>t_index</code> and <code>label_id</code>; when
-no identity columns are shared, equal-length tables can be joined by row
-position. <code>Select Table Columns</code> shows detected upstream columns as a checklist:
-checked columns are kept, rows can be dragged or moved to set output order, and
-Select all/Deselect all buttons make broad edits explicit. It preserves row
-order and column units. <code>Add Metadata Columns</code> appends constant
-treatment, replicate, batch, or condition columns before CSV/TSV export.
-<code>Summarize Measurements</code> groups table rows by metadata or axis-index columns
-such as <code>condition</code>, <code>replicate</code>, and <code>t_index</code>, then calculates count, mean,
-median, standard deviation, min/max, and quartiles for selected numeric
-measurement columns. The
-example workflow
-<code>examples/red-channel-merged-measurement-table.json</code> demonstrates a
-PCA-oriented table assembly path.
-<code>examples/synthetic-measurement-summary.json</code> demonstrates grouped summaries on
-a synthetic time-series object sample with known object counts and areas.
-<code>examples/synthetic-derived-object-morphology.json</code> demonstrates the optional
-derived object morphology, circularity, and Hu-moment columns on a deterministic
-2D object-shape sample.
-<code>examples/synthetic-3d-mesh-morphology.json</code> demonstrates 3D mesh morphology on
-an anisotropic synthetic object sample and merges the mesh table with ordinary
-object measurements.
-<code>examples/synthetic-skeleton-qc.json</code> demonstrates skeleton keypoint masks,
-component labels, branch labels, pruning, and before/after skeleton analysis on
-the bundled skeleton-network sample.</p>
-<p><code>Skeletonize</code> accepts a binary mask and produces a skeleton mask using
-metadata-aware 2D or 3D processing. <code>Analyze Skeleton</code> accepts a skeleton mask
-and outputs a per-component table with skeleton voxel count, endpoint voxels,
-junction voxels, isolated nodes, branch/graph edge counts, voxel-graph edge
-count, cycle count, per-block component count, component voxel fraction, and
-skeleton length in pixel/voxel and physical units when scale metadata is
-available. <code>Measure Skeleton Branches</code> outputs one row per traced graph branch
-with branch type, voxel/edge counts, length, endpoint-to-endpoint distance,
-tortuosity, start/end coordinates, and calibrated physical length when
-available. <code>Summarize Skeleton Branches</code> converts branch tables into grouped
-length/tortuosity distributions and branch-type count/fraction summaries.
-<code>Measure Overall Skeleton Network</code> reports compact per-block connectedness,
-fragmentation, cycle, component, branch, and normalized per-component/per-length
-network metrics. <code>Skeleton Keypoints</code> emits separate endpoint, junction, and
-isolated node masks. <code>Skeleton Graph Overlay</code> renders skeleton edges and graph
-nodes as a channel-last RGB QC image with selectable colored-edge or white-edge
-modes.
-For napari 3D viewing, VIPP displays volumetric RGB outputs as separate
-additive red/green/blue layers because napari's native RGB-volume path is not
-reliable for this use case.
-<code>Label Skeleton Components</code> and <code>Label Skeleton Branches</code> turn network topology
-into inspectable label images, while <code>Prune Skeleton Branches</code> removes short
-terminal spurs and optional isolated skeleton voxels. These nodes are generic
-and are intended for mitochondria, neurites, vessels, fibers, hyphae, and other
-curvilinear structures.</p>
-<p>See <a href="docs/skeleton-nodes.md">docs/skeleton-nodes.md</a> for a practical guide to
-the skeleton node inputs, outputs, and intended use.</p>
-<p><code>Extract Channel</code> pulls one selected channel from a multichannel image.
-<code>Split Channels</code> is its bulk counterpart: it emits one output port per channel
-in the image (losslessly, preserving dtype), with the port count following the
-true channel count when VIPP has channel-axis metadata or a conventional
-RGB/RGBA channel-last image. Use <code>Split Axis</code> for arbitrary stack axes such as
-timepoints, Z slices, or a leading non-channel axis. Each split output also
-preserves the semantic type of its input, so splitting a threshold mask produces
-mask ports that connect directly to <code>Label Connected Components</code>. <code>Combine Channels</code> is the inverse multi-input node: set the expected channel/input count,
-connect that many upstream images, and it stacks them into an explicit
-multichannel output. Channel pseudo-colours are carried as metadata from OME
-sources, Image Source overrides, Combine
-Channels, or the <code>Assign Channel Colors</code> pass-through node. <code>Composite → RGB</code>
-maps a multichannel composite to a channel-last RGB image. Auto mode preserves
-true RGB/RGBA inputs, and otherwise blends all channels by their carried
-pseudo-colours, so yellow contributes to red and green and cyan contributes to
-green and blue. Manual red/green/blue selectors remain available for forced
-single-channel plane mapping. <code>Calculate New Image</code> is a multi-input image-math
-node that applies comma separated weights to connected inputs and then adds an
-offset.</p>
-<p><code>Mask Image</code> is a typed two-input node with separate <code>Image</code> and <code>Mask</code> ports.
-The mask port accepts binary masks or labels, treating nonzero values as inside
-the mask. Spatial masks can be broadcast over compatible image axes, including
-channel-last RGB/RGBA images and common channel-first multichannel arrays, so a
-<code>YX</code> or <code>ZYX</code> mask can mask all colour/channel planes without first splitting
-the image.</p>
-<p><code>Image Source</code> can point to an existing napari layer, a local <code>.npy</code>, TIFF,
-OME-Zarr, or common raster source such as PNG/JPEG/BMP/GIF/WebP, or one of the
-bundled synthetic samples. <code>Set Pixel Size / Units</code> repairs missing or incorrect
-input calibration by setting X/Y pixel size, optional Z step size, and the
-shared physical unit carried in downstream metadata. Scale-aware nodes such as
-<code>Orthogonal Projection</code> use this metadata to preserve physical proportions for
-anisotropic z-stacks. <code>Rescale Axes</code> changes the sampled pixel grid along X/Y/Z
-with optional X/Y aspect-ratio locking, nearest-neighbor through spline
-interpolation choices, and anti-aliasing for intensity-image downsampling; it
-updates physical scale metadata inversely to the requested scale factors.
-<code>Save Image</code> passes data through unchanged and, when <code>Auto-save on update</code> is
-set to <code>on</code>, writes the node input to disk every time the graph recomputes. For
-quick interactive work, the
-inspector also provides <code>Save selected output...</code> for the currently selected
-node; that dialog defaults to TIFF but also allows <code>.npy</code> and PNG/JPEG-style
-formats when the selected output is 2D. TIFF output is written in ImageJ
-hyperstack format when axis metadata is available, and binary masks are saved
-as 8-bit <code>0</code>/<code>255</code> values.</p>
-<p>For batch workflows, add <code>Batch Output</code> nodes to the images, masks, labels, or
-tables that should be written by <code>Run batch...</code>. Each marker is pass-through in
-the graph and can define a filename tag, optional subfolder, filename template,
-format override, and overwrite behavior. The batch dialog can bind each
-<code>Image Source</code> node to its own folder/pattern pair; bound sources are matched by
-sorted file order and must contain the same number of files. <code>Preview batch</code>
-shows the stable batch ids, paired source files, and planned outputs before the
-graph is executed. If no <code>Batch Output</code> nodes are present, batch execution falls
-back to saving terminal graph outputs. Filename templates can use <code>{batch_id}</code>,
-<code>{batch_index}</code>, <code>{source_name}</code>, <code>{source_stem}</code>, <code>{primary_source_stem}</code>,
-<code>{tag}</code>, <code>{node_id}</code>, and <code>{node_title}</code>.</p>
 <h2>Development</h2>
-<p>Create a local environment and install in editable mode:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+<p>Create a local environment and install the development dependencies:</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="p">.</span><span class="n">venv</span>
+<span class="p">.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">-e</span> <span class="s2">&quot;.[dev]&quot;</span>
 </pre></div>
 </code></pre>
-<p>Validate and test:</p>
+<p>Run the required checks:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>npe2<span class="w"> </span>validate<span class="w"> </span>src/napari_vipp/napari.yaml
 python<span class="w"> </span>-m<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>.
 python<span class="w"> </span>-m<span class="w"> </span>pytest
 </pre></div>
 </code></pre>
-<p>Launch napari manually and open the widget from:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>Plugins &gt; VIPP Workflow (napari-vipp)
-</pre></div>
-</code></pre>
-<p>Or launch the local sample app:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts<span class="se">\l</span>aunch_vipp_sample.py
-</pre></div>
-</code></pre>
-<p>To start from a runnable workflow template inside VIPP, use:</p>
-<pre><code class="language-text"><div class="highlight"><pre><span></span>Open example...
-</pre></div>
-</code></pre>
-<p>To start directly from the red-channel Otsu-to-label cleanup workflow from the
-command line:</p>
-<pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts<span class="se">\l</span>aunch_vipp_label_workflow.py
-</pre></div>
-</code></pre>
-<p>The same graph can be loaded manually from
-<code>examples/otsu-red-channel-labels.json</code>. A second review workflow,
-<code>examples/red-channel-object-intensity-measurements.json</code>, demonstrates the
-named <code>Labels</code> plus <code>Intensity image</code> input slots on <code>Measure Objects + Intensity</code>.</p>
+<p>Launch a development instance with <code>python scripts/launch_vipp_sample.py</code>. The
+<a href="docs/architecture.md">architecture reference</a> explains the graph, metadata,
+execution, persistence, and UI boundaries.</p>
+<p>Contributions are welcome. Read <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> before
+opening a pull request, use <a href="SUPPORT.md">SUPPORT.md</a> for help and issue-reporting
+guidance, and report suspected vulnerabilities privately through
+<a href="SECURITY.md">SECURITY.md</a>. All project interactions follow the
+<a href="CODE_OF_CONDUCT.md">Code of Conduct</a>.</p>
 <h2>Roadmap</h2>
-<p>The current versioned alpha roadmap is maintained in
-<code>docs/planning.md</code>. The current public alpha release is:</p>
-<ul>
-<li><code>0.11.0a1</code>: PSF generation, PSF-aware Richardson-Lucy/RL-TV restoration,
-optional microscope import foundations, bundled example-workflow onboarding,
-and large-data review refinements.</li>
-</ul>
-<p>Planned next minor milestones are:</p>
-<ul>
-<li><code>0.12.0a1</code>: batch configuration, output manifests, semantic-axis iteration,
-and per-item provenance;</li>
-<li><code>0.13.0a1</code>: OME-Zarr pyramids, scalable previews, sampled histograms, and
-large-data strategy;</li>
-<li><code>0.14.0a1</code>: scientific validation reports for colocalization, object
-association, watershed separation, skeleton/network analysis, and
-PSF/restoration;</li>
-<li><code>0.15.0a1</code>: AI-assisted pipeline authoring through validated workflow JSON.</li>
-</ul>
-<p>See <code>docs/user-guide.md</code> for end-user operation guidance,
-<code>docs/operator-tips.md</code> for operator-focused tuning,
-<code>docs/developer-notes.md</code> and <code>docs/architecture.md</code> for technical internals,
-<code>docs/planning.md</code> for broader planning, <code>docs/io-user-guide.md</code> for current
-I/O behavior, <code>docs/ome-io-plan.md</code> for the accepted OME architecture, and
-<code>docs/research-and-publication.md</code> for the evidence and publication record.</p>
+<p>The current public alpha is <code>0.11.0a2</code>. This patch alpha hardens workflow
+restoration, generated Python, output-path validation, example launching, and
+saved table-column state, and adds cross-platform CI and release-readiness
+guidance. The next planned milestone focuses on saved batch configuration and
+per-item provenance, followed by scalable OME-Zarr previews and broader
+scientific validation. See
+<a href="docs/planning.md">planning.md</a> for the maintained release order and evidence
+gates.</p>
+<h2>Citation, Acknowledgement, And License</h2>
+<p>If VIPP contributes to your work, acknowledge <code>napari-vipp</code> and link to the
+<a href="https://github.com/rensutheart/napari-vipp">project repository</a>. Citation
+metadata is available in <a href="CITATION.cff">CITATION.cff</a>; a DOI or manuscript
+citation can be added when available.</p>
+<p>napari-vipp is distributed under the BSD 3-Clause License. See
+<a href="LICENSE">LICENSE</a> for the full terms.</p>
 
 
                                     </div>
@@ -780,7 +394,7 @@ I/O behavior, <code>docs/ome-io-plan.md</code> for the accepted OME architecture
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.11.0a1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.11.0a2</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -790,7 +404,7 @@ I/O behavior, <code>docs/ome-io-plan.md</code> for the accepted OME architecture
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-07-09</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-11</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -868,7 +482,7 @@ I/O behavior, <code>docs/ome-io-plan.md</code> for the accepted OME architecture
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">Python versions
                                                     supported<!-- -->:</p>
-                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.10">3.10</a></li><li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python=3.11">3.11</a></li></ul>
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo"></ul>
                                             </div>
                                         </div>
                                         <div class="text-sm">
