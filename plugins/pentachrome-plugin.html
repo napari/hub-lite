@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.7.0</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.7.1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-07-08</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-13</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -261,6 +261,58 @@ need Step 1 and Step 3 in the same environment.</p>
 <h3>Step 3 — model weights</h3>
 <p>Download the nnUNet weights and point the widget at them — see
 <a href="#model-weights">Model weights</a> below.</p>
+<h3>Step 4 — GPU (CUDA) acceleration (optional, NVIDIA only)</h3>
+<blockquote>
+<p>⚠️ <strong><code>pip install nnunetv2</code> installs the CPU-only PyTorch wheel.</strong> On a machine
+with an NVIDIA GPU, the Guided Analysis <strong>Check GPU</strong> button will still report
+<em>&quot;No CUDA GPU available to PyTorch&quot;</em> and inference runs on the (much slower) CPU,
+because the default PyTorch wheel from PyPI (<code>torch ...+cpu</code>) contains no CUDA at
+all. Installing the NVIDIA CUDA toolkit system-wide does <strong>not</strong> fix this — the
+PyTorch wheel bundles its own CUDA runtime.</p>
+</blockquote>
+<p>To use the GPU, reinstall PyTorch from the matching CUDA index <strong>after</strong> nnU-Net,
+so the CUDA wheel wins:</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pentachrome</span>
+<span class="c"># Do this AFTER `pip install nnunetv2` — otherwise nnU-Net drags the +cpu wheel back in.</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-force-reinstall</span> <span class="n">torch</span> <span class="p">-</span><span class="n">-index-url</span> <span class="n">https</span><span class="p">://</span><span class="n">download</span><span class="p">.</span><span class="n">pytorch</span><span class="p">.</span><span class="n">org</span><span class="p">/</span><span class="n">whl</span><span class="p">/</span><span class="n">cu124</span>
+</pre></div>
+</code></pre>
+<p>Pick the CUDA line your <strong>driver</strong> supports (run <code>nvidia-smi</code>; the top-right
+&quot;CUDA Version&quot; is the max your driver allows — a newer driver runs older wheels):</p>
+<table>
+<thead>
+<tr>
+<th>GPU generation</th>
+<th>Use index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Most RTX 20/30/40-series</td>
+<td><code>.../whl/cu124</code> (or <code>cu121</code>)</td>
+</tr>
+<tr>
+<td><strong>RTX 50-series (Blackwell, e.g. 5060 Ti)</strong></td>
+<td><code>.../whl/cu128</code> — needs PyTorch ≥ 2.7; earlier CUDA wheels have no kernels for these cards</td>
+</tr>
+<tr>
+<td>Older driver that can't do 12.x</td>
+<td><code>.../whl/cu118</code></td>
+</tr>
+</tbody>
+</table>
+<p>Verify (in the same env):</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available())&quot;</span>
+</pre></div>
+</code></pre>
+<p>You want a version ending in <code>+cuXXX</code> (not <code>+cpu</code>), a CUDA number, and <code>True</code>.
+Then <strong>Check GPU</strong> in the widget turns green. If you ever reinstall or upgrade
+<code>nnunetv2</code>, redo this step — it can pull the <code>+cpu</code> wheel back in.</p>
+<blockquote>
+<p>On managed/locked-down Windows machines, inference is launched through the env's
+<code>python.exe</code> (not the generated <code>nnUNetv2_predict.exe</code>), so AppLocker / group-policy
+<code>.exe</code> restrictions don't block it (fixed in 0.7.1).</p>
+</blockquote>
 <h3>Verify</h3>
 <pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">-m</span> <span class="n">napari</span>
 </pre></div>
@@ -521,7 +573,7 @@ layer's pixels are taken from the viewer.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.7.0</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.7.1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -531,7 +583,7 @@ layer's pixels are taken from the viewer.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-07-08</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-13</li>
                                                 </ul>
                                             </div>
                                         </div>
