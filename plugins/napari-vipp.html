@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.11.0a3</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.12.0a1</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-07-12</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-14</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -231,12 +231,17 @@ hiding axis or physical-scale metadata.</p>
 outputs on representative data before scientific interpretation or
 publication.</p>
 </blockquote>
+<p>VIPP's implemented safeguards include stable source revisions, physical-grid
+checks, exact unsampled diagnostics, detached viewer layers, atomic artifacts,
+and batch publication only after source reverification. See the
+<a href="docs/architecture.md#scientific-integrity-boundaries">scientific integrity boundaries</a>
+and the contributor <a href="CONTRIBUTING.md#scientific-behavior-requirements">scientific behavior requirements</a>.</p>
 <h2>Install And Open</h2>
 <p>VIPP requires Python 3.12 or newer. If napari is not already installed, install
 it with a Qt backend at the same time:</p>
 <pre><code class="language-bash"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[pyqt6]&quot;</span>
 python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--pre<span class="w"> </span>napari-vipp
-napari
+vipp
 </pre></div>
 </code></pre>
 <p>The <code>--pre</code> flag is required while VIPP is published as an alpha release. It is
@@ -248,7 +253,9 @@ release.</p>
 </code></pre>
 <p>Use <code>Open example...</code> for a runnable workflow with synthetic data. A good first
 choice is <code>Red-Channel Label Cleanup</code>; select nodes from left to right to review
-their parameters, thumbnails, metadata, and outputs.</p>
+their parameters, thumbnails, metadata, and outputs. To explore collection
+processing, open <code>Deterministic Batch &amp; Provenance</code>; VIPP prepares a small
+self-contained working copy and opens it already configured and previewed.</p>
 <p><img src="docs/assets/user-guide/vipp-example-chooser.png" alt="VIPP example workflow chooser" /></p>
 <h2>What It Supports</h2>
 <table>
@@ -281,7 +288,7 @@ their parameters, thumbnails, metadata, and outputs.</p>
 </tr>
 <tr>
 <td>Reuse and automation</td>
-<td>Workflow JSON, generated headless Python, explicit batch outputs, local collection batch runs, dry-run previews, and workflow/script artifacts.</td>
+<td>Workflow JSON, generated headless Python, explicit batch outputs, reviewed collection plans, representative navigation, retained batch results, and workflow/config/manifest artifacts.</td>
 </tr>
 <tr>
 <td>I/O</td>
@@ -332,15 +339,30 @@ still needs validation against a broader corpus of real acquisition files.</p>
 deconvolution.</li>
 <li>Pin important image outputs into napari for full-resolution comparison.</li>
 <li>Save the graph with <code>Save workflow...</code>.</li>
-<li>Add <code>Batch Output</code> nodes before <code>Run batch...</code> when exact saved outputs
+<li>Add <code>Batch Output</code> nodes before <code>Batch workspace...</code> when exact saved outputs
 matter.</li>
+<li>Click <code>Preview batch</code> to plan the complete collection. Use the persistent
+representative slider or a preview-table row to inspect any paired item
+through the graph without running or saving the full batch.</li>
+<li>Run the collection from the retained workspace, where item-level progress,
+final statuses, validation, and the <code>vipp_batch_manifest.json</code> path remain
+available for inspection.</li>
+<li>To validate the complete batch path without your own files, choose
+<code>Open example...</code> -&gt; <code>Deterministic Batch &amp; Provenance</code> -&gt; <code>Open batch demo...</code>. Choose where to save its small working copy, review the populated
+graph, move through all three paired fields with the representative slider,
+review the three-item/nine-output batch preview, then click <code>Run demo batch</code>. VIPP
+checks the finished outputs and provenance against exact ground truth
+automatically.</li>
 </ol>
 <p>Workflow JSON stores the graph and optional VIPP UI state, not cached pixels or
-tables. <code>Export Python...</code> emits direct calls to the headless operation and I/O
-functions; it does not reproduce interactive caches or full runtime metadata
-propagation. See the <a href="docs/user-guide.md">user guide</a> for details and caveats.</p>
+tables. <code>Export Python...</code> embeds a validated immutable workflow and executes it
+through the same headless pipeline engine as VIPP, including normalized
+<code>ImageState</code> propagation. See the <a href="docs/user-guide.md">user guide</a> for source
+binding, runtime-version, and command-line details.</p>
 <h2>Documentation</h2>
 <ul>
+<li><a href="https://rensutheart.github.io/vipp-mkdocs/">Published VIPP documentation</a></li>
+<li><a href="CHANGELOG.md#0120a1---2026-07-14">Categorized 0.12 release notes</a></li>
 <li><a href="docs/README.md">Documentation index</a></li>
 <li><a href="docs/user-guide.md">User guide</a></li>
 <li><a href="docs/io-user-guide.md">Image import and export</a></li>
@@ -363,7 +385,11 @@ python<span class="w"> </span>-m<span class="w"> </span>ruff<span class="w"> </s
 python<span class="w"> </span>-m<span class="w"> </span>pytest
 </pre></div>
 </code></pre>
-<p>Launch a development instance with <code>python scripts/launch_vipp_sample.py</code>. The
+<p>Launch a development instance from the repository with <code>./vipp</code>; it uses the
+project's <code>.venv-macos</code> environment directly, so shell activation is not
+required. The installed <code>vipp</code> command and <code>python -m napari_vipp</code> are also
+supported. To open the synthetic sample with a pipeline run already completed, use
+<code>python scripts/launch_vipp_sample.py</code>. The
 <a href="docs/architecture.md">architecture reference</a> explains the graph, metadata,
 execution, persistence, and UI boundaries.</p>
 <p>Contributions are welcome. Read <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> before
@@ -371,15 +397,33 @@ opening a pull request, use <a href="SUPPORT.md">SUPPORT.md</a> for help and iss
 guidance, and report suspected vulnerabilities privately through
 <a href="SECURITY.md">SECURITY.md</a>. All project interactions follow the
 <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>.</p>
-<h2>Roadmap</h2>
-<p>The current public alpha is <code>0.11.0a3</code>. This patch alpha makes large-image
-analysis exact and responsive, preserves native threshold and cutoff semantics,
-introduces explicit workflow schema version 2 parameters, and improves
-histogram and colocalization inspection. The next planned milestone focuses on
-saved batch configuration and per-item provenance, followed by scalable
-OME-Zarr previews and broader scientific validation. See
-<a href="docs/planning.md">planning.md</a> for the maintained release order and evidence
-gates.</p>
+<h2>0.12 Alpha Highlights</h2>
+<p><code>0.12.0a1</code> is a substantial architecture and reproducibility release:</p>
+<ul>
+<li>workflow schema version 3 records explicit axis, channel, grid, and operation
+choices instead of restoring ambiguous scientific defaults;</li>
+<li>verified file and live-layer revisions, physical-grid checks, detached viewer
+layers, and atomic artifacts reject stale or silently repaired inputs;</li>
+<li>generated Python and collection batching now use the same validated headless
+executor as the interactive graph;</li>
+<li>the retained batch workspace adds reviewed plans, representative navigation,
+explicit outputs, per-item provenance, collision policies, progress, final
+statuses, manifests, and deterministic validation;</li>
+<li>exact diagnostics, background workers, and platform-specific memory reporting
+improve responsiveness without changing the population being measured;</li>
+<li>Richardson-Lucy TV controls now explain parameter effects and provide
+practical linear or geometric slider windows without limiting exact spinner
+entry; and</li>
+<li>the former monolithic widget has been decomposed into focused Qt-free core and
+UI service modules with dependency-direction tests.</li>
+</ul>
+<p>Breaking alpha changes are intentional where preserving an older implicit
+behavior would weaken scientific validity. See the categorized
+<a href="CHANGELOG.md#0120a1---2026-07-14">0.12 release notes</a>, the
+<a href="docs/user-guide.md#save-workflow-json">upgrade and workflow contract</a>, and
+<a href="docs/planning.md">planning.md</a> for later milestones. Semantic-axis collection
+iteration, HCS traversal, scalable OME-Zarr previews, and broader scientific
+validation remain future work.</p>
 <h2>Citation, Acknowledgement, And License</h2>
 <p>If VIPP contributes to your work, acknowledge <code>napari-vipp</code> and link to the
 <a href="https://github.com/rensutheart/napari-vipp">project repository</a>. Citation
@@ -402,7 +446,7 @@ citation can be added when available.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.11.0a3</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.12.0a1</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -412,7 +456,7 @@ citation can be added when available.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-07-12</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-14</li>
                                                 </ul>
                                             </div>
                                         </div>
