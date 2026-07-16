@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.7.2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.7.3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-07-15</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-16</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -258,6 +258,12 @@ pinned &lt;2, and nnU-Net / the imaging stack share the 1.x ABI).</p>
 <p>You can also install the plugin through napari's <strong>Plugins -&gt; Install/Uninstall
 Plugins</strong> dialog (search &quot;pentachrome&quot;), but that only covers this step, you still
 need Step 1 and Step 3 in the same environment.</p>
+<p><strong>Already installed?</strong> To pull a newer release into the same env, upgrade just the
+plugin (leaves PyTorch, nnU-Net, and weights untouched); restart napari afterwards:</p>
+<pre><code class="language-powershell"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-upgrade</span> <span class="n">pentachrome-plugin</span>
+<span class="n">pip</span> <span class="n">show</span> <span class="n">pentachrome-plugin</span>        <span class="c"># check the &quot;Version:&quot; line</span>
+</pre></div>
+</code></pre>
 <h3>Step 3 — model weights</h3>
 <p>Download the nnUNet weights and point the widget at them — see
 <a href="#model-weights">Model weights</a> below.</p>
@@ -517,6 +523,10 @@ needed (defaults match <code>Main.py</code>).</li>
 <td>Fraction of stained structure pixels, same definition as <code>compute_structure_percentages</code></td>
 </tr>
 <tr>
+<td>Elastin/Collagen</td>
+<td>Ratio of elastin to collagen structure pixels (<code>n/a</code> when the region has no collagen). In the sub-epithelial band this reads as the elastic-vs-fibrotic character of the remodelled layer; a falling ratio tracks airway-remodelling severity in the COPD literature. <em>(Added in 0.7.3.)</em></td>
+</tr>
+<tr>
 <td>Mucin %</td>
 <td>Mucin pixels as a fraction of the epithelium area (not of total structure pixels)</td>
 </tr>
@@ -533,6 +543,13 @@ needed (defaults match <code>Main.py</code>).</li>
 <p>A bold <strong>(all regions)</strong> row appended per image gives area-weighted means
 of the percentages / thickness and totals for the counts. <strong>Export CSV...</strong>
 saves the whole table (per-region rows + aggregate rows).</p>
+<p>The exported CSV carries one extra column that the on-screen table deliberately
+hides: <strong><code>log2(E/C)</code></strong>, the base-2 log of the Elastin/Collagen ratio (0 = balanced,
++1 = elastin twice collagen, −1 = the reverse). It's symmetric and so averages and
+statistically tests correctly across regions/patients, where the raw ratio — bounded
+at 0, unbounded above — is skewed. It's kept out of the viewer because it's a stats
+aid, not an at-a-glance number, and it's a pure function of the raw column so nothing
+is lost. <em>(Added in 0.7.3.)</em></p>
 <p>The elastin organization score (<code>ElastinAnalyzer.determine_organized_region</code>)
 from <code>Main.py</code> is intentionally not yet exposed, it's much heavier (skan +
 shapely + ROI polygons) and will land as a separate toggle.</p>
@@ -573,7 +590,7 @@ layer's pixels are taken from the viewer.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.7.2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.7.3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -583,7 +600,7 @@ layer's pixels are taken from the viewer.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-07-15</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-16</li>
                                                 </ul>
                                             </div>
                                         </div>
