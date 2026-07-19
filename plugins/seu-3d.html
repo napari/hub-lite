@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">1.1.17</li>
+                                            <li class="MetadataList_textItem__KKmMN">2.0.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-05-30</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-19</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                         <p class="font-bold whitespace-nowrap">License<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
                                             <li class="MetadataList_textItem__KKmMN">
-                                                Unavailable
+                                                MIT
                                             </li>
                                         </ul>
                                     </div>
@@ -156,7 +156,7 @@
                                 <div class="text-sm">
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Requirements<!-- -->:</p>
-                                        
+                                        <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.4.19</li><li class="MetadataList_textItem__KKmMN">magicgui>=0.8</li><li class="MetadataList_textItem__KKmMN">qtpy>=2.0</li><li class="MetadataList_textItem__KKmMN">anndata>=0.8</li><li class="MetadataList_textItem__KKmMN">numpy>=1.23</li><li class="MetadataList_textItem__KKmMN">pandas>=1.5</li><li class="MetadataList_textItem__KKmMN">scipy>=1.9</li><li class="MetadataList_textItem__KKmMN">scikit-learn>=1.1</li><li class="MetadataList_textItem__KKmMN">matplotlib>=3.6</li><li class="MetadataList_textItem__KKmMN">colorcet>=3.0</li><li class="MetadataList_textItem__KKmMN">scanpy>=1.9</li><li class="MetadataList_textItem__KKmMN">squidpy>=1.2</li><li class="MetadataList_textItem__KKmMN">pyvista>=0.38; extra == "surface"</li></ul>
                                     </div>
                                 </div>
                             </div>
@@ -210,18 +210,166 @@
                                 <div class="flex items-center justify-between mb-sds-xxl">
                                     <div class="Markdown_markdown__QZ95j">
 
-                                        <h2>description</h2>
-<p>3d visualization and analysis plugin for spatial transcription embryo base on napari</p>
-<h2>updata log</h2>
-<p>[1.1.17] full code optimization: fix annotation float matching (cKDTree), add get_expression safety check, add require_active_points decorator, clean duplicate imports, add <a href="http://config.py">config.py</a> constants, improve colorbar display (height/word wrap fix), add _color_by_gene caching, 52 unit tests passed</p>
-<p>[1.1.6] first release with napari manifest support</p>
-<p>[1.0.3] fix napari.yaml</p>
-<p>[1.0.2] forget set to upload napari.yaml</p>
-<p>[1.0.1] first release</p>
-<h2>acknoledge</h2>
-<p><a href="https://github.com/GuignardLab/sc3D">https://github.com/GuignardLab/sc3D</a>
-<a href="https://github.com/GuignardLab/napari-sc3D-viewer">https://github.com/GuignardLab/napari-sc3D-viewer</a></p>
-<h2>environment</h2>
+                                        <p>3D visualization and analysis plugin for spatial transcriptomics embryo data based on napari.</p>
+<p><a href="https://pypi.org/project/seu-3d/"><img src="https://img.shields.io/pypi/v/seu-3d.svg" alt="PyPI version" /></a>
+<a href="https://github.com/DingAnZhong/SEU-3D"><img src="https://img.shields.io/pypi/l/seu-3d.svg" alt="License" /></a></p>
+<h2>Features</h2>
+<ul>
+<li><strong>3D Visualization</strong>: Render spatial transcriptomics data in 3D with napari</li>
+<li><strong>Tissue Filtering</strong>: Filter cells by tissue type, slice, germ layer, and XYZ range</li>
+<li><strong>Gene Expression Analysis</strong>: Single, dual, and triple gene expression coloring</li>
+<li><strong>Similarity Search</strong>: Find genes with similar expression patterns</li>
+<li><strong>Moran's I Spatial Autocorrelation</strong>: Compute spatial gene enrichment</li>
+<li><strong>Differential Expression</strong>: Identify tissue-specific marker genes</li>
+<li><strong>Annotation</strong>: Cluster and label cell populations in 3D space</li>
+<li><strong>Surface Reconstruction</strong>: Generate 3D surfaces for tissue regions (pyvista)</li>
+<li><strong>Automatic Color Mapping</strong>: Deterministic tissue colors from a discrete colormap</li>
+</ul>
+<h2>Installation</h2>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>seu-3d
+</pre></div>
+</code></pre>
+<p>Then open napari and look for &quot;Load spatial transcriptomics data&quot; in the plugins menu.</p>
+<h2>Environment</h2>
+<p>All runtime dependencies are declared in <code>pyproject.toml</code> and installed automatically via pip:</p>
+<pre><code class="language-bash"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>seu-3d<span class="w">              </span><span class="c1"># core functionality</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;seu-3d[surface]&quot;</span><span class="w">   </span><span class="c1"># + pyvista, for 3D surface reconstruction</span>
+</pre></div>
+</code></pre>
+<ul>
+<li>Python &gt;= 3.9</li>
+</ul>
+<h2>Data Format</h2>
+<p>The plugin reads <code>.h5ad</code> files. Two fields are <strong>chosen in the widget</strong> when
+loading; everything else is auto-detected by fixed names:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Location</th>
+<th>Required</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>(your choice)</em></td>
+<td><code>adata.obsm</code> key</td>
+<td>Yes</td>
+<td>Spatial coordinates. 3D <code>(x, y, z)</code> preferred; if 2D <code>(x, y)</code>, <code>obs['z']</code> is used as z</td>
+</tr>
+<tr>
+<td><em>(your choice)</em></td>
+<td><code>adata.obs</code> column</td>
+<td>Yes</td>
+<td>Tissue / cell-type labels (coloring, filtering, diff-expression)</td>
+</tr>
+<tr>
+<td><code>z</code></td>
+<td><code>adata.obs</code></td>
+<td>Only when the coordinate key is 2D</td>
+<td>Z position of each cell</td>
+</tr>
+<tr>
+<td><code>slices</code></td>
+<td><code>adata.obs</code></td>
+<td>Optional</td>
+<td>Slice/sample filter (falls back to <code>orig.ident</code>)</td>
+</tr>
+<tr>
+<td><code>orig.ident</code></td>
+<td><code>adata.obs</code></td>
+<td>Optional</td>
+<td>Fallback slice/sample filter</td>
+</tr>
+<tr>
+<td><code>germ_layer</code></td>
+<td><code>adata.obs</code></td>
+<td>Optional</td>
+<td>Germ-layer filter</td>
+</tr>
+<tr>
+<td><code>x_flatten</code>, <code>y_flatten</code></td>
+<td><code>adata.obs</code></td>
+<td>Optional</td>
+<td>&quot;Show Flatten&quot; 2D projection</td>
+</tr>
+</tbody>
+</table>
+<p>Missing optional fields simply disable the corresponding tab; the rest of the
+plugin keeps working.</p>
+<h2>Quick Start</h2>
+<pre><code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="c1"># Add spatial transcriptomics h5ad file via the napari plugin menu</span>
+</pre></div>
+</code></pre>
+<h2>Update Log</h2>
+<h3>[2.0.0] — 2026-07-19</h3>
+<ul>
+<li><strong>Packaging</strong>:
+<ul>
+<li>Declare runtime dependencies in <code>pyproject.toml</code> (previously <code>pip install seu-3d</code> pulled in nothing)</li>
+<li>Restrict <code>packages.find</code> to <code>seu_3d*</code> so stray directories are never published</li>
+<li>Remove the unused, broken <code>weiwei/</code> source tree and the dead <code>_umap_selection</code> module</li>
+<li>Single-source the version from <code>seu_3d.__version__</code></li>
+</ul>
+</li>
+<li><strong>Bug Fixes</strong>:
+<ul>
+<li>Fix slice filtering never applying (<code>obs['slice']</code> vs <code>obs['slices']</code> mismatch)</li>
+<li>Fix differential-expression tissue selection reading only the first character of the tissue name</li>
+<li>Fix annotation coordinate matching failing on floats (cKDTree nearest-neighbour matching) and guard empty selections</li>
+<li>Fix saving annotations before annotating raised <code>AttributeError</code></li>
+<li>Fix NaN colors for genes with constant expression</li>
+<li>Deterministic tissue colors (removed random shuffle)</li>
+<li>Re-filtering and XY preview now reuse their napari layers instead of piling up new ones</li>
+</ul>
+</li>
+<li><strong>Performance</strong>:
+<ul>
+<li>Remove redundant full <code>AnnData.copy()</code> in filtering and surface generation; filtering now applies one combined mask (a single copy per click instead of four)</li>
+<li>Annotations accumulate in one persistent copy (no per-click dataset copy, and repeated annotations no longer reset earlier ones)</li>
+<li>Move h5ad reading, Moran's I, surface reconstruction and similar-gene search to worker threads (no more GUI freezing)</li>
+<li>Sparse-aware cosine similarity and column means (no full-matrix densification)</li>
+</ul>
+</li>
+<li><strong>UX</strong>:
+<ul>
+<li>Gene-expression views reuse a single <code>gene_expression</code> layer instead of stacking a new view per click</li>
+<li>Dock panel width is bounded and scrollable; AnnData info box is read-only and height-capped</li>
+<li>Documented the expected <code>obs</code>/<code>obsm</code> field names (see Data Format above)</li>
+</ul>
+</li>
+<li><strong>Code Quality</strong>: remove duplicate/unused imports, unify gene-expression coloring into shared helpers</li>
+<li><strong>Housekeeping</strong>:
+<ul>
+<li>Centralize 2D-&gt;3D coordinate stacking in <code>Embryo</code> (written back to <code>obsm</code>)</li>
+<li>Add MIT <code>LICENSE</code> and unit tests for <code>Embryo</code></li>
+</ul>
+</li>
+</ul>
+<h3>[1.1.17] — 2026-05-30</h3>
+<ul>
+<li>First public release as a napari manifest plugin: h5ad loading, tissue/slice/germ-layer/XY filtering, 1-3 gene expression coloring, similar-gene search, Moran's I, differential expression, annotation, pyvista surface reconstruction</li>
+</ul>
+<h3>[1.1.6]</h3>
+<p>First release with napari manifest support</p>
+<h3>[1.0.4]</h3>
+<p>Fix error that plugin could not show</p>
+<h3>[1.0.3]</h3>
+<p>Fix napari.yaml</p>
+<h3>[1.0.2]</h3>
+<p>Forgot to upload napari.yaml</p>
+<h3>[1.0.1]</h3>
+<p>First release</p>
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://github.com/GuignardLab/sc3D">sc3D</a></li>
+<li><a href="https://github.com/GuignardLab/napari-sc3D-viewer">napari-sc3D-viewer</a></li>
+</ul>
+<h2>License</h2>
+<p>Released under the <a href="LICENSE">MIT License</a>, like the upstream <a href="https://github.com/GuignardLab/sc3D">sc3D</a> project it is derived from.</p>
 
 
                                     </div>
@@ -237,7 +385,7 @@
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">1.1.17</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2.0.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -247,7 +395,7 @@
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-05-30</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-19</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -268,7 +416,7 @@
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
                                                     <li class="MetadataList_textItem__KKmMN">
-                                                            Unavailable
+                                                            MIT
                                                     </li>
                                                 </ul>
                                             </div>
@@ -344,7 +492,7 @@
                                             <div class="inline">
                                                 <p class="font-bold whitespace-nowrap inline mr-sds-s">
                                                     Requirements<!-- -->:</p>
-                                                    
+                                                    <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal"><li class="MetadataList_textItem__KKmMN">napari>=0.4.19</li><li class="MetadataList_textItem__KKmMN">magicgui>=0.8</li><li class="MetadataList_textItem__KKmMN">qtpy>=2.0</li><li class="MetadataList_textItem__KKmMN">anndata>=0.8</li><li class="MetadataList_textItem__KKmMN">numpy>=1.23</li><li class="MetadataList_textItem__KKmMN">pandas>=1.5</li><li class="MetadataList_textItem__KKmMN">scipy>=1.9</li><li class="MetadataList_textItem__KKmMN">scikit-learn>=1.1</li><li class="MetadataList_textItem__KKmMN">matplotlib>=3.6</li><li class="MetadataList_textItem__KKmMN">colorcet>=3.0</li><li class="MetadataList_textItem__KKmMN">scanpy>=1.9</li><li class="MetadataList_textItem__KKmMN">squidpy>=1.2</li><li class="MetadataList_textItem__KKmMN">pyvista>=0.38; extra == "surface"</li></ul>
                                             </div>
                                         </div>
                                     </div>
