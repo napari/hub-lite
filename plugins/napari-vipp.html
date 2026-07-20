@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.12.0a2</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.12.0a3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-07-16</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-20</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -341,12 +341,12 @@ deconvolution.</li>
 <li>Save the graph with <code>Save workflow...</code>.</li>
 <li>Add <code>Batch Output</code> nodes before <code>Batch workspace...</code> when exact saved outputs
 matter.</li>
-<li>Click <code>Preview batch</code> to plan the complete collection. Use the persistent
-representative slider or a preview-table row to inspect any paired item
-through the graph without running or saving the full batch.</li>
-<li>Run the collection from the retained workspace, where item-level progress,
-final statuses, validation, and the <code>vipp_batch_manifest.json</code> path remain
-available for inspection.</li>
+<li>Optionally click <code>Preview batch</code> to inspect the complete plan and use the
+representative slider or a preview-table row without running or saving the
+full batch. Preview is not required: <code>Run batch</code> performs its own preflight.</li>
+<li>Run the collection from the retained workspace with one click, where
+item-level progress, final statuses, validation, and the
+<code>vipp_batch_manifest.json</code> path remain available for inspection.</li>
 <li>To validate the complete batch path without your own files, choose
 <code>Open example...</code> -&gt; <code>Deterministic Batch &amp; Provenance</code> -&gt; <code>Open batch demo...</code>. Choose where to save its small working copy, review the populated
 graph, move through all three paired fields with the representative slider,
@@ -355,14 +355,17 @@ checks the finished outputs and provenance against exact ground truth
 automatically.</li>
 </ol>
 <p>Workflow JSON stores the graph and optional VIPP UI state, not cached pixels or
-tables. <code>Export Python...</code> embeds a validated immutable workflow and executes it
+tables. When Batch workspace is active, Save workflow can optionally attach its
+versioned config so the same workspace reopens from that one JSON file; local
+paths are included, but source pixels are not. <code>Export Python...</code> embeds a
+validated immutable workflow and executes it
 through the same headless pipeline engine as VIPP, including normalized
 <code>ImageState</code> propagation. See the <a href="docs/user-guide.md">user guide</a> for source
 binding, runtime-version, and command-line details.</p>
 <h2>Documentation</h2>
 <ul>
 <li><a href="https://rensutheart.github.io/vipp-mkdocs/">Published VIPP documentation</a></li>
-<li><a href="CHANGELOG.md#0120a2---2026-07-16">Categorized 0.12 release notes</a></li>
+<li><a href="CHANGELOG.md#0120a3---2026-07-20">Categorized 0.12 release notes</a></li>
 <li><a href="docs/README.md">Documentation index</a></li>
 <li><a href="docs/user-guide.md">User guide</a></li>
 <li><a href="docs/io-user-guide.md">Image import and export</a></li>
@@ -398,18 +401,19 @@ guidance, and report suspected vulnerabilities privately through
 <a href="SECURITY.md">SECURITY.md</a>. All project interactions follow the
 <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>.</p>
 <h2>0.12 Alpha Highlights</h2>
-<p><code>0.12.0a2</code> is the current alpha. It builds on the 0.12 architecture and
+<p><code>0.12.0a3</code> is the current alpha. It builds on the 0.12 architecture and
 reproducibility baseline with:</p>
 <ul>
-<li>isolated node tuning that keeps downstream propagation paused until the
-latest local result is applied or the session is cancelled;</li>
-<li>bright actionable and dark waiting graph states, an attention-colored
-<code>Calculate all</code>, and progressive node previews during longer runs;</li>
-<li>exact-pixel napari layer reuse and display-resolution thumbnail rendering
-that reduce UI stalls without changing scientific arrays;</li>
-<li>configurable port labels and responsive graph layout; and</li>
-<li>clearer PSF preflight, Nyquist, support, centering, and boundary-tail
-feedback for deconvolution workflows.</li>
+<li>direct batch execution with a fresh plan-only preflight while representative
+preview remains optional;</li>
+<li>an amber, user-confirmed <code>output</code> destination suggestion for new collection
+bindings;</li>
+<li>fast no-read/no-calculation handling when every resolved <code>Skip</code> output exists,
+plus more resilient atomic artifact handling on Windows and synced folders;</li>
+<li>optional workflow JSON attachment of the validated Batch workspace settings,
+restored without scanning or calculating a representative; and</li>
+<li>one clearly separated main-toolbar Batch workspace entry, with Load before
+Save consistently across workflow and batch controls.</li>
 </ul>
 <p>The 0.12 foundation also provides:</p>
 <ul>
@@ -432,7 +436,7 @@ UI service modules with dependency-direction tests.</li>
 </ul>
 <p>Breaking alpha changes are intentional where preserving an older implicit
 behavior would weaken scientific validity. See the categorized
-<a href="CHANGELOG.md#0120a2---2026-07-16">0.12 release notes</a>, the
+<a href="CHANGELOG.md#0120a3---2026-07-20">0.12 release notes</a>, the
 <a href="docs/user-guide.md#save-workflow-json">upgrade and workflow contract</a>, and
 <a href="docs/planning.md">planning.md</a> for later milestones. Semantic-axis collection
 iteration, HCS traversal, scalable OME-Zarr previews, and broader scientific
@@ -459,7 +463,7 @@ citation can be added when available.</p>
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.12.0a2</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.12.0a3</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -469,7 +473,7 @@ citation can be added when available.</p>
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-07-16</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-20</li>
                                                 </ul>
                                             </div>
                                         </div>
