@@ -74,7 +74,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Version<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">0.2.1</li>
+                                            <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <div class="">
                                         <p class="font-bold whitespace-nowrap">Last updated<!-- -->:</p>
                                         <ul class="MetadataList_list__3DlqI list-none text-sm leading-normal">
-                                            <li class="MetadataList_textItem__KKmMN">2026-06-01</li>
+                                            <li class="MetadataList_textItem__KKmMN">2026-07-21</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -222,14 +222,15 @@ scatter-plot views to the napari viewer.</p>
 RACC volume on the right.</p>
 <p><img src="https://raw.githubusercontent.com/rensutheart/napari-racc/main/docs/images/racc-side-by-side-mip.png" alt="RACC side-by-side MIP view" /></p>
 <p>3D-derived maximum-intensity projection view.</p>
-<img src="https://raw.githubusercontent.com/rensutheart/napari-racc/main/docs/images/racc-widget-controls.png" alt="RACC widget controls" width="360">
-<p>Scrollable RACC controls with manual thresholds, Costes thresholding, display
-scale controls, probe colors, scatter diagnostics, result export, and view
-switching.</p>
 <h2>Features</h2>
 <ul>
 <li>two-channel RACC calculation from napari <code>Image</code> layers</li>
 <li>live threshold, theta, percentile, and Costes threshold controls</li>
+<li>linked analysis/display cutoffs with optional display-only channel thresholds</li>
+<li>independent RACC display minimum without changing the numeric result</li>
+<li>synchronized translucent, maximum-intensity, and additive 3D rendering modes</li>
+<li>separate intensity and RACC opacity controls, plus background suppression for
+clearer deep structures</li>
 <li>transparent zero-valued RACC voxels for clean volume rendering</li>
 <li>thresholded RGB overlay volume with selectable probe colors</li>
 <li>side-by-side overlay/RACC and 3D-derived MIP views</li>
@@ -263,8 +264,18 @@ uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </s
 <li>Select channel 1 and channel 2.</li>
 <li>Adjust thresholds manually or press <code>Costes thresholds</code>.</li>
 <li>Press <code>Run RACC</code>.</li>
-<li>Use <code>Overlay</code>, <code>RACC</code>, <code>3D side by side</code>, and <code>MIPs</code> to switch views.</li>
-<li>Press <code>Export RACC TIFF</code> to save the numeric RACC result stack for use in other software.</li>
+<li>Keep <code>Link channel cutoffs to analysis thresholds</code> enabled for a directly
+comparable intensity view, or disable it to clean up the display without
+changing the analysis.</li>
+<li>Choose <code>Translucent</code>, <code>Maximum intensity (MIP)</code>, or <code>Additive</code> under
+<code>3D rendering</code>; the selection is applied to both the intensity overlay and
+the RACC volume.</li>
+<li>Use the RACC display minimum and background suppression to remove weak haze,
+then set the intensity and RACC opacities independently from 0 to 100. These
+display controls do not change the calculated or exported RACC values.</li>
+<li>Use <code>Overlay</code>, <code>RACC</code>, <code>3D side by side</code>, and <code>2D Z-MIPs</code> to switch views.</li>
+<li>Press <code>Export RACC TIFF</code> to save the numeric RACC result stack for use in
+other software.</li>
 </ol>
 <p>RACC is calculated over the full 3D volume when 3D inputs are used. The MIP view
 is derived from the 3D calculation; it is not a 2D recalculation.</p>
@@ -311,7 +322,7 @@ the rights holder. See <code>LICENSE</code>, <code>NOTICE</code>, and <code>PATE
                                                 </p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">0.2.1</li>
+                                                    <li class="MetadataList_textItem__KKmMN">0.3.0</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -321,7 +332,7 @@ the rights holder. See <code>LICENSE</code>, <code>NOTICE</code>, and <code>PATE
                                                     updated<!-- -->:</p>
                                                 <ul
                                                     class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">
-                                                    <li class="MetadataList_textItem__KKmMN">2026-06-01</li>
+                                                    <li class="MetadataList_textItem__KKmMN">2026-07-21</li>
                                                 </ul>
                                             </div>
                                         </div>
