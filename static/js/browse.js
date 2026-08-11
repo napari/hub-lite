@@ -1,13 +1,15 @@
 /**
- * Homepage browse + search, with sortable results.
+ * Consolidated homepage search.
  *
  * - Browse (no query): the pre-generated `plugins_list.html`, sorted by
  *   `last_updated` descending, injected directly so the homepage is fast.
  * - Search: Pagefind's JS API (`pagefind.search(term, { sort? })`). Results
- *   are rendered by filling the card markup below. A segmented sort control
- *   orders results by relevance, "Last updated", or "First released" (the
- *   same wording the plugin pages use), newest first (desc) or oldest first
- *   (asc): clicking an active date button flips the direction.
+ *   are rendered by filling the `<template id="plugin-card">` markup defined
+ *   in `index.html`. Pagefind does all ranking/sorting; this file only wires
+ *   the search box, the "Sort" toggle buttons, and the card template.
+ *   The buttons let you sort results by "First released" or "Last updated"
+ *   (the same wording the plugin pages use), newest first (desc) or oldest
+ *   first (asc): clicking an active date button flips the direction.
  *
  * Pagefind is loaded lazily on the first search, so the homepage never blocks
  * on the WASM/index bundle.
@@ -20,6 +22,7 @@ const SORT_CONTROL = document.getElementById("sortControl");
 const SORT_BUTTONS = Array.from(
   document.querySelectorAll("#sortControl .sort-btn"),
 );
+const PLUGIN_TEMPLATE = document.getElementById("plugin-card");
 
 const PLUGINS_LIST_URL = "plugins_list.html";
 const TIMEOUT_DURATION = 300;
@@ -34,39 +37,8 @@ const SORT_OPTIONS = {
   "last_updated:asc": { last_updated: "asc" },
 };
 
-// Result card markup, kept here as a string for now (a later commit moves it
-// into a <template id="plugin-card"> element in index.html).
-const CARD_TEMPLATE = `
-<a class="searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100 w-full" data-testid="pluginSearchResult" href="{{url}}">
-  <article class="grid gap-x-sds-xl screen-495:gap-x-12 screen-600:grid-cols-2 screen-1425:grid-cols-napari-3" data-testid="searchResult">
-    <div class="col-span-2 screen-495:col-span-1 screen-1425:col-span-2 flex flex-col justify-between">
-      <div>
-        <h3 class="font-bold text-lg" data-testid="searchResultDisplayName">{{display_name}}</h3>
-        <span class="mt-sds-m screen-495:mt-3 text-[0.6875rem]" data-testid="searchResultName">{{name}}</span>
-        <p class="mt-3" data-testid="searchResultSummary">{{summary}}</p>
-      </div>
-      <div class="mt-3 text-xs">{{authors}}</div>
-    </div>
-    <ul class="mt-sds-l screen-600:m-0 space-y-1 text-sm col-span-2 screen-495:col-span-1">
-      <li class="grid grid-cols-[auto,1fr]" data-label="First released" data-testid="searchResultMetadata" data-value="{{release_date}}">
-        <h4 class="inline whitespace-nowrap">First released: </h4>
-        <span class="ml-sds-xxs font-bold">{{release_date}}</span>
-      </li>
-      <li class="grid grid-cols-[auto,1fr]" data-label="Last updated" data-testid="searchResultMetadata" data-value="{{last_updated}}">
-        <h4 class="inline whitespace-nowrap">Last updated: </h4>
-        <span class="ml-sds-xxs font-bold">{{last_updated}}</span>
-      </li>
-      <li class="grid grid-cols-[auto,1fr]" data-label="Plugin type" data-testid="searchResultMetadata" data-value="{{plugin_types}}">
-        <h4 class="inline whitespace-nowrap">Plugin type: </h4>
-        <span class="ml-sds-xxs font-bold">{{plugin_types}}</span>
-      </li>
-    </ul>
-    <div class="mt-sds-xl text-xs flex flex-col gap-sds-s col-span-2 screen-1425:col-span-3"></div>
-  </article>
-</a>
-`;
-
 let pagefind; // lazily loaded on the first search
+let templateHtml = "";
 let staticHtml = null; // cached contents of plugins_list.html
 let searchTimeout;
 let currentToken = 0;
@@ -89,7 +61,7 @@ function formatPluginTypes(pluginTypes) {
 }
 
 function fillTemplate(data) {
-  return CARD_TEMPLATE
+  return templateHtml
     .replaceAll("{{display_name}}", escapeHtml(data.display_name))
     .replaceAll("{{name}}", escapeHtml(data.name))
     .replaceAll("{{summary}}", escapeHtml(data.summary))
@@ -104,9 +76,7 @@ function fillTemplate(data) {
     )
     .replaceAll(
       "{{plugin_types}}",
-      escapeHtml(
-        data.plugin_types ? formatPluginTypes(data.plugin_types) : "Unknown",
-      ),
+      escapeHtml(data.plugin_types ? formatPluginTypes(data.plugin_types) : "Unknown"),
     )
     .replaceAll("{{url}}", escapeHtml(data.url));
 }
@@ -202,6 +172,7 @@ function attachListeners() {
 }
 
 async function init() {
+  templateHtml = PLUGIN_TEMPLATE.innerHTML;
   attachListeners();
   await loadStaticBrowse();
 }
