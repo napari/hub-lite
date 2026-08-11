@@ -178,12 +178,10 @@ function attachSearchListener() {
 async function init() {
   attachSearchListener();
 
-  // Default browse: the pre-generated, updated-sorted plugin list.
+  // Default browse: the pre-generated, updated-sorted plugin list. Pagefind
+  // is deliberately NOT loaded here — it is fetched lazily on the first
+  // search, so the homepage never blocks on the WASM/index bundle.
   await loadStaticPlugins();
-
-  // Load Pagefind up front so search is ready as soon as the user types.
-  pagefind = await import("/pagefind/pagefind.js");
-  await pagefind.init();
 
   // Support deep-linking to a search via ?query=...
   const params = new URLSearchParams(window.location.search);
