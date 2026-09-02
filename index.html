@@ -77,7 +77,7 @@
                                 <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
                                 <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
 
-                                <pagefind-config faceted preload></pagefind-config>
+                                <pagefind-config faceted></pagefind-config>
                                 <pagefind-input placeholder="Search for a plugin by keyword or author" autofocus="true" class="w-full"></pagefind-input>
                         </div>
                     </div>
@@ -90,13 +90,13 @@
                         <section class="col-span-2 screen-1425:col-span-3 space-y-sds-xl">
                             <div class="flex justify-between">
                                 <h2 class="flex items-center font-bold text-xl">
-                                  Browse plugins: <span class="p-2" id="pluginCount">
-                                      <pagefind-summary class="flex items-center font-bold text-xl"></pagefind-summary>
-                                  </span>
+                                  Browse plugins: <span class="p-2" id="pluginCount"></span>
                                 </h2>
                             </div>
                             <div class="flex flex-col justify-center"
                                 id="pluginContainer">
+                                <div id="staticBrowse"></div>
+                                <div id="pfResults" style="display:none">
                                 <pagefind-results>
                                     <script type="text/pagefind-template">
                                             <a class="searchResult py-sds-xl border-black border-t-2 last:border-b-2 hover:bg-hub-gray-100 w-full" data-testid="pluginSearchResult" href="{{ url | safeUrl }}">
@@ -173,6 +173,7 @@
                                             </a>
                                     </script>
                                 </pagefind-results>
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -203,6 +204,8 @@
             </div>
 
     </div>
+
+    <script type="module" src="./static/js/browse_toggle.js"></script>
 </body>
 
 </html>
