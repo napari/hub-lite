@@ -245,7 +245,7 @@ def get_version_release_date(pypi_info: dict, release: str) -> str | None:
     release_info = pypi_info.get("releases", {}).get(release, {})
     if release_info:
         release_timestamp = release_info[0].get("upload_time")
-        return release_timestamp.split("T")[0]
+        return release_timestamp
     return None
 
 

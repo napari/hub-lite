@@ -431,7 +431,16 @@ if __name__ == "__main__":
     template_dir = f"{build_dir}/templates"
 
     with open(f"{data_dir}/plugin_page_data.json", encoding="utf-8") as file:
-        plugins_data = [PluginPageData(**plugin) for plugin in json.load(file)]
+        plugins_data = [
+            PluginPageData(
+                **{
+                    **plugin,
+                    "created_at": (plugin.get("created_at") or "")[:10] or None,
+                    "modified_at": (plugin.get("modified_at") or "")[:10] or None,
+                }
+            )
+            for plugin in json.load(file)
+        ]
 
     create_plugins_list_html(plugins_data, build_dir)
 
