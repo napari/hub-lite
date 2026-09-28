@@ -19,12 +19,11 @@ async function loadStaticBrowse() {
   const response = await fetch("plugins_list.html");
   STATIC_BROWSE.innerHTML = await response.text();
   staticCount = STATIC_BROWSE.querySelectorAll("a").length;
-  PLUGIN_COUNT.textContent = staticCount;
 }
 
 function setMode(searching) {
-  STATIC_BROWSE.style.display = searching ? "none" : "block";
-  PF_RESULTS.style.display = searching ? "block" : "none";
+  STATIC_BROWSE.style.display = searching ? "none" : "flex";
+  PF_RESULTS.style.display = searching ? "flex" : "none";
   if (!searching) {
     PLUGIN_COUNT.textContent = staticCount;
   }
@@ -40,10 +39,8 @@ async function waitForInstance() {
 }
 
 async function init() {
-  await loadStaticBrowse();
-  setMode(false);
-
   let searching = false;
+  const staticBrowsePromise = loadStaticBrowse();
   const instance = await waitForInstance();
   instance.on("search", (term) => {
     searching = (term ?? "").trim().length > 0;
@@ -56,6 +53,9 @@ async function init() {
       PLUGIN_COUNT.textContent = searchResult?.results?.length ?? 0;
     }
   });
+
+  await staticBrowsePromise;
+  setMode(searching);
 }
 
 init();
