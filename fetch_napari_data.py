@@ -33,6 +33,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# urllib3 logs a WARNING for every retry attempt, so keep them out of the
+# default output; the summary printed at the end of the run reports what failed.
+logging.getLogger("urllib3").setLevel(logging.ERROR)
+
 # Increased timeout for requests
 DEFAULT_TIMEOUT = 30
 # Number of concurrent threads, balanced for the connection pool size, reduce warnings are frequent
@@ -231,18 +235,18 @@ def normalize_label(label: str) -> str:
     return label.translate(removal_map).lower()
 
 
-def get_version_release_date(pypi_info: dict, release: str) -> str | None:
+def get_version_release_date(pypi_info: dict | None, release: str) -> str | None:
     """
     Extracts the release date of the given version from the PyPI plugin information.
 
     Args:
-        pypi_info (dict): The plugin information fetched from PyPI.
+        pypi_info (dict | None): The plugin information fetched from PyPI, if available.
         release (str): Release version to look for.
 
     Returns:
-        str: The release date of given version, or an empty string if not found.
+        str: The release date of given version, or None if not found.
     """
-    release_info = pypi_info.get("releases", {}).get(release, {})
+    release_info = (pypi_info or {}).get("releases", {}).get(release, {})
     if release_info:
         release_timestamp = release_info[0].get("upload_time")
         return release_timestamp.split("T")[0]
@@ -250,42 +254,50 @@ def get_version_release_date(pypi_info: dict, release: str) -> str | None:
 
 
 # --- Main Data Processing Function ---
-def build_plugins_list() -> list[PluginPageData]:
+def build_plugins_list() -> tuple[list[PluginPageData], int]:
     """
-    Fetches napari plugin data from the NPE2 API, enriches it with Conda and manifest information,
-    flattens nested structures, and returns a cleaned pandas DataFrame.
+    Fetches napari plugin data from the NPE2 API, enriches it with manifest information,
+    flattens nested structures, and returns the cleaned list of plugin pages.
 
     The function performs the following steps:
     - Retrieves a summary list of plugins from the NPE2 API.
-    - For each plugin, fetches additional Conda and manifest data.
-    - Flattens and merges nested dictionary structures into a single-level dictionary.
-    - Aggregates all plugin data into a pandas DataFrame.
+    - For each plugin, fetches additional manifest and PyPI data.
+    - Flattens and merges nested dictionary structures into a single-level dict.
 
     Returns
     -------
-    A list of PluginPageData objects containing the processed plugin data.
+    A tuple of the PluginPageData objects, and the number of plugins that had
+    to be skipped because their data could not be fetched.
     """
     extended_summary = api_client.fetch_summary()
+    if not extended_summary:
+        raise RuntimeError(f"Could not fetch the plugin summary from {API_SUMMARY_URL}")
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        all_plugin_data = executor.map(
-            get_plugin_page_data_from_api,
-            extended_summary,
+        all_plugin_data = list(
+            executor.map(
+                get_plugin_page_data_from_api,
+                extended_summary,
+            )
         )
 
     def key(p: PluginPageData) -> str:
         return p.modified_at or ""
 
-    return sorted(
-        all_plugin_data,
+    plugins = sorted(
+        (p for p in all_plugin_data if p is not None),
         key=key,
         reverse=True,
     )
+    return plugins, len(all_plugin_data) - len(plugins)
 
 
 def get_plugin_page_data_from_api(plugin_summary_data):
     plugin_normalized_name = plugin_summary_data.get("normalized_name")
     manifest_info = api_client.fetch_manifest(plugin_normalized_name)
+    if manifest_info is None:
+        logger.warning(f"Could not fetch manifest for {plugin_normalized_name}")
+        return None
 
     # some PyPI info is not included in the manifest
     pypi_info = api_client.fetch_pypi_info(plugin_normalized_name)
@@ -305,7 +317,7 @@ def get_plugin_page_data_from_api(plugin_summary_data):
     last_updated_date = get_version_release_date(pypi_info, plugin_latest_release)
     authors, emails = get_authors_and_emails(package_metadata)
     package_license = get_license(plugin_summary_data)
-    home_pypi = pypi_info.get(
+    home_pypi = (pypi_info or {}).get(
         "home_page",
         f"https://pypi.org/project/{plugin_normalized_name}/",
     )
@@ -394,7 +406,7 @@ if __name__ == "__main__":
 
     # Create and populate a list of all plugins with the data needed for their HTML pages
     try:
-        plugins = build_plugins_list()
+        plugins, skipped = build_plugins_list()
     finally:
         api_client.close()
 
@@ -408,3 +420,11 @@ if __name__ == "__main__":
         )
 
     create_search_index(plugins, data_dir)
+
+    if skipped:
+        print(
+            f"WARNING: fetched {len(plugins)} plugin(s); "
+            f"{skipped} could not be fetched and were skipped."
+        )
+    else:
+        print(f"SUCCESS: fetched data for all {len(plugins)} plugins.")
