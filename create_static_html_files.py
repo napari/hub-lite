@@ -6,6 +6,7 @@ import logging
 import os
 import re
 import sys
+from html import escape
 from string import Template
 
 from markdown_it import MarkdownIt
@@ -234,51 +235,43 @@ def generate_requirements_html(plugin: PluginPageData):
     return requirements_html
 
 
-def parse_version_specifier(specifier, default_min_version="3.6"):
-    # Parse version specifiers to get the min and max version
-    min_version = default_min_version
-    max_version = None
-    specifiers = specifier.split(",")
-
-    for spec in specifiers:
-        if ">=" in spec:
-            min_version = spec.split(">=")[1]
-        elif "<=" in spec:
-            max_version = spec.split("<=")[1]
-        elif "<" in spec:
-            # If strictly less than, consider the next lower minor version as the max
-            max_version = str(float(spec.split("<")[1]) - 0.1)
-
-    return min_version, max_version
+PYTHON_CLASSIFIER = re.compile(r"Programming Language :: Python :: (3\.\d+)")
 
 
-def generate_python_versions_html(
-    plugin: PluginPageData,
-    max_supported_version="3.11",
-    default_min_version="3.6",
-):
-    requirement = plugin.package_metadata_requires_python or ""
-    min_version, max_version = parse_version_specifier(requirement)
+def classifier_python_versions(classifiers: list[str]) -> list[str]:
+    """Return the Python minor versions a plugin lists as classifiers, oldest first."""
+    versions = {
+        match.group(1)
+        for classifier in classifiers
+        if (match := PYTHON_CLASSIFIER.fullmatch(classifier.strip()))
+    }
+    return sorted(versions, key=lambda version: int(version.split(".")[1]))
 
-    # Use the given maximum version if no upper bound is specified
-    max_version = max_version if max_version else max_supported_version
-    min_minor = (
-        int(min_version.split(".")[1])
-        if min_version
-        else int(default_min_version.split(".")[1])
+
+def generate_python_versions_html(plugin: PluginPageData) -> tuple[str, str, str]:
+    """Return the visible list, its plain text (Pagefind meta), and filter spans.
+
+    The versions come from the plugin's "Programming Language :: Python :: 3.x"
+    classifiers, which most plugins list. Without them, the page shows
+    requires-python as written, and the plugin isn't in the Python filter.
+    """
+    versions = classifier_python_versions(plugin.package_metadata_classifiers)
+    list_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
+    if versions:
+        for version in versions:
+            list_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python={version}">{version}</a></li>'
+        text = ", ".join(versions)
+    else:
+        text = plugin.package_metadata_requires_python or "Not specified"
+        list_html += f'<li class="MetadataList_textItem__KKmMN">{escape(text)}</li>'
+    list_html += "</ul>"
+
+    # One hidden span per version: Pagefind takes each as a separate filter value.
+    filter_html = "".join(
+        f'<span hidden data-pagefind-filter="python_versions">{version}</span>'
+        for version in versions
     )
-    max_minor = int(max_version.split(".")[1])
-
-    # Generate a list of versions from min_version to max_version
-    versions = [f"3.{v}" for v in range(min_minor, max_minor + 1)]
-
-    # Construct HTML list items for each version
-    python_versions_html = '<ul class="MetadataList_list__3DlqI list-none text-sm leading-normal inline space-y-sds-s MetadataList_inline__jHQLo">'
-    for version in versions:
-        python_versions_html += f'<li class="MetadataList_textItem__KKmMN"><a class="MetadataList_textItem__KKmMN underline" href="../index.html?python={version}">{version}</a></li>'
-    python_versions_html += "</ul>"
-
-    return python_versions_html
+    return list_html, escape(text), filter_html
 
 
 def generate_os_html(plugin: PluginPageData):
@@ -396,7 +389,9 @@ def create_plugin_page_html(plugin: PluginPageData, template, plugin_dir):
     openfile_types_html = generate_open_extensions_html(plugin)
     savefile_types_html = generate_save_extensions_html(plugin)
     requirements_html = generate_requirements_html(plugin)
-    python_versions_html = generate_python_versions_html(plugin)
+    python_versions_html, python_versions_text, python_versions_filter = (
+        generate_python_versions_html(plugin)
+    )
     os_html = generate_os_html(plugin)
     home_html = generate_home_html(plugin)
 
@@ -408,6 +403,8 @@ def create_plugin_page_html(plugin: PluginPageData, template, plugin_dir):
     template_data["plugin_types"] = plugin_types_html
     template_data["requirements"] = requirements_html
     template_data["python_versions"] = python_versions_html
+    template_data["python_versions_text"] = python_versions_text
+    template_data["python_versions_filter"] = python_versions_filter
     template_data["os"] = os_html
     template_data["package_metadata_description"] = html_description
     template_data["home_link"] = home_html

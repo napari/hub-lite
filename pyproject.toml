@@ -22,6 +22,7 @@ dependencies = [
 dev = [
   "mypy",
   "prek",
+  "pytest",
   "types-requests",
 ]
 
@@ -37,6 +38,7 @@ platforms = ["win-64", "linux-64", "osx-arm64"]
 default = { features = ["dev"], solve-group = "default" }
 
 [tool.pixi.tasks]
+test = "pytest tests"
 clean = "python build_site.py clean"
 prep = "python build_site.py prep"
 fetch-data = "python build_site.py fetch-data"
@@ -44,6 +46,9 @@ html = "python build_site.py html"
 index-search = "python build_site.py index-search"
 all = "python build_site.py all"
 live = "python build_site.py live"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
 
 [tool.ruff.lint]
 select = [
@@ -59,3 +64,6 @@ ignore = [
   "E501",  # line too long
 ]
 typing-modules = ["mypackage._compat.typing"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]  # pytest uses assert

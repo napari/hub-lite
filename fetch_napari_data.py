@@ -352,7 +352,9 @@ def get_plugin_page_data_from_api(plugin_summary_data):
         package_metadata_requires_python=package_metadata.get("requires_python", ""),
         package_metadata_requires_dist=package_metadata.get("requires_dist", []),
         package_metadata_description=package_metadata.get("description", ""),
-        package_metadata_classifiers=package_metadata.get("classifiers", []),
+        # npe2 manifests don't carry classifiers; the PyPI metadata does.
+        package_metadata_classifiers=pypi_info.get("info", {}).get("classifiers")
+        or package_metadata.get("classifiers", []),
         contributions_readers_filename_patterns=reader_patterns,
         contributions_writers_filename_extensions=writer_extensions,
         contributions_widgets=widgets,
