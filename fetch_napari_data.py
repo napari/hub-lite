@@ -19,9 +19,9 @@ from urllib3.util.retry import Retry
 
 from create_static_html_files import PluginPageData, get_plugin_types
 
-API_SUMMARY_URL = "https://npe2api.vercel.app/api/extended_summary"
-API_PYPI_BASE_URL = "https://npe2api.vercel.app/api/pypi/"
-API_MANIFEST_BASE_URL = "https://npe2api.vercel.app/api/manifest/"
+API_SUMMARY_URL = "https://api.napari.org/api/extended_summary"
+API_PYPI_BASE_URL = "https://api.napari.org/api/pypi/"
+API_MANIFEST_BASE_URL = "https://api.napari.org/api/manifest/"
 
 HOME_PYPI_REGEX = r"(.*)(pypi.org)(/)(project)(/)(.*)"
 HOME_GITHUB_REGEX = r"https?://github\.com/[^/]+/[^/]+(?:\.git)?/?$"
